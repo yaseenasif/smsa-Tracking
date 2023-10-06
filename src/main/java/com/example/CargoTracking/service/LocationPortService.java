@@ -1,6 +1,5 @@
 package com.example.CargoTracking.service;
 
-import com.example.CargoTracking.dto.LocationDto;
 import com.example.CargoTracking.dto.LocationPortDto;
 import com.example.CargoTracking.model.Location;
 import com.example.CargoTracking.model.LocationPort;
@@ -10,7 +9,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

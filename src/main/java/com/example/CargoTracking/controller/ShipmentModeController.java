@@ -1,7 +1,6 @@
 package com.example.CargoTracking.controller;
 
 import com.example.CargoTracking.dto.ShipmentModeDto;
-import com.example.CargoTracking.model.ShipmentMode;
 import com.example.CargoTracking.service.ShipmentModeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

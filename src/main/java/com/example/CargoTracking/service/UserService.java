@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -44,6 +46,7 @@ public class UserService {
                     .roles(rolesList)
                     .status(Boolean.TRUE)
                     .location(location)
+                    .email(userDto.getEmail())
                     .build();
             return  userRepository.save(user);
 

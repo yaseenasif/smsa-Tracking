@@ -2,8 +2,9 @@ package com.example.CargoTracking.dto;
 
 import lombok.*;
 
-import java.sql.Time;
 import java.sql.Date;
+import java.sql.Time;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -38,5 +39,9 @@ public class ShipmentDto {
 //     attachments dalega
     private String status;
     private String remarks;
+    private String createdBy;
+    private LocalDate createdAt;
+    private String updatedBy;
+    private LocalDate updatedAt;
 
 }
