@@ -1,0 +1,47 @@
+.order-body {
+    background-color: white;
+}
+
+.order-form {
+    display: flex;
+    justify-content: space-between;
+    padding: 1% 2%;
+}
+
+.order-search {
+    height: fit-content;
+    padding: 10px 1%;
+    border: 0;
+    outline: 0;
+    position: relative;
+    top: 6px;
+    background: #e5e5e58c;
+    width: 100%;
+}
+
+.submit-btn{
+    position: absolute;
+    align-items: center;
+}
+.body-position {
+    width: 100%;
+}
+.btn-sty{
+    border: 2px solid  #400099;
+    color: #400099;
+    font-weight: bolder;
+}
+.btn-sty:hover{
+    background-color: #400099;
+    color:#ffffff;
+}
+
+.marg-ss{
+margin:0px;
+}
+
+@media (max-width:767px) {
+    .marg-ss{
+     margin:10px 0px;
+    }
+}

@@ -1,0 +1,29 @@
+<div class="image-container" [ngStyle]="{ 'background-image': 'url(' + currentImageUrl + ')' }">
+    <form [formGroup]="loginForm" class="reactive-form" (ngSubmit)="login(loginForm.value)">
+        <img src="../../../assets/smca-logo.png" alt="" class="login-img">
+        <div class="form-container">
+            <h4 class="form-head">LOGIN</h4>
+            <div>
+                <input type="text" formControlName="name" placeholder="username" class="input-login">
+                <span class="inputValidators" style="color: red;"
+                    *ngIf="loginForm.get('name')?.invalid && (loginForm.get('name')?.dirty || loginForm.get('name')?.touched)">
+                    Please provide User Name.
+                </span>
+            </div>
+            <div>
+                <input type="{{togglePassword ? 'text':'password'}}" formControlName="password" placeholder="Password"
+                    class="input-login">
+                <span class="inputValidators"
+                    *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+                    Password must be greater than seven characters.
+                </span>
+            </div>
+            <div class="form-settings">
+                <span class="password-forget" (click)="showPassword()">Show password</span>
+                <!-- <span class="password-forget">Forgot password?</span> -->
+            </div>
+            <button type="submit" class="form-submit-btn" [disabled]="loginForm.invalid">Submit</button>
+    
+        </div>
+    </form>
+</div>

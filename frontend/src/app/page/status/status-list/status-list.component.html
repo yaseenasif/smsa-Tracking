@@ -1,0 +1,55 @@
+<app-sidebar></app-sidebar>
+<div class="body-position">
+  <app-dashboard-head></app-dashboard-head>
+
+  <div class="main-container">
+    <div class="row">
+      <div class="main-container">
+        <div class="row">
+          <div class="container-fluid container-sty">
+            <div class="table-container">
+             <div class="header">
+                <h3 class="heading">Status</h3>
+                <button routerLink="/add-status" type="button" class="btn btn-sty">
+                    <i class="fa fa-plus"></i>
+                    Add Status
+                </button>
+             </div>
+              <div class="table-holder">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th class="text-center nowrap col-md-2 col-lg-1 bg-color">
+                        Name
+                      </th>
+                      <th class="text-center nowrap col-md-2 col-lg-1 bg-color">
+                        Action
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-center w-auto col-md-2 col-lg-1">
+                        Karachi
+                      </td>
+                      <td class="text-center w-auto col-md-2 col-lg-1 ">
+                        <button routerLink="/edit-status" type="button" class="btn btn-success circle">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button  type="button" class="btn btn-danger circle">
+                            <i class="fa fa-trash" ></i>
+                        </button>
+                      </td>
+                    </tr>
+            
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

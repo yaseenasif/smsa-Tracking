@@ -64,4 +64,5 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             response.setHeader("Access-Control-Allow-Origin", "*");
         }
     }
+
 }

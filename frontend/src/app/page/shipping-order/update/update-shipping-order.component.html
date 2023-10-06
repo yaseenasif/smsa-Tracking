@@ -1,0 +1,155 @@
+<div class="body-position">
+    <div class="main-container">
+        <div>
+            <h3>Add Shipping Order</h3>
+        </div>
+
+        <div class="order-body">
+            <form [formGroup]="form" (submit)="createShippingOrder()">
+                <div class="row order-form">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss  form-group">
+                        <label class="add-order-label">Origin Country</label>
+                        <select name="" id="" class="order-search form-control" formControlName="originCountry">
+                            <option value="" disabled selected>Select Origin Country</option>
+                            <option *ngFor="let origin of originCountry" value="origin">{{origin}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 form-group">
+                        <label class="add-order-label">Origin Port</label>
+                        <input type="text" class="order-search form-control" formControlName="originPort">
+                    </div>
+                </div>
+                <div class="row order-form ">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss  form-group">
+                        <label class="add-order-label">Mode</label>
+                        <input type="text" class="order-search form-control" formControlName="mode">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss  form-group">
+                        <label class="add-order-label">Shipment Mode</label>
+                        <select name="" id="" class="order-search form-control" formControlName="shipmentMode">
+                            <option value=""  disabled selectd>Select Shipment Mode</option>
+                            <option *ngFor="let shipment of shipmentMode" value="shipment">{{shipment}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row order-form">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss  form-group">
+                        <label class="add-order-label">Destination Country</label>
+                        <select name="" id="" class="form-control order-search" formControlName="destinationCountry">
+                            <option value="" disabled selected>Select destination Country</option>
+                            <option *ngFor="let destination of destinationCountry" value="destination">{{destination}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 marg-ss  form-group">
+                        <label class="add-order-label">Destination Port</label>
+                        <input type="text" class="form-control order-search" formControlName="destinationPort">
+                    </div>
+                </div>
+                <div class="row order-form">
+                    <label class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss  form-group">
+                        <label class="add-order-label">Departure Date</label>
+                        <input type="date" class="form-control order-search" formControlName="departureDate">
+                    </label>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss  form-group">
+                        <label class="add-order-label">Departure Time</label>
+                        <input type="time" class="form-control order-search"  formControlName="departureTime">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss  form-group">
+                        <label class="add-order-label">Number of Shipments</label>
+                        <input type="text" class="form-control order-search" formControlName="numberOfShipments">
+                    </div>
+                </div>
+                <div class="row order-form">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss  form-group">
+                        <label class="add-order-label">Arrival Date</label>
+                        <input type="date" class="form-control order-search" formControlName="arrivalDate">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss  form-group">
+                        <label class="add-order-label">Arrival Time</label>
+                        <input type="time" class="form-control order-search" formControlName="arrivalTime">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss  form-group">
+                        <label class="add-order-label">Actual Weight</label>
+                        <input type="text" class="form-control order-search" formControlName="actualWeight">
+                    </div>
+                </div>
+        
+        
+                <div class="row order-form">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss  form-group">
+                        <label class="add-order-label">Driver Name</label>
+                        <input type="date" class="form-control order-search" formControlName="driverName">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss  form-group">
+                        <label class="add-order-label">Driver Contact</label>
+                        <input type="time" class="form-control order-search" formControlName="driverContact">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss  form-group">
+                        <label class="add-order-label">Reference Number</label>
+                        <input type="text" class="form-control order-search" formControlName="referenceNumber">
+                    </div>
+                </div>
+                <div class="row order-form">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss form-group">
+                        <label class="add-order-label">Vehicle Type</label>
+                        <select name="vehicleType" id="vehicleType" class="form-control order-search" formControlName="vehicleType">
+                            <option value=""  disabled selected>Select vehicle Type </option>
+                            <option *ngFor="let vehicle of vehicleType" value="vehicle">{{vehicle}}</option>
+                        </select>
+                      
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss form-group">
+                        <label class="add-order-label">Number of pallets</label>
+                        <select name="numberofpallets" id="numberofpallets" class="form-control order-search" formControlName="numberOfPallets">
+                            <option value=""  disabled selected>Select Number of pallets</option>
+                            <option *ngFor="let pallets of numberOfPallets" value="pallets">{{pallets}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss form-group">
+                        <label class="add-order-label">Number of Bags</label>
+                        <input type="text" class="form-control order-search" formControlName="numberOfBags">
+                    </div>
+                </div>
+                <div class="row order-form">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss form-group">
+                        <label class="add-order-label">Vehicle Number</label>
+                        <input type="text" class="form-control order-search" formControlName="vehicleNumber">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss form-group">
+                        <label class="add-order-label">Tag Number</label>
+                        <input type="text" class="form-control order-search" formControlName="tagNumber">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss form-group">
+                        <label class="add-order-label">Seal Number</label>
+                        <input type="number" class="form-control order-search" formControlName="sealNumber">
+                    </div>
+                </div>
+                <div class="row order-form">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss form-group">
+                        <label class="add-order-label">Attachments</label>
+                        <input type="file" class="form-control order-search" formControlName="attachments">
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss form-group">
+                        <label class="add-order-label">Status</label>
+                        <select name="status" id="status" class="form-control order-search" formControlName="status">
+                            <option value=""  disabled  selected>Select status</option>
+                            <option *ngFor="let status of shippingStatus" value="status">{{status}}</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marg-ss sm-mt-5 form-group">
+                        <label class="add-order-label">Remarks</label>
+                        <input type="text" class="form-control order-search" formControlName="remarks">
+                    </div>
+                </div>
+                <div class="row text-center mt-2">
+                    <div>
+                        <button type="button" class="btn btn-sty">Submit</button>
+                    </div>
+                </div>
+                
+            </form>
+        </div>
+
+    </div>
+  
+</div>

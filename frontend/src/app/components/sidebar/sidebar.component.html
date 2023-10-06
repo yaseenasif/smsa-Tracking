@@ -1,0 +1,95 @@
+<nav class="main-menu">
+    <div class="sidebar-head" >
+        <img src="../../../assets/smca-logo.png" alt="" class="sidebar-img">
+    </div>
+    <ul>
+        <li>
+            <span class="sidebar-list-hover" >
+                <i class="fa fa-home fa-2x"></i>
+                <span class="nav-text">
+                    Dashboard
+                </span>
+            </span>
+        </li>
+        <li (click)="turner()">
+            <span class="sidebar-list-hover" >
+                <i class="fa fa-home fa-2x"></i>
+                <span class="nav-text">
+                    Configuration
+                </span>
+            </span>
+        </li>
+        <li class="padding-l" *ngIf="configTurner"  >
+            <span class="sidebar-list-hover" routerLink="/driver" >
+                <i class="fa fa-user fa-2x"></i>
+                <span class="nav-text">
+                    Driver
+                </span>
+            </span>
+        </li>
+        <li class="padding-l" *ngIf="configTurner" >
+            <span class="sidebar-list-hover" routerLink="/location" >
+                <i class="fa fa-user fa-2x"></i>
+                <span class="nav-text">
+                    Location
+                </span>
+            </span>
+        </li>
+        <li class="padding-l" *ngIf="configTurner" >
+            <span class="sidebar-list-hover" routerLink="/location-port" >
+                <i class="fa fa-user fa-2x"></i>
+                <span class="nav-text">
+                    Location Port
+                </span>
+            </span>
+        </li>
+        <li class="padding-l" *ngIf="configTurner" >
+            <span class="sidebar-list-hover" routerLink="/user" >
+                <i class="fa fa-user fa-2x"></i>
+                <span class="nav-text">
+                    User
+                </span>
+            </span>
+        </li>
+        <li class="padding-l" *ngIf="configTurner" >
+            <span class="sidebar-list-hover" routerLink="/status" >
+                <i class="fa fa-user fa-2x"></i>
+                <span class="nav-text">
+                    Status
+                </span>
+            </span>
+        </li>
+        <li class="padding-l" *ngIf="configTurner" >
+            <span class="sidebar-list-hover" routerLink="/vehicle-type" >
+                <i class="fa fa-user fa-2x"></i>
+                <span class="nav-text">
+                    Vehicle type
+                </span>
+            </span>
+        </li>
+        <li class="padding-l" *ngIf="configTurner" >
+            <span class="sidebar-list-hover" routerLink="/shipping-order-history" >
+                <i class="fa fa-user fa-2x"></i>
+                <span class="nav-text">
+                    Shipping History
+                </span>
+            </span>
+        </li>
+        <li class="padding-l" *ngIf="configTurner" >
+            <span class="sidebar-list-hover" routerLink="/shipping-order-history" >
+                <i class="fa fa-user fa-2x"></i>
+                <span class="nav-text">
+                    Shipping 
+                </span>
+            </span>
+        </li>
+        <li class="padding-l" *ngIf="configTurner" >
+            <span class="sidebar-list-hover" routerLink="/product-field" >
+                <i class="fa fa-user fa-2x"></i>
+                <span class="nav-text">
+                    Product Field 
+                </span>
+            </span>
+        </li>
+    </ul>
+</nav>
