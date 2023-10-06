@@ -31,8 +31,16 @@ import { UpdateStatusComponent } from './page/status/update-status/update-status
 import { VehicleTypeListComponent } from './page/vehicle-type/vehicle-type-list/vehicle-type-list.component';
 import { AddVehicleTypeComponent } from './page/vehicle-type/add-vehicle-type/add-vehicle-type.component';
 import { UpdateVehicleTypeComponent } from './page/vehicle-type/update-vehicle-type/update-vehicle-type.component';
-
-
+import { ProductFieldListComponent } from './page/product-field/product-field-list/product-field-list.component';
+import { ProductFieldAddComponent } from './page/product-field/product-field-add/product-field-add.component';
+import { ProductFieldUpdateComponent } from './page/product-field/product-field-update/product-field-update.component';
+import {FormsModule} from'@angular/forms'
+import {
+  HTTP_INTERCEPTORS,
+  HttpClientModule
+} from '@angular/common/http';
+// import { provideRouter, withHashLocation } from '@angular/router';
+import { TokenInterceptor } from './auth-service/interceptor/token.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -62,14 +70,26 @@ import { UpdateVehicleTypeComponent } from './page/vehicle-type/update-vehicle-t
     VehicleTypeListComponent,
     AddVehicleTypeComponent,
     UpdateVehicleTypeComponent,
+    ProductFieldListComponent,
+    ProductFieldAddComponent,
+    ProductFieldUpdateComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+
+  providers: [
+    // AuthGuard,
+    // DatePipe,
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }, // Register the AuthInterceptor
+    // provideRouter(routes, withHashLocation()),
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

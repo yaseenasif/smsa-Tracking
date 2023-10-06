@@ -1,13 +1,13 @@
 <div class="image-container" [ngStyle]="{ 'background-image': 'url(' + currentImageUrl + ')' }">
-    <form [formGroup]="loginForm" class="reactive-form" (ngSubmit)="login()">
+    <form [formGroup]="loginForm" class="reactive-form" (ngSubmit)="login(loginForm.value)">
         <img src="../../../assets/smca-logo.png" alt="" class="login-img">
         <div class="form-container">
             <h4 class="form-head">LOGIN</h4>
             <div>
-                <input type="text" formControlName="email" placeholder="Email" class="input-login">
+                <input type="text" formControlName="name" placeholder="username" class="input-login">
                 <span class="inputValidators" style="color: red;"
-                    *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
-                    Please provide email.
+                    *ngIf="loginForm.get('name')?.invalid && (loginForm.get('name')?.dirty || loginForm.get('name')?.touched)">
+                    Please provide User Name.
                 </span>
             </div>
             <div>

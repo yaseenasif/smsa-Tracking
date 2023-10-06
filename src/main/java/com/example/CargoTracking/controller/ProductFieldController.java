@@ -18,13 +18,13 @@ public class ProductFieldController {
         this.productFieldService = productFieldService;
     }
 
-    @PostMapping
+    @PostMapping("/add-product-field")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ProductFieldDto> createProductField(@RequestBody ProductFieldDto productFieldDto) {
         return ResponseEntity.ok(productFieldService.save(productFieldDto));
     }
 
-    @GetMapping
+    @GetMapping("/product-field-all")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<ProductFieldDto>> getAllProductField() {
         List<ProductFieldDto> productFieldDtoList = productFieldService.getAll();

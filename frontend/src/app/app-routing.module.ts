@@ -22,91 +22,136 @@ import { UpdateStatusComponent } from './page/status/update-status/update-status
 import { AddVehicleTypeComponent } from './page/vehicle-type/add-vehicle-type/add-vehicle-type.component';
 import { UpdateVehicleTypeComponent } from './page/vehicle-type/update-vehicle-type/update-vehicle-type.component';
 import { VehicleTypeListComponent } from './page/vehicle-type/vehicle-type-list/vehicle-type-list.component';
+import { ProductFieldListComponent } from './page/product-field/product-field-list/product-field-list.component';
+import { ProductFieldAddComponent } from './page/product-field/product-field-add/product-field-add.component';
+import { ProductFieldUpdateComponent } from './page/product-field/product-field-update/product-field-update.component';
+import { AuthGuard } from './auth-service/authguard/authguard';
 
 const routes: Routes = [
   {
     path:'',
-    component:DashboardComponent
+    component:DashboardComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'home',
+    component:DashboardComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'driver',
-    component:DriverListComponent
+    component:DriverListComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'product-field',
+    component:ProductFieldListComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'add-product-field',
+    component:ProductFieldAddComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'edit-product-field',
+    component:ProductFieldUpdateComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'add-driver',
-    component:AddDriverComponent
+    component:AddDriverComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'edit-driver',
-    component:UpdateDriverComponent
+    component:UpdateDriverComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'location',
-    component:LocationListComponent
+    component:LocationListComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'add-location',
-    component:AddLocationComponent
+    component:AddLocationComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'edit-location',
-    component:UpdateLocationComponent
+    component:UpdateLocationComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'location-port',
-    component:LocationPortListComponent
+    component:LocationPortListComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'add-location-port',
-    component:UpdateLocationPortComponent
+    component:UpdateLocationPortComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'edit-location-port',
-    component:UpdateLocationPortComponent
+    component:UpdateLocationPortComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'user',
-    component:UserListComponent
+    component:UserListComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'add-user',
-    component:AddUserComponent
+    component:AddUserComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'edit-user',
-    component:UpdateUserComponent
+    component:UpdateUserComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'status',
-    component:StatusListComponent
+    component:StatusListComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'add-status',
-    component:AddStatusComponent
+    component:AddStatusComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'edit-status',
-    component:UpdateStatusComponent
+    component:UpdateStatusComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'vehicle-type',
-    component:VehicleTypeListComponent
+    component:VehicleTypeListComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'add-vehicle-type',
-    component:AddVehicleTypeComponent
+    component:AddVehicleTypeComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'edit-vehicle-type',
-    component:UpdateVehicleTypeComponent
+    component:UpdateVehicleTypeComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'shipping',
-    component:UpdateShippingOrderComponent
+    component:UpdateShippingOrderComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'shipping-order-history',
-    component:ShippingOrderHistoryComponent
+    component:ShippingOrderHistoryComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'login',
