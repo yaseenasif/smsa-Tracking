@@ -30,4 +30,14 @@ export class ProductFieldListComponent implements OnInit {
     this.router.navigate(['/add-product-field'], { queryParams: { id: id } });
   }
 
+  remove(id:any){
+    this.productFieldServiceService.removeProductField(id).subscribe((res:any)=>{
+      console.log(res);
+      this.getAllProductField();
+    },(error:any)=>{
+      console.log(error);
+      
+    })
+  }
+  
 }

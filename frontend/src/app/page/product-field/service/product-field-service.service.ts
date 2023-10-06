@@ -26,5 +26,13 @@ export class ProductFieldServiceService {
   updateProductField(id:any,productField:any){
     return this.httpClient.put<any> (`${this.url}/update-product-field/${id}`,productField);
   }
+
+  removeProductField(id:any){
+    return this.httpClient.delete<any>(`${this.url}/delete-product-field/${id}`);
+  }
+
+  removeProductFieldValues(id:any,productFieldID:any){
+    return this.httpClient.delete<any>(`${this.url}/delete-product-field-value/${id}/${productFieldID}`)
+  }
 }
 

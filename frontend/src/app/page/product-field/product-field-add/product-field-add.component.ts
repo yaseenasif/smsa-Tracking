@@ -88,6 +88,17 @@ export class ProductFieldAddComponent implements OnInit {
   }
 
   removeProductFieldValues(index:any){
+    if(this.editId !=undefined){
+      this.productFieldServiceService
+      .removeProductFieldValues(this.editId,this.productFieldValues[index].id)
+      .subscribe((res:any)=>{
+        console.log(res);
+        
+      },(error:any)=>{
+        console.log(error);
+        
+      })
+    }
     this.productFieldValues.splice(index,1)
   }
 }

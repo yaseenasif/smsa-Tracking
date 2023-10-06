@@ -60,14 +60,14 @@ public class ProductFieldController {
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete-product-field/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> deleteProductField(@PathVariable Long id) {
         productFieldService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{id}/{pfvId}")
+    @DeleteMapping("/delete-product-field-value/{id}/{pfvId}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<String> deleteProductionFieldValues(@PathVariable Long id, @PathVariable Long pfvId) {
         productFieldService.deleteProductFieldValuesById(id, pfvId);

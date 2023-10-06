@@ -51,11 +51,12 @@
                         {{productField.status}}
                       </td>
                       <td class="text-center w-auto col-md-2 col-lg-1 ">
-                        <button (click)="edit(productField.id)" type="button" class="btn btn-success circle">
-                            <i class="fa-solid fa-pen"></i>
+                    
+                        <button (click)="edit(productField.id)" type="button" class="p-0 btn btn-success circle">
+                          <i class="bi bi-pen"></i>
                         </button>
-                        <button  type="button" class="btn btn-danger circle">
-                            <i class="fa fa-trash" ></i>
+                        <button (click)="remove(productField.id)" type="button" class="p-0 btn btn-danger circle">
+                          <i class="bi bi-trash"></i>
                         </button>
                       </td>
                     </tr>
