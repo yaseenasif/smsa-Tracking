@@ -3,9 +3,7 @@ package com.example.CargoTracking.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -23,6 +21,7 @@ public class User {
     private String name;
     private String password;
     private boolean status;
+    private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",

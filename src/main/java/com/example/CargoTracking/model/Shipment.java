@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -44,6 +45,10 @@ public class Shipment {
     // attachments dalega
     private String status;
     private String remarks;
+    private String createdBy;
+    private LocalDate createdAt;
+    private String updatedBy;
+    private LocalDate updatedAt;
 
     @OneToMany(mappedBy = "shipment")
     private List<ShipmentHistory> shipmentHistory;

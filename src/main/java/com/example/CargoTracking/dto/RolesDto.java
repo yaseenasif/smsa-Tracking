@@ -4,7 +4,6 @@ package com.example.CargoTracking.dto;
 import com.example.CargoTracking.model.Permission;
 import lombok.*;
 
-
 import java.util.HashSet;
 import java.util.Set;
 

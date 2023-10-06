@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.mail.MessagingException;
 import java.util.List;
 
 @RestController
@@ -19,8 +19,8 @@ public class ShipmentController {
 
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/shipment")
-    public ResponseEntity<ShipmentDto> addShipment(@RequestBody ShipmentDto shipmentDto , HttpServletRequest request){
-                return ResponseEntity.ok(shipmentService.addShipment(shipmentDto , request));
+    public ResponseEntity<ShipmentDto> addShipment(@RequestBody ShipmentDto shipmentDto){
+                return ResponseEntity.ok(shipmentService.addShipment(shipmentDto));
     }
 
     @GetMapping("/shipment")
@@ -33,6 +33,13 @@ public class ShipmentController {
         return ResponseEntity.ok(shipmentService.getById(id));
     }
 
-
+    @GetMapping("/shipment/outbound")
+    public ResponseEntity<List<ShipmentDto>> getOutboundShipment(){
+        return ResponseEntity.ok(shipmentService.getOutboundShipment());
+    }
+    @GetMapping("/shipment/inbound")
+    public ResponseEntity<List<ShipmentDto>> getInboundShipment(){
+        return ResponseEntity.ok(shipmentService.getInboundShipment());
+    }
 
 }

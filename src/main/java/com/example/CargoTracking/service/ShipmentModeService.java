@@ -1,15 +1,12 @@
 package com.example.CargoTracking.service;
 
-import com.example.CargoTracking.dto.LocationPortDto;
 import com.example.CargoTracking.dto.ShipmentModeDto;
-import com.example.CargoTracking.model.LocationPort;
 import com.example.CargoTracking.model.ShipmentMode;
 import com.example.CargoTracking.repository.ShipmentModeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

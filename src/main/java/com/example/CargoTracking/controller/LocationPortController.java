@@ -1,11 +1,7 @@
 package com.example.CargoTracking.controller;
 
-import com.example.CargoTracking.dto.LocationDto;
 import com.example.CargoTracking.dto.LocationPortDto;
-import com.example.CargoTracking.model.Location;
-import com.example.CargoTracking.model.LocationPort;
 import com.example.CargoTracking.service.LocationPortService;
-import com.example.CargoTracking.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -55,4 +51,5 @@ public class LocationPortController {
     public ResponseEntity<LocationPortDto> makePortActive(@PathVariable Long id){
         return ResponseEntity.ok(locationPortService.makePortActive(id));
     }
+
 }
