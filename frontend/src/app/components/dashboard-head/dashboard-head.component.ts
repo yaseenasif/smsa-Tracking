@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
+import {faArrowRight} from '@fortawesome/free-solid-svg-icons'
 @Component({
   selector: 'app-dashboard-head',
   templateUrl: './dashboard-head.component.html',

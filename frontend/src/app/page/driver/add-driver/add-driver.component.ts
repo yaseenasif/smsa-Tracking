@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class AddDriverComponent implements OnInit {
 
   constructor() { }
-
+  property:string="hello";
   ngOnInit(): void {
   }
 

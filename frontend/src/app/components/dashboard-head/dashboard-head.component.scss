@@ -16,8 +16,11 @@
 .dash-head {
     padding: 13px 22px;
     display: flex;
-    justify-content: space-between;
+    justify-content:end;
     height: 80px;
     border-bottom: 1px solid #e3e3e3;
 }
-  
+  .mr{
+    margin-right: 30px;
+    min-height:40px!important ;
+  }
