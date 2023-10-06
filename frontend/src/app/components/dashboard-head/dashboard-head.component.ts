@@ -14,7 +14,7 @@ export class DashboardHeadComponent implements OnInit {
   }
 
   logout(){
-    sessionStorage.removeItem('jwtToken')
+    localStorage.removeItem('accessToken')
     this.router.navigateByUrl('/login')
   }
 

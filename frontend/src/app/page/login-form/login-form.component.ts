@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/auth-service/auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -19,11 +21,11 @@ export class LoginFormComponent implements OnInit {
   currentImageUrl!:string;
   togglePassword:any;
 
-  constructor(private formBuilder:FormBuilder) { }
+  constructor(private formBuilder:FormBuilder,private authService:AuthService,private router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      email:['',[Validators.required,Validators.email]],
+      name:['',[Validators.required,Validators.min(7)]],
       password:['',[Validators.required,Validators.min(7)]]
     })
 
@@ -37,7 +39,17 @@ export class LoginFormComponent implements OnInit {
     this.currentIndex = (this.currentIndex + 1) % this.images.length;
   }
 
-  login(){
+  login(credentials:any){
+    console.log(credentials);
+    this.authService.login(credentials).subscribe((res:any)=>{
+      console.log(res);
+      localStorage.setItem("accessToken", res.accessToken);
+      this.router.navigate(['/home']);
+
+    },(error:any)=>{
+      debugger
+      console.log(error);      
+    })
     
   }
 
