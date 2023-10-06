@@ -1,7 +1,5 @@
 package com.example.CargoTracking.service;
 
-import com.example.CargoTracking.dto.DriverDto;
-import com.example.CargoTracking.model.Driver;
 import com.example.CargoTracking.model.Permission;
 import com.example.CargoTracking.repository.PermissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,6 +2,8 @@ package com.example.CargoTracking.dto;
 
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -12,6 +14,7 @@ import lombok.*;
 public class ShipmentModeDto {
 
     private Long id;
+    @NotBlank(message = "Shipment Mode is required")
     private String name;
 
 }

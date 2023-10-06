@@ -1,11 +1,7 @@
 package com.example.CargoTracking.controller;
 
 import com.example.CargoTracking.dto.DriverDto;
-import com.example.CargoTracking.dto.LocationDto;
-import com.example.CargoTracking.model.Driver;
-import com.example.CargoTracking.model.Location;
 import com.example.CargoTracking.service.DriverService;
-import com.example.CargoTracking.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

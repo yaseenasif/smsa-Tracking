@@ -3,18 +3,18 @@
 
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
 
-.fa-2x {
+.bi{
     font-size: 2em;
 }
 
-.fa {
+.bi {
     position: relative;
     display: table-cell;
     width: 60px;
     height: 36px;
     text-align: center;
     vertical-align: middle;
-    font-size: 20px;
+    font-size: 28px;
 }
 
 
@@ -41,6 +41,7 @@ nav.main-menu.expanded {
     -webkit-transform: translateZ(0) scale(1, 1);
     z-index: 1000;
 }
+
 
 .main-menu>ul {
     margin: 7px 0;
@@ -149,10 +150,10 @@ nav.main-menu li.active>a,
 
 
 .main-menu:hover .sidebar-list-hover:hover {
-    background-color: #fc671a;
+    background-color: #500fab;
     display: -webkit-inline-box;
     cursor: pointer;
-    color: black;
+    color: rgb(255, 255, 255);
 }
 
 .sidebar-head {
@@ -170,3 +171,4 @@ nav.main-menu li.active>a,
 .padding-l{
 padding-left:10px;
 }
+

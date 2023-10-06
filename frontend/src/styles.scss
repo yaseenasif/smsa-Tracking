@@ -2,8 +2,7 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
-
-
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
 // dashboard head
 
 
@@ -97,6 +96,7 @@ body {
 .main-container {
     padding: 15px 25px;
     background-color: #f8f9fa;
+    min-height: 89vh!important;
 }
 
 .reactive-form {
@@ -150,6 +150,9 @@ body {
 .add-order-label {
     margin-left: 16px;
     font-size: 20px;
+}
+.p{
+   padding: 0px;
 }
 
 
