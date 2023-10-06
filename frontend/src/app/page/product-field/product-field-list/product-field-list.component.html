@@ -51,7 +51,7 @@
                         {{productField.status}}
                       </td>
                       <td class="text-center w-auto col-md-2 col-lg-1 ">
-                        <button routerLink="/edit-product-field" type="button" class="btn btn-success circle">
+                        <button (click)="edit(productField.id)" type="button" class="btn btn-success circle">
                             <i class="fa-solid fa-pen"></i>
                         </button>
                         <button  type="button" class="btn btn-danger circle">

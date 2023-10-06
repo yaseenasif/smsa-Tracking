@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductFieldServiceService } from '../service/product-field-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-field-list',
@@ -9,7 +10,8 @@ import { ProductFieldServiceService } from '../service/product-field-service.ser
 export class ProductFieldListComponent implements OnInit {
 
   productFieldList?:any[];
-  constructor(private productFieldServiceService:ProductFieldServiceService) { }
+  constructor(private productFieldServiceService:ProductFieldServiceService,
+    private router:Router) { }
 
   ngOnInit(): void {
     this.getAllProductField();
@@ -22,6 +24,10 @@ export class ProductFieldListComponent implements OnInit {
       console.log(error);
       
     })
+  }
+
+  edit(id: any) {
+    this.router.navigate(['/add-product-field'], { queryParams: { id: id } });
   }
 
 }

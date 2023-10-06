@@ -31,7 +31,7 @@ public class ProductFieldController {
         return ResponseEntity.ok(productFieldDtoList);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/product-field/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ProductFieldDto> getProductFieldById(@PathVariable Long id) {
         ProductFieldDto productFieldDto = productFieldService.findById(id);
@@ -74,7 +74,7 @@ public class ProductFieldController {
         return ResponseEntity.ok().build();
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update-product-field/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ProductFieldDto> updateProductField(@PathVariable Long id, @RequestBody ProductField productField) {
         ProductFieldDto updatedPfDto = productFieldService.updatedProductField(id, productField);
