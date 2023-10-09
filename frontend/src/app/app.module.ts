@@ -32,10 +32,6 @@ import { VehicleTypeListComponent } from './page/vehicle-type/vehicle-type-list/
 import { AddVehicleTypeComponent } from './page/vehicle-type/add-vehicle-type/add-vehicle-type.component';
 import { UpdateVehicleTypeComponent } from './page/vehicle-type/update-vehicle-type/update-vehicle-type.component';
 import { CommonModule } from '@angular/common';
-
-
-
-
 import { ProductFieldListComponent } from './page/product-field/product-field-list/product-field-list.component';
 import { ProductFieldAddComponent } from './page/product-field/product-field-add/product-field-add.component';
 import { ProductFieldUpdateComponent } from './page/product-field/product-field-update/product-field-update.component';
@@ -46,6 +42,10 @@ import {
 } from '@angular/common/http';
 // import { provideRouter, withHashLocation } from '@angular/router';
 import { TokenInterceptor } from './auth-service/interceptor/token.interceptor';
+
+//primeng imports
+import { InputTextModule } from 'primeng/inputtext';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -87,7 +87,8 @@ import { TokenInterceptor } from './auth-service/interceptor/token.interceptor';
     BrowserAnimationsModule,
     CommonModule,
     FormsModule, 
-    HttpClientModule
+    HttpClientModule,
+    InputTextModule
   ],
 
   providers: [
