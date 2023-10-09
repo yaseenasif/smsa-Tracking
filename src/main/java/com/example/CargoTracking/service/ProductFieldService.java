@@ -117,7 +117,8 @@ public class ProductFieldService {
 
         if(optionalProductField.isPresent()) {
             ProductField productField = optionalProductField.get();
-            productFieldRepository.setStatusInactive(id);;
+//            productFieldRepository.setStatusInactive(id);
+            productFieldRepository.deleteById(id);
         }
         else {
             throw new RuntimeException(String.format("Product Field not found for id => %d", id));
