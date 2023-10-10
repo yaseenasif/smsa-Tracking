@@ -1,13 +1,10 @@
-package com.example.CargoTracking.model;
+package com.example.CargoTracking.dto;
 
 import lombok.*;
 
-import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.util.List;
-
 
 @Getter
 @Setter
@@ -15,11 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @Builder
-@Entity
-public class Shipment {
+public class DomesticShipmentDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String originCountry;
     private String originPort;
@@ -42,15 +36,12 @@ public class Shipment {
     private Long tagNumber;
     private Long sealNumber;
     private Integer numberOfBags;
-    // attachments dalega
+//     attachments dalega
     private String status;
     private String remarks;
     private String createdBy;
     private LocalDate createdAt;
     private String updatedBy;
     private LocalDate updatedAt;
-
-    @OneToMany(mappedBy = "shipment")
-    private List<ShipmentHistory> shipmentHistory;
 
 }

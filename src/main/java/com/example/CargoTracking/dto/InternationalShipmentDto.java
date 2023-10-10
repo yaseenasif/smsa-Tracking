@@ -12,8 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @ToString
 @Builder
-public class ShipmentDto {
-
+public class InternationalShipmentDto {
     private Long id;
     private String originCountry;
     private String originPort;
@@ -36,12 +35,12 @@ public class ShipmentDto {
     private Long tagNumber;
     private Long sealNumber;
     private Integer numberOfBags;
-//     attachments dalega
+    //     attachments dalega
     private String status;
     private String remarks;
     private String createdBy;
     private LocalDate createdAt;
     private String updatedBy;
     private LocalDate updatedAt;
-
+    private String type;
 }

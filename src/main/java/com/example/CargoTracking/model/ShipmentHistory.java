@@ -23,9 +23,13 @@ public class ShipmentHistory {
     private String locationCode;
     private Long user;
     private String remarks;
+    private String type;
 
     @ManyToOne
-    @JoinColumn(name = "shipment_id")
-    private Shipment shipment;
+    @JoinColumn(name = "domestic_shipment_id")
+    private DomesticShipment domesticShipment;
 
+    @ManyToOne
+    @JoinColumn(name = "international_shipment_id")
+    private InternationalShipment internationalShipment;
 }
