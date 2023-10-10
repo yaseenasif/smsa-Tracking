@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-update-driver',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateDriverComponent implements OnInit {
 
-  constructor() { }
+  items: MenuItem[] | undefined;
 
+  constructor() { }
+  name!:string;
+  contactNumber!:string;
+  referenceNumber!:string;
   ngOnInit(): void {
+    this.items = [{ label: 'Driver List',routerLink:'/driver'},{ label: 'Edit Driver'}];
   }
 
 }

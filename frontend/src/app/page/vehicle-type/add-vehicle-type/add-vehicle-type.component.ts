@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-add-vehicle-type',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddVehicleTypeComponent implements OnInit {
 
-  constructor() { }
+  items: MenuItem[] | undefined;
 
+  constructor() { }
+  name!:string;
+  
   ngOnInit(): void {
+    this.items = [{ label: 'Status List',routerLink:'/status'},{ label: 'Add Status'}];
   }
 
 }
