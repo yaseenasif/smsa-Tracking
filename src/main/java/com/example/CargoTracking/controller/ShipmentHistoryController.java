@@ -1,7 +1,7 @@
 package com.example.CargoTracking.controller;
 
-import com.example.CargoTracking.dto.ShipmentHistoryDto;
-import com.example.CargoTracking.service.ShipmentHistoryService;
+import com.example.CargoTracking.dto.InternationalShipmentHistoryDto;
+import com.example.CargoTracking.service.InternationalShipmentHistoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,10 +13,10 @@ import java.util.List;
 public class ShipmentHistoryController {
 
     @Autowired
-    ShipmentHistoryService shipmentHistoryService;
+    InternationalShipmentHistoryService shipmentHistoryService;
 
 
-    public List<ShipmentHistoryDto> getAll(){
+    public List<InternationalShipmentHistoryDto> getAll(){
         return null;
     }
 

@@ -50,7 +50,7 @@ public class DomesticShipment {
     private String updatedBy;
     private LocalDate updatedAt;
 
-    @OneToMany(mappedBy = "domesticShipment")
-    private List<ShipmentHistory> shipmentHistory;
+//    @OneToMany(mappedBy = "domesticShipment")
+//    private List<InternationalShipmentHistory> shipmentHistory;
 
 }

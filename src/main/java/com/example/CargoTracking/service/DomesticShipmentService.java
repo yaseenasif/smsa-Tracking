@@ -2,9 +2,9 @@ package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.model.DomesticShipment;
-import com.example.CargoTracking.model.ShipmentHistory;
+import com.example.CargoTracking.model.InternationalShipmentHistory;
 import com.example.CargoTracking.model.User;
-import com.example.CargoTracking.repository.ShipmentHistoryRepository;
+import com.example.CargoTracking.repository.InternationalShipmentHistoryRepository;
 import com.example.CargoTracking.repository.DomesticShipmentRepository;
 import com.example.CargoTracking.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -29,7 +29,7 @@ public class DomesticShipmentService {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    ShipmentHistoryRepository shipmentHistoryRepository;
+    InternationalShipmentHistoryRepository shipmentHistoryRepository;
     @Autowired
     EmailService emailService;
 
@@ -50,18 +50,17 @@ public class DomesticShipmentService {
             domesticShipmentDto.setCreatedAt(LocalDate.now());
             DomesticShipment domesticShipment = domesticShipmentRepository.save(toEntity(domesticShipmentDto));
 
-            ShipmentHistory shipmentHistory = ShipmentHistory.builder()
-                    .status("Pre-Alert Created")
-                    .processTime(LocalDateTime.now())
-                    .locationCode(domesticShipmentDto.getOriginCountry())
-                    .user(user.getId())
-                    .type("Domestic")
-                    .domesticShipment(domesticShipment)
-                    .internationalShipment(null)
-                    .remarks(domesticShipment.getRemarks())
-                    .build();
-
-            shipmentHistoryRepository.save(shipmentHistory);
+//            InternationalShipmentHistory shipmentHistory = InternationalShipmentHistory.builder()
+//                    .status("Pre-Alert Created")
+//                    .processTime(LocalDateTime.now())
+//                    .locationCode(domesticShipmentDto.getOriginCountry())
+//                    .user(user.getId())
+//                    .type("Domestic")
+//                    .internationalShipment(null)
+//                    .remarks(domesticShipment.getRemarks())
+//                    .build();
+//
+//            shipmentHistoryRepository.save(shipmentHistory);
 
             List<String> emails = userRepository.findEmailByLocation(domesticShipmentDto.getDestinationCountry());
 
