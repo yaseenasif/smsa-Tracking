@@ -1,0 +1,46 @@
+.tile1 {
+    background-color: #ffffff;
+    border-radius: 10px;
+    height: 350px;
+    width: 40%;
+    margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    color: rgb(64,0,153);
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.tile2 {
+    background-color: #ffffff;
+    border-radius: 10px;
+    height: 350px;
+    width: 40%;
+    margin-left: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: rgb(64,0,153);
+    cursor: pointer;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+}
+
+.row.justify-content-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    
+}
+.truck{
+    font-size: 150px;
+    color: rgb(64,0,153);
+}
+.airplane{
+    font-size: 150px;
+    color: rgb(64,0,153);
+}

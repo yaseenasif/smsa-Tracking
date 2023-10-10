@@ -1,0 +1,354 @@
+<app-sidebar></app-sidebar>
+<div class="body-position">
+  <app-dashboard-head></app-dashboard-head>
+
+  <div class="main-container">
+    <div class="row">
+      <div class="main-container">
+        <div class="row">
+          <div class="container-fluid container-sty">
+            <div class="table-container">
+             <div class="header">
+                <h3 class="heading">Domestic Shipping</h3>
+                <div>
+                    <button routerLink="/domestic-shipping-order-history" type="button" class="btn btn-sty mr-2">
+                      <i class="bi bi-clock-history"></i>
+                        View Shipping History
+                    </button>
+                    <button routerLink="/add-domestic-shipping" type="button" class="btn btn-sty">
+                        <i class="fa fa-plus"></i>
+                        Add Shipping
+                    </button>
+                </div>
+                
+             </div>
+              <div class="table-holder">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                         <th class="text-center nowrap col-md-2 col-lg-1 bg-color">Status</th>
+                         <th class="text-center nowrap col-md-2 col-lg-1 bg-color">Process Time</th>
+                         <th class="text-center nowrap col-md-2 col-lg-1 bg-color">Location Code</th>
+                         <th class="text-center nowrap col-md-2 col-lg-1 bg-color">User</th>
+                         <th class="text-center nowrap col-md-2 col-lg-1 bg-color">Remarks</th>
+                         <th class="text-center nowrap col-md-2 col-lg-1 bg-color">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>  
+                        <tr>
+                         <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                         <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                         <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                         <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                         <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                         <td class="text-center w-auto col-md-2 col-lg-1">
+                          <button  routerLink="/update-domestic-shipping" type="button" class="p-0 btn btn-success circle">
+                            <i class="bi bi-pen"></i>
+                          </button>
+                          <button  type="button" class="p-0 btn btn-danger circle">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                         </td>
+                        </tr>
+                        <tr>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">
+                            <button  routerLink="/edit-driver" type="button" class="p-0 btn btn-success circle">
+                              <i class="bi bi-pen"></i>
+                            </button>
+                            <button  type="button" class="p-0 btn btn-danger circle">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                           </td>
+                         </tr>
+                         <tr>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">
+                            <button  routerLink="/edit-driver" type="button" class="p-0 btn btn-success circle">
+                              <i class="bi bi-pen"></i>
+                            </button>
+                            <button  type="button" class="p-0 btn btn-danger circle">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                           </td>
+                         </tr>
+                        <tr>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">
+                            <button  routerLink="/edit-driver" type="button" class="p-0 btn btn-success circle">
+                              <i class="bi bi-pen"></i>
+                            </button>
+                            <button  type="button" class="p-0 btn btn-danger circle">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                           </td>
+                         </tr>
+                         <tr>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">
+                            <button  routerLink="/edit-driver" type="button" class="p-0 btn btn-success circle">
+                              <i class="bi bi-pen"></i>
+                            </button>
+                            <button  type="button" class="p-0 btn btn-danger circle">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                           </td>
+                         </tr>
+                         <tr>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">
+                            <button  routerLink="/edit-driver" type="button" class="p-0 btn btn-success circle">
+                              <i class="bi bi-pen"></i>
+                            </button>
+                            <button  type="button" class="p-0 btn btn-danger circle">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                           </td>
+                         </tr>
+                         <tr>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">
+                            <button  routerLink="/edit-driver" type="button" class="p-0 btn btn-success circle">
+                              <i class="bi bi-pen"></i>
+                            </button>
+                            <button  type="button" class="p-0 btn btn-danger circle">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                           </td>
+                         </tr>
+                         <tr>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">
+                            <button  routerLink="/edit-driver" type="button" class="p-0 btn btn-success circle">
+                              <i class="bi bi-pen"></i>
+                            </button>
+                            <button  type="button" class="p-0 btn btn-danger circle">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                           </td>
+                         </tr>
+                         <tr>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">
+                            <button  routerLink="/edit-driver" type="button" class="p-0 btn btn-success circle">
+                              <i class="bi bi-pen"></i>
+                            </button>
+                            <button  type="button" class="p-0 btn btn-danger circle">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                           </td>
+                         </tr>
+                         <tr>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">
+                            <button  routerLink="/edit-driver" type="button" class="p-0 btn btn-success circle">
+                              <i class="bi bi-pen"></i>
+                            </button>
+                            <button  type="button" class="p-0 btn btn-danger circle">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                           </td>
+                         </tr>
+                         <tr>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">
+                            <button  routerLink="/edit-driver" type="button" class="p-0 btn btn-success circle">
+                              <i class="bi bi-pen"></i>
+                            </button>
+                            <button  type="button" class="p-0 btn btn-danger circle">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                           </td>
+                         </tr>
+                         <tr>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                          <td class="text-center w-auto col-md-2 col-lg-1">
+                            <button  routerLink="/edit-driver" type="button" class="p-0 btn btn-success circle">
+                              <i class="bi bi-pen"></i>
+                            </button>
+                            <button  type="button" class="p-0 btn btn-danger circle">
+                              <i class="bi bi-trash"></i>
+                            </button>
+                           </td>
+                         </tr>
+                  
+                      </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 
+<app-sidebar></app-sidebar>
+<div class="body-position">
+    <app-dashboard-head></app-dashboard-head>
+
+    <div class="main-container">
+        <div class="row">
+          <div  class="container-fluid container-sty">
+            <div class="table-container">
+                <div class="header">
+                    <h3 class="heading">Domestic Shipping</h3>
+                    <button routerLink="/add-driver" type="button" class="btn btn-sty">
+                        <i class="fa fa-plus"></i>
+                        Add Driver
+                    </button>
+                    <button routerLink="/add-driver" type="button" class="btn btn-sty">
+                        <i class="fa fa-plus"></i>
+                        Add Driver
+                    </button>
+                 </div>
+              <div class="table-holder">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                     <th class="text-center nowrap col-md-2 col-lg-1 bg-color">Status</th>
+                     <th class="text-center nowrap col-md-2 col-lg-1 bg-color">Process Time</th>
+                     <th class="text-center nowrap col-md-2 col-lg-1 bg-color">Location Code</th>
+                     <th class="text-center nowrap col-md-2 col-lg-1 bg-color">User</th>
+                     <th class="text-center nowrap col-md-2 col-lg-1 bg-color">Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody>  
+                    <tr>
+                     <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                     <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                     <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                     <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                     <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                    </tr>
+                    <tr>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                     </tr>
+                     <tr>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                     </tr>
+                    <tr>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                     </tr>
+                     <tr>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                     </tr>
+                     <tr>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                     </tr>
+                     <tr>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                     </tr>
+                     <tr>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                     </tr>
+                     <tr>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                     </tr>
+                     <tr>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                     </tr>
+                     <tr>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                     </tr>
+                     <tr>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Cleared</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">10/16/22 15:20</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">KSA GW</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">9029</td>
+                      <td class="text-center w-auto col-md-2 col-lg-1">Load Cleared and forwarded</td>
+                     </tr>
+              
+                  </tbody>
+                  </table>
+              </div>
+            </div>
+        </div>
+        
+        </div>
+    </div>
+</div> -->

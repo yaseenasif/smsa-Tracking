@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-update-shipping-order',
-  templateUrl: './update-shipping-order.component.html',
-  styleUrls: ['./update-shipping-order.component.scss']
+  selector: 'app-update-domestic-shipping',
+  templateUrl: './update-domestic-shipping.component.html',
+  styleUrls: ['./update-domestic-shipping.component.scss']
 })
-export class UpdateShippingOrderComponent implements OnInit {
-
+export class UpdateDomesticShippingComponent {
   form!:FormGroup;
   originCountry:string[]=["UAE","KSA","BAH","KWI","OMN","QAT","JOR"]
   destinationCountry:string[]=["UAE","KSA","BAH","KWI","OMN","QAT","JOR"]
@@ -73,5 +72,4 @@ export class UpdateShippingOrderComponent implements OnInit {
 
     this.form.reset()
   }
-
 }

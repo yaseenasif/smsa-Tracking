@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginFormComponent } from './page/login-form/login-form.component';
-import { UpdateShippingOrderComponent } from './page/shipping-order/update/update-shipping-order.component';
-import { ShippingOrderHistoryComponent } from './page/shipping-order/shipping-order-history/shipping-order-history.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DriverListComponent } from './page/driver/driver-list/driver-list.component';
 import { AddDriverComponent } from './page/driver/add-driver/add-driver.component';
@@ -26,6 +24,15 @@ import { ProductFieldListComponent } from './page/product-field/product-field-li
 import { ProductFieldAddComponent } from './page/product-field/product-field-add/product-field-add.component';
 import { ProductFieldUpdateComponent } from './page/product-field/product-field-update/product-field-update.component';
 import { AuthGuard } from './auth-service/authguard/authguard';
+import { DomesticShippingListComponent } from './page/shipping-order/domestic/domestic-shipping-list/domestic-shipping-list.component';
+import { DomesticShippingOrderHistoryComponent } from './page/shipping-order/domestic/domestic-shipping-order-history/domestic-shipping-order-history.component';
+import { AddDomesticShippingComponent } from './page/shipping-order/domestic/add-domestic-shipping/add-domestic-shipping.component';
+import { UpdateDomesticShippingComponent } from './page/shipping-order/domestic/update-domestic-shipping/update-domestic-shipping.component';
+import { InternationalShippingListComponent } from './page/shipping-order/international/international-shipping-list/international-shipping-list.component';
+import { InternationalShippingOrderHistoryComponent } from './page/shipping-order/international/international-shipping-order-history/international-shipping-order-history.component';
+import { AddInternationalShippingComponent } from './page/shipping-order/international/add-international-shipping/add-international-shipping.component';
+import { UpdateInternationalShippingComponent } from './page/shipping-order/international/update-international-shipping/update-international-shipping.component';
+import { TileComponent } from './page/shipping-order/international/tile/tile.component';
 
 const routes: Routes = [
   {
@@ -144,13 +151,48 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'shipping',
-    component:UpdateShippingOrderComponent,
+    path:'domestic-shipping',
+    component:DomesticShippingListComponent,
     canActivate:[AuthGuard]
   },
   {
-    path:'shipping-order-history',
-    component:ShippingOrderHistoryComponent,
+    path:'domestic-shipping-order-history',
+    component:DomesticShippingOrderHistoryComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'add-domestic-shipping',
+    component:AddDomesticShippingComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'update-domestic-shipping',
+    component:UpdateDomesticShippingComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international',
+    component:TileComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-shipping',
+    component:InternationalShippingListComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-shipping-order-history',
+    component:InternationalShippingOrderHistoryComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'add-international-shipping',
+    component:AddInternationalShippingComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'update-international-shipping',
+    component:UpdateInternationalShippingComponent,
     canActivate:[AuthGuard]
   },
   {
