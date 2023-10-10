@@ -91,4 +91,24 @@ public class InternationalShipmentService {
     private InternationalShipmentDto toDto(InternationalShipment internationalShipment){
         return modelMapper.map(internationalShipment,InternationalShipmentDto.class);
     }
+
+    public List<InternationalShipmentDto> getInternationalOutBoundSummery() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof UserDetails){
+            String username = ((UserDetails) principal).getUsername();
+            User user = userRepository.findByName(username);
+            return toDtoList(internationalShipmentRepository.findByOriginCountryAndCreatedBy(user.getLocation().getLocationName(),username));
+        }
+        throw new RuntimeException("Shipment not found");
+    }
+
+    public List<InternationalShipmentDto> getInternationalInBoundSummery(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof UserDetails){
+            String username = ((UserDetails) principal).getUsername();
+            User user = userRepository.findByName(username);
+            return toDtoList(internationalShipmentRepository.findByDestinationCountryAndCreatedBy(user.getLocation().getLocationName(),username));
+        }
+        throw new RuntimeException("Shipment not found");
+    }
 }

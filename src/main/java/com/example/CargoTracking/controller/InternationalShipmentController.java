@@ -28,4 +28,14 @@ public class InternationalShipmentController {
     public ResponseEntity<InternationalShipmentDto> getById(@PathVariable Long id){
         return ResponseEntity.ok(internationalShipmentService.getById(id));
     }
+
+    @GetMapping("/international-outbound-summery")
+    public ResponseEntity<List<InternationalShipmentDto>> getInternationalOutBoundSummery(){
+        return ResponseEntity.ok(internationalShipmentService.getInternationalOutBoundSummery());
+    }
+
+    @GetMapping("/international-inbound-summery")
+    public ResponseEntity<List<InternationalShipmentDto>> getInternationalInBoundSummery(){
+        return ResponseEntity.ok(internationalShipmentService.getInternationalInBoundSummery());
+    }
 }
