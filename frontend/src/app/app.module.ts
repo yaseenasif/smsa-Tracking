@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UpdateShippingOrderComponent } from './page/shipping-order/update/update-shipping-order.component';
 import { LoginFormComponent } from './page/login-form/login-form.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DashboardHeadComponent } from './components/dashboard-head/dashboard-head.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -45,6 +44,11 @@ import { TokenInterceptor } from './auth-service/interceptor/token.interceptor';
 
 //primeng imports
 import { InputTextModule } from 'primeng/inputtext';
+import { DropdownModule } from 'primeng/dropdown';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ButtonModule } from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
 
 @NgModule({
   declarations: [
@@ -82,13 +86,17 @@ import { InputTextModule } from 'primeng/inputtext';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
     CommonModule,
     FormsModule, 
     HttpClientModule,
-    InputTextModule
+    InputTextModule,
+    DropdownModule,
+    ToolbarModule,
+    ButtonModule,
+    TableModule,
+    BreadcrumbModule
   ],
 
   providers: [

@@ -1,26 +1,8 @@
-.custom-outline-primary {
-    background-color: #400099; /* Replace "your-custom-color" with the color of your choice */
-    color: white; 
-    border-color: white;/* Replace "your-custom-color" with the color of your choice */
-}
 
-/* .custom-outline-primary:hover {
-    background-color: #400099;
-    color: white; 
-} */
-
-.hover-effect:hover {
-    cursor: pointer !important;
-    /* Apply other styles for the hover effect if needed */
+.p-element>.p-button{
+background-color:#400099!important;
 }
-.dash-head {
-    padding: 13px 22px;
-    display: flex;
-    justify-content:end;
-    height: 80px;
-    border-bottom: 1px solid #e3e3e3;
+.bi{
+    font-size:20px;
+    font-weight: bold;
 }
-  .mr{
-    margin-right: 30px;
-    min-height:40px!important ;
-  }
