@@ -1,0 +1,19 @@
+body{
+    margin-top:10px;
+    background:#eee;
+}
+
+.invoice-to {
+    overflow: hidden; /* Clear the floats */
+}
+
+.left-content {
+    float: left; /* Float the left content to the left */
+    width: 50%; /* Adjust the width as needed */
+}
+
+.right-content {
+    float: right; /* Float the right content to the right */
+    width: 50%; /* Adjust the width as needed */
+}
+

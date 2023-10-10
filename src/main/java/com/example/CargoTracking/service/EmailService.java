@@ -2,12 +2,15 @@ package com.example.CargoTracking.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StreamUtils;
 
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.nio.charset.StandardCharsets;
 
 @Service
 public class EmailService {
@@ -26,16 +29,17 @@ public class EmailService {
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setFrom(sender);
-            helper.setText("<html>\n" +
-                    "<head>\n" +
-                    "    <meta charset=\"UTF-8\">\n" +
-                    "    <title>Shipment Notification</title>\n" +
-                    "</head>\n" +
-                    "<body>\n" +
-                    "    <h1>Shipment Notification</h1>\n" +
-                    "    <p>The shipment is on its way to your destination.</p>\n" +
-                    "</body>\n" +
-                    "</html>", true);
+
+            Resource htmlResource = new ClassPathResource("email.html");
+            String htmlContent = StreamUtils.copyToString(htmlResource.getInputStream(), StandardCharsets.UTF_8);
+
+            Resource cssResource = new ClassPathResource("email.css");
+            String cssContent = StreamUtils.copyToString(cssResource.getInputStream(), StandardCharsets.UTF_8);
+
+//            String styledHTMLContent = "<style>" + cssContent + "</style>" + htmlContent;
+//            helper.setText(styledHTMLContent, true);
+
+            helper.setText(htmlContent, true);
             javaMailSender.send(message);
         }catch (Exception e){
             throw new RuntimeException("Error while sending mail");
