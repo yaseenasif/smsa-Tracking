@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginFormComponent } from './page/login-form/login-form.component';
-import { UpdateShippingOrderComponent } from './page/shipping-order/update/update-shipping-order.component';
-import { ShippingOrderHistoryComponent } from './page/shipping-order/shipping-order-history/shipping-order-history.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DriverListComponent } from './page/driver/driver-list/driver-list.component';
 import { AddDriverComponent } from './page/driver/add-driver/add-driver.component';
@@ -32,6 +30,13 @@ import { EditPermissionComponent } from './page/permission/edit-permission/edit-
 import { RoleListComponent } from './page/role/role-list/role-list.component';
 import { AddRoleComponent } from './page/role/add-role/add-role.component';
 import { EditRoleComponent } from './page/role/edit-role/edit-role.component';
+import { DomesticShippingListComponent } from './page/shipping-order/domestic/domestic-shipping-list/domestic-shipping-list.component';
+import { DomesticShippingOrderHistoryComponent } from './page/shipping-order/domestic/domestic-shipping-order-history/domestic-shipping-order-history.component';
+import { AddDomesticShippingComponent } from './page/shipping-order/domestic/add-domestic-shipping/add-domestic-shipping.component';
+import { UpdateDomesticShippingComponent } from './page/shipping-order/domestic/update-domestic-shipping/update-domestic-shipping.component';
+import { TileComponent } from './page/shipping-order/international/tile/tile.component';
+import { InternationalShippingListComponent } from './page/shipping-order/international/international-shipping-list-road/international-shipping-list.component';
+import { InternationalShippingOrderHistoryComponent } from './page/shipping-order/international/international-shipping-order-history-by-road/international-shipping-order-history.component';
 
 const routes: Routes = [
   {
@@ -180,15 +185,46 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'shipping',
-    component:UpdateShippingOrderComponent,
+    path:'domestic-shipping',
+    component:DomesticShippingListComponent,
     canActivate:[AuthGuard]
   },
   {
-    path:'shipping-order-history',
-    component:ShippingOrderHistoryComponent,
+    path:'domestic-shipping-history',
+    component:DomesticShippingOrderHistoryComponent,
     canActivate:[AuthGuard]
   },
+  {
+    path:'add-domestic-shipping',
+    component:AddDomesticShippingComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'update-domestic-shipping',
+    component:UpdateDomesticShippingComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-tile',
+    component:TileComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-shipment-by-road',
+    component:InternationalShippingListComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-shipment-history-by-road',
+    component:InternationalShippingOrderHistoryComponent,
+    canActivate:[AuthGuard]
+  },
+  
+  // {
+  //   path:'shipping-order-history',
+  //   component:ShippingOrderHistoryComponent,
+  //   canActivate:[AuthGuard]
+  // },
   {
     path:'login',
     component:LoginFormComponent

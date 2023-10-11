@@ -3,13 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { UpdateShippingOrderComponent } from './page/shipping-order/update/update-shipping-order.component';
 import { LoginFormComponent } from './page/login-form/login-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { DashboardHeadComponent } from './components/dashboard-head/dashboard-head.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { ShippingOrderHistoryComponent } from './page/shipping-order/shipping-order-history/shipping-order-history.component';
 import { UpdateDriverComponent } from './page/driver/update-driver/update-driver.component';
 import { AddDriverComponent } from './page/driver/add-driver/add-driver.component';
 import { DriverListComponent } from './page/driver/driver-list/driver-list.component';
@@ -22,8 +20,6 @@ import { UpdateLocationPortComponent } from './page/location-port/update-locatio
 import { UserListComponent } from './page/user/user-list/user-list.component';
 import { AddUserComponent } from './page/user/add-user/add-user.component';
 import { UpdateUserComponent } from './page/user/update-user/update-user.component';
-import { AddShippingComponent } from './page/shipping-order/add-shipping/add-shipping.component';
-import { ShippingListComponent } from './page/shipping-order/shipping-list/shipping-list.component';
 import { StatusListComponent } from './page/status/status-list/status-list.component';
 import { AddStatusComponent } from './page/status/add-status/add-status.component';
 import { UpdateStatusComponent } from './page/status/update-status/update-status.component';
@@ -41,6 +37,7 @@ import { ProductFieldListComponent } from './page/product-field/product-field-li
 import { ProductFieldAddComponent } from './page/product-field/product-field-add/product-field-add.component';
 import { ProductFieldUpdateComponent } from './page/product-field/product-field-update/product-field-update.component';
 import {FormsModule} from'@angular/forms'
+import {DomesticShippingListComponent} from './page/shipping-order/domestic/domestic-shipping-list/domestic-shipping-list.component';
 import {
   HTTP_INTERCEPTORS,
   HttpClientModule
@@ -56,17 +53,21 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { DomesticShippingOrderHistoryComponent } from './page/shipping-order/domestic/domestic-shipping-order-history/domestic-shipping-order-history.component';
+import { AddDomesticShippingComponent } from './page/shipping-order/domestic/add-domestic-shipping/add-domestic-shipping.component';
+import { UpdateDomesticShippingComponent } from './page/shipping-order/domestic/update-domestic-shipping/update-domestic-shipping.component';
+import { TileComponent } from './page/shipping-order/international/tile/tile.component';
+import { InternationalShippingListComponent } from './page/shipping-order/international/international-shipping-list-road/international-shipping-list.component';
+import { InternationalShippingOrderHistoryComponent } from './page/shipping-order/international/international-shipping-order-history-by-road/international-shipping-order-history.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    UpdateShippingOrderComponent,
     LoginFormComponent,
     DashboardHeadComponent,
     DashboardComponent,
     SidebarComponent,
-    ShippingOrderHistoryComponent,
     UpdateDriverComponent,
     AddDriverComponent,
     DriverListComponent,
@@ -79,8 +80,6 @@ import { MultiSelectModule } from 'primeng/multiselect';
     UserListComponent,
     AddUserComponent,
     UpdateUserComponent,
-    AddShippingComponent,
-    ShippingListComponent,
     StatusListComponent,
     AddStatusComponent,
     UpdateStatusComponent,
@@ -96,6 +95,13 @@ import { MultiSelectModule } from 'primeng/multiselect';
     RoleListComponent,
     AddRoleComponent,
     EditRoleComponent,
+    DomesticShippingListComponent,
+    DomesticShippingOrderHistoryComponent,
+    AddDomesticShippingComponent,
+    UpdateDomesticShippingComponent,
+    TileComponent,
+    InternationalShippingListComponent,
+    InternationalShippingOrderHistoryComponent
   ],
   imports: [
     BrowserModule,
