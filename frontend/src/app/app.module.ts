@@ -66,6 +66,7 @@ import { AddInternationalShipmentByRoadComponent } from './page/shipping-order/i
 import { InternationalShipmentListAirComponent } from './page/shipping-order/international/by-air/international-shipment-list-air/international-shipment-list-air.component';
 import { InternationalShipmentOrderHistoryByAirComponent } from './page/shipping-order/international/by-air/international-shipment-order-history-by-air/international-shipment-order-history-by-air.component';
 import { UpdateInternationalShipmentByAirComponent } from './page/shipping-order/international/by-air/update-international-shipment-by-air/update-international-shipment-by-air.component';
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [
@@ -130,7 +131,8 @@ import { UpdateInternationalShipmentByAirComponent } from './page/shipping-order
     TableModule,
     BreadcrumbModule,
     MultiSelectModule,
-    PasswordModule
+    PasswordModule,
+    InputSwitchModule
   ],
 
   providers: [

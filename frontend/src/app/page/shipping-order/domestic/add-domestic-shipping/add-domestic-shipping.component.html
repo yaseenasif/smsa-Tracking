@@ -16,45 +16,44 @@
                 <!-- 1 -->
                 
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Origin Facility</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [ngModelOptions]="{standalone:true}"
-                      [(ngModel)]="name"
-                    />
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
-                  </div>
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Origin Facility
+                    </label>
+                    <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Origin Facility">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
+                                <div>{{ selectedLocation.locationName}}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-location pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ location.locationName }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Origin Location</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Origin Location</label>
+                    <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Origin Location">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
+                                <div>{{ selectedLocation.locationName}}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-location pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ location.locationName }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
+                    <div class="flex flex-column gap-2 form-hook">
                       <label htmlFor="name">Referigirated Truck</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
+                      <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
                       <!-- <small id="name-help"
                         >{{name}}</small
                       > -->
@@ -63,34 +62,38 @@
 
                 <!-- 2 -->
                 <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Destination Facility</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Destination Facility</label>
+                    <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Destination Facility">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
+                                <div>{{ selectedLocation.locationName}}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-location pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ location.locationName }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
                   </div>
                   <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Destination Location</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
+                    <div class="flex flex-column gap-2 form-hook">
+                      <label htmlFor="name">Destination Location</label>
+                      <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Destination Location">
+                          <ng-template pTemplate="selectedItem">
+                              <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
+                                  <div>{{ selectedLocation.locationName}}</div>
+                              </div>
+                          </ng-template>
+                          <ng-template let-location pTemplate="item">
+                              <div class="flex align-items-center gap-2">
+                                  <div>{{ location.locationName }}</div>
+                              </div>
+                          </ng-template>
+                      </p-dropdown>
+                  </div>
                   </div>
                   <div class="col-12 md:col-6 lg:col-4">
                       <div class="flex flex-column gap-2">
@@ -240,34 +243,38 @@
                   <!-- 6 -->
 
                   <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">vehicle Type</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
+                    <div class="flex flex-column gap-2 form-hook">
+                      <label htmlFor="name">Vehicle Type</label>
+                      <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Vehicle Type">
+                          <ng-template pTemplate="selectedItem">
+                              <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
+                                  <div>{{ selectedLocation.locationName}}</div>
+                              </div>
+                          </ng-template>
+                          <ng-template let-location pTemplate="item">
+                              <div class="flex align-items-center gap-2">
+                                  <div>{{ location.locationName }}</div>
+                              </div>
+                          </ng-template>
+                      </p-dropdown>
+                  </div>
                   </div>
                   <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Number of Pallets</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
+                    <div class="flex flex-column gap-2 form-hook">
+                      <label htmlFor="name">Number of Pallets</label>
+                      <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Number of Pallets">
+                          <ng-template pTemplate="selectedItem">
+                              <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
+                                  <div>{{ selectedLocation.locationName}}</div>
+                              </div>
+                          </ng-template>
+                          <ng-template let-location pTemplate="item">
+                              <div class="flex align-items-center gap-2">
+                                  <div>{{ location.locationName }}</div>
+                              </div>
+                          </ng-template>
+                      </p-dropdown>
+                  </div>
                   </div>
                   <div class="col-12 md:col-6 lg:col-4">
                       <div class="flex flex-column gap-2">
@@ -348,19 +355,21 @@
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Status</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Status</label>
+                    <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Status">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
+                                <div>{{ selectedLocation.locationName}}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-location pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ location.locationName }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2">
@@ -498,7 +507,7 @@
 
               </div>
               <div class="flex align-items-center justify-content-end mt-4">
-                  <p-button label="Cancel" class="bg-o-color mr" routerLink="/location" styleClass="p-button-outlined">
+                  <p-button label="Cancel" class="bg-o-color mr" routerLink="/domestic-shipping" styleClass="p-button-outlined">
                   </p-button>
                   <p-button label="Save" class="bg-b-color ml" >
                   </p-button>
