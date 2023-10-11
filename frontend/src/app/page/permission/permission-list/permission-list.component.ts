@@ -1,13 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: 'app-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.scss']
+  selector: 'app-permission-list',
+  templateUrl: './permission-list.component.html',
+  styleUrls: ['./permission-list.component.scss']
 })
-export class UserListComponent implements OnInit {
-
+export class PermissionListComponent {
   constructor() { }
   products:any=[{name:"Demo"},
   {name:"Demo"},
@@ -24,6 +23,7 @@ export class UserListComponent implements OnInit {
  
 
   ngOnInit() {
-      this.items = [{ label: 'User List'}];
+      this.items = [{ label: 'Permission'}];
   }
+
 }

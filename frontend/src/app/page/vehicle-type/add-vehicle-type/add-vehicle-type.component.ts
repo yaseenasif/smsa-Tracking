@@ -14,7 +14,6 @@ export class AddVehicleTypeComponent implements OnInit {
   name!:string;
   
   ngOnInit(): void {
-    this.items = [{ label: 'Status List',routerLink:'/status'},{ label: 'Add Status'}];
+    this.items = [{ label: 'Vehicle Type',routerLink:'/vehicle-type'},{ label: 'Add Vehicle Type'}];
   }
-
 }

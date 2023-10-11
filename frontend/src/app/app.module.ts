@@ -30,6 +30,12 @@ import { UpdateStatusComponent } from './page/status/update-status/update-status
 import { VehicleTypeListComponent } from './page/vehicle-type/vehicle-type-list/vehicle-type-list.component';
 import { AddVehicleTypeComponent } from './page/vehicle-type/add-vehicle-type/add-vehicle-type.component';
 import { UpdateVehicleTypeComponent } from './page/vehicle-type/update-vehicle-type/update-vehicle-type.component';
+import { PermissionListComponent } from './page/permission/permission-list/permission-list.component';
+import { AddPermissionComponent } from './page/permission/add-permission/add-permission.component';
+import { EditPermissionComponent } from './page/permission/edit-permission/edit-permission.component';
+import { RoleListComponent } from './page/role/role-list/role-list.component';
+import { AddRoleComponent } from './page/role/add-role/add-role.component';
+import { EditRoleComponent } from './page/role/edit-role/edit-role.component';
 import { CommonModule } from '@angular/common';
 import { ProductFieldListComponent } from './page/product-field/product-field-list/product-field-list.component';
 import { ProductFieldAddComponent } from './page/product-field/product-field-add/product-field-add.component';
@@ -49,6 +55,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { MultiSelectModule } from 'primeng/multiselect';
+
 
 @NgModule({
   declarations: [
@@ -82,6 +90,12 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     ProductFieldListComponent,
     ProductFieldAddComponent,
     ProductFieldUpdateComponent,
+    PermissionListComponent,
+    AddPermissionComponent,
+    EditPermissionComponent,
+    RoleListComponent,
+    AddRoleComponent,
+    EditRoleComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,7 +110,8 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
     ToolbarModule,
     ButtonModule,
     TableModule,
-    BreadcrumbModule
+    BreadcrumbModule,
+    MultiSelectModule
   ],
 
   providers: [

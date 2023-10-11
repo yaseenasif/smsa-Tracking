@@ -26,6 +26,12 @@ import { ProductFieldListComponent } from './page/product-field/product-field-li
 import { ProductFieldAddComponent } from './page/product-field/product-field-add/product-field-add.component';
 import { ProductFieldUpdateComponent } from './page/product-field/product-field-update/product-field-update.component';
 import { AuthGuard } from './auth-service/authguard/authguard';
+import { PermissionListComponent } from './page/permission/permission-list/permission-list.component';
+import { AddPermissionComponent } from './page/permission/add-permission/add-permission.component';
+import { EditPermissionComponent } from './page/permission/edit-permission/edit-permission.component';
+import { RoleListComponent } from './page/role/role-list/role-list.component';
+import { AddRoleComponent } from './page/role/add-role/add-role.component';
+import { EditRoleComponent } from './page/role/edit-role/edit-role.component';
 
 const routes: Routes = [
   {
@@ -36,11 +42,6 @@ const routes: Routes = [
   {
     path:'home',
     component:DashboardComponent,
-    canActivate:[AuthGuard]
-  },
-  {
-    path:'driver',
-    component:DriverListComponent,
     canActivate:[AuthGuard]
   },
   {
@@ -56,6 +57,11 @@ const routes: Routes = [
   {
     path:'edit-product-field',
     component:ProductFieldUpdateComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'driver',
+    component:DriverListComponent,
     canActivate:[AuthGuard]
   },
   {
@@ -141,6 +147,36 @@ const routes: Routes = [
   {
     path:'edit-vehicle-type',
     component:UpdateVehicleTypeComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'permission',
+    component:PermissionListComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'add-permission',
+    component:AddPermissionComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'edit-permission',
+    component:EditPermissionComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'role',
+    component:RoleListComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'add-role',
+    component:AddRoleComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'edit-role',
+    component:EditRoleComponent,
     canActivate:[AuthGuard]
   },
   {
