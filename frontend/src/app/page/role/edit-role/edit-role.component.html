@@ -1,0 +1,61 @@
+<div class="flex flex-row">
+    <app-sidebar></app-sidebar>
+    <div class="body-position">
+      <div class="body-holder">
+        <app-dashboard-head></app-dashboard-head>
+  
+        <div class="main">
+          <div class="card flex justify-content-center">
+            <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+          </div>
+          <div class="body-card">
+            <div class="card">
+              <h1 class="mb-4 h-color">Edit Role</h1>
+              <div class="grid">
+                <div class="col-12 md:col-12 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Role</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [ngModelOptions]="{ standalone: true }"
+                      [(ngModel)]="name"
+                    />
+                    <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                  </div>
+                </div>
+                <div class="col-12 md:col-12 lg:col-6">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Permissions</label>
+                    <p-multiSelect
+                      [ngModelOptions]="{ standalone: true }"
+                      [options]="permission"
+                      [(ngModel)]="selectedPermission"
+                      optionLabel="name"
+                    ></p-multiSelect>
+                  </div>
+                  <!-- <small id="name-help"
+                      >{{selectedPermission|json}}</small
+                    > -->
+                </div>
+              </div>
+              <div class="flex align-items-center justify-content-end mt-4">
+                <p-button
+                  label="Cancel"
+                  class="bg-o-color mr"
+                  routerLink="/role"
+                  styleClass="p-button-outlined"
+                >
+                </p-button>
+                <p-button label="Save" class="bg-b-color ml"> </p-button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

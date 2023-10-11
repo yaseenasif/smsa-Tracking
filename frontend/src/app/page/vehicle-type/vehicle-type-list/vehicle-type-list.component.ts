@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-vehicle-type-list',
@@ -6,10 +7,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./vehicle-type-list.component.scss']
 })
 export class VehicleTypeListComponent implements OnInit {
-
   constructor() { }
+  products:any=[{name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},];
+  items: MenuItem[] | undefined;
 
-  ngOnInit(): void {
+ 
+
+  ngOnInit() {
+      this.items = [{ label: 'Vehicle Type'}];
   }
-
 }
