@@ -43,6 +43,9 @@ import { InternationalShipmentListAirComponent } from './page/shipping-order/int
 import { InternationalShipmentOrderHistoryByAirComponent } from './page/shipping-order/international/by-air/international-shipment-order-history-by-air/international-shipment-order-history-by-air.component';
 import { AddInternationalShipmentByRoadComponent } from './page/shipping-order/international/by-air/add-international-shipment-by-road/add-international-shipment-by-road.component';
 import { UpdateInternationalShipmentByAirComponent } from './page/shipping-order/international/by-air/update-international-shipment-by-air/update-international-shipment-by-air.component';
+import { DomesticSummaryComponent } from './page/bounds/domestic/domestic-summary/domestic-summary.component';
+import { InternationalSummaryByAirComponent } from './page/bounds/international/international-summary-by-air/international-summary-by-air.component';
+import { InternationalSummaryByRoadComponent } from './page/bounds/international/international-summary-by-road/international-summary-by-road.component';
 
 const routes: Routes = [
   {
@@ -254,6 +257,21 @@ const routes: Routes = [
   {
     path:'update-international-shipment-by-air',
     component:UpdateInternationalShipmentByAirComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'domestic-summary',
+    component:DomesticSummaryComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-summary-by-air',
+    component:InternationalSummaryByAirComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-summary-by-road',
+    component:InternationalSummaryByRoadComponent,
     canActivate:[AuthGuard]
   },
 
