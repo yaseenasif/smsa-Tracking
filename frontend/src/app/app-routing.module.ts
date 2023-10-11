@@ -34,9 +34,15 @@ import { DomesticShippingListComponent } from './page/shipping-order/domestic/do
 import { DomesticShippingOrderHistoryComponent } from './page/shipping-order/domestic/domestic-shipping-order-history/domestic-shipping-order-history.component';
 import { AddDomesticShippingComponent } from './page/shipping-order/domestic/add-domestic-shipping/add-domestic-shipping.component';
 import { UpdateDomesticShippingComponent } from './page/shipping-order/domestic/update-domestic-shipping/update-domestic-shipping.component';
-import { TileComponent } from './page/shipping-order/international/tile/tile.component';
-import { InternationalShippingListComponent } from './page/shipping-order/international/international-shipping-list-road/international-shipping-list.component';
-import { InternationalShippingOrderHistoryComponent } from './page/shipping-order/international/international-shipping-order-history-by-road/international-shipping-order-history.component';
+import { TileComponent } from './page/shipping-order/international/by-road/tile/tile.component';
+import { InternationalShippingListComponent } from './page/shipping-order/international/by-road/international-shipping-list-road/international-shipping-list.component';
+import { InternationalShippingOrderHistoryComponent } from './page/shipping-order/international/by-road/international-shipping-order-history-by-road/international-shipping-order-history.component';
+import { AddInternationalShippingComponent } from './page/shipping-order/international/by-road/add-international-shipping-by-road/add-international-shipping.component';
+import { UpdateInternationalShippingComponent } from './page/shipping-order/international/by-road/update-international-shipping-by-road/update-international-shipping.component';
+import { InternationalShipmentListAirComponent } from './page/shipping-order/international/by-air/international-shipment-list-air/international-shipment-list-air.component';
+import { InternationalShipmentOrderHistoryByAirComponent } from './page/shipping-order/international/by-air/international-shipment-order-history-by-air/international-shipment-order-history-by-air.component';
+import { AddInternationalShipmentByRoadComponent } from './page/shipping-order/international/by-air/add-international-shipment-by-road/add-international-shipment-by-road.component';
+import { UpdateInternationalShipmentByAirComponent } from './page/shipping-order/international/by-air/update-international-shipment-by-air/update-international-shipment-by-air.component';
 
 const routes: Routes = [
   {
@@ -219,12 +225,38 @@ const routes: Routes = [
     component:InternationalShippingOrderHistoryComponent,
     canActivate:[AuthGuard]
   },
+  {
+    path:'add-international-shipment-by-road',
+    component:AddInternationalShippingComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'update-international-shipment-by-road',
+    component:UpdateInternationalShippingComponent,
+    canActivate:[AuthGuard]
+  },
   
-  // {
-  //   path:'shipping-order-history',
-  //   component:ShippingOrderHistoryComponent,
-  //   canActivate:[AuthGuard]
-  // },
+  {
+    path:'international-shipment-by-air',
+    component:InternationalShipmentListAirComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-shipment-history-by-air',
+    component:InternationalShipmentOrderHistoryByAirComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'add-international-shipment-by-air',
+    component:AddInternationalShipmentByRoadComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'update-international-shipment-by-air',
+    component:UpdateInternationalShipmentByAirComponent,
+    canActivate:[AuthGuard]
+  },
+
   {
     path:'login',
     component:LoginFormComponent
