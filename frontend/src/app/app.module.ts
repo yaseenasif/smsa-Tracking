@@ -60,7 +60,7 @@ import { TileComponent } from './page/shipping-order/international/tile/tile.com
 import { InternationalShippingListComponent } from './page/shipping-order/international/international-shipping-list-road/international-shipping-list.component';
 import { InternationalShippingOrderHistoryComponent } from './page/shipping-order/international/international-shipping-order-history-by-road/international-shipping-order-history.component';
 import { PasswordModule } from 'primeng/password';
-
+import { InputSwitchModule } from 'primeng/inputswitch';
 
 @NgModule({
   declarations: [
@@ -119,7 +119,8 @@ import { PasswordModule } from 'primeng/password';
     TableModule,
     BreadcrumbModule,
     MultiSelectModule,
-    PasswordModule
+    PasswordModule,
+    InputSwitchModule
   ],
 
   providers: [
