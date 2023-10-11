@@ -6,6 +6,7 @@ $primary-color: #400099;
 $base-bg-color: #ebf1f4;
 $hover-bg-color:#4d0fa3;
 $white-color:#ffffff;
+$error-color:#dc2626;
 
 *{
     margin: 0;
@@ -77,4 +78,13 @@ margin-right: 5px;
 }
 .form-hook>.p-element>.p-dropdown>.p-icon-wrapper{
     display:none;
+}
+.form-hook>.p-element>.p-password>.p-inputtext{
+width: 100%;
+}
+.form-hook>.p-element>.p-password{
+    width: 100%;
+}
+.form-hook>.p-element>.p-password>.p-icon-wrapper{
+top: 37%
 }

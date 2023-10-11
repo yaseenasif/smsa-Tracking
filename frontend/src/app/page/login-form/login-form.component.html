@@ -1,4 +1,4 @@
-<div class="image-container" [ngStyle]="{ 'background-image': 'url(' + currentImageUrl + ')' }">
+<!-- <div class="image-container" [ngStyle]="{ 'background-image': 'url(' + currentImageUrl + ')' }">
     <form [formGroup]="loginForm" class="reactive-form" (ngSubmit)="login(loginForm.value)">
         <img src="../../../assets/smca-logo.png" alt="" class="login-img">
         <div class="form-container">
@@ -19,11 +19,37 @@
                 </span>
             </div>
             <div class="form-settings">
-                <span class="password-forget" (click)="showPassword()">Show password</span>
+                <span class="password-forget" (click)="showPassword()">Show password</span> -->
                 <!-- <span class="password-forget">Forgot password?</span> -->
-            </div>
+            <!-- </div>
             <button type="submit" class="form-submit-btn" [disabled]="loginForm.invalid">Submit</button>
     
         </div>
     </form>
+</div> -->
+<div class="w-screen h-screen grid">
+    <div class="h-screen col-6 md:col-6 lg:col-8  md:col-6  flex justify-content-center align-items-center">
+      <div class="img">
+        <img src="../../../assets/smsa.png" alt="" class="sidebar-img">
+      </div>
+    </div>
+    <div class="h-screen col-6 md:col-6 lg:col-4 flex  bg-p-color  justify-content-center align-items-center">
+        <div class="login-form">
+            <h2 class="text-center">Login</h2>
+            <div class="flex flex-column gap-2 mt-3">
+                <label htmlFor="name">Username</label>
+                <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="name"  [ngModelOptions]="{standalone:true}" />
+                <small id="username-help" class="r-color" *ngIf="error">Invalid Username.</small>
+            </div>
+            <div class="flex flex-column gap-2 mt-3 form-hook">
+                <label htmlFor="username">Password</label>
+                <p-password [(ngModel)]="password"     [ngModelOptions]="{standalone:true}" [toggleMask]="true"></p-password>
+                <small id="username-help" class="r-color" *ngIf="error">Invalid password.</small>
+            </div>
+            <div class="flex justify-content-center mt-3 ">
+                <p-button (click)="login({name:name,password:password})" label="Confirm" class="bg-b-color ml" >
+                </p-button>
+            </div>
+        </div>
+    </div>
 </div>
