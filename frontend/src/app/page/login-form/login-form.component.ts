@@ -21,23 +21,29 @@ export class LoginFormComponent implements OnInit {
   currentImageUrl!:string;
   togglePassword:any;
 
+  
   constructor(private formBuilder:FormBuilder,private authService:AuthService,private router: Router) { }
 
   ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
-      name:['',[Validators.required,Validators.min(7)]],
-      password:['',[Validators.required,Validators.min(7)]]
-    })
+    // this.loginForm = this.formBuilder.group({
+    //   name:['',[Validators.required,Validators.min(7)]],
+    //   password:['',[Validators.required,Validators.min(7)]]
+    // })
 
-    this.changeBackgroundImage();
-    setInterval(()=>this.changeBackgroundImage(),5000)
+    // this.changeBackgroundImage();
+    // setInterval(()=>this.changeBackgroundImage(),5000)
 
   }
 
-  changeBackgroundImage(){
-    this.currentImageUrl = `/assets/images/${this.images[this.currentIndex]}`
-    this.currentIndex = (this.currentIndex + 1) % this.images.length;
-  }
+  // changeBackgroundImage(){
+  //   this.currentImageUrl = `/assets/images/${this.images[this.currentIndex]}`
+  //   this.currentIndex = (this.currentIndex + 1) % this.images.length;
+  // }
+  
+  name!:string
+  password!:string
+  error:boolean=false;
+  
 
   login(credentials:any){
     console.log(credentials);
@@ -47,8 +53,8 @@ export class LoginFormComponent implements OnInit {
       this.router.navigate(['/home']);
 
     },(error:any)=>{
-      debugger
-      console.log(error);      
+     
+      this.error=true;
     })
     
   }

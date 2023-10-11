@@ -56,6 +56,7 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { PasswordModule } from 'primeng/password';
 
 
 @NgModule({
@@ -111,7 +112,8 @@ import { MultiSelectModule } from 'primeng/multiselect';
     ButtonModule,
     TableModule,
     BreadcrumbModule,
-    MultiSelectModule
+    MultiSelectModule,
+    PasswordModule
   ],
 
   providers: [

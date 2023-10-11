@@ -1,0 +1,21 @@
+@import '../../../styles.scss';
+
+.bg-p-color{
+background-color:$primary-color;
+}
+.bg-w-color{
+    background-color:$white-color;
+}
+.login-form{
+    width: 80%;
+    background-color:$white-color;
+    border-radius: 10px;
+    padding:20px;
+}
+.r-color{
+color:$error-color;
+}
+.sidebar-img {
+    max-width: 100%;
+    height: auto;
+  }
