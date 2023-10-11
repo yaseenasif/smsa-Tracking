@@ -30,16 +30,13 @@ nav.main-menu.expanded {
     color: white;
     background: #400099;
     border-right: 1px solid #e5e5e5;
+    height: 100vh;
     position: fixed;
-    top: 0;
-    bottom: 0;
-    height: 100%;
-    left: 0;
-    width: 60px;
+    width:60px;
     overflow: hidden;
     transition: width .05s linear;
     -webkit-transform: translateZ(0) scale(1, 1);
-    z-index: 1000;
+    z-index: 1;
 }
 
 
@@ -150,7 +147,7 @@ nav.main-menu li.active>a,
 
 
 .main-menu:hover .sidebar-list-hover:hover {
-    background-color: #500fab;
+    background-color: #4d0fa3;
     display: -webkit-inline-box;
     cursor: pointer;
     color: rgb(255, 255, 255);

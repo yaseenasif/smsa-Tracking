@@ -90,7 +90,7 @@ const routes: Routes = [
   },
   {
     path:'add-location-port',
-    component:UpdateLocationPortComponent,
+    component:AddLocationPortComponent,
     canActivate:[AuthGuard]
   },
   {
