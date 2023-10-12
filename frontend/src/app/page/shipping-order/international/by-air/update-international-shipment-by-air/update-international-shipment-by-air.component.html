@@ -1,233 +1,81 @@
 <div class="flex flex-row">
-    <app-sidebar></app-sidebar>
-    <div class="body-position">
-      <div class="body-holder">
-        <app-dashboard-head></app-dashboard-head>
-  
-        <div class="main">
-          <div class="card flex justify-content-center">
-            <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
-          </div>
-          <div class="body-card">
-            <div class="card">
-              <h1 class="mb-4 h-color">Update International Shipment By Road</h1>
-              <div class="grid">
+  <app-sidebar></app-sidebar>
+  <div class="body-position">
+    <div class="body-holder">
+      <app-dashboard-head></app-dashboard-head>
 
-                <!-- 1 -->
-                
-                <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Mode</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [ngModelOptions]="{standalone:true}"
-                      [(ngModel)]="name"
-                    />
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
-                  </div>
+      <div class="main">
+        <div class="card flex justify-content-center">
+          <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+        </div>
+        <div class="body-card">
+          <div class="card">
+            <h1 class="mb-4 h-color">Edit International Shipment By Air</h1>
+            <div class="grid">
+
+              <!-- 1 -->
+              <div class="col-12 md:col-6 lg:col-4">
+                <div class="flex flex-column gap-2">
+                  <label htmlFor="name">Mode</label>
+                  <input
+                    pInputText
+                    id="name"
+                    aria-describedby="name-help"
+                    [ngModelOptions]="{standalone:true}"
+                    [(ngModel)]="name"
+                  />
+                  <!-- <small id="name-help"
+                    >{{name}}</small
+                  > -->
                 </div>
-                <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Shipment Mode</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4">
-                    
-                </div>
-
-                <!-- 2 -->
-                <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Origin Country</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Origin Port</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Pre-Alert Number</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
-
-                  <!-- 3 -->
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Destination Country</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Destination Port</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Route Number</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
-
-                  <!-- 4 -->
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">ETD</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">ETA</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">ATD</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div> 
-
-                  <!-- 5 -->
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Carrier</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Departure Date</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
+            </div>
+              <div class="col-12 md:col-6 lg:col-4">
+                <div class="flex flex-column gap-2 form-hook">
+                  <label htmlFor="name">Shipment Mode
+                  </label>
+                  <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Shipment Mode
+                  ">
+                      <ng-template pTemplate="selectedItem">
+                          <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
+                              <div>{{ selectedLocation.locationName}}</div>
+                          </div>
+                      </ng-template>
+                      <ng-template let-location pTemplate="item">
+                          <div class="flex align-items-center gap-2">
+                              <div>{{ location.locationName }}</div>
+                          </div>
+                      </ng-template>
+                  </p-dropdown>
+              </div>
+              </div>
               
+              <div class="col-12 md:col-6 lg:col-4">
+                  
+              </div>
 
-                  <!-- 6 -->
-
-                  <div class="col-12 md:col-6 lg:col-4">
+              <!-- 2 -->
+              <div class="col-12 md:col-6 lg:col-4">
+                <div class="flex flex-column gap-2 form-hook">
+                  <label htmlFor="name">Origin Country
+                  </label>
+                  <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Origin Country
+                  ">
+                      <ng-template pTemplate="selectedItem">
+                          <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
+                              <div>{{ selectedLocation.locationName}}</div>
+                          </div>
+                      </ng-template>
+                      <ng-template let-location pTemplate="item">
+                          <div class="flex align-items-center gap-2">
+                              <div>{{ location.locationName }}</div>
+                          </div>
+                      </ng-template>
+                  </p-dropdown>
+              </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Departure Time</label>
+                      <label htmlFor="name">Origin Port</label>
                       <input
                         pInputText
                         id="name"
@@ -239,42 +87,10 @@
                         >{{name}}</small
                       > -->
                     </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Flight Number</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Arrival Date</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
-
-                  <!-- 7 -->
-                  <div class="col-12 md:col-6 lg:col-4">
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Arrival Time</label>
+                      <label htmlFor="name">Pre-Alert Number</label>
                       <input
                         pInputText
                         id="name"
@@ -286,41 +102,63 @@
                         >{{name}}</small
                       > -->
                     </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Number of Shipments</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Actual Weight</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
-<!-- 8 -->
+                </div>
+
+                <!-- 3 -->
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Destination Country
+                    </label>
+                    <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Destination Country
+                    ">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
+                                <div>{{ selectedLocation.locationName}}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-location pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ location.locationName }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <div class="flex flex-column gap-2">
+                      <label htmlFor="name">Destination Port</label>
+                      <input
+                        pInputText
+                        id="name"
+                        aria-describedby="name-help"
+                        [ngModelOptions]="{standalone:true}"
+                        [(ngModel)]="name"
+                      />
+                      <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                    </div>
+                </div>
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Reference Number</label>
+                      <label htmlFor="name">Route Number</label>
+                      <input
+                        pInputText
+                        id="name"
+                        aria-describedby="name-help"
+                        [ngModelOptions]="{standalone:true}"
+                        [(ngModel)]="name"
+                      />
+                      <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                    </div>
+                </div>
+
+                <!-- 4 -->
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">ETD</label>
                     <input
                       pInputText
                       id="name"
@@ -335,7 +173,7 @@
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Number of Pallets</label>
+                      <label htmlFor="name">ETA</label>
                       <input
                         pInputText
                         id="name"
@@ -350,7 +188,39 @@
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Number of Bags</label>
+                      <label htmlFor="name">ATD</label>
+                      <input
+                        pInputText
+                        id="name"
+                        aria-describedby="name-help"
+                        [ngModelOptions]="{standalone:true}"
+                        [(ngModel)]="name"
+                      />
+                      <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                    </div>
+                </div> 
+
+                <!-- 5 -->
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Carrier</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [ngModelOptions]="{standalone:true}"
+                      [(ngModel)]="name"
+                    />
+                    <!-- <small id="name-help"
+                      >{{name}}</small
+                    > -->
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <div class="flex flex-column gap-2">
+                      <label htmlFor="name">Departure Date</label>
                       <input
                         pInputText
                         id="name"
@@ -363,47 +233,28 @@
                       > -->
                     </div>
                 </div>
-                <!-- 9 -->
+            
+
+                <!-- 6 -->
 
                 <div class="col-12 md:col-6 lg:col-4">
-                    
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Departure Time</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [ngModelOptions]="{standalone:true}"
+                      [(ngModel)]="name"
+                    />
+                    <!-- <small id="name-help"
+                      >{{name}}</small
+                    > -->
+                  </div>
                 </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Attachements</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Status</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
-
-                  <!-- 10 -->
-
-                  <div class="col-12 md:col-6 lg:col-4">
+                <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Remarks</label>
+                      <label htmlFor="name">Flight Number</label>
                       <input
                         pInputText
                         id="name"
@@ -415,41 +266,10 @@
                         >{{name}}</small
                       > -->
                     </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">ATA</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                      <div class="flex flex-column gap-2">  
-                        <label htmlFor="name">Total Shipments</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
-                  <!-- 11 -->
-                  <div class="col-12 md:col-6 lg:col-4">
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Overages</label>
+                      <label htmlFor="name">Arrival Date</label>
                       <input
                         pInputText
                         id="name"
@@ -461,81 +281,280 @@
                         >{{name}}</small
                       > -->
                     </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Overage AWBs</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Received</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
+                </div>
 
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Shortages</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
+                <!-- 7 -->
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Arrival Time</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [ngModelOptions]="{standalone:true}"
+                      [(ngModel)]="name"
+                    />
+                    <!-- <small id="name-help"
+                      >{{name}}</small
+                    > -->
                   </div>
-
-                  <div class="col-12 md:col-6 lg:col-4">
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Shortages AWBs</label>
-                        <input
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name"
-                        />
-                        <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                      </div>
-                  </div>
-
+                      <label htmlFor="name">Number of Shipments</label>
+                      <input
+                        pInputText
+                        id="name"
+                        aria-describedby="name-help"
+                        [ngModelOptions]="{standalone:true}"
+                        [(ngModel)]="name"
+                      />
+                      <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <div class="flex flex-column gap-2">
+                      <label htmlFor="name">Actual Weight</label>
+                      <input
+                        pInputText
+                        id="name"
+                        aria-describedby="name-help"
+                        [ngModelOptions]="{standalone:true}"
+                        [(ngModel)]="name"
+                      />
+                      <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                    </div>
+                </div>
+<!-- 8 -->
+              <div class="col-12 md:col-6 lg:col-4">
+                <div class="flex flex-column gap-2">
+                  <label htmlFor="name">Reference Number</label>
+                  <input
+                    pInputText
+                    id="name"
+                    aria-describedby="name-help"
+                    [ngModelOptions]="{standalone:true}"
+                    [(ngModel)]="name"
+                  />
+                  <!-- <small id="name-help"
+                    >{{name}}</small
+                  > -->
+                </div>
               </div>
-              <div class="flex align-items-center justify-content-end mt-4">
-                  <p-button label="Cancel" class="bg-o-color mr" routerLink="/location" styleClass="p-button-outlined">
-                  </p-button>
-                  <p-button label="Save" class="bg-b-color ml" >
-                  </p-button>
+              <div class="col-12 md:col-6 lg:col-4">
+                <div class="flex flex-column gap-2 form-hook">
+                  <label htmlFor="name">Number of Pallets
+                  </label>
+                  <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Number of Pallets
+                  ">
+                      <ng-template pTemplate="selectedItem">
+                          <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
+                              <div>{{ selectedLocation.locationName}}</div>
+                          </div>
+                      </ng-template>
+                      <ng-template let-location pTemplate="item">
+                          <div class="flex align-items-center gap-2">
+                              <div>{{ location.locationName }}</div>
+                          </div>
+                      </ng-template>
+                  </p-dropdown>
               </div>
+              </div>
+              <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Number of Bags</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [ngModelOptions]="{standalone:true}"
+                      [(ngModel)]="name"
+                    />
+                    <!-- <small id="name-help"
+                      >{{name}}</small
+                    > -->
+                  </div>
+              </div>
+              <!-- 9 -->
+
+              <div class="col-12 md:col-6 lg:col-4">
+                  
+              </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <div class="flex flex-column gap-2">
+                      <label htmlFor="name">Attachements</label>
+                      <input
+                        pInputText
+                        id="name"
+                        aria-describedby="name-help"
+                        [ngModelOptions]="{standalone:true}"
+                        [(ngModel)]="name"
+                      />
+                      <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Status
+                    </label>
+                    <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Status
+                    ">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
+                                <div>{{ selectedLocation.locationName}}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-location pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ location.locationName }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
+                </div>
+                </div>
+
+                <!-- 10 -->
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Remarks</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [ngModelOptions]="{standalone:true}"
+                      [(ngModel)]="name"
+                    />
+                    <!-- <small id="name-help"
+                      >{{name}}</small
+                    > -->
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <div class="flex flex-column gap-2">
+                      <label htmlFor="name">ATA</label>
+                      <input
+                        pInputText
+                        id="name"
+                        aria-describedby="name-help"
+                        [ngModelOptions]="{standalone:true}"
+                        [(ngModel)]="name"
+                      />
+                      <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <div class="flex flex-column gap-2">  
+                      <label htmlFor="name">Total Shipments</label>
+                      <input
+                        pInputText
+                        id="name"
+                        aria-describedby="name-help"
+                        [ngModelOptions]="{standalone:true}"
+                        [(ngModel)]="name"
+                      />
+                      <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                    </div>
+                </div>
+                <!-- 11 -->
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Overages</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [ngModelOptions]="{standalone:true}"
+                      [(ngModel)]="name"
+                    />
+                    <!-- <small id="name-help"
+                      >{{name}}</small
+                    > -->
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                      <label htmlFor="name">Overage AWBs</label>
+                      <input
+                        pInputText
+                        id="name"
+                        aria-describedby="name-help"
+                        [ngModelOptions]="{standalone:true}"
+                        [(ngModel)]="name"
+                      />
+                      <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                      <label htmlFor="name">Received</label>
+                      <input
+                        pInputText
+                        id="name"
+                        aria-describedby="name-help"
+                        [ngModelOptions]="{standalone:true}"
+                        [(ngModel)]="name"
+                      />
+                      <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                    </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                      <label htmlFor="name">Shortages</label>
+                      <input
+                        pInputText
+                        id="name"
+                        aria-describedby="name-help"
+                        [ngModelOptions]="{standalone:true}"
+                        [(ngModel)]="name"
+                      />
+                      <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                    </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                      <label htmlFor="name">Shortages AWBs</label>
+                      <input
+                        pInputText
+                        id="name"
+                        aria-describedby="name-help"
+                        [ngModelOptions]="{standalone:true}"
+                        [(ngModel)]="name"
+                      />
+                      <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                    </div>
+                </div>
+
+            </div>
+            <div class="flex align-items-center justify-content-end mt-4">
+                <p-button label="Cancel" class="bg-o-color mr" routerLink="/international-shipment-by-air" styleClass="p-button-outlined">
+                </p-button>
+                <p-button label="Save" class="bg-b-color ml" >
+                </p-button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
