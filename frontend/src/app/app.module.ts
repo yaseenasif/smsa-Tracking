@@ -44,6 +44,7 @@ import {
 } from '@angular/common/http';
 // import { provideRouter, withHashLocation } from '@angular/router';
 import { TokenInterceptor } from './auth-service/interceptor/token.interceptor';
+import { CalendarModule } from 'primeng/calendar';
 
 //primeng imports
 import { InputTextModule } from 'primeng/inputtext';
@@ -138,7 +139,8 @@ import { InternationalSummaryByAirComponent } from './page/bounds/international/
     BreadcrumbModule,
     MultiSelectModule,
     PasswordModule,
-    InputSwitchModule
+    InputSwitchModule,
+    CalendarModule
   ],
 
   providers: [
