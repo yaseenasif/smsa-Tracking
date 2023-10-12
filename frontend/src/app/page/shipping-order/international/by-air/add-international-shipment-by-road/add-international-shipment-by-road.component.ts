@@ -8,10 +8,41 @@ import { MenuItem } from 'primeng/api';
 })
 export class AddInternationalShipmentByRoadComponent {
   items: MenuItem[] | undefined;
+  location!:Location[];
+  selectedLocation!:Location;
 
   constructor() { }
   name!:string;
-  ngOnInit() {
-      this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Air',routerLink:'/international-shipment-by-air'},{ label: 'Add International Shipment By Air'}];
+  checked!:boolean;
+  
+  ngOnInit(): void {
+    this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Air',routerLink:'/international-shipment-by-air'},{ label: 'Add International Shipment By Air'}];
+    this.location=[
+      {
+        locationName:"karachi",
+        id:1
+      },
+      {
+        locationName:"kaAAi",
+        id:2
+      },
+      {
+        locationName:"Alld",
+        id:3
+      },
+      {
+        locationName:"islamabad",
+        id:4
+      },
+      {
+        locationName:"lahore",
+        id:5
+      },
+    ]
   }
+}
+
+interface Location{
+  locationName:string,
+  id:number
 }
