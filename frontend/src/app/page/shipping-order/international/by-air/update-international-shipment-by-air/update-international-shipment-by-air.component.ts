@@ -10,6 +10,10 @@ export class UpdateInternationalShipmentByAirComponent {
   items: MenuItem[] | undefined;
   location!:Location[];
   selectedLocation!:Location;
+  size=100000
+  onUpload(event: any) {
+    
+  }
 
   constructor() { }
   name!:string;
