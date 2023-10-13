@@ -17,16 +17,13 @@ import java.util.List;
 @Builder
 @Entity
 public class DomesticShipment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String originCountry;
-    private String originPort;
-    private String destinationCountry;
-    private String destinationPort;
-    private String shipmentMode;
-    private String mode;
+    private String origin;
+    private String destination;
+    private String originFacility;
+    private String destinationFacility;
     private Date departureDate;
     private Date arrivalDate;
     private Time departureTime;
@@ -51,6 +48,6 @@ public class DomesticShipment {
     private LocalDate updatedAt;
 
     @OneToMany(mappedBy = "domesticShipment")
-    private List<ShipmentHistory> shipmentHistory;
+    private List<DomesticShipmentHistory> domesticShipmentHistories ;
 
 }

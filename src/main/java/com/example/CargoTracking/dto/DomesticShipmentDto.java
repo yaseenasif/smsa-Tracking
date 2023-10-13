@@ -15,12 +15,10 @@ import java.time.LocalDate;
 public class DomesticShipmentDto {
 
     private Long id;
-    private String originCountry;
-    private String originPort;
-    private String destinationCountry;
-    private String destinationPort;
-    private String shipmentMode;
-    private String mode;
+    private String origin;
+    private String originFacility;
+    private String destination;
+    private String destinationFacility;
     private Date departureDate;
     private Date arrivalDate;
     private Time departureTime;
@@ -39,6 +37,14 @@ public class DomesticShipmentDto {
 //     attachments dalega
     private String status;
     private String remarks;
+    private boolean refrigeratedTruck;
+    private String ata;
+    private String overage;
+    private String shortage;
+    private String overageAwb;
+    private String Overage;
+    private Integer totalShipment;
+    private String received;
     private String createdBy;
     private LocalDate createdAt;
     private String updatedBy;

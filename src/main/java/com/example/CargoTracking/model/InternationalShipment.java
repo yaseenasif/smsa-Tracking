@@ -2,11 +2,13 @@ package com.example.CargoTracking.model;
 
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.util.List;
 
 @Getter
 @Setter
@@ -49,6 +51,6 @@ public class InternationalShipment {
     private LocalDate updatedAt;
     private String type;
 
-    @OneToMany(mappedBy = "internationalShipment")
-    private List<ShipmentHistory> shipmentHistory;
+//    @OneToMany(mappedBy = "internationalShipment")
+//    private List<ShipmentHistory> shipmentHistory;
 }

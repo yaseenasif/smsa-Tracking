@@ -1,6 +1,5 @@
 package com.example.CargoTracking.model;
 
-
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +12,8 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 @Entity
-public class ShipmentHistory {
+public class DomesticShipmentHistory {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +23,10 @@ public class ShipmentHistory {
     private String locationCode;
     private Long user;
     private String remarks;
-    private String type;
 
     @ManyToOne
     @JoinColumn(name = "domestic_shipment_id")
     private DomesticShipment domesticShipment;
 
-    @ManyToOne
-    @JoinColumn(name = "international_shipment_id")
-    private InternationalShipment internationalShipment;
+
 }

@@ -2,9 +2,9 @@ package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.model.DomesticShipment;
-import com.example.CargoTracking.model.ShipmentHistory;
+import com.example.CargoTracking.model.DomesticShipmentHistory;
 import com.example.CargoTracking.model.User;
-import com.example.CargoTracking.repository.ShipmentHistoryRepository;
+import com.example.CargoTracking.repository.DomesticShipmentHistoryRepository;
 import com.example.CargoTracking.repository.DomesticShipmentRepository;
 import com.example.CargoTracking.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -29,7 +29,7 @@ public class DomesticShipmentService {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    ShipmentHistoryRepository shipmentHistoryRepository;
+    DomesticShipmentHistoryRepository domesticShipmentHistoryRepository;
     @Autowired
     EmailService emailService;
 
@@ -50,20 +50,18 @@ public class DomesticShipmentService {
             domesticShipmentDto.setCreatedAt(LocalDate.now());
             DomesticShipment domesticShipment = domesticShipmentRepository.save(toEntity(domesticShipmentDto));
 
-            ShipmentHistory shipmentHistory = ShipmentHistory.builder()
+            DomesticShipmentHistory domesticShipmentHistory = DomesticShipmentHistory.builder()
                     .status("Pre-Alert Created")
                     .processTime(LocalDateTime.now())
-                    .locationCode(domesticShipmentDto.getOriginCountry())
+                    .locationCode(domesticShipmentDto.getOrigin())
                     .user(user.getId())
-                    .type("Domestic")
                     .domesticShipment(domesticShipment)
-                    .internationalShipment(null)
                     .remarks(domesticShipment.getRemarks())
                     .build();
 
-            shipmentHistoryRepository.save(shipmentHistory);
+            domesticShipmentHistoryRepository.save(domesticShipmentHistory);
 
-            List<String> emails = userRepository.findEmailByLocation(domesticShipmentDto.getDestinationCountry());
+            List<String> emails = userRepository.findEmailByLocation(domesticShipmentDto.getDestination());
 
             for (String to :emails) {
                 emailService.sendEmail(to,"Shipment Notification");
@@ -93,7 +91,7 @@ public class DomesticShipmentService {
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByName(username);
 
-            return toDtoList(domesticShipmentRepository.findByOriginCountryAndCreatedBy(user.getLocation().getLocationName(),username));
+            return toDtoList(domesticShipmentRepository.findByOriginAndCreatedBy(user.getLocation().getLocationName(),username));
         }
 
         throw new RuntimeException("Shipment not found");
@@ -105,11 +103,18 @@ public class DomesticShipmentService {
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByName(username);
 
-            return toDtoList(domesticShipmentRepository.findByDestinationCountryAndCreatedBy(user.getLocation().getLocationName(),username));
+            return toDtoList(domesticShipmentRepository.findByDestinationAndCreatedBy(user.getLocation().getLocationName(),username));
         }
 
         throw new RuntimeException("Shipment not found");
     }
+
+//    public ResponseEntity<DomesticShipmentDto> update(Long id) {
+//        Optional<DomesticShipment> domesticShipment = domesticShipmentRepository.findById(id);
+//        if (domesticShipment.isPresent()){
+//
+//        }
+//    }
 
     public List<DomesticShipmentDto> toDtoList(List<DomesticShipment> domesticShipmentList){
         return domesticShipmentList.stream().map(this::toDto).collect(Collectors.toList());

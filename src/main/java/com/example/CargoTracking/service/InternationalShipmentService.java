@@ -2,10 +2,8 @@ package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.dto.InternationalShipmentDto;
 import com.example.CargoTracking.model.InternationalShipment;
-import com.example.CargoTracking.model.ShipmentHistory;
 import com.example.CargoTracking.model.User;
 import com.example.CargoTracking.repository.InternationalShipmentRepository;
-import com.example.CargoTracking.repository.ShipmentHistoryRepository;
 import com.example.CargoTracking.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,8 +24,6 @@ public class InternationalShipmentService {
     ModelMapper modelMapper;
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    ShipmentHistoryRepository shipmentHistoryRepository;
     @Autowired
     EmailService emailService;
 
@@ -44,18 +39,18 @@ public class InternationalShipmentService {
 
             InternationalShipment internationalShipment = internationalShipmentRepository
                     .save(toEntity(internationalShipmentDto));
-            ShipmentHistory shipmentHistory = ShipmentHistory.builder()
-                    .status("Pre-Alert Created")
-                    .processTime(LocalDateTime.now())
-                    .locationCode(internationalShipment.getOriginCountry())
-                    .user(user.getId())
-                    .domesticShipment(null)
-                    .type("International")
-                    .internationalShipment(internationalShipment)
-                    .remarks(internationalShipment.getRemarks())
-                    .build();
-
-            shipmentHistoryRepository.save(shipmentHistory);
+//            ShipmentHistory shipmentHistory = ShipmentHistory.builder()
+//                    .status("Pre-Alert Created")
+//                    .processTime(LocalDateTime.now())
+//                    .locationCode(internationalShipment.getOriginCountry())
+//                    .user(user.getId())
+//                    .domesticShipment(null)
+//                    .type("International")
+//                    .internationalShipment(internationalShipment)
+//                    .remarks(internationalShipment.getRemarks())
+//                    .build();
+//
+//            shipmentHistoryRepository.save(shipmentHistory);
 
             List<String> emails = userRepository.findEmailByLocation(internationalShipmentDto.getDestinationCountry());
 
