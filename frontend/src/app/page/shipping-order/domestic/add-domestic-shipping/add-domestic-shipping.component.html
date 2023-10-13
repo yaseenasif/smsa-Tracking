@@ -340,21 +340,6 @@
                   </div>
 <!-- 8 -->
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Attachments</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [ngModelOptions]="{standalone:true}"
-                      [(ngModel)]="name"
-                    />
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
-                  </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Status</label>
                     <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Status">
@@ -497,14 +482,60 @@
                       > -->
                     </div>
                   </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                      
+              </div>
+              
+              <h2 class="mb-4 mt-4">Attachments</h2>
+              <div class="grid">
+                <div class=" lg:col-2 md:col-3 sm:col-6">
+                  <div class="card flex justify-content-center">
+                    <p-fileUpload mode="basic" chooseLabel="AWB Copies" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
                   </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                    
+                </div>
+                <div class=" lg:col-2 md:col-3 sm:col-6">
+                  <div class="card flex justify-content-center">
+                    <p-fileUpload mode="basic" chooseLabel="Invoices" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
                   </div>
-
-
+                </div>
+                <div class="lg:col-2 md:col-3 sm:col-6">
+                  <div class="card flex justify-content-center">
+                    <p-fileUpload mode="basic" chooseLabel="Manifest" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
+                  </div>
+                </div>
+                <div class=" lg:col-2 md:col-3 sm:col-6">
+                  <div class="card flex justify-content-center">
+                    <p-fileUpload mode="basic" chooseLabel="Transit Manifest" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
+                  </div>
+                </div>
+                <div class=" lg:col-2 md:col-3 sm:col-6">
+                  <div class="card flex justify-content-center">
+                    <p-fileUpload mode="basic" chooseLabel="MAWB" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
+                  </div>
+                </div>
+                <div class=" lg:col-2 md:col-3 sm:col-6">
+                  <div class="card flex justify-content-center">
+                    <p-fileUpload mode="basic" chooseLabel="Vehicle Manifest" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
+                  </div>
+                </div>
+                <div class=" md:col-offset-0 lg:col-offset-2 lg:col-2 md:col-3 sm:col-6">
+                  <div class="card flex justify-content-center">
+                    <p-fileUpload mode="basic" chooseLabel="Export Bayan" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
+                  </div>
+                </div>
+                <div class=" lg:col-2 md:col-3 sm:col-6">
+                  <div class="card flex justify-content-center">
+                    <p-fileUpload mode="basic" chooseLabel="Import Bayan LV" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
+                  </div>
+                </div>
+                <div class=" md:col-offset-3 lg:col-offset-0 lg:col-2 md:col-3 sm:col-6">
+                  <div class="card flex justify-content-center">
+                    <p-fileUpload mode="basic" chooseLabel="Import Bayan HV" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
+                  </div>
+                </div>
+                <div class=" lg:col-2 md:col-3 sm:col-6">
+                  <div class="card flex justify-content-center">
+                    <p-fileUpload mode="basic" chooseLabel="Other Attachements" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
+                  </div>
+                </div>
               </div>
               <div class="flex align-items-center justify-content-end mt-4">
                   <p-button label="Cancel" class="bg-o-color mr" routerLink="/domestic-shipping" styleClass="p-button-outlined">
