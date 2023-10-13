@@ -142,7 +142,7 @@
                     <th class="text-center">ETA (Date and time)</th>
                     <th class="text-center">ATA</th>
                     <th class="text-center">Status</th>
-                    <th class="text-center">Actions</th>
+                    <!-- <th class="text-center">Actions</th> -->
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-product>
@@ -161,23 +161,6 @@
                     <td class="text-center">{{ product.eta}}</td>
                     <td class="text-center">{{ product.ata}}</td>
                     <td class="text-center">{{ product.status}}</td>
-  
-  
-                    <td class="text-center flex flex-row"> 
-                      <p-button icon="bi bi-clock-history" routerLink="/international-shipment-history-by-air" class='mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                      
-                      </p-button>
-                      <p-button icon="bi bi-paperclip" class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                     
-                      </p-button>
-                      <p-button routerLink="/update-international-shipment-by-air" icon="bi bi-pen" class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
-                       
-                      </p-button>
-                       <p-button icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                      
-                       </p-button>
-                      
-                    </td>
                   </tr>
                 </ng-template>
               </p-table>

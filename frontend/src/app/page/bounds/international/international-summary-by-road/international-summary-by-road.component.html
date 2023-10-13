@@ -103,20 +103,6 @@
                       <p-button class="bg-b-color ml" routerLink="/add-international-shipment-by-road">
                         Search
                       </p-button>
-                      <!-- <div class="lg:col-3 flex  align-items-end justify-content-center">
-                                  
-                                    <p-button class="bg-b-color" routerLink="/add-international-shipment-by-road">
-                                      Clear
-                                    </p-button>
-                                
-                                  </div>
-                                  <div class="lg:col-3 flex  align-items-end justify-content-center">
-                                
-                                    <p-button class="bg-b-color" routerLink="/add-international-shipment-by-road">
-                                      Search 
-                                    </p-button>
-                                  
-                                  </div> -->
                     </div>
                   </div>
                 </p-toolbar>
@@ -143,7 +129,7 @@
                     <th class="text-center">ETA (Date and time)</th>
                     <th class="text-center">ATA</th>
                     <th class="text-center">Status</th>
-                    <th class="text-center">Actions</th>
+                    <!-- <th class="text-center">Actions</th> -->
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-product>
@@ -165,7 +151,7 @@
                     <td class="text-center">{{ product.status}}</td>
   
   
-                    <td class="text-center flex flex-row"> 
+                    <!-- <td class="text-center flex flex-row"> 
                       <p-button icon="bi bi-clock-history" routerLink="/international-shipment-history-by-road" class='mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                       
                       </p-button>
@@ -179,7 +165,7 @@
                       
                        </p-button>
                       
-                    </td>
+                    </td> -->
                   </tr>
                 </ng-template>
               </p-table>

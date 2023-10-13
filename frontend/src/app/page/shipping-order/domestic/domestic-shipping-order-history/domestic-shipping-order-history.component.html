@@ -6,30 +6,72 @@
 
       <div class="main">
         <div class="card flex justify-content-center">
-            <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+          <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
         </div>
         <div class="body-card">
-            <div class="table-head">
-                <p-toolbar>
-                    <div class="p-toolbar-group-start">
-                      <h2 class="h-color">Domestic Shipment History</h2>
+          <div class="table-head">
+            <h2 class="h-color mb-3">Domestic Shipment History</h2>
+
+            <p-toolbar>
+              <div class="grid">
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid  ">
+                    <div class="lg:col-4 md:col-12 col-12 flex justify-content-center">
+                      <label for="">Pre-Alert Number :</label>
+                      <label for=""> 33333333333</label>
+
                     </div>
-                    <!-- <div class="p-toolbar-group-end">
-                        <p-button class="bg-b-color" routerLink="/add-location">
-                          <i class="bi bi-plus-lg" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Add Location
-                        </p-button>
-                    </div> -->
-                </p-toolbar>
-            </div>
-          
+                    <div class="lg:col-4 md:col-12 col-12 flex justify-content-center">
+                      <label for="">Origin :</label>
+                      <label for=""> Dubai Gateway</label>
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12 flex justify-content-center">
+                      <label for="">Destination :</label>
+                      <label for=""> Riyadh Gateway</label>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12 flex justify-content-center"><label for="">Pre-Alert Type :</label>
+                      <label for=""> International - Air</label>
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12 flex justify-content-center"><label for="">Manifested :</label>
+                      <label for=""> 2500</label>
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12 flex justify-content-center"><label for="">Received :</label>
+                      <label for=""> 2496</label>
+                    </div>
+
+                  </div>
+                </div>
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12 flex justify-content-center"><label for="">Overages :</label>
+                      <label for=""> - </label>
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12 flex justify-content-center"><label for="">Shortages :</label>
+                      <label for=""> 4</label>
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12 flex justify-content-center"><label for="">Transit Time Taken :</label>
+                      <label for=""> 0.46</label>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </p-toolbar>
+          </div>
+
 
           <div class="card">
             <p-table [value]="domesticShipmentHistory" [tableStyle]="{ 'min-width': '50rem' }">
               <ng-template pTemplate="header">
                 <tr>
-                  
+
                   <th class="text-center">Status</th>
-                 
+
                   <th class="text-center">Process time</th>
 
                   <th class="text-center">Location Code</th>
