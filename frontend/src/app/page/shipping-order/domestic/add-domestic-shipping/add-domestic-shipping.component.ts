@@ -15,8 +15,15 @@ export class AddDomesticShippingComponent {
   constructor() { }
   name!:string;
   checked!:boolean;
+  size=100000
+
+  onUpload(event: any) {
+    
+  }
   
   ngOnInit(): void {
+
+    
     this.items = [{ label: 'Domestic Shipment',routerLink:'/domestic-shipping'},{ label: 'Add Domestic Shipment'}];
     this.location=[
       {
@@ -47,3 +54,5 @@ interface Location{
   locationName:string,
   id:number
 }
+
+

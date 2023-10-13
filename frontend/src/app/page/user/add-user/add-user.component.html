@@ -77,19 +77,24 @@
                 </div>
               </div>
               <div class="col-12 md:col-12 lg:col-6">
-                <div class="flex flex-column gap-2">
-                    <label htmlFor="role">Role</label>
-                    <input
-                      pInputText
-                      id="role"
-                      aria-describedby="role-help"
-                      [ngModelOptions]="{ standalone: true }"
-                      [(ngModel)]="role"
-                    />
-                    <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                  </div>
+                <div class="flex flex-column gap-2 form-hook">
+                  <label htmlFor="name">Role
+
+                  </label>
+                  <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Role
+                  ">
+                      <ng-template pTemplate="selectedItem">
+                          <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
+                              <div>{{ selectedLocation.locationName}}</div>
+                          </div>
+                      </ng-template>
+                      <ng-template let-location pTemplate="item">
+                          <div class="flex align-items-center gap-2">
+                              <div>{{ location.locationName }}</div>
+                          </div>
+                      </ng-template>
+                  </p-dropdown>
+              </div>
               </div>
             </div>
             <div class="flex align-items-center justify-content-end mt-4">

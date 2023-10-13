@@ -15,6 +15,10 @@ export class AddInternationalShippingComponent {
   constructor() { }
   name!:string;
   checked!:boolean;
+  size=100000
+  onUpload(event: any) {
+    
+  }
   
   ngOnInit(): void {
     this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Road',routerLink:'/international-shipment-by-road'},{ label: 'Add International Shipment By Road'}];

@@ -15,6 +15,10 @@ export class UpdateDomesticShippingComponent {
   constructor() { }
   name!:string;
   checked!:boolean;
+  size=100000
+  onUpload(event: any) {
+    
+  }
   
   ngOnInit(): void {
     this.items = [{ label: 'Domestic Shipment',routerLink:'/domestic-shipping'},{ label: 'Edit Domestic Shipment'}];

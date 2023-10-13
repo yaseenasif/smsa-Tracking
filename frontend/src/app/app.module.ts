@@ -71,6 +71,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { DomesticSummaryComponent } from './page/bounds/domestic/domestic-summary/domestic-summary.component';
 import { InternationalSummaryByRoadComponent } from './page/bounds/international/international-summary-by-road/international-summary-by-road.component';
 import { InternationalSummaryByAirComponent } from './page/bounds/international/international-summary-by-air/international-summary-by-air.component';
+import { FileUploadModule } from 'primeng/fileupload';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -140,7 +142,9 @@ import { InternationalSummaryByAirComponent } from './page/bounds/international/
     MultiSelectModule,
     PasswordModule,
     InputSwitchModule,
-    CalendarModule
+    CalendarModule,
+    FileUploadModule,
+    ToastModule
   ],
 
   providers: [
