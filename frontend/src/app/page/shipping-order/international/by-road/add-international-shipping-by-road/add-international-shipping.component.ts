@@ -16,8 +16,14 @@ export class AddInternationalShippingComponent {
   name!:string;
   checked!:boolean;
   size=100000
+  uploadedFiles: any[] = [];
   onUpload(event: any) {
     
+  }
+  onUpload1(event:any) {
+    for(let file of event.files) {
+        this.uploadedFiles.push(file);
+    }
   }
   
   ngOnInit(): void {

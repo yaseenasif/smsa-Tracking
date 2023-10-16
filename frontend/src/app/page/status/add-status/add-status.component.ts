@@ -14,7 +14,7 @@ export class AddStatusComponent implements OnInit {
   name!:string;
   
   ngOnInit(): void {
-    this.items = [{ label: 'Status List',routerLink:'/status'},{ label: 'Add Status'}];
+    this.items = [{ label: 'Shipment Status List',routerLink:'/status'},{ label: 'Add Shipment Status'}];
   }
 
 }

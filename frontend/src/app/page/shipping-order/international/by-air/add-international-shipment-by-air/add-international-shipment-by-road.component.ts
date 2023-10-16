@@ -11,8 +11,14 @@ export class AddInternationalShipmentByRoadComponent {
   location!:Location[];
   selectedLocation!:Location;
   size=100000
+  uploadedFiles: any[] = [];
   onUpload(event: any) {
     
+  }
+  onUpload1(event:any) {
+    for(let file of event.files) {
+        this.uploadedFiles.push(file);
+    }
   }
 
   constructor() { }
