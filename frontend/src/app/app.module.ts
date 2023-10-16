@@ -47,6 +47,7 @@ import { TokenInterceptor } from './auth-service/interceptor/token.interceptor';
 import { CalendarModule } from 'primeng/calendar';
 
 //primeng imports
+import { ChartModule } from 'primeng/chart';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -144,7 +145,8 @@ import { ToastModule } from 'primeng/toast';
     InputSwitchModule,
     CalendarModule,
     FileUploadModule,
-    ToastModule
+    ToastModule,
+    ChartModule
   ],
 
   providers: [

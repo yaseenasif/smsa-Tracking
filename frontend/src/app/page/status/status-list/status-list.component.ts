@@ -24,7 +24,7 @@ export class StatusListComponent implements OnInit {
  
 
   ngOnInit() {
-      this.items = [{ label: 'Status List'}];
+      this.items = [{ label: 'Shipment Status List'}];
   }
 
 }

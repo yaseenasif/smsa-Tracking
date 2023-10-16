@@ -98,19 +98,25 @@ top: 37%
     margin: 7px 16px;
 }
 
-p-fileupload>.p-fileupload>.p-button{
-    width: 100%!important;
-    height: 50px!important;
-    background-color: $primary-color;
-}
-p-fileupload>.p-fileupload>.p-button:hover{
-    background-color: $hover-bg-color;
-}
-p-fileupload>.p-fileupload{
-    width: 100%!important;
-    height: 50px!important;
-}
-p-fileupload{
-    width: 100%!important;
-    height: 50px!important;
+// p-fileupload>.p-fileupload>.p-button{
+//     width: 100%!important;
+//     height: 50px!important;
+//     background-color: $primary-color;
+// }
+// p-fileupload>.p-fileupload>.p-button:hover{
+//     background-color: $hover-bg-color;
+// }
+// p-fileupload>.p-fileupload{
+//     width: 100%!important;
+//     height: 50px!important;
+// }
+// p-fileupload{
+//     width: 100%!important;
+//     height: 50px!important;
+// }
+
+p-fileupload>.p-fileupload>.p-fileupload-buttonbar{
+    display: flex;
+    justify-content: center;
+    gap: 2%;
 }
