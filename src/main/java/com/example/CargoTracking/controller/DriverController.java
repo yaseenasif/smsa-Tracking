@@ -3,6 +3,7 @@ package com.example.CargoTracking.controller;
 import com.example.CargoTracking.dto.DriverDto;
 import com.example.CargoTracking.service.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,8 +25,10 @@ public class DriverController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/driver")
-    public ResponseEntity<List<DriverDto>> getAll(){
-        return ResponseEntity.ok(driverService.getActiveDrivers());
+    public ResponseEntity<Page<DriverDto>> getAll(@RequestParam(defaultValue = "0") int page,
+                                                  @RequestParam(defaultValue = "10") int size
+                                                  ){
+        return ResponseEntity.ok(driverService.getActiveDrivers(page,size));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
