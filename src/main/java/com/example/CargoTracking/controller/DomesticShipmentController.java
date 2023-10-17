@@ -32,6 +32,12 @@ public class DomesticShipmentController {
         return ResponseEntity.ok(domesticShipmentService.getById(id));
     }
 
+    @PutMapping("/edit-domestic-shipment/{id}")
+    public ResponseEntity<DomesticShipmentDto> updateDomesticShipment(@PathVariable Long id,
+                                                                      @RequestBody DomesticShipmentDto domesticShipmentDto){
+        return ResponseEntity.ok(domesticShipmentService.updateDomesticShipment(id,domesticShipmentDto));
+    }
+
     @GetMapping("/shipment/outbound")
     public ResponseEntity<List<DomesticShipmentDto>> getOutboundShipment(){
         return ResponseEntity.ok(domesticShipmentService.getOutboundShipment());

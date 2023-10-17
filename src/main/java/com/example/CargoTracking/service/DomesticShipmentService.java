@@ -35,11 +35,6 @@ public class DomesticShipmentService {
 
     public DomesticShipmentDto addShipment(DomesticShipmentDto domesticShipmentDto)  {
 
-//        final String authorizationHeader = request.getHeader("Authorization");
-//            String jwt = authorizationHeader.substring(7);
-//            String username = jwtUtil.extractUsername(jwt);
-//            User user = userRepository.findByName(username);
-
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof UserDetails){
                 String username = ((UserDetails) principal).getUsername();
@@ -49,6 +44,7 @@ public class DomesticShipmentService {
             domesticShipmentDto.setCreatedBy(username);
             domesticShipmentDto.setCreatedAt(LocalDate.now());
             DomesticShipment domesticShipment = domesticShipmentRepository.save(toEntity(domesticShipmentDto));
+
 
 //            InternationalShipmentHistory shipmentHistory = InternationalShipmentHistory.builder()
 //                    .status("Pre-Alert Created")
@@ -109,6 +105,9 @@ public class DomesticShipmentService {
 
         throw new RuntimeException("Shipment not found");
     }
+    public DomesticShipmentDto updateDomesticShipment(Long id, DomesticShipmentDto domesticShipmentDto) {
+        return null;
+    }
 
     public List<DomesticShipmentDto> toDtoList(List<DomesticShipment> domesticShipmentList){
         return domesticShipmentList.stream().map(this::toDto).collect(Collectors.toList());
@@ -122,5 +121,6 @@ public class DomesticShipmentService {
     private DomesticShipment toEntity(DomesticShipmentDto domesticShipmentDto){
         return modelMapper.map(domesticShipmentDto , DomesticShipment.class);
     }
+
 
 }
