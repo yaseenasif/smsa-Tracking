@@ -22,7 +22,7 @@ public class UserDto {
     private String email;
     @NotBlank(message = "Role is required")
     private String role;
-    @NotBlank(message = "Location is required")
+
     private String location;
 
 }

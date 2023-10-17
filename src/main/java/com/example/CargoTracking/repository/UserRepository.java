@@ -13,4 +13,7 @@ public interface UserRepository extends JpaRepository <User,Long> {
     User findByName(String username);
     @Query("select u.email from User u inner join Location l on u.location = l.id where l.locationName = :location")
     List<String> findEmailByLocation(@Param("location") String location);
+
+    @Query("SELECT u FROM User u WHERE u.status = true")
+    List<User> findUserWithTrueStatus();
 }

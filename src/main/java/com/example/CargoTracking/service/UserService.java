@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -33,9 +34,14 @@ public class UserService {
             Optional<Roles> roles = Optional.ofNullable(roleRepository
                     .findByName(userDto.getRole())
                     .orElseThrow(() -> new RuntimeException("Role is incorrect")));
+            Location location;
+            if(userDto.getRole().equals("ROLE_ADMIN")){
+                location = null;
+            }else{
+                 location = locationRepository.findByLocationName(userDto.getLocation())
+                        .orElseThrow(()-> new RuntimeException("Location is not in record"));
+            }
 
-            Location location = locationRepository.findByLocationName(userDto.getLocation())
-                    .orElseThrow(()-> new RuntimeException("Location is not in record"));
 
             Set<Roles> rolesList = new HashSet<>();
             rolesList.add(roles.get());
@@ -57,4 +63,15 @@ public class UserService {
     }
 
 
+    public List<User> getAllUser() {
+        return userRepository.findUserWithTrueStatus();
+    }
+
+
+//    public User updateUser(Long id, UserDto userDto) {
+//        Optional<User> user = userRepository.findById(id);
+//        if(user.isPresent()){
+//
+//        }
+//    }
 }
