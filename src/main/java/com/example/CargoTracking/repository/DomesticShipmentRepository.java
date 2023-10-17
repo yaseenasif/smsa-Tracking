@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface DomesticShipmentRepository extends JpaRepository<DomesticShipment, Long> {
-    List<DomesticShipment> findByOriginCountryAndCreatedBy(String originCountry, String createdBy);
-    List<DomesticShipment> findByDestinationCountryAndCreatedBy(String destination, String createdBy);
+    List<DomesticShipment> findByOriginAndCreatedBy(String origin, String createdBy);
+    List<DomesticShipment> findByDestinationAndCreatedBy(String destination, String createdBy);
 }

@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 @ToString
 @Builder
 @Entity
-public class InternationalShipmentHistory {
+public class DomesticShipmentHistory {
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,10 +23,10 @@ public class InternationalShipmentHistory {
     private String locationCode;
     private Long user;
     private String remarks;
-    private String type;
-
 
     @ManyToOne
-    @JoinColumn(name = "international_shipment_id")
-    private InternationalShipment internationalShipment;
+    @JoinColumn(name = "domestic_shipment_id")
+    private DomesticShipment domesticShipment;
+
+
 }

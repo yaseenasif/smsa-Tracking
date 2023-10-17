@@ -1,13 +1,16 @@
 package com.example.CargoTracking.service;
 
+import com.example.CargoTracking.criteria.SearchCriteria;
 import com.example.CargoTracking.dto.DriverDto;
 import com.example.CargoTracking.model.Driver;
 import com.example.CargoTracking.repository.DriverRepository;
+import com.example.CargoTracking.specification.DriverSpecification;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,10 +37,18 @@ public class DriverService {
         return toDto(driverRepository.save(driver));
     }
 
-    public Page<DriverDto> getActiveDrivers(int page,int size) {
-        Pageable pageable = PageRequest.of(page, size);
+    public Page<DriverDto> getActiveDrivers(String searchCriteria, int page, int size) {
 
-        Page<Driver> drivers = driverRepository.getActiveLocations(pageable);
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Driver> drivers;
+        if(searchCriteria == null){
+            drivers = driverRepository.findAll(pageable);
+        }else {
+
+            Specification<Driver> driverSpecification = DriverSpecification.getSearchSpecification(searchCriteria);
+            drivers = driverRepository.findAll(driverSpecification,pageable);
+
+        }
         Page<DriverDto> driverDto = drivers.map(entity->toDto(entity));
         return driverDto;
     }

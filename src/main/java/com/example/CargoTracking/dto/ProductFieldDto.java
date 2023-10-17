@@ -1,7 +1,6 @@
 package com.example.CargoTracking.dto;
 
 
-import com.example.CargoTracking.model.ProductFieldValues;
 import lombok.*;
 
 import java.time.LocalDate;

@@ -2,6 +2,9 @@ package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.dto.InternationalShipmentDto;
 import com.example.CargoTracking.model.InternationalShipment;
+import com.example.CargoTracking.model.User;
+import com.example.CargoTracking.repository.InternationalShipmentRepository;
+
 import com.example.CargoTracking.model.InternationalShipmentHistory;
 import com.example.CargoTracking.model.User;
 import com.example.CargoTracking.repository.InternationalShipmentRepository;
@@ -44,6 +47,20 @@ public class InternationalShipmentService {
 
             InternationalShipment internationalShipment = internationalShipmentRepository
                     .save(toEntity(internationalShipmentDto));
+
+//            ShipmentHistory shipmentHistory = ShipmentHistory.builder()
+//                    .status("Pre-Alert Created")
+//                    .processTime(LocalDateTime.now())
+//                    .locationCode(internationalShipment.getOriginCountry())
+//                    .user(user.getId())
+//                    .domesticShipment(null)
+//                    .type("International")
+//                    .internationalShipment(internationalShipment)
+//                    .remarks(internationalShipment.getRemarks())
+//                    .build();
+//
+//            shipmentHistoryRepository.save(shipmentHistory);
+
             InternationalShipmentHistory shipmentHistory = InternationalShipmentHistory.builder()
                     .status("Pre-Alert Created")
                     .processTime(LocalDateTime.now())

@@ -32,6 +32,7 @@ public class DomesticShipmentController {
         return ResponseEntity.ok(domesticShipmentService.getById(id));
     }
 
+    @GetMapping("/domestic-shipment/outbound")
     @PutMapping("/edit-domestic-shipment/{id}")
     public ResponseEntity<DomesticShipmentDto> updateDomesticShipment(@PathVariable Long id,
                                                                       @RequestBody DomesticShipmentDto domesticShipmentDto){
@@ -42,9 +43,14 @@ public class DomesticShipmentController {
     public ResponseEntity<List<DomesticShipmentDto>> getOutboundShipment(){
         return ResponseEntity.ok(domesticShipmentService.getOutboundShipment());
     }
-    @GetMapping("/shipment/inbound")
+    @GetMapping("/domestic-shipment/inbound")
     public ResponseEntity<List<DomesticShipmentDto>> getInboundShipment(){
         return ResponseEntity.ok(domesticShipmentService.getInboundShipment());
     }
+
+//    @PatchMapping("/domestic-shipment/{id}")
+//    public ResponseEntity<DomesticShipmentDto> update(@PathVariable Long id){
+//        return domesticShipmentService.update(id);
+//    }
 
 }
