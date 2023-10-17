@@ -2,6 +2,7 @@ package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.model.DomesticShipment;
+import com.example.CargoTracking.model.DomesticShipmentHistory;
 import com.example.CargoTracking.model.User;
 import com.example.CargoTracking.repository.DomesticShipmentHistoryRepository;
 import com.example.CargoTracking.repository.DomesticShipmentRepository;
