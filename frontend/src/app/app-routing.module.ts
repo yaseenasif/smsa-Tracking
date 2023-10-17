@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginFormComponent } from './page/login-form/login-form.component';
-import { UpdateShippingOrderComponent } from './page/shipping-order/update/update-shipping-order.component';
-import { ShippingOrderHistoryComponent } from './page/shipping-order/shipping-order-history/shipping-order-history.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { DriverListComponent } from './page/driver/driver-list/driver-list.component';
 import { AddDriverComponent } from './page/driver/add-driver/add-driver.component';
@@ -26,6 +24,28 @@ import { ProductFieldListComponent } from './page/product-field/product-field-li
 import { ProductFieldAddComponent } from './page/product-field/product-field-add/product-field-add.component';
 import { ProductFieldUpdateComponent } from './page/product-field/product-field-update/product-field-update.component';
 import { AuthGuard } from './auth-service/authguard/authguard';
+import { PermissionListComponent } from './page/permission/permission-list/permission-list.component';
+import { AddPermissionComponent } from './page/permission/add-permission/add-permission.component';
+import { EditPermissionComponent } from './page/permission/edit-permission/edit-permission.component';
+import { RoleListComponent } from './page/role/role-list/role-list.component';
+import { AddRoleComponent } from './page/role/add-role/add-role.component';
+import { EditRoleComponent } from './page/role/edit-role/edit-role.component';
+import { DomesticShippingListComponent } from './page/shipping-order/domestic/domestic-shipping-list/domestic-shipping-list.component';
+import { DomesticShippingOrderHistoryComponent } from './page/shipping-order/domestic/domestic-shipping-order-history/domestic-shipping-order-history.component';
+import { AddDomesticShippingComponent } from './page/shipping-order/domestic/add-domestic-shipping/add-domestic-shipping.component';
+import { UpdateDomesticShippingComponent } from './page/shipping-order/domestic/update-domestic-shipping/update-domestic-shipping.component';
+import { TileComponent } from './page/shipping-order/international/by-road/tile/tile.component';
+import { InternationalShippingListComponent } from './page/shipping-order/international/by-road/international-shipping-list-road/international-shipping-list.component';
+import { InternationalShippingOrderHistoryComponent } from './page/shipping-order/international/by-road/international-shipping-order-history-by-road/international-shipping-order-history.component';
+import { AddInternationalShippingComponent } from './page/shipping-order/international/by-road/add-international-shipping-by-road/add-international-shipping.component';
+import { UpdateInternationalShippingComponent } from './page/shipping-order/international/by-road/update-international-shipping-by-road/update-international-shipping.component';
+import { InternationalShipmentListAirComponent } from './page/shipping-order/international/by-air/international-shipment-list-air/international-shipment-list-air.component';
+import { InternationalShipmentOrderHistoryByAirComponent } from './page/shipping-order/international/by-air/international-shipment-order-history-by-air/international-shipment-order-history-by-air.component';
+import { AddInternationalShipmentByRoadComponent } from './page/shipping-order/international/by-air/add-international-shipment-by-air/add-international-shipment-by-road.component';
+import { UpdateInternationalShipmentByAirComponent } from './page/shipping-order/international/by-air/update-international-shipment-by-air/update-international-shipment-by-air.component';
+import { DomesticSummaryComponent } from './page/bounds/domestic/domestic-summary/domestic-summary.component';
+import { InternationalSummaryByAirComponent } from './page/bounds/international/international-summary-by-air/international-summary-by-air.component';
+import { InternationalSummaryByRoadComponent } from './page/bounds/international/international-summary-by-road/international-summary-by-road.component';
 
 const routes: Routes = [
   {
@@ -36,11 +56,6 @@ const routes: Routes = [
   {
     path:'home',
     component:DashboardComponent,
-    canActivate:[AuthGuard]
-  },
-  {
-    path:'driver',
-    component:DriverListComponent,
     canActivate:[AuthGuard]
   },
   {
@@ -56,6 +71,11 @@ const routes: Routes = [
   {
     path:'edit-product-field',
     component:ProductFieldUpdateComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'driver',
+    component:DriverListComponent,
     canActivate:[AuthGuard]
   },
   {
@@ -90,7 +110,7 @@ const routes: Routes = [
   },
   {
     path:'add-location-port',
-    component:UpdateLocationPortComponent,
+    component:AddLocationPortComponent,
     canActivate:[AuthGuard]
   },
   {
@@ -144,15 +164,117 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'shipping',
-    component:UpdateShippingOrderComponent,
+    path:'permission',
+    component:PermissionListComponent,
     canActivate:[AuthGuard]
   },
   {
-    path:'shipping-order-history',
-    component:ShippingOrderHistoryComponent,
+    path:'add-permission',
+    component:AddPermissionComponent,
     canActivate:[AuthGuard]
   },
+  {
+    path:'edit-permission',
+    component:EditPermissionComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'role',
+    component:RoleListComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'add-role',
+    component:AddRoleComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'edit-role',
+    component:EditRoleComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'domestic-shipping',
+    component:DomesticShippingListComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'domestic-shipping-history',
+    component:DomesticShippingOrderHistoryComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'add-domestic-shipping',
+    component:AddDomesticShippingComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'update-domestic-shipping',
+    component:UpdateDomesticShippingComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-tile',
+    component:TileComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-shipment-by-road',
+    component:InternationalShippingListComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-shipment-history-by-road',
+    component:InternationalShippingOrderHistoryComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'add-international-shipment-by-road',
+    component:AddInternationalShippingComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'update-international-shipment-by-road',
+    component:UpdateInternationalShippingComponent,
+    canActivate:[AuthGuard]
+  },
+  
+  {
+    path:'international-shipment-by-air',
+    component:InternationalShipmentListAirComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-shipment-history-by-air',
+    component:InternationalShipmentOrderHistoryByAirComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'add-international-shipment-by-air',
+    component:AddInternationalShipmentByRoadComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'update-international-shipment-by-air',
+    component:UpdateInternationalShipmentByAirComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'domestic-summary',
+    component:DomesticSummaryComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-summary-by-air',
+    component:InternationalSummaryByAirComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-summary-by-road',
+    component:InternationalSummaryByRoadComponent,
+    canActivate:[AuthGuard]
+  },
+
   {
     path:'login',
     component:LoginFormComponent

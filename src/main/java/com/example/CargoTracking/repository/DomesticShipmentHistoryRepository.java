@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface DomesticShipmentHistoryRepository extends JpaRepository<DomesticShipmentHistory , Long> {
+public interface DomesticShipmentHistoryRepository extends JpaRepository<DomesticShipmentHistory, Long> {
 }

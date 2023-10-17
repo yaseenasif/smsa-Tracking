@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-update-status',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpdateStatusComponent implements OnInit {
 
+  items: MenuItem[] | undefined;
+
   constructor() { }
-
+  name!:string;
+  
   ngOnInit(): void {
+    this.items = [{ label: 'Shipment Status List',routerLink:'/status'},{ label: 'Edit Shipment Status'}];
   }
-
 }

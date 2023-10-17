@@ -4,6 +4,11 @@ import com.example.CargoTracking.dto.InternationalShipmentDto;
 import com.example.CargoTracking.model.InternationalShipment;
 import com.example.CargoTracking.model.User;
 import com.example.CargoTracking.repository.InternationalShipmentRepository;
+
+import com.example.CargoTracking.model.InternationalShipmentHistory;
+import com.example.CargoTracking.model.User;
+import com.example.CargoTracking.repository.InternationalShipmentRepository;
+import com.example.CargoTracking.repository.InternationalShipmentHistoryRepository;
 import com.example.CargoTracking.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +30,8 @@ public class InternationalShipmentService {
     @Autowired
     UserRepository userRepository;
     @Autowired
+    InternationalShipmentHistoryRepository internationalShipmentHistoryRepository;
+    @Autowired
     EmailService emailService;
 
 
@@ -39,6 +46,7 @@ public class InternationalShipmentService {
 
             InternationalShipment internationalShipment = internationalShipmentRepository
                     .save(toEntity(internationalShipmentDto));
+
 //            ShipmentHistory shipmentHistory = ShipmentHistory.builder()
 //                    .status("Pre-Alert Created")
 //                    .processTime(LocalDateTime.now())
@@ -51,6 +59,18 @@ public class InternationalShipmentService {
 //                    .build();
 //
 //            shipmentHistoryRepository.save(shipmentHistory);
+
+            InternationalShipmentHistory shipmentHistory = InternationalShipmentHistory.builder()
+                    .status("Pre-Alert Created")
+                    .processTime(LocalDateTime.now())
+                    .locationCode(internationalShipment.getOriginCountry())
+                    .user(user.getId())
+                    .type(internationalShipment.getType())
+                    .internationalShipment(internationalShipment)
+                    .remarks(internationalShipment.getRemarks())
+                    .build();
+
+            internationalShipmentHistoryRepository.save(shipmentHistory);
 
             List<String> emails = userRepository.findEmailByLocation(internationalShipmentDto.getDestinationCountry());
 
@@ -86,5 +106,25 @@ public class InternationalShipmentService {
 
     private InternationalShipmentDto toDto(InternationalShipment internationalShipment){
         return modelMapper.map(internationalShipment,InternationalShipmentDto.class);
+    }
+
+    public List<InternationalShipmentDto> getInternationalOutBoundSummery() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof UserDetails){
+            String username = ((UserDetails) principal).getUsername();
+            User user = userRepository.findByName(username);
+            return toDtoList(internationalShipmentRepository.findByOriginCountryAndCreatedBy(user.getLocation().getLocationName(),username));
+        }
+        throw new RuntimeException("Shipment not found");
+    }
+
+    public List<InternationalShipmentDto> getInternationalInBoundSummery(){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof UserDetails){
+            String username = ((UserDetails) principal).getUsername();
+            User user = userRepository.findByName(username);
+            return toDtoList(internationalShipmentRepository.findByDestinationCountryAndCreatedBy(user.getLocation().getLocationName(),username));
+        }
+        throw new RuntimeException("Shipment not found");
     }
 }

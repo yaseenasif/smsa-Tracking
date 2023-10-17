@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-driver-list',
@@ -8,8 +9,22 @@ import { Component, OnInit } from '@angular/core';
 export class DriverListComponent implements OnInit {
 
   constructor() { }
+  products:any=[{name:"Demo",contactNumber:"Demo",referenceNumber:"Demo"},
+  {name:"Demo",contactNumber:"Demo",referenceNumber:"Demo"},
+  {name:"Demo",contactNumber:"Demo",referenceNumber:"Demo"},
+  {name:"Demo",contactNumber:"Demo",referenceNumber:"Demo"},
+  {name:"Demo",contactNumber:"Demo",referenceNumber:"Demo"},
+  {name:"Demo",contactNumber:"Demo",referenceNumber:"Demo"},
+  {name:"Demo",contactNumber:"Demo",referenceNumber:"Demo"},
+  {name:"Demo",contactNumber:"Demo",referenceNumber:"Demo"},
+  {name:"Demo",contactNumber:"Demo",referenceNumber:"Demo"},
+  {name:"Demo",contactNumber:"Demo",referenceNumber:"Demo"},];
+  items: MenuItem[] | undefined;
 
-  ngOnInit(): void {
+ 
+
+  ngOnInit() {
+      this.items = [{ label: 'Driver List'}];
   }
 
 }

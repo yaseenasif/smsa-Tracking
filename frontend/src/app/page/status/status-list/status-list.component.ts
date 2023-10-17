@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-status-list',
@@ -8,8 +9,22 @@ import { Component, OnInit } from '@angular/core';
 export class StatusListComponent implements OnInit {
 
   constructor() { }
+  products:any=[{name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},
+  {name:"Demo"},];
+  items: MenuItem[] | undefined;
 
-  ngOnInit(): void {
+ 
+
+  ngOnInit() {
+      this.items = [{ label: 'Shipment Status List'}];
   }
 
 }

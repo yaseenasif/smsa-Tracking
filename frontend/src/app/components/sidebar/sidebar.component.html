@@ -1,91 +1,133 @@
-<nav class="main-menu" >
-    <div class="sidebar-head" >
-        <img src="../../../assets/smca-logo.png" alt="" class="sidebar-img">
-    </div>
-    <ul>
-        <li>
-            <span class="sidebar-list-hover" routerLink="">
-                <i class="bi bi-bar-chart-line-fill"></i>
-                <span class="nav-text">
-                    Dashboard
-                </span>
-            </span>
-        </li>
-        <li class="child"  >
-            <span class="sidebar-list-hover" routerLink="/shipping-order-history" >
-                <i class="bi bi-clock-history"></i>
-                <span class="nav-text">
-                    Shipping History
-                </span>
-            </span>
-        </li>
-        <li class="child"   >
-            <span class="sidebar-list-hover" routerLink="/shipping" >
-                <i class="bi bi-postage-fill"></i>
-                <span class="nav-text">
-                    Shipping 
-                </span>
-            </span>
-        </li>
-        <li class="child">
-            <span class="sidebar-list-hover" routerLink="/user" >
-                <i class="bi bi-people-fill"></i>
-                <span class="nav-text">
-                    User
-                </span>
-            </span>
-        </li>
-        <li (click)="turner()">
-            <span class="sidebar-list-hover" >
-                <i class="bi bi-gear-fill"></i>
-                <span class="nav-text">
-                    Configuration
-                    <i *ngIf="configTurner"style="display: inline; font-size: 15px;" class="bi bi-caret-down-fill"></i>
-                    <i *ngIf="!configTurner" style="display: inline; font-size: 15px;" class="bi bi-caret-right-fill"></i>
-                </span>
-               
-            </span>
-        </li>
-       
-            <li class="child"  *ngIf="configTurner"  >
-                <span class="sidebar-list-hover" routerLink="/driver" >
-                    <i class="bi bi-car-front"></i>
+
+
+    <nav class="main-menu" >
+        <div class="sidebar-head" >
+            <img src="../../../assets/smca-logo.png" alt="" class="sidebar-img">
+        </div>
+        <ul>
+            <li>
+                <span class="sidebar-list-hover" routerLink="">
+                    <i class="bi bi-bar-chart-line-fill"></i>
                     <span class="nav-text">
-                        Driver
+                        Dashboard
                     </span>
                 </span>
             </li>
-            <li class="child"  *ngIf="configTurner" >
-                <span class="sidebar-list-hover" routerLink="/location" >
-                    <i class="bi bi-geo-alt"></i>
+            <li class="child"  >
+                <span class="sidebar-list-hover" routerLink="/domestic-shipping" >
+                    <i class="bi bi-train-freight-front-fill"></i>
                     <span class="nav-text">
-                        Location
+                        Domestic Shipment
                     </span>
                 </span>
             </li>
-            <li class="child"  *ngIf="configTurner" >
-                <span class="sidebar-list-hover" routerLink="/location-port" >
-                    <i class="bi bi-box-seam"></i>
+            <li class="child"   >
+                <span class="sidebar-list-hover" routerLink="/international-tile" >
+                    <i class="bi bi-airplane-fill"></i>
                     <span class="nav-text">
-                        Location Port
+                        International Shipment
                     </span>
                 </span>
             </li>
-            <li class="child"  *ngIf="configTurner" >
-                <span class="sidebar-list-hover" routerLink="/status" >
-                    <i class="bi bi-toggles2"></i>
+            <li class="child"   >
+                <span class="sidebar-list-hover" routerLink="/domestic-summary" >
+                    <i class="bi bi-journal-text"></i>
                     <span class="nav-text">
-                        Status
+                        Domestic Summary
                     </span>
                 </span>
             </li>
-            <li class="child"  *ngIf="configTurner" >
-                <span class="sidebar-list-hover" routerLink="/vehicle-type" >
-                    <i class="bi bi-truck"></i>
+            <li class="child"   >
+                <span class="sidebar-list-hover" routerLink="/international-summary-by-air" >
+                    <i class="bi bi-journal-text"></i>
                     <span class="nav-text">
-                        Vehicle type
+                        International Summary By Air
                     </span>
                 </span>
             </li>
-    </ul>
-</nav>
+            <li class="child"   >
+                <span class="sidebar-list-hover" routerLink="/international-summary-by-road" >
+                    <i class="bi bi-journal-text"></i>
+                    <span class="nav-text">
+                        International Summary By Road
+                    </span>
+                </span>
+            </li>
+            <li class="child">
+                <span class="sidebar-list-hover" routerLink="/user" >
+                    <i class="bi bi-people-fill"></i>
+                    <span class="nav-text">
+                        User
+                    </span>
+                </span>
+            </li>
+            <li (click)="turner()">
+                <span class="sidebar-list-hover" >
+                    <i class="bi bi-gear-fill"></i>
+                    <span class="nav-text">
+                        Configuration
+                        <i *ngIf="configTurner"style="display: inline; font-size: 15px;" class="bi bi-caret-down-fill"></i>
+                        <i *ngIf="!configTurner" style="display: inline; font-size: 15px;" class="bi bi-caret-right-fill"></i>
+                    </span>
+                   
+                </span>
+            </li>
+           
+                <li class="child"  *ngIf="configTurner"  >
+                    <span class="sidebar-list-hover" routerLink="/driver" >
+                        <i class="bi bi-car-front"></i>
+                        <span class="nav-text">
+                            Driver
+                        </span>
+                    </span>
+                </li>
+                <li class="child"  *ngIf="configTurner" >
+                    <span class="sidebar-list-hover" routerLink="/location" >
+                        <i class="bi bi-geo-alt"></i>
+                        <span class="nav-text">
+                            Location
+                        </span>
+                    </span>
+                </li>
+                <li class="child"  *ngIf="configTurner" >
+                    <span class="sidebar-list-hover" routerLink="/location-port" >
+                        <i class="bi bi-box-seam"></i>
+                        <span class="nav-text">
+                            Location Port
+                        </span>
+                    </span>
+                </li>
+                <li class="child"  *ngIf="configTurner" >
+                    <span class="sidebar-list-hover" routerLink="/status" >
+                        <i class="bi bi-toggles2"></i>
+                        <span class="nav-text">
+                            Shipment Status
+                        </span>
+                    </span>
+                </li>
+                <li class="child"  *ngIf="configTurner" >
+                    <span class="sidebar-list-hover" routerLink="/vehicle-type" >
+                        <i class="bi bi-truck"></i>
+                        <span class="nav-text">
+                            Vehicle type
+                        </span>
+                    </span>
+                </li>
+                <li class="child"  *ngIf="configTurner" >
+                    <span class="sidebar-list-hover" routerLink="/permission" >
+                        <i class="bi bi-key"></i>
+                        <span class="nav-text">
+                           Permission
+                        </span>
+                    </span>
+                </li>
+                <li class="child"  *ngIf="configTurner" >
+                    <span class="sidebar-list-hover" routerLink="/role" >
+                        <i class="bi bi-person-gear"></i>
+                        <span class="nav-text">
+                           Role
+                        </span>
+                    </span>
+                </li>
+        </ul>
+    </nav>
