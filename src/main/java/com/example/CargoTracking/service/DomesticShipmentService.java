@@ -109,13 +109,6 @@ public class DomesticShipmentService {
         throw new RuntimeException("Shipment not found");
     }
 
-//    public ResponseEntity<DomesticShipmentDto> update(Long id) {
-//        Optional<DomesticShipment> domesticShipment = domesticShipmentRepository.findById(id);
-//        if (domesticShipment.isPresent()){
-//
-//        }
-//    }
-
     public List<DomesticShipmentDto> toDtoList(List<DomesticShipment> domesticShipmentList){
         return domesticShipmentList.stream().map(this::toDto).collect(Collectors.toList());
     }
