@@ -9,6 +9,7 @@
               <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
           </div>
           <div class="body-card">
+            <p-toast></p-toast>
               <div class="table-head">
                   <p-toolbar>
                       <div class="p-toolbar-group-start">
@@ -24,7 +25,7 @@
             
   
             <div class="card">
-              <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+              <p-table [value]="permissions" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header">
                   <tr>
                     
@@ -33,15 +34,14 @@
                     <th class="text-center">Actions</th>
                   </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-product>
+                <ng-template pTemplate="body" let-permissions>
                   <tr>
-                    <td class="text-center">{{ product.name }}</td>
+                    <td class="text-center">{{ permissions.name }}</td>
                     <td class="text-center"> 
-                      <p-button routerLink="/edit-permission" icon="bi bi-pen" class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                      <p-button [routerLink]="['/edit-permission/',permissions.id]" icon="bi bi-pen" class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                        
                       </p-button>
-                       <p-button icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                      
+                       <p-button (click)="showDialog(permissions.id)" icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">                     
                        </p-button>
                     </td>
                   </tr>
@@ -53,4 +53,15 @@
       </div>
     </div>
   </div>
+
+    
+    <p-dialog header="Delete Permission" [(visible)]="visible" [style]="{width: '50vw'}">
+        <h4 class="mb-4">
+           Are sure you want to delete this permission on id {{pID}}
+        </h4>
+        <p-button (click)="deletePermissionByID(pID)" class="bg-b-color">
+          <i  class="bi bi-trash" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Confirm Delete
+        </p-button>
+    </p-dialog>
+
   

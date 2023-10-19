@@ -46,7 +46,7 @@
                 <p-password [(ngModel)]="password"     [ngModelOptions]="{standalone:true}" [toggleMask]="true"></p-password>
                 <small id="username-help" class="r-color" *ngIf="error">Invalid password.</small>
             </div>
-            <div class="flex justify-content-center mt-3 ">
+            <div class="flex justify-content-center mt-3 form-hook">
                 <p-button (click)="login({name:name,password:password})" label="Confirm" class="bg-b-color ml" >
                 </p-button>
             </div>
