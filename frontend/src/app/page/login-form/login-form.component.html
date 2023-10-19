@@ -1,4 +1,4 @@
-<!-- <div class="image-container" [ngStyle]="{ 'background-image': 'url(' + currentImageUrl + ')' }">
+    <!-- <div class="image-container" [ngStyle]="{ 'background-image': 'url(' + currentImageUrl + ')' }">
     <form [formGroup]="loginForm" class="reactive-form" (ngSubmit)="login(loginForm.value)">
         <img src="../../../assets/smca-logo.png" alt="" class="login-img">
         <div class="form-container">
@@ -38,7 +38,7 @@
             <h2 class="text-center">Login</h2>
             <div class="flex flex-column gap-2 mt-3">
                 <label htmlFor="name">Username</label>
-                <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="name"  [ngModelOptions]="{standalone:true}" />
+                <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="email"  [ngModelOptions]="{standalone:true}" />
                 <small id="username-help" class="r-color" *ngIf="error">Invalid Username.</small>
             </div>
             <div class="flex flex-column gap-2 mt-3 form-hook">
@@ -47,7 +47,7 @@
                 <small id="username-help" class="r-color" *ngIf="error">Invalid password.</small>
             </div>
             <div class="flex justify-content-center mt-3 ">
-                <p-button (click)="login({name:name,password:password})" label="Confirm" class="bg-b-color ml" >
+                <p-button (click)="login({email:email,password:password})" label="Confirm" class="bg-b-color ml" >
                 </p-button>
             </div>
         </div>

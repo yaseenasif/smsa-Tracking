@@ -10,7 +10,7 @@ import lombok.*;
 @Builder
 public class LoginCredentials {
 
-    private String name;
+    private String email;
     private String password;
 
 }

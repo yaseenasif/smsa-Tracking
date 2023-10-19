@@ -35,37 +35,44 @@ public class UserService {
     ModelMapper modelMapper;
 
     public UserDto addUser(UserDto userDto){
+        User userByEmail = userRepository.findByEmail(userDto.getEmail());
+        if(userByEmail == null){
+            try {
+                Optional<Roles> roles = Optional.ofNullable(roleRepository
+                        .findByName(userDto.getRole())
+                        .orElseThrow(() -> new RuntimeException("Role is incorrect")));
+                Location location;
+                if(userDto.getRole().equals("ROLE_ADMIN")){
+                    location = null;
+                }else{
+                    location = locationRepository.findByLocationName(userDto.getLocation())
+                            .orElseThrow(()-> new RuntimeException("Location is not in record"));
+                }
 
-        try {
-            Optional<Roles> roles = Optional.ofNullable(roleRepository
-                    .findByName(userDto.getRole())
-                    .orElseThrow(() -> new RuntimeException("Role is incorrect")));
-            Location location;
-            if(userDto.getRole().equals("ROLE_ADMIN")){
-                location = null;
-            }else{
-                 location = locationRepository.findByLocationName(userDto.getLocation())
-                        .orElseThrow(()-> new RuntimeException("Location is not in record"));
+
+                Set<Roles> rolesList = new HashSet<>();
+                rolesList.add(roles.get());
+
+
+                User user = User.builder()
+                        .name(userDto.getName())
+                        .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
+                        .roles(rolesList)
+                        .status(Boolean.TRUE)
+                        .location(location)
+                        .email(userDto.getEmail())
+                        .build();
+                User save = userRepository.save(user);
+                return toDto(save);
+
+            }catch(Exception e){
+                throw new RuntimeException("Some information is incorrect");
             }
+        }else{
+            throw new RuntimeException("Email is Already exist");
+        }
 
 
-            Set<Roles> rolesList = new HashSet<>();
-            rolesList.add(roles.get());
-
-            User user = User.builder()
-                    .name(userDto.getName())
-                    .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
-                    .roles(rolesList)
-                    .status(Boolean.TRUE)
-                    .location(location)
-                    .email(userDto.getEmail())
-                    .build();
-            User save = userRepository.save(user);
-            return toDto(save);
-
-        }catch(Exception e){
-            throw new RuntimeException("Some information is incorrect");
-            }
 
     }
 

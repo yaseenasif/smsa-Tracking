@@ -55,9 +55,11 @@ public class InternationalShipment {
     private String received;// new both
     private String shortages;// new both
     private String shortageAWBs;// new both
-    private String createdBy;
+    @ManyToOne
+    private User createdBy;
     private LocalDate createdAt;
-    private String updatedBy;
+    @ManyToOne
+    private User updatedBy;
     private LocalDate updatedAt;
 
     @OneToMany(mappedBy = "internationalShipment")
