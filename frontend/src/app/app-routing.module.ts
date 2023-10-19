@@ -174,7 +174,7 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'edit-permission',
+    path:'edit-permission/:id',
     component:EditPermissionComponent,
     canActivate:[AuthGuard]
   },
@@ -189,7 +189,7 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'edit-role',
+    path:'edit-role/:id',
     component:EditRoleComponent,
     canActivate:[AuthGuard]
   },

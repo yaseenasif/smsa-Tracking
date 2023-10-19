@@ -74,6 +74,9 @@ import { InternationalSummaryByRoadComponent } from './page/bounds/international
 import { InternationalSummaryByAirComponent } from './page/bounds/international/international-summary-by-air/international-summary-by-air.component';
 import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
+import { NgxUiLoaderModule,NgxUiLoaderHttpModule} from "ngx-ui-loader";
+import { DialogModule } from 'primeng/dialog';
+
 
 @NgModule({
   declarations: [
@@ -146,7 +149,12 @@ import { ToastModule } from 'primeng/toast';
     CalendarModule,
     FileUploadModule,
     ToastModule,
-    ChartModule
+    ChartModule,
+    NgxUiLoaderModule,
+    DialogModule,
+    NgxUiLoaderHttpModule.forRoot({
+      showForeground:true
+    })
   ],
 
   providers: [
