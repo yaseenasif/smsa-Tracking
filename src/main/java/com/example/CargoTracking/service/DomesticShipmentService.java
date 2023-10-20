@@ -1,20 +1,29 @@
 package com.example.CargoTracking.service;
 
+import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.model.DomesticShipment;
 import com.example.CargoTracking.model.DomesticShipmentHistory;
+import com.example.CargoTracking.model.Driver;
 import com.example.CargoTracking.model.User;
 import com.example.CargoTracking.repository.DomesticShipmentHistoryRepository;
 import com.example.CargoTracking.repository.DomesticShipmentRepository;
 import com.example.CargoTracking.repository.UserRepository;
+import com.example.CargoTracking.specification.DomesticSummarySpecification;
+import com.example.CargoTracking.specification.DriverSpecification;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -94,33 +103,108 @@ public class DomesticShipmentService {
         throw new RuntimeException(String.format("Domestic shipment Not Found By This Id %d",id));
     }
 
-    public List<DomesticShipmentDto> getOutboundShipment(){
+    public Page<DomesticShipmentDto> getOutboundShipment(SearchCriteriaForSummary searchCriteriaForSummary, int page, int size){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof UserDetails) {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<DomesticShipment> domesticShipmentPage;
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
-            if(user.getLocation() == null){
-                return new ArrayList<>();
+            if((user.getLocation() == null) && (searchCriteriaForSummary.getDestination() == null && searchCriteriaForSummary.getOrigin() == null
+                    && searchCriteriaForSummary.getToDate() == null && searchCriteriaForSummary.getFromDate() == null
+                    && searchCriteriaForSummary.getStatus() ==null)){
+
+                return null;
             }
-            return toDtoList(domesticShipmentRepository.findByOriginLocation(user.getLocation().getLocationName()));
+            if(searchCriteriaForSummary.getDestination() == null && searchCriteriaForSummary.getOrigin() == null
+                && searchCriteriaForSummary.getToDate() == null && searchCriteriaForSummary.getFromDate() == null
+                && searchCriteriaForSummary.getStatus() ==null){
+                Page<DomesticShipment> pageDomesticShipment =
+                        domesticShipmentRepository.findByOriginLocation(user.getLocation().getLocationName(), pageable);
+                Page<DomesticShipmentDto> pageDomesticShipmentDto =pageDomesticShipment.map(entity->toDto(entity));
+                return pageDomesticShipmentDto;
+            }else{
+                if(user.getLocation() != null){
+                    searchCriteriaForSummary.setOrigin(user.getLocation().getLocationName());
+                }
+
+                Specification<DomesticShipment> domesticSummarySpecification = DomesticSummarySpecification.getSearchSpecification(searchCriteriaForSummary);
+            Page<DomesticShipment> pageDomesticShipmentDto = domesticShipmentRepository.
+                findAll(domesticSummarySpecification, pageable);
+            Page<DomesticShipmentDto> pageDomesticShipmentDtoWithSpec = pageDomesticShipmentDto.map(entity->toDto(entity));
+
+            return pageDomesticShipmentDtoWithSpec;
+            }
+
         }
 
         throw new RuntimeException("Shipment not found");
     }
 
-    public List<DomesticShipmentDto> getInboundShipment() {
+//    public List<DomesticShipmentDto> getOutboundShipment(){
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        if(principal instanceof UserDetails) {
+//            String username = ((UserDetails) principal).getUsername();
+//            User user = userRepository.findByEmail(username);
+//            if(user.getLocation() == null){
+//                return new ArrayList<>();
+//            }
+//            return toDtoList(domesticShipmentRepository.findByOriginLocation(user.getLocation().getLocationName()));
+//        }
+//
+//        throw new RuntimeException("Shipment not found");
+//    }
+
+    public Page<DomesticShipmentDto> getInboundShipment(SearchCriteriaForSummary searchCriteriaForSummary, int page, int size) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof UserDetails) {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<DomesticShipment> domesticShipmentPage;
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
-            if(user.getLocation() == null){
-                return new ArrayList<>();
+            if((user.getLocation() == null) && (searchCriteriaForSummary.getDestination() == null && searchCriteriaForSummary.getOrigin() == null
+                    && searchCriteriaForSummary.getToDate() == null && searchCriteriaForSummary.getFromDate() == null
+                    && searchCriteriaForSummary.getStatus() ==null)){
+                return null;
             }
-            return toDtoList(domesticShipmentRepository.findByDestinationLocation(user.getLocation().getLocationName()));
+            if(searchCriteriaForSummary.getDestination() == null && searchCriteriaForSummary.getOrigin() == null
+                    && searchCriteriaForSummary.getToDate() == null && searchCriteriaForSummary.getFromDate() == null
+                    && searchCriteriaForSummary.getStatus() ==null){
+                Page<DomesticShipment> pageDomesticShipment =
+                        domesticShipmentRepository.findByDestinationLocation(user.getLocation().getLocationName(), pageable);
+                Page<DomesticShipmentDto> pageDomesticShipmentDto =pageDomesticShipment.map(entity->toDto(entity));
+                return pageDomesticShipmentDto;
+            }else{
+                if(user.getLocation() != null){
+                    searchCriteriaForSummary.setDestination(user.getLocation().getLocationName());
+                }
+
+                Specification<DomesticShipment> domesticSummarySpecification = DomesticSummarySpecification.getSearchSpecification(searchCriteriaForSummary);
+                Page<DomesticShipment> pageDomesticShipmentDto = domesticShipmentRepository.
+                        findAll(domesticSummarySpecification, pageable);
+                Page<DomesticShipmentDto> pageDomesticShipmentDtoWithSpec = pageDomesticShipmentDto.map(entity->toDto(entity));
+
+                return pageDomesticShipmentDtoWithSpec;
+            }
         }
 
         throw new RuntimeException("Shipment not found");
     }
+
+//    public List<DomesticShipmentDto> getInboundShipment() {
+//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        if(principal instanceof UserDetails) {
+//            String username = ((UserDetails) principal).getUsername();
+//            User user = userRepository.findByEmail(username);
+//            if(user.getLocation() == null){
+//                return new ArrayList<>();
+//            }
+//            return toDtoList(domesticShipmentRepository.findByDestinationLocation(user.getLocation().getLocationName()));
+//        }
+//
+//        throw new RuntimeException("Shipment not found");
+//    }
+
     public DomesticShipmentDto updateDomesticShipment(Long id, DomesticShipmentDto domesticShipmentDto) {
         Optional<DomesticShipment> domesticShipment = domesticShipmentRepository.findById(id);
         if(domesticShipment.isPresent()){
