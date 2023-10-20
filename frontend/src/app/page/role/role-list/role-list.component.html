@@ -14,17 +14,12 @@
                       <div class="p-toolbar-group-start">
                         <h2 class="h-color">Role List</h2>
                       </div>
-                      <div class="p-toolbar-group-end">
-                          <p-button class="bg-b-color" routerLink="/add-role">
-                            <i class="bi bi-plus-lg" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Add Role
-                          </p-button>
-                      </div>
                   </p-toolbar>
               </div>
             
   
             <div class="card">
-              <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+              <p-table [value]="roles" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header">
                   <tr>
                     
@@ -33,21 +28,22 @@
                     <th class="text-center">Actions</th>
                   </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-product>
+                <ng-template pTemplate="body" let-roles>
                   <tr>
-                    <td class="text-center">{{ product.name }}</td>
+                    <td class="text-center">{{ roles.name }}</td>
                     <td class="text-center">
-                        <ng-container *ngFor="let permissions of product.permission; let last = last">
-                            {{permissions.name}}{{ !last ? ',' : '' }}
+                      <ng-container *ngIf="roles.permissions.length > 0; else noPermissions">
+                        <ng-container *ngFor="let permissions of roles.permissions; let last = last">
+                          {{ permissions.name }}{{ !last ? ',' : '' }}
                         </ng-container>
+                      </ng-container>
+                      <ng-template #noPermissions>
+                        No permissions are assigned.
+                      </ng-template>
                     </td>
                     <td class="text-center"> 
-                      <p-button routerLink="/edit-role" icon="bi bi-pen" class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
-                       
-                      </p-button>
-                       <p-button icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                      
-                       </p-button>
+                      <p-button [routerLink]="['/edit-role/',roles.id]" icon="bi bi-pen" class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">                      
+                      </p-button>                     
                     </td>
                   </tr>
                 </ng-template>

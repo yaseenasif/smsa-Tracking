@@ -120,3 +120,13 @@ p-fileupload>.p-fileupload>.p-fileupload-buttonbar{
     justify-content: center;
     gap: 2%;
 }
+
+.color-red{
+    color:$error-color;
+}
+.form-hook>.p-inputwrapper>.p-password>.p-password-panel{
+  display:none;
+}
+.form-hook>.p-dialog-mask>.p-element>.p-dialog-content>.p-element>.p-button{
+    float: right;
+}

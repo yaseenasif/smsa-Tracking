@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { RoleService } from '../service/role.service';
+import { Role } from 'src/app/model/Role';
 
 @Component({
   selector: 'app-role-list',
@@ -7,22 +9,22 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./role-list.component.scss']
 })
 export class RoleListComponent {
-  constructor() { }
-  products:any=[{name:"Demo",permission:[{id:1,name:"Demo"}]},
-  {name:"Demo",permission:[{id:1,name:"Demo"},{id:1,name:"Demo"}]},
-  {name:"Demo",permission:[{id:1,name:"Demo"}]},
-  {name:"Demo",permission:[{id:1,name:"Demo"}]},
-  {name:"Demo",permission:[{id:1,name:"Demo"},{id:1,name:"Demo"}]},
-  {name:"Demo",permission:[{id:1,name:"Demo"}]},
-  {name:"Demo",permission:[{id:1,name:"Demo"},{id:1,name:"Demo"},{id:1,name:"Demo"},{id:1,name:"Demo"}]},
-  {name:"Demo",permission:[{id:1,name:"Demo"}]},
-  {name:"Demo",permission:[{id:1,name:"Demo"},{id:1,name:"Demo"},{id:1,name:"Demo"}]},
-  {name:"Demo",permission:[{id:1,name:"Demo"}]},];
+  constructor(private roleService:RoleService) { }
+  roles!:Role[];
   items: MenuItem[] | undefined;
 
  
 
   ngOnInit() {
       this.items = [{ label: 'Role List'}];
+      this.getAllPermissions();
   }
+
+  getAllPermissions(){
+    this.roleService.getALLRole().subscribe((res:Role[])=>{
+      this.roles=res;
+      console.log(this.roles);      
+    },error=>{  
+    })
+   }
 }
