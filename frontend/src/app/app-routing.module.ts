@@ -159,7 +159,7 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'edit-vehicle-type',
+    path:'edit-vehicle-type/:id',
     component:UpdateVehicleTypeComponent,
     canActivate:[AuthGuard]
   },

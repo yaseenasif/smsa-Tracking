@@ -18,9 +18,9 @@ export class EditRoleComponent {
   permissions!: Permission[];
   rId!: number;
   role:Role={
-    id: undefined,
-    name: undefined,
-    permissions: undefined
+    id:null,
+    name:null,
+    permissions:null
   };
 
   constructor(private permissionService:PermissionService,
