@@ -37,7 +37,9 @@ public class StatusService {
         if (vehicleType.isPresent()) {
            statusRepository.deleteById(id);
         }
-        throw new RuntimeException("Record doesn't exist");
+        else {
+            throw new RuntimeException("Record doesn't exist");
+        }
     }
 
 

@@ -43,9 +43,9 @@ import { UpdateInternationalShipmentByAirComponent } from './page/shipping-order
 import { DomesticSummaryComponent } from './page/bounds/domestic/domestic-summary/domestic-summary.component';
 import { InternationalSummaryByAirComponent } from './page/bounds/international/international-summary-by-air/international-summary-by-air.component';
 import { InternationalSummaryByRoadComponent } from './page/bounds/international/international-summary-by-road/international-summary-by-road.component';
-import { ShipmentStatusListComponent } from './page/status/shipment-status-list/shipment-status-list.component';
-import { AddShipmentStatusComponent } from './page/status/add-shipment-status/add-shipment-status.component';
-import { UpdateShipmentStatusComponent } from './page/status/update-shipment-status/update-shipment-status.component';
+import { ShipmentStatusListComponent } from './page/shipment-status/shipment-status-list/shipment-status-list.component';
+import { AddShipmentStatusComponent } from './page/shipment-status/add-shipment-status/add-shipment-status.component';
+import { UpdateShipmentStatusComponent } from './page/shipment-status/update-shipment-status/update-shipment-status.component';
 
 const routes: Routes = [
   {
@@ -144,7 +144,7 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'edit-shipment-status',
+    path:'edit-shipment-status/:id',
     component:UpdateShipmentStatusComponent,
     canActivate:[AuthGuard]
   },
