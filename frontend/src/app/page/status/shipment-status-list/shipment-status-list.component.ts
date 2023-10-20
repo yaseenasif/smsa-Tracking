@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 
 @Component({
-  selector: 'app-status-list',
-  templateUrl: './status-list.component.html',
-  styleUrls: ['./status-list.component.scss']
+  selector: 'app-shipment-status-list',
+  templateUrl: './shipment-status-list.component.html',
+  styleUrls: ['./shipment-status-list.component.scss']
 })
-export class StatusListComponent implements OnInit {
+export class ShipmentStatusListComponent {
 
   constructor() { }
   products:any=[{name:"Demo"},
@@ -26,5 +26,4 @@ export class StatusListComponent implements OnInit {
   ngOnInit() {
       this.items = [{ label: 'Shipment Status List'}];
   }
-
 }
