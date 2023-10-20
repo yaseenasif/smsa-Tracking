@@ -29,14 +29,14 @@ public class LoginController {
     public ResponseEntity<JwtAuthenticationResponse> createAuthenticationToken(@RequestBody LoginCredentials loginCredentials) throws Exception {
         try {
             authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(loginCredentials.getName(),loginCredentials.getPassword())
+                    new UsernamePasswordAuthenticationToken(loginCredentials.getEmail(),loginCredentials.getPassword())
             );
         }
         catch(BadCredentialsException e){
             throw new Exception("Incorrect Username or Password ! ",e);
         }
 
-        UserDetails userDetails = myUserDetailService.loadUserByUsername(loginCredentials.getName());
+        UserDetails userDetails = myUserDetailService.loadUserByUsername(loginCredentials.getEmail());
         String jwtToken = jwtUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtAuthenticationResponse(jwtToken));

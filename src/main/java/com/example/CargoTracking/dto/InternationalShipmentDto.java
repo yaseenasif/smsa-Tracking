@@ -51,8 +51,5 @@ public class InternationalShipmentDto {
     private String received;// new both
     private String shortages;// new both
     private String shortageAWBs;// new both
-    private String createdBy;
-    private LocalDate createdAt;
-    private String updatedBy;
-    private LocalDate updatedAt;
+
 }

@@ -2,9 +2,9 @@ package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.model.DomesticShipment;
-import com.example.CargoTracking.model.InternationalShipmentHistory;
+import com.example.CargoTracking.model.DomesticShipmentHistory;
 import com.example.CargoTracking.model.User;
-import com.example.CargoTracking.repository.InternationalShipmentHistoryRepository;
+import com.example.CargoTracking.repository.DomesticShipmentHistoryRepository;
 import com.example.CargoTracking.repository.DomesticShipmentRepository;
 import com.example.CargoTracking.repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -29,40 +30,34 @@ public class DomesticShipmentService {
     @Autowired
     UserRepository userRepository;
     @Autowired
-    InternationalShipmentHistoryRepository shipmentHistoryRepository;
+    DomesticShipmentHistoryRepository domesticShipmentHistoryRepository;
     @Autowired
     EmailService emailService;
 
     public DomesticShipmentDto addShipment(DomesticShipmentDto domesticShipmentDto)  {
 
-//        final String authorizationHeader = request.getHeader("Authorization");
-//            String jwt = authorizationHeader.substring(7);
-//            String username = jwtUtil.extractUsername(jwt);
-//            User user = userRepository.findByName(username);
-
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof UserDetails){
-                String username = ((UserDetails) principal).getUsername();
-            User user = userRepository.findByName(username);
+            String username = ((UserDetails) principal).getUsername();
+            User user = userRepository.findByEmail(username);
 
+            DomesticShipment unSaveDomesticShipment = toEntity(domesticShipmentDto);
+            unSaveDomesticShipment.setCreatedAt(LocalDate.now());
+            unSaveDomesticShipment.setCreatedBy(user);
+            DomesticShipment domesticShipment = domesticShipmentRepository.save(unSaveDomesticShipment);
 
-            domesticShipmentDto.setCreatedBy(username);
-            domesticShipmentDto.setCreatedAt(LocalDate.now());
-            DomesticShipment domesticShipment = domesticShipmentRepository.save(toEntity(domesticShipmentDto));
+            DomesticShipmentHistory domesticShipmentHistory = DomesticShipmentHistory.builder()
+                    .status("Pre-Alert Created")
+                    .processTime(LocalDateTime.now())
+                    .locationCode(domesticShipmentDto.getOriginLocation())
+                    .user(user.getId())
+                    .domesticShipment(domesticShipment)
+                    .remarks(domesticShipment.getRemarks())
+                    .build();
 
-//            InternationalShipmentHistory shipmentHistory = InternationalShipmentHistory.builder()
-//                    .status("Pre-Alert Created")
-//                    .processTime(LocalDateTime.now())
-//                    .locationCode(domesticShipmentDto.getOriginCountry())
-//                    .user(user.getId())
-//                    .type("Domestic")
-//                    .internationalShipment(null)
-//                    .remarks(domesticShipment.getRemarks())
-//                    .build();
-//
-//            shipmentHistoryRepository.save(shipmentHistory);
+            domesticShipmentHistoryRepository.save(domesticShipmentHistory);
 
-            List<String> emails = userRepository.findEmailByLocation(domesticShipmentDto.getDestinationCountry());
+            List<String> emails = userRepository.findEmailByLocation(domesticShipmentDto.getDestinationLocation());
 
             for (String to :emails) {
                 emailService.sendEmail(to,"Shipment Notification");
@@ -75,8 +70,21 @@ public class DomesticShipmentService {
     }
 
     public List<DomesticShipmentDto> getAll() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof UserDetails) {
+            String username = ((UserDetails) principal).getUsername();
+            User user = userRepository.findByEmail(username);
+            if(user.getLocation() == null){
+                return toDtoList(domesticShipmentRepository.findAll());
+            }else{
+                return toDtoList(domesticShipmentRepository.findAllByCreatedBy(user));
+
+            }
+        }
         return toDtoList(domesticShipmentRepository.findAll());
+
     }
+
 
     public DomesticShipmentDto getById(Long id) {
         Optional<DomesticShipment> domesticShipment = domesticShipmentRepository.findById(id);
@@ -90,9 +98,11 @@ public class DomesticShipmentService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof UserDetails) {
             String username = ((UserDetails) principal).getUsername();
-            User user = userRepository.findByName(username);
-
-            return toDtoList(domesticShipmentRepository.findByOriginCountryAndCreatedBy(user.getLocation().getLocationName(),username));
+            User user = userRepository.findByEmail(username);
+            if(user.getLocation() == null){
+                return new ArrayList<>();
+            }
+            return toDtoList(domesticShipmentRepository.findByOriginLocation(user.getLocation().getLocationName()));
         }
 
         throw new RuntimeException("Shipment not found");
@@ -102,12 +112,61 @@ public class DomesticShipmentService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof UserDetails) {
             String username = ((UserDetails) principal).getUsername();
-            User user = userRepository.findByName(username);
-
-            return toDtoList(domesticShipmentRepository.findByDestinationCountryAndCreatedBy(user.getLocation().getLocationName(),username));
+            User user = userRepository.findByEmail(username);
+            if(user.getLocation() == null){
+                return new ArrayList<>();
+            }
+            return toDtoList(domesticShipmentRepository.findByDestinationLocation(user.getLocation().getLocationName()));
         }
 
         throw new RuntimeException("Shipment not found");
+    }
+    public DomesticShipmentDto updateDomesticShipment(Long id, DomesticShipmentDto domesticShipmentDto) {
+        Optional<DomesticShipment> domesticShipment = domesticShipmentRepository.findById(id);
+        if(domesticShipment.isPresent()){
+            domesticShipment.get().setUpdatedAt(LocalDate.now());
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+              if(principal instanceof UserDetails) {
+                String username = ((UserDetails) principal).getUsername();
+                User user = userRepository.findByEmail(username);
+                domesticShipment.get().setUpdatedBy(user);
+            }
+            domesticShipment.get().setOriginFacility(domesticShipmentDto.getOriginFacility());
+            domesticShipment.get().setOriginLocation(domesticShipmentDto.getOriginLocation());
+            domesticShipment.get().setRefrigeratedTruck(domesticShipmentDto.getRefrigeratedTruck());
+            domesticShipment.get().setDestinationFacility(domesticShipmentDto.getDestinationFacility());
+            domesticShipment.get().setDestinationLocation(domesticShipmentDto.getDestinationLocation());
+            domesticShipment.get().setRouteNumber(domesticShipmentDto.getRouteNumber());
+            domesticShipment.get().setNumberOfShipments(domesticShipmentDto.getNumberOfShipments());
+            domesticShipment.get().setWeight(domesticShipmentDto.getWeight());
+            domesticShipment.get().setEtd(domesticShipmentDto.getEtd());
+            domesticShipment.get().setEta(domesticShipmentDto.getEta());
+            domesticShipment.get().setAtd(domesticShipmentDto.getAtd());
+            domesticShipment.get().setDriverName(domesticShipmentDto.getDriverName());
+            domesticShipment.get().setDriverContact(domesticShipmentDto.getDriverContact());
+            domesticShipment.get().setReferenceNumber(domesticShipmentDto.getReferenceNumber());
+            domesticShipment.get().setVehicleType(domesticShipmentDto.getVehicleType());
+            domesticShipment.get().setNumberOfPallets(domesticShipmentDto.getNumberOfPallets());
+            domesticShipment.get().setNumberOfBags(domesticShipmentDto.getNumberOfBags());
+            domesticShipment.get().setVehicleNumber(domesticShipmentDto.getVehicleNumber());
+            domesticShipment.get().setTagNumber(domesticShipmentDto.getTagNumber());
+            domesticShipment.get().setSealNumber(domesticShipmentDto.getSealNumber());
+            domesticShipment.get().setStatus(domesticShipmentDto.getStatus());
+            domesticShipment.get().setRemarks(domesticShipmentDto.getRemarks());
+            domesticShipment.get().setAta(domesticShipmentDto.getAta());
+            domesticShipment.get().setTotalShipments(domesticShipmentDto.getTotalShipments());
+            domesticShipment.get().setOverages(domesticShipmentDto.getOverages());
+            domesticShipment.get().setOveragesAwbs(domesticShipmentDto.getOveragesAwbs());
+            domesticShipment.get().setReceived(domesticShipmentDto.getReceived());
+            domesticShipment.get().setShortages(domesticShipmentDto.getShortages());
+            domesticShipment.get().setShortagesAwbs(domesticShipmentDto.getShortagesAwbs());
+            domesticShipment.get().setAttachments(domesticShipmentDto.getAttachments());
+
+            DomesticShipment save = domesticShipmentRepository.save(domesticShipment.get());
+            return toDto(save);
+        }else{
+            throw new RuntimeException("Domestic Shipment Not found");
+        }
     }
 
     public List<DomesticShipmentDto> toDtoList(List<DomesticShipment> domesticShipmentList){

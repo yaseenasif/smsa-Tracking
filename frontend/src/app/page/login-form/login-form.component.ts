@@ -40,7 +40,7 @@ export class LoginFormComponent implements OnInit {
   //   this.currentIndex = (this.currentIndex + 1) % this.images.length;
   // }
   
-  name!:string
+  email!:string
   password!:string
   error:boolean=false;
   

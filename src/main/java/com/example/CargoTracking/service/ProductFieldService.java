@@ -2,7 +2,6 @@ package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.dto.ProductFieldDto;
 import com.example.CargoTracking.dto.ProductFieldValuesDto;
-import com.example.CargoTracking.dto.Type;
 import com.example.CargoTracking.model.ProductField;
 import com.example.CargoTracking.model.ProductFieldValues;
 import com.example.CargoTracking.repository.ProductFieldRepository;

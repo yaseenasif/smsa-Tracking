@@ -15,11 +15,11 @@ public class MyUserDetailService implements UserDetailsService {
     UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) {
+    public UserDetails loadUserByUsername(String email) {
 
-        User user = userRepository.findByName(username);
+        User user = userRepository.findByEmail(email);
         if(user == null){
-            throw new RuntimeException("Wrong Credentials"+username);
+            throw new RuntimeException("Wrong Credentials"+email);
         }
         return new CustomUserDetails(user);
     }

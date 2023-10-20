@@ -17,40 +17,53 @@ import java.util.List;
 @Builder
 @Entity
 public class DomesticShipment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String originCountry;
-    private String originPort;
-    private String destinationCountry;
-    private String destinationPort;
-    private String shipmentMode;
-    private String mode;
-    private Date departureDate;
-    private Date arrivalDate;
-    private Time departureTime;
-    private Time arrivalTime;
+    private String originFacility;
+    private String originLocation;
+    private String refrigeratedTruck;
+    private String destinationFacility;
+    private String destinationLocation;
+    private String routeNumber;
     private Integer numberOfShipments;
-    private Double actualWeight;
+    private Double weight;
+    private String etd;
+    private String eta;
+    private String atd;
     private String driverName;
-    private String driverNumber;
+    private String driverContact;
     private String referenceNumber;
     private String vehicleType;
-    private String vehicleNumber;
     private Integer numberOfPallets;
+    private Integer numberOfBags;
+    private String vehicleNumber;
     private Long tagNumber;
     private Long sealNumber;
-    private Integer numberOfBags;
-    // attachments dalega
     private String status;
     private String remarks;
-    private String createdBy;
+    private String ata;
+    private Integer totalShipments;
+    private String overages;
+    private String overagesAwbs;
+    private String received;
+    private String shortages;
+    private String shortagesAwbs;
+    private String attachments;
+
+    // attachments dalega
+//    private String createdBy;
     private LocalDate createdAt;
-    private String updatedBy;
+//    private String updatedBy;
     private LocalDate updatedAt;
 
-//    @OneToMany(mappedBy = "domesticShipment")
-//    private List<InternationalShipmentHistory> shipmentHistory;
+    @ManyToOne
+    private User createdBy;
+
+    @ManyToOne
+    private User UpdatedBy;
+
+    @OneToMany(mappedBy = "domesticShipment")
+    private List<DomesticShipmentHistory> domesticShipmentHistories ;
 
 }

@@ -1,7 +1,10 @@
 package com.example.CargoTracking.controller;
 
+import com.example.CargoTracking.criteria.SearchCriteria;
 import com.example.CargoTracking.dto.DriverDto;
 import com.example.CargoTracking.service.DriverService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -25,10 +28,11 @@ public class DriverController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/driver")
-    public ResponseEntity<Page<DriverDto>> getAll(@RequestParam(defaultValue = "0") int page,
+    public ResponseEntity<Page<DriverDto>> getAll(@RequestParam(value = "value",required = false) String value,
+                                                    @RequestParam(defaultValue = "0") int page,
                                                   @RequestParam(defaultValue = "10") int size
-                                                  ){
-        return ResponseEntity.ok(driverService.getActiveDrivers(page,size));
+                                                  ) throws JsonProcessingException {
+        return ResponseEntity.ok(driverService.getActiveDrivers(value,page,size));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
