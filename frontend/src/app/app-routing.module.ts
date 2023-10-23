@@ -99,7 +99,7 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'edit-location',
+    path:'edit-location/:id',
     component:UpdateLocationComponent,
     canActivate:[AuthGuard]
   },
