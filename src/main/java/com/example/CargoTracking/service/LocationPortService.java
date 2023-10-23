@@ -24,12 +24,9 @@ public class LocationPortService {
     LocationRepository locationRepository;
     public LocationPortDto addPort(LocationPortDto locationPortDto) {
 
-        Location location = locationRepository.findByLocationName(locationPortDto.getLocation())
-                .orElseThrow(()-> new RuntimeException("Location not Found"));
-
         LocationPort locationPort = LocationPort.builder()
                 .portName(locationPortDto.getPortName())
-                .location(location)
+                .location(locationPortDto.getLocation())
                 .status(Boolean.TRUE)
                 .build();
 
@@ -62,12 +59,9 @@ public class LocationPortService {
     public LocationPortDto updateById(Long id, LocationPortDto locationPortDto) {
         Optional<LocationPort> locationPort = locationPortRepository.findById(id);
 
-        Location location = locationRepository.findByLocationName(locationPortDto.getLocation())
-                .orElseThrow(()-> new RuntimeException("Location not found"));
-
         if(locationPort.isPresent()){
             locationPort.get().setPortName(locationPortDto.getPortName());
-            locationPort.get().setLocation(location);
+            locationPort.get().setLocation(locationPortDto.getLocation());
             return toDto(locationPortRepository.save(locationPort.get()));
         }
 
