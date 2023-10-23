@@ -9,8 +9,10 @@
             <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
           </div>
           <div class="body-card">
+             <p-toast></p-toast>
             <div class="card">
               <h1 class="mb-4 h-color">Add Location Port</h1>
+              <form #permissionForm="ngForm" (ngSubmit)="onSubmit()">
               <div class="grid">
                 <div class="col-12 md:col-12 lg:col-6">
                   <div class="flex flex-column gap-2">
@@ -18,22 +20,24 @@
                     <input
                       pInputText
                       id="name"
-                      aria-describedby="name-help"
-                      [ngModelOptions]="{standalone:true}"
-                      [(ngModel)]="portName"
+                      aria-describedby="name-help"                    
+                      [(ngModel)]="locationPort.portName"
+                      #name="ngModel"
+                      required
+                      name="name"
                     />
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
+                    <small id="name-help" class="color-red"  *ngIf="name.invalid && (name.dirty || name.touched)">Name is required.</small> 
                   </div>
                 </div>
                 <div class="col-12 md:col-12 lg:col-6">
                   <div class="flex flex-column gap-2 form-hook">
+                    {{location|json}}
+                    {{ locationPort.location|json}}
                     <label htmlFor="name">Location</label>
-                    <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Country">
+                    <p-dropdown class="w-full" [options]="location"  [ngModelOptions]="{standalone: true}" [(ngModel)]=" locationPort.location" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Location">
                         <ng-template pTemplate="selectedItem">
-                            <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
-                                <div>{{ selectedLocation.locationName}}</div>
+                            <div class="flex align-items-center gap-2" *ngIf="locationPort">
+                                <div>{{ locationPort.location}}</div>
                             </div>
                         </ng-template>
                         <ng-template let-location pTemplate="item">
@@ -48,9 +52,10 @@
               <div class="flex align-items-center justify-content-end mt-4">
                   <p-button label="Cancel" class="bg-o-color mr" routerLink="/location-port" styleClass="p-button-outlined">
                   </p-button>
-                  <p-button label="Save" class="bg-b-color ml" >
+                  <p-button type="submit" [disabled]="!permissionForm.form.valid"  label="Save" class="bg-b-color ml">
                   </p-button>
               </div>
+              </form>
             </div>
           </div>
         </div>
