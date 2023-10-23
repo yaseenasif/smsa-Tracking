@@ -2,6 +2,8 @@ package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
 import com.example.CargoTracking.dto.InternationalShipmentDto;
+import com.example.CargoTracking.exception.RecordNotFoundException;
+import com.example.CargoTracking.exception.UserNotFoundException;
 import com.example.CargoTracking.model.DomesticShipment;
 import com.example.CargoTracking.model.InternationalShipment;
 import com.example.CargoTracking.model.User;
@@ -78,7 +80,7 @@ public class InternationalShipmentService {
             return  toDto(internationalShipment);
 
         }
-        throw new RuntimeException("Error creating international shipment");
+        throw new UserNotFoundException(String.format("User not found while creating international shipment"));
     }
 
     public List<InternationalShipmentDto> getAll() {
@@ -94,7 +96,7 @@ public class InternationalShipmentService {
             }
             return toDtoList(internationalShipmentRepository.findAllByCreatedByForAir(user));
         }
-        throw new RuntimeException("User Not Found");
+        throw new UserNotFoundException(String.format("User not found"));
     }
 
     public List<InternationalShipmentDto> getAllByUserAndForRoad() {
@@ -107,7 +109,7 @@ public class InternationalShipmentService {
             }
             return toDtoList(internationalShipmentRepository.findAllByCreatedByForRoad(user));
         }
-        throw new RuntimeException("User Not Found");
+        throw new UserNotFoundException(String.format("User not found"));
     }
 
     public InternationalShipmentDto getById(Long id) {
@@ -115,7 +117,7 @@ public class InternationalShipmentService {
         if(internationalShipment.isPresent()){
             return toDto(internationalShipment.get());
         }
-        throw new RuntimeException(String.format("International shipment Not Found By This Id %d",id));
+        throw new RecordNotFoundException(String.format("International shipment Not Found By This Id %d",id));
     }
 
     private List<InternationalShipmentDto> toDtoList(List<InternationalShipment> internationalShipmentList){
@@ -140,7 +142,7 @@ public class InternationalShipmentService {
             if((user.getLocation() == null) && (searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
                     && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
                     && searchCriteriaForInternationalSummary.getStatus() ==null)){
-                return null;
+                throw new RecordNotFoundException(String.format("International shipment Not Found because user haven't an origin"));
             }
             if(searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
                     && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
@@ -162,7 +164,7 @@ public class InternationalShipmentService {
                 return internationalShipmentPageDto;
             }
         }
-        throw new RuntimeException("Shipment not found");
+        throw new UserNotFoundException(String.format("User not found"));
     }
 
     public Page<InternationalShipmentDto> getInternationalInBoundSummeryForAir(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary,
@@ -175,7 +177,7 @@ public class InternationalShipmentService {
             if((user.getLocation() == null) && (searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
                     && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
                     && searchCriteriaForInternationalSummary.getStatus() ==null)){
-                return null;
+                throw new RecordNotFoundException(String.format("International shipment Not Found because user haven't an origin"));
             }
             if(searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
                     && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
@@ -197,7 +199,7 @@ public class InternationalShipmentService {
                 return internationalShipmentPageDto;
             }
         }
-        throw new RuntimeException("Shipment not found");
+        throw new UserNotFoundException(String.format("User not found"));
     }
 
     public Page<InternationalShipmentDto> getInternationalOutBoundSummeryForRoad(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary,
@@ -210,7 +212,7 @@ public class InternationalShipmentService {
             if((user.getLocation() == null) && (searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
                     && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
                     && searchCriteriaForInternationalSummary.getStatus() ==null)){
-                return null;
+                throw new RecordNotFoundException(String.format("International shipment Not Found because user haven't an origin"));
             }
             if(searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
                     && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
@@ -232,7 +234,7 @@ public class InternationalShipmentService {
                 return internationalShipmentPageDto;
             }
         }
-        throw new RuntimeException("Shipment not found");
+        throw new UserNotFoundException(String.format("User not found"));
     }
 
     public Page<InternationalShipmentDto> getInternationalInBoundSummeryForRoad(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary,
@@ -245,7 +247,7 @@ public class InternationalShipmentService {
             if((user.getLocation() == null) && (searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
                     && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
                     && searchCriteriaForInternationalSummary.getStatus() ==null)){
-                return null;
+                throw new RecordNotFoundException(String.format("International shipment Not Found because user haven't an origin"));
             }
             if(searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
                     && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
@@ -267,7 +269,7 @@ public class InternationalShipmentService {
                 return internationalShipmentPageDto;
             }
         }
-        throw new RuntimeException("Shipment not found");
+        throw new UserNotFoundException(String.format("User not found"));
     }
 
     public InternationalShipmentDto updateInternationalShipment(Long id, InternationalShipmentDto internationalShipmentDto) {
@@ -280,49 +282,51 @@ public class InternationalShipmentService {
 
                 internationalShipment.get().setUpdatedAt(LocalDate.now());
                 internationalShipment.get().setUpdatedBy(user);
-            }else{
-                throw new RuntimeException("Error Updating international shipment");
-            }
-            internationalShipment.get().setOriginCountry(internationalShipmentDto.getOriginCountry());
-            internationalShipment.get().setOriginPort(internationalShipmentDto.getOriginPort());
-            internationalShipment.get().setRefrigeratedTruck(internationalShipmentDto.getRefrigeratedTruck());
-            internationalShipment.get().setType(internationalShipmentDto.getType());
-            internationalShipment.get().setShipmentMode(internationalShipmentDto.getShipmentMode());
-            internationalShipment.get().setPreAlertNumber(internationalShipmentDto.getPreAlertNumber());
-            internationalShipment.get().setDestinationCountry(internationalShipmentDto.getDestinationCountry());
-            internationalShipment.get().setDestinationPort(internationalShipmentDto.getDestinationPort());
-            internationalShipment.get().setCarrier(internationalShipmentDto.getCarrier());
-            internationalShipment.get().setDepartureTime(internationalShipmentDto.getDepartureTime());
-            internationalShipment.get().setDepartureDate(internationalShipmentDto.getDepartureDate());
-            internationalShipment.get().setFlightNumber(internationalShipmentDto.getFlightNumber());
-            internationalShipment.get().setNumberOfShipments(internationalShipmentDto.getNumberOfShipments());
-            internationalShipment.get().setArrivalDate(internationalShipmentDto.getArrivalDate());
-            internationalShipment.get().setArrivalTime(internationalShipmentDto.getArrivalTime());
-            internationalShipment.get().setActualWeight(internationalShipmentDto.getActualWeight());
-            internationalShipment.get().setDriverName(internationalShipmentDto.getDriverName());
-            internationalShipment.get().setDriverContact(internationalShipmentDto.getDriverContact());
-            internationalShipment.get().setReferenceNumber(internationalShipmentDto.getReferenceNumber());
-            internationalShipment.get().setVehicleType(internationalShipmentDto.getVehicleType());
-            internationalShipment.get().setNumberOfPallets(internationalShipmentDto.getNumberOfPallets());
-            internationalShipment.get().setNumberOfBags(internationalShipmentDto.getNumberOfBags());
-            internationalShipment.get().setVehicleNumber(internationalShipmentDto.getVehicleNumber());
-            internationalShipment.get().setTagNumber(internationalShipmentDto.getTagNumber());
-            internationalShipment.get().setSealNumber(internationalShipmentDto.getSealNumber());
-            internationalShipment.get().setAttachments(internationalShipmentDto.getAttachments());
-            internationalShipment.get().setStatus(internationalShipmentDto.getStatus());
-            internationalShipment.get().setRemarks(internationalShipmentDto.getRemarks());
-            internationalShipment.get().setAta(internationalShipmentDto.getAta());
-            internationalShipment.get().setTotalShipments(internationalShipmentDto.getTotalShipments());
-            internationalShipment.get().setOverages(internationalShipmentDto.getOverages());
-            internationalShipment.get().setOverageAWBs(internationalShipmentDto.getOverageAWBs());
-            internationalShipment.get().setReceived(internationalShipmentDto.getReceived());
-            internationalShipment.get().setShortages(internationalShipmentDto.getShortages());
-            internationalShipment.get().setShortageAWBs(internationalShipmentDto.getShortageAWBs());
 
-            InternationalShipment save = internationalShipmentRepository.save(internationalShipment.get());
-            return toDto(save);
+                internationalShipment.get().setOriginCountry(internationalShipmentDto.getOriginCountry());
+                internationalShipment.get().setOriginPort(internationalShipmentDto.getOriginPort());
+                internationalShipment.get().setRefrigeratedTruck(internationalShipmentDto.getRefrigeratedTruck());
+                internationalShipment.get().setType(internationalShipmentDto.getType());
+                internationalShipment.get().setShipmentMode(internationalShipmentDto.getShipmentMode());
+                internationalShipment.get().setPreAlertNumber(internationalShipmentDto.getPreAlertNumber());
+                internationalShipment.get().setDestinationCountry(internationalShipmentDto.getDestinationCountry());
+                internationalShipment.get().setDestinationPort(internationalShipmentDto.getDestinationPort());
+                internationalShipment.get().setCarrier(internationalShipmentDto.getCarrier());
+                internationalShipment.get().setDepartureTime(internationalShipmentDto.getDepartureTime());
+                internationalShipment.get().setDepartureDate(internationalShipmentDto.getDepartureDate());
+                internationalShipment.get().setFlightNumber(internationalShipmentDto.getFlightNumber());
+                internationalShipment.get().setNumberOfShipments(internationalShipmentDto.getNumberOfShipments());
+                internationalShipment.get().setArrivalDate(internationalShipmentDto.getArrivalDate());
+                internationalShipment.get().setArrivalTime(internationalShipmentDto.getArrivalTime());
+                internationalShipment.get().setActualWeight(internationalShipmentDto.getActualWeight());
+                internationalShipment.get().setDriverName(internationalShipmentDto.getDriverName());
+                internationalShipment.get().setDriverContact(internationalShipmentDto.getDriverContact());
+                internationalShipment.get().setReferenceNumber(internationalShipmentDto.getReferenceNumber());
+                internationalShipment.get().setVehicleType(internationalShipmentDto.getVehicleType());
+                internationalShipment.get().setNumberOfPallets(internationalShipmentDto.getNumberOfPallets());
+                internationalShipment.get().setNumberOfBags(internationalShipmentDto.getNumberOfBags());
+                internationalShipment.get().setVehicleNumber(internationalShipmentDto.getVehicleNumber());
+                internationalShipment.get().setTagNumber(internationalShipmentDto.getTagNumber());
+                internationalShipment.get().setSealNumber(internationalShipmentDto.getSealNumber());
+                internationalShipment.get().setAttachments(internationalShipmentDto.getAttachments());
+                internationalShipment.get().setStatus(internationalShipmentDto.getStatus());
+                internationalShipment.get().setRemarks(internationalShipmentDto.getRemarks());
+                internationalShipment.get().setAta(internationalShipmentDto.getAta());
+                internationalShipment.get().setTotalShipments(internationalShipmentDto.getTotalShipments());
+                internationalShipment.get().setOverages(internationalShipmentDto.getOverages());
+                internationalShipment.get().setOverageAWBs(internationalShipmentDto.getOverageAWBs());
+                internationalShipment.get().setReceived(internationalShipmentDto.getReceived());
+                internationalShipment.get().setShortages(internationalShipmentDto.getShortages());
+                internationalShipment.get().setShortageAWBs(internationalShipmentDto.getShortageAWBs());
+
+                InternationalShipment save = internationalShipmentRepository.save(internationalShipment.get());
+                return toDto(save);
+            }else{
+                throw new UserNotFoundException(String.format("User not found"));
+            }
+
         }else{
-            throw new RuntimeException("International Shipment Not Found");
+            throw new RecordNotFoundException(String.format("International shipment Not Found By This Id %d",id));
         }
     }
 }
