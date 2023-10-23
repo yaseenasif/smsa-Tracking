@@ -1,8 +1,12 @@
 package com.example.CargoTracking.controller;
 
+import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.service.DomesticShipmentService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -41,12 +45,18 @@ public class DomesticShipmentController {
     }
 
     @GetMapping("/domestic-shipment/outbound")
-    public ResponseEntity<List<DomesticShipmentDto>> getOutboundShipment(){
-        return ResponseEntity.ok(domesticShipmentService.getOutboundShipment());
+    public ResponseEntity<Page<DomesticShipmentDto>> getOutboundShipment(@RequestParam(value = "value",required = false) String value,
+                                                                         @RequestParam(defaultValue = "0") int page,
+                                                                         @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForSummary searchCriteriaForSummary = new ObjectMapper().readValue(value, SearchCriteriaForSummary.class);
+        return ResponseEntity.ok(domesticShipmentService.getOutboundShipment(searchCriteriaForSummary,page,size));
     }
     @GetMapping("/domestic-shipment/inbound")
-    public ResponseEntity<List<DomesticShipmentDto>> getInboundShipment(){
-        return ResponseEntity.ok(domesticShipmentService.getInboundShipment());
+    public ResponseEntity<Page<DomesticShipmentDto>> getInboundShipment(@RequestParam(value = "value",required = false) String value,
+                                                                        @RequestParam(defaultValue = "0") int page,
+                                                                        @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForSummary searchCriteriaForSummary = new ObjectMapper().readValue(value, SearchCriteriaForSummary.class);
+        return ResponseEntity.ok(domesticShipmentService.getInboundShipment(searchCriteriaForSummary,page,size));
     }
 
     @PatchMapping("/update-domestic-shipment/{id}")

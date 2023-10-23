@@ -39,4 +39,10 @@ public class StatusController {
                 statusService.deleteById(id);
         }
 
+        @PreAuthorize("hasRole('ROLE_ADMIN')")
+        @PutMapping("/status/{id}")
+        public ResponseEntity<Status> updateStatus(@PathVariable Long id,@RequestBody Status status){
+                return ResponseEntity.ok(statusService.updateStatus(id,status));
+        }
+
 }

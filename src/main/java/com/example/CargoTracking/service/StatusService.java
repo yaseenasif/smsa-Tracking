@@ -1,5 +1,6 @@
 package com.example.CargoTracking.service;
 
+import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.model.Status;
 import com.example.CargoTracking.repository.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class StatusService {
         if (status.isPresent()) {
             return status.get();
         }
-        throw new RuntimeException(String.format("Status Not Found On this Id => %d", id));
+        throw new RecordNotFoundException(String.format("Status Not Found On this Id => %d", id));
     }
 
     public void deleteById(Long id) {
@@ -37,10 +38,17 @@ public class StatusService {
         if (vehicleType.isPresent()) {
            statusRepository.deleteById(id);
         }
-        else {
-            throw new RuntimeException("Record doesn't exist");
-        }
+        throw new RecordNotFoundException(String.format("Status not found by this id => %d",id));
     }
 
 
+    public Status updateStatus(Long id, Status status) {
+        Optional<Status> savedStatus = statusRepository.findById(id);
+        if (savedStatus.isPresent()) {
+            Status unSaveStatus = savedStatus.get();
+            unSaveStatus.setName(status.getName());
+            return statusRepository.save(unSaveStatus);
+        }
+        throw new RecordNotFoundException(String.format("Status not found by this id => %d",id));
+    }
 }

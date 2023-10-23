@@ -1,9 +1,14 @@
 package com.example.CargoTracking.controller;
 
+import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
+import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.dto.InternationalShipmentDto;
 import com.example.CargoTracking.service.InternationalShipmentService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,23 +46,40 @@ public class InternationalShipmentController {
     }
 
     @GetMapping("/international-outbound-summery-air")
-    public ResponseEntity<List<InternationalShipmentDto>> getInternationalOutBoundSummeryForAir(){
-        return ResponseEntity.ok(internationalShipmentService.getInternationalOutBoundSummeryForAir());
+    public ResponseEntity<Page<InternationalShipmentDto>> getInternationalOutBoundSummeryForAir(@RequestParam(value = "value",required = false) String value,
+                                                                                                @RequestParam(defaultValue = "0") int page,
+                                                                                                @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForInternationalSummary
+                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
+
+        return ResponseEntity.ok(internationalShipmentService.getInternationalOutBoundSummeryForAir(searchCriteriaForInternationalSummary,page,size));
     }
 
     @GetMapping("/international-outbound-summery-road")
-    public ResponseEntity<List<InternationalShipmentDto>> getInternationalOutBoundSummeryForRoad(){
-        return ResponseEntity.ok(internationalShipmentService.getInternationalOutBoundSummeryForRoad());
+    public ResponseEntity<Page<InternationalShipmentDto>> getInternationalOutBoundSummeryForRoad(@RequestParam(value = "value",required = false) String value,
+                                                                                                 @RequestParam(defaultValue = "0") int page,
+                                                                                                 @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForInternationalSummary
+                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
+        return ResponseEntity.ok(internationalShipmentService.getInternationalOutBoundSummeryForRoad(searchCriteriaForInternationalSummary,page,size));
     }
 
     @GetMapping("/international-inbound-summery-air")
-    public ResponseEntity<List<InternationalShipmentDto>> getInternationalInBoundSummeryForAir(){
-        return ResponseEntity.ok(internationalShipmentService.getInternationalInBoundSummeryForAir());
+    public ResponseEntity<Page<InternationalShipmentDto>> getInternationalInBoundSummeryForAir(@RequestParam(value = "value",required = false) String value,
+                                                                                               @RequestParam(defaultValue = "0") int page,
+                                                                                               @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForInternationalSummary
+                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
+        return ResponseEntity.ok(internationalShipmentService.getInternationalInBoundSummeryForAir(searchCriteriaForInternationalSummary,page,size));
     }
 
     @GetMapping("/international-inbound-summery-road")
-    public ResponseEntity<List<InternationalShipmentDto>> getInternationalInBoundSummeryForRoad(){
-        return ResponseEntity.ok(internationalShipmentService.getInternationalInBoundSummeryForRoad());
+    public ResponseEntity<Page<InternationalShipmentDto>> getInternationalInBoundSummeryForRoad(@RequestParam(value = "value",required = false) String value,
+                                                                                                @RequestParam(defaultValue = "0") int page,
+                                                                                                @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForInternationalSummary
+                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
+        return ResponseEntity.ok(internationalShipmentService.getInternationalInBoundSummeryForRoad(searchCriteriaForInternationalSummary,page,size));
     }
 
     @PatchMapping("/update-international-shipment/{id}")

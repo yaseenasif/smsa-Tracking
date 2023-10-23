@@ -1,6 +1,7 @@
 package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.dto.RolesDto;
+import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.model.Permission;
 import com.example.CargoTracking.model.Roles;
 import com.example.CargoTracking.repository.RoleRepository;
@@ -55,7 +56,7 @@ public class RolesService {
         if(roles.isPresent()){
             roleRepository.deleteById(id);
         }
-        throw new RuntimeException("Record doesn't exist");
+        throw new RecordNotFoundException(String.format("Role does not exist by this id => %d",id));
     }
 
     public List<RolesDto> toDtoList(List<Roles> roles){

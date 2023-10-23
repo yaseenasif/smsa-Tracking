@@ -1,5 +1,6 @@
 package com.example.CargoTracking.dto;
 
+import com.example.CargoTracking.model.Location;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -17,7 +18,7 @@ public class LocationPortDto {
     private String portName;
     private boolean status;
     @NotBlank(message = "Location name is required")
-    private String location;
+    private Location location;
 
 
 }

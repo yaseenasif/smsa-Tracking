@@ -3,26 +3,29 @@ package com.example.CargoTracking.repository;
 import com.example.CargoTracking.model.DomesticShipment;
 import com.example.CargoTracking.model.InternationalShipment;
 import com.example.CargoTracking.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface InternationalShipmentRepository extends JpaRepository<InternationalShipment,Long> {
+public interface InternationalShipmentRepository extends JpaRepository<InternationalShipment,Long>, JpaSpecificationExecutor<InternationalShipment> {
 
     @Query("SELECT i FROM InternationalShipment i WHERE i.originCountry = :originCountry AND i.type = 'by Air'")
-    List<InternationalShipment> findByOriginCountryByAir(String originCountry);
+    Page<InternationalShipment> findByOriginCountryByAir(String originCountry, Pageable pageable);
 
     @Query("SELECT i FROM InternationalShipment i WHERE i.originCountry = :originCountry AND i.type = 'by Road'")
-    List<InternationalShipment> findByOriginCountryByRoad(String originCountry);
+    Page<InternationalShipment> findByOriginCountryByRoad(String originCountry, Pageable pageable);
 
     @Query("SELECT i FROM InternationalShipment i WHERE i.destinationCountry = :destinationCountry AND i.type = 'by Air'")
-    List<InternationalShipment> findByDestinationCountryByAir(String destinationCountry);
+    Page<InternationalShipment> findByDestinationCountryByAir(String destinationCountry, Pageable pageable);
 
     @Query("SELECT i FROM InternationalShipment i WHERE i.destinationCountry = :destinationCountry AND i.type = 'by Road'")
-    List<InternationalShipment> findByDestinationCountryByRoad(String destinationCountry);
+    Page<InternationalShipment> findByDestinationCountryByRoad(String destinationCountry, Pageable pageable);
 
     @Query("SELECT i FROM InternationalShipment i WHERE i.createdBy = :user AND i.type = 'by Air'")
     List<InternationalShipment> findAllByCreatedByForAir(User user);
