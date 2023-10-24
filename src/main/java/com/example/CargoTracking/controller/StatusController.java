@@ -35,9 +35,8 @@ public class StatusController {
 
         @PreAuthorize("hasRole('ROLE_ADMIN')")
         @DeleteMapping("/status/{id}")
-        public ResponseEntity<String> deleteById(@PathVariable Long id){
+        public void deleteById(@PathVariable Long id){
                 statusService.deleteById(id);
-            return ResponseEntity.ok("Record deleted successfully");
         }
 
         @PreAuthorize("hasRole('ROLE_ADMIN')")
