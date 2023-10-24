@@ -1,7 +1,7 @@
 package com.example.CargoTracking.service;
 
-import com.example.CargoTracking.criteria.SearchCriteria;
 import com.example.CargoTracking.dto.DriverDto;
+import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.model.Driver;
 import com.example.CargoTracking.repository.DriverRepository;
 import com.example.CargoTracking.specification.DriverSpecification;
@@ -58,7 +58,7 @@ public class DriverService {
         if (driver.isPresent()){
             return toDto(driver.get());
         }
-        throw new RuntimeException(String.format("Driver Not Found On this Id => %d",id));
+        throw new RecordNotFoundException(String.format("Driver Not Found On this Id => %d",id));
     }
 
     public DriverDto deleteDriverById(Long id){
@@ -69,7 +69,7 @@ public class DriverService {
             return toDto(driverRepository.save(driver.get()));
         }
 
-        throw new RuntimeException("Record doesn't exist");
+        throw new RecordNotFoundException(String.format("Driver Not Found On this Id => %d",id));
     }
 
     public DriverDto updateById(Long id, DriverDto driverDto) {
@@ -82,7 +82,7 @@ public class DriverService {
             return toDto(driverRepository.save(driver.get()));
         }
 
-        throw new RuntimeException(String.format("Driver Not Found by this Id => %d" , id));
+        throw new RecordNotFoundException(String.format("Driver Not Found On this Id => %d",id));
     }
 
     public DriverDto makeDriverActive(Long id) {
@@ -94,7 +94,7 @@ public class DriverService {
             driver.get().setStatus(Boolean.TRUE);
             return toDto(driverRepository.save(driver.get()));
         }
-        throw new RuntimeException(String.format("Driver Not Found by this Id => %d" , id));
+        throw new RecordNotFoundException(String.format("Driver Not Found On this Id => %d",id));
     }
 
 

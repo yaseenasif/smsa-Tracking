@@ -16,7 +16,6 @@ public class DriverSpecification  {
         return (root, query, criteriaBuilder) ->
                 criteriaBuilder.or(
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("name")), "%" + finalSearchCriteria + "%")
-//                        criteriaBuilder.like(criteriaBuilder.lower(root.get("referenceNumber")), "%" + "0101" + "%")
                 );
     }
 
