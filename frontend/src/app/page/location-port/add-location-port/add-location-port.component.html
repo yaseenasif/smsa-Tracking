@@ -31,13 +31,11 @@
                 </div>
                 <div class="col-12 md:col-12 lg:col-6">
                   <div class="flex flex-column gap-2 form-hook">
-                    {{location|json}}
-                    {{ locationPort.location|json}}
                     <label htmlFor="name">Location</label>
-                    <p-dropdown class="w-full" [options]="location"  [ngModelOptions]="{standalone: true}" [(ngModel)]=" locationPort.location" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Location">
+                    <p-dropdown class="w-full" [options]="location" name="locationName" #locationName="ngModel"   [required]="true"  [(ngModel)]="locationPort.location" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Location">
                         <ng-template pTemplate="selectedItem">
                             <div class="flex align-items-center gap-2" *ngIf="locationPort">
-                                <div>{{ locationPort.location}}</div>
+                                <div>{{locationPort.location?.locationName}}</div>
                             </div>
                         </ng-template>
                         <ng-template let-location pTemplate="item">

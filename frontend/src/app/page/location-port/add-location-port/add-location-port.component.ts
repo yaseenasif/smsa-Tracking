@@ -20,12 +20,16 @@ export class AddLocationPortComponent implements OnInit {
               private messageService:MessageService,
               private router: Router) { }
 
-  locationPort:LocationPort={
-    id: null,
-    location: null,
-    portName: null,
-    status: null
-  };
+ locationPort: LocationPort = {
+   id: null,
+   location: {
+     id: null,
+     locationName: null,
+     status: null
+   },
+   portName: null,
+   status: null
+ };
   location!:Location[];
   name!:string;
 
@@ -36,23 +40,19 @@ export class AddLocationPortComponent implements OnInit {
 
   getAllLocation(){
     this.locationService.getAllLocation().subscribe((res:Location[])=>{
-      this.location=res.filter(location => location.status)
-      console.log(this.location);
-      
+      this.location=res.filter(location => location.status)    
     },error=>{})
   }
 
     onSubmit() {
-      console.log(this.locationPort);
-      
-    // this.locationPortService.addLocationPort(this.locationPort).subscribe(res=>{
-    //   this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Location Port is added' });
-    //   setTimeout(() => {
-    //     this.router.navigate(['/location-port']);
-    //   },800);
-    // },error=>{
-    //   this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Location Port is not added' });
-    // })  
+    this.locationPortService.addLocationPort(this.locationPort).subscribe(res=>{
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Location Port is added' });
+      setTimeout(() => {
+        this.router.navigate(['/location-port']);
+      },800);
+    },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Location Port is not added' });
+    })  
   }
 
 }

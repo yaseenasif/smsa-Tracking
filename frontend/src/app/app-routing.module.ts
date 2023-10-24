@@ -114,7 +114,7 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'edit-location-port',
+    path:'edit-location-port/:id',
     component:UpdateLocationPortComponent,
     canActivate:[AuthGuard]
   },
