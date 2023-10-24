@@ -1,5 +1,6 @@
 package com.example.CargoTracking.controller;
 
+import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.service.DomesticShipmentService;
@@ -28,8 +29,12 @@ public class DomesticShipmentController {
     }
 
     @GetMapping("/all-domestic-shipments")
-    public ResponseEntity<List<DomesticShipmentDto>> getAll(){
-        return ResponseEntity.ok(domesticShipmentService.getAll());
+    public ResponseEntity<Page<DomesticShipmentDto>> getAll(@RequestParam(value = "value",required = false) String value,
+                                                            @RequestParam(defaultValue = "0") int page,
+                                                            @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForDomesticShipment
+                searchCriteriaForDomesticShipment = new ObjectMapper().readValue(value, SearchCriteriaForDomesticShipment.class);
+        return ResponseEntity.ok(domesticShipmentService.getAll(searchCriteriaForDomesticShipment,page,size));
     }
 
 

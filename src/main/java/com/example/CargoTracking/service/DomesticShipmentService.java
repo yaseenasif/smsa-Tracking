@@ -1,7 +1,9 @@
 package com.example.CargoTracking.service;
 
+import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
+import com.example.CargoTracking.dto.DriverDto;
 import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.exception.UserNotFoundException;
 import com.example.CargoTracking.model.DomesticShipment;
@@ -11,6 +13,7 @@ import com.example.CargoTracking.model.User;
 import com.example.CargoTracking.repository.DomesticShipmentHistoryRepository;
 import com.example.CargoTracking.repository.DomesticShipmentRepository;
 import com.example.CargoTracking.repository.UserRepository;
+import com.example.CargoTracking.specification.DomesticShipmentSpecification;
 import com.example.CargoTracking.specification.DomesticSummarySpecification;
 import com.example.CargoTracking.specification.DriverSpecification;
 import org.modelmapper.ModelMapper;
@@ -80,19 +83,37 @@ public class DomesticShipmentService {
         throw new UserNotFoundException(String.format("User not found while creating domestic shipment"));
     }
 
-    public List<DomesticShipmentDto> getAll() {
+    public Page<DomesticShipmentDto> getAll(SearchCriteriaForDomesticShipment searchCriteriaForDomesticShipment, int page, int size) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof UserDetails) {
+            Pageable pageable = PageRequest.of(page, size);
+
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
-            if(user.getLocation() == null){
-                return toDtoList(domesticShipmentRepository.findAll());
+            if((user.getLocation() == null) &&
+                    (searchCriteriaForDomesticShipment.getValue().isEmpty() || searchCriteriaForDomesticShipment.getValue() == null)){
+                Page<DomesticShipment> domesticShipmentPage = domesticShipmentRepository.findAll(pageable);
+                Page<DomesticShipmentDto> domesticShipmentDtoPage = domesticShipmentPage.map(entity->toDto(entity));
+                return domesticShipmentDtoPage;
+            }
+            if((user.getLocation() == null) &&
+                    ((!searchCriteriaForDomesticShipment.getValue().isEmpty() || searchCriteriaForDomesticShipment.getValue() != null))){
+                searchCriteriaForDomesticShipment.setUser(null);
+                Specification<DomesticShipment> domesticShipmentSpecification = DomesticShipmentSpecification.getSearchSpecification(searchCriteriaForDomesticShipment);
+                Page<DomesticShipment> domesticShipmentPage = domesticShipmentRepository.findAll(domesticShipmentSpecification,pageable);
+                Page<DomesticShipmentDto> domesticShipmentDtoPage = domesticShipmentPage.map(entity->toDto(entity));
+
+                return domesticShipmentDtoPage;
             }else{
-                return toDtoList(domesticShipmentRepository.findAllByCreatedBy(user));
+                searchCriteriaForDomesticShipment.setUser(user);
+                Specification<DomesticShipment> domesticShipmentSpecification = DomesticShipmentSpecification.getSearchSpecification(searchCriteriaForDomesticShipment);
+                Page<DomesticShipment> domesticShipmentPage = domesticShipmentRepository.findAll(domesticShipmentSpecification,pageable);
+                Page<DomesticShipmentDto> domesticShipmentDtoPage = domesticShipmentPage.map(entity->toDto(entity));
+                return domesticShipmentDtoPage;
 
             }
         }
-        return toDtoList(domesticShipmentRepository.findAll());
+        throw new UserNotFoundException(String.format("User not found"));
 
     }
 
