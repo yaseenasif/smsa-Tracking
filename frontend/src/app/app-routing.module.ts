@@ -14,9 +14,6 @@ import { UpdateLocationPortComponent } from './page/location-port/update-locatio
 import { UserListComponent } from './page/user/user-list/user-list.component';
 import { UpdateUserComponent } from './page/user/update-user/update-user.component';
 import { AddUserComponent } from './page/user/add-user/add-user.component';
-import { AddStatusComponent } from './page/status/add-status/add-status.component';
-import { StatusListComponent } from './page/status/status-list/status-list.component';
-import { UpdateStatusComponent } from './page/status/update-status/update-status.component';
 import { AddVehicleTypeComponent } from './page/vehicle-type/add-vehicle-type/add-vehicle-type.component';
 import { UpdateVehicleTypeComponent } from './page/vehicle-type/update-vehicle-type/update-vehicle-type.component';
 import { VehicleTypeListComponent } from './page/vehicle-type/vehicle-type-list/vehicle-type-list.component';
@@ -46,6 +43,9 @@ import { UpdateInternationalShipmentByAirComponent } from './page/shipping-order
 import { DomesticSummaryComponent } from './page/bounds/domestic/domestic-summary/domestic-summary.component';
 import { InternationalSummaryByAirComponent } from './page/bounds/international/international-summary-by-air/international-summary-by-air.component';
 import { InternationalSummaryByRoadComponent } from './page/bounds/international/international-summary-by-road/international-summary-by-road.component';
+import { ShipmentStatusListComponent } from './page/shipment-status/shipment-status-list/shipment-status-list.component';
+import { AddShipmentStatusComponent } from './page/shipment-status/add-shipment-status/add-shipment-status.component';
+import { UpdateShipmentStatusComponent } from './page/shipment-status/update-shipment-status/update-shipment-status.component';
 
 const routes: Routes = [
   {
@@ -99,7 +99,7 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'edit-location',
+    path:'edit-location/:id',
     component:UpdateLocationComponent,
     canActivate:[AuthGuard]
   },
@@ -114,7 +114,7 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'edit-location-port',
+    path:'edit-location-port/:id',
     component:UpdateLocationPortComponent,
     canActivate:[AuthGuard]
   },
@@ -134,18 +134,18 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'status',
-    component:StatusListComponent,
+    path:'shipment-status',
+    component:ShipmentStatusListComponent,
     canActivate:[AuthGuard]
   },
   {
-    path:'add-status',
-    component:AddStatusComponent,
+    path:'add-shipment-status',
+    component:AddShipmentStatusComponent,
     canActivate:[AuthGuard]
   },
   {
-    path:'edit-status',
-    component:UpdateStatusComponent,
+    path:'edit-shipment-status/:id',
+    component:UpdateShipmentStatusComponent,
     canActivate:[AuthGuard]
   },
   {

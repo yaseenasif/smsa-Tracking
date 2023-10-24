@@ -20,9 +20,6 @@ import { UpdateLocationPortComponent } from './page/location-port/update-locatio
 import { UserListComponent } from './page/user/user-list/user-list.component';
 import { AddUserComponent } from './page/user/add-user/add-user.component';
 import { UpdateUserComponent } from './page/user/update-user/update-user.component';
-import { StatusListComponent } from './page/status/status-list/status-list.component';
-import { AddStatusComponent } from './page/status/add-status/add-status.component';
-import { UpdateStatusComponent } from './page/status/update-status/update-status.component';
 import { VehicleTypeListComponent } from './page/vehicle-type/vehicle-type-list/vehicle-type-list.component';
 import { AddVehicleTypeComponent } from './page/vehicle-type/add-vehicle-type/add-vehicle-type.component';
 import { UpdateVehicleTypeComponent } from './page/vehicle-type/update-vehicle-type/update-vehicle-type.component';
@@ -76,6 +73,10 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { NgxUiLoaderModule,NgxUiLoaderHttpModule} from "ngx-ui-loader";
 import { DialogModule } from 'primeng/dialog';
+import { AddShipmentStatusComponent } from './page/shipment-status/add-shipment-status/add-shipment-status.component';
+import { UpdateShipmentStatusComponent } from './page/shipment-status/update-shipment-status/update-shipment-status.component';
+import { ShipmentStatusListComponent } from './page/shipment-status/shipment-status-list/shipment-status-list.component';
+
 
 
 @NgModule({
@@ -97,9 +98,6 @@ import { DialogModule } from 'primeng/dialog';
     UserListComponent,
     AddUserComponent,
     UpdateUserComponent,
-    StatusListComponent,
-    AddStatusComponent,
-    UpdateStatusComponent,
     VehicleTypeListComponent,
     AddVehicleTypeComponent,
     UpdateVehicleTypeComponent,
@@ -127,7 +125,10 @@ import { DialogModule } from 'primeng/dialog';
     UpdateInternationalShipmentByAirComponent,
     DomesticSummaryComponent,
     InternationalSummaryByRoadComponent,
-    InternationalSummaryByAirComponent
+    InternationalSummaryByAirComponent,
+    AddShipmentStatusComponent,
+    UpdateShipmentStatusComponent,
+    ShipmentStatusListComponent,
   ],
   imports: [
     BrowserModule,

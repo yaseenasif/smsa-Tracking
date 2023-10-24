@@ -36,7 +36,7 @@ export class VehicleTypeListComponent implements OnInit {
    deleteVehicleTypeByID(id:number){
     this.vehicleTypeService.deleteVehicleTypeByID(id).subscribe((res:VehicleType)=>{
       this.visible = false;
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Permission is deleted on id '+res!.id!.toString()});
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Vehicle type is deleted on id '+res!.id!.toString()});
       this.getAllVehicleType();
     },error=>{
       
