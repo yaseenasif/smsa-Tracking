@@ -9,8 +9,10 @@
           <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
         </div>
         <div class="body-card">
+          <p-toast></p-toast>
           <div class="card">
             <h1 class="mb-4 h-color">Add Driver</h1>
+            <form #driverForm="ngForm" (ngSubmit)="onSubmit()">
             <div class="grid">
               <div class="col-12 md:col-12 lg:col-6">
                 <div class="flex flex-column gap-2">
@@ -18,13 +20,13 @@
                   <input
                     pInputText
                     id="name"
-                    aria-describedby="name-help"
-                    [ngModelOptions]="{standalone:true}"
-                    [(ngModel)]="name"
+                    aria-describedby="name-help"                    
+                    [(ngModel)]="driver.name"
+                    name="name"
+                    #name="ngModel"
+                    required
                   />
-                  <!-- <small id="name-help"
-                    >{{name}}</small
-                  > -->
+                  <small id="name-help" class="color-red"  *ngIf="name.invalid && (name.dirty || name.touched)">Name is required.</small>
                 </div>
               </div>
               <div class="col-12 md:col-12 lg:col-6">
@@ -34,12 +36,12 @@
                       pInputText
                       id="referenceNumber"
                       aria-describedby="referenceNumber-help"
-                      [ngModelOptions]="{standalone:true}"
-                      [(ngModel)]="referenceNumber"
+                      [(ngModel)]="driver.referenceNumber"
+                      name="referenceNumber"
+                      #referenceNumber="ngModel"
+                      required
                     />
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
+                    <small id="name-help" class="color-red"  *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched)">Reference Number is required.</small>
                   </div>
               </div>
               <div class="col-12 md:col-12 lg:col-12">
@@ -48,22 +50,23 @@
                     <input
                       pInputText
                       id="contactNumber"
-                      aria-describedby="contactNumber-help"
-                      [ngModelOptions]="{standalone:true}"
-                      [(ngModel)]="contactNumber"
+                      aria-describedby="contactNumber-help"                     
+                      [(ngModel)]="driver.contactNumber"
+                      name="contactNumber"
+                      #contactNumber="ngModel"
+                      required
                     />
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
+                    <small id="name-help" class="color-red"  *ngIf="contactNumber.invalid && (contactNumber.dirty || contactNumber.touched)">Contact Number is required.</small>
                   </div>
               </div>
             </div>
             <div class="flex align-items-center justify-content-end mt-4">
                 <p-button label="Cancel" class="bg-o-color mr" routerLink="/driver" styleClass="p-button-outlined">
                 </p-button>
-                <p-button label="Save" class="bg-b-color ml" >
+                <p-button type="submit" [disabled]="!driverForm.form.valid"  label="Save" class="bg-b-color ml">
                 </p-button>
             </div>
+            </form>
           </div>
         </div>
       </div>

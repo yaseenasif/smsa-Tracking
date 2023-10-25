@@ -121,6 +121,17 @@ p-fileupload>.p-fileupload>.p-fileupload-buttonbar{
     gap: 2%;
 }
 
+p-fileupload>.p-fileupload>.p-fileupload-buttonbar>.p-button{
+    background-color: $primary-color;
+}
+
+p-fileupload>.p-fileupload>.p-fileupload-buttonbar>.p-element>.p-button{
+    background-color: $primary-color;
+}
+p-fileupload>.p-fileupload>.p-fileupload-content>.p-fileupload-files>.ng-star-inserted>.p-fileupload-row>div>.p-button{
+    background-color: $primary-color;
+}
+
 .color-red{
     color:$error-color;
 }
