@@ -84,7 +84,7 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'edit-driver',
+    path:'edit-driver/:id',
     component:UpdateDriverComponent,
     canActivate:[AuthGuard]
   },
