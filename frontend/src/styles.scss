@@ -15,7 +15,7 @@ body{
     background-color: $base-bg-color;
 }
 .body-position{
-padding-left:60px; 
+padding-left:60px;
 width: 100%;
 }
 
@@ -38,7 +38,7 @@ background-color: $hover-bg-color;
 .hook>.p-element>.p-toolbar{
     border-radius:0px;
     background-color:$white-color;
-} 
+}
 .table-head>.p-element>.p-toolbar{
     padding:10px;
     margin-bottom: 10px;
@@ -143,4 +143,18 @@ p-fileupload>.p-fileupload>.p-fileupload-content>.p-fileupload-files>.ng-star-in
 }
 .form-hook>.p-inputwrapper>.p-calendar{
     width: 100%;
+}
+
+
+.form-hook1>.p-inputwrapper{
+    width: 100%;
+}
+.form-hook1>.p-inputwrapper>.p-password>.p-inputtext{
+    width: 100%;
+}
+.form-hook1>.p-inputwrapper>.p-password{
+    width: 100%;
+}
+.form-hook1>.p-element>.p-password>.p-icon-wrapper{
+    top: 37%
 }

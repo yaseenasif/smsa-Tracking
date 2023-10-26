@@ -17,10 +17,10 @@ export class RoleListComponent {
 
   ngOnInit() {
       this.items = [{ label: 'Role List'}];
-      this.getAllPermissions();
+      this.getAllLRole();
   }
 
-  getAllPermissions(){
+  getAllLRole(){
     this.roleService.getALLRole().subscribe((res:Role[])=>{
       this.roles=res;
       console.log(this.roles);      

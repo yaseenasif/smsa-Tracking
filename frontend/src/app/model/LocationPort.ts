@@ -1,9 +1,4 @@
-interface Location{
-    id: number|undefined|null,
-    locationName: string|undefined|null,
-    status: boolean|undefined|null
-  }
-
+import { Location } from 'src/app/model/Location'
 
 export interface LocationPort{
     id: number|null|undefined,
@@ -11,4 +6,3 @@ export interface LocationPort{
     portName: string|null|undefined,
     status: boolean|null|undefined
 }
-

@@ -9,24 +9,24 @@
           <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
         </div>
         <div class="body-card">
+          <p-toast></p-toast>
           <div class="card">
             <h1 class="mb-4 h-color">Add User</h1>
-            <div class="grid">
-
-             
+            <form #userForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="grid">     
               <div class="col-12 md:col-12 lg:col-12">
                 <div class="flex flex-column gap-2">
                   <label htmlFor="name">Name</label>
                   <input
                     pInputText
                     id="name"
-                    aria-describedby="name-help"
-                    [ngModelOptions]="{ standalone: true }"
-                    [(ngModel)]="name"
+                    aria-describedby="name-help"                  
+                    [(ngModel)]="user.name"
+                    name="name"
+                    #name="ngModel"
+                    required
                   />
-                  <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
+                  <small id="name-help" class="color-red"  *ngIf="name.invalid && (name.dirty || name.touched)">Name is required.</small>  
                 </div>
               </div>
               <div class="col-12 md:col-12 lg:col-6">
@@ -35,42 +35,35 @@
                   <input
                     pInputText
                     id="email"
-                    aria-describedby="email-help"
-                    [ngModelOptions]="{ standalone: true }"
-                    [(ngModel)]="email"
+                    aria-describedby="email-help"                   
+                    [(ngModel)]="user.email"
+                    #email="ngModel"
+                    name="email"
+                    required
                   />
-                  <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
+                  <small id="name-help" class="color-red"  *ngIf="email.invalid && (email.dirty || email.touched)">Email is required.</small>
                 </div>
               </div>
               <div class="col-12 md:col-12 lg:col-6">
-                <div class="flex flex-column gap-2">
+                <div class="flex flex-column gap-2 form-hook1">
                   <label htmlFor="password">Password</label>
-                  <input
-                    pInputText
-                    id="password"
-                    aria-describedby="password-help"
-                    [ngModelOptions]="{ standalone: true }"
-                    [(ngModel)]="password"
-                  />
-                  <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
+                 
+                 <p-password [(ngModel)]="user.password" #password="ngModel" name="password" required [toggleMask]="true"></p-password>
+                 <small id="name-help" class="color-red"  *ngIf="password.invalid && (password.dirty || password.touched)">Password is required.</small>
                 </div>
               </div>
               <div class="col-12 md:col-12 lg:col-6">
                 <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Location</label>
-                    <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Country">
+                    <p-dropdown class="w-full" [options]="locations" [required]="true" name="location" #location="ngModel" [(ngModel)]="user.location" optionValue="locationName" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Country">
                         <ng-template pTemplate="selectedItem">
-                            <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
-                                <div>{{ selectedLocation.locationName}}</div>
+                            <div class="flex align-items-center gap-2" *ngIf="user">
+                                <div>{{ user.location}}</div>
                             </div>
                         </ng-template>
-                        <ng-template let-location pTemplate="item">
+                        <ng-template let-locations pTemplate="item">
                             <div class="flex align-items-center gap-2">
-                                <div>{{ location.locationName }}</div>
+                                <div>{{ locations!.locationName }}</div>
                             </div>
                         </ng-template>
                     </p-dropdown>
@@ -81,16 +74,16 @@
                   <label htmlFor="name">Role
 
                   </label>
-                  <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Role
+                  <p-dropdown class="w-full" [options]="roles"  [required]="true" name="role" #role="ngModel" [(ngModel)]="user.role" optionValue="name" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Role
                   ">
                       <ng-template pTemplate="selectedItem">
-                          <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
-                              <div>{{ selectedLocation.locationName}}</div>
+                          <div class="flex align-items-center gap-2" *ngIf="user">
+                              <div>{{user.role}}</div>
                           </div>
                       </ng-template>
-                      <ng-template let-location pTemplate="item">
+                      <ng-template let-roles pTemplate="item">
                           <div class="flex align-items-center gap-2">
-                              <div>{{ location.locationName }}</div>
+                              <div>{{ roles.name }}</div>
                           </div>
                       </ng-template>
                   </p-dropdown>
@@ -105,8 +98,10 @@
                 styleClass="p-button-outlined"
               >
               </p-button>
-              <p-button label="Save" class="bg-b-color ml"> </p-button>
+              <p-button type="submit" [disabled]="!userForm.form.valid"  label="Save" class="bg-b-color ml">
+              </p-button>
             </div>
+          </form>
           </div>
         </div>
       </div>
