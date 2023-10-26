@@ -1,63 +1,159 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { SummaryService } from '../../service/summary.service';
+import { DatePipe } from '@angular/common';
+import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
+import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
+import { InternationalSummarySearch } from 'src/app/model/InternationalSummarySearch';
 
 @Component({
   selector: 'app-international-summary-by-road',
   templateUrl: './international-summary-by-road.component.html',
-  styleUrls: ['./international-summary-by-road.component.scss']
+  styleUrls: ['./international-summary-by-road.component.scss'],
+  providers: [DatePipe]
 })
 export class InternationalSummaryByRoadComponent {
-  name!:string;
-  location!:Location[];
-  status!:Status[];
-  selectedStatus!:Status;
-  selectedLocation!:Location;
-  fromDate: Date | undefined;
-  toDate: Date | undefined;
-  constructor() { }
-  products:any=[{preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},];
-  items: MenuItem[] | undefined;
-
  
+  name!:string;
+  bound!:Bound[];
+  shipmentStatus!:ShipmentStatus[];
+
+  selectedBound:Bound={
+    bound:"In bound"
+  };
+
+  search:any  ={
+    fromDate:null,
+    toDate:null,
+    status:null,
+    origin:null,
+    destination:null,
+    type:null
+  }
+
+  constructor(private summaryService:SummaryService,
+    private datePipe: DatePipe,
+    private shipmentStatusService:ShipmentStatusService) { }
+
+    internationalShipmentByRoad:any=[];
+    items: MenuItem[] | undefined;
 
   ngOnInit() {
       this.items = [{ label: 'International Summary By Road'}];
-      this.location=[
+      this.bound=[
         {
-          locationName:"In bound",
-          id:1
+          bound:"In bound"
         },
         {
-          locationName:"Out bound",
-          id:2
+          bound:"Out bound"
         }
       ]
+      this.getAllShipmentStatus();
+      this.getInboundSummary(this.search,0,10);
+  }
 
-      this.status=[
-        {
-          status:"Open"
-        },
-        {
-          status:"Close"
-        }
-      ]
+  onBoundChange() {
+    this.search  ={
+      fromDate:null,
+      toDate:null,
+      status:null,
+      origin:null,
+      destination:null,
+      type:null
+    }
+    if (this.selectedBound && this.selectedBound.bound === "In bound") {
+      this.getInboundSummary(this.search, 0, 10);
+    } else if (this.selectedBound && this.selectedBound.bound === "Out bound") {
+      this.getOutboundSummary(this.search, 0, 10);
+    }
+  }
+
+  getAllShipmentStatus(){
+    this.shipmentStatusService.getALLShipmentStatus().subscribe((res:ShipmentStatus[])=>{
+      this.shipmentStatus=res; 
+    },error=>{
+      
+      console.log(error.error.body);
+
+    })
+   }
+
+   getInboundSummary(obj:InternationalSummarySearch,page:number,size:number){
+    this.summaryService.getInboundSummaryForRoad(obj,page,size).subscribe((res:any)=>{
+      this.internationalShipmentByRoad=res.content;
+      this.search  ={
+        fromDate:null,
+        toDate:null,
+        status:null,
+        origin:null,
+        destination:null,
+        type:null
+      }
+    },(error:any)=>{
+      debugger
+      this.internationalShipmentByRoad=[];
+      console.log(error.error.body);
+      
+    })
+  }
+
+  getOutboundSummary(obj:InternationalSummarySearch,page:number,size:number){
+    this.summaryService.getOutboundSummaryForRoad(obj,page,size).subscribe((res:any)=>{
+      this.internationalShipmentByRoad=res.content;
+      this.search  ={
+        fromDate:null,
+        toDate:null,
+        status:null,
+        origin:null,
+        destination:null,
+        type:null
+      }
+    },(error:any)=>{
+      debugger
+      this.internationalShipmentByRoad=[];
+      console.log(error.error.body);
+      
+    })
+  }
+
+  onSubmit(){
+    if(this.search.destination===null){
+      this.search.destination="";
+    }
+    if(this.search.origin===null){
+      this.search.origin="";
+    }
+    if(this.search.status===null){
+      this.search.status="";
+    }
+    if(this.search.status===null){
+      this.search.type="";
+    }
+    if(this.search.toDate===null){
+      this.search.toDate="";
+    }
+    else{
+      let originalDate = new Date(this.search.toDate);
+      this.search.toDate = this.datePipe.transform(originalDate, 'yyyy-MM-dd');
+    }
+    if(this.search.fromDate===null){
+      this.search.fromDate="";
+    }
+    else{
+      let originalDate = new Date(this.search.fromDate);
+      this.search.fromDate = this.datePipe.transform(originalDate, 'yyyy-MM-dd');
+    }
+    console.log(this.search);
+    debugger
+    if(this.selectedBound.bound === "In bound"){
+      this.getInboundSummary(this.search,0,10);
+    }else{
+      this.getOutboundSummary(this.search,0,10);
+
+    }
   }
 }
-interface Location{
-  locationName:string,
-  id:number
-}
 
-
-interface Status{
-  status:string
+interface Bound{
+  bound:string
 }

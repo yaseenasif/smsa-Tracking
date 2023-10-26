@@ -20,9 +20,6 @@ export class DomesticSummaryComponent {
   selectedBound:Bound={
     bound:"In bound"
   };
-  fromDate: Date | undefined;
-  toDate: Date | undefined;
-
 
   constructor(private summaryService:SummaryService,
     private datePipe: DatePipe,

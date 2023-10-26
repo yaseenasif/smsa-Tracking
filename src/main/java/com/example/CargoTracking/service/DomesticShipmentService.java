@@ -146,7 +146,7 @@ public class DomesticShipmentService {
                 return pageDomesticShipmentDto;
             }else{
                 if(user.getLocation() != null){
-                    if(searchCriteriaForSummary.getOrigin() == null){
+                    if(searchCriteriaForSummary.getOrigin() == null || searchCriteriaForSummary.getOrigin().isEmpty()){
                         searchCriteriaForSummary.setOrigin(user.getLocation().getLocationName());
                     }
                 }
@@ -185,7 +185,7 @@ public class DomesticShipmentService {
                 return pageDomesticShipmentDto;
             }else{
                 if(user.getLocation() != null){
-                    if(searchCriteriaForSummary.getDestination() == null){
+                    if(searchCriteriaForSummary.getDestination() == null || searchCriteriaForSummary.getDestination().isEmpty()){
                         searchCriteriaForSummary.setDestination(user.getLocation().getLocationName());
                     }
                 }

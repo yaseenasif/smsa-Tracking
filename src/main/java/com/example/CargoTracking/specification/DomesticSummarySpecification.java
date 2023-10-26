@@ -15,28 +15,7 @@ public class DomesticSummarySpecification {
         if(!searchCriteriaForSummary.getFromDate().isEmpty() || !searchCriteriaForSummary.getToDate().isEmpty() ){
             String fromDate = searchCriteriaForSummary.getFromDate();
             String toDate = searchCriteriaForSummary.getToDate();
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-////            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//
-//            // First formatter for parsing the original date string
-//            DateTimeFormatter originalFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//
-//// Parse the original date string into a LocalDateTime
-//            LocalDateTime localDateTimeFrom = LocalDateTime.parse(fromDate, originalFormatter);
-//            LocalDateTime localDateTimeTo = LocalDateTime.parse(toDate, originalFormatter);
-//
-//// Second formatter for formatting into "yyyy-MM-dd" format
             DateTimeFormatter targetFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//
-//// Format the LocalDateTime into a string with the "yyyy-MM-dd" format
-//            String formattedDateFrom = localDateTimeFrom.format(targetFormatter);
-//            String formattedDateTo = localDateTimeTo.format(targetFormatter);
-//
-//
-//// Parse the formatted string into a LocalDate
-//             localFromDate = LocalDate.parse(formattedDateFrom, targetFormatter);
-//            localToDate = LocalDate.parse(formattedDateTo, targetFormatter);
-
              localFromDate = LocalDate.parse(fromDate,targetFormatter);
              localToDate = LocalDate.parse(toDate,targetFormatter);
         }else{
