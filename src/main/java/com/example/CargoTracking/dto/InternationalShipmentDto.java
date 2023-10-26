@@ -44,7 +44,7 @@ public class InternationalShipmentDto {
     private String attachments;//new both
     private String status;
     private String remarks;
-    private String ata;// new both
+    private LocalDate ata;// new both
     private Integer totalShipments;// new both
     private String overages;// new both
     private String overageAWBs;// new both
