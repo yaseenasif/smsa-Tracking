@@ -13,97 +13,103 @@
             <h2 class="h-color mb-3">Domestic Summary</h2>
 
             <p-toolbar>
-              <div class="grid">
-                <div class="lg:col-4 md:col-12 col-12">
-                  <div class="grid">
+              <form #domesticShipmentForm="ngForm" (ngSubmit)="onSubmit()">
 
-                    <div class="lg:col-6 md:col-6 col-12">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">From Date</label>
-                        <div class="card flex justify-content-center">
-                          <p-calendar [(ngModel)]="fromDate"></p-calendar>
+                <div class="grid">
+                  <div class="lg:col-4 md:col-12 col-12">
+                    <div class="grid">
+
+                      <div class="lg:col-6 md:col-6 col-12">
+                        <div class="flex flex-column gap-2">
+                          <label htmlFor="name">From Date</label>
+                          <div class="card flex justify-content-center">
+                            <p-calendar [(ngModel)]="search.fromDate" #fromDate="ngModel" name="fromDate"></p-calendar>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="lg:col-6 md:col-6 col-12">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">To Date</label>
-                        <div class="card flex justify-content-center">
-                          <p-calendar [(ngModel)]="toDate"></p-calendar>
+                      <div class="lg:col-6 md:col-6 col-12">
+                        <div class="flex flex-column gap-2">
+                          <label htmlFor="name">To Date</label>
+                          <div class="card flex justify-content-center">
+                            <p-calendar [(ngModel)]="search.toDate" #toDate="ngModel" name="toDate"></p-calendar>
+                          </div>
                         </div>
                       </div>
+
                     </div>
-
                   </div>
-                </div>
-                <div class="lg:col-4 md:col-12 col-12">
-                  <div class="grid">
+                  <div class="lg:col-4 md:col-12 col-12">
+                    <div class="grid">
 
-                    <div class="lg:col-6 md:col-6 col-12">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Status</label>
-                        <p-dropdown class="w-full" [options]="status" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedStatus" optionLabel="locationName"  filterBy="locationName" [showClear]="true" placeholder="Select status">
-                          <ng-template pTemplate="selectedItem">
-                              <div class="flex align-items-center gap-2" *ngIf="selectedStatus">
-                                  <div>{{ selectedStatus.status}}</div>
+                      <div class="lg:col-6 md:col-6 col-12">
+                        <div class="flex flex-column gap-2">
+                          <label htmlFor="name">Status</label>
+                          <p-dropdown class="w-full" [options]="shipmentStatus" name="status" #status="ngModel"
+                            [(ngModel)]="search.status" optionLabel="name" optionValue="name"
+                            placeholder="Select a Status">
+                            <ng-template pTemplate="selectedItem">
+                              <div class="flex align-items-center gap-2" *ngIf="search">
+                                <div>{{ search.status}}</div>
                               </div>
-                          </ng-template>
-                          <ng-template let-status pTemplate="item">
+                            </ng-template>
+                            <ng-template let-shipmentStatus pTemplate="item">
                               <div class="flex align-items-center gap-2">
-                                  <div>{{ status.status }}</div>
+                                <div>{{ shipmentStatus.name }}</div>
                               </div>
-                          </ng-template>
-                      </p-dropdown>
+                            </ng-template>
+                          </p-dropdown>
+                        </div>
                       </div>
-                    </div>
-                    <div class="lg:col-6 md:col-6 col-12">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Origin</label>
-                        <input pInputText id="name" aria-describedby="name-help" [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name" />
+                      <div class="lg:col-6 md:col-6 col-12">
+                        <div class="flex flex-column gap-2">
+                          <label htmlFor="name">Origin</label>
+                          <input pInputText id="name" aria-describedby="name-help" #origin="ngModel" name="origin"
+                            [(ngModel)]="search.origin" />
+                        </div>
                       </div>
-                    </div>
 
+                    </div>
                   </div>
-                </div>
-                <div class="lg:col-4 md:col-12 col-12">
-                  <div class="grid">
+                  <div class="lg:col-4 md:col-12 col-12">
+                    <div class="grid">
 
-                    <div class="lg:col-6 md:col-6 col-12">
-                      <div class="flex flex-column gap-2">
-                        <label htmlFor="name">Destination</label>
-                        <input pInputText id="name" aria-describedby="name-help" [ngModelOptions]="{standalone:true}"
-                          [(ngModel)]="name" />
+                      <div class="lg:col-6 md:col-6 col-12">
+                        <div class="flex flex-column gap-2">
+                          <label htmlFor="name">Destination</label>
+                          <input pInputText id="name" aria-describedby="name-help" #destination="ngModel"
+                            name="destination" [(ngModel)]="search.destination" />
+                        </div>
                       </div>
-                    </div>
-                    <div class="lg:col-6 md:col-6 col-12">
-                      <div class="flex flex-column gap-2 form-hook">
-                        <label htmlFor="name">Bounds</label>
-                        <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName"  filterBy="locationName" [showClear]="true" placeholder="Select bounds">
-                          <ng-template pTemplate="selectedItem">
-                              <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
-                                  <div>{{ selectedLocation.locationName}}</div>
+                      <div class="lg:col-6 md:col-6 col-12">
+                        <div class="flex flex-column gap-2 form-hook">
+                          <label htmlFor="name">Bounds</label>
+                          <p-dropdown class="w-full" [options]="bound" [ngModelOptions]="{ standalone: true }"
+                            [(ngModel)]="selectedBound" optionLabel="bound" filterBy="bound" [showClear]="true"
+                            placeholder="Select bounds" (ngModelChange)="onBoundChange()">
+                            <ng-template pTemplate="selectedItem">
+                              <div class="flex align-items-center gap-2" *ngIf="selectedBound">
+                                <div>{{ selectedBound.bound }}</div>
                               </div>
-                          </ng-template>
-                          <ng-template let-location pTemplate="item">
+                            </ng-template>
+                            <ng-template let-bound pTemplate="item">
                               <div class="flex align-items-center gap-2">
-                                  <div>{{ location.locationName }}</div>
+                                <div>{{ bound.bound }}</div>
                               </div>
-                          </ng-template>
-                      </p-dropdown>
+                            </ng-template>
+                          </p-dropdown>
+                        </div>
                       </div>
+
                     </div>
-                    
                   </div>
-                </div>
-                <div class="lg:col-12 md:col-12 col-12 flex justify-content-end">
-                  <p-button class="bg-b-color mr" routerLink="/add-international-shipment-by-road">
-                    Clear
-                  </p-button>
-                  <p-button class="bg-b-color ml" routerLink="/add-international-shipment-by-road">
-                    Search
-                  </p-button>
-                  <!-- <div class="lg:col-3 flex  align-items-end justify-content-center">
+                  <div class="lg:col-12 md:col-12 col-12 flex justify-content-end">
+                    <p-button class="bg-b-color mr" routerLink="/add-international-shipment-by-road">
+                      Clear
+                    </p-button>
+                    <p-button type="submit" [disabled]="!domesticShipmentForm.form.valid" label="Search"
+                      class="bg-b-color ml">
+                    </p-button>
+                    <!-- <div class="lg:col-3 flex  align-items-end justify-content-center">
                               
                                 <p-button class="bg-b-color" routerLink="/add-international-shipment-by-road">
                                   Clear
@@ -117,14 +123,15 @@
                                 </p-button>
                               
                               </div> -->
+                  </div>
                 </div>
-              </div>
+              </form>
             </p-toolbar>
           </div>
 
 
           <div class="card mt-3">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+            <p-table [value]="domesticShipment" [tableStyle]="{ 'min-width': '50rem' }">
               <ng-template pTemplate="header">
                 <tr>
 
@@ -146,23 +153,23 @@
                   <!-- <th class="text-center">Actions</th> -->
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body" let-product>
+              <ng-template pTemplate="body" let-domesticShipment>
                 <tr>
-                  <td class="text-center">{{ product.preAlertNumber}}</td>
-                  <td class="text-center">{{ product.vehicalNumber}}</td>
-                  <td class="text-center">{{ product.vehiclaType}}</td>
-                  <td class="text-center">{{ product.mode}}</td>
-                  <td class="text-center">{{ product.origin}}</td>
-                  <td class="text-center">{{ product.originLocation}}</td>
-                  <td class="text-center">{{ product.destinationLocation}}</td>
-                  <td class="text-center">{{ product.weight}}</td>
-                  <td class="text-center">{{ product.totalShipment}}</td>
-                  <td class="text-center">{{ product.pallets}}</td>
-                  <td class="text-center">{{ product.bags}}</td>
-                  <td class="text-center">{{ product.etd}}</td>
-                  <td class="text-center">{{ product.eta}}</td>
-                  <td class="text-center">{{ product.ata}}</td>
-                  <td class="text-center">{{ product.status}}</td>
+                  <td class="text-center">{{ domesticShipment.preAlertNumber}}</td>
+                  <td class="text-center">{{ domesticShipment.vehicleNumber}}</td>
+                  <td class="text-center">{{ domesticShipment.vehicleType}}</td>
+                  <td class="text-center">{{ domesticShipment.mode}}</td>
+                  <td class="text-center">{{ domesticShipment.origin}}</td>
+                  <td class="text-center">{{ domesticShipment.originLocation}}</td>
+                  <td class="text-center">{{ domesticShipment.destinationLocation}}</td>
+                  <td class="text-center">{{ domesticShipment.weight}}</td>
+                  <td class="text-center">{{ domesticShipment.totalShipments}}</td>
+                  <td class="text-center">{{ domesticShipment.numberOfPallets}}</td>
+                  <td class="text-center">{{ domesticShipment.numberOfBags}}</td>
+                  <td class="text-center">{{ domesticShipment.etd}}</td>
+                  <td class="text-center">{{ domesticShipment.eta}}</td>
+                  <td class="text-center">{{ domesticShipment.ata}}</td>
+                  <td class="text-center">{{ domesticShipment.status}}</td>
                 </tr>
               </ng-template>
             </p-table>

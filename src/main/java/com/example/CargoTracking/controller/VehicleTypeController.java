@@ -22,7 +22,6 @@ public class VehicleTypeController {
         return ResponseEntity.ok(vehicleTypeService.addType(vehicleTypeDto));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/vehicle-type")
     public ResponseEntity<List<VehicleTypeDto>> getAll(){
         return ResponseEntity.ok(vehicleTypeService.getActiveVehicles());

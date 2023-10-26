@@ -22,7 +22,6 @@ public class LocationController {
         return ResponseEntity.ok(locationService.addLocation(locationDto));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/location")
     public ResponseEntity<List<LocationDto>> getAll(){
         return ResponseEntity.ok(locationService.getActiveLocations());

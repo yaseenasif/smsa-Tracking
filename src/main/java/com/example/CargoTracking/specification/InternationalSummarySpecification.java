@@ -13,18 +13,18 @@ public class InternationalSummarySpecification {
 
     public static Specification<InternationalShipment> getSearchSpecification(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary){
 
-        String fromDate = searchCriteriaForInternationalSummary.getFromDate();
-        String toDate = searchCriteriaForInternationalSummary.getToDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-        LocalDate localFromDate = LocalDate.parse(fromDate, formatter);
-        LocalDate localToDate = LocalDate.parse(toDate, formatter);
+//        String fromDate = searchCriteriaForInternationalSummary.getFromDate();
+//        String toDate = searchCriteriaForInternationalSummary.getToDate();
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//
+//        LocalDate localFromDate = LocalDate.parse(fromDate, formatter);
+//        LocalDate localToDate = LocalDate.parse(toDate, formatter);
 
 
         return (root, query, criteriaBuilder) ->
 
                 criteriaBuilder.and(
-                        criteriaBuilder.between(root.get("createdAt"), localFromDate, localToDate ),
+                        criteriaBuilder.between(root.get("createdAt"), searchCriteriaForInternationalSummary.getFromDate(), searchCriteriaForInternationalSummary.getToDate() ),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteriaForInternationalSummary.getStatus() + "%"),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("originCountry")), "%" + searchCriteriaForInternationalSummary.getOrigin() + "%"),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationCountry")), "%" + searchCriteriaForInternationalSummary.getDestination() + "%"),
