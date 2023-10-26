@@ -199,7 +199,7 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'domestic-shipping-history',
+    path:'domestic-shipping-history/:id',
     component:DomesticShippingOrderHistoryComponent,
     canActivate:[AuthGuard]
   },
@@ -209,7 +209,7 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'update-domestic-shipping',
+    path:'update-domestic-shipping/:id',
     component:UpdateDomesticShippingComponent,
     canActivate:[AuthGuard]
   },

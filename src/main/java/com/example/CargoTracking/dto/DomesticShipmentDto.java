@@ -17,15 +17,15 @@ public class DomesticShipmentDto {
     private Long id;
     private String originFacility;
     private String originLocation;
-    private String refrigeratedTruck;
+    private Boolean refrigeratedTruck;
     private String destinationFacility;
     private String destinationLocation;
     private String routeNumber;
     private Integer numberOfShipments;
     private Double weight;
-    private String etd;
-    private String eta;
-    private String atd;
+    private LocalDate etd;
+    private LocalDate eta;
+    private LocalDate atd;
     private String driverName;
     private String driverContact;
     private String referenceNumber;
@@ -37,7 +37,7 @@ public class DomesticShipmentDto {
     private Long sealNumber;
     private String status;
     private String remarks;
-    private String ata;
+    private LocalDate ata;
     private Integer totalShipments;
     private String overages;
     private String overagesAwbs;

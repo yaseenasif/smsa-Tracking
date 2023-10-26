@@ -3,33 +3,31 @@ package com.example.CargoTracking.service;
 import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
-import com.example.CargoTracking.dto.DriverDto;
+import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.exception.UserNotFoundException;
 import com.example.CargoTracking.model.DomesticShipment;
 import com.example.CargoTracking.model.DomesticShipmentHistory;
-import com.example.CargoTracking.model.Driver;
 import com.example.CargoTracking.model.User;
 import com.example.CargoTracking.repository.DomesticShipmentHistoryRepository;
 import com.example.CargoTracking.repository.DomesticShipmentRepository;
 import com.example.CargoTracking.repository.UserRepository;
 import com.example.CargoTracking.specification.DomesticShipmentSpecification;
 import com.example.CargoTracking.specification.DomesticSummarySpecification;
-import com.example.CargoTracking.specification.DriverSpecification;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -265,6 +263,20 @@ public class DomesticShipmentService {
         }
     }
 
+
+    public ApiResponse deleteDomesticShipment(Long id) {
+        Optional<DomesticShipment> domesticShipment = domesticShipmentRepository.findById(id);
+        if(domesticShipment.isPresent()){
+            domesticShipmentRepository.deleteById(id);
+            return ApiResponse.builder()
+                    .message("Record delete successfully")
+                    .statusCode(HttpStatus.OK.value())
+                    .result(Collections.emptyList())
+                    .build();
+        }
+        throw new RecordNotFoundException(String.format("Domestic Shipment not found by this id => %d",id));
+    }
+
     public List<DomesticShipmentDto> toDtoList(List<DomesticShipment> domesticShipmentList){
         return domesticShipmentList.stream().map(this::toDto).collect(Collectors.toList());
     }
@@ -277,5 +289,6 @@ public class DomesticShipmentService {
     private DomesticShipment toEntity(DomesticShipmentDto domesticShipmentDto){
         return modelMapper.map(domesticShipmentDto , DomesticShipment.class);
     }
+
 
 }

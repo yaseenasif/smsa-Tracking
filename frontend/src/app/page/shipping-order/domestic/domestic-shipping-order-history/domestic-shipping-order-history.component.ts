@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { DomesticShippingService } from '../service/domestic-shipping.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-domestic-shipping-order-history',
@@ -7,7 +9,9 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./domestic-shipping-order-history.component.scss']
 })
 export class DomesticShippingOrderHistoryComponent {
-  constructor() { }
+  domesticShipmentId:any;
+  constructor(private domesticShippingService:DomesticShippingService,
+    private route:ActivatedRoute) { }
   domesticShipmentHistory:any=[{status:"Cleared",processTime:"10/16/2022 15:45",locationCode:"KSA GW",user:"9590",remarks:"Load Cleared and Forward"},
   {status:"Cleared",processTime:"10/16/2022 15:45",locationCode:"KSA GW",user:"9590",remarks:"Load Cleared and Forward"},
   {status:"Cleared",processTime:"10/16/2022 15:45",locationCode:"KSA GW",user:"9590",remarks:"Load Cleared and Forward"},
@@ -22,7 +26,18 @@ export class DomesticShippingOrderHistoryComponent {
 
 
   ngOnInit() {
+    this.domesticShipmentId = +this.route.snapshot.paramMap.get('id')!;
+    this.getDomesticShipmentHistoryByDomesticShipmentId(this.domesticShipmentId);
       this.items = [{ label: 'Domestic Shipment',routerLink:'/domestic-shipping'},{ label: 'Domestic Shipping History'}];
+  }
+
+  getDomesticShipmentHistoryByDomesticShipmentId(id:number){
+    this.domesticShippingService.getDomesticShipmentHistoryByDomesticShipmentId(id).subscribe((res:any)=>{
+      this.domesticShipmentHistory=res;
+    },(error:any)=>{
+      console.log(error);
+      
+    })
   }
 
 }

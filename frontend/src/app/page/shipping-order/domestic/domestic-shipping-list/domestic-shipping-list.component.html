@@ -24,7 +24,7 @@
           
 
           <div class="card">
-            <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+            <p-table [value]="domesticShipment" [tableStyle]="{ 'min-width': '50rem' }">
               <ng-template pTemplate="header">
                 <tr>
                   
@@ -48,7 +48,6 @@
                   <th class="text-center">Vehicle Number</th>
                   <th class="text-center">Tag Number</th>
                   <th class="text-center">Seal Number</th>
-                  <th class="text-center">Attachements</th>
                   <th class="text-center">Status</th>
                   <th class="text-center">Remarks</th>
                   <th class="text-center">ATA</th>
@@ -58,55 +57,57 @@
                   <th class="text-center">Received</th>
                   <th class="text-center">Shortages</th>
                   <th class="text-center">Shortage AWBs</th>
+                  <th class="text-center">Attachements</th>
+
 
                   <th class="text-center">Actions</th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body" let-product>
+              <ng-template pTemplate="body" let-domesticShipment>
                 <tr>
-                  <td class="text-center">{{ product.preAlertNumber}}</td>
-                  <td class="text-center">{{ product.vehicalNumber}}</td>
-                  <td class="text-center">{{ product.vehiclaType}}</td>
-                  <td class="text-center">{{ product.mode}}</td>
-                  <td class="text-center">{{ product.origin}}</td>
-                  <td class="text-center">{{ product.originLocation}}</td>
-                  <td class="text-center">{{ product.destinationLocation}}</td>
-                  <td class="text-center">{{ product.weight}}</td>
-                  <td class="text-center">{{ product.totalShipment}}</td>
-                  <td class="text-center">{{ product.pallets}}</td>
-                  <td class="text-center">{{ product.bags}}</td>
-                  <td class="text-center">{{ product.etd}}</td>
-                  <td class="text-center">{{ product.eta}}</td>
-                  <td class="text-center">{{ product.ata}}</td>
-                  <td class="text-center">{{ product.status}}</td>
-                  <td class="text-center">{{ product.preAlertNumber}}</td>
-                  <td class="text-center">{{ product.vehicalNumber}}</td>
-                  <td class="text-center">{{ product.vehiclaType}}</td>
-                  <td class="text-center">{{ product.mode}}</td>
-                  <td class="text-center">{{ product.origin}}</td>
-                  <td class="text-center">{{ product.originLocation}}</td>
-                  <td class="text-center">{{ product.destinationLocation}}</td>
-                  <td class="text-center">{{ product.weight}}</td>
-                  <td class="text-center">{{ product.totalShipment}}</td>
-                  <td class="text-center">{{ product.pallets}}</td>
-                  <td class="text-center">{{ product.bags}}</td>
-                  <td class="text-center">{{ product.etd}}</td>
-                  <td class="text-center">{{ product.eta}}</td>
-                  <td class="text-center">{{ product.ata}}</td>
-                  <td class="text-center">{{ product.status}}</td>
+                  <td class="text-center">{{ domesticShipment.originFacility}}</td>
+                  <td class="text-center">{{ domesticShipment.originLocation}}</td>
+                  <td class="text-center">{{ domesticShipment.refrigeratedTruck}}</td>
+                  <td class="text-center">{{ domesticShipment.destinationFacility}}</td>
+                  <td class="text-center">{{ domesticShipment.destinationLocation}}</td>
+                  <td class="text-center">{{ domesticShipment.routeNumber}}</td>
+                  <td class="text-center">{{ domesticShipment.numberOfShipments}}</td>
+                  <td class="text-center">{{ domesticShipment.weight}}</td>
+                  <td class="text-center">{{ domesticShipment.etd}}</td>
+                  <td class="text-center">{{ domesticShipment.eta}}</td>
+                  <td class="text-center">{{ domesticShipment.atd}}</td>
+                  <td class="text-center">{{ domesticShipment.driverName}}</td>
+                  <td class="text-center">{{ domesticShipment.driverContact}}</td>
+                  <td class="text-center">{{ domesticShipment.referenceNumber}}</td>
+                  <td class="text-center">{{ domesticShipment.vehicleType}}</td>
+                  <td class="text-center">{{ domesticShipment.numberOfPallets}}</td>
+                  <td class="text-center">{{ domesticShipment.numberOfBags}}</td>
+                  <td class="text-center">{{ domesticShipment.vehicleNumber}}</td>
+                  <td class="text-center">{{ domesticShipment.tagNumber}}</td>
+                  <td class="text-center">{{ domesticShipment.sealNumber}}</td>
+                  <td class="text-center">{{ domesticShipment.status}}</td>
+                  <td class="text-center">{{ domesticShipment.remarks}}</td>
+                  <td class="text-center">{{ domesticShipment.ata}}</td>
+                  <td class="text-center">{{ domesticShipment.totalShipments}}</td>
+                  <td class="text-center">{{ domesticShipment.overages}}</td>
+                  <td class="text-center">{{ domesticShipment.overagesAwbs}}</td>
+                  <td class="text-center">{{ domesticShipment.received}}</td>
+                  <td class="text-center">{{ domesticShipment.shortages}}</td>
+                  <td class="text-center">{{ domesticShipment.shortagesAwbs}}</td>
+                  <td class="text-center">{{ domesticShipment.attachments}}</td>
 
 
                   <td class="text-center flex flex-row"> 
-                    <p-button icon="bi bi-clock-history" routerLink="/domestic-shipping-history" class='mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                    <p-button icon="bi bi-clock-history" [routerLink]="['/domestic-shipping-history/',domesticShipment.id]" class='mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                     
                     </p-button>
                     <p-button icon="bi bi-paperclip" class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                    
                     </p-button>
-                    <p-button routerLink="/update-domestic-shipping" icon="bi bi-pen" class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                    <p-button [routerLink]="['/update-domestic-shipping/',domesticShipment.id]" icon="bi bi-pen" class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                      
                     </p-button>
-                     <p-button icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                     <p-button (click)="deleteDomesticShipment(domesticShipment.id)" icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                     
                      </p-button>
                     

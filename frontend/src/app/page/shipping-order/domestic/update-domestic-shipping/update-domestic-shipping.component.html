@@ -11,413 +11,361 @@
         <div class="body-card">
           <div class="card">
             <h1 class="mb-4 h-color">Edit Domestic Shipment</h1>
-            <div class="grid">
+            <form #domesticShipmentForm="ngForm" (ngSubmit)="onSubmit()">
 
-              <!-- 1 -->
-              
-              <div class="col-12 md:col-6 lg:col-4">
-                <div class="flex flex-column gap-2 form-hook">
-                  <label htmlFor="name">Origin Facility
-                  </label>
-                  <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Origin Facility">
+              <div class="grid">
+
+                <!-- 1 -->
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Origin Facility
+                    </label>
+                    <p-dropdown class="w-full" [options]="originFacility" name="originFacility1"
+                      #originFacility1="ngModel" [required]="true" [(ngModel)]="domesticShipment.originFacility"
+                      optionLabel="originFacility" optionValue="originFacility" [filter]="true"
+                      filterBy="originFacility" [showClear]="true" placeholder="Select a Origin Facility">
                       <ng-template pTemplate="selectedItem">
-                          <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
-                              <div>{{ selectedLocation.locationName}}</div>
-                          </div>
+                        <div class="flex align-items-center gap-2" *ngIf="domesticShipment">
+                          <div>{{ domesticShipment.originFacility}}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-originFacility pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ originFacility.originFacility }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Origin Location</label>
+                    <p-dropdown class="w-full" [options]="location" name="originLocation" #originLocation="ngModel"
+                      [required]="true" [(ngModel)]="domesticShipment.originLocation" optionLabel="locationName"
+                      optionValue="locationName" [filter]="true" filterBy="locationName" [showClear]="true"
+                      placeholder="Select a Origin Location">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="domesticShipment">
+                          <div>{{ domesticShipment.originLocation}}</div>
+                        </div>
                       </ng-template>
                       <ng-template let-location pTemplate="item">
-                          <div class="flex align-items-center gap-2">
-                              <div>{{ location.locationName }}</div>
-                          </div>
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ location.locationName }}</div>
+                        </div>
                       </ng-template>
-                  </p-dropdown>
-              </div>
-              </div>
-              <div class="col-12 md:col-6 lg:col-4">
-                <div class="flex flex-column gap-2 form-hook">
-                  <label htmlFor="name">Origin Location</label>
-                  <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Origin Location">
-                      <ng-template pTemplate="selectedItem">
-                          <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
-                              <div>{{ selectedLocation.locationName}}</div>
-                          </div>
-                      </ng-template>
-                      <ng-template let-location pTemplate="item">
-                          <div class="flex align-items-center gap-2">
-                              <div>{{ location.locationName }}</div>
-                          </div>
-                      </ng-template>
-                  </p-dropdown>
-              </div>
-              </div>
-              <div class="col-12 md:col-6 lg:col-4">
+                    </p-dropdown>
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Referigirated Truck</label>
-                    <p-inputSwitch [(ngModel)]="checked"></p-inputSwitch>
+                    <p-inputSwitch #referigiratedTruck="ngModel" name="referigiratedTruck"
+                      [(ngModel)]="domesticShipment.refrigeratedTruck"></p-inputSwitch>
                     <!-- <small id="name-help"
                       >{{name}}</small
                     > -->
                   </div>
-              </div>
-
-              <!-- 2 -->
-              <div class="col-12 md:col-6 lg:col-4">
-                <div class="flex flex-column gap-2 form-hook">
-                  <label htmlFor="name">Destination Facility</label>
-                  <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Destination Facility">
-                      <ng-template pTemplate="selectedItem">
-                          <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
-                              <div>{{ selectedLocation.locationName}}</div>
-                          </div>
-                      </ng-template>
-                      <ng-template let-location pTemplate="item">
-                          <div class="flex align-items-center gap-2">
-                              <div>{{ location.locationName }}</div>
-                          </div>
-                      </ng-template>
-                  </p-dropdown>
-              </div>
                 </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Destination Facility</label>
+                    <p-dropdown class="w-full" [options]="originFacility" name="destinationFacility"
+                      #destinationFacility="ngModel" [required]="true"
+                      [(ngModel)]="domesticShipment.destinationFacility" optionLabel="originFacility"
+                      optionValue="originFacility" [filter]="true" filterBy="originFacility" [showClear]="true"
+                      placeholder="Select a Destination Facility">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="domesticShipment">
+                          <div>{{ domesticShipment.destinationFacility}}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-originFacility pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ originFacility.originFacility }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Destination Location</label>
-                    <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Destination Location">
-                        <ng-template pTemplate="selectedItem">
-                            <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
-                                <div>{{ selectedLocation.locationName}}</div>
-                            </div>
-                        </ng-template>
-                        <ng-template let-location pTemplate="item">
-                            <div class="flex align-items-center gap-2">
-                                <div>{{ location.locationName }}</div>
-                            </div>
-                        </ng-template>
+                    <p-dropdown class="w-full" [options]="location" name="destinationLocation"
+                      #destinationLocation="ngModel" [required]="true"
+                      [(ngModel)]="domesticShipment.destinationLocation" optionLabel="locationName"
+                      optionValue="locationName" [filter]="true" filterBy="locationName" [showClear]="true"
+                      placeholder="Select a Destination Location">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="domesticShipment">
+                          <div>{{ domesticShipment.destinationLocation}}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-location pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ location.locationName }}</div>
+                        </div>
+                      </ng-template>
                     </p-dropdown>
-                </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Route Number</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
+                  </div>
                 </div>
 
-                <!-- 3 -->
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Route Number</label>
+                    <input pInputText id="name" aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.routeNumber" #routeNumber="ngModel" required
+                      name="routeNumber" />
+                    <!-- <small id="name-help"
+                      >{{name}}</small
+                    > -->
+                  </div>
+                </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Number of Shipments</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [ngModelOptions]="{standalone:true}"
-                      [(ngModel)]="name"
-                    />
+                    <input pInputText id="name" aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.numberOfShipments" #numberOfShipments="ngModel" required
+                      name="numberOfShipments" />
                     <!-- <small id="name-help"
                       >{{name}}</small
                     > -->
                   </div>
                 </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Weight</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4">
-                    
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Weight</label>
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.weight"
+                      #weight="ngModel" required name="weight" />
+                    <!-- <small id="name-help"
+                      >{{name}}</small
+                    > -->
+                  </div>
                 </div>
 
-                <!-- 4 -->
+
+                <div class="col-12 md:col-6 lg:col-4">
+
+                </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">ETD</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [ngModelOptions]="{standalone:true}"
-                      [(ngModel)]="name"
-                    />
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.etd"
+                      #etd="ngModel" required name="etd" />
                     <!-- <small id="name-help"
                       >{{name}}</small
                     > -->
                   </div>
                 </div>
-                <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">ETA</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">ATD</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
-                </div> 
 
-                <!-- 5 -->
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">ETA</label>
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.eta"
+                      #eta="ngModel" required name="eta" />
+                    <!-- <small id="name-help"
+                      >{{name}}</small
+                    > -->
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">ATD</label>
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.atd"
+                      #atd="ngModel" required name="atd" />
+                    <!-- <small id="name-help"
+                      >{{name}}</small
+                    > -->
+                  </div>
+                </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Driver Name</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [ngModelOptions]="{standalone:true}"
-                      [(ngModel)]="name"
-                    />
+                    <input pInputText id="name" aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.driverName" #driverName="ngModel" required name="driverName" />
                     <!-- <small id="name-help"
                       >{{name}}</small
                     > -->
                   </div>
                 </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Driver Contact</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Reference Number</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Driver Contact</label>
+                    <input pInputText id="name" aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.driverContact" #driverContact="ngModel" required
+                      name="driverContact" />
+                    <!-- <small id="name-help"
+                      >{{name}}</small
+                    > -->
+                  </div>
                 </div>
 
-                <!-- 6 -->
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Reference Number</label>
+                    <input pInputText id="name" aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.referenceNumber" #referenceNumber="ngModel" required
+                      name="referenceNumber" />
+                    <!-- <small id="name-help"
+                      >{{name}}</small
+                    > -->
+                  </div>
+                </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
+                    
                     <label htmlFor="name">Vehicle Type</label>
-                    <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Vehicle Type">
-                        <ng-template pTemplate="selectedItem">
-                            <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
-                                <div>{{ selectedLocation.locationName}}</div>
-                            </div>
-                        </ng-template>
-                        <ng-template let-location pTemplate="item">
-                            <div class="flex align-items-center gap-2">
-                                <div>{{ location.locationName }}</div>
-                            </div>
-                        </ng-template>
+                    <p-dropdown class="w-full" [options]="vehicleTypes" name="vehicleType" #vehicleType="ngModel"
+                      [required]="true" [(ngModel)]="domesticShipment.vehicleType" optionLabel="name"
+                      optionValue="name" [filter]="true" filterBy="name" [showClear]="true"
+                      placeholder="Select a Vehicle Type">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="domesticShipment">
+                          <div>{{domesticShipment.vehicleType}}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-vehicleTypes pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ vehicleTypes.name }}</div>
+                        </div>
+                      </ng-template>
                     </p-dropdown>
-                </div>
+                  </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Number of Pallets</label>
-                    <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Number of Pallets">
-                        <ng-template pTemplate="selectedItem">
-                            <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
-                                <div>{{ selectedLocation.locationName}}</div>
-                            </div>
-                        </ng-template>
-                        <ng-template let-location pTemplate="item">
-                            <div class="flex align-items-center gap-2">
-                                <div>{{ location.locationName }}</div>
-                            </div>
-                        </ng-template>
+                    <p-dropdown class="w-full" [options]="noOfPallets" name="numberOfPallets" #numberOfPallets="ngModel"
+                      [required]="true" [(ngModel)]="domesticShipment.numberOfPallets" optionLabel="number" optionValue="number" [filter]="true"
+                      filterBy="number" [showClear]="true" placeholder="Select a Number of Pallets">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="domesticShipment">
+                          <div>{{ domesticShipment.numberOfPallets}}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-noOfPallets pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ noOfPallets.number }}</div>
+                        </div>
+                      </ng-template>
                     </p-dropdown>
-                </div>
+                  </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Number of Bags</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Number of Bags</label>
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.numberOfBags" #numberOfBags="ngModel"
+                      required name="numberOfBags" />
+                    <!-- <small id="name-help"
                         >{{name}}</small
                       > -->
-                    </div>
+                  </div>
                 </div>
 
                 <!-- 7 -->
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Vehicle Number</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [ngModelOptions]="{standalone:true}"
-                      [(ngModel)]="name"
-                    />
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.vehicleNumber" #vehicleNumber="ngModel"
+                      required name="vehicleNumber" />
                     <!-- <small id="name-help"
                       >{{name}}</small
                     > -->
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Tag Number</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Tag Number</label>
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.tagNumber" #tagNumber="ngModel"
+                      required name="tagNumber" />
+                    <!-- <small id="name-help"
                         >{{name}}</small
                       > -->
-                    </div>
+                  </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Seal Number</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Seal Number</label>
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.sealNumber" #sealNumber="ngModel"
+                      required name="sealNumber" />
+                    <!-- <small id="name-help"
                         >{{name}}</small
                       > -->
-                    </div>
+                  </div>
                 </div>
-<!-- 8 -->
-             
-              <div class="col-12 md:col-6 lg:col-4">
-                <div class="flex flex-column gap-2 form-hook">
-                  <label htmlFor="name">Status</label>
-                  <p-dropdown class="w-full" [options]="location" [ngModelOptions]="{standalone:true}" [(ngModel)]="selectedLocation" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Status">
+                <!-- 8 -->
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Status</label>
+                    <p-dropdown class="w-full" [options]="shipmentStatus" name="status" #status="ngModel"
+                      [required]="true" [(ngModel)]="domesticShipment.status" optionLabel="name" optionValue="name" [filter]="true"
+                      filterBy="name" [showClear]="true" placeholder="Select a Status">
                       <ng-template pTemplate="selectedItem">
-                          <div class="flex align-items-center gap-2" *ngIf="selectedLocation">
-                              <div>{{ selectedLocation.locationName}}</div>
-                          </div>
+                        <div class="flex align-items-center gap-2" *ngIf="domesticShipment">
+                          <div>{{ domesticShipment.status}}</div>
+                        </div>
                       </ng-template>
-                      <ng-template let-location pTemplate="item">
-                          <div class="flex align-items-center gap-2">
-                              <div>{{ location.locationName }}</div>
-                          </div>
+                      <ng-template let-shipmentStatus pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ shipmentStatus.name }}</div>
+                        </div>
                       </ng-template>
-                  </p-dropdown>
-              </div>
-              </div>
-              <div class="col-12 md:col-6 lg:col-4">
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Remarks</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [ngModelOptions]="{standalone:true}"
-                      [(ngModel)]="name"
-                    />
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.remarks" #remarks="ngModel"
+                      required name="remarks" />
                     <!-- <small id="name-help"
                       >{{name}}</small
                     > -->
                   </div>
-              </div>
-              <!-- 9 -->
+                </div>
+                <!-- 9 -->
 
-              <div class="col-12 md:col-6 lg:col-4">
+                <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">ATA</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [ngModelOptions]="{standalone:true}"
-                      [(ngModel)]="name"
-                    />
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.ata" #ata="ngModel" required
+                      name="ata" />
                     <!-- <small id="name-help"
                       >{{name}}</small
                     > -->
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Total Shipments</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Total Shipments</label>
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.totalShipments"
+                      #totalShipments="ngModel" required name="totalShipments" />
+                    <!-- <small id="name-help"
                         >{{name}}</small
                       > -->
-                    </div>
+                  </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Overages</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Overages</label>
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.overages" #overages="ngModel"
+                      required name="overages" />
+                    <!-- <small id="name-help"
                         >{{name}}</small
                       > -->
-                    </div>
+                  </div>
                 </div>
 
                 <!-- 10 -->
@@ -425,127 +373,185 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Overage AWBs</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [ngModelOptions]="{standalone:true}"
-                      [(ngModel)]="name"
-                    />
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.overagesAwbs" #overageAwbs="ngModel"
+                      required name="overageAwbs" />
                     <!-- <small id="name-help"
                       >{{name}}</small
                     > -->
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Received</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Received</label>
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.received" #received="ngModel"
+                      required name="received" />
+                    <!-- <small id="name-help"
                         >{{name}}</small
                       > -->
-                    </div>
+                  </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Shortages</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        [ngModelOptions]="{standalone:true}"
-                        [(ngModel)]="name"
-                      />
-                      <!-- <small id="name-help"
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Shortages</label>
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.shortages" #shortages="ngModel"
+                      required name="shortages" />
+                    <!-- <small id="name-help"
                         >{{name}}</small
                       > -->
-                    </div>
+                  </div>
                 </div>
                 <!-- 11 -->
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Shortage AWBs</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [ngModelOptions]="{standalone:true}"
-                      [(ngModel)]="name"
-                    />
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.shortagesAwbs" #shortageAwbs="ngModel"
+                      required name="shortageAwbs" />
                     <!-- <small id="name-help"
                       >{{name}}</small
                     > -->
                   </div>
                 </div>
-               
 
 
-            </div>
-            <h2 class="mb-4 mt-4">Attachments</h2>
-              <div class="grid">
-                <div class=" lg:col-2 md:col-3 sm:col-6">
-                  <div class="card flex justify-content-center">
-                    <p-fileUpload mode="basic" chooseLabel="AWB Copies" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
-                  </div>
-                </div>
-                <div class=" lg:col-2 md:col-3 sm:col-6">
-                  <div class="card flex justify-content-center">
-                    <p-fileUpload mode="basic" chooseLabel="Invoices" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
-                  </div>
-                </div>
-                <div class="lg:col-2 md:col-3 sm:col-6">
-                  <div class="card flex justify-content-center">
-                    <p-fileUpload mode="basic" chooseLabel="Manifest" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
-                  </div>
-                </div>
-                <div class=" lg:col-2 md:col-3 sm:col-6">
-                  <div class="card flex justify-content-center">
-                    <p-fileUpload mode="basic" chooseLabel="Transit Manifest" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
-                  </div>
-                </div>
-                <div class=" lg:col-2 md:col-3 sm:col-6">
-                  <div class="card flex justify-content-center">
-                    <p-fileUpload mode="basic" chooseLabel="MAWB" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
-                  </div>
-                </div>
-                <div class=" lg:col-2 md:col-3 sm:col-6">
-                  <div class="card flex justify-content-center">
-                    <p-fileUpload mode="basic" chooseLabel="Vehicle Manifest" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
-                  </div>
-                </div>
-                <div class=" md:col-offset-0 lg:col-offset-2 lg:col-2 md:col-3 sm:col-6">
-                  <div class="card flex justify-content-center">
-                    <p-fileUpload mode="basic" chooseLabel="Export Bayan" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
-                  </div>
-                </div>
-                <div class=" lg:col-2 md:col-3 sm:col-6">
-                  <div class="card flex justify-content-center">
-                    <p-fileUpload mode="basic" chooseLabel="Import Bayan LV" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
-                  </div>
-                </div>
-                <div class=" md:col-offset-3 lg:col-offset-0 lg:col-2 md:col-3 sm:col-6">
-                  <div class="card flex justify-content-center">
-                    <p-fileUpload mode="basic" chooseLabel="Import Bayan HV" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
-                  </div>
-                </div>
-                <div class=" lg:col-2 md:col-3 sm:col-6">
-                  <div class="card flex justify-content-center">
-                    <p-fileUpload mode="basic" chooseLabel="Other Attachements" name="demo[]"   [maxFileSize]="size" (onUpload)="onUpload($event)"></p-fileUpload>
-                  </div>
-                </div>
+
+
+
+
+
               </div>
-            <div class="flex align-items-center justify-content-end mt-4">
-                <p-button label="Cancel" class="bg-o-color mr" routerLink="/domestic-shipping" styleClass="p-button-outlined">
+
+              <!-- <h2 class="mb-4 mt-4">Attachments</h2>
+              <div class="grid">
+                <div class=" lg:col-6 md:col-12 sm:col-12 ">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <h3 for="">AWB Copies</h3>
+                    <p-fileUpload name="demo[]"  (onUpload)="onUpload($event)"  accept="image/*" [maxFileSize]="size">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                </div>
+                <div class=" lg:col-6 md:col-12 sm:col-12 ">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <h3 for="">Invoices</h3>
+                    <p-fileUpload name="demo[]"  (onUpload)="onUpload($event)"  accept="image/*" [maxFileSize]="size">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                </div>
+                <div class=" lg:col-6 md:col-12 sm:col-12 ">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <h3 for="">Manifest</h3>
+                    <p-fileUpload name="demo[]"  (onUpload)="onUpload($event)"  accept="image/*" [maxFileSize]="size">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                </div>
+                <div class=" lg:col-6 md:col-12 sm:col-12 ">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <h3 for="">Transit Manifest</h3>
+                    <p-fileUpload name="demo[]"  (onUpload)="onUpload($event)"  accept="image/*" [maxFileSize]="size">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                </div>
+                <div class=" lg:col-6 md:col-12 sm:col-12 ">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <h3 for="">MAWB</h3>
+                    <p-fileUpload name="demo[]"  (onUpload)="onUpload($event)"  accept="image/*" [maxFileSize]="size">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                </div>
+                <div class=" lg:col-6 md:col-12 sm:col-12 ">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <h3 for="">Vehcile Manifest</h3>
+                    <p-fileUpload name="demo[]"  (onUpload)="onUpload($event)"  accept="image/*" [maxFileSize]="size">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                </div>
+                <div class=" lg:col-6 md:col-12 sm:col-12 ">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <h3 for="">Export Bayan</h3>
+                    <p-fileUpload name="demo[]"  (onUpload)="onUpload($event)"  accept="image/*" [maxFileSize]="size">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                </div>
+                <div class=" lg:col-6 md:col-12 sm:col-12 ">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <h3 for="">Export Bayan</h3>
+                    <p-fileUpload name="demo[]"  (onUpload)="onUpload($event)"  accept="image/*" [maxFileSize]="size">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                </div>
+                <div class=" lg:col-6 md:col-12 sm:col-12 ">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <h3 for="">AWB Copies</h3>
+                    <p-fileUpload name="demo[]"  (onUpload)="onUpload($event)"  accept="image/*" [maxFileSize]="size">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                </div>
+                <div class=" lg:col-6 md:col-12 sm:col-12 ">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <h3 for="">AWB Copies</h3>
+                    <p-fileUpload name="demo[]"  (onUpload)="onUpload($event)"  accept="image/*" [maxFileSize]="size">
+                        <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{ file.name }} - {{ file.size }} bytes</li>
+                            </ul>
+                        </ng-template>
+                    </p-fileUpload>
+                </div>
+                </div>
+              </div> -->
+              <div class="flex align-items-center justify-content-end mt-4">
+                <p-button label="Cancel" class="bg-o-color mr" routerLink="/domestic-shipping"
+                  styleClass="p-button-outlined">
                 </p-button>
-                <p-button label="Save" class="bg-b-color ml" >
+                <p-button type="submit" [disabled]="!domesticShipmentForm.form.valid" label="Update"
+                  class="bg-b-color ml">
                 </p-button>
-            </div>
+              </div>
+            </form>
           </div>
         </div>
       </div>

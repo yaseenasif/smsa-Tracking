@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { DomesticShippingService } from '../service/domestic-shipping.service';
+import { DomesticShipment } from 'src/app/model/DomesticShipment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-domestic-shipping-list',
@@ -11,32 +13,41 @@ export class DomesticShippingListComponent implements OnInit{
 
   myApiResponse:any;
 
-  constructor(private domesticShipmentService:DomesticShippingService) { }
-  products:any=[{preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originLocation:"DXB",destinationLocation:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originLocation:"DXB",destinationLocation:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originLocation:"DXB",destinationLocation:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originLocation:"DXB",destinationLocation:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originLocation:"DXB",destinationLocation:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originLocation:"DXB",destinationLocation:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originLocation:"DXB",destinationLocation:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originLocation:"DXB",destinationLocation:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originLocation:"DXB",destinationLocation:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",vehicalNumber:"N/A",vehiclaType:"N/A",mode:"Courier",origin:"UAE",originLocation:"DXB",destinationLocation:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},];
+  constructor(private domesticShipmentService:DomesticShippingService,
+    ) { }
+  domesticShipment:DomesticShipment[]=[]
   items: MenuItem[] | undefined;
-
  
 
   ngOnInit() {
       this.items = [{ label: 'Domestic Shipment'}];
       this.getAllDomesticShipments();
   }
+  page=0;
+  size=10;
 
   getAllDomesticShipments(){
-    this.domesticShipmentService.getALLShipments().subscribe((res:any)=>{
-      debugger
+    this.domesticShipmentService.getALLShipments({value:"",user:{}},this.page,this.size).subscribe((res:any)=>{
       this.myApiResponse=res;
+      this.domesticShipment=this.myApiResponse.content;
     },(error:any)=>{
       console.log("some error occurred");
+    })
+  }
+
+  deleteDomesticShipment(id:number){
+    debugger
+    this.domesticShipmentService.deleteDomesticShipment(id).subscribe((res:any)=>{
+    debugger
+
+      console.log(res);
+      this.getAllDomesticShipments();
+      
+    },(error:any)=>{
+    debugger
+
+      console.log(error);
+      
     })
   }
 }

@@ -3,16 +3,14 @@ package com.example.CargoTracking.controller;
 import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
+import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.DomesticShipmentService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -67,6 +65,11 @@ public class DomesticShipmentController {
     @PatchMapping("/update-domestic-shipment/{id}")
     public ResponseEntity<DomesticShipmentDto> update(@PathVariable Long id,@RequestBody DomesticShipmentDto domesticShipmentDto){
         return ResponseEntity.ok(domesticShipmentService.updateDomesticShipment(id,domesticShipmentDto));
+    }
+
+    @DeleteMapping("/delete-domestic-shipment/{id}")
+    public ResponseEntity<ApiResponse> deleteDomesticShipment(@PathVariable Long id){
+        return ResponseEntity.ok(domesticShipmentService.deleteDomesticShipment(id));
     }
 
 }
