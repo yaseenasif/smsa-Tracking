@@ -9,6 +9,8 @@
             <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
         </div>
         <div class="body-card">
+          <p-toast></p-toast>
+
             <div class="table-head">
                 <p-toolbar>
                     <div class="p-toolbar-group-start">
@@ -98,7 +100,7 @@
 
 
                   <td class="text-center flex flex-row"> 
-                    <p-button icon="bi bi-clock-history" [routerLink]="['/domestic-shipping-history/',domesticShipment.id]" class='mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                    <p-button icon="bi bi-clock-history" [routerLink]="['/domestic-shipping-history/',domesticShipment.id]"  class='mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                     
                     </p-button>
                     <p-button icon="bi bi-paperclip" class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">

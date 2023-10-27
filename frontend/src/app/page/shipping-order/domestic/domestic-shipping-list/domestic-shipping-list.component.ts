@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { DomesticShippingService } from '../service/domestic-shipping.service';
 import { DomesticShipment } from 'src/app/model/DomesticShipment';
 import { ActivatedRoute } from '@angular/router';
@@ -7,13 +7,15 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-domestic-shipping-list',
   templateUrl: './domestic-shipping-list.component.html',
-  styleUrls: ['./domestic-shipping-list.component.scss']
+  styleUrls: ['./domestic-shipping-list.component.scss'],
+  providers:[MessageService]
 })
 export class DomesticShippingListComponent implements OnInit{
 
   myApiResponse:any;
 
   constructor(private domesticShipmentService:DomesticShippingService,
+    private messageService: MessageService,
     ) { }
   domesticShipment:DomesticShipment[]=[]
   items: MenuItem[] | undefined;
@@ -31,23 +33,28 @@ export class DomesticShippingListComponent implements OnInit{
       this.myApiResponse=res;
       this.domesticShipment=this.myApiResponse.content;
     },(error:any)=>{
-      console.log("some error occurred");
+      if(error.error.body){
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      }else{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+      }   
     })
   }
 
   deleteDomesticShipment(id:number){
-    debugger
     this.domesticShipmentService.deleteDomesticShipment(id).subscribe((res:any)=>{
-    debugger
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message });
 
-      console.log(res);
       this.getAllDomesticShipments();
       
     },(error:any)=>{
-    debugger
-
-      console.log(error);
-      
+      if(error.error.body){
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      }else{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+      }  
     })
   }
+
+  
 }
