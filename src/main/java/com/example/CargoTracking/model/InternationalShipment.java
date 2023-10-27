@@ -31,6 +31,9 @@ public class InternationalShipment {
     private String carrier;//air
     private Date departureDate;
     private Time departureTime;
+    private LocalDate etd;
+    private LocalDate eta;
+    private LocalDate atd;
     private Integer flightNumber;//air
     private Integer numberOfShipments;
     private Date arrivalDate;
@@ -48,6 +51,7 @@ public class InternationalShipment {
     private String attachments;//new both
     private String status;
     private String remarks;
+    private String routeNumber;
     private LocalDate ata;// new both
     private Integer totalShipments;// new both
     private String overages;// new both
