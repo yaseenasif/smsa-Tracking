@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { LocationService } from 'src/app/page/location/service/location.service';
 import { Location } from 'src/app/model/Location'
 import { VehicleTypeService } from 'src/app/page/vehicle-type/service/vehicle-type.service';
@@ -13,7 +13,8 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-domestic-shipping',
   templateUrl: './add-domestic-shipping.component.html',
-  styleUrls: ['./add-domestic-shipping.component.scss']
+  styleUrls: ['./add-domestic-shipping.component.scss'],
+  providers:[MessageService]
 })
 export class AddDomesticShippingComponent {
   items: MenuItem[] | undefined;
@@ -73,6 +74,7 @@ export class AddDomesticShippingComponent {
   constructor(private locationService: LocationService,
     private vehicleTypeService:VehicleTypeService,
     private shipmentStatusService:ShipmentStatusService,
+    private messageService: MessageService,
     private domesticShipmentService:DomesticShippingService,
     private router:Router) { }
   name!:string;
@@ -209,6 +211,11 @@ export class AddDomesticShippingComponent {
     this.locationService.getAllLocation().subscribe((res:Location[])=>{
       this.location=res.filter(el => el.status);   
     },error=>{
+      if(error.error.body){
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      }else{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+      }   
     })
   }
 
@@ -216,6 +223,11 @@ export class AddDomesticShippingComponent {
     this.vehicleTypeService.getALLVehicleType().subscribe((res:VehicleType[])=>{
       this.vehicleTypes=res;  
     },error=>{
+      if(error.error.body){
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      }else{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+      }   
     })
    }
 
@@ -223,24 +235,30 @@ export class AddDomesticShippingComponent {
     this.shipmentStatusService.getALLShipmentStatus().subscribe((res:ShipmentStatus[])=>{
       this.shipmentStatus=res; 
     },error=>{
+      if(error.error.body){
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      }else{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+      }   
     })
    }
 
    addDomesticShipment(domesticShipment:DomesticShipment){
       this.domesticShipmentService.addDomesticShipment(domesticShipment).subscribe((res:DomesticShipment)=>{
-        console.log("DomesticShipmentAdded");
-        this.router.navigate(['/domestic-shipping']);
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Shipment Added Successfully' });
+        setTimeout(() => {
+          this.router.navigate(['/domestic-shipping']);
+        },800);
       },(error:any)=>{
-        console.log("Getting error wile adding domestic Shipment");
-        
+        if(error.error.body){
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+        }else{
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+        }        
       })
    }
 
    onSubmit(){
-    // this.addDomesticShipment.originFacility = this.selectedOriginFacility.originFacility;
-    console.log(this.domesticShipment);
-    console.log(this.domesticShipment.originFacility);
-    debugger
     this.addDomesticShipment(this.domesticShipment);
     
    }

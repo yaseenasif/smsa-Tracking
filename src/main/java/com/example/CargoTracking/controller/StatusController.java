@@ -21,7 +21,6 @@ public class StatusController {
             return ResponseEntity.ok(statusService.addStatus(status));
         }
 
-        @PreAuthorize("hasRole('ROLE_ADMIN')")
         @GetMapping("/status")
         public ResponseEntity<List<Status>> getAll(){
             return ResponseEntity.ok(statusService.getAll());

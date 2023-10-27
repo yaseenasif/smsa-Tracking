@@ -146,7 +146,9 @@ public class DomesticShipmentService {
                 return pageDomesticShipmentDto;
             }else{
                 if(user.getLocation() != null){
-                    searchCriteriaForSummary.setOrigin(user.getLocation().getLocationName());
+                    if(searchCriteriaForSummary.getOrigin() == null || searchCriteriaForSummary.getOrigin().isEmpty()){
+                        searchCriteriaForSummary.setOrigin(user.getLocation().getLocationName());
+                    }
                 }
 
                 Specification<DomesticShipment> domesticSummarySpecification = DomesticSummarySpecification.getSearchSpecification(searchCriteriaForSummary);
@@ -183,7 +185,9 @@ public class DomesticShipmentService {
                 return pageDomesticShipmentDto;
             }else{
                 if(user.getLocation() != null){
-                    searchCriteriaForSummary.setDestination(user.getLocation().getLocationName());
+                    if(searchCriteriaForSummary.getDestination() == null || searchCriteriaForSummary.getDestination().isEmpty()){
+                        searchCriteriaForSummary.setDestination(user.getLocation().getLocationName());
+                    }
                 }
 
                 Specification<DomesticShipment> domesticSummarySpecification = DomesticSummarySpecification.getSearchSpecification(searchCriteriaForSummary);

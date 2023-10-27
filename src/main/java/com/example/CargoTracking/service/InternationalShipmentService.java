@@ -154,7 +154,9 @@ public class InternationalShipmentService {
                 return internationalShipmentDtoPage;
             }else{
                 if(user.getLocation() != null){
-                    searchCriteriaForInternationalSummary.setOrigin(user.getLocation().getLocationName());
+                    if(searchCriteriaForInternationalSummary.getOrigin() == null || searchCriteriaForInternationalSummary.getOrigin().isEmpty()) {
+                        searchCriteriaForInternationalSummary.setOrigin(user.getLocation().getLocationName());
+                    }
                 }
                 searchCriteriaForInternationalSummary.setType("by Air");
                 Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
@@ -189,7 +191,10 @@ public class InternationalShipmentService {
                 return internationalShipmentDtoPage;
             }else{
                 if(user.getLocation() != null){
-                    searchCriteriaForInternationalSummary.setOrigin(user.getLocation().getLocationName());
+                    if(searchCriteriaForInternationalSummary.getDestination() == null || searchCriteriaForInternationalSummary.getDestination().isEmpty() ){
+                        searchCriteriaForInternationalSummary.setDestination(user.getLocation().getLocationName());
+
+                    }
                 }
                 searchCriteriaForInternationalSummary.setType("by Air");
                 Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecification.getSearchSpecification(searchCriteriaForInternationalSummary);

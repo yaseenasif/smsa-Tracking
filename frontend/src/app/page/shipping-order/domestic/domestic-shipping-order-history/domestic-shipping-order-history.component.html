@@ -9,6 +9,8 @@
           <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
         </div>
         <div class="body-card">
+          <p-toast></p-toast>
+          
           <div class="table-head">
             <h2 class="h-color mb-3">Domestic Shipment History</h2>
 
@@ -23,11 +25,11 @@
                     </div>
                     <div class="lg:col-4 md:col-12 col-12">
                       <label for="" class="heading-lable">Origin :</label> &nbsp;
-                      <label for=""> Dubai Gateway</label>
+                      <label for=""> {{domesticShipment.originLocation}}</label>
                     </div>
                     <div class="lg:col-4 md:col-12 col-12">
                       <label for="" class="heading-lable">Destination :</label> &nbsp;
-                      <label for=""> Riyadh Gateway</label>
+                      <label for=""> {{domesticShipment.destinationLocation}}</label>
                     </div>
 
                   </div>
@@ -41,7 +43,7 @@
                       <label for=""> 2500</label>
                     </div>
                     <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Received :</label> &nbsp;
-                      <label for=""> 2496</label>
+                      <label for=""> {{domesticShipment.received}}</label>
                     </div>
 
                   </div>
@@ -49,10 +51,10 @@
                 <div class="lg:col-12 md:col-6 col-12">
                   <div class="grid">
                     <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Overages :</label> &nbsp;
-                      <label for=""> - </label>
+                      <label for=""> {{domesticShipment.overages}}</label>
                     </div>
                     <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Shortages :</label> &nbsp;
-                      <label for=""> 4</label>
+                      <label for=""> {{domesticShipment.shortages}}</label>
                     </div>
                     <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Transit Time Taken :</label> &nbsp;
                       <label for=""> 0.46</label>
