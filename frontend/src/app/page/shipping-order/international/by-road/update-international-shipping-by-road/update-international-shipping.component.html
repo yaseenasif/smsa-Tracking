@@ -62,7 +62,7 @@
 
               <!-- 2 -->
               <div class="col-12 md:col-6 lg:col-4">
-                <div class="flex flex-column gap-2 form-hook">
+                <div class="flex flex-column gap-2 form-hook">                
                   <label htmlFor="name">Mode
                   </label>
                   <p-dropdown class="w-full" [options]="modeOptions" #mode="ngModel" name="mode" [required]="true" [(ngModel)]="internationalShipment.type" optionValue="options" optionLabel="options" [filter]="true" filterBy="options" [showClear]="true" placeholder="Select a Mode
@@ -233,7 +233,7 @@
 
                 <!-- 6 -->
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2 form-hook">
+                  <div class="flex flex-column gap-2 form-hook">                   
                     <label htmlFor="name">Driver Name
                     </label>
                     <p-dropdown class="w-full" [options]="drivers" name="driverName" [required]="true" #driverName="ngModel" (onChange)="driverData()"  [(ngModel)]="selectedDriver" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Driver Name">

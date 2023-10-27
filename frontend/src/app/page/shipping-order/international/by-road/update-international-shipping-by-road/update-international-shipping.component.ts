@@ -18,6 +18,7 @@ import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
 import {Location} from '../../../../../model/Location'
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
 import { Observable, forkJoin } from 'rxjs';
+import { isNullOrUndef } from 'chart.js/dist/helpers/helpers.core';
 
 @Component({
   selector: 'app-update-international-shipping',
@@ -75,7 +76,7 @@ export class UpdateInternationalShippingComponent {
   drivers!:Driver[]
   vehicleTypes!:VehicleType[]
   shipmentStatus!:ShipmentStatus[];
-  selectedDriver:Driver|null=null;
+  selectedDriver!:Driver|null|undefined;
   modeOptions:{ options: string }[] =Object.values(Mode).map(el => ({ options: el }));
   shipmentMode:{ options: string }[] =Object.values(ShipmentMode).map(el => ({ options: el }));
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
@@ -148,10 +149,16 @@ export class UpdateInternationalShippingComponent {
   }
   
   getInternationalShipmentById(id:number){
-    console.log(this.internationalShipment);
     
     this.internationalShippingService.getInternationalShipmentByID(id).subscribe((res:InternationalShipment)=>{
-     this.internationalShipment=res;
+     res.etd=res.etd ? new Date(res.etd) : new Date();
+     res.eta=res.eta ? new Date(res.eta) : new Date();
+     res.atd=res.atd ? new Date(res.atd) : new Date();
+     res.ata=res.ata ? new Date(res.ata) : new Date();
+     this.selectedDriver=this.drivers.find(el=>(el.name==res.driverName)&&(el.contactNumber==res.driverContact)&&(el.referenceNumber==res.referenceNumber))
+     this.internationalShipment=res;  
+     console.log(this.selectedDriver);
+     
     },error=>{
      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not International Shipment by id'});
     })
