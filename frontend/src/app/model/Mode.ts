@@ -1,4 +1,4 @@
 export enum Mode{
-    ByRoad = 'ByRoad',
-    ByAir = 'ByAir',
+    ByRoad = 'by Road',
+    ByAir = 'by Air',
 }

@@ -37,7 +37,8 @@ public class EmailService {
                     "</html>", true);
             javaMailSender.send(message);
         }catch (Exception e){
-            throw new RuntimeException("Error while sending mail");
+            e.printStackTrace();
+            throw new RuntimeException("Error while sending mail"+e.getMessage());
         }
 
     }

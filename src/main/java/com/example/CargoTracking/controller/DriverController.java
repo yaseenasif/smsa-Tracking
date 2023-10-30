@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +27,7 @@ public class DriverController {
         return ResponseEntity.ok(driverService.addDriver(driverDto));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured({"ROLE_USER","ROLE_ADMIN"})
     @GetMapping("/driver")
     public ResponseEntity<Page<DriverDto>> getAll(@RequestParam(value = "value",required = false) String value,
                                                     @RequestParam(defaultValue = "0") int page,
