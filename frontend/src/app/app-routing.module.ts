@@ -255,7 +255,7 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'update-international-shipment-by-air',
+    path:'update-international-shipment-by-air/:id',
     component:UpdateInternationalShipmentByAirComponent,
     canActivate:[AuthGuard]
   },

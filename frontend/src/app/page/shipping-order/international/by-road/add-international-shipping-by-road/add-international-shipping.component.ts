@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MenuItem, MessageService } from 'primeng/api';
 import { InternationalShipment } from 'src/app/model/InternationalShipment';
-import { InternationalShippingService } from '../service/international-shipping.service';
+import { InternationalShippingService } from '../../service/international-shipping.service';
 import { Router } from '@angular/router';
 import { LocationService } from 'src/app/page/location/service/location.service';
 import { Location } from '../../../../../model/Location'
@@ -30,13 +30,11 @@ export class AddInternationalShippingComponent {
   internationalShipment:InternationalShipment={
     id: null,
     actualWeight: null,
-    arrivalDate: null,
-    arrivalTime: null,
+    arrivalDateAndTime: null,    
     ata: null,
     attachments: null,
     carrier: null,
-    departureDate: null,
-    departureTime: null,
+    departureDateAndTime: null,
     destinationCountry: null,
     destinationPort: null,
     driverContact: null,
@@ -61,7 +59,7 @@ export class AddInternationalShippingComponent {
     status: null,
     tagNumber: null,
     totalShipments: null,
-    type: null,
+    type:'By Road',
     vehicleNumber: null,
     vehicleType: null,
     routeNumber: null,
@@ -81,7 +79,7 @@ export class AddInternationalShippingComponent {
   shipmentMode:{ options: string }[] =Object.values(ShipmentMode).map(el => ({ options: el }));
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
   
-  selectedLocation!:Location;
+ 
  
 
   constructor(private router:Router,
@@ -121,7 +119,7 @@ export class AddInternationalShippingComponent {
     this.internationalShippingService.addInternationalShipment(this.internationalShipment).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is added' });
       setTimeout(() => {
-        this.router.navigate(['/international-tile']);
+        this.router.navigate(['/international-shipment-by-road']);
       },800);
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'International Shipment is not added' });

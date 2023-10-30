@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { InternationalShippingService } from '../service/international-shipping.service';
+import { InternationalShippingService } from '../../service/international-shipping.service';
 import { InternationalShipment } from 'src/app/model/InternationalShipment';
 
 @Component({
@@ -18,13 +18,13 @@ export class InternationalShippingListComponent {
 
   ngOnInit() {
       this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Road'}];
-      this.getAllPermissions();
+      this.getAllInternationalShipmentByRoad();
   }
   
 
-  getAllPermissions(){
+  getAllInternationalShipmentByRoad(){
     this.internationalShippingService.getAllInternationalShipmentByRoad().subscribe((res:InternationalShipment[])=>{
-      this.internationalShipmentByRoad=res.filter(el=>el.status);   
+      this.internationalShipmentByRoad=res;
     },error=>{
     })
    }

@@ -24,7 +24,7 @@
             
   
             <div class="card">
-              <p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }">
+              <p-table [value]="internationalShipmentByRoad" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header">
                   <tr>
                   <th class="text-center">Mode</th>
@@ -39,17 +39,14 @@
                   <th class="text-center">ETA</th>
                   <th class="text-center">ATD</th>
                   <th class="text-center">Carrier</th>
-                  <th class="text-center">Departure Date</th>
-                  <th class="text-center">Departure Time</th>
+                  <th class="text-center">Departure Date & Time</th>
                   <th class="text-center">Flight Number</th>
-                  <th class="text-center">Arrival Date</th>
-                  <th class="text-center">Arrival Time</th>
+                  <th class="text-center">Arrival Date & Time</th>
                   <th class="text-center">Number of Shipments</th>
                   <th class="text-center">Actual Weight</th>
                   <th class="text-center">Reference Number</th>
                   <th class="text-center">Number of Pallets</th>
                   <th class="text-center">Number of Bags</th>
-                  <th class="text-center">Attachements</th>
                   <th class="text-center">Status</th>
                   <th class="text-center">Remarks</th>
                   <th class="text-center">ATA</th>
@@ -62,40 +59,38 @@
                   <th class="text-center">Action</th>
                   </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-product>
+                <ng-template pTemplate="body" let-internationalShipmentByRoad>
                   <tr>
-                    <td class="text-center">{{ product.preAlertNumber}}</td>
-                    <td class="text-center">{{ product.flightDetails}}</td>
-                    <td class="text-center">{{ product.mode}}</td>
-                    <td class="text-center">{{ product.origin}}</td>
-                    <td class="text-center">{{ product.originPort}}</td>
-                    <td class="text-center">{{ product.destinationPort}}</td>
-                    <td class="text-center">{{ product.weight}}</td>
-                    <td class="text-center">{{ product.totalShipment}}</td>
-                    <td class="text-center">{{ product.pallets}}</td>
-                    <td class="text-center">{{ product.bags}}</td>
-                    <td class="text-center">{{ product.etd}}</td>
-                    <td class="text-center">{{ product.eta}}</td>
-                    <td class="text-center">{{ product.ata}}</td>
-                    <td class="text-center">{{ product.status}}</td>
-                    <td class="text-center">{{ product.status}}</td>
-                    <td class="text-center">{{ product.preAlertNumber}}</td>
-                    <td class="text-center">{{ product.flightDetails}}</td>
-                    <td class="text-center">{{ product.mode}}</td>
-                    <td class="text-center">{{ product.origin}}</td>
-                    <td class="text-center">{{ product.originPort}}</td>
-                    <td class="text-center">{{ product.destinationPort}}</td>
-                    <td class="text-center">{{ product.weight}}</td>
-                    <td class="text-center">{{ product.totalShipment}}</td>
-                    <td class="text-center">{{ product.pallets}}</td>
-                    <td class="text-center">{{ product.bags}}</td>
-                    <td class="text-center">{{ product.etd}}</td>
-                    <td class="text-center">{{ product.eta}}</td>
-                    <td class="text-center">{{ product.ata}}</td>
-                    <td class="text-center">{{ product.status}}</td>
-                    <td class="text-center">{{ product.status}}</td>
-                    <td class="text-center">{{ product.status}}</td>
-                    <td class="text-center">{{ product.status}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.type}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.shipmentMode}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.originCountry}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.originPort}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.preAlertNumber}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.destinationCountry}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.destinationPort}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.routeNumber}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.etd}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.eta}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.atd}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.carrier}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.departureDateAndTime}}</td>                   
+                    <td class="text-center">{{ internationalShipmentByRoad.flightNumber}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.arrivalDateAndTime}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.numberOfShipments}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.actualWeight}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.referenceNumber}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.numberOfPallets}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.numberOfBags}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.status}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.remarks}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.ata}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.totalShipments}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.overages}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.overageAWBs}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.received}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.shortages}}</td>
+                    <td class="text-center">{{ internationalShipmentByRoad.shortageAWBs}}</td>
+                   
   
                     <td class="text-center flex flex-row"> 
                       <p-button icon="bi bi-clock-history" routerLink="/international-shipment-history-by-air" class='mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
@@ -104,7 +99,7 @@
                       <p-button icon="bi bi-paperclip" class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                      
                       </p-button>
-                      <p-button routerLink="/update-international-shipment-by-air" icon="bi bi-pen" class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                      <p-button [routerLink]="['/update-international-shipment-by-air',internationalShipmentByRoad.id]" icon="bi bi-pen" class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                        
                       </p-button>
                        <p-button icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">

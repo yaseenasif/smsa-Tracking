@@ -15,6 +15,9 @@ export class InternationalShippingService {
   getAllInternationalShipmentByRoad():Observable<InternationalShipment[]>{
     return this.http.get<InternationalShipment[]>(this.url.concat('/international-shipments-by-user-road'));
   }
+  getAllInternationalShipmentByAir():Observable<InternationalShipment[]>{
+    return this.http.get<InternationalShipment[]>(this.url.concat('/international-shipments-by-user-air'));
+  }
   getInternationalShipmentByID(id:number):Observable<InternationalShipment>{
     return this.http.get<InternationalShipment>(this.url.concat('/international-shipment/',id.toString()));
   }

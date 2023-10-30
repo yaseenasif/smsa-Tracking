@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { InternationalShipment } from 'src/app/model/InternationalShipment';
-import { InternationalShippingService } from '../service/international-shipping.service';
+import { InternationalShippingService } from '../../service/international-shipping.service';
 import { LocationService } from 'src/app/page/location/service/location.service';
 import { LocationPortService } from 'src/app/page/location-port/service/location-port.service';
 import { DriverService } from 'src/app/page/driver/service/driver.service';
@@ -18,7 +18,7 @@ import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
 import {Location} from '../../../../../model/Location'
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
 import { Observable, forkJoin } from 'rxjs';
-import { isNullOrUndef } from 'chart.js/dist/helpers/helpers.core';
+
 
 @Component({
   selector: 'app-update-international-shipping',
@@ -40,15 +40,13 @@ export class UpdateInternationalShippingComponent {
     destinationCountry: null,
     destinationPort: null,
     carrier: null,
-    departureDate: null,
-    departureTime: null,
+    departureDateAndTime: null,
     etd: null,
     eta: null,
     atd: null,
     flightNumber: null,
     numberOfShipments: null,
-    arrivalDate: null,
-    arrivalTime: null,
+    arrivalDateAndTime: null,
     actualWeight: null,
     driverName: null,
     driverContact: null,
@@ -110,12 +108,7 @@ export class UpdateInternationalShippingComponent {
   ngOnInit(): void {
     this.iSID=+this.route.snapshot.paramMap.get('id')!;
     this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Road',routerLink:'/international-shipment-by-road'},{ label: 'Edit International Shipment By Road'}];    
-    // this.getAllLocations();
-    // this.getAllLocationPort();
-    // this.getAllDriver();
-    // this.getAllVehicleType();
-    // this.getAllShipmentStatus();
-    // this.getInternationalShipmentById(this.iSID);
+   
     const locations$: Observable<Location[]> = this.locationService.getAllLocation();
     const locationPort$: Observable<LocationPort[]> =this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> =this.driverService.getAllDriver();
@@ -141,7 +134,7 @@ export class UpdateInternationalShippingComponent {
     this.internationalShippingService.updateInternationalShipmentById(this.iSID,this.internationalShipment).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is updated on id'+res.id});
       setTimeout(() => {
-        this.router.navigate(['/international-tile']);
+        this.router.navigate(['/international-shipment-by-road']);
       },800);
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'International Shipment is not updated'});

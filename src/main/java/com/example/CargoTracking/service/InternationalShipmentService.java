@@ -297,12 +297,10 @@ public class InternationalShipmentService {
                 internationalShipment.get().setDestinationCountry(internationalShipmentDto.getDestinationCountry());
                 internationalShipment.get().setDestinationPort(internationalShipmentDto.getDestinationPort());
                 internationalShipment.get().setCarrier(internationalShipmentDto.getCarrier());
-                internationalShipment.get().setDepartureTime(internationalShipmentDto.getDepartureTime());
-                internationalShipment.get().setDepartureDate(internationalShipmentDto.getDepartureDate());
+                internationalShipment.get().setDepartureDateAndTime(internationalShipmentDto.getDepartureDateAndTime());
                 internationalShipment.get().setFlightNumber(internationalShipmentDto.getFlightNumber());
                 internationalShipment.get().setNumberOfShipments(internationalShipmentDto.getNumberOfShipments());
-                internationalShipment.get().setArrivalDate(internationalShipmentDto.getArrivalDate());
-                internationalShipment.get().setArrivalTime(internationalShipmentDto.getArrivalTime());
+                internationalShipment.get().setArrivalDateAndTime(internationalShipmentDto.getArrivalDateAndTime());
                 internationalShipment.get().setActualWeight(internationalShipmentDto.getActualWeight());
                 internationalShipment.get().setDriverName(internationalShipmentDto.getDriverName());
                 internationalShipment.get().setDriverContact(internationalShipmentDto.getDriverContact());

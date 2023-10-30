@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -29,15 +30,13 @@ public class InternationalShipment {
     private String destinationCountry;
     private String destinationPort;
     private String carrier;//air
-    private Date departureDate;
-    private Time departureTime;
+    private LocalDateTime departureDateAndTime;
     private LocalDate etd;
     private LocalDate eta;
     private LocalDate atd;
     private Integer flightNumber;//air
     private Integer numberOfShipments;
-    private Date arrivalDate;
-    private Time arrivalTime;
+    private LocalDateTime arrivalDateAndTime;
     private Double actualWeight;
     private String driverName;
     private String driverContact;

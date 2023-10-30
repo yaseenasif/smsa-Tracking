@@ -62,22 +62,17 @@
 
               <!-- 2 -->
               <div class="col-12 md:col-6 lg:col-4">
-                <div class="flex flex-column gap-2 form-hook">                
+                <div class="flex flex-column gap-2 form-hook">
                   <label htmlFor="name">Mode
                   </label>
-                  <p-dropdown class="w-full" [options]="modeOptions" #mode="ngModel" name="mode" [required]="true" [(ngModel)]="internationalShipment.type" optionValue="options" optionLabel="options" [filter]="true" filterBy="options" [showClear]="true" placeholder="Select a Mode
-                  ">
-                      <ng-template pTemplate="selectedItem">
-                          <div class="flex align-items-center gap-2" *ngIf="internationalShipment">
-                              <div>{{internationalShipment.type}}</div>
-                          </div>
-                      </ng-template>
-                      <ng-template let-modeOptions pTemplate="item">
-                          <div class="flex align-items-center gap-2">
-                              <div>{{ modeOptions.options }}</div>
-                          </div>
-                      </ng-template>
-                  </p-dropdown>
+                  <input
+                        #mode="ngModel" name="mode" [required]="true"
+                        pInputText
+                        id="name"
+                        aria-describedby="name-help"
+                        [readOnly]="true"
+                        [(ngModel)]="internationalShipment.type"
+                      />    
               </div>
               </div>
 
@@ -380,9 +375,7 @@
                     <small id="name-help" class="color-red"  *ngIf="sealNumber.invalid && (sealNumber.dirty || sealNumber.touched)">Seal Number is required.</small>
                   </div>
               </div>
-              <!-- 9 -->
-
-             
+              <!-- 9 -->             
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                   <label htmlFor="name">Status</label>
