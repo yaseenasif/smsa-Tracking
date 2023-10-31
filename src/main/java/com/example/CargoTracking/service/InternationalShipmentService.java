@@ -20,6 +20,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -118,6 +120,29 @@ public class InternationalShipmentService {
             return toDto(internationalShipment.get());
         }
         throw new RecordNotFoundException(String.format("International shipment Not Found By This Id %d",id));
+    }
+
+//    @Scheduled(fixedRate = 20 * 60 * 1000)
+    @Scheduled(cron = "0 0 12 * * ?")
+    public void redFlag() {
+        LocalDate oneDayOlderDate = LocalDate.now().minusDays(1);
+
+        List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findByCreatedAt(oneDayOlderDate);
+
+        try {
+            LocalDate currentDate = LocalDate.now();
+
+            for (InternationalShipment entity : internationalShipmentList) {
+                if (entity.getAtd().isBefore(currentDate) && !entity.getRedFlag() && !entity.getStatus().equals("Arrived")) {
+                    entity.setRedFlag(true);
+                }
+            }
+
+            internationalShipmentRepository.saveAll(internationalShipmentList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Collections.emptyList();
+        }
     }
 
     private List<InternationalShipmentDto> toDtoList(List<InternationalShipment> internationalShipmentList){

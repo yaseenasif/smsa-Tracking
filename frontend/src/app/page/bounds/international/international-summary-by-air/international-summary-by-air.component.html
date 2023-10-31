@@ -154,20 +154,20 @@
               </ng-template>
               <ng-template pTemplate="body" let-internationalShipmentByAir>
                 <tr>
-                  <td class="text-center">{{ internationalShipmentByAir.preAlertNumber}}</td>
-                  <td class="text-center">{{ internationalShipmentByAir.flightNumber}}</td>
-                  <td class="text-center">{{ internationalShipmentByAir.type}}</td>
-                  <td class="text-center">{{ internationalShipmentByAir.originCountry}}</td>
-                  <td class="text-center">{{ internationalShipmentByAir.originPort}}</td>
-                  <td class="text-center">{{ internationalShipmentByAir.destinationPort}}</td>
-                  <td class="text-center">{{ internationalShipmentByAir.actualWeight}}</td>
-                  <td class="text-center">{{ internationalShipmentByAir.totalShipments}}</td>
-                  <td class="text-center">{{ internationalShipmentByAir.numberOfPallets}}</td>
-                  <td class="text-center">{{ internationalShipmentByAir.numberOfBags}}</td>
-                  <td class="text-center">{{ internationalShipmentByAir.etd}}</td>
-                  <td class="text-center">{{ internationalShipmentByAir.eta}}</td>
-                  <td class="text-center">{{ internationalShipmentByAir.ata}}</td>
-                  <td class="text-center">{{ internationalShipmentByAir.status}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByAir.redFlag?'red':'withoutRed'">{{ internationalShipmentByAir.preAlertNumber}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByAir.redFlag?'red':'withoutRed'">{{ internationalShipmentByAir.flightNumber}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByAir.redFlag?'red':'withoutRed'">{{ internationalShipmentByAir.type}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByAir.redFlag?'red':'withoutRed'">{{ internationalShipmentByAir.originCountry}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByAir.redFlag?'red':'withoutRed'">{{ internationalShipmentByAir.originPort}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByAir.redFlag?'red':'withoutRed'">{{ internationalShipmentByAir.destinationPort}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByAir.redFlag?'red':'withoutRed'">{{ internationalShipmentByAir.actualWeight}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByAir.redFlag?'red':'withoutRed'">{{ internationalShipmentByAir.totalShipments}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByAir.redFlag?'red':'withoutRed'">{{ internationalShipmentByAir.numberOfPallets}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByAir.redFlag?'red':'withoutRed'">{{ internationalShipmentByAir.numberOfBags}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByAir.redFlag?'red':'withoutRed'">{{ internationalShipmentByAir.etd}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByAir.redFlag?'red':'withoutRed'">{{ internationalShipmentByAir.eta}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByAir.redFlag?'red':'withoutRed'">{{ internationalShipmentByAir.ata}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByAir.redFlag?'red':'withoutRed'">{{ internationalShipmentByAir.status}}</td>
                 </tr>
               </ng-template>
             </p-table>
