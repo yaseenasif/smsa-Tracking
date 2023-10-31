@@ -58,6 +58,7 @@ public class InternationalShipment {
     private String received;// new both
     private String shortages;// new both
     private String shortageAWBs;// new both
+    private Boolean redFlag;
     @ManyToOne
     private User createdBy;
     private LocalDate createdAt;

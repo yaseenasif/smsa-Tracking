@@ -1,6 +1,7 @@
 package com.example.CargoTracking.model;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -14,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Data
 @Builder
 @Entity
 public class DomesticShipment {
@@ -50,6 +52,7 @@ public class DomesticShipment {
     private String shortages;
     private String shortagesAwbs;
     private String attachments;
+    private Boolean redFlag;
 
     // attachments dalega
 //    private String createdBy;
@@ -66,4 +69,13 @@ public class DomesticShipment {
     @OneToMany(mappedBy = "domesticShipment",cascade = CascadeType.REMOVE)
     private List<DomesticShipmentHistory> domesticShipmentHistories ;
 
+    @Override
+    public String toString() {
+        return "DomesticShipment{" +
+                "id=" + id +
+                ", originFacility='" + originFacility + '\'' +
+                ", originLocation='" + originLocation + '\'' +
+                ", refrigeratedTruck=" + refrigeratedTruck +
+                '}';
+    }
 }

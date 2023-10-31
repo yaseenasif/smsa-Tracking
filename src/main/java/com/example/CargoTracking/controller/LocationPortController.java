@@ -4,6 +4,7 @@ import com.example.CargoTracking.dto.LocationPortDto;
 import com.example.CargoTracking.service.LocationPortService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +23,8 @@ public class LocationPortController {
         return ResponseEntity.ok(locationPortService.addPort(locationPortDto));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured({"ROLE_USER","ROLE_ADMIN"})
     @GetMapping("/location-port")
     public ResponseEntity<List<LocationPortDto>> getAll(){
         return ResponseEntity.ok(locationPortService.getActivePorts());
