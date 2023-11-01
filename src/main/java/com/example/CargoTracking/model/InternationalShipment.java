@@ -8,6 +8,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -30,13 +31,15 @@ public class InternationalShipment {
     private String destinationCountry;
     private String destinationPort;
     private String carrier;//air
-    private LocalDateTime departureDateAndTime;
+    private LocalDate departureDate;
+    private LocalTime departureTime;
     private LocalDate etd;
     private LocalDate eta;
     private LocalDate atd;
     private Integer flightNumber;//air
     private Integer numberOfShipments;
-    private LocalDateTime arrivalDateAndTime;
+    private LocalDate arrivalDate;
+    private LocalTime arrivalTime;
     private Double actualWeight;
     private String driverName;
     private String driverContact;

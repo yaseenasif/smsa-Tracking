@@ -1,5 +1,6 @@
 package com.example.CargoTracking.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -7,6 +8,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -26,13 +28,17 @@ public class InternationalShipmentDto {
     private String destinationCountry;
     private String destinationPort;
     private String carrier;//air
-    private LocalDateTime departureDateAndTime;
+    private LocalDate departureDate;
+    @JsonFormat(pattern = "HH:mm:ss")
+    private LocalTime departureTime;
     private LocalDate etd;
     private LocalDate eta;
     private LocalDate atd;
     private Integer flightNumber;//air
     private Integer numberOfShipments;
-    private LocalDateTime arrivalDateAndTime;
+    private LocalDate arrivalDate;
+    @JsonFormat(pattern = "HH:mm:ss")
+    private LocalTime arrivalTime;
     private Double actualWeight;
     private String driverName;
     private String driverContact;

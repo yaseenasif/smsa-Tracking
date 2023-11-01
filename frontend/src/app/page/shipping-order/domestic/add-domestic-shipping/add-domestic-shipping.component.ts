@@ -10,11 +10,16 @@ import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { DomesticShipment } from 'src/app/model/DomesticShipment';
 import { DomesticShippingService } from '../service/domestic-shipping.service';
 import { Router } from '@angular/router';
+import { Driver } from 'src/app/model/Driver';
+import { DriverService } from 'src/app/page/driver/service/driver.service';
+import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
+import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-add-domestic-shipping',
   templateUrl: './add-domestic-shipping.component.html',
   styleUrls: ['./add-domestic-shipping.component.scss'],
-  providers:[MessageService]
+  providers:[MessageService,DatePipe]
 })
 export class AddDomesticShippingComponent {
   items: MenuItem[] | undefined;
@@ -65,23 +70,28 @@ export class AddDomesticShippingComponent {
   vehicleTypes!:VehicleType[];
   selectedVehicleTypes!:VehicleType;
 
-  noOfPallets!:noOfPallets[];
-  selectedNoOfPallets!:noOfPallets;
+  numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
+ 
 
   shipmentStatus!:ShipmentStatus[];
   selectedShipmentStatus!:ShipmentStatus;
+
+  drivers!:Driver[]
 
   constructor(private locationService: LocationService,
     private vehicleTypeService:VehicleTypeService,
     private shipmentStatusService:ShipmentStatusService,
     private messageService: MessageService,
     private domesticShipmentService:DomesticShippingService,
-    private router:Router) { }
+    private driverService:DriverService,
+    private router:Router,
+    private datePipe:DatePipe) { }
   name!:string;
   checked!:boolean;
   size=100000
   uploadedFiles: any[] = [];
   fromDate:any;
+  selectedDriver:Driver|null=null;
 
   onUpload(event: any) {
     
@@ -100,6 +110,7 @@ export class AddDomesticShippingComponent {
     this.getAllLocations();
     this.getAllVehicleType();
     this.getAllShipmentStatus();
+    this.getAllDriver();
 
     this.originFacility=[
       {
@@ -113,98 +124,6 @@ export class AddDomesticShippingComponent {
       }
     ]
 
-    this.noOfPallets=[
-      {
-        number:30
-      },
-      {
-        number:29
-      },
-      {
-        number:28
-      },
-      {
-        number:27
-      },
-      {
-        number:26
-      },
-      {
-        number:25
-      },
-      {
-        number:24
-      },
-      {
-        number:23
-      },
-      {
-        number:22
-      },
-      {
-        number:21
-      },
-      {
-        number:20
-      },
-      {
-        number:19
-      },
-      {
-        number:18
-      },
-      {
-        number:17
-      },
-      {
-        number:16
-      },
-      {
-        number:15
-      },
-      {
-        number:14
-      },
-      {
-        number:13
-      },
-      {
-        number:12
-      },
-      {
-        number:11
-      },
-      {
-        number:10
-      },
-      {
-        number:9
-      },
-      {
-        number:8
-      },
-      {
-        number:7
-      },
-      {
-        number:6
-      },
-      {
-        number:5
-      },
-      {
-        number:4
-      },
-      {
-        number:3
-      },
-      {
-        number:2
-      },
-      {
-        number:1
-      }
-    ]
   }
 
   getAllLocations(){
@@ -258,9 +177,26 @@ export class AddDomesticShippingComponent {
       })
    }
 
+   getAllDriver(){
+    this.driverService.getAllDriver().subscribe((res:PaginatedResponse<Driver>)=>{
+  
+     this.drivers=res.content.filter((el:Driver)=>el.status);  
+    },error=>{})
+   }
+
+   driverData(){
+    this.domesticShipment.driverName=this.selectedDriver?.name;
+    this.domesticShipment.driverContact=this.selectedDriver?.contactNumber;
+    this.domesticShipment.referenceNumber=this.selectedDriver?.referenceNumber;
+   }
+
    onSubmit(){
+
+    this.domesticShipment.etd=this.datePipe.transform(this.domesticShipment.etd,'yyyy-MM-dd')
+    this.domesticShipment.eta=this.datePipe.transform(this.domesticShipment.eta,'yyyy-MM-dd')
+    this.domesticShipment.atd=this.datePipe.transform(this.domesticShipment.atd,'yyyy-MM-dd')
+    this.domesticShipment.ata=this.datePipe.transform(this.domesticShipment.ata,'yyyy-MM-dd')
     this.addDomesticShipment(this.domesticShipment);
-    
    }
 
 
@@ -275,8 +211,6 @@ interface originFacility{
   originFacility:string
 }
 
-interface noOfPallets{
-  number:number;
-}
+
 
 

@@ -18,56 +18,59 @@ import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
 import {Location} from '../../../../../model/Location'
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
 import { Observable, forkJoin } from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-update-international-shipping',
   templateUrl: './update-international-shipping.component.html',
   styleUrls: ['./update-international-shipping.component.scss'],
-  providers:[MessageService]
+  providers:[MessageService,DatePipe]
 })
 export class UpdateInternationalShippingComponent {
   items: MenuItem[] | undefined ;
   iSID!:number;
   internationalShipment:InternationalShipment={
     id: null,
-    originCountry: null,
-    originPort: null,
-    refrigeratedTruck: null,
-    type: null,
-    shipmentMode: null,
-    preAlertNumber: null,
+    actualWeight: null,
+    arrivalDate: null,  
+    arrivalTime: null,  
+    ata: null,
+    attachments: null,
+    carrier: null,
+    departureDate: null,
+    departureTime: null,
     destinationCountry: null,
     destinationPort: null,
-    carrier: null,
-    departureDateAndTime: null,
+    driverContact: null,
+    driverName: null,
+    flightNumber: null,
+    numberOfBags: null,
+    numberOfPallets: null,
+    numberOfShipments: null,
+    originCountry: null,
+    originPort: null,
+    overageAWBs: null,
+    overages: null,
+    preAlertNumber: null,
+    received: null,
+    referenceNumber: null,
+    refrigeratedTruck: false,
+    remarks: null,
+    sealNumber: null,
+    shipmentMode: null,
+    shortageAWBs: null,
+    shortages: null,
+    status: null,
+    tagNumber: null,
+    totalShipments: null,
+    type: 'By Air',
+    vehicleNumber: null,
+    vehicleType: null,
+    routeNumber: null,
     etd: null,
     eta: null,
-    atd: null,
-    flightNumber: null,
-    numberOfShipments: null,
-    arrivalDateAndTime: null,
-    actualWeight: null,
-    driverName: null,
-    driverContact: null,
-    referenceNumber: null,
-    vehicleType: null,
-    numberOfPallets: null,
-    numberOfBags: null,
-    vehicleNumber: null,
-    tagNumber: null,
-    sealNumber: null,
-    attachments: null,
-    status: null,
-    remarks: null,
-    routeNumber: null,
-    ata: null,
-    totalShipments: null,
-    overages: null,
-    overageAWBs: null,
-    received: null,
-    shortages: null,
-    shortageAWBs: null
+    atd: null
   }
   location!:Location[];
   locationPort!:LocationPort[]
@@ -89,7 +92,8 @@ export class UpdateInternationalShippingComponent {
     private driverService:DriverService,
     private route: ActivatedRoute,
     private vehicleTypeService:VehicleTypeService,
-    private shipmentStatusService:ShipmentStatusService) { }
+    private shipmentStatusService:ShipmentStatusService,
+    private datePipe: DatePipe) { }
     
   name!:string;
   checked!:boolean;
@@ -131,6 +135,11 @@ export class UpdateInternationalShippingComponent {
   }
 
    onSubmit() {
+   this.internationalShipment.etd=this.datePipe.transform(this.internationalShipment.etd,'yyyy-MM-dd')
+   this.internationalShipment.eta=this.datePipe.transform(this.internationalShipment.eta,'yyyy-MM-dd')
+   this.internationalShipment.atd=this.datePipe.transform(this.internationalShipment.atd,'yyyy-MM-dd')
+   this.internationalShipment.ata=this.datePipe.transform(this.internationalShipment.ata,'yyyy-MM-dd')
+    
     this.internationalShippingService.updateInternationalShipmentById(this.iSID,this.internationalShipment).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is updated on id'+res.id});
       setTimeout(() => {
@@ -144,13 +153,14 @@ export class UpdateInternationalShippingComponent {
   getInternationalShipmentById(id:number){
     
     this.internationalShippingService.getInternationalShipmentByID(id).subscribe((res:InternationalShipment)=>{
-     res.etd=res.etd ? new Date(res.etd) : new Date();
-     res.eta=res.eta ? new Date(res.eta) : new Date();
-     res.atd=res.atd ? new Date(res.atd) : new Date();
-     res.ata=res.ata ? new Date(res.ata) : new Date();
+     res.etd=res.etd?new Date(res.etd):null;
+     res.eta=res.eta?new Date(res.eta):null;
+     res.atd=res.atd?new Date(res.atd):null;
+     res.ata=res.ata?new Date(res.ata):null;
      this.selectedDriver=this.drivers.find(el=>(el.name==res.driverName)&&(el.contactNumber==res.driverContact)&&(el.referenceNumber==res.referenceNumber))
+     
      this.internationalShipment=res;  
-     console.log(this.selectedDriver);
+    
      
     },error=>{
      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not International Shipment by id'});
@@ -160,7 +170,7 @@ export class UpdateInternationalShippingComponent {
   getAllLocations(){
     this.locationService.getAllLocation().subscribe((res:Location[])=>{
       this.location=res.filter(el => el.status);   
-      console.log(this.location);
+  
       
     },error=>{
     })

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { InternationalShipment } from 'src/app/model/InternationalShipment';
+import { InternationalShipment, Time } from 'src/app/model/InternationalShipment';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -30,4 +30,35 @@ export class InternationalShippingService {
   deletePermissionByID(id:number):Observable<InternationalShipment>{
     return this.http.delete<InternationalShipment>(this.url.concat('/InternationalShipment/',id.toString()));
   }
+
+  stringToTime(timeString:string|null|any): {hour: string|null|undefined,minute:string|null|undefined,nano:number|null|undefined,second:string|null|undefined}{
+    const date =timeString? new Date(timeString):null;
+    
+    return {
+      hour: this.padNumber(date!.getHours().toString()),
+      minute: this.padNumber(date!.getMinutes().toString()),
+      nano: 0,
+      second: this.padNumber(date!.getSeconds().toString()),
+    };
+  }
+
+  // Convert Time interface to string
+  timeToString(time: Time): string {
+    const { hour, minute, nano, second } = time;
+
+    // Create a Date object with provided values
+    const date = new Date();
+    date.setHours(parseInt(hour || '0', 10));
+    date.setMinutes(parseInt(minute || '0', 10));
+    date.setSeconds(parseInt(second || '0', 10));
+    date.setMilliseconds(nano || 0);
+
+    // Format the Date object to string
+    return date.toISOString();
+  }
+
+  private padNumber(value: string): string {
+    return value.length === 1 ? '0' + value : value;
+  }
+
 }

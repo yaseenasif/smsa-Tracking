@@ -21,7 +21,7 @@ export class ProductFieldListComponent implements OnInit {
     this.productFieldServiceService.getAllProductFields().subscribe((res:any)=>{
       this.productFieldList=res;
     },(error:any)=>{
-      console.log(error);
+     
       
     })
   }
@@ -32,10 +32,10 @@ export class ProductFieldListComponent implements OnInit {
 
   remove(id:any){
     this.productFieldServiceService.removeProductField(id).subscribe((res:any)=>{
-      console.log(res);
+  
       this.getAllProductField();
     },(error:any)=>{
-      console.log(error);
+    
       
     })
   }

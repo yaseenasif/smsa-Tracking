@@ -18,23 +18,26 @@ import { VehicleTypeService } from 'src/app/page/vehicle-type/service/vehicle-ty
 import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-international-shipping',
   templateUrl: './add-international-shipping.component.html',
   styleUrls: ['./add-international-shipping.component.scss'],
-  providers:[MessageService]
+  providers:[MessageService,DatePipe]
 })
 export class AddInternationalShippingComponent {
   
   internationalShipment:InternationalShipment={
     id: null,
     actualWeight: null,
-    arrivalDateAndTime: null,    
+    arrivalDate: null,  
+    arrivalTime: null,  
     ata: null,
     attachments: null,
     carrier: null,
-    departureDateAndTime: null,
+    departureDate: null,
+    departureTime: null,
     destinationCountry: null,
     destinationPort: null,
     driverContact: null,
@@ -59,7 +62,7 @@ export class AddInternationalShippingComponent {
     status: null,
     tagNumber: null,
     totalShipments: null,
-    type:'By Road',
+    type: 'By Air',
     vehicleNumber: null,
     vehicleType: null,
     routeNumber: null,
@@ -89,7 +92,8 @@ export class AddInternationalShippingComponent {
               private locationPortService:LocationPortService,
               private driverService:DriverService,
               private vehicleTypeService:VehicleTypeService,
-              private shipmentStatusService:ShipmentStatusService) { }
+              private shipmentStatusService:ShipmentStatusService,
+              private datePipe: DatePipe) { }
   name!:string;
   checked!:boolean;
   size=100000
@@ -104,7 +108,7 @@ export class AddInternationalShippingComponent {
   }
   
   ngOnInit(): void {
-    console.log(this.numberOfPallets);
+
     
     this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Road',routerLink:'/international-shipment-by-road'},{ label: 'Add International Shipment By Road'}];
     this.getAllLocations();
@@ -115,7 +119,10 @@ export class AddInternationalShippingComponent {
   }
 
   onSubmit() {
-
+    this.internationalShipment.etd=this.datePipe.transform(this.internationalShipment.etd,'yyyy-MM-dd')
+    this.internationalShipment.eta=this.datePipe.transform(this.internationalShipment.eta,'yyyy-MM-dd')
+    this.internationalShipment.atd=this.datePipe.transform(this.internationalShipment.atd,'yyyy-MM-dd')
+    this.internationalShipment.ata=this.datePipe.transform(this.internationalShipment.ata,'yyyy-MM-dd')
     this.internationalShippingService.addInternationalShipment(this.internationalShipment).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is added' });
       setTimeout(() => {
@@ -128,9 +135,7 @@ export class AddInternationalShippingComponent {
 
   getAllLocations(){
     this.locationService.getAllLocation().subscribe((res:Location[])=>{
-      this.location=res.filter(el => el.status);   
-      console.log(this.location);
-      
+      this.location=res.filter(el => el.status);         
     },error=>{
     })
   }
@@ -165,6 +170,8 @@ export class AddInternationalShippingComponent {
     this.internationalShipment.driverContact=this.selectedDriver?.contactNumber;
     this.internationalShipment.referenceNumber=this.selectedDriver?.referenceNumber;
    }
+
+
 }
 
 

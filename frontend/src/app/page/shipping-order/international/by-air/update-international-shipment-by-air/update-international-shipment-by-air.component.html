@@ -326,10 +326,19 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Departure Date & Time</label>
-                    <p-calendar  #departureDateAndTime="ngModel"
-                    name="departureDateAndTime"
-                    [required]="true" [(ngModel)]="internationalShipment.departureDateAndTime" [showTime]="true" [showSeconds]="true"></p-calendar>
+                    <label htmlFor="name">Departure Date</label>
+                    <p-calendar  #departureDate="ngModel"
+                    name="departureDate"
+                    [required]="true" [(ngModel)]="internationalShipment.departureDate" ></p-calendar>
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Departure Time</label>
+                    <p-calendar  #departureTime="ngModel"
+                    name="departureTime"
+                    [required]="true" [(ngModel)]="internationalShipment.departureTime" [timeOnly]="true" [showTime]="true" [showSeconds]="true" ></p-calendar>
                   </div>
                 </div>
 
@@ -363,11 +372,19 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Arrival Date & Time</label>
-                    <p-calendar #arrivalDateAndTime="ngModel" name="arrivalDateAndTime" [required]="true"
-                     [(ngModel)]="internationalShipment.arrivalDateAndTime" [showTime]="true" [showSeconds]="true"></p-calendar>
+                    <label htmlFor="name">Arrival Date </label>
+                    <p-calendar #arrivalDate="ngModel" name="arrivalDate" [required]="true"
+                     [(ngModel)]="internationalShipment.arrivalDate" ></p-calendar>
                   </div>
-                </div>             
+                </div>    
+                
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">                   
+                    <label htmlFor="name">Arrival Time </label>
+                    <p-calendar #arrivalTime="ngModel" name="arrivalTime" [required]="true"  [timeOnly]="true" [showTime]="true" [showSeconds]="true"
+                     [(ngModel)]="internationalShipment.arrivalTime" ></p-calendar>
+                  </div>
+                </div>   
                 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">

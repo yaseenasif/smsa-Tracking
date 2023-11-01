@@ -228,7 +228,7 @@
 
                 <!-- 6 -->
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2 form-hook">                   
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Driver Name
                     </label>
                     <p-dropdown class="w-full" [options]="drivers" name="driverName" [required]="true" #driverName="ngModel" (onChange)="driverData()"  [(ngModel)]="selectedDriver" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Driver Name">
@@ -375,7 +375,9 @@
                     <small id="name-help" class="color-red"  *ngIf="sealNumber.invalid && (sealNumber.dirty || sealNumber.touched)">Seal Number is required.</small>
                   </div>
               </div>
-              <!-- 9 -->             
+              <!-- 9 -->
+
+             
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                   <label htmlFor="name">Status</label>

@@ -35,7 +35,7 @@ export class ProductFieldAddComponent implements OnInit {
       this.heading='Update';
       this.buttonText='Update';
       this.productFieldServiceService.getProductFieldById(this.editId).subscribe((res:any)=>{
-        console.log(res);
+       
         this.makeProductField=true;
         this.name=res.name;
         this.selectedDropdownType=res.type;
@@ -48,14 +48,12 @@ export class ProductFieldAddComponent implements OnInit {
   }
 
   formProductField(item:any){
-    console.log(item);
+  
     
   }
 
   addFormProducts(){
-    console.log(this.name);
-    console.log(this.selectedDropdownType);
-    console.log(this.productFieldValues);
+  
 
     let ProductFieldObj={name:this.name,status:null,createdAt:null,type:this.selectedDropdownType,productFieldValuesList:this.productFieldValues}
     
@@ -63,14 +61,14 @@ export class ProductFieldAddComponent implements OnInit {
       this.productFieldServiceService
       .saveProductField(ProductFieldObj)
       .subscribe((res:any)=>{
-        console.log(res);
+    
         this.router.navigate(['/product-field']);
       },(error:any)=>{
-        console.log(error);
+ 
       })
     }else{
       this.productFieldServiceService.updateProductField(this.editId,ProductFieldObj).subscribe((res:any)=>{
-        console.log(res);
+    
         this.router.navigate(['/product-field']);
       },(error:any)=>{
 
@@ -92,10 +90,10 @@ export class ProductFieldAddComponent implements OnInit {
       this.productFieldServiceService
       .removeProductFieldValues(this.editId,this.productFieldValues[index].id)
       .subscribe((res:any)=>{
-        console.log(res);
+     
         
       },(error:any)=>{
-        console.log(error);
+     
         
       })
     }

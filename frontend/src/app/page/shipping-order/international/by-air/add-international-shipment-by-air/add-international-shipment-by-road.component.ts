@@ -17,22 +17,25 @@ import { ShipmentMode } from 'src/app/model/ShipmentMode';
 import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
 import { InternationalShipment } from 'src/app/model/InternationalShipment';
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-international-shipment-by-road',
   templateUrl: './add-international-shipment-by-road.component.html',
   styleUrls: ['./add-international-shipment-by-road.component.scss'],
-  providers:[MessageService]
+  providers:[MessageService,DatePipe]
 })
 export class AddInternationalShipmentByRoadComponent {
   internationalShipment:InternationalShipment={
     id: null,
     actualWeight: null,
-    arrivalDateAndTime: null,  
+    arrivalDate: null,  
+    arrivalTime: null,  
     ata: null,
     attachments: null,
     carrier: null,
-    departureDateAndTime: null,
+    departureDate: null,
+    departureTime: null,
     destinationCountry: null,
     destinationPort: null,
     driverContact: null,
@@ -96,7 +99,8 @@ export class AddInternationalShipmentByRoadComponent {
     private locationPortService:LocationPortService,
     private driverService:DriverService,
     private vehicleTypeService:VehicleTypeService,
-    private shipmentStatusService:ShipmentStatusService) { }
+    private shipmentStatusService:ShipmentStatusService,
+    private datePipe:DatePipe) { }
   name!:string;
   checked!:boolean;
   
@@ -110,7 +114,16 @@ export class AddInternationalShipmentByRoadComponent {
   }
 
   onSubmit() {
-
+  
+   this.internationalShipment.etd=this.datePipe.transform(this.internationalShipment.etd,'yyyy-MM-dd')
+   this.internationalShipment.eta=this.datePipe.transform(this.internationalShipment.eta,'yyyy-MM-dd')
+   this.internationalShipment.atd=this.datePipe.transform(this.internationalShipment.atd,'yyyy-MM-dd')
+   this.internationalShipment.ata=this.datePipe.transform(this.internationalShipment.ata,'yyyy-MM-dd')
+   this.internationalShipment.departureDate=this.datePipe.transform(this.internationalShipment.departureDate,'yyyy-MM-dd')
+   this.internationalShipment.arrivalDate=this.datePipe.transform(this.internationalShipment.arrivalDate,'yyyy-MM-dd')
+   this.internationalShipment.departureTime=this.datePipe.transform(this.internationalShipment.departureTime,'HH:mm:ss')
+   this.internationalShipment.arrivalTime=this.datePipe.transform(this.internationalShipment.arrivalTime,'HH:mm:ss')
+  
     this.internationalShippingService.addInternationalShipment(this.internationalShipment).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is added' });
       setTimeout(() => {
@@ -124,7 +137,7 @@ export class AddInternationalShipmentByRoadComponent {
   getAllLocations(){
     this.locationService.getAllLocation().subscribe((res:Location[])=>{
       this.location=res.filter(el => el.status);   
-      console.log(this.location);
+   
       
     },error=>{
     })
