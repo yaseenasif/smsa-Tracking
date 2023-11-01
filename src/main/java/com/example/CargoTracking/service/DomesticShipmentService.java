@@ -21,6 +21,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -56,6 +57,8 @@ public class DomesticShipmentService {
             DomesticShipment unSaveDomesticShipment = toEntity(domesticShipmentDto);
             unSaveDomesticShipment.setCreatedAt(LocalDate.now());
             unSaveDomesticShipment.setCreatedBy(user);
+            unSaveDomesticShipment.setRedFlag(Boolean.FALSE);
+
             DomesticShipment domesticShipment = domesticShipmentRepository.save(unSaveDomesticShipment);
 
             DomesticShipmentHistory domesticShipmentHistory = DomesticShipmentHistory.builder()
@@ -280,6 +283,31 @@ public class DomesticShipmentService {
         }
         throw new RecordNotFoundException(String.format("Domestic Shipment not found by this id => %d",id));
     }
+
+//    @Scheduled(fixedRate = 2 * 60 * 1000)
+    @Scheduled(cron = "0 0 12 * * ?")
+    public void redFlag() {
+
+        LocalDate oneDayOlderDate = LocalDate.now().minusDays(1);
+
+        List<DomesticShipment> domesticShipmentList = domesticShipmentRepository.findByCreatedAt(oneDayOlderDate);
+
+        try {
+            LocalDate currentDate = LocalDate.now();
+
+            for (DomesticShipment entity : domesticShipmentList) {
+                if (entity.getAtd().isBefore(currentDate) && !entity.getRedFlag() && !entity.getStatus().equals("Arrived")) {
+                    entity.setRedFlag(true);
+                }
+            }
+
+            domesticShipmentRepository.saveAll(domesticShipmentList);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Collections.emptyList();
+        }
+    }
+
 
     public List<DomesticShipmentDto> toDtoList(List<DomesticShipment> domesticShipmentList){
         return domesticShipmentList.stream().map(this::toDto).collect(Collectors.toList());

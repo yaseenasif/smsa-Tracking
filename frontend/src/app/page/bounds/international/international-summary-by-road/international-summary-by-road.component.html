@@ -155,21 +155,21 @@
               </ng-template>
               <ng-template pTemplate="body" let-internationalShipmentByRoad>
                 <tr>
-                 <td class="text-center">{{ internationalShipmentByRoad.preAlertNumber}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.vehicleNumber}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.vehicleType}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.type}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.originCountry}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.originPort}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.destinationPort}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.actualWeight}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.totalShipments}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.numberOfPallets}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.numberOfBags}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.etd}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.eta}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.ata}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.status}}</td>
+                 <td class="text-center" [classList]="internationalShipmentByRoad.redFlag?'red':'withoutRed'">{{ internationalShipmentByRoad.preAlertNumber}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByRoad.redFlag?'red':'withoutRed'">{{ internationalShipmentByRoad.vehicleNumber}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByRoad.redFlag?'red':'withoutRed'">{{ internationalShipmentByRoad.vehicleType}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByRoad.redFlag?'red':'withoutRed'">{{ internationalShipmentByRoad.type}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByRoad.redFlag?'red':'withoutRed'">{{ internationalShipmentByRoad.originCountry}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByRoad.redFlag?'red':'withoutRed'">{{ internationalShipmentByRoad.originPort}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByRoad.redFlag?'red':'withoutRed'">{{ internationalShipmentByRoad.destinationPort}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByRoad.redFlag?'red':'withoutRed'">{{ internationalShipmentByRoad.actualWeight}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByRoad.redFlag?'red':'withoutRed'">{{ internationalShipmentByRoad.totalShipments}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByRoad.redFlag?'red':'withoutRed'">{{ internationalShipmentByRoad.numberOfPallets}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByRoad.redFlag?'red':'withoutRed'">{{ internationalShipmentByRoad.numberOfBags}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByRoad.redFlag?'red':'withoutRed'">{{ internationalShipmentByRoad.etd}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByRoad.redFlag?'red':'withoutRed'">{{ internationalShipmentByRoad.eta}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByRoad.redFlag?'red':'withoutRed'">{{ internationalShipmentByRoad.ata}}</td>
+                  <td class="text-center" [classList]="internationalShipmentByRoad.redFlag?'red':'withoutRed'">{{ internationalShipmentByRoad.status}}</td>
 
 
                   <!-- <td class="text-center flex flex-row"> 
