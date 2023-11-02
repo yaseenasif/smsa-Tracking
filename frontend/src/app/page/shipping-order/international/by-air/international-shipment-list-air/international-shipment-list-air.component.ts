@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { InternationalShipment } from 'src/app/model/InternationalShipment';
+import { InternationalShippingService } from '../../service/international-shipping.service';
 
 @Component({
   selector: 'app-international-shipment-list-air',
@@ -8,22 +10,23 @@ import { MenuItem } from 'primeng/api';
 })
 export class InternationalShipmentListAirComponent {
 
-  constructor() { }
-  products:any=[{preAlertNumber:"320012345678",flightDetails:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",flightDetails:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",flightDetails:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",flightDetails:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",flightDetails:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",flightDetails:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",flightDetails:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",flightDetails:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",flightDetails:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},
-  {preAlertNumber:"320012345678",flightDetails:"N/A",mode:"Courier",origin:"UAE",originPort:"DXB",destinationPort:"DMM",weight:"2000",totalShipment:"200",pallets:"20",bags:"95",etd:"##########",eta:"#########",ata:"N/A",status:"Departure"},];
+  internationalShipmentByRoad!:InternationalShipment[];
+
+  constructor(private internationalShippingService:InternationalShippingService) { }
   items: MenuItem[] | undefined;
 
  
-
   ngOnInit() {
       this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Air'}];
-  }
+      this.getAllInternationalShipmentByAir();
+    }
+    
+  
+    getAllInternationalShipmentByAir(){
+      this.internationalShippingService.getAllInternationalShipmentByAir().subscribe((res:InternationalShipment[])=>{
+        this.internationalShipmentByRoad=res; 
+      },error=>{
+
+      })
+    }
 }

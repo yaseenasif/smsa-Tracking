@@ -33,7 +33,7 @@ export class ShipmentStatusListComponent {
       this.visible = false;
        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Shipment Status is successfully deleted' });
     },(error)=>{
-      console.log(error);
+    
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Shipment Status is not deleted' });
     });
    }

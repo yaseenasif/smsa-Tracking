@@ -322,8 +322,11 @@ public class InternationalShipmentService {
                 internationalShipment.get().setDestinationCountry(internationalShipmentDto.getDestinationCountry());
                 internationalShipment.get().setDestinationPort(internationalShipmentDto.getDestinationPort());
                 internationalShipment.get().setCarrier(internationalShipmentDto.getCarrier());
-                internationalShipment.get().setDepartureTime(internationalShipmentDto.getDepartureTime());
                 internationalShipment.get().setDepartureDate(internationalShipmentDto.getDepartureDate());
+                internationalShipment.get().setDepartureTime(internationalShipmentDto.getDepartureTime());
+                internationalShipment.get().setEtd(internationalShipmentDto.getEtd());
+                internationalShipment.get().setEta(internationalShipmentDto.getEta());
+                internationalShipment.get().setAtd(internationalShipmentDto.getAtd());
                 internationalShipment.get().setFlightNumber(internationalShipmentDto.getFlightNumber());
                 internationalShipment.get().setNumberOfShipments(internationalShipmentDto.getNumberOfShipments());
                 internationalShipment.get().setArrivalDate(internationalShipmentDto.getArrivalDate());
@@ -348,6 +351,7 @@ public class InternationalShipmentService {
                 internationalShipment.get().setReceived(internationalShipmentDto.getReceived());
                 internationalShipment.get().setShortages(internationalShipmentDto.getShortages());
                 internationalShipment.get().setShortageAWBs(internationalShipmentDto.getShortageAWBs());
+                internationalShipment.get().setRouteNumber(internationalShipmentDto.getRouteNumber());
 
                 InternationalShipment save = internationalShipmentRepository.save(internationalShipment.get());
                 return toDto(save);

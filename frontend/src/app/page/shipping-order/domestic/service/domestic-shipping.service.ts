@@ -17,7 +17,7 @@ export class DomesticShippingService {
     queryParams = queryParams.append("value",JSON.stringify(obj));
     queryParams = queryParams.append("page",page);
     queryParams = queryParams.append("size",size);
-    debugger
+    
     return this.http.get<any>(`${this.url}/all-domestic-shipments`,{params:queryParams});
   }
 

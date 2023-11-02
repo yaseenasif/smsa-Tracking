@@ -197,38 +197,55 @@
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Driver Name</label>
-                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.driverName"
-                      #driverName="ngModel" required name="driverName" />
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
-                  </div>
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Driver Name
+                    </label>
+                    <p-dropdown class="w-full" [options]="drivers" name="driverName" [required]="true" #driverName="ngModel" (onChange)="driverData()"  [(ngModel)]="selectedDriver" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Driver Name">
+                        <ng-template pTemplate="selectedItem">
+                            <div class="flex align-items-center gap-2" *ngIf="selectedDriver">
+                                <div>{{selectedDriver.name}}</div>
+                            </div>
+                        </ng-template>
+                        <ng-template let-drivers pTemplate="item">
+                            <div class="flex align-items-center gap-2">
+                                <div>{{ drivers.name }}</div>
+                            </div>
+                        </ng-template>
+                    </p-dropdown>
                 </div>
-
-                <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Driver Contact</label>
-                    <input pInputText id="name" aria-describedby="name-help"
-                      [(ngModel)]="domesticShipment.driverContact" #driverContact="ngModel" required
-                      name="driverContact" />
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
-                  </div>
                 </div>
-
+              
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Reference Number</label>
-                    <input pInputText id="name" aria-describedby="name-help"
-                      [(ngModel)]="domesticShipment.referenceNumber" #referenceNumber="ngModel" required
-                      name="referenceNumber" />
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
-                  </div>
+                    <div class="flex flex-column gap-2">
+                      <label htmlFor="name">Driver Contact</label>
+                      <input
+                        pInputText
+                        [readOnly]="true"
+                        id="name"
+                        #driverContact="ngModel"
+                        name="driverContact"
+                        [required]="true"
+                        aria-describedby="name-help"                          
+                        [(ngModel)]="this.domesticShipment.driverContact"
+                      />
+                      <small id="name-help" class="color-warning">this field is auto select when we select driver name</small>
+                    </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                    <div class="flex flex-column gap-2">
+                      <label htmlFor="name">Reference Number</label>
+                      <input
+                        [readOnly]="true"
+                        pInputText
+                        id="name"
+                        aria-describedby="name-help" 
+                        #referenceNumber="ngModel"
+                        name="referenceNumber"
+                        [required]="true"                        
+                        [(ngModel)]="this.domesticShipment.referenceNumber"
+                      />
+                      <small id="name-help" class="color-warning">this field is auto select when we select driver name</small>
+                    </div>
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
@@ -251,26 +268,25 @@
                     </p-dropdown>
                   </div>
                 </div>
-                <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Number of Pallets</label>
-                    <p-dropdown class="w-full" [options]="noOfPallets" name="numberOfPallets" #numberOfPallets="ngModel"
-                      [required]="true" [(ngModel)]="domesticShipment.numberOfPallets" optionLabel="number"
-                      optionValue="number" [filter]="true" filterBy="number" [showClear]="true"
-                      placeholder="Select a Number of Pallets">
-                      <ng-template pTemplate="selectedItem">
-                        <div class="flex align-items-center gap-2" *ngIf="domesticShipment">
-                          <div>{{ domesticShipment.numberOfPallets}}</div>
-                        </div>
-                      </ng-template>
-                      <ng-template let-noOfPallets pTemplate="item">
-                        <div class="flex align-items-center gap-2">
-                          <div>{{ noOfPallets.number }}</div>
-                        </div>
-                      </ng-template>
-                    </p-dropdown>
+
+                    <div class="col-12 md:col-6 lg:col-4">
+                    <div class="flex flex-column gap-2 form-hook">
+                      <label htmlFor="name">Number of Pallets</label>
+                      <p-dropdown class="w-full" #numberOfPallet="ngModel" name="numberOfPallet"  [required]="true" [options]="numberOfPallets"  [(ngModel)]="domesticShipment.numberOfPallets" optionValue="options" optionLabel="options" [filter]="true" filterBy="options" [showClear]="true" placeholder="Select a Number of Pallets">
+                          <ng-template pTemplate="selectedItem">
+                              <div class="flex align-items-center gap-2" *ngIf="domesticShipment">
+                                  <div>{{ domesticShipment.numberOfPallets}}</div>
+                              </div>
+                          </ng-template>
+                          <ng-template let-numberOfPallets pTemplate="item">
+                              <div class="flex align-items-center gap-2">
+                                  <div>{{ numberOfPallets.options }}</div>
+                              </div>
+                          </ng-template>
+                      </p-dropdown>
                   </div>
-                </div>
+                  </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Number of Bags</label>

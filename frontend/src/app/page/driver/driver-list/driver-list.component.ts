@@ -27,9 +27,9 @@ export class DriverListComponent implements OnInit {
   
   getAllDriver(){
    this.driverService.getAllDriver().subscribe((res:PaginatedResponse<Driver>)=>{
-    debugger
+    
     this.drivers=res.content.filter((el:Driver)=>el.status); 
-    console.log( this.drivers);
+
     
    },error=>{})
   }

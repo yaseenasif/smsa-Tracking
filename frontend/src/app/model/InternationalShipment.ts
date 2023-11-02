@@ -10,15 +10,15 @@ export interface InternationalShipment{
   destinationCountry: string|null|undefined,
   destinationPort: string|null|undefined,
   carrier: string|null|undefined,
-  departureDate: Date|null|undefined,
-  departureTime: Time|null|undefined,
-  etd: Date|null|undefined,
-  eta: Date|null|undefined,
-  atd: Date|null|undefined,
+  departureDate: Date|string|null|undefined,
+  departureTime:Date|string|null,
+  etd: Date|string|null|undefined,
+  eta: Date|string|null|undefined,
+  atd: Date|string|null|undefined,
   flightNumber: number|null|undefined,
   numberOfShipments: number|null|undefined,
-  arrivalDate: Date|null|undefined,
-  arrivalTime: Time|null|undefined,
+  arrivalDate: Date|string|null|undefined, 
+  arrivalTime: Date|string|null,
   actualWeight: number|null|undefined,
   driverName: string|null|undefined,
   driverContact: string|null|undefined,
@@ -33,7 +33,7 @@ export interface InternationalShipment{
   status: string|null|undefined,
   remarks: string|null|undefined,
   routeNumber: string|null|undefined,
-  ata: Date|null|undefined,
+  ata: Date|string|null|undefined,
   totalShipments: number|null|undefined,
   overages: string|null|undefined,
   overageAWBs: string|null|undefined,
@@ -42,12 +42,9 @@ export interface InternationalShipment{
   shortageAWBs: string|null|undefined,
 }
 
-interface Time{
-    date: number|null|undefined,
-    hours:  number|null|undefined,
-    minutes:  number|null|undefined,
-    month:  number|null|undefined,
-    seconds:  number|null|undefined,
-    time:  number|null|undefined,
-    year:  number|null|undefined
+export interface Time{
+    hour: string|null|undefined,
+    minute:string|null|undefined,
+    nano:number|null|undefined,
+    second:string|null|undefined
 }

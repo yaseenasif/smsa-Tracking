@@ -73,7 +73,7 @@ export class InternationalSummaryByRoadComponent {
       this.shipmentStatus=res; 
     },error=>{
       
-      console.log(error.error.body);
+    
 
     })
    }
@@ -90,9 +90,9 @@ export class InternationalSummaryByRoadComponent {
         type:null
       }
     },(error:any)=>{
-      debugger
+
       this.internationalShipmentByRoad=[];
-      console.log(error.error.body);
+   
       
     })
   }
@@ -109,9 +109,9 @@ export class InternationalSummaryByRoadComponent {
         type:null
       }
     },(error:any)=>{
-      debugger
+      
       this.internationalShipmentByRoad=[];
-      console.log(error.error.body);
+  
       
     })
   }
@@ -143,8 +143,7 @@ export class InternationalSummaryByRoadComponent {
       let originalDate = new Date(this.search.fromDate);
       this.search.fromDate = this.datePipe.transform(originalDate, 'yyyy-MM-dd');
     }
-    console.log(this.search);
-    debugger
+   
     if(this.selectedBound.bound === "In bound"){
       this.getInboundSummary(this.search,0,10);
     }else{

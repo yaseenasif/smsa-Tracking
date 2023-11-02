@@ -23,7 +23,7 @@ export class RoleListComponent {
   getAllLRole(){
     this.roleService.getALLRole().subscribe((res:Role[])=>{
       this.roles=res;
-      console.log(this.roles);      
+    
     },error=>{  
     })
    }

@@ -46,9 +46,8 @@ export class LoginFormComponent implements OnInit {
   
 
   login(credentials:any){
-    console.log(credentials);
     this.authService.login(credentials).subscribe((res:any)=>{
-      console.log(res);
+    
       localStorage.setItem("accessToken", res.accessToken);
       this.router.navigate(['/home']);
 

@@ -55,7 +55,7 @@ export class AddUserComponent implements OnInit {
   getAllLRole(){
     this.roleService.getALLRole().subscribe((res:Role[])=>{
       this.roles=res;
-      console.log(this.roles);      
+        
     },error=>{  
     })
   }

@@ -17,7 +17,7 @@ export class SummaryService {
     queryParams = queryParams.append("value",JSON.stringify(obj));
     queryParams = queryParams.append("page",page);
     queryParams = queryParams.append("size",size);
-    debugger
+    
     return this.http.get<any>(`${this.url}/domestic-shipment/inbound`,{params:queryParams});
   }
 
@@ -26,7 +26,7 @@ export class SummaryService {
     queryParams = queryParams.append("value",JSON.stringify(obj));
     queryParams = queryParams.append("page",page);
     queryParams = queryParams.append("size",size);
-    debugger
+    
     return this.http.get<any>(`${this.url}/domestic-shipment/outbound`,{params:queryParams});
   }
 
@@ -39,7 +39,7 @@ export class SummaryService {
     queryParams = queryParams.append("value",JSON.stringify(obj));
     queryParams = queryParams.append("page",page);
     queryParams = queryParams.append("size",size);
-    debugger
+    
     return this.http.get<any>(`${this.url}/international-inbound-summery-air`,{params:queryParams});
   }
 
@@ -48,7 +48,7 @@ export class SummaryService {
     queryParams = queryParams.append("value",JSON.stringify(obj));
     queryParams = queryParams.append("page",page);
     queryParams = queryParams.append("size",size);
-    debugger
+    
     return this.http.get<any>(`${this.url}/international-outbound-summery-air`,{params:queryParams});
   }
 
@@ -59,7 +59,7 @@ export class SummaryService {
       queryParams = queryParams.append("value",JSON.stringify(obj));
       queryParams = queryParams.append("page",page);
       queryParams = queryParams.append("size",size);
-      debugger
+      
       return this.http.get<any>(`${this.url}/international-inbound-summery-road`,{params:queryParams});
     }
   
@@ -68,7 +68,7 @@ export class SummaryService {
       queryParams = queryParams.append("value",JSON.stringify(obj));
       queryParams = queryParams.append("page",page);
       queryParams = queryParams.append("size",size);
-      debugger
+      
       return this.http.get<any>(`${this.url}/international-outbound-summery-road`,{params:queryParams});
     }
 }

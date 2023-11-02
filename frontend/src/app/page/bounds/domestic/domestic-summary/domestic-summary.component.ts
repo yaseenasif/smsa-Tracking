@@ -76,10 +76,7 @@ export class DomesticSummaryComponent {
         destination:null
       }
     },(error:any)=>{
-      debugger
-      this.domesticShipment=[];
-      console.log(error.error.body);
-      
+      this.domesticShipment=[]; 
     })
   }
 
@@ -94,10 +91,8 @@ export class DomesticSummaryComponent {
         destination:null
       }
     },(error:any)=>{
-      debugger
-      this.domesticShipment=[];
-      console.log(error.error.body);
       
+      this.domesticShipment=[];  
     })
   }
 
@@ -106,8 +101,7 @@ export class DomesticSummaryComponent {
       this.shipmentStatus=res; 
     },error=>{
       
-      console.log(error.error.body);
-
+  
     })
    }
   onSubmit(){
@@ -134,8 +128,6 @@ export class DomesticSummaryComponent {
       let originalDate = new Date(this.search.fromDate);
       this.search.fromDate = this.datePipe.transform(originalDate, 'yyyy-MM-dd');
     }
-    console.log(this.search);
-    debugger
     if(this.selectedBound.bound === "In bound"){
       this.getInboundSummary(this.search,0,10);
     }else{
