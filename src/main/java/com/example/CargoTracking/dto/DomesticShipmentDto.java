@@ -49,5 +49,4 @@ public class DomesticShipmentDto {
     private String attachments;
     private Boolean redFlag;
 
-
 }

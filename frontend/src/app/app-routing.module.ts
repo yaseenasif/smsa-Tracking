@@ -46,6 +46,7 @@ import { InternationalSummaryByRoadComponent } from './page/bounds/international
 import { ShipmentStatusListComponent } from './page/shipment-status/shipment-status-list/shipment-status-list.component';
 import { AddShipmentStatusComponent } from './page/shipment-status/add-shipment-status/add-shipment-status.component';
 import { UpdateShipmentStatusComponent } from './page/shipment-status/update-shipment-status/update-shipment-status.component';
+import { UpdateDomesticShipmentForSummaryComponent } from './page/bounds/domestic/update-domestic-shipment-for-summary/update-domestic-shipment-for-summary.component';
 
 const routes: Routes = [
   {
@@ -213,6 +214,12 @@ const routes: Routes = [
     component:UpdateDomesticShippingComponent,
     canActivate:[AuthGuard]
   },
+  {
+    path:'update-domestic-shipping-for-summary/:id',
+    component:UpdateDomesticShipmentForSummaryComponent,
+    canActivate:[AuthGuard]
+  },
+  
   {
     path:'international-tile',
     component:TileComponent,

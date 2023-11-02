@@ -53,6 +53,7 @@ public class DomesticShipment {
     private String shortagesAwbs;
     private String attachments;
     private Boolean redFlag;
+//    private List<String> urls;
 
     // attachments dalega
 //    private String createdBy;
@@ -68,6 +69,9 @@ public class DomesticShipment {
 
     @OneToMany(mappedBy = "domesticShipment",cascade = CascadeType.REMOVE)
     private List<DomesticShipmentHistory> domesticShipmentHistories ;
+
+    @OneToMany(mappedBy = "domesticShipment", cascade = CascadeType.ALL)
+    private List<FileMetaData> files;
 
     @Override
     public String toString() {

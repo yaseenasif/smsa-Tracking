@@ -119,9 +119,8 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Route Number</label>
-                    <input pInputText id="name" aria-describedby="name-help"
-                      [(ngModel)]="domesticShipment.routeNumber" #routeNumber="ngModel" required
-                      name="routeNumber" />
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.routeNumber"
+                      #routeNumber="ngModel" required name="routeNumber" />
                     <!-- <small id="name-help"
                       >{{name}}</small
                     > -->
@@ -192,8 +191,8 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Driver Name</label>
-                    <input pInputText id="name" aria-describedby="name-help"
-                      [(ngModel)]="domesticShipment.driverName" #driverName="ngModel" required name="driverName" />
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.driverName"
+                      #driverName="ngModel" required name="driverName" />
                     <!-- <small id="name-help"
                       >{{name}}</small
                     > -->
@@ -226,12 +225,11 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    
+
                     <label htmlFor="name">Vehicle Type</label>
                     <p-dropdown class="w-full" [options]="vehicleTypes" name="vehicleType" #vehicleType="ngModel"
-                      [required]="true" [(ngModel)]="domesticShipment.vehicleType" optionLabel="name"
-                      optionValue="name" [filter]="true" filterBy="name" [showClear]="true"
-                      placeholder="Select a Vehicle Type">
+                      [required]="true" [(ngModel)]="domesticShipment.vehicleType" optionLabel="name" optionValue="name"
+                      [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Vehicle Type">
                       <ng-template pTemplate="selectedItem">
                         <div class="flex align-items-center gap-2" *ngIf="domesticShipment">
                           <div>{{domesticShipment.vehicleType}}</div>
@@ -249,8 +247,9 @@
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Number of Pallets</label>
                     <p-dropdown class="w-full" [options]="noOfPallets" name="numberOfPallets" #numberOfPallets="ngModel"
-                      [required]="true" [(ngModel)]="domesticShipment.numberOfPallets" optionLabel="number" optionValue="number" [filter]="true"
-                      filterBy="number" [showClear]="true" placeholder="Select a Number of Pallets">
+                      [required]="true" [(ngModel)]="domesticShipment.numberOfPallets" optionLabel="number"
+                      optionValue="number" [filter]="true" filterBy="number" [showClear]="true"
+                      placeholder="Select a Number of Pallets">
                       <ng-template pTemplate="selectedItem">
                         <div class="flex align-items-center gap-2" *ngIf="domesticShipment">
                           <div>{{ domesticShipment.numberOfPallets}}</div>
@@ -267,8 +266,8 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Number of Bags</label>
-                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.numberOfBags" #numberOfBags="ngModel"
-                      required name="numberOfBags" />
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.numberOfBags"
+                      #numberOfBags="ngModel" required name="numberOfBags" />
                     <!-- <small id="name-help"
                         >{{name}}</small
                       > -->
@@ -279,8 +278,9 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Vehicle Number</label>
-                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.vehicleNumber" #vehicleNumber="ngModel"
-                      required name="vehicleNumber" />
+                    <input pInputText id="name" aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.vehicleNumber" #vehicleNumber="ngModel" required
+                      name="vehicleNumber" />
                     <!-- <small id="name-help"
                       >{{name}}</small
                     > -->
@@ -289,8 +289,8 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Tag Number</label>
-                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.tagNumber" #tagNumber="ngModel"
-                      required name="tagNumber" />
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.tagNumber"
+                      #tagNumber="ngModel" required name="tagNumber" />
                     <!-- <small id="name-help"
                         >{{name}}</small
                       > -->
@@ -299,8 +299,8 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Seal Number</label>
-                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.sealNumber" #sealNumber="ngModel"
-                      required name="sealNumber" />
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.sealNumber"
+                      #sealNumber="ngModel" required name="sealNumber" />
                     <!-- <small id="name-help"
                         >{{name}}</small
                       > -->
@@ -311,8 +311,8 @@
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Status</label>
                     <p-dropdown class="w-full" [options]="shipmentStatus" name="status" #status="ngModel"
-                      [required]="true" [(ngModel)]="domesticShipment.status" optionLabel="name" optionValue="name" [filter]="true"
-                      filterBy="name" [showClear]="true" placeholder="Select a Status">
+                      [required]="true" [(ngModel)]="domesticShipment.status" optionLabel="name" optionValue="name"
+                      [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Status">
                       <ng-template pTemplate="selectedItem">
                         <div class="flex align-items-center gap-2" *ngIf="domesticShipment">
                           <div>{{ domesticShipment.status}}</div>
@@ -329,89 +329,74 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Remarks</label>
-                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.remarks" #remarks="ngModel"
-                      required name="remarks" />
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.remarks"
+                      #remarks="ngModel" required name="remarks" />
                     <!-- <small id="name-help"
                       >{{name}}</small
                     > -->
                   </div>
                 </div>
-                <!-- 9 -->
 
-                <div class="col-12 md:col-6 lg:col-4">
+                <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">ATA</label>
-                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.ata" #ata="ngModel" required
-                      name="ata" />
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.ata"
+                      #ata="ngModel" required name="ata" />
+                    
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Total Shipments</label>
-                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.totalShipments"
-                      #totalShipments="ngModel" required name="totalShipments" />
-                    <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
+                    <input pInputText id="name" aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.totalShipments" #totalShipments="ngModel" required
+                      name="totalShipments" />
+                  
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Overages</label>
-                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.overages" #overages="ngModel"
-                      required name="overages" />
-                    <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.overages"
+                      #overages="ngModel" required name="overages" />
+                
                   </div>
                 </div>
 
-                <!-- 10 -->
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Overage AWBs</label>
-                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.overagesAwbs" #overageAwbs="ngModel"
-                      required name="overageAwbs" />
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.overagesAwbs"
+                      #overageAwbs="ngModel" required name="overageAwbs" />
+                    
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Received</label>
-                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.received" #received="ngModel"
-                      required name="received" />
-                    <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.received"
+                      #received="ngModel" required name="received" />
+                   
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Shortages</label>
-                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.shortages" #shortages="ngModel"
-                      required name="shortages" />
-                    <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.shortages"
+                      #shortages="ngModel" required name="shortages" />
+                   
                   </div>
                 </div>
-                <!-- 11 -->
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Shortage AWBs</label>
-                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.shortagesAwbs" #shortageAwbs="ngModel"
-                      required name="shortageAwbs" />
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
+                    <input pInputText id="name" aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.shortagesAwbs" #shortageAwbs="ngModel" required
+                      name="shortageAwbs" />
+                    
                   </div>
-                </div>
+                </div> -->
 
 
 

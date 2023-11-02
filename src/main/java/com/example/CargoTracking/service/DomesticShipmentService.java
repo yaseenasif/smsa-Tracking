@@ -3,6 +3,7 @@ package com.example.CargoTracking.service;
 import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
+import com.example.CargoTracking.model.FileMetaData;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.exception.UserNotFoundException;
@@ -11,6 +12,7 @@ import com.example.CargoTracking.model.DomesticShipmentHistory;
 import com.example.CargoTracking.model.User;
 import com.example.CargoTracking.repository.DomesticShipmentHistoryRepository;
 import com.example.CargoTracking.repository.DomesticShipmentRepository;
+import com.example.CargoTracking.repository.FileMetaDataRepository;
 import com.example.CargoTracking.repository.UserRepository;
 import com.example.CargoTracking.specification.DomesticShipmentSpecification;
 import com.example.CargoTracking.specification.DomesticSummarySpecification;
@@ -25,9 +27,12 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -46,8 +51,13 @@ public class DomesticShipmentService {
     DomesticShipmentHistoryRepository domesticShipmentHistoryRepository;
     @Autowired
     EmailService emailService;
+    @Autowired
+    StorageService storageService;
+    @Autowired
+    FileMetaDataRepository fileMetaDataRepository;
 
-    public DomesticShipmentDto addShipment(DomesticShipmentDto domesticShipmentDto)  {
+
+    public DomesticShipmentDto addShipment(DomesticShipmentDto domesticShipmentDto) throws IOException {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof UserDetails){
@@ -283,6 +293,19 @@ public class DomesticShipmentService {
         }
         throw new RecordNotFoundException(String.format("Domestic Shipment not found by this id => %d",id));
     }
+    public ApiResponse addAttachment(Long id, MultipartFile file) throws IOException {
+        Optional<DomesticShipment> domesticShipment = domesticShipmentRepository.findById(id);
+        String fileUrl = storageService.uploadFile(file.getBytes(), file.getOriginalFilename());
+        FileMetaData fileMetaData = new FileMetaData();
+        fileMetaData.setFileUrl(fileUrl);
+        fileMetaData.setDomesticShipment(domesticShipment.get());
+        fileMetaDataRepository.save(fileMetaData);
+        return ApiResponse.builder()
+                .message("File uploaded to the server successfully")
+                .statusCode(HttpStatus.OK.value())
+                .result(Collections.emptyList())
+                .build();
+    }
 
 //    @Scheduled(fixedRate = 2 * 60 * 1000)
     @Scheduled(cron = "0 0 12 * * ?")
@@ -321,6 +344,4 @@ public class DomesticShipmentService {
     private DomesticShipment toEntity(DomesticShipmentDto domesticShipmentDto){
         return modelMapper.map(domesticShipmentDto , DomesticShipment.class);
     }
-
-
 }
