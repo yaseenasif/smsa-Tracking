@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({
   selector: 'app-tile',
@@ -8,22 +9,16 @@ import { MenuItem } from 'primeng/api';
 })
 export class TileComponent {
 
-  constructor() { }
-  products:any=[{name:"Demo"},
-  {name:"Demo"},
-  {name:"Demo"},
-  {name:"Demo"},
-  {name:"Demo"},
-  {name:"Demo"},
-  {name:"Demo"},
-  {name:"Demo"},
-  {name:"Demo"},
-  {name:"Demo"},];
+  constructor(private authguardService:AuthguardService) { }
   items: MenuItem[] | undefined;
 
  
 
   ngOnInit() {
       this.items = [{ label: 'International Shipment'}];
+  }
+
+  hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
   }
 }

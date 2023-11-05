@@ -76,6 +76,7 @@ import { DialogModule } from 'primeng/dialog';
 import { AddShipmentStatusComponent } from './page/shipment-status/add-shipment-status/add-shipment-status.component';
 import { UpdateShipmentStatusComponent } from './page/shipment-status/update-shipment-status/update-shipment-status.component';
 import { ShipmentStatusListComponent } from './page/shipment-status/shipment-status-list/shipment-status-list.component';
+import { UnauthorizedPageComponent } from './page/unauthorized/unauthorized-page/unauthorized-page.component';
 
 
 
@@ -129,6 +130,7 @@ import { ShipmentStatusListComponent } from './page/shipment-status/shipment-sta
     AddShipmentStatusComponent,
     UpdateShipmentStatusComponent,
     ShipmentStatusListComponent,
+    UnauthorizedPageComponent,
   ],
   imports: [
     BrowserModule,
