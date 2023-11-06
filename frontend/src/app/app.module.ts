@@ -79,6 +79,7 @@ import { ShipmentStatusListComponent } from './page/shipment-status/shipment-sta
 import { UpdateDomesticShipmentForSummaryComponent } from './page/bounds/domestic/update-domestic-shipment-for-summary/update-domestic-shipment-for-summary.component';
 import { AttachmentsComponent } from './page/bounds/domestic/attachments/attachments.component';
 import { DomesticAttachmentsComponent } from './page/shipping-order/domestic/domestic-attachments/domestic-attachments.component';
+import { UnauthorizedPageComponent } from './page/unauthorized/unauthorized-page/unauthorized-page.component';
 
 
 
@@ -132,6 +133,7 @@ import { DomesticAttachmentsComponent } from './page/shipping-order/domestic/dom
     AddShipmentStatusComponent,
     UpdateShipmentStatusComponent,
     ShipmentStatusListComponent,
+    UnauthorizedPageComponent,
     UpdateDomesticShipmentForSummaryComponent,
     AttachmentsComponent,
     DomesticAttachmentsComponent,

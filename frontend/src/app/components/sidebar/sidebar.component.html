@@ -13,7 +13,7 @@
                     </span>
                 </span>
             </li>
-            <li class="child"  >
+            <li class="child" *ngIf="hasPermission('Domestic Shipment')" >
                 <span class="sidebar-list-hover" routerLink="/domestic-shipping" >
                     <i class="bi bi-train-freight-front-fill"></i>
                     <span class="nav-text">
@@ -21,7 +21,7 @@
                     </span>
                 </span>
             </li>
-            <li class="child"   >
+            <li class="child" *ngIf="(this.hasPermission('International Shipment By Road')||this.hasPermission('International Shipment By Air'))"  >
                 <span class="sidebar-list-hover" routerLink="/international-tile" >
                     <i class="bi bi-airplane-fill"></i>
                     <span class="nav-text">
@@ -29,7 +29,7 @@
                     </span>
                 </span>
             </li>
-            <li class="child"   >
+            <li class="child" *ngIf="hasPermission('Domestic Summary')"  >
                 <span class="sidebar-list-hover" routerLink="/domestic-summary" >
                     <i class="bi bi-journal-text"></i>
                     <span class="nav-text">
@@ -37,7 +37,7 @@
                     </span>
                 </span>
             </li>
-            <li class="child"   >
+            <li class="child" *ngIf="hasPermission('International Summary By Air')">
                 <span class="sidebar-list-hover" routerLink="/international-summary-by-air" >
                     <i class="bi bi-journal-text"></i>
                     <span class="nav-text">
@@ -45,7 +45,7 @@
                     </span>
                 </span>
             </li>
-            <li class="child"   >
+            <li class="child"  *ngIf="hasPermission('International Summary By Road')" >
                 <span class="sidebar-list-hover" routerLink="/international-summary-by-road" >
                     <i class="bi bi-journal-text"></i>
                     <span class="nav-text">
@@ -53,7 +53,7 @@
                     </span>
                 </span>
             </li>
-            <li class="child">
+            <li class="child" *ngIf="hasPermission('User')">
                 <span class="sidebar-list-hover" routerLink="/user" >
                     <i class="bi bi-people-fill"></i>
                     <span class="nav-text">
@@ -73,7 +73,7 @@
                 </span>
             </li>
            
-                <li class="child"  *ngIf="configTurner"  >
+                <li class="child"  *ngIf="configTurner &&(hasPermission('Driver'))" >
                     <span class="sidebar-list-hover" routerLink="/driver" >
                         <i class="bi bi-car-front"></i>
                         <span class="nav-text">
@@ -81,7 +81,7 @@
                         </span>
                     </span>
                 </li>
-                <li class="child"  *ngIf="configTurner" >
+                <li class="child"  *ngIf="configTurner &&(hasPermission('Location'))" >
                     <span class="sidebar-list-hover" routerLink="/location" >
                         <i class="bi bi-geo-alt"></i>
                         <span class="nav-text">
@@ -89,7 +89,7 @@
                         </span>
                     </span>
                 </li>
-                <li class="child"  *ngIf="configTurner" >
+                <li class="child"  *ngIf="configTurner&&(hasPermission('Location Port'))" >
                     <span class="sidebar-list-hover" routerLink="/location-port" >
                         <i class="bi bi-box-seam"></i>
                         <span class="nav-text">
@@ -97,7 +97,7 @@
                         </span>
                     </span>
                 </li>
-                <li class="child"  *ngIf="configTurner" >
+                <li class="child"  *ngIf="configTurner &&(hasPermission('Shipment Status'))" >
                     <span class="sidebar-list-hover" routerLink="/shipment-status" >
                         <i class="bi bi-toggles2"></i>
                         <span class="nav-text">
@@ -105,23 +105,23 @@
                         </span>
                     </span>
                 </li>
-                <li class="child"  *ngIf="configTurner" >
+                <li class="child"  *ngIf="configTurner&&(hasPermission('Vehicle Type'))" >
                     <span class="sidebar-list-hover" routerLink="/vehicle-type" >
                         <i class="bi bi-truck"></i>
                         <span class="nav-text">
-                            Vehicle type
+                            Vehicle Type
                         </span>
                     </span>
                 </li>
-                <li class="child"  *ngIf="configTurner" >
+                <!-- <li class="child"  *ngIf="configTurner" >
                     <span class="sidebar-list-hover" routerLink="/permission" >
                         <i class="bi bi-key"></i>
                         <span class="nav-text">
                            Permission
                         </span>
                     </span>
-                </li>
-                <li class="child"  *ngIf="configTurner" >
+                </li> -->
+                <li class="child"  *ngIf="configTurner&&(hasPermission('Role'))" >
                     <span class="sidebar-list-hover" routerLink="/role" >
                         <i class="bi bi-person-gear"></i>
                         <span class="nav-text">

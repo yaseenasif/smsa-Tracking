@@ -16,6 +16,7 @@ export class EditRoleComponent {
   items: MenuItem[] | undefined;
 
   permissions!: Permission[];
+  fullPermissions!: Permission[];
   rId!: number;
   role:Role={
     id:null,
@@ -34,23 +35,33 @@ export class EditRoleComponent {
     this.rId = +this.route.snapshot.paramMap.get('id')!;
     this.getRoleById();
     this.items = [{ label: 'Role list',routerLink:'/role'},{ label: 'Edit Role'}];
-    this.getAllPermissions();
+    // this.getAllPermissions();
   }
 
   getAllPermissions(){
-    this.permissionService.getALLPermission().subscribe((res:Permission[])=>{
-      this.permissions=res.filter(el=>el.status);
+    this.permissionService.getALLPermission().subscribe((res:Permission[])=>{  
+      this.permissions=res.filter(el=>el.status && el.name!='Dash Board' && el.name!='Role');
+      console.log(this.permissions);
+      
+      this.fullPermissions=res.filter(el=>el.status);
     },error=>{
     })
-   }
+  }
 
   getRoleById(){
     this.roleService.geRoleByID(this.rId).subscribe((res:Role)=>{
       this.role=res; 
+      this.getAllPermissions();
     },error=>{
     })
   }
   onSubmit() {
+    if(this.role.name=='ROLE_ADMIN'){
+      this.role.permissions?.push(this.fullPermissions!.find(el=>el.name=='Role')!)
+      this.role.permissions?.push(this.fullPermissions!.find(el=>el.name=='Dash Board')!)
+    }else if(this.role.name=='ROLE_USER'){
+      this.role.permissions?.push(this.fullPermissions!.find(el=>el.name=='Dash Board')!)
+    }
     this.roleService.assignPermissionToRole(this.role).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'role is updated on id'+res.id});
       setTimeout(() => {

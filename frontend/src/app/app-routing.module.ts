@@ -49,6 +49,8 @@ import { UpdateShipmentStatusComponent } from './page/shipment-status/update-shi
 import { UpdateDomesticShipmentForSummaryComponent } from './page/bounds/domestic/update-domestic-shipment-for-summary/update-domestic-shipment-for-summary.component';
 import { AttachmentsComponent } from './page/bounds/domestic/attachments/attachments.component';
 import { DomesticAttachmentsComponent } from './page/shipping-order/domestic/domestic-attachments/domestic-attachments.component';
+import { UnauthorizedPageComponent } from './page/unauthorized/unauthorized-page/unauthorized-page.component';
+
 
 const routes: Routes = [
   {
@@ -132,7 +134,7 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'edit-user',
+    path:'edit-user/:id',
     component:UpdateUserComponent,
     canActivate:[AuthGuard]
   },
@@ -167,20 +169,24 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'permission',
-    component:PermissionListComponent,
-    canActivate:[AuthGuard]
+    path:'unauthorized',
+    component:UnauthorizedPageComponent,
   },
-  {
-    path:'add-permission',
-    component:AddPermissionComponent,
-    canActivate:[AuthGuard]
-  },
-  {
-    path:'edit-permission/:id',
-    component:EditPermissionComponent,
-    canActivate:[AuthGuard]
-  },
+  // {
+  //   path:'permission',
+  //   component:PermissionListComponent,
+
+  // },
+  // {
+  //   path:'add-permission',
+  //   component:AddPermissionComponent,
+  //   canActivate:[AuthGuard]
+  // },
+  // {
+  //   path:'edit-permission/:id',
+  //   component:EditPermissionComponent,
+  //   canActivate:[AuthGuard]
+  // },
   {
     path:'role',
     component:RoleListComponent,
@@ -243,7 +249,7 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'international-shipment-history-by-road',
+    path:'international-shipment-history-by-road/:id',
     component:InternationalShippingOrderHistoryComponent,
     canActivate:[AuthGuard]
   },
@@ -257,14 +263,14 @@ const routes: Routes = [
     component:UpdateInternationalShippingComponent,
     canActivate:[AuthGuard]
   },
-  
+
   {
     path:'international-shipment-by-air',
     component:InternationalShipmentListAirComponent,
     canActivate:[AuthGuard]
   },
   {
-    path:'international-shipment-history-by-air',
+    path:'international-shipment-history-by-air/:id',
     component:InternationalShipmentOrderHistoryByAirComponent,
     canActivate:[AuthGuard]
   },
