@@ -9,6 +9,7 @@
           <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
         </div>
         <div class="body-card">
+          <p-toast></p-toast>
           <div class="table-head">
             <h2 class="h-color mb-3">Domestic Summary</h2>
 
@@ -151,7 +152,7 @@
                   <th class="text-center">ATA</th>
                   <th class="text-center">Status</th>
 
-                  <th *ngIf="selectedBound.bound=='In bound'" class="text-center">Actions</th>
+                  <th class="text-center">Actions</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-domesticShipment>
@@ -171,9 +172,11 @@
                   <td class="text-center" [classList]="domesticShipment.redFlag?'red':'withoutRed'">{{ domesticShipment.eta}}</td>
                   <td class="text-center" [classList]="domesticShipment.redFlag?'red':'withoutRed'">{{ domesticShipment.ata}}</td>
                   <td class="text-center" [classList]="domesticShipment.redFlag?'red':'withoutRed'">{{ domesticShipment.status}}</td>
-                  <td *ngIf="selectedBound.bound=='In bound'" class="text-center flex flex-row"> 
-                    
-                    <p-button [routerLink]="['/update-domestic-shipping-for-summary/',domesticShipment.id]" icon="bi bi-pen" class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                  <td class="text-center flex flex-row"> 
+                    <p-button [routerLink]="['/add-attachments/',domesticShipment.id]" icon="bi bi-paperclip" class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                   
+                    </p-button>
+                    <p-button *ngIf="selectedBound.bound=='In bound'" [routerLink]="['/update-domestic-shipping-for-summary/',domesticShipment.id]" icon="bi bi-pen" class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                      
                     </p-button>
                     

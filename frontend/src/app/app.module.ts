@@ -77,6 +77,8 @@ import { AddShipmentStatusComponent } from './page/shipment-status/add-shipment-
 import { UpdateShipmentStatusComponent } from './page/shipment-status/update-shipment-status/update-shipment-status.component';
 import { ShipmentStatusListComponent } from './page/shipment-status/shipment-status-list/shipment-status-list.component';
 import { UpdateDomesticShipmentForSummaryComponent } from './page/bounds/domestic/update-domestic-shipment-for-summary/update-domestic-shipment-for-summary.component';
+import { AttachmentsComponent } from './page/bounds/domestic/attachments/attachments.component';
+import { DomesticAttachmentsComponent } from './page/shipping-order/domestic/domestic-attachments/domestic-attachments.component';
 
 
 
@@ -131,6 +133,8 @@ import { UpdateDomesticShipmentForSummaryComponent } from './page/bounds/domesti
     UpdateShipmentStatusComponent,
     ShipmentStatusListComponent,
     UpdateDomesticShipmentForSummaryComponent,
+    AttachmentsComponent,
+    DomesticAttachmentsComponent,
   ],
   imports: [
     BrowserModule,

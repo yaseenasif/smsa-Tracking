@@ -44,10 +44,11 @@ export class DomesticShippingListComponent implements OnInit{
   deleteDomesticShipment(id:number){
     this.domesticShipmentService.deleteDomesticShipment(id).subscribe((res:any)=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message });
-
+debugger
       this.getAllDomesticShipments();
       
     },(error:any)=>{
+      debugger
       if(error.error.body){
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{

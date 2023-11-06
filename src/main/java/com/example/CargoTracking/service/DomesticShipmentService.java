@@ -57,6 +57,7 @@ public class DomesticShipmentService {
     FileMetaDataRepository fileMetaDataRepository;
 
 
+
     public DomesticShipmentDto addShipment(DomesticShipmentDto domesticShipmentDto) throws IOException {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -72,7 +73,7 @@ public class DomesticShipmentService {
             DomesticShipment domesticShipment = domesticShipmentRepository.save(unSaveDomesticShipment);
 
             DomesticShipmentHistory domesticShipmentHistory = DomesticShipmentHistory.builder()
-                    .status("Pre-Alert Created")
+                    .status(domesticShipmentDto.getStatus())
                     .processTime(LocalDateTime.now())
                     .locationCode(domesticShipmentDto.getOriginLocation())
                     .user(user.getId())
@@ -295,16 +296,23 @@ public class DomesticShipmentService {
     }
     public ApiResponse addAttachment(Long id, MultipartFile file) throws IOException {
         Optional<DomesticShipment> domesticShipment = domesticShipmentRepository.findById(id);
-        String fileUrl = storageService.uploadFile(file.getBytes(), file.getOriginalFilename());
-        FileMetaData fileMetaData = new FileMetaData();
-        fileMetaData.setFileUrl(fileUrl);
-        fileMetaData.setDomesticShipment(domesticShipment.get());
-        fileMetaDataRepository.save(fileMetaData);
-        return ApiResponse.builder()
-                .message("File uploaded to the server successfully")
-                .statusCode(HttpStatus.OK.value())
-                .result(Collections.emptyList())
-                .build();
+        FileMetaData byFileName = fileMetaDataRepository.findByFileName(file.getOriginalFilename());
+        if(byFileName == null){
+            String fileUrl = storageService.uploadFile(file.getBytes(), file.getOriginalFilename());
+            FileMetaData fileMetaData = new FileMetaData();
+            fileMetaData.setFileUrl(fileUrl);
+            fileMetaData.setFileName(file.getOriginalFilename());
+            fileMetaData.setDomesticShipment(domesticShipment.get());
+            fileMetaDataRepository.save(fileMetaData);
+            return ApiResponse.builder()
+                    .message("File uploaded to the server successfully")
+                    .statusCode(HttpStatus.OK.value())
+                    .result(Collections.emptyList())
+                    .build();
+        }else{
+            throw new RecordNotFoundException(String.format("File already exists on the bucket with this name"));
+        }
+
     }
 
 //    @Scheduled(fixedRate = 2 * 60 * 1000)

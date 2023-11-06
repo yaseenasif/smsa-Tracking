@@ -103,7 +103,7 @@
                     <p-button icon="bi bi-clock-history" [routerLink]="['/domestic-shipping-history/',domesticShipment.id]"  class='mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                     
                     </p-button>
-                    <p-button icon="bi bi-paperclip" class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                    <p-button [routerLink]="['/add-domestic-attachments/',domesticShipment.id]" icon="bi bi-paperclip" class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                    
                     </p-button>
                     <p-button [routerLink]="['/update-domestic-shipping/',domesticShipment.id]" icon="bi bi-pen" class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">

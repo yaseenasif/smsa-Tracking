@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { SummaryService } from '../../service/summary.service';
 import { SummarySearch } from 'src/app/model/summarySearch';
 import { DatePipe } from '@angular/common';
@@ -10,7 +10,7 @@ import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
   selector: 'app-domestic-summary',
   templateUrl: './domestic-summary.component.html',
   styleUrls: ['./domestic-summary.component.scss'],
-  providers: [DatePipe]
+  providers:[MessageService,DatePipe]
 })
 export class DomesticSummaryComponent {
   name!:string;
@@ -23,6 +23,7 @@ export class DomesticSummaryComponent {
 
   constructor(private summaryService:SummaryService,
     private datePipe: DatePipe,
+    private messageService: MessageService,
     private shipmentStatusService:ShipmentStatusService) { }
   domesticShipment:any=[];
   items: MenuItem[] | undefined;
@@ -67,6 +68,7 @@ export class DomesticSummaryComponent {
 
   getInboundSummary(obj:SummarySearch,page:number,size:number){
     this.summaryService.getInboundSummary(obj,page,size).subscribe((res:any)=>{
+      debugger
       this.domesticShipment=res.content;
       this.search  ={
         fromDate:null,
@@ -76,6 +78,12 @@ export class DomesticSummaryComponent {
         destination:null
       }
     },(error:any)=>{
+      debugger
+      if(error.error.body){
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      }else{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+      }   
       this.domesticShipment=[]; 
     })
   }
@@ -91,7 +99,11 @@ export class DomesticSummaryComponent {
         destination:null
       }
     },(error:any)=>{
-      
+      if(error.error.body){
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      }else{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+      }   
       this.domesticShipment=[];  
     })
   }

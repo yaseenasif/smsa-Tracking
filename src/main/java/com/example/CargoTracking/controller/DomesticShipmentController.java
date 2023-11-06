@@ -5,9 +5,11 @@ import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.DomesticShipmentService;
+import com.example.CargoTracking.service.StorageService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,8 @@ public class DomesticShipmentController {
 
     @Autowired
     DomesticShipmentService domesticShipmentService;
+    @Autowired
+    StorageService storageService;
 
 
 
@@ -32,6 +36,18 @@ public class DomesticShipmentController {
     @PostMapping("/add-attachments/{id}")
     public ResponseEntity<ApiResponse> addAttachments(@PathVariable Long id,@RequestParam("file") MultipartFile file) throws IOException {
         return ResponseEntity.ok(domesticShipmentService.addAttachment(id,file));
+    }
+
+    @GetMapping("/download/{fileName}")
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {
+        byte[] data = storageService.downloadFile(fileName);
+        ByteArrayResource resource = new ByteArrayResource(data);
+        return ResponseEntity
+                .ok()
+                .contentLength(data.length)
+                .header("Content-type", "application/octet-stream")
+                .header("Content-disposition", "attachment; filename=\"" + fileName + "\"")
+                .body(resource);
     }
 
     @GetMapping("/all-domestic-shipments")

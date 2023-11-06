@@ -47,6 +47,8 @@ import { ShipmentStatusListComponent } from './page/shipment-status/shipment-sta
 import { AddShipmentStatusComponent } from './page/shipment-status/add-shipment-status/add-shipment-status.component';
 import { UpdateShipmentStatusComponent } from './page/shipment-status/update-shipment-status/update-shipment-status.component';
 import { UpdateDomesticShipmentForSummaryComponent } from './page/bounds/domestic/update-domestic-shipment-for-summary/update-domestic-shipment-for-summary.component';
+import { AttachmentsComponent } from './page/bounds/domestic/attachments/attachments.component';
+import { DomesticAttachmentsComponent } from './page/shipping-order/domestic/domestic-attachments/domestic-attachments.component';
 
 const routes: Routes = [
   {
@@ -219,7 +221,17 @@ const routes: Routes = [
     component:UpdateDomesticShipmentForSummaryComponent,
     canActivate:[AuthGuard]
   },
-  
+  {
+    path:'add-attachments/:id',
+    component:AttachmentsComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'add-domestic-attachments/:id',
+    component:  DomesticAttachmentsComponent
+    ,
+    canActivate:[AuthGuard]
+  },
   {
     path:'international-tile',
     component:TileComponent,

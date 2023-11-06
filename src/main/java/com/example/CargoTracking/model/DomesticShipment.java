@@ -70,7 +70,7 @@ public class DomesticShipment {
     @OneToMany(mappedBy = "domesticShipment",cascade = CascadeType.REMOVE)
     private List<DomesticShipmentHistory> domesticShipmentHistories ;
 
-    @OneToMany(mappedBy = "domesticShipment", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "domesticShipment", cascade = CascadeType.REMOVE)
     private List<FileMetaData> files;
 
     @Override
