@@ -7,7 +7,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   constructor() { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {  
     let token = localStorage.getItem("accessToken");
     if (token != null) {
       const authReq = req.clone({

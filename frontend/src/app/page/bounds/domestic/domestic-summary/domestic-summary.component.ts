@@ -68,7 +68,7 @@ export class DomesticSummaryComponent {
 
   getInboundSummary(obj:SummarySearch,page:number,size:number){
     this.summaryService.getInboundSummary(obj,page,size).subscribe((res:any)=>{
-      debugger
+      
       this.domesticShipment=res.content;
       this.search  ={
         fromDate:null,
@@ -78,7 +78,7 @@ export class DomesticSummaryComponent {
         destination:null
       }
     },(error:any)=>{
-      debugger
+      
       if(error.error.body){
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{
