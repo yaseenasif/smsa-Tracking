@@ -6,30 +6,30 @@
 
       <div class="main">
         <div class="card flex justify-content-center">
-            <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+          <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
         </div>
         <div class="body-card">
           <p-toast></p-toast>
 
-            <div class="table-head">
-                <p-toolbar>
-                    <div class="p-toolbar-group-start">
-                      <h2 class="h-color">Domestic Shipment</h2>
-                    </div>
-                    <div class="p-toolbar-group-end">
-                        <p-button class="bg-b-color" routerLink="/add-domestic-shipping">
-                          <i class="bi bi-plus-lg" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Add Shipment
-                        </p-button>
-                    </div>
-                </p-toolbar>
-            </div>
-          
+          <div class="table-head">
+            <p-toolbar>
+              <div class="p-toolbar-group-start">
+                <h2 class="h-color">Domestic Shipment</h2>
+              </div>
+              <div class="p-toolbar-group-end">
+                <p-button class="bg-b-color" routerLink="/add-domestic-shipping">
+                  <i class="bi bi-plus-lg" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Add Shipment
+                </p-button>
+              </div>
+            </p-toolbar>
+          </div>
+
 
           <div class="card">
             <p-table [value]="domesticShipment" [tableStyle]="{ 'min-width': '50rem' }">
               <ng-template pTemplate="header">
                 <tr>
-                  
+
                   <th class="text-center">Origin Facility</th>
                   <th class="text-center">Origin Location</th>
                   <th class="text-center">Referigirated Truck</th>
@@ -59,7 +59,8 @@
                   <th class="text-center">Received</th>
                   <th class="text-center">Shortages</th>
                   <th class="text-center">Shortage AWBs</th>
-                
+                  <th class="text-center">Downloads</th>
+
 
 
                   <th class="text-center">Actions</th>
@@ -96,23 +97,35 @@
                   <td class="text-center">{{ domesticShipment.received}}</td>
                   <td class="text-center">{{ domesticShipment.shortages}}</td>
                   <td class="text-center">{{ domesticShipment.shortagesAwbs}}</td>
-                  
+                  <td class="text-center"><p-button [routerLink]="['/view-attachments/','domesticShipment',domesticShipment.id]"
+                      icon="bi bi-download" class='ml mr'
+                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+
+                    </p-button></td>
 
 
-                  <td class="text-center flex flex-row"> 
-                    <p-button icon="bi bi-clock-history" [routerLink]="['/domestic-shipping-history/',domesticShipment.id]"  class='mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                    
+
+
+
+                  <td class="text-center flex flex-row">
+                    <p-button icon="bi bi-clock-history"
+                      [routerLink]="['/domestic-shipping-history/',domesticShipment.id]" class='mr'
+                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+
                     </p-button>
-                    <p-button [routerLink]="['/add-domestic-attachments/',domesticShipment.id]" icon="bi bi-paperclip" class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                   
+                    <p-button [routerLink]="['/add-domestic-attachments/',domesticShipment.id]" icon="bi bi-paperclip"
+                      class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+
                     </p-button>
-                    <p-button [routerLink]="['/update-domestic-shipping/',domesticShipment.id]" icon="bi bi-pen" class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
-                     
+                    <p-button [routerLink]="['/update-domestic-shipping/',domesticShipment.id]" icon="bi bi-pen"
+                      class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+
                     </p-button>
-                     <p-button (click)="deleteDomesticShipment(domesticShipment.id)" icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                    
-                     </p-button>
-                    
+                    <p-button (click)="deleteDomesticShipment(domesticShipment.id)" icon="bi bi-trash" class='ml'
+                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+
+                    </p-button>
+
                   </td>
                 </tr>
               </ng-template>

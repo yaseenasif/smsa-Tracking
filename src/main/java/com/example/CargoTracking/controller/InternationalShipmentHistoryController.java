@@ -21,6 +21,6 @@ public class InternationalShipmentHistoryController {
 
     @GetMapping("/all-international-shipments-history/{id}")
     public ResponseEntity<List<InternationalShipmentHistoryDto>> getById(@PathVariable Long id){
-        return ResponseEntity.ok(internationalShipmentHistoryService.getDomesticShipmentHistoryByDomesticShipmentId(id));
+        return ResponseEntity.ok(internationalShipmentHistoryService.getInternationalShipmentHistoryByInternationalShipmentId(id));
     }
 }

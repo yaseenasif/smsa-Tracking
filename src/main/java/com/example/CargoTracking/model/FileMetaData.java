@@ -18,8 +18,13 @@ public class FileMetaData {
     private Long id;
     private String fileName;
     private String fileUrl;
+    private String fileExtension;
 
     @ManyToOne
     @JoinColumn(name = "domestic_shipment_id")
     private DomesticShipment domesticShipment;
+
+    @ManyToOne
+    @JoinColumn(name = "international_shipment_id")
+    private InternationalShipment internationalShipment;
 }

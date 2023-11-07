@@ -71,4 +71,7 @@ public class InternationalShipment {
 
     @OneToMany(mappedBy = "internationalShipment")
     private List<InternationalShipmentHistory> shipmentHistory;
+
+    @OneToMany(mappedBy = "internationalShipment", cascade = CascadeType.REMOVE)
+    private List<FileMetaData> files;
 }

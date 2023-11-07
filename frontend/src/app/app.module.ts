@@ -80,6 +80,7 @@ import { UpdateDomesticShipmentForSummaryComponent } from './page/bounds/domesti
 import { AttachmentsComponent } from './page/bounds/domestic/attachments/attachments.component';
 import { DomesticAttachmentsComponent } from './page/shipping-order/domestic/domestic-attachments/domestic-attachments.component';
 import { UnauthorizedPageComponent } from './page/unauthorized/unauthorized-page/unauthorized-page.component';
+import { ViewAttachmentsComponent } from './page/shipping-order/view-attachments/view-attachments.component';
 
 
 
@@ -137,6 +138,7 @@ import { UnauthorizedPageComponent } from './page/unauthorized/unauthorized-page
     UpdateDomesticShipmentForSummaryComponent,
     AttachmentsComponent,
     DomesticAttachmentsComponent,
+    ViewAttachmentsComponent,
   ],
   imports: [
     BrowserModule,

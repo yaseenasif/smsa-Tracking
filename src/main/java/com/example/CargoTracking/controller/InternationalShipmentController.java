@@ -4,14 +4,19 @@ import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.dto.InternationalShipmentDto;
+import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.InternationalShipmentService;
+import com.example.CargoTracking.service.StorageService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -19,10 +24,29 @@ import java.util.List;
 public class InternationalShipmentController {
     @Autowired
     InternationalShipmentService internationalShipmentService;
+    @Autowired
+    StorageService storageService;
 
     @PostMapping("/add-international-shipment")
     public ResponseEntity<InternationalShipmentDto> saveInternationalShipment(@RequestBody InternationalShipmentDto internationalShipmentDto){
         return ResponseEntity.ok(internationalShipmentService.addShipment(internationalShipmentDto));
+    }
+
+    @PostMapping("/add-international-attachments/{id}")
+    public ResponseEntity<ApiResponse> addAttachments(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws IOException {
+        return ResponseEntity.ok(internationalShipmentService.addAttachment(id,file));
+    }
+
+    @GetMapping("/international-download/{fileName}")
+    public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {
+        byte[] data = storageService.downloadFile(fileName);
+        ByteArrayResource resource = new ByteArrayResource(data);
+        return ResponseEntity
+                .ok()
+                .contentLength(data.length)
+                .header("Content-type", "application/octet-stream")
+                .header("Content-disposition", "attachment; filename=\"" + fileName + "\"")
+                .body(resource);
     }
 
     @GetMapping("/all-international-shipments")

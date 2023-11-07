@@ -50,6 +50,7 @@ import { UpdateDomesticShipmentForSummaryComponent } from './page/bounds/domesti
 import { AttachmentsComponent } from './page/bounds/domestic/attachments/attachments.component';
 import { DomesticAttachmentsComponent } from './page/shipping-order/domestic/domestic-attachments/domestic-attachments.component';
 import { UnauthorizedPageComponent } from './page/unauthorized/unauthorized-page/unauthorized-page.component';
+import { ViewAttachmentsComponent } from './page/shipping-order/view-attachments/view-attachments.component';
 
 
 const routes: Routes = [
@@ -213,6 +214,17 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
+    path:'international-shipping-history-by-air/:id',
+    component:DomesticShippingOrderHistoryComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-shipping-history-by-road/:id',
+    component:InternationalShippingOrderHistoryComponent,
+    canActivate:[AuthGuard]
+  },
+
+  {
     path:'add-domestic-shipping',
     component:AddDomesticShippingComponent,
     canActivate:[AuthGuard]
@@ -263,7 +275,11 @@ const routes: Routes = [
     component:UpdateInternationalShippingComponent,
     canActivate:[AuthGuard]
   },
-
+  {
+    path:'view-attachments/:name/:id',
+    component:ViewAttachmentsComponent,
+    canActivate:[AuthGuard]
+  },
   {
     path:'international-shipment-by-air',
     component:InternationalShipmentListAirComponent,

@@ -299,8 +299,11 @@ public class DomesticShipmentService {
         FileMetaData byFileName = fileMetaDataRepository.findByFileName(file.getOriginalFilename());
         if(byFileName == null){
             String fileUrl = storageService.uploadFile(file.getBytes(), file.getOriginalFilename());
+            String originalFileName = file.getOriginalFilename();
+            String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
             FileMetaData fileMetaData = new FileMetaData();
             fileMetaData.setFileUrl(fileUrl);
+            fileMetaData.setFileExtension(fileExtension);
             fileMetaData.setFileName(file.getOriginalFilename());
             fileMetaData.setDomesticShipment(domesticShipment.get());
             fileMetaDataRepository.save(fileMetaData);

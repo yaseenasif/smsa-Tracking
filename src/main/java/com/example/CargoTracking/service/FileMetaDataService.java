@@ -6,8 +6,10 @@ import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.model.DomesticShipment;
 import com.example.CargoTracking.model.Driver;
 import com.example.CargoTracking.model.FileMetaData;
+import com.example.CargoTracking.model.InternationalShipment;
 import com.example.CargoTracking.repository.DomesticShipmentRepository;
 import com.example.CargoTracking.repository.FileMetaDataRepository;
+import com.example.CargoTracking.repository.InternationalShipmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ public class FileMetaDataService {
     @Autowired
     DomesticShipmentRepository domesticShipmentRepository;
     @Autowired
+    InternationalShipmentRepository internationalShipmentRepository;
+    @Autowired
     ModelMapper modelMapper;
 
     public List<FileMetaDataDto> getFileMataDataByDomesticShipment(Long id) {
@@ -32,6 +36,16 @@ public class FileMetaDataService {
             return toDtoList(fileMetaDataByDomesticShipment);
         }else{
             throw new RecordNotFoundException(String.format("No data found against this domestic shipment id => %d",id));
+        }
+
+    }
+    public List<FileMetaDataDto> getFileMataDataByInternationalShipment(Long id) {
+        Optional<InternationalShipment> internationalShipment = internationalShipmentRepository.findById(id);
+        List<FileMetaData> fileMetaDataByDomesticShipment = fileMetaDataRepository.findByInternationalShipment(internationalShipment.get());
+        if(!fileMetaDataByDomesticShipment.isEmpty()){
+            return toDtoList(fileMetaDataByDomesticShipment);
+        }else{
+            throw new RecordNotFoundException(String.format("No data found against this international shipment id => %d",id));
         }
 
     }

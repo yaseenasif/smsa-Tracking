@@ -12,4 +12,5 @@ public class FileMetaDataDto {
     private Long id;
     private String fileName;
     private String fileUrl;
+    private String fileExtension;
 }

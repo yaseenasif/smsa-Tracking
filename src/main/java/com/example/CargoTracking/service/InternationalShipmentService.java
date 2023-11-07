@@ -4,12 +4,11 @@ import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
 import com.example.CargoTracking.dto.InternationalShipmentDto;
 import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.exception.UserNotFoundException;
-import com.example.CargoTracking.model.DomesticShipment;
-import com.example.CargoTracking.model.InternationalShipment;
-import com.example.CargoTracking.model.User;
+import com.example.CargoTracking.model.*;
+import com.example.CargoTracking.payload.ApiResponse;
+import com.example.CargoTracking.repository.FileMetaDataRepository;
 import com.example.CargoTracking.repository.InternationalShipmentRepository;
 
-import com.example.CargoTracking.model.InternationalShipmentHistory;
 import com.example.CargoTracking.repository.InternationalShipmentHistoryRepository;
 import com.example.CargoTracking.repository.UserRepository;
 import com.example.CargoTracking.specification.DomesticSummarySpecification;
@@ -20,11 +19,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -45,6 +47,10 @@ public class InternationalShipmentService {
     InternationalShipmentHistoryRepository internationalShipmentHistoryRepository;
     @Autowired
     EmailService emailService;
+    @Autowired
+    StorageService storageService;
+    @Autowired
+    FileMetaDataRepository fileMetaDataRepository;
 
 
     public InternationalShipmentDto addShipment(InternationalShipmentDto internationalShipmentDto) {
@@ -362,5 +368,29 @@ public class InternationalShipmentService {
         }else{
             throw new RecordNotFoundException(String.format("International shipment Not Found By This Id %d",id));
         }
+    }
+
+    public ApiResponse addAttachment(Long id, MultipartFile file) throws IOException {
+        Optional<InternationalShipment> internationalShipment = internationalShipmentRepository.findById(id);
+        FileMetaData byFileName = fileMetaDataRepository.findByFileName(file.getOriginalFilename());
+        if(byFileName == null){
+            String fileUrl = storageService.uploadFile(file.getBytes(), file.getOriginalFilename());
+            String originalFileName = file.getOriginalFilename();
+            String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+            FileMetaData fileMetaData = new FileMetaData();
+            fileMetaData.setFileUrl(fileUrl);
+            fileMetaData.setFileExtension(fileExtension);
+            fileMetaData.setFileName(file.getOriginalFilename());
+            fileMetaData.setInternationalShipment(internationalShipment.get());
+            fileMetaDataRepository.save(fileMetaData);
+            return ApiResponse.builder()
+                    .message("File uploaded to the server successfully")
+                    .statusCode(HttpStatus.OK.value())
+                    .result(Collections.emptyList())
+                    .build();
+        }else{
+            throw new RecordNotFoundException(String.format("File already exists on the bucket with this name"));
+        }
+
     }
 }

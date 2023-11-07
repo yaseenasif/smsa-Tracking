@@ -31,7 +31,8 @@ export class AuthguardService {
     {permission:'Location Port',route:['/location-port','/add-location-port','/edit-location-port/:id']},
     {permission:'Shipment Status',route:['/shipment-status','/add-shipment-status','/edit-shipment-status/:id']},
     {permission:'Vehicle Type',route:['/vehicle-type','/add-vehicle-type','/edit-vehicle-type/:id']},
-    {permission:'Role',route:['/role','/edit-role/:id']}
+    {permission:'Role',route:['/role','/edit-role/:id']},
+    {permission:'View Attachments',route:['/view-attachments/:name/:id']}
 ]
 
 

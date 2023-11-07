@@ -18,16 +18,16 @@
                     <div class="grid  ">
                       <div class="lg:col-4 md:col-12 col-12">
                         <label for="" class="heading-lable">Pre-Alert Number :</label> &nbsp;
-                        <label for="" class="lable-value">33333333333</label>
+                        <label for="" class="lable-value">{{InternationalShipment.preAlertNumber}}</label>
   
                       </div>
                       <div class="lg:col-4 md:col-12 col-12">
                         <label for="" class="heading-lable">Origin :</label> &nbsp;
-                        <label for=""> Dubai Gateway</label>
+                        <label for=""> {{InternationalShipment.originCountry}}</label>
                       </div>
                       <div class="lg:col-4 md:col-12 col-12">
                         <label for="" class="heading-lable">Destination :</label> &nbsp;
-                        <label for=""> Riyadh Gateway</label>
+                        <label for=""> {{InternationalShipment.destinationCountry}}</label>
                       </div>
   
                     </div>
@@ -41,7 +41,7 @@
                         <label for=""> 2500</label>
                       </div>
                       <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Received :</label> &nbsp;
-                        <label for=""> 2496</label>
+                        <label for=""> {{InternationalShipment.received}}</label>
                       </div>
   
                     </div>
@@ -49,10 +49,10 @@
                   <div class="lg:col-12 md:col-6 col-12">
                     <div class="grid">
                       <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Overages :</label> &nbsp;
-                        <label for=""> - </label>
+                        <label for=""> {{InternationalShipment.overages}} </label>
                       </div>
                       <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Shortages :</label> &nbsp;
-                        <label for=""> 4</label>
+                        <label for=""> {{InternationalShipment.shortages}}</label>
                       </div>
                       <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Transit Time Taken :</label> &nbsp;
                         <label for=""> 0.46</label>
@@ -66,7 +66,7 @@
   
   
             <div class="card">
-              <p-table [value]="domesticShipmentHistory" [tableStyle]="{ 'min-width': '50rem' }">
+              <p-table [value]="InternationalShipmentHistory" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header">
                   <tr>
   
@@ -82,13 +82,13 @@
   
                   </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-domesticShipmentHistory>
+                <ng-template pTemplate="body" let-InternationalShipmentHistory>
                   <tr>
-                    <td class="text-center">{{ domesticShipmentHistory.status }}</td>
-                    <td class="text-center">{{ domesticShipmentHistory.processTime }}</td>
-                    <td class="text-center">{{ domesticShipmentHistory.locationCode }}</td>
-                    <td class="text-center">{{ domesticShipmentHistory.user }}</td>
-                    <td class="text-center">{{ domesticShipmentHistory.remarks }}</td>
+                    <td class="text-center">{{ InternationalShipmentHistory.status }}</td>
+                    <td class="text-center">{{ InternationalShipmentHistory.processTime }}</td>
+                    <td class="text-center">{{ InternationalShipmentHistory.locationCode }}</td>
+                    <td class="text-center">{{ InternationalShipmentHistory.user }}</td>
+                    <td class="text-center">{{ InternationalShipmentHistory.remarks }}</td>
   
                     <!-- <td class="text-center"> 
                       <p-button routerLink="/edit-location" icon="bi bi-pen" class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">

@@ -30,6 +30,17 @@ export class InternationalShippingService {
   deletePermissionByID(id:number):Observable<InternationalShipment>{
     return this.http.delete<InternationalShipment>(this.url.concat('/InternationalShipment/',id.toString()));
   }
+  getInternationalShipmentHistoryByInternationalShipmentId(id:number){
+    return this.http.get<any>(`${this.url}/all-international-shipments-history/${id}`)
+  }
+
+  getFileMetaDataByDomesticShipment(id:number){
+    return this.http.get<any>(`${this.url}/file-meta-data-by-domestic-shipment/${id}`)
+  }
+
+  getFileMetaDataByInternationalShipment(id:number){
+    return this.http.get<any>(`${this.url}/file-meta-data-by-international-shipment/${id}`)
+  }
 
   stringToTime(timeString:string|null|any): {hour: string|null|undefined,minute:string|null|undefined,nano:number|null|undefined,second:string|null|undefined}{
     const date =timeString? new Date(timeString):null;

@@ -25,7 +25,7 @@ public class InternationalShipmentHistoryService {
         return toDtoList(internationalShipmentHistoryRepository.findAll());
     }
 
-    public List<InternationalShipmentHistoryDto> getDomesticShipmentHistoryByDomesticShipmentId(Long id) {
+    public List<InternationalShipmentHistoryDto> getInternationalShipmentHistoryByInternationalShipmentId(Long id) {
 
         List<InternationalShipmentHistory> internationalShipmentHistories = internationalShipmentHistoryRepository.findByInternationalShipmentId(id);
         if(!internationalShipmentHistories.isEmpty()){

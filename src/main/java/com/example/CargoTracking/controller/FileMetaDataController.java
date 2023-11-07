@@ -24,4 +24,10 @@ public class FileMetaDataController {
         return ResponseEntity.ok(metaDataService.getFileMataDataByDomesticShipment(id));
 
     }
+
+    @GetMapping("/file-meta-data-by-international-shipment/{id}")
+    public ResponseEntity<List<FileMetaDataDto>> getFileMataDataByInternationalShipment(@PathVariable Long id){
+        return ResponseEntity.ok(metaDataService.getFileMataDataByInternationalShipment(id));
+
+    }
 }

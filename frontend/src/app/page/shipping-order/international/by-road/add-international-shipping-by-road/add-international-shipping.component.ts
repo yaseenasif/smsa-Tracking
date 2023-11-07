@@ -62,7 +62,7 @@ export class AddInternationalShippingComponent {
     status: null,
     tagNumber: null,
     totalShipments: null,
-    type: 'By Air',
+    type: 'By Road',
     vehicleNumber: null,
     vehicleType: null,
     routeNumber: null,
