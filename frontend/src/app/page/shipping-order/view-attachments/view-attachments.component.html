@@ -1,0 +1,54 @@
+<div class="flex flex-row">
+    <app-sidebar></app-sidebar>
+    <div class="body-position">
+      <div class="body-holder">
+        <app-dashboard-head></app-dashboard-head>
+  
+        <div class="main">
+          <div class="card flex justify-content-center">
+              <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+          </div>
+          <div class="body-card">
+            <p-toast></p-toast>
+              <div class="table-head">
+                  <p-toolbar>
+                      <div class="p-toolbar-group-start">
+                        <h2 class="h-color">View Attachments</h2>
+                      </div>
+                      <!-- <div class="p-toolbar-group-end">
+                          <p-button class="bg-b-color" routerLink="/add-shipment-status">
+                            <i class="bi bi-plus-lg" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Add Shipment Status
+                          </p-button>
+                      </div> -->
+                  </p-toolbar>
+              </div>
+            
+  
+            <div class="card">
+              <p-table [value]="fileMetaData" [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th class="text-center">File name</th>
+                    <th class="text-center">File extension</th>
+                    <th class="text-center">File extension</th>
+                    <th class="text-center">Download</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-fileMetaData>
+                  <tr>
+                    
+                    <td class="text-center">{{ fileMetaData.fileName }}</td>
+                    <td class="text-center">{{ fileMetaData.fileUrl }}</td>
+                    <td class="text-center">{{ fileMetaData.fileExtension }}</td>
+                    <td><svg _ngcontent-ng-c2981055910="" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" class="bi bi-download"><path _ngcontent-ng-c2981055910="" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"></path><path _ngcontent-ng-c2981055910="" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"></path></svg></td>
+
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
