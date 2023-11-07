@@ -11,7 +11,7 @@ export class PermissionAuthService {
   permissionManager() {
     this.token = localStorage.getItem('accessToken'); 
     this.decodedToken=jwtDecode(this.token!)
-    console.log(this.decodedToken);
+ 
     
     if(this.decodedToken!.PERMISSIONS.includes('All')){
      return true

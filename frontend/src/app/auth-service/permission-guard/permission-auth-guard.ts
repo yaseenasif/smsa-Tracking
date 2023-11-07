@@ -15,7 +15,7 @@ export class PermissionAuthGuard implements CanActivate {
         state: RouterStateSnapshot
       ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
         const url = state.url;
-        console.log(url);
+       
         
        return this.permissionAuthService.permissionManager();
       }

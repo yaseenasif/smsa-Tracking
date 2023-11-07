@@ -42,9 +42,9 @@ export class AuthguardService {
     const userPermissions: string[] = decodeToken.PERMISSIONS;
 
     if (this.tokenExists()) {
-      debugger
+      
      this.permissionName=this.getPermissionByUrl(state.url);
-        console.log(decodeToken.PERMISSIONS);
+       
       if(userPermissions.includes(this.permissionName!)){
         return true; 
       }

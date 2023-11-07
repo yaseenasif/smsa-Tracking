@@ -41,7 +41,7 @@ export class EditRoleComponent {
   getAllPermissions(){
     this.permissionService.getALLPermission().subscribe((res:Permission[])=>{  
       this.permissions=res.filter(el=>el.status && el.name!='Dash Board' && el.name!='Role');
-      console.log(this.permissions);
+    
       
       this.fullPermissions=res.filter(el=>el.status);
     },error=>{
