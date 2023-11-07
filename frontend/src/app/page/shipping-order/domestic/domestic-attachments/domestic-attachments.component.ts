@@ -37,7 +37,7 @@ export class DomesticAttachmentsComponent {
     this.messageService.add({severity: 'error', summary: 'File Uploaded', detail: event.error?.error.body});
   }
   ngOnInit(): void {  
-    this.items = [{ label: 'Domestic Summary',routerLink:'/domestic-summary'},{ label: 'Add Attachments'}];
+    this.items = [{ label: 'Domestic Shipment',routerLink:'/domestic-shipping'},{ label: 'Add Attachments'}];
   }
 
  

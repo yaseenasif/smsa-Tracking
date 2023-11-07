@@ -152,7 +152,7 @@
                   <th class="text-center">ATA</th>
                   <th class="text-center">Status</th>
 
-                  <th class="text-center">Actions</th>
+                  <th *ngIf="selectedBound.bound=='In bound'" class="text-center">Actions</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-domesticShipment>
