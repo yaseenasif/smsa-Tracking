@@ -60,5 +60,8 @@ public class InternationalShipmentDto {
     private String received;// new both
     private String shortages;// new both
     private String shortageAWBs;// new both
+    private Boolean redFlag;
+    private String preAlertType;
+    private LocalTime transitTimeTaken;
 
 }

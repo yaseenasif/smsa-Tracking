@@ -19,6 +19,7 @@ public class FileMetaData {
     private String fileName;
     private String fileUrl;
     private String fileExtension;
+    private String attachmentType;
 
     @ManyToOne
     @JoinColumn(name = "domestic_shipment_id")

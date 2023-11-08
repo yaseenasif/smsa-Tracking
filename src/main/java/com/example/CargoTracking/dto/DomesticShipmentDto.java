@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @Getter
@@ -48,5 +49,8 @@ public class DomesticShipmentDto {
     private String shortagesAwbs;
     private String attachments;
     private Boolean redFlag;
+    private String preAlertNumber;
+    private String preAlertType;
+    private LocalTime transitTimeTaken;
 
 }

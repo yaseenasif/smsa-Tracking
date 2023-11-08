@@ -29,10 +29,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -63,12 +61,16 @@ public class InternationalShipmentService {
             InternationalShipment unSaveInternationalShipment = toEntity(internationalShipmentDto);
             unSaveInternationalShipment.setCreatedAt(LocalDate.now());
             unSaveInternationalShipment.setCreatedBy(user);
+            unSaveInternationalShipment.setRedFlag(Boolean.FALSE);
+            unSaveInternationalShipment.setPreAlertNumber(UUID.randomUUID().toString());
+            unSaveInternationalShipment.setPreAlertType(unSaveInternationalShipment.getType()=="By Road" ? "International Road" : "International-Air");
+            unSaveInternationalShipment.setTransitTimeTaken(LocalTime.now());
             InternationalShipment internationalShipment = internationalShipmentRepository
                     .save(unSaveInternationalShipment);
 
 
             InternationalShipmentHistory shipmentHistory = InternationalShipmentHistory.builder()
-                    .status("Pre-Alert Created")
+                    .status(internationalShipment.getStatus())
                     .processTime(LocalDateTime.now())
                     .locationCode(internationalShipment.getOriginCountry())
                     .user(user.getId())
@@ -189,7 +191,7 @@ public class InternationalShipmentService {
                         searchCriteriaForInternationalSummary.setOrigin(user.getLocation().getLocationName());
                     }
                 }
-                searchCriteriaForInternationalSummary.setType("by Air");
+                searchCriteriaForInternationalSummary.setType("By Air");
                 Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
                 Page<InternationalShipment> internationalShipmentPage =
                         internationalShipmentRepository.findAll(internationalShipmentSpecification, pageable);
@@ -227,7 +229,7 @@ public class InternationalShipmentService {
 
                     }
                 }
-                searchCriteriaForInternationalSummary.setType("by Air");
+                searchCriteriaForInternationalSummary.setType("By Air");
                 Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
                 Page<InternationalShipment> internationalShipmentPage =
                         internationalShipmentRepository.findAll(internationalShipmentSpecification, pageable);
@@ -262,7 +264,7 @@ public class InternationalShipmentService {
                 if(user.getLocation() != null){
                     searchCriteriaForInternationalSummary.setOrigin(user.getLocation().getLocationName());
                 }
-                searchCriteriaForInternationalSummary.setType("by Road");
+                searchCriteriaForInternationalSummary.setType("By Road");
                 Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
                 Page<InternationalShipment> internationalShipmentPage =
                         internationalShipmentRepository.findAll(internationalShipmentSpecification, pageable);
@@ -297,7 +299,7 @@ public class InternationalShipmentService {
                 if(user.getLocation() != null){
                     searchCriteriaForInternationalSummary.setOrigin(user.getLocation().getLocationName());
                 }
-                searchCriteriaForInternationalSummary.setType("by Road");
+                searchCriteriaForInternationalSummary.setType("By Road");
                 Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
                 Page<InternationalShipment> internationalShipmentPage =
                         internationalShipmentRepository.findAll(internationalShipmentSpecification, pageable);
@@ -370,7 +372,7 @@ public class InternationalShipmentService {
         }
     }
 
-    public ApiResponse addAttachment(Long id, MultipartFile file) throws IOException {
+    public ApiResponse addAttachment(Long id,String attachementType, MultipartFile file) throws IOException {
         Optional<InternationalShipment> internationalShipment = internationalShipmentRepository.findById(id);
         FileMetaData byFileName = fileMetaDataRepository.findByFileName(file.getOriginalFilename());
         if(byFileName == null){
@@ -381,6 +383,7 @@ public class InternationalShipmentService {
             fileMetaData.setFileUrl(fileUrl);
             fileMetaData.setFileExtension(fileExtension);
             fileMetaData.setFileName(file.getOriginalFilename());
+            fileMetaData.setAttachmentType(attachementType);
             fileMetaData.setInternationalShipment(internationalShipment.get());
             fileMetaDataRepository.save(fileMetaData);
             return ApiResponse.builder()

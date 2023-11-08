@@ -167,3 +167,9 @@ color:#f59e0b;
     // background-color: $error-color;
     color: $error-color;
 }
+.form-hook2>.p-element>.p-dropdown{
+    width:200px
+}
+.form-hook2>.p-element>.p-dropdown>.p-icon-wrapper{
+    display:none;
+}

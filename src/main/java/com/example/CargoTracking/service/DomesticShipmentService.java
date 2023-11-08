@@ -28,10 +28,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
+import java.util.UUID;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -69,6 +70,9 @@ public class DomesticShipmentService {
             unSaveDomesticShipment.setCreatedAt(LocalDate.now());
             unSaveDomesticShipment.setCreatedBy(user);
             unSaveDomesticShipment.setRedFlag(Boolean.FALSE);
+            unSaveDomesticShipment.setPreAlertNumber(UUID.randomUUID().toString());
+            unSaveDomesticShipment.setPreAlertType("Domestic");
+            unSaveDomesticShipment.setTransitTimeTaken(LocalTime.now());
 
             DomesticShipment domesticShipment = domesticShipmentRepository.save(unSaveDomesticShipment);
 
@@ -294,7 +298,7 @@ public class DomesticShipmentService {
         }
         throw new RecordNotFoundException(String.format("Domestic Shipment not found by this id => %d",id));
     }
-    public ApiResponse addAttachment(Long id, MultipartFile file) throws IOException {
+    public ApiResponse addAttachment(Long id,String attachmentType, MultipartFile file) throws IOException {
         Optional<DomesticShipment> domesticShipment = domesticShipmentRepository.findById(id);
         FileMetaData byFileName = fileMetaDataRepository.findByFileName(file.getOriginalFilename());
         if(byFileName == null){
@@ -306,6 +310,7 @@ public class DomesticShipmentService {
             fileMetaData.setFileExtension(fileExtension);
             fileMetaData.setFileName(file.getOriginalFilename());
             fileMetaData.setDomesticShipment(domesticShipment.get());
+            fileMetaData.setAttachmentType(attachmentType);
             fileMetaDataRepository.save(fileMetaData);
             return ApiResponse.builder()
                     .message("File uploaded to the server successfully")
