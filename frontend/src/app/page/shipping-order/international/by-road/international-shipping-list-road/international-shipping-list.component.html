@@ -101,8 +101,8 @@
                     <p-button icon="bi bi-clock-history" [routerLink]="['/international-shipment-history-by-road/',internationalShipmentByRoad.id]" class='mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                     
                     </p-button>
-                    <p-button icon="bi bi-paperclip" class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                   
+                    <p-button [routerLink]="['/add-international-by-road-attachments/',internationalShipmentByRoad.id]" icon="bi bi-paperclip"
+                    class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                     </p-button>
                     <p-button [routerLink]="['/update-international-shipment-by-road',internationalShipmentByRoad.id]" icon="bi bi-pen" class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                      

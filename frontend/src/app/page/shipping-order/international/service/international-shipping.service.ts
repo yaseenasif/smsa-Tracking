@@ -72,4 +72,31 @@ export class InternationalShippingService {
     return value.length === 1 ? '0' + value : value;
   }
 
+  dynamicLabel(routeBy:string):(string|undefined)[]{
+    switch (routeBy) {
+      case 'by-domestic-summary':
+      return['Domestic Summary','/domestic-summary'];
+      break;
+      case 'by-domestic-list':
+      return['Domestic Shipment','/domestic-shipping'];
+      break;
+      case '':
+      return['',''];  
+      break;
+      case '':
+      return['',''];
+      break;
+      case '':
+      return['',''];  
+      break;
+      case '':
+      return['',''];    
+      break;  
+      default:
+      return[undefined,undefined];
+      break;
+    }
+      
+    }
+
 }

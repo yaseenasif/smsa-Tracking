@@ -40,4 +40,10 @@ export class DomesticShippingService {
   getDomesticShipmentHistoryByDomesticShipmentId(id:number){
     return this.http.get<any>(`${this.url}/all-domestic-shipments-history/${id}`)
   }
+
+  downloadAttachments(fileName:string):Observable<Blob>{
+    return this.http.get(`${this.url}/download/${fileName}`,{
+      responseType: 'blob'
+    });
+  }
 }

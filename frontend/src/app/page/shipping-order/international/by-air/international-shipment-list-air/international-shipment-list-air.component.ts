@@ -10,7 +10,7 @@ import { InternationalShippingService } from '../../service/international-shippi
 })
 export class InternationalShipmentListAirComponent {
 
-  internationalShipmentByRoad!:InternationalShipment[];
+  internationalShipmentByAir!:InternationalShipment[];
 
   constructor(private internationalShippingService:InternationalShippingService) { }
   items: MenuItem[] | undefined;
@@ -24,7 +24,7 @@ export class InternationalShipmentListAirComponent {
   
     getAllInternationalShipmentByAir(){
       this.internationalShippingService.getAllInternationalShipmentByAir().subscribe((res:InternationalShipment[])=>{
-        this.internationalShipmentByRoad=res; 
+        this.internationalShipmentByAir=res; 
       },error=>{
 
       })
