@@ -82,7 +82,7 @@ export class AuthguardService {
    
     return !!token; 
   }
-  private getDecodedAccessToken(token: string): any {
+  getDecodedAccessToken(token: string): any {
     try {
       return jwtDecode(token);
     } catch(Error) {

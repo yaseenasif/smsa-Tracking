@@ -33,9 +33,9 @@ public class DomesticShipmentController {
         return ResponseEntity.ok(domesticShipmentService.addShipment(domesticShipmentDto));
     }
 
-    @PostMapping("/add-attachments/{id}")
-    public ResponseEntity<ApiResponse> addAttachments(@PathVariable Long id,@RequestParam("file") MultipartFile file) throws IOException {
-        return ResponseEntity.ok(domesticShipmentService.addAttachment(id,file));
+    @PostMapping("/add-attachments/{id}/{attachmentType}")
+    public ResponseEntity<ApiResponse> addAttachments(@PathVariable Long id,@PathVariable String attachmentType,@RequestParam("file") MultipartFile file) throws IOException {
+        return ResponseEntity.ok(domesticShipmentService.addAttachment(id,attachmentType,file));
     }
 
     @GetMapping("/download/{fileName}")

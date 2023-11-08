@@ -5,6 +5,7 @@ import { SummarySearch } from 'src/app/model/summarySearch';
 import { DatePipe } from '@angular/common';
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({
   selector: 'app-domestic-summary',
@@ -16,6 +17,7 @@ export class DomesticSummaryComponent {
   name!:string;
   bound!:Bound[];
   shipmentStatus!:ShipmentStatus[];
+  role:any;
 
   selectedBound:Bound={
     bound:"In bound"
@@ -24,6 +26,7 @@ export class DomesticSummaryComponent {
   constructor(private summaryService:SummaryService,
     private datePipe: DatePipe,
     private messageService: MessageService,
+    private authguardService:AuthguardService,
     private shipmentStatusService:ShipmentStatusService) { }
   domesticShipment:any=[];
   items: MenuItem[] | undefined;
@@ -53,6 +56,7 @@ export class DomesticSummaryComponent {
  
 
   ngOnInit() {
+    this.getRole()
     this.getAllShipmentStatus();
     this.getInboundSummary(this.search,0,10);
       this.items = [{ label: 'Domestic Summary'}];
@@ -64,6 +68,16 @@ export class DomesticSummaryComponent {
           bound:"Out bound"
         }
       ]
+  }
+
+  getRole(){
+    const token = localStorage.getItem('accessToken');
+
+    const decodeToken = this.authguardService.getDecodedAccessToken(token!);
+    debugger
+    this.role=decodeToken.ROLES;
+    console.log(this.role);
+    
   }
 
   getInboundSummary(obj:SummarySearch,page:number,size:number){

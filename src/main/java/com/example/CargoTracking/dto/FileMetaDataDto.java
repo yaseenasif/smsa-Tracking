@@ -13,4 +13,6 @@ public class FileMetaDataDto {
     private String fileName;
     private String fileUrl;
     private String fileExtension;
+    private String attachmentType;
+
 }
