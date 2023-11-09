@@ -161,8 +161,8 @@ export class UpdateInternationalAirForSummaryComponent {
      res.ata=res.ata ? new Date(res.ata) : null;
      res.departureDate=res.departureDate ? new Date(res.departureDate) : null;
      res.arrivalDate=res.arrivalDate ? new Date(res.arrivalDate) : null;
-     res.departureTime=res.departureTime ? new Date(res.departureTime) : null;
-     res.arrivalTime=res.arrivalTime ? new Date(res.arrivalTime) : null;
+     res.departureTime=res.departureTime ? new Date(`1970-01-01 ${res.departureTime}`) : null;
+     res.arrivalTime = res.arrivalTime ? new Date(`1970-01-01 ${res.arrivalTime}`) : null;
    
      this.selectedDriver=this.drivers.find(el=>(el.name==res.driverName)&&(el.contactNumber==res.driverContact)&&(el.referenceNumber==res.referenceNumber))
      this.internationalShipment=res;  

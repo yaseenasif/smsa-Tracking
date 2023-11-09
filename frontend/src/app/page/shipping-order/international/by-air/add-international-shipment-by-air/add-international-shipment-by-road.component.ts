@@ -114,7 +114,8 @@ export class AddInternationalShipmentByRoadComponent {
   }
 
   onSubmit() {
-  
+  console.log(this.internationalShipment);
+  debugger
    this.internationalShipment.etd=this.datePipe.transform(this.internationalShipment.etd,'yyyy-MM-dd')
    this.internationalShipment.eta=this.datePipe.transform(this.internationalShipment.eta,'yyyy-MM-dd')
    this.internationalShipment.atd=this.datePipe.transform(this.internationalShipment.atd,'yyyy-MM-dd')

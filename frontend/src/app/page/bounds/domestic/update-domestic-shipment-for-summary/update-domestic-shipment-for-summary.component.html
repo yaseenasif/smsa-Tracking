@@ -160,7 +160,7 @@
                       <label htmlFor="name">ETD</label>
                       <!-- <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.etd"
                         #etd="ngModel" required name="etd" /> -->
-                      <p-calendar [readonlyInput]="true" [(ngModel)]="domesticShipment.etd" #etd="ngModel" [required]="true"
+                      <p-calendar [readonlyInput]="true" [disabled]="true" [(ngModel)]="domesticShipment.etd" #etd="ngModel" [required]="true"
                         name="etd"></p-calendar>
                       <!-- <small id="name-help"
                         >{{name}}</small
@@ -173,7 +173,7 @@
                       <label htmlFor="name">ETA</label>
                       <!-- <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.eta"
                         #eta="ngModel" required name="eta" /> -->
-                      <p-calendar [readonlyInput]="true" [(ngModel)]="domesticShipment.eta" #eta="ngModel" [required]="true"
+                      <p-calendar [readonlyInput]="true" [disabled]="true" [(ngModel)]="domesticShipment.eta" #eta="ngModel" [required]="true"
                         name="eta"></p-calendar>
   
                       <!-- <small id="name-help"
@@ -187,7 +187,7 @@
                       <label htmlFor="name">ATD</label>
                       <!-- <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.atd"
                         #atd="ngModel" required name="atd" /> -->
-                      <p-calendar [readonlyInput]="true" [(ngModel)]="domesticShipment.atd" #atd="ngModel" [required]="true"
+                      <p-calendar [readonlyInput]="true" [disabled]="true" [(ngModel)]="domesticShipment.atd" #atd="ngModel" [required]="true"
                         name="atd"></p-calendar>
   
                       <!-- <small id="name-help"
@@ -576,7 +576,7 @@
                   <p-button label="Cancel" class="bg-o-color mr" routerLink="/domestic-shipping"
                     styleClass="p-button-outlined">
                   </p-button>
-                  <p-button type="submit" [disabled]="!domesticShipmentForm.form.valid" label="Save"
+                  <p-button type="submit" [disabled]="!domesticShipmentForm.form.valid" label="Update"
                     class="bg-b-color ml">
                   </p-button>
                 </div>
