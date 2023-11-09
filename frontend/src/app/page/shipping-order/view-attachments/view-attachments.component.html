@@ -29,7 +29,7 @@
                 <ng-template pTemplate="header">
                   <tr>
                     <th class="text-center">File name</th>
-                    <th class="text-center">File extension</th>
+                    <th class="text-center">Attachment Type</th>
                     <th class="text-center">File extension</th>
                     <th class="text-center">Download</th>
                   </tr>
@@ -38,7 +38,7 @@
                   <tr>
                     
                     <td class="text-center">{{ fileMetaData.fileName }}</td>
-                    <td class="text-center">{{ fileMetaData.fileUrl }}</td>
+                    <td class="text-center">{{ fileMetaData.attachmentType }}</td>
                     <td class="text-center">{{ fileMetaData.fileExtension }}</td>
                     <td class="text-center">   <p-button (click)="downloadAttachment(fileMetaData.fileUrl,fileMetaData.fileName)"  icon="bi bi-download" class='mr'
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised">

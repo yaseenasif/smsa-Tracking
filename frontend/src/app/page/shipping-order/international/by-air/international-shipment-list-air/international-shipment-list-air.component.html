@@ -100,6 +100,10 @@
                       <p-button icon="bi bi-clock-history" [routerLink]="['/international-shipment-history-by-air/',internationalShipmentByAir.id]" class='mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                       
                       </p-button>
+                      <p-button [routerLink]="['/view-attachments/','internationalShipment','by-international-air-list',internationalShipmentByAir.id]"
+                      icon="bi bi-download" class='mr'
+                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                      </p-button>
                       <p-button [routerLink]="['/add-international-by-air-attachments/',internationalShipmentByAir.id]" icon="bi bi-paperclip"
                       class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                       </p-button>                    

@@ -30,18 +30,29 @@ export class ViewAttachmentsComponent {
     this.shipmentId =+this.route.snapshot.paramMap.get('id')!;
     this.routeBy =this.route.snapshot.paramMap.get('through')!;
 
-      this.items = [{label:this.internationalShippingService.dynamicLabel(this.routeBy)[0],routerLink:this.internationalShippingService.dynamicLabel(this.routeBy)[1]},{label:'View Attachments'}];
-      this.getFileMetaDataByDomesticShipment(this.shipmentId);
+      this.items = this.internationalShippingService.dynamicLabel(this.routeBy)
+      this.getFileMetaData(this.shipmentId);
   }
 
 
-  getFileMetaDataByDomesticShipment(id:number){
-    this.internationalShippingService.getFileMetaDataByDomesticShipment(id).subscribe((res:any)=>{
-      this.fileMetaData=res;
-    },(error:any)=>{
-      console.log(error);
-      
-    })
+  getFileMetaData(id:number){
+    if(this.shipmentType=='domesticShipment'){
+      this.internationalShippingService.getFileMetaDataByDomesticShipment(id).subscribe((res:any)=>{
+        this.fileMetaData=res;
+      },(error:any)=>{
+        console.log(error);
+        
+      })
+    }
+    else if(this.shipmentType=='internationalShipment'){
+      this.internationalShippingService.getFileMetaDataByInternationalShipment(id).subscribe((res:any)=>{
+        this.fileMetaData=res;
+      },(error:any)=>{
+        console.log(error);
+        
+      })
+    }
+  
   }
   downloadAttachment(url:string,fileName:string){
     this.domesticShippingService.downloadAttachments(fileName).subscribe(blob => saveAs(blob,fileName));

@@ -72,28 +72,28 @@ export class InternationalShippingService {
     return value.length === 1 ? '0' + value : value;
   }
 
-  dynamicLabel(routeBy:string):(string|undefined)[]{
+  dynamicLabel(routeBy:string):({label:string,routerLink:string}|{label:string})[]|undefined{
     switch (routeBy) {
       case 'by-domestic-summary':
-      return['Domestic Summary','/domestic-summary'];
+      return [{label:'Domestic Summary',routerLink:'/domestic-summary'},{label:'View Attachment'}]
       break;
       case 'by-domestic-list':
-      return['Domestic Shipment','/domestic-shipping'];
+      return [{label:'Domestic Shipment',routerLink:'/domestic-shipping'},{label:'View Attachment'}]
       break;
-      case '':
-      return['',''];  
+      case 'by-international-air-list':
+      return [{label:'International Shipment',routerLink:'/international-tile'},{label:'International Shipment By Air',routerLink:'/international-shipment-by-air'},{label:'View Attachment'}];  
       break;
-      case '':
-      return['',''];
+      case 'by-international-air-summary':
+      return [{label:'International Summary By Air',routerLink:'/international-summary-by-air'},{label:'View Attachment'}]
       break;
-      case '':
-      return['',''];  
+      case 'by-international-road-list':
+      return [{label:'International Shipment',routerLink:'/international-tile'},{label:'International Shipment By Road',routerLink:'/international-shipment-by-road'},{label:'View Attachment'}];  
       break;
-      case '':
-      return['',''];    
+      case 'by-international-road-summary':
+      return [{label:'International Summary By Road',routerLink:'/international-summary-by-road'},{label:'View Attachment'}]   
       break;  
       default:
-      return[undefined,undefined];
+      return undefined;
       break;
     }
       
