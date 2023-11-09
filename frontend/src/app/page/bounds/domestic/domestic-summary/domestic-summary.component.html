@@ -150,15 +150,17 @@
                   <td class="text-center" [classList]="domesticShipment.redFlag?'red':'withoutRed'">{{ domesticShipment.eta}}</td>
                   <td class="text-center" [classList]="domesticShipment.redFlag?'red':'withoutRed'">{{ domesticShipment.ata}}</td>
                   <td class="text-center" [classList]="domesticShipment.redFlag?'red':'withoutRed'">{{ domesticShipment.status}}</td>
-                  <td class="text-center flex flex-row"> 
-                    <p-button *ngIf="selectedBound.bound=='In bound'" [routerLink]="['/add-attachments/',domesticShipment.id]" icon="bi bi-paperclip" class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                  <td *ngIf="selectedBound.bound=='In bound'" class="text-center flex flex-row"> 
+                    <p-button [routerLink]="['/view-attachments/','domesticShipment','by-domestic-summary',domesticShipment.id]"
+                    icon="bi bi-download" class='ml mr'
+                    styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                    </p-button>
+                    <p-button  [routerLink]="['/add-attachments/',domesticShipment.id]" icon="bi bi-paperclip" class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                    
                     </p-button>
-                    <p-button *ngIf="selectedBound.bound=='In bound'" [routerLink]="['/update-domestic-shipping-for-summary/',domesticShipment.id]" icon="bi bi-pen" class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                    <p-button  [routerLink]="['/update-domestic-shipping-for-summary/',domesticShipment.id]" icon="bi bi-pen" class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                      
-                    </p-button>
-                    
-                    
+                    </p-button> 
                   </td>
                 </tr>
               </ng-template>

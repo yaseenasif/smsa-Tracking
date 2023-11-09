@@ -58,11 +58,7 @@
                   <th class="text-center">Overage AWBS</th>
                   <th class="text-center">Received</th>
                   <th class="text-center">Shortages</th>
-                  <th class="text-center">Shortage AWBs</th>
-                  <th class="text-center">Downloads</th>
-
-
-
+                  <th class="text-center">Shortage AWBs</th>                 
                   <th class="text-center">Actions</th>
                 </tr>
               </ng-template>
@@ -97,25 +93,18 @@
                   <td class="text-center">{{ domesticShipment.received}}</td>
                   <td class="text-center">{{ domesticShipment.shortages}}</td>
                   <td class="text-center">{{ domesticShipment.shortagesAwbs}}</td>
-                  <td class="text-center"><p-button [routerLink]="['/view-attachments/','domesticShipment',domesticShipment.id]"
-                      icon="bi bi-download" class='ml mr'
-                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
-
-                    </p-button></td>
-
-
-
-
-
+                
                   <td class="text-center flex flex-row">
+                    <p-button [routerLink]="['/view-attachments/','domesticShipment','by-domestic-list',domesticShipment.id]"
+                      icon="bi bi-download" class='mr'
+                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                    </p-button>
                     <p-button icon="bi bi-clock-history"
-                      [routerLink]="['/domestic-shipping-history/',domesticShipment.id]" class='mr'
+                      [routerLink]="['/domestic-shipping-history/',domesticShipment.id]" class='ml mr'
                       styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-
                     </p-button>
                     <p-button [routerLink]="['/add-domestic-attachments/',domesticShipment.id]" icon="bi bi-paperclip"
                       class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-
                     </p-button>
                     <p-button [routerLink]="['/update-domestic-shipping/',domesticShipment.id]" icon="bi bi-pen"
                       class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">

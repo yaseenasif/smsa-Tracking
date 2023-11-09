@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { InternationalShippingService } from '../international/service/international-shipping.service';
 import { ActivatedRoute } from '@angular/router';
-
+import { DomesticShippingService } from '../domestic/service/domestic-shipping.service';
+import * as FileSaver from 'file-saver';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-view-attachments',
@@ -13,31 +15,47 @@ import { ActivatedRoute } from '@angular/router';
 export class ViewAttachmentsComponent {
   items: MenuItem[] | undefined;
   fileMetaData!:any[];
-  shipmentId:any;
-  shipmentType:any;
-
+  shipmentId!:number;
+  shipmentType!:string;
+  routeBy!:string;
 
   constructor(private internationalShippingService: InternationalShippingService,
+    private domesticShippingService:DomesticShippingService,
     private route:ActivatedRoute){
 
   }
 
   ngOnInit() {
-    this.shipmentType = +this.route.snapshot.paramMap.get('name')!;
+    this.shipmentType =this.route.snapshot.paramMap.get('name')!;
+    this.shipmentId =+this.route.snapshot.paramMap.get('id')!;
+    this.routeBy =this.route.snapshot.paramMap.get('through')!;
 
-    this.shipmentId = +this.route.snapshot.paramMap.get('id')!;
-
-      this.items = [{ label: 'View Attachments'}];
-      this.getFileMetaDataByDomesticShipment(this.shipmentId);
+      this.items = this.internationalShippingService.dynamicLabel(this.routeBy)
+      this.getFileMetaData(this.shipmentId);
   }
 
-  getFileMetaDataByDomesticShipment(id:number){
-    this.internationalShippingService.getFileMetaDataByDomesticShipment(id).subscribe((res:any)=>{
-      this.fileMetaData=res;
-    },(error:any)=>{
-      console.log(error);
-      
-    })
+
+  getFileMetaData(id:number){
+    if(this.shipmentType=='domesticShipment'){
+      this.internationalShippingService.getFileMetaDataByDomesticShipment(id).subscribe((res:any)=>{
+        this.fileMetaData=res;
+      },(error:any)=>{
+        console.log(error);
+        
+      })
+    }
+    else if(this.shipmentType=='internationalShipment'){
+      this.internationalShippingService.getFileMetaDataByInternationalShipment(id).subscribe((res:any)=>{
+        this.fileMetaData=res;
+      },(error:any)=>{
+        console.log(error);
+        
+      })
+    }
+  
+  }
+  downloadAttachment(url:string,fileName:string){
+    this.domesticShippingService.downloadAttachments(fileName).subscribe(blob => saveAs(blob,fileName));
   }
  
 }

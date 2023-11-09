@@ -53,6 +53,8 @@ import { UnauthorizedPageComponent } from './page/unauthorized/unauthorized-page
 import { ViewAttachmentsComponent } from './page/shipping-order/view-attachments/view-attachments.component';
 import { UpdateInternationalAirForSummaryComponent } from './page/bounds/international/update-international-air-for-summary/update-international-air-for-summary.component';
 import { UpdateInternationalRoadForSummaryComponent } from './page/bounds/international/update-international-road-for-summary/update-international-road-for-summary.component';
+import { AddAttachmentsOfInternationalShipmentByAirComponent } from './page/shipping-order/international/by-air/add-attachments-of-international-shipment-by-air/add-attachments-of-international-shipment-by-air.component';
+import { AddAttachmentsOfInternationalShipmentByRoadComponent } from './page/shipping-order/international/by-road/add-attachments-of-international-shipment-by-road/add-attachments-of-international-shipment-by-road.component';
 
 
 const routes: Routes = [
@@ -183,7 +185,7 @@ const routes: Routes = [
   // {
   //   path:'add-permission',
   //   component:AddPermissionComponent,
-  //   canActivate:[AuthGuard]
+
   // },
   // {
   //   path:'edit-permission/:id',
@@ -288,7 +290,12 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
-    path:'view-attachments/:name/:id',
+    path:'add-international-by-road-attachments/:id',
+    component:AddAttachmentsOfInternationalShipmentByRoadComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'view-attachments/:name/:through/:id',
     component:ViewAttachmentsComponent,
     canActivate:[AuthGuard]
   },
@@ -310,6 +317,11 @@ const routes: Routes = [
   {
     path:'update-international-shipment-by-air/:id',
     component:UpdateInternationalShipmentByAirComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'add-international-by-air-attachments/:id',
+    component:AddAttachmentsOfInternationalShipmentByAirComponent,
     canActivate:[AuthGuard]
   },
   {

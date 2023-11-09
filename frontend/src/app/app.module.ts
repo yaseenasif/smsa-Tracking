@@ -83,6 +83,8 @@ import { UnauthorizedPageComponent } from './page/unauthorized/unauthorized-page
 import { ViewAttachmentsComponent } from './page/shipping-order/view-attachments/view-attachments.component';
 import { UpdateInternationalAirForSummaryComponent } from './page/bounds/international/update-international-air-for-summary/update-international-air-for-summary.component';
 import { UpdateInternationalRoadForSummaryComponent } from './page/bounds/international/update-international-road-for-summary/update-international-road-for-summary.component';
+import { AddAttachmentsOfInternationalShipmentByAirComponent } from './page/shipping-order/international/by-air/add-attachments-of-international-shipment-by-air/add-attachments-of-international-shipment-by-air.component';
+import { AddAttachmentsOfInternationalShipmentByRoadComponent } from './page/shipping-order/international/by-road/add-attachments-of-international-shipment-by-road/add-attachments-of-international-shipment-by-road.component';
 
 
 
@@ -143,6 +145,8 @@ import { UpdateInternationalRoadForSummaryComponent } from './page/bounds/intern
     ViewAttachmentsComponent,
     UpdateInternationalAirForSummaryComponent,
     UpdateInternationalRoadForSummaryComponent,
+    AddAttachmentsOfInternationalShipmentByAirComponent,
+    AddAttachmentsOfInternationalShipmentByRoadComponent,
   ],
   imports: [
     BrowserModule,
