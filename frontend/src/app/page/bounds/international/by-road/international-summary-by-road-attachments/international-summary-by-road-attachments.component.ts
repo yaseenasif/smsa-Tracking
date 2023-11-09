@@ -1,18 +1,17 @@
-import { Component } from '@angular/core';
-import { MenuItem, MessageService } from 'primeng/api';
-import { ActivatedRoute } from '@angular/router';
-import { environment } from 'src/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
+import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { MenuItem, MessageService } from 'primeng/api';
 import { FileUploadErrorEvent, FileUploadEvent } from 'primeng/fileupload';
-
+import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-add-attachments-of-international-shipment-by-road',
-  templateUrl: './add-attachments-of-international-shipment-by-road.component.html',
-  styleUrls: ['./add-attachments-of-international-shipment-by-road.component.scss'],
+  selector: 'app-international-summary-by-road-attachments',
+  templateUrl: './international-summary-by-road-attachments.component.html',
+  styleUrls: ['./international-summary-by-road-attachments.component.scss'],
   providers:[MessageService]
 })
-export class AddAttachmentsOfInternationalShipmentByRoadComponent {
+export class InternationalSummaryByRoadAttachmentsComponent {
   items: MenuItem[] | undefined;
 
   constructor(
@@ -37,6 +36,6 @@ export class AddAttachmentsOfInternationalShipmentByRoadComponent {
   }
 
   ngOnInit(): void {  
-    this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Road',routerLink:'/international-shipment-by-road'},{ label: 'Add Attachments'}];
+    this.items = [{ label: 'International Summary By Air',routerLink:'/international-summary-by-air'},{ label: 'Add Attachments'}];
   }
 }

@@ -41,8 +41,8 @@ import { InternationalShipmentOrderHistoryByAirComponent } from './page/shipping
 import { AddInternationalShipmentByRoadComponent } from './page/shipping-order/international/by-air/add-international-shipment-by-air/add-international-shipment-by-road.component';
 import { UpdateInternationalShipmentByAirComponent } from './page/shipping-order/international/by-air/update-international-shipment-by-air/update-international-shipment-by-air.component';
 import { DomesticSummaryComponent } from './page/bounds/domestic/domestic-summary/domestic-summary.component';
-import { InternationalSummaryByAirComponent } from './page/bounds/international/international-summary-by-air/international-summary-by-air.component';
-import { InternationalSummaryByRoadComponent } from './page/bounds/international/international-summary-by-road/international-summary-by-road.component';
+import { InternationalSummaryByAirComponent } from './page/bounds/international/by-air/international-summary-by-air/international-summary-by-air.component';
+import { InternationalSummaryByRoadComponent } from './page/bounds/international/by-road/international-summary-by-road/international-summary-by-road.component';
 import { ShipmentStatusListComponent } from './page/shipment-status/shipment-status-list/shipment-status-list.component';
 import { AddShipmentStatusComponent } from './page/shipment-status/add-shipment-status/add-shipment-status.component';
 import { UpdateShipmentStatusComponent } from './page/shipment-status/update-shipment-status/update-shipment-status.component';
@@ -53,6 +53,8 @@ import { UnauthorizedPageComponent } from './page/unauthorized/unauthorized-page
 import { ViewAttachmentsComponent } from './page/shipping-order/view-attachments/view-attachments.component';
 import { AddAttachmentsOfInternationalShipmentByAirComponent } from './page/shipping-order/international/by-air/add-attachments-of-international-shipment-by-air/add-attachments-of-international-shipment-by-air.component';
 import { AddAttachmentsOfInternationalShipmentByRoadComponent } from './page/shipping-order/international/by-road/add-attachments-of-international-shipment-by-road/add-attachments-of-international-shipment-by-road.component';
+import { InternationalSummaryByAirAttachmentsComponent } from './page/bounds/international/by-air/international-summary-by-air-attachments/international-summary-by-air-attachments.component';
+import { InternationalSummaryByRoadAttachmentsComponent } from './page/bounds/international/by-road/international-summary-by-road-attachments/international-summary-by-road-attachments.component';
 
 
 const routes: Routes = [
@@ -323,8 +325,18 @@ const routes: Routes = [
     canActivate:[AuthGuard]
   },
   {
+    path:'international-summary-by-air-attachment/:id',
+    component:InternationalSummaryByAirAttachmentsComponent,
+    canActivate:[AuthGuard]
+  },
+  {
     path:'international-summary-by-road',
     component:InternationalSummaryByRoadComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'international-summary-by-road-attachment/:id',
+    component:InternationalSummaryByRoadAttachmentsComponent,
     canActivate:[AuthGuard]
   },
 
