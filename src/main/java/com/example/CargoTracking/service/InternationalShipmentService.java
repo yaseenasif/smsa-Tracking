@@ -62,8 +62,8 @@ public class InternationalShipmentService {
             unSaveInternationalShipment.setCreatedAt(LocalDate.now());
             unSaveInternationalShipment.setCreatedBy(user);
             unSaveInternationalShipment.setRedFlag(Boolean.FALSE);
-            unSaveInternationalShipment.setPreAlertNumber(UUID.randomUUID().toString());
-            unSaveInternationalShipment.setPreAlertType(unSaveInternationalShipment.getType()=="By Road" ? "International Road" : "International-Air");
+            unSaveInternationalShipment.setPreAlertNumber(System.currentTimeMillis() / 1000);
+            unSaveInternationalShipment.setPreAlertType(unSaveInternationalShipment.getType().equalsIgnoreCase("By Road") ? "International-Road" : "International-Air");
             unSaveInternationalShipment.setTransitTimeTaken(LocalTime.now());
             InternationalShipment internationalShipment = internationalShipmentRepository
                     .save(unSaveInternationalShipment);

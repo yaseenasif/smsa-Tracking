@@ -59,7 +59,7 @@ export class AddInternationalShippingComponent {
     shipmentMode: null,
     shortageAWBs: null,
     shortages: null,
-    status: null,
+    status: 'Pre-Alert Created',
     tagNumber: null,
     totalShipments: null,
     type: 'By Road',

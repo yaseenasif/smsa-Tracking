@@ -45,7 +45,7 @@ export class AddDomesticShippingComponent {
     vehicleNumber: null,
     tagNumber: null,
     sealNumber: null,
-    status: null,
+    status: 'Pre-Alert Created',
     remarks: null,
     ata: null,
     totalShipments: null,

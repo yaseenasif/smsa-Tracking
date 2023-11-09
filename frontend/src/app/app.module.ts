@@ -81,6 +81,8 @@ import { AttachmentsComponent } from './page/bounds/domestic/attachments/attachm
 import { DomesticAttachmentsComponent } from './page/shipping-order/domestic/domestic-attachments/domestic-attachments.component';
 import { UnauthorizedPageComponent } from './page/unauthorized/unauthorized-page/unauthorized-page.component';
 import { ViewAttachmentsComponent } from './page/shipping-order/view-attachments/view-attachments.component';
+import { UpdateInternationalAirForSummaryComponent } from './page/bounds/international/update-international-air-for-summary/update-international-air-for-summary.component';
+import { UpdateInternationalRoadForSummaryComponent } from './page/bounds/international/update-international-road-for-summary/update-international-road-for-summary.component';
 
 
 
@@ -139,6 +141,8 @@ import { ViewAttachmentsComponent } from './page/shipping-order/view-attachments
     AttachmentsComponent,
     DomesticAttachmentsComponent,
     ViewAttachmentsComponent,
+    UpdateInternationalAirForSummaryComponent,
+    UpdateInternationalRoadForSummaryComponent,
   ],
   imports: [
     BrowserModule,

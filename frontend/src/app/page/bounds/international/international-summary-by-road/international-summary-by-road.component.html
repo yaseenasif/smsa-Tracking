@@ -10,39 +10,54 @@
         </div>
         <div class="body-card">
           <div class="table-head">
-            <h2 class="h-color mb-3">International Summary By Road</h2>
-
+            <div class="grid">
+              <div class="lg:col-6 md:col-6 col-12">
+                <h2 class="h-color mb-3">International Summary By Road</h2>
+              </div>
+              <div class="lg:col-6 md:col-6 col-12 flex justify-content-end">
+                <div class="flex flex-row justify-content-center align-items-center gap-2 form-hook2">
+                  <label  htmlFor="name">Bounds:</label>
+                  <p-dropdown class="w-full" [options]="bound" [ngModelOptions]="{ standalone: true }"
+                    [(ngModel)]="selectedBound" optionLabel="bound" filterBy="bound" [showClear]="true"
+                    placeholder="Select bounds" (ngModelChange)="onBoundChange()">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="flex align-items-center gap-2" *ngIf="selectedBound">
+                        <div>{{ selectedBound.bound }}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-bound pTemplate="item">
+                      <div class="flex align-items-center gap-2">
+                        <div>{{ bound.bound }}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </div>
+              </div>
+            </div>
+            
             <p-toolbar>
               <form #domesticShipmentForm="ngForm" (ngSubmit)="onSubmit()">
 
                 <div class="grid">
-                  <div class="lg:col-4 md:col-12 col-12">
-                    <div class="grid">
+                  
 
-                      <div class="lg:col-6 md:col-6 col-12">
-                        <div class="flex flex-column gap-2">
+                      <div class="lg:col-2 md:col-6 col-12">
+                        <div class="flex flex-column gap-2 form-hook">
                           <label htmlFor="name">From Date</label>
-                          <div class="card flex justify-content-center">
                             <p-calendar [(ngModel)]="search.fromDate" #fromDate="ngModel" name="fromDate"></p-calendar>
-                          </div>
                         </div>
                       </div>
-                      <div class="lg:col-6 md:col-6 col-12">
-                        <div class="flex flex-column gap-2">
+                      <div class="lg:col-2 md:col-6 col-12">
+                        <div class="flex flex-column gap-2 form-hook">
                           <label htmlFor="name">To Date</label>
-                          <div class="card flex justify-content-center">
                             <p-calendar [(ngModel)]="search.toDate" #toDate="ngModel" name="toDate"></p-calendar>
-                          </div>
                         </div>
                       </div>
 
-                    </div>
-                  </div>
-                  <div class="lg:col-4 md:col-12 col-12">
-                    <div class="grid">
-
-                      <div class="lg:col-6 md:col-6 col-12">
-                        <div class="flex flex-column gap-2">
+               
+                 
+                      <div class="lg:col-2 md:col-6 col-12">
+                        <div class="flex flex-column gap-2 form-hook">
                           <label htmlFor="name">Status</label>
                           <p-dropdown class="w-full" [options]="shipmentStatus" name="status" #status="ngModel"
                             [(ngModel)]="search.status" optionLabel="name" optionValue="name"
@@ -60,7 +75,7 @@
                           </p-dropdown>
                         </div>
                       </div>
-                      <div class="lg:col-6 md:col-6 col-12">
+                      <div *ngIf="(role=='ADMIN')||(selectedBound.bound=='In bound' && role=='USER')" class="lg:col-2 md:col-6 col-12">
                         <div class="flex flex-column gap-2">
                           <label htmlFor="name">Origin</label>
                           <input pInputText id="name" aria-describedby="name-help" #origin="ngModel" name="origin"
@@ -68,61 +83,24 @@
                         </div>
                       </div>
 
-                    </div>
-                  </div>
-                  <div class="lg:col-4 md:col-12 col-12">
-                    <div class="grid">
 
-                      <div class="lg:col-6 md:col-6 col-12">
+                      <div *ngIf="(role=='ADMIN')||(selectedBound.bound=='Out bound' && role=='USER')"  class="lg:col-2 md:col-6 col-12">
                         <div class="flex flex-column gap-2">
                           <label htmlFor="name">Destination</label>
                           <input pInputText id="name" aria-describedby="name-help" #destination="ngModel"
                             name="destination" [(ngModel)]="search.destination" />
                         </div>
                       </div>
-                      <div class="lg:col-6 md:col-6 col-12">
-                        <div class="flex flex-column gap-2 form-hook">
-                          <label htmlFor="name">Bounds</label>
-                          <p-dropdown class="w-full" [options]="bound" [ngModelOptions]="{ standalone: true }"
-                            [(ngModel)]="selectedBound" optionLabel="bound" filterBy="bound" [showClear]="true"
-                            placeholder="Select bounds" (ngModelChange)="onBoundChange()">
-                            <ng-template pTemplate="selectedItem">
-                              <div class="flex align-items-center gap-2" *ngIf="selectedBound">
-                                <div>{{ selectedBound.bound }}</div>
-                              </div>
-                            </ng-template>
-                            <ng-template let-bound pTemplate="item">
-                              <div class="flex align-items-center gap-2">
-                                <div>{{ bound.bound }}</div>
-                              </div>
-                            </ng-template>
-                          </p-dropdown>
-                        </div>
-                      </div>
+                     
 
-                    </div>
-                  </div>
-                  <div class="lg:col-12 md:col-12 col-12 flex justify-content-end">
+                  
+                  <div class="lg:col-2 md:col-6 col-12 flex justify-content-end align-items-end">
                     <p-button class="bg-b-color mr" routerLink="/add-international-shipment-by-road">
                       Clear
                     </p-button>
                     <p-button type="submit" [disabled]="!domesticShipmentForm.form.valid" label="Search"
                       class="bg-b-color ml">
                     </p-button>
-                    <!-- <div class="lg:col-3 flex  align-items-end justify-content-center">
-                              
-                                <p-button class="bg-b-color" routerLink="/add-international-shipment-by-road">
-                                  Clear
-                                </p-button>
-                            
-                              </div>
-                              <div class="lg:col-3 flex  align-items-end justify-content-center">
-                            
-                                <p-button class="bg-b-color" routerLink="/add-international-shipment-by-road">
-                                  Search 
-                                </p-button>
-                              
-                              </div> -->
                   </div>
                 </div>
               </form>

@@ -23,7 +23,7 @@ export class AuthguardService {
     {permission:'International Shipment By Road',route:['/international-shipment-by-road','/international-shipment-history-by-road/:id','/add-international-shipment-by-road','/update-international-shipment-by-road/:id']},
     {permission:'International Shipment By Air',route:['/international-shipment-by-air','/international-shipment-history-by-air/:id','/add-international-shipment-by-air','/update-international-shipment-by-air/:id']},
     {permission:'Domestic Summary',route:['/domestic-summary','/add-attachments/:id','/update-domestic-shipping-for-summary/:id']},
-    {permission:'International Summary By Air',route:['/international-summary-by-air']},
+    {permission:'International Summary By Air',route:['/international-summary-by-air','/update-international-air-shipping-for-summary/:id']},
     {permission:'International Summary By Road',route:['/international-summary-by-road']},
     {permission:'User',route:['/user','/add-user','/edit-user/:id']},
     {permission:'Driver',route:['/driver','/add-driver','/edit-driver/:id']},

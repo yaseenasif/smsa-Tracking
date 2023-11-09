@@ -334,7 +334,7 @@
                   <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2 form-hook">
                       <label htmlFor="name">Status</label>
-                      <p-dropdown [readonly]="true" class="w-full" [options]="shipmentStatus" name="status" #status="ngModel"
+                      <p-dropdown class="w-full" [options]="shipmentStatus" name="status" #status="ngModel"
                         [required]="true" [(ngModel)]="domesticShipment.status" optionLabel="name" optionValue="name"
                         [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Status">
                         <ng-template pTemplate="selectedItem">
@@ -353,7 +353,7 @@
                   <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2">
                       <label htmlFor="name">Remarks</label>
-                      <input [readonly]="true" pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.remarks"
+                      <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.remarks"
                         #remarks="ngModel" required name="remarks" />
                       <!-- <small id="name-help"
                         >{{name}}</small
