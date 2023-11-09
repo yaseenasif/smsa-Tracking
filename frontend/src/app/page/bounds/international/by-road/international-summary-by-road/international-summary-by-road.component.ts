@@ -1,19 +1,20 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
-import { SummaryService } from '../../service/summary.service';
-import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
+import { SummaryService } from '../../../service/summary.service';
 import { DatePipe } from '@angular/common';
-import { InternationalSummarySearch} from 'src/app/model/InternationalSummarySearch'
+import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
+import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
+import { InternationalSummarySearch } from 'src/app/model/InternationalSummarySearch';
 import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
+
 @Component({
-  selector: 'app-international-summary-by-air',
-  templateUrl: './international-summary-by-air.component.html',
-  styleUrls: ['./international-summary-by-air.component.scss'],
+  selector: 'app-international-summary-by-road',
+  templateUrl: './international-summary-by-road.component.html',
+  styleUrls: ['./international-summary-by-road.component.scss'],
   providers: [DatePipe]
 })
-export class InternationalSummaryByAirComponent {
-
+export class InternationalSummaryByRoadComponent {
+ 
   name!:string;
   bound!:Bound[];
   shipmentStatus!:ShipmentStatus[];
@@ -35,15 +36,16 @@ export class InternationalSummaryByAirComponent {
   constructor(private summaryService:SummaryService,
     private datePipe: DatePipe,
     private authguardService:AuthguardService,
+
     private shipmentStatusService:ShipmentStatusService) { }
 
-    internationalShipmentByAir:any=[];
+    internationalShipmentByRoad:any=[];
     items: MenuItem[] | undefined;
 
   ngOnInit() {
     this.getRole()
 
-      this.items = [{ label: 'International Summary By Air'}];
+      this.items = [{ label: 'International Summary By Road'}];
       this.bound=[
         {
           bound:"In bound"
@@ -55,7 +57,6 @@ export class InternationalSummaryByAirComponent {
       this.getAllShipmentStatus();
       this.getInboundSummary(this.search,0,10);
   }
-
   getRole(){
     const token = localStorage.getItem('accessToken');
 
@@ -87,14 +88,14 @@ export class InternationalSummaryByAirComponent {
       this.shipmentStatus=res; 
     },error=>{
       
-  
+    
 
     })
    }
 
    getInboundSummary(obj:InternationalSummarySearch,page:number,size:number){
-    this.summaryService.getInboundSummaryForAir(obj,page,size).subscribe((res:any)=>{
-      this.internationalShipmentByAir=res.content;
+    this.summaryService.getInboundSummaryForRoad(obj,page,size).subscribe((res:any)=>{
+      this.internationalShipmentByRoad=res.content;
       this.search  ={
         fromDate:null,
         toDate:null,
@@ -104,16 +105,16 @@ export class InternationalSummaryByAirComponent {
         type:null
       }
     },(error:any)=>{
-     
-      this.internationalShipmentByAir=[];
- 
+
+      this.internationalShipmentByRoad=[];
+   
       
     })
   }
 
   getOutboundSummary(obj:InternationalSummarySearch,page:number,size:number){
-    this.summaryService.getOutboundSummaryForAir(obj,page,size).subscribe((res:any)=>{
-      this.internationalShipmentByAir=res.content;
+    this.summaryService.getOutboundSummaryForRoad(obj,page,size).subscribe((res:any)=>{
+      this.internationalShipmentByRoad=res.content;
       this.search  ={
         fromDate:null,
         toDate:null,
@@ -124,8 +125,8 @@ export class InternationalSummaryByAirComponent {
       }
     },(error:any)=>{
       
-      this.internationalShipmentByAir=[];
-     
+      this.internationalShipmentByRoad=[];
+  
       
     })
   }
@@ -157,8 +158,7 @@ export class InternationalSummaryByAirComponent {
       let originalDate = new Date(this.search.fromDate);
       this.search.fromDate = this.datePipe.transform(originalDate, 'yyyy-MM-dd');
     }
- 
-    
+   
     if(this.selectedBound.bound === "In bound"){
       this.getInboundSummary(this.search,0,10);
     }else{

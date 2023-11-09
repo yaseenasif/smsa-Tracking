@@ -1,20 +1,19 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { SummaryService } from '../../service/summary.service';
-import { DatePipe } from '@angular/common';
-import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
-import { InternationalSummarySearch } from 'src/app/model/InternationalSummarySearch';
+import { SummaryService } from '../../../service/summary.service';
+import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
+import { DatePipe } from '@angular/common';
+import { InternationalSummarySearch} from 'src/app/model/InternationalSummarySearch'
 import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
-
 @Component({
-  selector: 'app-international-summary-by-road',
-  templateUrl: './international-summary-by-road.component.html',
-  styleUrls: ['./international-summary-by-road.component.scss'],
+  selector: 'app-international-summary-by-air',
+  templateUrl: './international-summary-by-air.component.html',
+  styleUrls: ['./international-summary-by-air.component.scss'],
   providers: [DatePipe]
 })
-export class InternationalSummaryByRoadComponent {
- 
+export class InternationalSummaryByAirComponent {
+
   name!:string;
   bound!:Bound[];
   shipmentStatus!:ShipmentStatus[];
@@ -36,16 +35,15 @@ export class InternationalSummaryByRoadComponent {
   constructor(private summaryService:SummaryService,
     private datePipe: DatePipe,
     private authguardService:AuthguardService,
-
     private shipmentStatusService:ShipmentStatusService) { }
 
-    internationalShipmentByRoad:any=[];
+    internationalShipmentByAir:any=[];
     items: MenuItem[] | undefined;
 
   ngOnInit() {
     this.getRole()
 
-      this.items = [{ label: 'International Summary By Road'}];
+      this.items = [{ label: 'International Summary By Air'}];
       this.bound=[
         {
           bound:"In bound"
@@ -57,6 +55,7 @@ export class InternationalSummaryByRoadComponent {
       this.getAllShipmentStatus();
       this.getInboundSummary(this.search,0,10);
   }
+
   getRole(){
     const token = localStorage.getItem('accessToken');
 
@@ -88,14 +87,14 @@ export class InternationalSummaryByRoadComponent {
       this.shipmentStatus=res; 
     },error=>{
       
-    
+  
 
     })
    }
 
    getInboundSummary(obj:InternationalSummarySearch,page:number,size:number){
-    this.summaryService.getInboundSummaryForRoad(obj,page,size).subscribe((res:any)=>{
-      this.internationalShipmentByRoad=res.content;
+    this.summaryService.getInboundSummaryForAir(obj,page,size).subscribe((res:any)=>{
+      this.internationalShipmentByAir=res.content;
       this.search  ={
         fromDate:null,
         toDate:null,
@@ -105,16 +104,16 @@ export class InternationalSummaryByRoadComponent {
         type:null
       }
     },(error:any)=>{
-
-      this.internationalShipmentByRoad=[];
-   
+     
+      this.internationalShipmentByAir=[];
+ 
       
     })
   }
 
   getOutboundSummary(obj:InternationalSummarySearch,page:number,size:number){
-    this.summaryService.getOutboundSummaryForRoad(obj,page,size).subscribe((res:any)=>{
-      this.internationalShipmentByRoad=res.content;
+    this.summaryService.getOutboundSummaryForAir(obj,page,size).subscribe((res:any)=>{
+      this.internationalShipmentByAir=res.content;
       this.search  ={
         fromDate:null,
         toDate:null,
@@ -125,8 +124,8 @@ export class InternationalSummaryByRoadComponent {
       }
     },(error:any)=>{
       
-      this.internationalShipmentByRoad=[];
-  
+      this.internationalShipmentByAir=[];
+     
       
     })
   }
@@ -158,7 +157,8 @@ export class InternationalSummaryByRoadComponent {
       let originalDate = new Date(this.search.fromDate);
       this.search.fromDate = this.datePipe.transform(originalDate, 'yyyy-MM-dd');
     }
-   
+ 
+    
     if(this.selectedBound.bound === "In bound"){
       this.getInboundSummary(this.search,0,10);
     }else{
