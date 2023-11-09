@@ -63,7 +63,9 @@ public class InternationalShipment {
     private String shortageAWBs;// new both
     private Boolean redFlag;
     private String preAlertType;
-    private LocalTime transitTimeTaken;
+    private long transitTimeTaken;
+    private LocalDateTime createdTime;
+
     @ManyToOne
     private User createdBy;
     private LocalDate createdAt;

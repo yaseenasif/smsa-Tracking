@@ -62,6 +62,6 @@ public class InternationalShipmentDto {
     private String shortageAWBs;// new both
     private Boolean redFlag;
     private String preAlertType;
-    private LocalTime transitTimeTaken;
+    private long transitTimeTaken;
 
 }

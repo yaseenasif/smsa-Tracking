@@ -51,6 +51,6 @@ public class DomesticShipmentDto {
     private Boolean redFlag;
     private long preAlertNumber;
     private String preAlertType;
-    private LocalTime transitTimeTaken;
+    private long transitTimeTaken;
 
 }
