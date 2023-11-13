@@ -80,6 +80,11 @@ public class LocationPortService {
         throw new RuntimeException(String.format("Port Not Found by this Id => %d" , id));
     }
 
+    public List<LocationPortDto> getLocationPortByLocationName(String port) {
+        List<LocationPort> locationPort = locationPortRepository.findLocationPortsByLocationName(port);
+        return toDtoList(locationPort);
+    }
+
 
     public List<LocationPortDto> toDtoList(List<LocationPort> locationPort){
         return locationPort.stream().map(this::toDto).collect(Collectors.toList());

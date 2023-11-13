@@ -54,4 +54,9 @@ public class LocationPortController {
         return ResponseEntity.ok(locationPortService.makePortActive(id));
     }
 
+    @GetMapping("/location/location-port/{port}")
+    public ResponseEntity<List<LocationPortDto>> getLocationPortByLocationName(@PathVariable String port){
+        return ResponseEntity.ok(locationPortService.getLocationPortByLocationName(port));
+    }
+
 }
