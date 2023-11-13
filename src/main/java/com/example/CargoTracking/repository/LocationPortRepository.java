@@ -12,4 +12,7 @@ public interface LocationPortRepository extends JpaRepository<LocationPort,Long>
 
     @Query("SELECT p FROM LocationPort p WHERE p.status = true")
     List<LocationPort> getActivePorts();
+
+    @Query("SELECT lp FROM LocationPort lp JOIN lp.location l WHERE l.locationName = :locationName")
+    List<LocationPort> findLocationPortsByLocationName(String locationName);
 }

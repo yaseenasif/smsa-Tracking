@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { InternationalShipment } from 'src/app/model/InternationalShipment';
-import { InternationalShippingService } from '../../service/international-shipping.service';
 import { LocationService } from 'src/app/page/location/service/location.service';
 import { LocationPortService } from 'src/app/page/location-port/service/location-port.service';
 import { DriverService } from 'src/app/page/driver/service/driver.service';
@@ -13,20 +12,21 @@ import { Driver } from 'src/app/model/Driver';
 import { VehicleType } from 'src/app/model/VehicleType';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { Mode } from 'src/app/model/Mode';
+import {Location} from 'src/app/model/Location'
+
 import { ShipmentMode } from 'src/app/model/ShipmentMode';
 import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
-import {Location} from '../../../../../model/Location'
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
 import { Observable, forkJoin } from 'rxjs';
 import { DatePipe } from '@angular/common';
-
+import { InternationalShippingService } from 'src/app/page/shipping-order/international/service/international-shipping.service';
 @Component({
-  selector: 'app-update-international-shipment-by-air',
-  templateUrl: './update-international-shipment-by-air.component.html',
-  styleUrls: ['./update-international-shipment-by-air.component.scss'],
+  selector: 'app-update-international-air-for-summary',
+  templateUrl: './update-international-air-for-summary.component.html',
+  styleUrls: ['./update-international-air-for-summary.component.scss'],
   providers:[MessageService,DatePipe]
 })
-export class UpdateInternationalShipmentByAirComponent {
+export class UpdateInternationalAirForSummaryComponent {
   items: MenuItem[] | undefined ;
   iSID!:number;
   internationalShipment:InternationalShipment={
@@ -110,7 +110,7 @@ export class UpdateInternationalShipmentByAirComponent {
   
   ngOnInit(): void {
     this.iSID=+this.route.snapshot.paramMap.get('id')!;
-    this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Air',routerLink:'/international-shipment-by-air'},{ label: 'Edit International Shipment By Air'}];
+    this.items = [{ label: 'International Summary By Air',routerLink:'/international-summary-by-air'},{ label: 'Edit International Shipment By Air'}];
     const locations$: Observable<Location[]> = this.locationService.getAllLocation();
     const locationPort$: Observable<LocationPort[]> =this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> =this.driverService.getAllDriver();
@@ -155,8 +155,7 @@ export class UpdateInternationalShipmentByAirComponent {
   getInternationalShipmentById(id:number){
     
     this.internationalShippingService.getInternationalShipmentByID(id).subscribe((res:InternationalShipment)=>{
-     debugger
-      res.etd=res.etd ? new Date(res.etd) : null;
+     res.etd=res.etd ? new Date(res.etd) : null;
      res.eta=res.eta ? new Date(res.eta) : null;
      res.atd=res.atd ? new Date(res.atd) : null;
      res.ata=res.ata ? new Date(res.ata) : null;
@@ -164,7 +163,7 @@ export class UpdateInternationalShipmentByAirComponent {
      res.arrivalDate=res.arrivalDate ? new Date(res.arrivalDate) : null;
      res.departureTime=res.departureTime ? new Date(`1970-01-01 ${res.departureTime}`) : null;
      res.arrivalTime = res.arrivalTime ? new Date(`1970-01-01 ${res.arrivalTime}`) : null;
-     debugger
+   
      this.selectedDriver=this.drivers.find(el=>(el.name==res.driverName)&&(el.contactNumber==res.driverContact)&&(el.referenceNumber==res.referenceNumber))
      this.internationalShipment=res;  
    

@@ -27,6 +27,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -62,9 +63,9 @@ public class InternationalShipmentService {
             unSaveInternationalShipment.setCreatedAt(LocalDate.now());
             unSaveInternationalShipment.setCreatedBy(user);
             unSaveInternationalShipment.setRedFlag(Boolean.FALSE);
-            unSaveInternationalShipment.setPreAlertNumber(UUID.randomUUID().toString());
-            unSaveInternationalShipment.setPreAlertType(unSaveInternationalShipment.getType()=="By Road" ? "International Road" : "International-Air");
-            unSaveInternationalShipment.setTransitTimeTaken(LocalTime.now());
+            unSaveInternationalShipment.setPreAlertNumber(System.currentTimeMillis() / 1000);
+            unSaveInternationalShipment.setPreAlertType(unSaveInternationalShipment.getType().equalsIgnoreCase("By Road") ? "International-Road" : "International-Air");
+            unSaveInternationalShipment.setCreatedTime(LocalDateTime.now());
             InternationalShipment internationalShipment = internationalShipmentRepository
                     .save(unSaveInternationalShipment);
 
@@ -360,7 +361,10 @@ public class InternationalShipmentService {
                 internationalShipment.get().setShortages(internationalShipmentDto.getShortages());
                 internationalShipment.get().setShortageAWBs(internationalShipmentDto.getShortageAWBs());
                 internationalShipment.get().setRouteNumber(internationalShipmentDto.getRouteNumber());
-
+                if(internationalShipment.get().getStatus().equalsIgnoreCase("Arrived")){
+                    Duration duration = Duration.between(internationalShipment.get().getCreatedTime(), LocalDateTime.now());
+                    internationalShipment.get().setTransitTimeTaken(duration.toMinutes());
+                }
                 InternationalShipment save = internationalShipmentRepository.save(internationalShipment.get());
                 return toDto(save);
             }else{

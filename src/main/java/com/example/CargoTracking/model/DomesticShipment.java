@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -54,9 +55,10 @@ public class DomesticShipment {
     private String shortagesAwbs;
     private String attachments;
     private Boolean redFlag;
-    private String preAlertNumber;
+    private long preAlertNumber;
     private String preAlertType;
-    private LocalTime transitTimeTaken;
+    private long transitTimeTaken;
+    private LocalDateTime createdTime;
 //    private List<String> urls;
 
     // attachments dalega

@@ -109,7 +109,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     this.domesticShipmentId = +this.route.snapshot.paramMap.get('id')!;
 
 
-    this.items = [{ label: 'Domestic Shipment',routerLink:'/domestic-shipping'},{ label: 'Edit Domestic Shipment'}];
+    this.items = [{ label: 'Domestic Summary',routerLink:'/domestic-summary'},{ label: 'Edit Domestic Shipment'}];
  
     const locations$: Observable<Location[]> = this.locationService.getAllLocation();
     const driver$: Observable<PaginatedResponse<Driver>> =this.driverService.getAllDriver();
@@ -222,7 +222,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Shipment Updated Successfully' });
         
         setTimeout(() => {
-          this.router.navigate(['/domestic-shipping']);
+          this.router.navigate(['/domestic-summary']);
         },800);
       },(error:any)=>{
         if(error.error.body){

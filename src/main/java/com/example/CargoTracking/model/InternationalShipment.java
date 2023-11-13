@@ -27,7 +27,7 @@ public class InternationalShipment {
     private Boolean refrigeratedTruck;//new road
     private String type;
     private String shipmentMode;
-    private String preAlertNumber;//new
+    private long preAlertNumber;//new
     private String destinationCountry;
     private String destinationPort;
     private String carrier;//air
@@ -63,7 +63,9 @@ public class InternationalShipment {
     private String shortageAWBs;// new both
     private Boolean redFlag;
     private String preAlertType;
-    private LocalTime transitTimeTaken;
+    private long transitTimeTaken;
+    private LocalDateTime createdTime;
+
     @ManyToOne
     private User createdBy;
     private LocalDate createdAt;

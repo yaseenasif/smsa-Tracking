@@ -28,6 +28,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.time.Duration;
 import java.util.UUID;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -70,9 +72,9 @@ public class DomesticShipmentService {
             unSaveDomesticShipment.setCreatedAt(LocalDate.now());
             unSaveDomesticShipment.setCreatedBy(user);
             unSaveDomesticShipment.setRedFlag(Boolean.FALSE);
-            unSaveDomesticShipment.setPreAlertNumber(UUID.randomUUID().toString());
+            unSaveDomesticShipment.setPreAlertNumber(System.currentTimeMillis() / 1000);
             unSaveDomesticShipment.setPreAlertType("Domestic");
-            unSaveDomesticShipment.setTransitTimeTaken(LocalTime.now());
+            unSaveDomesticShipment.setCreatedTime(LocalDateTime.now());
 
             DomesticShipment domesticShipment = domesticShipmentRepository.save(unSaveDomesticShipment);
 
@@ -273,6 +275,11 @@ public class DomesticShipmentService {
                   domesticShipment.get().setShortages(domesticShipmentDto.getShortages());
                   domesticShipment.get().setShortagesAwbs(domesticShipmentDto.getShortagesAwbs());
                   domesticShipment.get().setAttachments(domesticShipmentDto.getAttachments());
+
+                  if(domesticShipmentDto.getStatus().equalsIgnoreCase("Arrived")){
+                      Duration duration = Duration.between(domesticShipment.get().getCreatedTime(), LocalDateTime.now());
+                        domesticShipment.get().setTransitTimeTaken(duration.toMinutes());
+                  }
 
                   DomesticShipment save = domesticShipmentRepository.save(domesticShipment.get());
                   return toDto(save);

@@ -81,6 +81,8 @@ import { AttachmentsComponent } from './page/bounds/domestic/attachments/attachm
 import { DomesticAttachmentsComponent } from './page/shipping-order/domestic/domestic-attachments/domestic-attachments.component';
 import { UnauthorizedPageComponent } from './page/unauthorized/unauthorized-page/unauthorized-page.component';
 import { ViewAttachmentsComponent } from './page/shipping-order/view-attachments/view-attachments.component';
+import { UpdateInternationalAirForSummaryComponent } from './page/bounds/international/update-international-air-for-summary/update-international-air-for-summary.component';
+import { UpdateInternationalRoadForSummaryComponent } from './page/bounds/international/update-international-road-for-summary/update-international-road-for-summary.component';
 import { AddAttachmentsOfInternationalShipmentByAirComponent } from './page/shipping-order/international/by-air/add-attachments-of-international-shipment-by-air/add-attachments-of-international-shipment-by-air.component';
 import { AddAttachmentsOfInternationalShipmentByRoadComponent } from './page/shipping-order/international/by-road/add-attachments-of-international-shipment-by-road/add-attachments-of-international-shipment-by-road.component';
 import { InternationalSummaryByAirAttachmentsComponent } from './page/bounds/international/by-air/international-summary-by-air-attachments/international-summary-by-air-attachments.component';
@@ -143,6 +145,8 @@ import { InternationalSummaryByRoadAttachmentsComponent } from './page/bounds/in
     AttachmentsComponent,
     DomesticAttachmentsComponent,
     ViewAttachmentsComponent,
+    UpdateInternationalAirForSummaryComponent,
+    UpdateInternationalRoadForSummaryComponent,
     AddAttachmentsOfInternationalShipmentByAirComponent,
     AddAttachmentsOfInternationalShipmentByRoadComponent,
     InternationalSummaryByAirAttachmentsComponent,

@@ -5,6 +5,7 @@ import { DatePipe } from '@angular/common';
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { InternationalSummarySearch } from 'src/app/model/InternationalSummarySearch';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({
   selector: 'app-international-summary-by-road',
@@ -17,6 +18,7 @@ export class InternationalSummaryByRoadComponent {
   name!:string;
   bound!:Bound[];
   shipmentStatus!:ShipmentStatus[];
+  role:any;
 
   selectedBound:Bound={
     bound:"In bound"
@@ -33,12 +35,16 @@ export class InternationalSummaryByRoadComponent {
 
   constructor(private summaryService:SummaryService,
     private datePipe: DatePipe,
+    private authguardService:AuthguardService,
+
     private shipmentStatusService:ShipmentStatusService) { }
 
     internationalShipmentByRoad:any=[];
     items: MenuItem[] | undefined;
 
   ngOnInit() {
+    this.getRole()
+
       this.items = [{ label: 'International Summary By Road'}];
       this.bound=[
         {
@@ -50,6 +56,15 @@ export class InternationalSummaryByRoadComponent {
       ]
       this.getAllShipmentStatus();
       this.getInboundSummary(this.search,0,10);
+  }
+  getRole(){
+    const token = localStorage.getItem('accessToken');
+
+    const decodeToken = this.authguardService.getDecodedAccessToken(token!);
+    debugger
+    this.role=decodeToken.ROLES;
+    console.log(this.role);
+    
   }
 
   onBoundChange() {

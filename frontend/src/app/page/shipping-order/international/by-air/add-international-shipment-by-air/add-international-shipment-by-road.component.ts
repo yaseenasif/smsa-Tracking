@@ -57,7 +57,7 @@ export class AddInternationalShipmentByRoadComponent {
     shipmentMode: null,
     shortageAWBs: null,
     shortages: null,
-    status: null,
+    status: 'Pre-Alert Created',
     tagNumber: null,
     totalShipments: null,
     type: 'By Air',
@@ -114,7 +114,8 @@ export class AddInternationalShipmentByRoadComponent {
   }
 
   onSubmit() {
-  
+  console.log(this.internationalShipment);
+  debugger
    this.internationalShipment.etd=this.datePipe.transform(this.internationalShipment.etd,'yyyy-MM-dd')
    this.internationalShipment.eta=this.datePipe.transform(this.internationalShipment.eta,'yyyy-MM-dd')
    this.internationalShipment.atd=this.datePipe.transform(this.internationalShipment.atd,'yyyy-MM-dd')
