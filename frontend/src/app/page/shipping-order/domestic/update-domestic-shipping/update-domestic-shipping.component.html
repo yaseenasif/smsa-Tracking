@@ -281,10 +281,10 @@
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Number of Bags</label>
-                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.numberOfBags"
-                      #numberOfBags="ngModel" required name="numberOfBags" />
+                    <p-inputNumber [maxlength]="3" id="name" [(ngModel)]="domesticShipment.numberOfBags"
+                      #numberOfBags="ngModel" [required]="true" name="numberOfBags" ></p-inputNumber>
                     <!-- <small id="name-help"
                         >{{name}}</small
                       > -->
