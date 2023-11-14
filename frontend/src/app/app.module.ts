@@ -43,6 +43,8 @@ import {
 import { TokenInterceptor } from './auth-service/interceptor/token.interceptor';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { PaginatorModule } from 'primeng/paginator';
+
 //primeng imports
 import { ChartModule } from 'primeng/chart';
 import { InputTextModule } from 'primeng/inputtext';
@@ -176,6 +178,7 @@ import { InternationalSummaryByRoadAttachmentsComponent } from './page/bounds/in
     NgxUiLoaderModule,
     DialogModule,
     InputNumberModule,
+    PaginatorModule,
     NgxUiLoaderHttpModule.forRoot({
       showForeground:true
     })

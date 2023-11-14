@@ -71,6 +71,7 @@ export class AddInternationalShippingComponent {
     atd: null
   }
 
+  routes:any;
   items: MenuItem[] | undefined;
   location!:Location[];
   originPorts!:LocationPort[];
@@ -136,6 +137,22 @@ export class AddInternationalShippingComponent {
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'International Shipment is not added' });
     })  
+  }
+
+  getInternationalRouteForRoad() {
+    debugger
+    if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null) {
+      this.internationalShippingService.getInternationalRouteForRoad(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!).subscribe((res:any)=>{
+        this.routes=res;
+        debugger
+      },(error:any)=>{
+        console.log(error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+      })
+
+    }else{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You must have to select origin and destination port' });
+    }
   }
 
   getAllLocations(){

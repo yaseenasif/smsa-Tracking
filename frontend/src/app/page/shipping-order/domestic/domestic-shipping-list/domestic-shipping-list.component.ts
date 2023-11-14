@@ -27,10 +27,17 @@ export class DomesticShippingListComponent implements OnInit{
   }
   page=0;
   size=10;
+  first: number = 0;
+
+  rows: number = 10;
+
+  totalRecords:number =0;
 
   getAllDomesticShipments(){
-    this.domesticShipmentService.getALLShipments({value:"",user:{}},this.page,this.size).subscribe((res:any)=>{
+    this.domesticShipmentService.getALLShipments({value:"",user:{}},this.first,this.rows).subscribe((res:any)=>{
+      debugger
       this.myApiResponse=res;
+      this.totalRecords= this.myApiResponse.totalElements;
       this.domesticShipment=this.myApiResponse.content;
     },(error:any)=>{
       if(error.error.body){
@@ -57,5 +64,14 @@ export class DomesticShippingListComponent implements OnInit{
     })
   }
 
+
+
+
+  onPageChange(event: any) {
+      this.first = event.first;
+      this.rows = event.rows;
+      debugger
+      this.getAllDomesticShipments();
+  }
   
 }
