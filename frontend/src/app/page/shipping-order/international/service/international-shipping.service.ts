@@ -37,6 +37,12 @@ export class InternationalShippingService {
   getFileMetaDataByDomesticShipment(id:number){
     return this.http.get<any>(`${this.url}/file-meta-data-by-domestic-shipment/${id}`)
   }
+  getInternationalRouteForAir(origin:string,destination:string){
+    return this.http.get<any>(`${this.url}/getRoute-air/${origin}/${destination}`)
+  }
+  getInternationalRouteForRoad(origin:string,destination:string){
+    return this.http.get<any>(`${this.url}/getRoute-road/${origin}/${destination}`)
+  }
 
   getFileMetaDataByInternationalShipment(id:number){
     return this.http.get<any>(`${this.url}/file-meta-data-by-international-shipment/${id}`)

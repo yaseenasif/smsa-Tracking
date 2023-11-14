@@ -42,6 +42,7 @@ import {
 // import { provideRouter, withHashLocation } from '@angular/router';
 import { TokenInterceptor } from './auth-service/interceptor/token.interceptor';
 import { CalendarModule } from 'primeng/calendar';
+import { PaginatorModule } from 'primeng/paginator';
 
 //primeng imports
 import { ChartModule } from 'primeng/chart';
@@ -175,6 +176,7 @@ import { InternationalSummaryByRoadAttachmentsComponent } from './page/bounds/in
     ChartModule,
     NgxUiLoaderModule,
     DialogModule,
+    PaginatorModule,
     NgxUiLoaderHttpModule.forRoot({
       showForeground:true
     })
