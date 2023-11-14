@@ -316,19 +316,19 @@
                 </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Number of Bags</label>
-                      <input
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
-                        #numberOfBags="ngModel"
-                        name="numberOfBags"
-                        [required]="true"  
-                        [(ngModel)]="internationalShipment.numberOfBags"
-                      />
-                      <small id="name-help" class="color-red"  *ngIf="numberOfBags.invalid && (numberOfBags.dirty || numberOfBags.touched)">Number of bags is required.</small>  
-                    </div>
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Number of Bags</label>
+                    <p-inputNumber [maxlength]="3" id="name" [(ngModel)]="internationalShipment.numberOfBags"
+                      #numberOfBags="ngModel" [required]="true" name="numberOfBags" ></p-inputNumber>
+                      <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="
+                        numberOfBags.invalid && (numberOfBags.dirty || numberOfBags.touched)
+                      "
+                      >Number of Bags is required.</small
+                    >
+                  </div>
                 </div>
 <!-- 8 -->
               <div class="col-12 md:col-6 lg:col-4">

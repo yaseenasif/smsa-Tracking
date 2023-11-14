@@ -42,7 +42,7 @@ import {
 // import { provideRouter, withHashLocation } from '@angular/router';
 import { TokenInterceptor } from './auth-service/interceptor/token.interceptor';
 import { CalendarModule } from 'primeng/calendar';
-
+import { InputNumberModule } from 'primeng/inputnumber';
 //primeng imports
 import { ChartModule } from 'primeng/chart';
 import { InputTextModule } from 'primeng/inputtext';
@@ -175,6 +175,7 @@ import { InternationalSummaryByRoadAttachmentsComponent } from './page/bounds/in
     ChartModule,
     NgxUiLoaderModule,
     DialogModule,
+    InputNumberModule,
     NgxUiLoaderHttpModule.forRoot({
       showForeground:true
     })

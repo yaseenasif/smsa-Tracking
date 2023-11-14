@@ -70,7 +70,8 @@
                 <!-- 2 -->
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Origin Country </label>
+
+                    <label htmlFor="name">Origin Country</label>
                     <p-dropdown
                       class="w-full"
                       [options]="location"
@@ -78,6 +79,7 @@
                       name="originCountry"
                       [required]="true"
                       [(ngModel)]="internationalShipment.originCountry"
+                      (onChange)="getLocationPortByLocationForOrigin()"
                       optionValue="locationName"
                       optionLabel="locationName"
                       [filter]="true"
@@ -108,7 +110,7 @@
                     <label htmlFor="name">Origin Port </label>
                     <p-dropdown
                       class="w-full"
-                      [options]="locationPort"
+                      [options]="originPorts"
                       #originPort="ngModel"
                       name="originPort"
                       [required]="true"
@@ -129,9 +131,9 @@
                           <div>{{ internationalShipment.originPort }}</div>
                         </div>
                       </ng-template>
-                      <ng-template let-locationPort pTemplate="item">
+                      <ng-template let-originPorts pTemplate="item">
                         <div class="flex align-items-center gap-2">
-                          <div>{{ locationPort.portName }}</div>
+                          <div>{{ originPorts.portName }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -170,6 +172,7 @@
                       name="destinationCountry"
                       [required]="true"
                       [(ngModel)]="internationalShipment.destinationCountry"
+                      (onChange)="getLocationPortByLocationForDestination()"
                       optionValue="locationName"
                       optionLabel="locationName"
                       [filter]="true"
@@ -202,7 +205,7 @@
                     <label htmlFor="name">Destination Port </label>
                     <p-dropdown
                       class="w-full"
-                      [options]="locationPort"
+                      [options]="destinationPorts"
                       #destinationPort="ngModel"
                       name="destinationPort"
                       [required]="true"
@@ -223,9 +226,9 @@
                           <div>{{ internationalShipment.destinationPort }}</div>
                         </div>
                       </ng-template>
-                      <ng-template let-locationPort pTemplate="item">
+                      <ng-template let-destinationPorts pTemplate="item">
                         <div class="flex align-items-center gap-2">
-                          <div>{{ locationPort.portName }}</div>
+                          <div>{{ destinationPorts.portName }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -492,25 +495,17 @@
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Number of Bags</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      #numberOfBags="ngModel"
-                      name="numberOfBags"
-                      [required]="true"
-                      [(ngModel)]="internationalShipment.numberOfBags"
-                    />
+                    <p-inputNumber [maxlength]="3" id="name" [(ngModel)]="internationalShipment.numberOfBags"
+                      #numberOfBags="ngModel" [required]="true" name="numberOfBags" ></p-inputNumber>
                     <small
                       id="name-help"
                       class="color-red"
                       *ngIf="
-                        numberOfBags.invalid &&
-                        (numberOfBags.dirty || numberOfBags.touched)
+                        numberOfBags.invalid && (numberOfBags.dirty || numberOfBags.touched)
                       "
-                      >Number of bags is required.</small
+                      >Number of Bags is required.</small
                     >
                   </div>
                 </div>
