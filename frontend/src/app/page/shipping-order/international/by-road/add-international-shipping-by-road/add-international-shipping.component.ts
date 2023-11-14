@@ -73,7 +73,8 @@ export class AddInternationalShippingComponent {
 
   items: MenuItem[] | undefined;
   location!:Location[];
-  locationPort!:LocationPort[]
+  originPorts!:LocationPort[];
+  destinationPorts!:LocationPort[];
   drivers!:Driver[]
   vehicleTypes!:VehicleType[]
   shipmentStatus!:ShipmentStatus[];
@@ -98,13 +99,17 @@ export class AddInternationalShippingComponent {
   checked!:boolean;
   size=100000
   uploadedFiles: any[] = [];
-  onUpload(event: any) {
-    
+
+
+  getLocationPortByLocationForOrigin() {
+    this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.originCountry!).subscribe((res)=>{
+     this.originPorts=res;  
+    },(error)=>{})
   }
-  onUpload1(event:any) {
-    for(let file of event.files) {
-        this.uploadedFiles.push(file);
-    }
+  getLocationPortByLocationForDestination() {
+    this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.destinationCountry!).subscribe((res)=>{
+     this.destinationPorts=res;
+    },(error)=>{})
   }
   
   ngOnInit(): void {
@@ -112,7 +117,7 @@ export class AddInternationalShippingComponent {
     
     this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Road',routerLink:'/international-shipment-by-road'},{ label: 'Add International Shipment By Road'}];
     this.getAllLocations();
-    this.getAllLocationPort();
+    // this.getAllLocationPort();
     this.getAllDriver();
     this.getAllVehicleType();
     this.getAllShipmentStatus();
@@ -140,11 +145,11 @@ export class AddInternationalShippingComponent {
     })
   }
 
-  getAllLocationPort(){
-    this.locationPortService.getAllLocationPort().subscribe((res:LocationPort[])=>{
-      this.locationPort=res.filter(el=>el.status)
-    },error=>{})
-  }
+  // getAllLocationPort(){
+  //   this.locationPortService.getAllLocationPort().subscribe((res:LocationPort[])=>{
+  //     this.locationPort=res.filter(el=>el.status)
+  //   },error=>{})
+  // }
   getAllDriver(){
     this.driverService.getAllDriver().subscribe((res:PaginatedResponse<Driver>)=>{
   

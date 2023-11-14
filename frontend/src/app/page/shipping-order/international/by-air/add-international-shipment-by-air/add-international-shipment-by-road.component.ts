@@ -26,6 +26,7 @@ import { DatePipe } from '@angular/common';
   providers:[MessageService,DatePipe]
 })
 export class AddInternationalShipmentByRoadComponent {
+
   internationalShipment:InternationalShipment={
     id: null,
     actualWeight: null,
@@ -71,7 +72,8 @@ export class AddInternationalShipmentByRoadComponent {
 
   items: MenuItem[] | undefined;
   location!:Location[];
-  locationPort!:LocationPort[]
+  originPorts!:LocationPort[];
+  destinationPorts!:LocationPort[];
   drivers!:Driver[]
   vehicleTypes!:VehicleType[]
   shipmentStatus!:ShipmentStatus[];
@@ -81,15 +83,15 @@ export class AddInternationalShipmentByRoadComponent {
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
   
  
-  size=100000
-  uploadedFiles: any[] = [];
-  onUpload(event: any) {
-    
+  getLocationPortByLocationForOrigin() {
+    this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.originCountry!).subscribe((res)=>{
+     this.originPorts=res;  
+    },(error)=>{})
   }
-  onUpload1(event:any) {
-    for(let file of event.files) {
-        this.uploadedFiles.push(file);
-    }
+  getLocationPortByLocationForDestination() {
+    this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.destinationCountry!).subscribe((res)=>{
+     this.destinationPorts=res;
+    },(error)=>{})
   }
 
   constructor(private router:Router,
@@ -107,7 +109,7 @@ export class AddInternationalShipmentByRoadComponent {
   ngOnInit(): void {
     this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Air',routerLink:'/international-shipment-by-air'},{ label: 'Add International Shipment By Air'}];
     this.getAllLocations();
-    this.getAllLocationPort();
+    // this.getAllLocationPort();
     this.getAllDriver();
     this.getAllVehicleType();
     this.getAllShipmentStatus();
@@ -144,11 +146,11 @@ export class AddInternationalShipmentByRoadComponent {
     })
   }
 
-  getAllLocationPort(){
-    this.locationPortService.getAllLocationPort().subscribe((res:LocationPort[])=>{
-      this.locationPort=res.filter(el=>el.status)
-    },error=>{})
-  }
+  // getAllLocationPort(){
+  //   this.locationPortService.getAllLocationPort().subscribe((res:LocationPort[])=>{
+  //     this.locationPort=res.filter(el=>el.status)
+  //   },error=>{})
+  // }
   getAllDriver(){
     this.driverService.getAllDriver().subscribe((res:PaginatedResponse<Driver>)=>{
   
