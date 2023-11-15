@@ -29,11 +29,12 @@ import { DatePipe } from '@angular/common';
 export class UpdateInternationalShipmentByAirComponent {
   items: MenuItem[] | undefined ;
   iSID!:number;
+  routes:any;
   internationalShipment:InternationalShipment={
     id: null,
     actualWeight: null,
-    arrivalDate: null,  
-    arrivalTime: null,  
+    arrivalDate: null,
+    arrivalTime: null,
     ata: null,
     attachments: null,
     carrier: null,
@@ -81,7 +82,7 @@ export class UpdateInternationalShipmentByAirComponent {
   modeOptions:{ options: string }[] =Object.values(Mode).map(el => ({ options: el }));
   shipmentMode:{ options: string }[] =Object.values(ShipmentMode).map(el => ({ options: el }));
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
-  
+
   selectedLocation!:Location;
 
   constructor(private router:Router,
@@ -94,10 +95,10 @@ export class UpdateInternationalShipmentByAirComponent {
     private vehicleTypeService:VehicleTypeService,
     private shipmentStatusService:ShipmentStatusService,
     private datePipe:DatePipe) { }
-    
- 
-  
-  
+
+
+
+
   ngOnInit(): void {
     this.iSID=+this.route.snapshot.paramMap.get('id')!;
     this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Air',routerLink:'/international-shipment-by-air'},{ label: 'Edit International Shipment By Air'}];
@@ -106,24 +107,24 @@ export class UpdateInternationalShipmentByAirComponent {
     const driver$: Observable<PaginatedResponse<Driver>> =this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> =this.vehicleTypeService.getALLVehicleType();
     const shipmentStatus$: Observable<ShipmentStatus[]> = this.shipmentStatusService.getALLShipmentStatus();
-  
+
     forkJoin([locations$,  driver$, vehicleType$, shipmentStatus$]).subscribe(
       ([locationsResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
         // Access responses here
-        this.location=locationsResponse.filter(el => el.status); 
-        // this.locationPort=locationPortResponse.filter(el => el.status); 
-        this.drivers=driverResponse.content.filter((el:Driver)=>el.status); 
+        this.location=locationsResponse.filter(el => el.status);
+        // this.locationPort=locationPortResponse.filter(el => el.status);
+        this.drivers=driverResponse.content.filter((el:Driver)=>el.status);
         this.vehicleTypes=vehicleTypeResponse
         this.shipmentStatus=shipmentStatusResponse
-        this.getInternationalShipmentById(this.iSID);
         // Now that you have the responses, you can proceed with the next steps
+        this.getInternationalShipmentById(this.iSID);
       }
     );
   }
 
   getLocationPortByLocationForOrigin() {
     this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.originCountry!).subscribe((res)=>{
-     this.originPorts=res;  
+     this.originPorts=res;
     },(error)=>{})
   }
   getLocationPortByLocationForDestination() {
@@ -149,13 +150,13 @@ export class UpdateInternationalShipmentByAirComponent {
       },800);
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'International Shipment is not updated'});
-    })  
+    })
   }
-  
+
   getInternationalShipmentById(id:number){
-    
+
     this.internationalShippingService.getInternationalShipmentByID(id).subscribe((res:InternationalShipment)=>{
-     
+
       res.etd=res.etd ? new Date(res.etd) : null;
      res.eta=res.eta ? new Date(res.eta) : null;
      res.atd=res.atd ? new Date(res.atd) : null;
@@ -164,11 +165,12 @@ export class UpdateInternationalShipmentByAirComponent {
      res.arrivalDate=res.arrivalDate ? new Date(res.arrivalDate) : null;
      res.departureTime=res.departureTime ? new Date(`1970-01-01 ${res.departureTime}`) : null;
      res.arrivalTime = res.arrivalTime ? new Date(`1970-01-01 ${res.arrivalTime}`) : null;
-     
+
      this.selectedDriver=this.drivers.find(el=>(el.name==res.driverName)&&(el.contactNumber==res.driverContact)&&(el.referenceNumber==res.referenceNumber))
-     this.internationalShipment=res;  
+     this.internationalShipment=res;
      this.getLocationPortByLocationForOrigin();
      this.getLocationPortByLocationForDestination();
+     this.getInternationalRouteForAir()
     },error=>{
      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not International Shipment by id'});
     })
@@ -176,13 +178,34 @@ export class UpdateInternationalShipmentByAirComponent {
 
   getAllLocations(){
     this.locationService.getAllLocation().subscribe((res:Location[])=>{
-      this.location=res.filter(el => el.status);   
-  
-      
+      this.location=res.filter(el => el.status);
+
+
     },error=>{
     })
   }
 
+  getInternationalRouteForAir() {
+    debugger
+    if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null) {
+      this.internationalShippingService.getInternationalRouteForAir(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!).subscribe((res:any)=>{
+        this.routes=res;
+        debugger
+      },(error:any)=>{
+        console.log(error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+      })
+
+    }else{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You must have to select origin and destination port' });
+    }
+  }
+
+  getAllLocationPort(){
+    this.locationPortService.getAllLocationPort().subscribe((res:LocationPort[])=>{
+      this.locationPort=res.filter(el=>el.status)
+    },error=>{})
+  }
   // getAllLocationPort(){
   //   this.locationPortService.getAllLocationPort().subscribe((res:LocationPort[])=>{
   //     this.locationPort=res.filter(el=>el.status)
@@ -190,20 +213,20 @@ export class UpdateInternationalShipmentByAirComponent {
   // }
   getAllDriver(){
     this.driverService.getAllDriver().subscribe((res:PaginatedResponse<Driver>)=>{
-  
-     this.drivers=res.content.filter((el:Driver)=>el.status);  
+
+     this.drivers=res.content.filter((el:Driver)=>el.status);
     },error=>{})
    }
    getAllVehicleType(){
     this.vehicleTypeService.getALLVehicleType().subscribe((res:VehicleType[])=>{
-      this.vehicleTypes=res;  
+      this.vehicleTypes=res;
     },error=>{
     })
    }
 
     getAllShipmentStatus(){
     this.shipmentStatusService.getALLShipmentStatus().subscribe((res:ShipmentStatus[])=>{
-      this.shipmentStatus=res; 
+      this.shipmentStatus=res;
     },error=>{
     })
    }

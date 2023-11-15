@@ -78,4 +78,16 @@ public class InternationalShipment {
 
     @OneToMany(mappedBy = "internationalShipment", cascade = CascadeType.REMOVE)
     private List<FileMetaData> files;
+
+    @Override
+    public String toString() {
+        return "InternationalShipment{" +
+                "id=" + id +
+                ", originCountry='" + originCountry + '\'' +
+                ", originPort='" + originPort + '\'' +
+                ", refrigeratedTruck=" + refrigeratedTruck +
+                ", type='" + type + '\'' +
+                ", shipmentMode='" + shipmentMode + '\'' +
+                '}';
+    }
 }

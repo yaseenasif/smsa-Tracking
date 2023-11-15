@@ -155,7 +155,7 @@ export class AddInternationalShipmentByRoadComponent {
         debugger
       },(error:any)=>{
         console.log(error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       })
 
     }else{
