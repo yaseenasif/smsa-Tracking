@@ -233,26 +233,40 @@
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Route Number</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [(ngModel)]="internationalShipment.routeNumber"
+                    <p-dropdown
+                      class="w-full"
+                      [options]="routes"
                       #routeNumber="ngModel"
                       name="routeNumber"
                       [required]="true"
-                    />
-                    <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="
-                        routeNumber.invalid &&
-                        (routeNumber.dirty || routeNumber.touched)
+                      [(ngModel)]="internationalShipment.routeNumber"
+                      optionValue="route"
+                      optionLabel="route"
+                      [filter]="true"
+                      filterBy="route"
+                      [showClear]="true"
+                      (onClick)="getInternationalRouteForAir()"
+                      placeholder="Select a Route Number
                       "
-                      >Route Number is required.</small
                     >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="internationalShipment"
+                        >
+                          <div>
+                            {{ internationalShipment.routeNumber }}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-routes pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ routes.route }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
                   </div>
                 </div>
 

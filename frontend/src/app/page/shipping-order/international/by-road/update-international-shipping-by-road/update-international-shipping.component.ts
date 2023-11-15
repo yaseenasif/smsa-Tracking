@@ -30,6 +30,7 @@ import { DatePipe } from '@angular/common';
 export class UpdateInternationalShippingComponent {
   items: MenuItem[] | undefined ;
   iSID!:number;
+  routes:any;
   internationalShipment:InternationalShipment={
     id: null,
     actualWeight: null,
@@ -160,11 +161,28 @@ export class UpdateInternationalShippingComponent {
      this.selectedDriver=this.drivers.find(el=>(el.name==res.driverName)&&(el.contactNumber==res.driverContact)&&(el.referenceNumber==res.referenceNumber))
      
      this.internationalShipment=res;  
+     this.getInternationalRouteForRoad();
     
      
     },error=>{
      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not International Shipment by id'});
     })
+  }
+
+  getInternationalRouteForRoad() {
+    debugger
+    if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null) {
+      this.internationalShippingService.getInternationalRouteForRoad(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!).subscribe((res:any)=>{
+        this.routes=res;
+        debugger
+      },(error:any)=>{
+        console.log(error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+      })
+
+    }else{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You must have to select origin and destination port' });
+    }
   }
 
   getAllLocations(){

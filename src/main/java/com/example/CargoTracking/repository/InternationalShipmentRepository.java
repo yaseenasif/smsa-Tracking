@@ -43,4 +43,7 @@ public interface InternationalShipmentRepository extends JpaRepository<Internati
 
     @Query("SELECT i FROM InternationalShipment i WHERE i.createdAt = :createdAt")
     List<InternationalShipment> findByCreatedAt(@Param("createdAt") LocalDate createdAt);
+
+    @Query("SELECT i FROM InternationalShipment i WHERE i.createdAt = :now And i.type = :by_air")
+    List<InternationalShipment> findByCreatedAtAndType(LocalDate now, String by_air);
 }
