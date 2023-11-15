@@ -201,11 +201,11 @@ export class UpdateInternationalShipmentByAirComponent {
     }
   }
 
-  getAllLocationPort(){
-    this.locationPortService.getAllLocationPort().subscribe((res:LocationPort[])=>{
-      this.locationPort=res.filter(el=>el.status)
-    },error=>{})
-  }
+  // getAllLocationPort(){
+  //   this.locationPortService.getAllLocationPort().subscribe((res:LocationPort[])=>{
+  //     this.locationPort=res.filter(el=>el.status)
+  //   },error=>{})
+  // }
   // getAllLocationPort(){
   //   this.locationPortService.getAllLocationPort().subscribe((res:LocationPort[])=>{
   //     this.locationPort=res.filter(el=>el.status)
