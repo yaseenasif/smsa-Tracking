@@ -72,7 +72,8 @@ export class UpdateInternationalShipmentByAirComponent {
     atd: null
   }
   location!:Location[];
-  locationPort!:LocationPort[]
+  originPorts!:LocationPort[];
+  destinationPorts!:LocationPort[];
   drivers!:Driver[]
   vehicleTypes!:VehicleType[]
   shipmentStatus!:ShipmentStatus[];
@@ -94,42 +95,41 @@ export class UpdateInternationalShipmentByAirComponent {
     private shipmentStatusService:ShipmentStatusService,
     private datePipe:DatePipe) { }
     
-  name!:string;
-  checked!:boolean;
-  size=100000
-  uploadedFiles: any[] = [];
-  onUpload(event: any) {
-    
-  }
-  onUpload1(event:any) {
-    for(let file of event.files) {
-        this.uploadedFiles.push(file);
-    }
-  }
+ 
   
   
   ngOnInit(): void {
     this.iSID=+this.route.snapshot.paramMap.get('id')!;
     this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Air',routerLink:'/international-shipment-by-air'},{ label: 'Edit International Shipment By Air'}];
     const locations$: Observable<Location[]> = this.locationService.getAllLocation();
-    const locationPort$: Observable<LocationPort[]> =this.locationPortService.getAllLocationPort();
+    // const locationPort$: Observable<LocationPort[]> =this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> =this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> =this.vehicleTypeService.getALLVehicleType();
     const shipmentStatus$: Observable<ShipmentStatus[]> = this.shipmentStatusService.getALLShipmentStatus();
   
-    forkJoin([locations$, locationPort$, driver$, vehicleType$, shipmentStatus$]).subscribe(
-      ([locationsResponse, locationPortResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
+    forkJoin([locations$,  driver$, vehicleType$, shipmentStatus$]).subscribe(
+      ([locationsResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
         // Access responses here
         this.location=locationsResponse.filter(el => el.status); 
-        this.locationPort=locationPortResponse.filter(el => el.status); 
+        // this.locationPort=locationPortResponse.filter(el => el.status); 
         this.drivers=driverResponse.content.filter((el:Driver)=>el.status); 
         this.vehicleTypes=vehicleTypeResponse
         this.shipmentStatus=shipmentStatusResponse
-  
-        // Now that you have the responses, you can proceed with the next steps
         this.getInternationalShipmentById(this.iSID);
+        // Now that you have the responses, you can proceed with the next steps
       }
     );
+  }
+
+  getLocationPortByLocationForOrigin() {
+    this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.originCountry!).subscribe((res)=>{
+     this.originPorts=res;  
+    },(error)=>{})
+  }
+  getLocationPortByLocationForDestination() {
+    this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.destinationCountry!).subscribe((res)=>{
+     this.destinationPorts=res;
+    },(error)=>{})
   }
 
    onSubmit() {
@@ -155,7 +155,7 @@ export class UpdateInternationalShipmentByAirComponent {
   getInternationalShipmentById(id:number){
     
     this.internationalShippingService.getInternationalShipmentByID(id).subscribe((res:InternationalShipment)=>{
-     debugger
+     
       res.etd=res.etd ? new Date(res.etd) : null;
      res.eta=res.eta ? new Date(res.eta) : null;
      res.atd=res.atd ? new Date(res.atd) : null;
@@ -164,10 +164,11 @@ export class UpdateInternationalShipmentByAirComponent {
      res.arrivalDate=res.arrivalDate ? new Date(res.arrivalDate) : null;
      res.departureTime=res.departureTime ? new Date(`1970-01-01 ${res.departureTime}`) : null;
      res.arrivalTime = res.arrivalTime ? new Date(`1970-01-01 ${res.arrivalTime}`) : null;
-     debugger
+     
      this.selectedDriver=this.drivers.find(el=>(el.name==res.driverName)&&(el.contactNumber==res.driverContact)&&(el.referenceNumber==res.referenceNumber))
      this.internationalShipment=res;  
-   
+     this.getLocationPortByLocationForOrigin();
+     this.getLocationPortByLocationForDestination();
     },error=>{
      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not International Shipment by id'});
     })
@@ -182,11 +183,11 @@ export class UpdateInternationalShipmentByAirComponent {
     })
   }
 
-  getAllLocationPort(){
-    this.locationPortService.getAllLocationPort().subscribe((res:LocationPort[])=>{
-      this.locationPort=res.filter(el=>el.status)
-    },error=>{})
-  }
+  // getAllLocationPort(){
+  //   this.locationPortService.getAllLocationPort().subscribe((res:LocationPort[])=>{
+  //     this.locationPort=res.filter(el=>el.status)
+  //   },error=>{})
+  // }
   getAllDriver(){
     this.driverService.getAllDriver().subscribe((res:PaginatedResponse<Driver>)=>{
   

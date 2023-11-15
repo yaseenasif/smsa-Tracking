@@ -73,7 +73,8 @@ export class UpdateInternationalShippingComponent {
     atd: null
   }
   location!:Location[];
-  locationPort!:LocationPort[]
+  originPorts!:LocationPort[];
+  destinationPorts!:LocationPort[];
   drivers!:Driver[]
   vehicleTypes!:VehicleType[]
   shipmentStatus!:ShipmentStatus[];
@@ -114,16 +115,16 @@ export class UpdateInternationalShippingComponent {
     this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Road',routerLink:'/international-shipment-by-road'},{ label: 'Edit International Shipment By Road'}];    
    
     const locations$: Observable<Location[]> = this.locationService.getAllLocation();
-    const locationPort$: Observable<LocationPort[]> =this.locationPortService.getAllLocationPort();
+    // const locationPort$: Observable<LocationPort[]> =this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> =this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> =this.vehicleTypeService.getALLVehicleType();
     const shipmentStatus$: Observable<ShipmentStatus[]> = this.shipmentStatusService.getALLShipmentStatus();
   
-    forkJoin([locations$, locationPort$, driver$, vehicleType$, shipmentStatus$]).subscribe(
-      ([locationsResponse, locationPortResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
+    forkJoin([locations$,  driver$, vehicleType$, shipmentStatus$]).subscribe(
+      ([locationsResponse,  driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
         // Access responses here
         this.location=locationsResponse.filter(el => el.status); 
-        this.locationPort=locationPortResponse.filter(el => el.status); 
+        // this.locationPort=locationPortResponse.filter(el => el.status); 
         this.drivers=driverResponse.content.filter((el:Driver)=>el.status); 
         this.vehicleTypes=vehicleTypeResponse
         this.shipmentStatus=shipmentStatusResponse
@@ -132,6 +133,17 @@ export class UpdateInternationalShippingComponent {
         this.getInternationalShipmentById(this.iSID);
       }
     );
+  }
+
+  getLocationPortByLocationForOrigin() {
+    this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.originCountry!).subscribe((res)=>{
+     this.originPorts=res;  
+    },(error)=>{})
+  }
+  getLocationPortByLocationForDestination() {
+    this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.destinationCountry!).subscribe((res)=>{
+     this.destinationPorts=res;
+    },(error)=>{})
   }
 
    onSubmit() {
@@ -160,8 +172,8 @@ export class UpdateInternationalShippingComponent {
      this.selectedDriver=this.drivers.find(el=>(el.name==res.driverName)&&(el.contactNumber==res.driverContact)&&(el.referenceNumber==res.referenceNumber))
      
      this.internationalShipment=res;  
-    
-     
+     this.getLocationPortByLocationForOrigin();
+     this.getLocationPortByLocationForDestination();
     },error=>{
      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not International Shipment by id'});
     })
@@ -176,11 +188,12 @@ export class UpdateInternationalShippingComponent {
     })
   }
 
-  getAllLocationPort(){
-    this.locationPortService.getAllLocationPort().subscribe((res:LocationPort[])=>{
-      this.locationPort=res.filter(el=>el.status)
-    },error=>{})
-  }
+  // getAllLocationPort(){
+  //   this.locationPortService.getAllLocationPort().subscribe((res:LocationPort[])=>{
+  //     this.locationPort=res.filter(el=>el.status)
+  //   },error=>{})
+  // }
+
   getAllDriver(){
     this.driverService.getAllDriver().subscribe((res:PaginatedResponse<Driver>)=>{
   

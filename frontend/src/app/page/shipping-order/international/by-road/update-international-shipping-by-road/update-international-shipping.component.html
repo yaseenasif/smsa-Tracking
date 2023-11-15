@@ -11,7 +11,7 @@
         <div class="body-card">
           <p-toast></p-toast>
           <div class="card">
-            <h1 class="mb-4 h-color">Edit International Shipment By Road</h1>
+            <h1 class="mb-4 h-color">Add International Shipment By Road</h1>
             <form #ISForm="ngForm" (ngSubmit)="onSubmit()">
             <div class="grid">
               <!-- 1 -->            
@@ -19,7 +19,7 @@
                 <div class="flex flex-column gap-2 form-hook">
                   <label htmlFor="name">Origin Country
                   </label>
-                  <p-dropdown class="w-full" [options]="location" #originCountry="ngModel" name="originCountry" [required]="true" [(ngModel)]="internationalShipment.originCountry" optionValue="locationName" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Origin Country
+                  <p-dropdown class="w-full" [options]="location" #originCountry="ngModel" name="originCountry" [required]="true" (onChange)="getLocationPortByLocationForOrigin()" [(ngModel)]="internationalShipment.originCountry" optionValue="locationName" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Origin Country
                   ">
                       <ng-template pTemplate="selectedItem">
                           <div class="flex align-items-center gap-2" *ngIf="internationalShipment">
@@ -38,16 +38,16 @@
                 <div class="flex flex-column gap-2 form-hook">
                   <label htmlFor="name">Origin Port
                   </label>
-                  <p-dropdown class="w-full" [options]="locationPort" #originPort="ngModel" name="originPort" [required]="true" [(ngModel)]="internationalShipment.originPort" optionValue="portName" optionLabel="portName" [filter]="true" filterBy="portName" [showClear]="true" placeholder="Select a Origin Port
+                  <p-dropdown class="w-full" [options]="originPorts" #originPort="ngModel" name="originPort" [required]="true" [(ngModel)]="internationalShipment.originPort" optionValue="portName" optionLabel="portName" [filter]="true" filterBy="portName" [showClear]="true" placeholder="Select a Origin Port
                   ">
                       <ng-template pTemplate="selectedItem">
                           <div class="flex align-items-center gap-2" *ngIf="internationalShipment">
                               <div>{{internationalShipment.originPort}}</div>
                           </div>
                       </ng-template>
-                      <ng-template let-locationPort pTemplate="item">
+                      <ng-template let-originPorts pTemplate="item">
                           <div class="flex align-items-center gap-2">
-                              <div>{{ locationPort.portName }}</div>
+                              <div>{{ originPorts.portName }}</div>
                           </div>
                       </ng-template>
                   </p-dropdown>
@@ -96,26 +96,25 @@
               </div>
               </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
+                    <!-- <div class="flex flex-column gap-2">
                       <label htmlFor="name">Pre-Alert Number</label>
                       <input
                         #PAN="ngModel" name="PAN" [required]="true"
                         pInputText
                         id="name"
-                        readonly="true"
                         aria-describedby="name-help"
                        
                         [(ngModel)]="internationalShipment.preAlertNumber"
                       />
                       <small id="name-help" class="color-red"  *ngIf="PAN.invalid && (PAN.dirty || PAN.touched)">Pre Alert Number is required.</small>                  
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Destination Country
                     </label>
-                    <p-dropdown class="w-full" [options]="location" #destinationCountry="ngModel" name="destinationCountry" [required]="true" [(ngModel)]="internationalShipment.destinationCountry" optionValue="locationName" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Destination Country
+                    <p-dropdown class="w-full" [options]="location" (onChange)="getLocationPortByLocationForDestination()" #destinationCountry="ngModel" name="destinationCountry" [required]="true" [(ngModel)]="internationalShipment.destinationCountry" optionValue="locationName" optionLabel="locationName" [filter]="true" filterBy="locationName" [showClear]="true" placeholder="Select a Destination Country
                     ">
                         <ng-template pTemplate="selectedItem">
                             <div class="flex align-items-center gap-2" *ngIf="internationalShipment">
@@ -135,16 +134,16 @@
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Destination Port
                     </label>
-                    <p-dropdown class="w-full" [options]="locationPort" #destinationPort="ngModel" name="destinationPort" [required]="true" [(ngModel)]="internationalShipment.destinationPort" optionValue="portName" optionLabel="portName" [filter]="true" filterBy="portName" [showClear]="true" placeholder="Select a Destination Port
+                    <p-dropdown class="w-full" [options]="destinationPorts" #destinationPort="ngModel" name="destinationPort" [required]="true" [(ngModel)]="internationalShipment.destinationPort" optionValue="portName" optionLabel="portName" [filter]="true" filterBy="portName" [showClear]="true" placeholder="Select a Destination Port
                     ">
                         <ng-template pTemplate="selectedItem">
                             <div class="flex align-items-center gap-2" *ngIf="internationalShipment">
                                 <div>{{internationalShipment.destinationPort}}</div>
                             </div>
                         </ng-template>
-                        <ng-template let-locationPort pTemplate="item">
+                        <ng-template let-destinationPorts pTemplate="item">
                             <div class="flex align-items-center gap-2">
-                                <div>{{ locationPort.portName }}</div>
+                                <div>{{ destinationPorts.portName }}</div>
                             </div>
                         </ng-template>
                     </p-dropdown>
@@ -381,19 +380,16 @@
              
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                  <label htmlFor="name">Status</label>
-                  <p-dropdown class="w-full" [options]="shipmentStatus" #status="ngModel" name="status" [required]="true"  [(ngModel)]="internationalShipment.status" optionValue="name" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Status">
-                      <ng-template pTemplate="selectedItem">
-                          <div class="flex align-items-center gap-2" *ngIf="internationalShipment">
-                              <div>{{ internationalShipment.status}}</div>
-                          </div>
-                      </ng-template>
-                      <ng-template let-shipmentStatus pTemplate="item">
-                          <div class="flex align-items-center gap-2">
-                              <div>{{ shipmentStatus.name }}</div>
-                          </div>
-                      </ng-template>
-                  </p-dropdown>
+                    <label htmlFor="name">Status
+                    </label>
+                    <input
+                          #status="ngModel" name="status" [required]="true"
+                          pInputText
+                          id="name"
+                          aria-describedby="name-help"
+                          [readOnly]="true"
+                          [(ngModel)]="internationalShipment.status"
+                        />  
               </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
@@ -410,11 +406,11 @@
                     </div>
                 </div>
             </div>
-          
+            
             <div class="flex align-items-center justify-content-end mt-4">
                 <p-button label="Cancel" class="bg-o-color mr" routerLink="/international-shipment-by-road" styleClass="p-button-outlined">
                 </p-button>
-                <p-button type="submit" [disabled]="!ISForm.form.valid"  label="Update" class="bg-b-color ml">
+                <p-button type="submit" [disabled]="!ISForm.form.valid"  label="Save" class="bg-b-color ml">
                 </p-button>
             </div>
             </form>
