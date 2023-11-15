@@ -35,19 +35,6 @@ public class InternationalRouteService {
 
         List<InternationalRoute> resultList = new ArrayList<>();
 
-//        for (InternationalShipment shipment: internationalShipment) {
-//            for (InternationalRoute internationalRoute: byOriginAndDestination) {
-//                if(shipment.getOriginPort().equals(internationalRoute.getOrigin()) &&
-//                   shipment.getDestinationPort().equals(internationalRoute.getDestination()) &&
-//                   shipment.getRouteNumber().equals(internationalRoute.getRoute())
-//                ){
-//
-//                }else{
-//                    resultList.add(internationalRoute);
-//
-//                }
-//            }
-//        }
         for (InternationalShipment shipment : internationalShipment) {
             resultList.addAll(
                     byOriginAndDestination.stream()
