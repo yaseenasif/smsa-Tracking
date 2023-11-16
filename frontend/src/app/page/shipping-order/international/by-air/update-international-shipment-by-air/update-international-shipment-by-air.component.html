@@ -274,7 +274,8 @@
                 </div> -->
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Route Number</label>
+                    <label htmlFor="name">Route Number <span><p-badge (click)="getInternationalRouteForAir()" class="" value="Look up" severity="info"></p-badge>
+                    </span></label>
                     <p-dropdown
                       class="w-full"
                       [options]="routes"
@@ -287,7 +288,6 @@
                       [filter]="true"
                       filterBy="route"
                       [showClear]="true"
-                      (onClick)="getInternationalRouteForAir()"
                       placeholder="Select a Route Number
                       "
                     >

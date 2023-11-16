@@ -14,6 +14,9 @@ public interface LocationRepository extends JpaRepository<Location , Long> {
     @Query("SELECT l FROM Location l WHERE l.status = true")
     List<Location> getActiveLocations();
 
+    @Query("SELECT l FROM Location l WHERE l.status = true AND l.type = :type")
+    List<Location> getActiveLocationsByType(String type);
+
     Optional<Location> findByLocationName(String Location);
 
 }

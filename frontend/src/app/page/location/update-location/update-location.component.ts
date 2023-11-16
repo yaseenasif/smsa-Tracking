@@ -17,9 +17,11 @@ export class UpdateLocationComponent implements OnInit {
   location:Location={
     id: null,
     locationName: null,
-    status: null
+    status: null,
+    type: null
   }
 
+  type:any[]=["Domestic","International"];
   constructor(private route: ActivatedRoute,
     private locationService:LocationService,
     private messageService: MessageService,
@@ -34,7 +36,7 @@ export class UpdateLocationComponent implements OnInit {
   
   getPermissionById(){
     this.locationService.getLocationByID(this.lID).subscribe((res:Location)=>{
-     this.location.locationName=res.locationName;
+     this.location=res;
     },error=>{
      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not find location on this id'});
     })

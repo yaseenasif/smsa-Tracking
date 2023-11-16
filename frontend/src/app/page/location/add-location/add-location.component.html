@@ -14,7 +14,7 @@
               <h1 class="mb-4 h-color">Add Location</h1>
               <form #permissionForm="ngForm" (ngSubmit)="onSubmit()">
               <div class="grid">
-                <div class="col-12 md:col-12 lg:col-12">
+                <div class="col-12 md:col-6 lg:col-6">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Location Name</label>
                     <input
@@ -27,6 +27,25 @@
                       required
                     />
                     <small id="name-help" class="color-red"  *ngIf="name.invalid && (name.dirty || name.touched)">Name is required.</small> 
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Location Type</label>
+                    <p-dropdown class="w-full" [options]="type" name="type1" #type1="ngModel"
+                      [required]="true" [(ngModel)]="location.type" 
+                      [filter]="true" filterBy="type" [showClear]="true" placeholder="Select a Location Type">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="location">
+                          <div>{{location.type}}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-type pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ type }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
                   </div>
                 </div>
               </div>

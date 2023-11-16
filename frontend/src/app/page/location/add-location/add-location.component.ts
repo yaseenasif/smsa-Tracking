@@ -16,8 +16,12 @@ export class AddLocationComponent implements OnInit {
   location:Location={
     id: null,
     locationName: null,
-    status: null
+    status: null,
+    type: null
   }
+
+  type:any[]=["Domestic","International"];
+  
   
   constructor(private LocationService:LocationService,
               private messageService: MessageService,

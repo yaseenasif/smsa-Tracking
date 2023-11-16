@@ -44,6 +44,7 @@ import { TokenInterceptor } from './auth-service/interceptor/token.interceptor';
 import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { PaginatorModule } from 'primeng/paginator';
+import { BadgeModule } from 'primeng/badge';
 
 //primeng imports
 import { ChartModule } from 'primeng/chart';
@@ -89,6 +90,7 @@ import { AddAttachmentsOfInternationalShipmentByAirComponent } from './page/ship
 import { AddAttachmentsOfInternationalShipmentByRoadComponent } from './page/shipping-order/international/by-road/add-attachments-of-international-shipment-by-road/add-attachments-of-international-shipment-by-road.component';
 import { InternationalSummaryByAirAttachmentsComponent } from './page/bounds/international/by-air/international-summary-by-air-attachments/international-summary-by-air-attachments.component';
 import { InternationalSummaryByRoadAttachmentsComponent } from './page/bounds/international/by-road/international-summary-by-road-attachments/international-summary-by-road-attachments.component';
+import { ViewShipmentComponent } from './page/shipping-order/domestic/view-shipment/view-shipment.component';
 
 
 
@@ -153,6 +155,7 @@ import { InternationalSummaryByRoadAttachmentsComponent } from './page/bounds/in
     AddAttachmentsOfInternationalShipmentByRoadComponent,
     InternationalSummaryByAirAttachmentsComponent,
     InternationalSummaryByRoadAttachmentsComponent,
+    ViewShipmentComponent,
   ],
   imports: [
     BrowserModule,
@@ -179,6 +182,7 @@ import { InternationalSummaryByRoadAttachmentsComponent } from './page/bounds/in
     DialogModule,
     InputNumberModule,
     PaginatorModule,
+    BadgeModule,
     NgxUiLoaderHttpModule.forRoot({
       showForeground:true
     })

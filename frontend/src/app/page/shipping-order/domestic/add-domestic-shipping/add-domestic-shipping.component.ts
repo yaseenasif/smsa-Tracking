@@ -23,7 +23,7 @@ import { DatePipe } from '@angular/common';
 })
 export class AddDomesticShippingComponent {
   items: MenuItem[] | undefined;
-
+  routes:any;
   domesticShipment:DomesticShipment={
     originFacility: null,
     originLocation: null,
@@ -126,8 +126,25 @@ export class AddDomesticShippingComponent {
 
   }
 
+  getDomesticRoute() {
+    this.routes=[]
+    debugger
+    if (this.domesticShipment.originLocation !== null && this.domesticShipment.destinationLocation !== null) {
+      this.domesticShipmentService.getDomesticRoute(this.domesticShipment.originLocation!, this.domesticShipment.destinationLocation !).subscribe((res:any)=>{
+        this.routes=res;
+        debugger
+      },(error:any)=>{
+        console.log(error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      })
+
+    }else{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You must have to select origin and destination port' });
+    }
+  }
+
   getAllLocations(){
-    this.locationService.getAllLocation().subscribe((res:Location[])=>{
+    this.locationService.getAllLocationForDomestic().subscribe((res:Location[])=>{
       this.location=res.filter(el => el.status);   
     },error=>{
       if(error.error.body){

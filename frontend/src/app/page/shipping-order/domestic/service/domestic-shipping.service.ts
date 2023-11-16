@@ -41,6 +41,14 @@ export class DomesticShippingService {
     return this.http.get<any>(`${this.url}/all-domestic-shipments-history/${id}`)
   }
 
+  getDomesticRoute(origin:string,destination:string){
+    return this.http.get<any>(`${this.url}/getRoute/${origin}/${destination}`)
+  }
+
+  getRouteByRouteNumber(routeNumber:string){
+    return this.http.get<any>(`${this.url}/domesticRoute/${routeNumber}`)
+  }
+
   downloadAttachments(fileName:string):Observable<Blob>{
     return this.http.get(`${this.url}/download/${fileName}`,{
       responseType: 'blob'

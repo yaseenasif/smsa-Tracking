@@ -27,6 +27,16 @@ public class LocationController {
         return ResponseEntity.ok(locationService.getActiveLocations());
     }
 
+    @GetMapping("/location-domestic")
+    public ResponseEntity<List<LocationDto>> getAllForDomestic(){
+        return ResponseEntity.ok(locationService.getActiveLocationsForDomestic());
+    }
+
+    @GetMapping("/location-international")
+    public ResponseEntity<List<LocationDto>> getAllForInternational(){
+        return ResponseEntity.ok(locationService.getActiveLocationsForInternational());
+    }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/location/{id}")
     public ResponseEntity<LocationDto> getById(@PathVariable Long id){

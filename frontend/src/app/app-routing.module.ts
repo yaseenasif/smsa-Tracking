@@ -57,6 +57,7 @@ import { AddAttachmentsOfInternationalShipmentByAirComponent } from './page/ship
 import { AddAttachmentsOfInternationalShipmentByRoadComponent } from './page/shipping-order/international/by-road/add-attachments-of-international-shipment-by-road/add-attachments-of-international-shipment-by-road.component';
 import { InternationalSummaryByAirAttachmentsComponent } from './page/bounds/international/by-air/international-summary-by-air-attachments/international-summary-by-air-attachments.component';
 import { InternationalSummaryByRoadAttachmentsComponent } from './page/bounds/international/by-road/international-summary-by-road-attachments/international-summary-by-road-attachments.component';
+import { ViewShipmentComponent } from './page/shipping-order/domestic/view-shipment/view-shipment.component';
 
 
 const routes: Routes = [
@@ -351,7 +352,11 @@ const routes: Routes = [
     component:InternationalSummaryByRoadAttachmentsComponent,
     canActivate:[AuthGuard]
   },
-
+  {
+    path:'view-domestic-shipment/:id',
+    component:ViewShipmentComponent,
+    canActivate:[AuthGuard]
+  },
   {
     path:'login',
     component:LoginFormComponent

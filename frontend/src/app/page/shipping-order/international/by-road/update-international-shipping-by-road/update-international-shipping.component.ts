@@ -115,7 +115,7 @@ export class UpdateInternationalShippingComponent {
     this.iSID=+this.route.snapshot.paramMap.get('id')!;
     this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Road',routerLink:'/international-shipment-by-road'},{ label: 'Edit International Shipment By Road'}];
 
-    const locations$: Observable<Location[]> = this.locationService.getAllLocation();
+    const locations$: Observable<Location[]> = this.locationService.getAllLocationForInternational();
     // const locationPort$: Observable<LocationPort[]> =this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> =this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> =this.vehicleTypeService.getALLVehicleType();
@@ -184,14 +184,14 @@ export class UpdateInternationalShippingComponent {
   }
 
   getInternationalRouteForRoad() {
-    debugger
+    this.routes=[]
     if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null) {
       this.internationalShippingService.getInternationalRouteForRoad(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!).subscribe((res:any)=>{
         this.routes=res;
         debugger
       },(error:any)=>{
         console.log(error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       })
 
     }else{
@@ -200,7 +200,7 @@ export class UpdateInternationalShippingComponent {
   }
 
   getAllLocations(){
-    this.locationService.getAllLocation().subscribe((res:Location[])=>{
+    this.locationService.getAllLocationForInternational().subscribe((res:Location[])=>{
       this.location=res.filter(el => el.status);
 
 

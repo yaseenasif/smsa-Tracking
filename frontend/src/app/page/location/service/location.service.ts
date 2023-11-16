@@ -14,6 +14,12 @@ export class LocationService {
   getAllLocation():Observable<Location[]>{
     return this.http.get<Location[]>(this.url.concat('/location'));
   }
+  getAllLocationForDomestic():Observable<Location[]>{
+    return this.http.get<Location[]>(this.url.concat('/location-domestic'));
+  }
+  getAllLocationForInternational():Observable<Location[]>{
+    return this.http.get<Location[]>(this.url.concat('/location-international'));
+  }
   getLocationByID(id:number):Observable<Location>{
     return this.http.get<Location>(this.url.concat('/location/',id.toString()));
   }
@@ -26,4 +32,5 @@ export class LocationService {
   deleteLocationByID(id:number):Observable<Location>{
     return this.http.delete<Location>(this.url.concat('/location/',id.toString()));
   }
+
 }

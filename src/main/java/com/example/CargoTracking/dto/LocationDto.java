@@ -15,6 +15,7 @@ public class LocationDto {
     private Long id;
     @NotBlank(message = "Location name is required")
     private String locationName;
+    private String type;
     private boolean status;
 
 }

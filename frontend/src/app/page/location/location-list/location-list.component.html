@@ -30,13 +30,15 @@
                 <tr>
                   
                   <th class="text-center">Location Name</th>
-                 
+                  <th class="text-center">Location Type</th>
                   <th class="text-center">Actions</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-location>
                 <tr>
                   <td class="text-center">{{ location.locationName }}</td>
+                  <td class="text-center">{{ location.type }}</td>
+
                   <td class="text-center"> 
                     <p-button [routerLink]="['/edit-location',location.id]" icon="bi bi-pen" class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                      

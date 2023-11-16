@@ -25,6 +25,7 @@ export class AddLocationPortComponent implements OnInit {
    location: {
      id: null,
      locationName: null,
+     type: null,
      status: null
    },
    portName: null,
@@ -39,7 +40,7 @@ export class AddLocationPortComponent implements OnInit {
   }
 
   getAllLocation(){
-    this.locationService.getAllLocation().subscribe((res:Location[])=>{
+    this.locationService.getAllLocationForInternational().subscribe((res:Location[])=>{
       this.location=res.filter(location => location.status)    
     },error=>{})
   }

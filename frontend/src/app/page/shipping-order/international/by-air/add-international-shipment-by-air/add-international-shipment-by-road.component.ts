@@ -139,7 +139,7 @@ export class AddInternationalShipmentByRoadComponent {
   }
 
   getAllLocations() {
-    this.locationService.getAllLocation().subscribe((res: Location[]) => {
+    this.locationService.getAllLocationForInternational().subscribe((res: Location[]) => {
       this.location = res.filter(el => el.status);
         
 
@@ -148,6 +148,7 @@ export class AddInternationalShipmentByRoadComponent {
   }
 
   getInternationalRouteForAir() {
+    this.routes=[]
     debugger
     if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null) {
       this.internationalShippingService.getInternationalRouteForAir(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!).subscribe((res:any)=>{

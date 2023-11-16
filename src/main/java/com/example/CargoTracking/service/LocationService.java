@@ -23,6 +23,7 @@ public class LocationService {
 
         Location location = Location.builder()
                 .locationName(locationDto.getLocationName())
+                .type(locationDto.getType())
                 .status(Boolean.TRUE)
                 .build();
 
@@ -31,6 +32,14 @@ public class LocationService {
 
     public List<LocationDto> getActiveLocations() {
         return toDtoList(locationRepository.getActiveLocations());
+    }
+
+    public List<LocationDto> getActiveLocationsForDomestic() {
+        return toDtoList(locationRepository.getActiveLocationsByType("Domestic"));
+    }
+
+    public List<LocationDto> getActiveLocationsForInternational() {
+        return toDtoList(locationRepository.getActiveLocationsByType("International"));
     }
 
     public LocationDto getById(Long id) {
@@ -57,6 +66,7 @@ public class LocationService {
 
         if(location.isPresent()){
             location.get().setLocationName(locationDto.getLocationName());
+            location.get().setType(locationDto.getType());
             return toDto(locationRepository.save(location.get()));
         }
 

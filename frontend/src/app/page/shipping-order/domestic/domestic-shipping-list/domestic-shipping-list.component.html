@@ -95,6 +95,10 @@
                   <td class="text-center">{{ domesticShipment.shortagesAwbs}}</td>
                 
                   <td class="text-center flex flex-row">
+                    <p-button [routerLink]="['/view-domestic-shipment/',domesticShipment.id]"
+                      icon="bi bi-eye" class='mr'
+                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                    </p-button>
                     <p-button [routerLink]="['/view-attachments/','domesticShipment','by-domestic-list',domesticShipment.id]"
                       icon="bi bi-download" class='mr'
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised">

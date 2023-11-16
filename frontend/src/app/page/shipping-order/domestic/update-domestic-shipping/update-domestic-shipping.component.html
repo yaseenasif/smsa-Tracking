@@ -117,13 +117,42 @@
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Route Number</label>
-                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.routeNumber"
-                      #routeNumber="ngModel" required name="routeNumber" />
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
+                  <div class="flex flex-column gap-2 form-hook ">
+                    <label htmlFor="name">Route Number <span><p-badge (click)="getDomesticRoute()" class=""
+                          value="Look up" severity="info"></p-badge>
+                      </span></label>
+                      <p-dropdown
+                      class="w-full"
+                      [options]="routes"
+                      #routeNumber="ngModel"
+                      name="routeNumber"
+                      [required]="true"
+                      [(ngModel)]="domesticShipment.routeNumber"
+                      optionValue="route"
+                      optionLabel="route"
+                      [filter]="true"
+                      filterBy="route"
+                      [showClear]="true"
+                     
+                      placeholder="Select a Route Number
+                      "
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="domesticShipment"
+                        >
+                          <div>
+                            {{ domesticShipment.routeNumber }}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-routes pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ routes.route }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
                   </div>
                 </div>
 
@@ -284,7 +313,7 @@
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Number of Bags</label>
                     <p-inputNumber [maxlength]="3" id="name" [(ngModel)]="domesticShipment.numberOfBags"
-                      #numberOfBags="ngModel" [required]="true" name="numberOfBags" ></p-inputNumber>
+                      #numberOfBags="ngModel" [required]="true" name="numberOfBags"></p-inputNumber>
                     <!-- <small id="name-help"
                         >{{name}}</small
                       > -->

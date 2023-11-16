@@ -140,14 +140,14 @@ export class AddInternationalShippingComponent {
   }
 
   getInternationalRouteForRoad() {
-    debugger
+    this.routes=[]
     if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null) {
       this.internationalShippingService.getInternationalRouteForRoad(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!).subscribe((res:any)=>{
         this.routes=res;
         debugger
       },(error:any)=>{
         console.log(error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.message });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       })
 
     }else{
@@ -156,7 +156,7 @@ export class AddInternationalShippingComponent {
   }
 
   getAllLocations(){
-    this.locationService.getAllLocation().subscribe((res:Location[])=>{
+    this.locationService.getAllLocationForInternational().subscribe((res:Location[])=>{
       this.location=res.filter(el => el.status);         
     },error=>{
     })

@@ -26,7 +26,7 @@ import { Observable, forkJoin } from 'rxjs';
 })
 export class UpdateDomesticShippingComponent {
   items: MenuItem[] | undefined;
-
+  
   domesticShipment:DomesticShipment={
     originFacility: null,
     originLocation: null,
@@ -60,6 +60,7 @@ export class UpdateDomesticShippingComponent {
     attachments: null
   };
 
+  routes:any=[];
   location!:Location[];
   selectedLocation!:Location;
   selectedOriginLocation!:Location;
@@ -106,6 +107,23 @@ export class UpdateDomesticShippingComponent {
         this.uploadedFiles.push(file);
     }
   }
+
+  getDomesticRoute() {
+    this.routes=[]
+    debugger
+    if (this.domesticShipment.originLocation !== null && this.domesticShipment.destinationLocation !== null) {
+      this.domesticShipmentService.getDomesticRoute(this.domesticShipment.originLocation!, this.domesticShipment.destinationLocation !).subscribe((res:any)=>{
+        this.routes=res;
+        debugger
+      },(error:any)=>{
+        console.log(error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      })
+
+    }else{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You must have to select origin and destination port' });
+    }
+  }
   
   ngOnInit(): void {
     this.domesticShipmentId = +this.route.snapshot.paramMap.get('id')!;
@@ -113,7 +131,7 @@ export class UpdateDomesticShippingComponent {
 
     this.items = [{ label: 'Domestic Shipment',routerLink:'/domestic-shipping'},{ label: 'Edit Domestic Shipment'}];
  
-    const locations$: Observable<Location[]> = this.locationService.getAllLocation();
+    const locations$: Observable<Location[]> = this.locationService.getAllLocationForDomestic();
     const driver$: Observable<PaginatedResponse<Driver>> =this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> =this.vehicleTypeService.getALLVehicleType();
     const shipmentStatus$: Observable<ShipmentStatus[]> = this.shipmentStatusService.getALLShipmentStatus();
@@ -156,9 +174,24 @@ export class UpdateDomesticShippingComponent {
   }
 
   getAllLocations(){
-    this.locationService.getAllLocation().subscribe((res:Location[])=>{
+    this.locationService.getAllLocationForDomestic().subscribe((res:Location[])=>{
       this.location=res.filter(el => el.status);   
     },error=>{
+      if(error.error.body){
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      }else{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+      }   
+    })
+  }
+
+  getRouteByRouteNumber(routeNumber:string){
+    this.domesticShipmentService.getRouteByRouteNumber(routeNumber).subscribe((res:any)=>{
+      debugger
+      this.routes.push(res);
+      console.log(this.routes);
+      
+    },(error:any)=>{
       if(error.error.body){
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{
@@ -201,7 +234,8 @@ export class UpdateDomesticShippingComponent {
 
       
       this.domesticShipment=res;
-    
+      this.getRouteByRouteNumber(this.domesticShipment.routeNumber!);
+      debugger
       
 
     },(error:any)=>{

@@ -20,6 +20,7 @@ public class Location {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String locationName;
+    private String type;
     private boolean status;
 
     @OneToMany(mappedBy = "location")

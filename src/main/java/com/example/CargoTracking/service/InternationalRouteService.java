@@ -29,12 +29,17 @@ public class InternationalRouteService {
     public List<InternationalRouteDto> findInternationalRouteForAir(String origin, String destination) {
         List<InternationalRoute> byOriginAndDestination =
                 internationalRouteRepository.findByOriginAndDestinationAndType(origin, destination,"Air");
+        if(byOriginAndDestination.isEmpty()){
+            throw  new RecordNotFoundException(String.format("No routes available against given origin and destination"));
+        }
 
         List<InternationalShipment> internationalShipment =
                 internationalShipmentRepository.findByCreatedAtAndType(LocalDate.now(), "By Air");
 
         List<InternationalRoute> resultList = new ArrayList<>();
-
+        if(internationalShipment.isEmpty()){
+            return toDtoList(byOriginAndDestination);
+        }
         for (InternationalShipment shipment : internationalShipment) {
             resultList.addAll(
                     byOriginAndDestination.stream()
@@ -55,6 +60,32 @@ public class InternationalRouteService {
     public List<InternationalRouteDto> findInternationalRouteForRoad(String origin, String destination) {
         List<InternationalRoute> byOriginAndDestination =
                 internationalRouteRepository.findByOriginAndDestinationAndType(origin, destination,"Road");
+        if(byOriginAndDestination.isEmpty()){
+            throw  new RecordNotFoundException(String.format("No routes available against given origin and destination"));
+        }
+        List<InternationalShipment> internationalShipment =
+                internationalShipmentRepository.findByCreatedAtAndType(LocalDate.now(), "By Road");
+
+        List<InternationalRoute> resultList = new ArrayList<>();
+
+        if(internationalShipment.isEmpty()){
+            return toDtoList(byOriginAndDestination);
+        }
+
+        for (InternationalShipment shipment : internationalShipment) {
+            resultList.addAll(
+                    byOriginAndDestination.stream()
+                            .filter(internationalRoute ->
+                                    !shipment.getOriginPort().equals(internationalRoute.getOrigin()) ||
+                                            !shipment.getDestinationPort().equals(internationalRoute.getDestination()) ||
+                                            !shipment.getRouteNumber().equals(internationalRoute.getRoute())
+                            )
+                            .collect(Collectors.toList())
+            );
+        }
+        if(resultList.isEmpty()){
+            throw new RecordNotFoundException(String.format("All routes have been used today"));
+        }
         return toDtoList(byOriginAndDestination);
     }
 
