@@ -98,6 +98,10 @@
                   <td class="text-center">{{ internationalShipmentByRoad.shortages}}</td>
                   <td class="text-center">{{ internationalShipmentByRoad.shortageAWBs}}</td>
                   <td class="text-center flex flex-row"> 
+                    <p-button [routerLink]="['/view-international-road/',internationalShipmentByRoad.id]"
+                    icon="bi bi-eye" class='mr'
+                    styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                  </p-button>
                     <p-button icon="bi bi-clock-history" [routerLink]="['/international-shipment-history-by-road/',internationalShipmentByRoad.id]" class='mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                     
                     </p-button>

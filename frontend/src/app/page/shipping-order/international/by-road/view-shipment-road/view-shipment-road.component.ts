@@ -12,22 +12,21 @@ import { Driver } from 'src/app/model/Driver';
 import { VehicleType } from 'src/app/model/VehicleType';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { Mode } from 'src/app/model/Mode';
-import {Location} from 'src/app/model/Location'
-
 import { ShipmentMode } from 'src/app/model/ShipmentMode';
 import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
+import {Location} from 'src/app/model/Location'
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
 import { Observable, forkJoin } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { InternationalShippingService } from 'src/app/page/shipping-order/international/service/international-shipping.service';
 
 @Component({
-  selector: 'app-update-international-air-for-summary',
-  templateUrl: './update-international-air-for-summary.component.html',
-  styleUrls: ['./update-international-air-for-summary.component.scss'],
+  selector: 'app-view-shipment-road',
+  templateUrl: './view-shipment-road.component.html',
+  styleUrls: ['./view-shipment-road.component.scss'],
   providers:[MessageService,DatePipe]
 })
-export class UpdateInternationalAirForSummaryComponent {
+export class ViewShipmentRoadComponent {
   items: MenuItem[] | undefined ;
   iSID!:number;
   internationalShipment:InternationalShipment={
@@ -93,7 +92,7 @@ export class UpdateInternationalAirForSummaryComponent {
     private route: ActivatedRoute,
     private vehicleTypeService:VehicleTypeService,
     private shipmentStatusService:ShipmentStatusService,
-    private datePipe:DatePipe) { }
+    private datePipe: DatePipe) { }
     
   name!:string;
   checked!:boolean;
@@ -111,7 +110,8 @@ export class UpdateInternationalAirForSummaryComponent {
   
   ngOnInit(): void {
     this.iSID=+this.route.snapshot.paramMap.get('id')!;
-    this.items = [{ label: 'International Summary By Air',routerLink:'/international-summary-by-air'},{ label: 'Edit International Shipment By Air'}];
+    this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Road',routerLink:'/international-shipment-by-road'},{ label: 'View International Shipment By Road'}];
+   
     const locations$: Observable<Location[]> = this.locationService.getAllLocation();
     const locationPort$: Observable<LocationPort[]> =this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> =this.driverService.getAllDriver();
@@ -134,19 +134,15 @@ export class UpdateInternationalAirForSummaryComponent {
   }
 
    onSubmit() {
-    this.internationalShipment.etd=this.datePipe.transform(this.internationalShipment.etd,'yyyy-MM-dd')
-    this.internationalShipment.eta=this.datePipe.transform(this.internationalShipment.eta,'yyyy-MM-dd')
-    this.internationalShipment.atd=this.datePipe.transform(this.internationalShipment.atd,'yyyy-MM-dd')
-    this.internationalShipment.ata=this.datePipe.transform(this.internationalShipment.ata,'yyyy-MM-dd')
-    this.internationalShipment.departureDate=this.datePipe.transform(this.internationalShipment.departureDate,'yyyy-MM-dd')
-    this.internationalShipment.arrivalDate=this.datePipe.transform(this.internationalShipment.arrivalDate,'yyyy-MM-dd')
-    this.internationalShipment.departureTime=this.datePipe.transform(this.internationalShipment.departureTime,'HH:mm:ss')
-    this.internationalShipment.arrivalTime=this.datePipe.transform(this.internationalShipment.arrivalTime,'HH:mm:ss')
-
+   this.internationalShipment.etd=this.datePipe.transform(this.internationalShipment.etd,'yyyy-MM-dd')
+   this.internationalShipment.eta=this.datePipe.transform(this.internationalShipment.eta,'yyyy-MM-dd')
+   this.internationalShipment.atd=this.datePipe.transform(this.internationalShipment.atd,'yyyy-MM-dd')
+   this.internationalShipment.ata=this.datePipe.transform(this.internationalShipment.ata,'yyyy-MM-dd')
+    
     this.internationalShippingService.updateInternationalShipmentById(this.iSID,this.internationalShipment).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is updated on id'+res.id});
       setTimeout(() => {
-        this.router.navigate(['/international-shipment-by-air']);
+        this.router.navigate(['/international-summary-by-road']);
       },800);
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'International Shipment is not updated'});
@@ -156,18 +152,15 @@ export class UpdateInternationalAirForSummaryComponent {
   getInternationalShipmentById(id:number){
     
     this.internationalShippingService.getInternationalShipmentByID(id).subscribe((res:InternationalShipment)=>{
-     res.etd=res.etd ? new Date(res.etd) : null;
-     res.eta=res.eta ? new Date(res.eta) : null;
-     res.atd=res.atd ? new Date(res.atd) : null;
-     res.ata=res.ata ? new Date(res.ata) : null;
-     res.departureDate=res.departureDate ? new Date(res.departureDate) : null;
-     res.arrivalDate=res.arrivalDate ? new Date(res.arrivalDate) : null;
-     res.departureTime=res.departureTime ? new Date(`1970-01-01 ${res.departureTime}`) : null;
-     res.arrivalTime = res.arrivalTime ? new Date(`1970-01-01 ${res.arrivalTime}`) : null;
-   
+     res.etd=res.etd?new Date(res.etd):null;
+     res.eta=res.eta?new Date(res.eta):null;
+     res.atd=res.atd?new Date(res.atd):null;
+     res.ata=res.ata?new Date(res.ata):null;
      this.selectedDriver=this.drivers.find(el=>(el.name==res.driverName)&&(el.contactNumber==res.driverContact)&&(el.referenceNumber==res.referenceNumber))
+     
      this.internationalShipment=res;  
-   
+    
+     
     },error=>{
      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not International Shipment by id'});
     })
@@ -213,4 +206,7 @@ export class UpdateInternationalAirForSummaryComponent {
     this.internationalShipment.referenceNumber=this.selectedDriver?.referenceNumber;
    }
 }
+
+
+
 

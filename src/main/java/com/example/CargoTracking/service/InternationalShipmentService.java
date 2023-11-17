@@ -142,7 +142,7 @@ public class InternationalShipmentService {
             LocalDate currentDate = LocalDate.now();
 
             for (InternationalShipment entity : internationalShipmentList) {
-                if (entity.getAtd().isBefore(currentDate) && !entity.getRedFlag() && !entity.getStatus().equals("Arrived")) {
+                if (entity.getEta().isBefore(currentDate) && !entity.getRedFlag() && !entity.getStatus().equals("Arrived")) {
                     entity.setRedFlag(true);
                 }
             }

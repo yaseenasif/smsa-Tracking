@@ -1,1 +1,159 @@
-<p>view-shipment works!</p>
+<div class="flex flex-row">
+    <app-sidebar></app-sidebar>
+    <div class="body-position">
+      <div class="body-holder">
+        <app-dashboard-head></app-dashboard-head>
+  
+        <div class="main">
+          <div class="card flex justify-content-center">
+            <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+          </div>
+          <div class="body-card">
+            <p-toast></p-toast>
+            <div class="table-head mb-4">
+              <h1 class="mb-4 h-color">View Domestic Shipment</h1>
+              <p-toolbar>
+                <div class="grid w-full">
+                  <div class="lg:col-12 md:col-6 col-12">
+                    <div class="grid">
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Origin Facility :</label> &nbsp;
+                        <label for=""> {{domesticShipment.originFacility}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Origin Location :</label> &nbsp;
+                        <label for=""> {{domesticShipment.originLocation}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Referigirated Truck :</label> &nbsp;
+                        <label for=""> {{domesticShipment.refrigeratedTruck}}</label>
+                      </div>
+  
+                    </div>
+                  </div>
+                  <div class="lg:col-12 md:col-6 col-12">
+                    <div class="grid">
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Destination Facility :</label> &nbsp;
+                        <label for=""> {{domesticShipment.destinationFacility}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Destination Location :</label> &nbsp;
+                        <label for=""> {{domesticShipment.destinationLocation}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Route Number :</label> &nbsp;
+                        <label for=""> {{domesticShipment.routeNumber}}</label>
+                      </div>
+  
+                    </div>
+                  </div>
+                  <div class="lg:col-12 md:col-6 col-12">
+                    <div class="grid">
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Number of Shipments :</label> &nbsp;
+                        <label for=""> {{domesticShipment.numberOfShipments}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Weight :</label> &nbsp;
+                        <label for=""> {{domesticShipment.weight}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">ETD :</label> &nbsp;
+                        <label for=""> {{domesticShipment.etd| date:"shortDate" }}</label>
+                      </div>
+  
+                    </div>
+                  </div>
+                  <div class="lg:col-12 md:col-6 col-12">
+                    <div class="grid">
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">ETA :</label> &nbsp;
+                        <label for=""> {{domesticShipment.eta| date:"shortDate" }}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">ATD :</label> &nbsp;
+                        <label for=""> {{domesticShipment.atd| date:"shortDate" }}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Driver Name :</label> &nbsp;
+                        <label for=""> {{domesticShipment.driverName}}</label>
+                      </div>
+  
+                    </div>
+                  </div>
+                  <div class="lg:col-12 md:col-6 col-12">
+                    <div class="grid">
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Driver Contact :</label> &nbsp;
+                        <label for=""> {{domesticShipment.driverContact}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Reference Number :</label> &nbsp;
+                        <label for=""> {{domesticShipment.referenceNumber}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Vehicle Type :</label> &nbsp;
+                        <label for=""> {{domesticShipment.vehicleType}}</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="lg:col-12 md:col-6 col-12">
+                    <div class="grid">
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Number of Pallets :</label> &nbsp;
+                        <label for=""> {{domesticShipment.numberOfPallets}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Number of Bags :</label> &nbsp;
+                        <label for=""> {{domesticShipment.numberOfBags}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Vehicle Number :</label> &nbsp;
+                        <label for=""> {{domesticShipment.vehicleNumber}}</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="lg:col-12 md:col-6 col-12">
+                    <div class="grid">
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Tag Number :</label> &nbsp;
+                        <label for=""> {{domesticShipment.tagNumber}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Seal Number :</label> &nbsp;
+                        <label for=""> {{domesticShipment.sealNumber}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Status:</label> &nbsp;
+                        <label for=""> {{domesticShipment.status}}</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="lg:col-12 md:col-6 col-12">
+                    <div class="grid">
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Remarks :</label> &nbsp;
+                        <label for=""> {{domesticShipment.remarks}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">ATA :</label> &nbsp;
+                        <label for=""> {{domesticShipment.ata| date:"shortDate" }}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Total Shipments:</label> &nbsp;
+                        <label for=""> {{domesticShipment.totalShipments}}</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="lg:col-12 md:col-6 col-12">
+                    <div class="grid">
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Overages :</label> &nbsp;
+                        <label for=""> {{domesticShipment.overages}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Overages AWBs :</label> &nbsp;
+                        <label for=""> {{domesticShipment.overagesAwbs}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Received:</label> &nbsp;
+                        <label for=""> {{domesticShipment.received}}</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="lg:col-12 md:col-6 col-12">
+                    <div class="grid">
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Shortages :</label> &nbsp;
+                        <label for=""> {{domesticShipment.shortages}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Shortages AWBs :</label> &nbsp;
+                        <label for=""> {{domesticShipment.shortagesAwbs}}</label>
+                      </div>
+                      <div class="lg:col-4 md:col-12 col-12">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </p-toolbar>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

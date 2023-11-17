@@ -91,6 +91,8 @@ import { AddAttachmentsOfInternationalShipmentByRoadComponent } from './page/shi
 import { InternationalSummaryByAirAttachmentsComponent } from './page/bounds/international/by-air/international-summary-by-air-attachments/international-summary-by-air-attachments.component';
 import { InternationalSummaryByRoadAttachmentsComponent } from './page/bounds/international/by-road/international-summary-by-road-attachments/international-summary-by-road-attachments.component';
 import { ViewShipmentComponent } from './page/shipping-order/domestic/view-shipment/view-shipment.component';
+import { ViewShipmentAirComponent } from './page/shipping-order/international/by-air/view-shipment-air/view-shipment-air.component';
+import { ViewShipmentRoadComponent } from './page/shipping-order/international/by-road/view-shipment-road/view-shipment-road.component';
 
 
 
@@ -156,6 +158,8 @@ import { ViewShipmentComponent } from './page/shipping-order/domestic/view-shipm
     InternationalSummaryByAirAttachmentsComponent,
     InternationalSummaryByRoadAttachmentsComponent,
     ViewShipmentComponent,
+    ViewShipmentAirComponent,
+    ViewShipmentRoadComponent,
   ],
   imports: [
     BrowserModule,

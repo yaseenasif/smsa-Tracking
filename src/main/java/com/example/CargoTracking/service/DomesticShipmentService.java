@@ -342,7 +342,7 @@ public class DomesticShipmentService {
             LocalDate currentDate = LocalDate.now();
 
             for (DomesticShipment entity : domesticShipmentList) {
-                if (entity.getAtd().isBefore(currentDate) && !entity.getRedFlag() && !entity.getStatus().equals("Arrived")) {
+                if (entity.getEta().isBefore(currentDate) && !entity.getRedFlag() && !entity.getStatus().equals("Arrived")) {
                     entity.setRedFlag(true);
                 }
             }

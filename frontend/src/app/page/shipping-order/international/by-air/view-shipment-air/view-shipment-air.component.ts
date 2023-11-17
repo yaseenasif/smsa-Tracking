@@ -22,12 +22,12 @@ import { DatePipe } from '@angular/common';
 import { InternationalShippingService } from 'src/app/page/shipping-order/international/service/international-shipping.service';
 
 @Component({
-  selector: 'app-update-international-air-for-summary',
-  templateUrl: './update-international-air-for-summary.component.html',
-  styleUrls: ['./update-international-air-for-summary.component.scss'],
+  selector: 'app-view-shipment-air',
+  templateUrl: './view-shipment-air.component.html',
+  styleUrls: ['./view-shipment-air.component.scss'],
   providers:[MessageService,DatePipe]
 })
-export class UpdateInternationalAirForSummaryComponent {
+export class ViewShipmentAirComponent {
   items: MenuItem[] | undefined ;
   iSID!:number;
   internationalShipment:InternationalShipment={
@@ -111,7 +111,7 @@ export class UpdateInternationalAirForSummaryComponent {
   
   ngOnInit(): void {
     this.iSID=+this.route.snapshot.paramMap.get('id')!;
-    this.items = [{ label: 'International Summary By Air',routerLink:'/international-summary-by-air'},{ label: 'Edit International Shipment By Air'}];
+    this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Air',routerLink:'/international-shipment-by-air'},{ label: 'View International Shipment By Air'}];
     const locations$: Observable<Location[]> = this.locationService.getAllLocation();
     const locationPort$: Observable<LocationPort[]> =this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> =this.driverService.getAllDriver();
@@ -213,4 +213,5 @@ export class UpdateInternationalAirForSummaryComponent {
     this.internationalShipment.referenceNumber=this.selectedDriver?.referenceNumber;
    }
 }
+
 
