@@ -83,6 +83,7 @@ export class UpdateDomesticShippingComponent {
   selectedShipmentStatus!: ShipmentStatus;
 
   domesticShipmentId: any;
+  showDropDown: boolean = false;
 
   constructor(private locationService: LocationService,
     private vehicleTypeService: VehicleTypeService,
@@ -109,6 +110,7 @@ export class UpdateDomesticShippingComponent {
   }
 
   getDomesticRoute() {
+    this.showDropDown = true;
     this.routes = []
     debugger
     if (this.domesticShipment.originLocation !== null && this.domesticShipment.destinationLocation !== null) {
@@ -128,7 +130,7 @@ export class UpdateDomesticShippingComponent {
   ngOnInit(): void {
     this.domesticShipmentId = +this.route.snapshot.paramMap.get('id')!;
     this.items = [{ label: 'Domestic Shipment', routerLink: '/domestic-shipping' }, { label: 'Edit Domestic Shipment' }];
-
+debugger
     const locations$: Observable<Location[]> = this.locationService.getAllLocationForDomestic();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
@@ -229,10 +231,9 @@ export class UpdateDomesticShippingComponent {
 
 
       this.domesticShipment = res;
-      this.getRouteByRouteNumber(this.domesticShipment.routeNumber!);
+      this.getDomesticRoute();
+      // this.getRouteByRouteNumber(this.domesticShipment.routeNumber!);
       debugger
-
-
     }, (error: any) => {
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });

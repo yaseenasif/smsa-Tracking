@@ -157,7 +157,7 @@ export class UpdateInternationalShipmentByAirComponent {
 
     this.internationalShippingService.getInternationalShipmentByID(id).subscribe((res:InternationalShipment)=>{
 
-      res.etd=res.etd ? new Date(res.etd) : null;
+     res.etd=res.etd ? new Date(res.etd) : null;
      res.eta=res.eta ? new Date(res.eta) : null;
      res.atd=res.atd ? new Date(res.atd) : null;
      res.ata=res.ata ? new Date(res.ata) : null;
