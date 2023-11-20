@@ -59,7 +59,6 @@ public class DomesticShipment {
     private String preAlertType;
     private long transitTimeTaken;
     private LocalDateTime createdTime;
-    private int trip;
 //    private List<String> urls;
 
     // attachments dalega

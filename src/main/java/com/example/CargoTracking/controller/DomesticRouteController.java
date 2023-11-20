@@ -20,9 +20,8 @@ public class DomesticRouteController {
 
     @GetMapping("/getRoute/{origin}/{destination}/{trip}")
     public List<DomesticRouteDto> getInternationalRouteForAir(@PathVariable String origin,
-                                                              @PathVariable String destination,
-                                                              @PathVariable int trip ){
-        return domesticRouteService.findDomesticRoute(origin,destination,trip);
+                                                              @PathVariable String destination ){
+        return domesticRouteService.findDomesticRoute(origin,destination);
     }
 
     @GetMapping("domesticRoute/{routeNumber}")

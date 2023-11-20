@@ -17,13 +17,17 @@ public class InternationalRouteController {
     @Autowired
     InternationalRouteService internationalRouteService;
 
-    @GetMapping("/getRoute-air/{origin}/{destination}")
-    public List<InternationalRouteDto> getInternationalRouteForAir(@PathVariable String origin, @PathVariable String destination){
-        return internationalRouteService.findInternationalRouteForAir(origin,destination);
+    @GetMapping("/getRoute-air/{origin}/{destination}/{trip}")
+    public List<InternationalRouteDto> getInternationalRouteForAir(@PathVariable String origin,
+                                                                   @PathVariable String destination,
+                                                                   @PathVariable int trip){
+        return internationalRouteService.findInternationalRouteForAir(origin,destination,trip);
     }
-    @GetMapping("/getRoute-road/{origin}/{destination}")
-    public List<InternationalRouteDto> getInternationalRouteForRoad(@PathVariable String origin, @PathVariable String destination){
-        return internationalRouteService.findInternationalRouteForRoad(origin,destination);
+    @GetMapping("/getRoute-road/{origin}/{destination}/{trip}")
+    public List<InternationalRouteDto> getInternationalRouteForRoad(@PathVariable String origin,
+                                                                    @PathVariable String destination,
+                                                                    @PathVariable int trip){
+        return internationalRouteService.findInternationalRouteForRoad(origin,destination,trip);
     }
 
 }

@@ -27,7 +27,7 @@ public class DomesticRouteService {
     @Autowired
     ModelMapper modelMapper;
 
-    public List<DomesticRouteDto> findDomesticRoute(String origin, String destination,int trip) {
+    public List<DomesticRouteDto> findDomesticRoute(String origin, String destination) {
         List<DomesticRoute> byOriginAndDestination =
                 domesticRouteRepository.findByOriginAndDestination(origin, destination);
         if(byOriginAndDestination.isEmpty()){
@@ -47,8 +47,7 @@ public class DomesticRouteService {
                             .filter(domesticRoute ->
                                     !shipment.getOriginLocation().equals(domesticRoute.getOrigin()) ||
                                             !shipment.getDestinationLocation().equals(domesticRoute.getDestination()) ||
-                                            !shipment.getRouteNumber().equals(domesticRoute.getRoute()) ||
-                                            shipment.getTrip() != trip
+                                            !shipment.getRouteNumber().equals(domesticRoute.getRoute())
                             )
                             .collect(Collectors.toList())
             );

@@ -26,7 +26,7 @@ public class InternationalRouteService {
     @Autowired
     ModelMapper modelMapper;
 
-    public List<InternationalRouteDto> findInternationalRouteForAir(String origin, String destination) {
+    public List<InternationalRouteDto> findInternationalRouteForAir(String origin, String destination, int trip) {
         List<InternationalRoute> byOriginAndDestination =
                 internationalRouteRepository.findByOriginAndDestinationAndType(origin, destination,"Air");
         if(byOriginAndDestination.isEmpty()){
@@ -45,8 +45,9 @@ public class InternationalRouteService {
                     byOriginAndDestination.stream()
                             .filter(internationalRoute ->
                                     !shipment.getOriginPort().equals(internationalRoute.getOrigin()) ||
-                                            !shipment.getDestinationPort().equals(internationalRoute.getDestination()) ||
-                                            !shipment.getRouteNumber().equals(internationalRoute.getRoute())
+                                     !shipment.getDestinationPort().equals(internationalRoute.getDestination()) ||
+                                     !shipment.getRouteNumber().equals(internationalRoute.getRoute())||
+                                     shipment.getTrip() != trip
                             )
                             .collect(Collectors.toList())
             );
@@ -57,7 +58,7 @@ public class InternationalRouteService {
         return toDtoList(resultList);
     }
 
-    public List<InternationalRouteDto> findInternationalRouteForRoad(String origin, String destination) {
+    public List<InternationalRouteDto> findInternationalRouteForRoad(String origin, String destination, int trip) {
         List<InternationalRoute> byOriginAndDestination =
                 internationalRouteRepository.findByOriginAndDestinationAndType(origin, destination,"Road");
         if(byOriginAndDestination.isEmpty()){
@@ -77,8 +78,9 @@ public class InternationalRouteService {
                     byOriginAndDestination.stream()
                             .filter(internationalRoute ->
                                     !shipment.getOriginPort().equals(internationalRoute.getOrigin()) ||
-                                            !shipment.getDestinationPort().equals(internationalRoute.getDestination()) ||
-                                            !shipment.getRouteNumber().equals(internationalRoute.getRoute())
+                                    !shipment.getDestinationPort().equals(internationalRoute.getDestination()) ||
+                                    !shipment.getRouteNumber().equals(internationalRoute.getRoute()) ||
+                                    shipment.getTrip() != trip
                             )
                             .collect(Collectors.toList())
             );

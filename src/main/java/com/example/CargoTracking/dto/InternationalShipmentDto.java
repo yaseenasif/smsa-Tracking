@@ -63,5 +63,6 @@ public class InternationalShipmentDto {
     private Boolean redFlag;
     private String preAlertType;
     private long transitTimeTaken;
+    private int trip;
 
 }
