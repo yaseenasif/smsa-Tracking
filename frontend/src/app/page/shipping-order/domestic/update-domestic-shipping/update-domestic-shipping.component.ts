@@ -231,8 +231,8 @@ debugger
 
 
       this.domesticShipment = res;
-      this.getDomesticRoute();
-      // this.getRouteByRouteNumber(this.domesticShipment.routeNumber!);
+      // this.getDomesticRoute();
+      this.getRouteByRouteNumber(this.domesticShipment.routeNumber!);
       debugger
     }, (error: any) => {
       if (error.error.body) {

@@ -83,7 +83,7 @@ export class UpdateInternationalShippingComponent {
   modeOptions:{ options: string }[] =Object.values(Mode).map(el => ({ options: el }));
   shipmentMode:{ options: string }[] =Object.values(ShipmentMode).map(el => ({ options: el }));
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
-
+  showDropDown:boolean = false;
   selectedLocation!:Location;
 
   constructor(private router:Router,
@@ -175,7 +175,7 @@ export class UpdateInternationalShippingComponent {
      this.internationalShipment=res;
      this.getLocationPortByLocationForOrigin();
      this.getLocationPortByLocationForDestination();
-     this.getInternationalRouteForRoad();
+    //  this.getInternationalRouteForRoad();
 
 
     },error=>{
@@ -184,6 +184,7 @@ export class UpdateInternationalShippingComponent {
   }
 
   getInternationalRouteForRoad() {
+    this.showDropDown = true;
     this.routes=[]
     if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null) {
       this.internationalShippingService.getInternationalRouteForRoad(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!).subscribe((res:any)=>{

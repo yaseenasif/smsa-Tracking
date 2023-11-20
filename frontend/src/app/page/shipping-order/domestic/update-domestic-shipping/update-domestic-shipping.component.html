@@ -178,6 +178,7 @@
                           severity="info"
                         ></p-badge> </span
                     ></label>
+                    <span *ngIf="!showDropDown">{{domesticShipment.routeNumber}}</span>
                     <p-dropdown
                       *ngIf="showDropDown"
                       class="w-full"
