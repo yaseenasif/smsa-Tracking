@@ -5,10 +5,7 @@ import com.example.CargoTracking.dto.InternationalRouteDto;
 import com.example.CargoTracking.model.DomesticRoute;
 import com.example.CargoTracking.service.DomesticRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +15,7 @@ public class DomesticRouteController {
     @Autowired
     DomesticRouteService domesticRouteService;
 
-    @GetMapping("/getRoute/{origin}/{destination}/{trip}")
+    @GetMapping("/getRoute/{origin}/{destination}")
     public List<DomesticRouteDto> getInternationalRouteForAir(@PathVariable String origin,
                                                               @PathVariable String destination ){
         return domesticRouteService.findDomesticRoute(origin,destination);
@@ -27,5 +24,15 @@ public class DomesticRouteController {
     @GetMapping("domesticRoute/{routeNumber}")
     public DomesticRoute getRouteByRouteNumber(@PathVariable String routeNumber){
         return domesticRouteService.findRouteByRouteNumber(routeNumber);
+    }
+
+    @PostMapping("/add-domesticRoute")
+    public DomesticRouteDto addDomesticRoute(@RequestBody DomesticRouteDto domesticRouteDto){
+        return domesticRouteService.saveDomesticRoute(domesticRouteDto);
+    }
+
+    @GetMapping("/all-domesticRoutes")
+    public List<DomesticRouteDto> findAllDomesticRoutes(){
+        return domesticRouteService.findAllDomesticRoutes();
     }
 }

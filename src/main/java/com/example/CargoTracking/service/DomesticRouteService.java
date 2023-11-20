@@ -66,7 +66,20 @@ public class DomesticRouteService {
         return modelMapper.map(domesticRoute, DomesticRouteDto.class);
     }
 
+    public DomesticRoute toEntity(DomesticRouteDto domesticRouteDto){
+        return modelMapper.map(domesticRouteDto,DomesticRoute.class);
+    }
+
     public DomesticRoute findRouteByRouteNumber(String routeNumber) {
         return  domesticRouteRepository.findByRoute(routeNumber);
+    }
+
+    public DomesticRouteDto saveDomesticRoute(DomesticRouteDto domesticRouteDto) {
+        DomesticRoute domesticRoute = domesticRouteRepository.save(toEntity(domesticRouteDto));
+        return toDto(domesticRoute);
+    }
+
+    public List<DomesticRouteDto> findAllDomesticRoutes() {
+        return toDtoList(domesticRouteRepository.findAll());
     }
 }

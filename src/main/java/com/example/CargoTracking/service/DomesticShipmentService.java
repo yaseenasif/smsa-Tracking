@@ -29,6 +29,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.rmi.server.ExportException;
 import java.time.Duration;
 import java.util.UUID;
 import java.io.IOException;
@@ -67,6 +68,21 @@ public class DomesticShipmentService {
         if(principal instanceof UserDetails){
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
+
+            LocalDate todaysDate = LocalDate.now();
+
+            List<DomesticShipment> olderDomesticShipmentList = domesticShipmentRepository.findByCreatedAt(todaysDate);
+
+            if(!olderDomesticShipmentList.isEmpty()){
+                for (DomesticShipment shipment: olderDomesticShipmentList) {
+                    if( shipment.getOriginLocation().equals(domesticShipmentDto.getOriginLocation()) &&
+                        shipment.getDestinationLocation().equals(domesticShipmentDto.getDestinationLocation()) &&
+                        shipment.getVehicleNumber().equals(domesticShipmentDto.getVehicleNumber())){
+                        throw new RecordNotFoundException(String.format("This location and vehicle number has already used in another shipment"));
+                    }
+                }
+            }
+
 
             DomesticShipment unSaveDomesticShipment = toEntity(domesticShipmentDto);
             unSaveDomesticShipment.setCreatedAt(LocalDate.now());
