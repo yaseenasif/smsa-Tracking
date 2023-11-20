@@ -18,9 +18,11 @@ public class DomesticRouteController {
     @Autowired
     DomesticRouteService domesticRouteService;
 
-    @GetMapping("/getRoute/{origin}/{destination}")
-    public List<DomesticRouteDto> getInternationalRouteForAir(@PathVariable String origin, @PathVariable String destination){
-        return domesticRouteService.findDomesticRoute(origin,destination);
+    @GetMapping("/getRoute/{origin}/{destination}/{trip}")
+    public List<DomesticRouteDto> getInternationalRouteForAir(@PathVariable String origin,
+                                                              @PathVariable String destination,
+                                                              @PathVariable int trip ){
+        return domesticRouteService.findDomesticRoute(origin,destination,trip);
     }
 
     @GetMapping("domesticRoute/{routeNumber}")

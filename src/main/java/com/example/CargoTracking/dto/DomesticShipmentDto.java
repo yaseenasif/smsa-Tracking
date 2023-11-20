@@ -52,5 +52,6 @@ public class DomesticShipmentDto {
     private long preAlertNumber;
     private String preAlertType;
     private long transitTimeTaken;
+    private int trip;
 
 }
