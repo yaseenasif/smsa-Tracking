@@ -400,4 +400,18 @@ public class InternationalShipmentService {
         }
 
     }
+
+    public ApiResponse deleteInternationalShipment(Long id) {
+        Optional<InternationalShipment> internationalShipment = internationalShipmentRepository.findById(id);
+        if(internationalShipment.isPresent()){
+            internationalShipmentRepository.deleteById(id);
+            return ApiResponse.builder()
+                    .message("Record delete successfully")
+                    .statusCode(HttpStatus.OK.value())
+                    .result(Collections.emptyList())
+                    .build();
+        }else{
+            throw new RecordNotFoundException(String.format("International shipment Not Found By This Id %d",id));
+        }
+    }
 }

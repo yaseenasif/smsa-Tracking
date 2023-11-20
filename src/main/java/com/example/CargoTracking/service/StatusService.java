@@ -33,12 +33,14 @@ public class StatusService {
     }
 
     public void deleteById(Long id) {
-        Optional<Status> vehicleType = statusRepository.findById(id);
+        Optional<Status> status = statusRepository.findById(id);
 
-        if (vehicleType.isPresent()) {
+        if (status.isPresent()) {
            statusRepository.deleteById(id);
+        }else{
+            throw new RecordNotFoundException(String.format("Status not found by this id => %d",id));
+
         }
-        throw new RecordNotFoundException(String.format("Status not found by this id => %d",id));
     }
 
 

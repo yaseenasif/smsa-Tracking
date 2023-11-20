@@ -2,6 +2,7 @@ package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.dto.DriverDto;
 import com.example.CargoTracking.dto.UserDto;
+import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.model.Driver;
 import com.example.CargoTracking.model.Location;
 import com.example.CargoTracking.model.Roles;
@@ -103,15 +104,21 @@ public class UserService {
                 Set<Roles> rolesList = new HashSet<>();
                 rolesList.add(roles.get());
 
-                User user1 = User.builder()
-                        .name(userDto.getName())
-                        .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
-                        .roles(rolesList)
-                        .status(Boolean.TRUE)
-                        .location(location)
-                        .email(userDto.getEmail())
-                        .build();
-                User save = userRepository.save(user1);
+//                User user1 = User.builder()
+//                        .name(userDto.getName())
+//                        .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
+//                        .roles(rolesList)
+//                        .status(Boolean.TRUE)
+//                        .location(location)
+//                        .email(userDto.getEmail())
+//                        .build();
+                user.get().setName(userDto.getName());
+                user.get().setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+                user.get().setRoles(rolesList);
+                user.get().setStatus(Boolean.TRUE);
+                user.get().setEmail(userDto.getEmail())
+                ;
+                User save = userRepository.save(user.get());
                 return toDto(save);
 
             }catch(Exception e){
@@ -137,5 +144,13 @@ public class UserService {
             return toDto(save);
         }
         throw new RuntimeException("User not found");
+    }
+
+    public UserDto getUserById(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if(user.isPresent()){
+            return toDto(user.get());
+        }
+        throw new RecordNotFoundException(String.format("User Not found at id : %d",id));
     }
 }

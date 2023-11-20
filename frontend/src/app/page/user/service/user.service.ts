@@ -14,11 +14,11 @@ export class UserService {
   getAllUser():Observable<User[]>{
     return this.http.get<User[]>(this.url.concat('/all-user'));
   }
-  // getUserByID(id:number):Observable<User>{
-  //   return this.http.get<User>(this.url.concat('/user/',id.toString()));
-  // }
+  getUserByID(id:number):Observable<User>{
+    return this.http.get<User>(this.url.concat('/user/',id.toString()));
+  }
   updateUserById(id:number,body:User):Observable<User>{
-    return this.http.put<User>(this.url.concat('/user/',id.toString()),body);
+    return this.http.put<User>(this.url.concat('/edit-user/',id.toString()),body);
   }
   addUser(body:User):Observable<User>{
    return this.http.post<User>(this.url.concat('/user'),body);

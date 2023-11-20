@@ -27,7 +27,7 @@ export class ShipmentStatusListComponent {
     })
    }
    deleteShipmentStatusByID(id:number){
- 
+    debugger
     this.shipmentStatusService.deleteShipmentStatusByID(id).subscribe(()=>{
       this.getAllShipmentStatus();
       this.visible = false;

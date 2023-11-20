@@ -44,7 +44,7 @@
                   <td class="text-center">{{ users.location!=null?users.location:"Role admin has no location"}}</td>
                   <td class="text-center">{{ users.role }}</td>
                   <td class="text-center"> 
-                    <p-button routerLink="/edit-user" icon="bi bi-pen" class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                    <p-button [routerLink]="['/edit-user/',users.id]" icon="bi bi-pen" class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                      
                     </p-button>
                      <p-button (click)="showDialog(users.id)" icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">

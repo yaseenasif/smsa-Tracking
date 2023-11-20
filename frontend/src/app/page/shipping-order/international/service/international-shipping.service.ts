@@ -53,6 +53,10 @@ export class InternationalShippingService {
     return this.http.get<LocationPort[]>(`${this.url}/location/location-port/${name}`)
   }
 
+  deleteInternationalShipmentById(id:number):Observable<any>{
+   return this.http.delete<void>(`${this.url}/delete-international-shipment/${id}`);
+  }
+
   stringToTime(timeString:string|null|any): {hour: string|null|undefined,minute:string|null|undefined,nano:number|null|undefined,second:string|null|undefined}{
     const date =timeString? new Date(timeString):null;
     

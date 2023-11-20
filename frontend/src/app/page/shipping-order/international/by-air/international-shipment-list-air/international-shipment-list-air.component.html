@@ -114,7 +114,7 @@
                       <p-button [routerLink]="['/update-international-shipment-by-air',internationalShipmentByAir.id]" icon="bi bi-pen" class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                        
                       </p-button>
-                       <p-button icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                       <p-button icon="bi bi-trash" class='ml' (click)="deleteInternationalShipmentById(internationalShipmentByAir.id)" styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                       
                        </p-button>
                       

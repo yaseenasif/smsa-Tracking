@@ -73,7 +73,7 @@ public class InternationalShipment {
     private User updatedBy;
     private LocalDate updatedAt;
 
-    @OneToMany(mappedBy = "internationalShipment")
+    @OneToMany(mappedBy = "internationalShipment",cascade = CascadeType.REMOVE)
     private List<InternationalShipmentHistory> shipmentHistory;
 
     @OneToMany(mappedBy = "internationalShipment", cascade = CascadeType.REMOVE)
