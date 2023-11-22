@@ -1,0 +1,102 @@
+<div class="flex flex-row">
+  <app-sidebar></app-sidebar>
+  <div class="body-position">
+    <div class="body-holder">
+      <app-dashboard-head></app-dashboard-head>
+
+      <div class="main">
+        <div class="card flex justify-content-center">
+          <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+        </div>
+        <div class="body-card">
+          <p-toast></p-toast>
+          <div class="table-head">
+            <p-toolbar>
+              <div class="p-toolbar-group-start">
+                <h2 class="h-color">Domestic Route List</h2>
+              </div>
+              <div class="p-toolbar-group-end">
+                <p-button class="bg-b-color" routerLink="/add-domestic-routes">
+                  <i
+                    class="bi bi-plus-lg"
+                    style="font-size: 20px; font-weight: bold"
+                  ></i
+                  >&nbsp;Add Route
+                </p-button>
+              </div>
+            </p-toolbar>
+          </div>
+
+          <div class="card">
+            <p-table
+              [value]="domesticRoutes"
+              [tableStyle]="{ 'min-width': '50rem' }"
+            >
+              <ng-template pTemplate="header">
+                <tr>
+                  <th class="text-center">Destination</th>
+                  <th class="text-center">Driver</th>
+                  <th class="text-center">Eta</th>
+                  <th class="text-center">Etd</th>
+                  <th class="text-center">Origin</th>
+                  <th class="text-center">Route</th>
+                  <th class="text-center">Actions</th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-route>
+                <tr>
+                  <td class="text-center">{{ route.destination }}</td>
+                  <td class="text-center">
+                    {{ route.driver ? route.driver : "Not Available" }}
+                  </td>
+                  <td class="text-center">{{ route.eta }}</td>
+                  <td class="text-center">{{ route.etd }}</td>
+                  <td class="text-center">{{ route.origin }}</td>
+                  <td class="text-center">{{ route.route }}</td>
+                  <td class="text-center">
+                    <p-button
+                      [routerLink]="['/update-domestic-routes/', route.id]"
+                      icon="bi bi-pen"
+                      class="ml mr"
+                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                    >
+                    </p-button>
+                    <p-button
+                      (click)="showDialog(route.id)"
+                      icon="bi bi-trash"
+                      class="ml"
+                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                    >
+                    </p-button>
+                  </td>
+                </tr>
+              </ng-template>
+            </p-table>
+          </div>
+          <div class="card flex justify-content-center">
+            <p-paginator
+              (onPageChange)="onPageChange($event)"
+              [first]="first"
+              [rows]="rows"
+              [totalRecords]="120"
+              [rowsPerPageOptions]="[10, 20, 30]"
+            ></p-paginator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-dialog
+  header="Delete Permission"
+  class="form-hook"
+  [(visible)]="visible"
+  [style]="{ width: '50vw' }"
+>
+  <h4 class="mb-4">Are sure you want to delete this Route on id {{ rID }}</h4>
+  <p-button (click)="deleteDomesticRouteByID(rID)" class="bg-b-color">
+    <i class="bi bi-trash" style="font-size: 20px; font-weight: bold"></i
+    >&nbsp;Confirm Delete
+  </p-button>
+</p-dialog>

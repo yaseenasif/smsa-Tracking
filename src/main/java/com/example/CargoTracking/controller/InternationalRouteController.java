@@ -4,12 +4,12 @@ import com.example.CargoTracking.dto.InternationalRouteDto;
 import com.example.CargoTracking.model.InternationalRoute;
 import com.example.CargoTracking.service.InternationalRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping("/api")
@@ -30,4 +30,18 @@ public class InternationalRouteController {
         return internationalRouteService.findInternationalRouteForRoad(origin,destination,trip);
     }
 
+    @GetMapping("/get-all-international-air")
+    public ResponseEntity<List<InternationalRouteDto>> getInternationalRouteByAir(){
+        return ResponseEntity.ok(internationalRouteService.findAllInternationalRouteForAir());
+    }
+
+    @GetMapping("/get-all-international-road")
+    public List<InternationalRouteDto> getInternationalRouteByRoad(){
+        return internationalRouteService.findAllInternationalRouteForRoad();
+    }
+
+    @PostMapping("add-internationalRoute")
+    public InternationalRouteDto addInternationRoute(@RequestBody InternationalRouteDto internationalRouteDto){
+        return internationalRouteService.saveInternationalRoute(internationalRouteDto);
+    }
 }

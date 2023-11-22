@@ -31,6 +31,7 @@ public class DomesticRouteController {
         return domesticRouteService.saveDomesticRoute(domesticRouteDto);
     }
 
+
     @GetMapping("/all-domesticRoutes")
     public List<DomesticRouteDto> findAllDomesticRoutes(){
         return domesticRouteService.findAllDomesticRoutes();

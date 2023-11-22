@@ -1,0 +1,142 @@
+<div class="flex flex-row">
+  <app-sidebar></app-sidebar>
+  <div class="body-position">
+    <div class="body-holder">
+      <app-dashboard-head></app-dashboard-head>
+
+      <div class="main">
+        <div class="card flex justify-content-center">
+          <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+        </div>
+        <div class="body-card">
+          <p-toast></p-toast>
+          <div class="card">
+            <h1 class="mb-4 h-color">Add Location</h1>
+            <form #permissionForm="ngForm" (ngSubmit)="onSubmit()">
+              <div class="grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Destination</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [(ngModel)]="routes.destination"
+                      name="destination"
+                      #name="ngModel"
+                      required
+                    />
+                    <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="name.invalid && (name.dirty || name.touched)"
+                      >Name is required.</small
+                    >
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Origin</label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="routeNumbers"
+                      name="originLocation"
+                      #originLocation="ngModel"
+                      [required]="true"
+                      [(ngModel)]="routes.origin"
+                      optionLabel="origin"
+                      optionValue="origin"
+                      [filter]="true"
+                      filterBy="origin"
+                      [showClear]="true"
+                      placeholder="Select a Origin Location"
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="routes"
+                        >
+                          <div>{{ routes.origin }}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-routes pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ routes.origin }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+
+              </div>
+              <div class="grid">
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name"
+                      >Route Number
+                      <span
+                        ><p-badge
+                          (click)="getDomesticRoute()"
+                          class=""
+                          value="Look up"
+                          severity="info"
+                        ></p-badge> </span
+                    ></label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="routeNumbers"
+                      #routeNumber="ngModel"
+                      name="routeNumber"
+                      [required]="true"
+                      [(ngModel)]="routes.route"
+                      optionValue="route"
+                      optionLabel="route"
+                      [filter]="true"
+                      filterBy="route"
+                      [showClear]="true"
+                      placeholder="Select a Route Number
+                      "
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="routes"
+                        >
+                          <div>
+                            {{ routes.route }}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-routes pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ routes.route }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+              <div class="flex align-items-center justify-content-end mt-4">
+                <p-button
+                  label="Cancel"
+                  class="bg-o-color mr"
+                  routerLink="/location"
+                  styleClass="p-button-outlined"
+                >
+                </p-button>
+                <p-button
+                  type="submit"
+                  [disabled]="!permissionForm.form.valid"
+                  label="Save"
+                  class="bg-b-color ml"
+                >
+                </p-button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

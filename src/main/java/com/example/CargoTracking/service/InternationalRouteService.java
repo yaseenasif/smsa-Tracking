@@ -1,8 +1,10 @@
 package com.example.CargoTracking.service;
 
+import com.example.CargoTracking.dto.DomesticRouteDto;
 import com.example.CargoTracking.dto.FileMetaDataDto;
 import com.example.CargoTracking.dto.InternationalRouteDto;
 import com.example.CargoTracking.exception.RecordNotFoundException;
+import com.example.CargoTracking.model.DomesticRoute;
 import com.example.CargoTracking.model.FileMetaData;
 import com.example.CargoTracking.model.InternationalRoute;
 import com.example.CargoTracking.model.InternationalShipment;
@@ -97,5 +99,22 @@ public class InternationalRouteService {
 
     public InternationalRouteDto toDto(InternationalRoute internationalRoute){
         return modelMapper.map(internationalRoute, InternationalRouteDto.class);
+    }
+
+    public List<InternationalRouteDto> findAllInternationalRouteForAir() {
+        List<InternationalRoute> internationalRouteForAir = internationalRouteRepository.findAllByType("Air");
+        return toDtoList(internationalRouteForAir);
+    }
+
+    public List<InternationalRouteDto> findAllInternationalRouteForRoad() {
+        List<InternationalRoute> internationalRouteForRoad = internationalRouteRepository.findAllByType("Road");
+        return toDtoList(internationalRouteForRoad);
+    }
+    public InternationalRouteDto saveInternationalRoute(InternationalRouteDto internationalRouteDto) {
+        InternationalRoute internationalRoute = internationalRouteRepository.save(toEntity(internationalRouteDto));
+        return toDto(internationalRoute);
+    }
+    public InternationalRoute toEntity(InternationalRouteDto internationalRouteDto){
+        return modelMapper.map(internationalRouteDto,InternationalRoute.class);
     }
 }
