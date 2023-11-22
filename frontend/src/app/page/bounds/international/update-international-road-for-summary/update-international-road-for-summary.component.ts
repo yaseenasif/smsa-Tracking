@@ -32,8 +32,8 @@ export class UpdateInternationalRoadForSummaryComponent {
   internationalShipment:InternationalShipment={
     id: null,
     actualWeight: null,
-    arrivalDate: null,  
-    arrivalTime: null,  
+    arrivalDate: null,
+    arrivalTime: null,
     ata: null,
     attachments: null,
     carrier: null,
@@ -69,7 +69,8 @@ export class UpdateInternationalRoadForSummaryComponent {
     routeNumber: null,
     etd: null,
     eta: null,
-    atd: null
+    atd: null,
+    trip: null,
   }
   location!:Location[];
   locationPort!:LocationPort[]
@@ -80,7 +81,7 @@ export class UpdateInternationalRoadForSummaryComponent {
   modeOptions:{ options: string }[] =Object.values(Mode).map(el => ({ options: el }));
   shipmentMode:{ options: string }[] =Object.values(ShipmentMode).map(el => ({ options: el }));
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
-  
+
   selectedLocation!:Location;
 
   constructor(private router:Router,
@@ -93,40 +94,40 @@ export class UpdateInternationalRoadForSummaryComponent {
     private vehicleTypeService:VehicleTypeService,
     private shipmentStatusService:ShipmentStatusService,
     private datePipe: DatePipe) { }
-    
+
   name!:string;
   checked!:boolean;
   size=100000
   uploadedFiles: any[] = [];
   onUpload(event: any) {
-    
+
   }
   onUpload1(event:any) {
     for(let file of event.files) {
         this.uploadedFiles.push(file);
     }
   }
-  
-  
+
+
   ngOnInit(): void {
     this.iSID=+this.route.snapshot.paramMap.get('id')!;
-    this.items = [{ label: 'International Summary By Road',routerLink:'/international-summary-by-road'},{ label: 'Edit International Shipment By Road'}];    
-   
+    this.items = [{ label: 'International Summary By Road',routerLink:'/international-summary-by-road'},{ label: 'Edit International Shipment By Road'}];
+
     const locations$: Observable<Location[]> = this.locationService.getAllLocation();
     const locationPort$: Observable<LocationPort[]> =this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> =this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> =this.vehicleTypeService.getALLVehicleType();
     const shipmentStatus$: Observable<ShipmentStatus[]> = this.shipmentStatusService.getALLShipmentStatus();
-  
+
     forkJoin([locations$, locationPort$, driver$, vehicleType$, shipmentStatus$]).subscribe(
       ([locationsResponse, locationPortResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
         // Access responses here
-        this.location=locationsResponse.filter(el => el.status); 
-        this.locationPort=locationPortResponse.filter(el => el.status); 
-        this.drivers=driverResponse.content.filter((el:Driver)=>el.status); 
+        this.location=locationsResponse.filter(el => el.status);
+        this.locationPort=locationPortResponse.filter(el => el.status);
+        this.drivers=driverResponse.content.filter((el:Driver)=>el.status);
         this.vehicleTypes=vehicleTypeResponse
         this.shipmentStatus=shipmentStatusResponse
-  
+
         // Now that you have the responses, you can proceed with the next steps
         this.getInternationalShipmentById(this.iSID);
       }
@@ -138,7 +139,7 @@ export class UpdateInternationalRoadForSummaryComponent {
    this.internationalShipment.eta=this.datePipe.transform(this.internationalShipment.eta,'yyyy-MM-dd')
    this.internationalShipment.atd=this.datePipe.transform(this.internationalShipment.atd,'yyyy-MM-dd')
    this.internationalShipment.ata=this.datePipe.transform(this.internationalShipment.ata,'yyyy-MM-dd')
-    
+
     this.internationalShippingService.updateInternationalShipmentById(this.iSID,this.internationalShipment).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is updated on id'+res.id});
       setTimeout(() => {
@@ -146,21 +147,21 @@ export class UpdateInternationalRoadForSummaryComponent {
       },800);
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'International Shipment is not updated'});
-    })  
+    })
   }
-  
+
   getInternationalShipmentById(id:number){
-    
+
     this.internationalShippingService.getInternationalShipmentByID(id).subscribe((res:InternationalShipment)=>{
      res.etd=res.etd?new Date(res.etd):null;
      res.eta=res.eta?new Date(res.eta):null;
      res.atd=res.atd?new Date(res.atd):null;
      res.ata=res.ata?new Date(res.ata):null;
      this.selectedDriver=this.drivers.find(el=>(el.name==res.driverName)&&(el.contactNumber==res.driverContact)&&(el.referenceNumber==res.referenceNumber))
-     
-     this.internationalShipment=res;  
-    
-     
+
+     this.internationalShipment=res;
+
+
     },error=>{
      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not International Shipment by id'});
     })
@@ -168,9 +169,9 @@ export class UpdateInternationalRoadForSummaryComponent {
 
   getAllLocations(){
     this.locationService.getAllLocation().subscribe((res:Location[])=>{
-      this.location=res.filter(el => el.status);   
-  
-      
+      this.location=res.filter(el => el.status);
+
+
     },error=>{
     })
   }
@@ -182,20 +183,20 @@ export class UpdateInternationalRoadForSummaryComponent {
   }
   getAllDriver(){
     this.driverService.getAllDriver().subscribe((res:PaginatedResponse<Driver>)=>{
-  
-     this.drivers=res.content.filter((el:Driver)=>el.status);  
+
+     this.drivers=res.content.filter((el:Driver)=>el.status);
     },error=>{})
    }
    getAllVehicleType(){
     this.vehicleTypeService.getALLVehicleType().subscribe((res:VehicleType[])=>{
-      this.vehicleTypes=res;  
+      this.vehicleTypes=res;
     },error=>{
     })
    }
 
     getAllShipmentStatus(){
     this.shipmentStatusService.getALLShipmentStatus().subscribe((res:ShipmentStatus[])=>{
-      this.shipmentStatus=res; 
+      this.shipmentStatus=res;
     },error=>{
     })
    }

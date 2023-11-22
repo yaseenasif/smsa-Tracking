@@ -3,7 +3,7 @@
     <div class="body-position">
       <div class="body-holder">
         <app-dashboard-head></app-dashboard-head>
-  
+
         <div class="main">
           <div class="card flex justify-content-center">
               <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
@@ -21,8 +21,8 @@
                       </div>
                   </p-toolbar>
               </div>
-            
-  
+
+
             <div class="card">
               <p-table [value]="internationalShipmentByAir" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template pTemplate="header">
@@ -72,11 +72,11 @@
                     <td class="text-center">{{ internationalShipmentByAir.destinationPort}}</td>
                     <td class="text-center">{{ internationalShipmentByAir.routeNumber}}</td>
                     <td class="text-center">{{ internationalShipmentByAir.etd}}</td>
-                    <td class="text-center">{{ internationalShipmentByAir.eta}}</td> 
+                    <td class="text-center">{{ internationalShipmentByAir.eta}}</td>
                     <td class="text-center">{{ internationalShipmentByAir.atd}}</td>
                     <td class="text-center">{{ internationalShipmentByAir.carrier}}</td>
-                    <td class="text-center">{{ internationalShipmentByAir.departureDate}}</td>       
-                    <td class="text-center">{{internationalShipmentByAir.departureTime}}</td>               
+                    <td class="text-center">{{ internationalShipmentByAir.departureDate}}</td>
+                    <td class="text-center">{{internationalShipmentByAir.departureTime}}</td>
                     <td class="text-center">{{ internationalShipmentByAir.flightNumber}}</td>
                     <td class="text-center">{{ internationalShipmentByAir.arrivalDate}}</td>
                     <td class="text-center">{{internationalShipmentByAir.arrivalTime}}</td>
@@ -94,15 +94,15 @@
                     <td class="text-center">{{ internationalShipmentByAir.received}}</td>
                     <td class="text-center">{{ internationalShipmentByAir.shortages}}</td>
                     <td class="text-center">{{ internationalShipmentByAir.shortageAWBs}}</td>
-                   
-  
-                    <td class="text-center flex flex-row"> 
+
+
+                    <td class="text-center flex flex-row">
                       <p-button [routerLink]="['/view-international-air/',internationalShipmentByAir.id]"
                       icon="bi bi-eye" class='mr'
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                     </p-button>
                       <p-button icon="bi bi-clock-history" [routerLink]="['/international-shipment-history-by-air/',internationalShipmentByAir.id]" class='mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                      
+
                       </p-button>
                       <p-button [routerLink]="['/view-attachments/','internationalShipment','by-international-air-list',internationalShipmentByAir.id]"
                       icon="bi bi-download" class='mr'
@@ -110,14 +110,14 @@
                       </p-button>
                       <p-button [routerLink]="['/add-international-by-air-attachments/',internationalShipmentByAir.id]" icon="bi bi-paperclip"
                       class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                      </p-button>                    
+                      </p-button>
                       <p-button [routerLink]="['/update-international-shipment-by-air',internationalShipmentByAir.id]" icon="bi bi-pen" class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
-                       
+
                       </p-button>
                        <p-button icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                      
+
                        </p-button>
-                      
+
                     </td>
                   </tr>
                 </ng-template>
@@ -128,4 +128,3 @@
       </div>
     </div>
   </div>
-  

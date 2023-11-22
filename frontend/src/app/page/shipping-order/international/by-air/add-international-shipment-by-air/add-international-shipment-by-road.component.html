@@ -17,17 +17,18 @@
                 <!-- 1 -->
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Mode
-                    </label>
+                    <label htmlFor="name">Mode </label>
                     <input
-                          #mode="ngModel" name="mode" [required]="true"
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [readOnly]="true"
-                          [(ngModel)]="internationalShipment.type"
-                        />    
-                </div>
+                      #mode="ngModel"
+                      name="mode"
+                      [required]="true"
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [readOnly]="true"
+                      [(ngModel)]="internationalShipment.type"
+                    />
+                  </div>
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
@@ -70,7 +71,6 @@
                 <!-- 2 -->
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-
                     <label htmlFor="name">Origin Country</label>
                     <p-dropdown
                       class="w-full"
@@ -141,24 +141,23 @@
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
-                  <!-- <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Pre-Alert Number</label>
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Trip</label>
                     <input
-                      #PAN="ngModel"
-                      name="PAN"
-                      [required]="true"
                       pInputText
-                      id="name"
+                      id="trip"
+                      type="number"
+                      pattern="^[1-9]+[0-9]*$"
                       aria-describedby="name-help"
-                      [(ngModel)]="internationalShipment.preAlertNumber"
+                      [(ngModel)]="internationalShipment.trip"
+                      #trip="ngModel"
+                      required
+                      name="trip"
                     />
-                    <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="PAN.invalid && (PAN.dirty || PAN.touched)"
-                      >Pre Alert Number is required.</small
-                    >
-                  </div> -->
+                    <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                  </div>
                 </div>
 
                 <!-- 3 -->
@@ -236,9 +235,17 @@
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2 form-hook" >
-                    <label htmlFor="name">Route Number <span><p-badge (click)="getInternationalRouteForAir()" class="" value="Look up" severity="info"></p-badge>
-                    </span></label>
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name"
+                      >Route Number
+                      <span
+                        ><p-badge
+                          (click)="getInternationalRouteForAir()"
+                          class=""
+                          value="Look up"
+                          severity="info"
+                        ></p-badge> </span
+                    ></label>
                     <p-dropdown
                       class="w-full"
                       [options]="routes"
@@ -251,7 +258,6 @@
                       [filter]="true"
                       filterBy="route"
                       [showClear]="true"
-                      
                       placeholder="Select a Route Number
                       "
                     >
@@ -283,6 +289,8 @@
                       name="etd"
                       [required]="true"
                       [(ngModel)]="internationalShipment.etd"
+                      (onSelect)="onETDDateSelected($event)"
+                      [minDate]="minETDDate"
                     ></p-calendar>
                     <!-- <small id="name-help"
                         >{{name}}</small
@@ -297,6 +305,7 @@
                       name="eta"
                       [required]="true"
                       [(ngModel)]="internationalShipment.eta"
+                      [minDate]="minETDDate"
                     ></p-calendar>
                     <!-- <small id="name-help"
                           >{{name}}</small
@@ -309,6 +318,7 @@
                     <p-calendar
                       #atd="ngModel"
                       name="atd"
+                      [minDate]="minETDDate"
                       [required]="true"
                       [(ngModel)]="internationalShipment.atd"
                     ></p-calendar>
@@ -345,24 +355,32 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Departure Date</label>
-                    <p-calendar  #departureDate="ngModel"
-                    name="departureDate"
-                    [required]="true" [(ngModel)]="internationalShipment.departureDate" ></p-calendar>
+                    <p-calendar
+                      #departureDate="ngModel"
+                      name="departureDate"
+                      [required]="true"
+                      [minDate]="minETDDate"
+                      [(ngModel)]="internationalShipment.departureDate"
+                    ></p-calendar>
                   </div>
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Departure Time</label>
-                    <p-calendar  #departureTime="ngModel"
-                    name="departureTime"
-                    [required]="true" [(ngModel)]="internationalShipment.departureTime" [timeOnly]="true" [showTime]="true" [showSeconds]="true" ></p-calendar>
+                    <p-calendar
+                      #departureTime="ngModel"
+                      name="departureTime"
+                      [required]="true"
+                      [(ngModel)]="internationalShipment.departureTime"
+                      [timeOnly]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                    ></p-calendar>
                   </div>
                 </div>
 
                 <!-- 6 -->
-
-             
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
@@ -391,20 +409,31 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Arrival Date </label>
-                    <p-calendar #arrivalDate="ngModel" name="arrivalDate" [required]="true"
-                     [(ngModel)]="internationalShipment.arrivalDate" ></p-calendar>
+                    <p-calendar
+                      #arrivalDate="ngModel"
+                      name="arrivalDate"
+                      [required]="true"
+                      [minDate]="minETDDate"
+                      [(ngModel)]="internationalShipment.arrivalDate"
+                    ></p-calendar>
                   </div>
-                </div>    
-                
+                </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                  
                     <label htmlFor="name">Arrival Time </label>
-                    <p-calendar #arrivalTime="ngModel" name="arrivalTime" [required]="true"  [timeOnly]="true" [showTime]="true" [showSeconds]="true"
-                     [(ngModel)]="internationalShipment.arrivalTime" ></p-calendar>
+                    <p-calendar
+                      #arrivalTime="ngModel"
+                      name="arrivalTime"
+                      [required]="true"
+                      [timeOnly]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [(ngModel)]="internationalShipment.arrivalTime"
+                    ></p-calendar>
                   </div>
-                </div>   
-                
+                </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Number of Shipments</label>
@@ -456,7 +485,6 @@
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Reference Number</label>
                     <input
-                    
                       pInputText
                       id="name"
                       aria-describedby="name-help"
@@ -466,14 +494,14 @@
                       [(ngModel)]="this.internationalShipment.referenceNumber"
                     />
                     <small
-                    id="name-help"
-                    class="color-red"
-                    *ngIf="
-                    referenceNumber.invalid &&
-                      (referenceNumber.dirty || referenceNumber.touched)
-                    "
-                    >Reference Number is required.</small
-                  >
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="
+                        referenceNumber.invalid &&
+                        (referenceNumber.dirty || referenceNumber.touched)
+                      "
+                      >Reference Number is required.</small
+                    >
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
@@ -512,13 +540,20 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Number of Bags</label>
-                    <p-inputNumber [maxlength]="3" id="name" [(ngModel)]="internationalShipment.numberOfBags"
-                      #numberOfBags="ngModel" [required]="true" name="numberOfBags" ></p-inputNumber>
+                    <p-inputNumber
+                      [maxlength]="3"
+                      id="name"
+                      [(ngModel)]="internationalShipment.numberOfBags"
+                      #numberOfBags="ngModel"
+                      [required]="true"
+                      name="numberOfBags"
+                    ></p-inputNumber>
                     <small
                       id="name-help"
                       class="color-red"
                       *ngIf="
-                        numberOfBags.invalid && (numberOfBags.dirty || numberOfBags.touched)
+                        numberOfBags.invalid &&
+                        (numberOfBags.dirty || numberOfBags.touched)
                       "
                       >Number of Bags is required.</small
                     >
@@ -528,16 +563,17 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Status
-                    </label>
+                    <label htmlFor="name">Status </label>
                     <input
-                          #status="ngModel" name="status" [required]="true"
-                          pInputText
-                          id="name"
-                          aria-describedby="name-help"
-                          [readOnly]="true"
-                          [(ngModel)]="internationalShipment.status"
-                        />   
+                      #status="ngModel"
+                      name="status"
+                      [required]="true"
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [readOnly]="true"
+                      [(ngModel)]="internationalShipment.status"
+                    />
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
@@ -562,9 +598,8 @@
                     >
                   </div>
                 </div>
-
               </div>
-             
+
               <div class="flex align-items-center justify-content-end mt-4">
                 <p-button
                   label="Cancel"

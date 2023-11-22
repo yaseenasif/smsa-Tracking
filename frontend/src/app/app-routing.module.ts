@@ -1,3 +1,5 @@
+import { UpdateDomesticRoutesComponent } from './page/domesticRoutes/update-domestic-routes/update-domestic-routes.component';
+import { AddDomesticRoutesComponent } from './page/domesticRoutes/add-domestic-routes/add-domestic-routes.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginFormComponent } from './page/login-form/login-form.component';
@@ -60,320 +62,350 @@ import { InternationalSummaryByRoadAttachmentsComponent } from './page/bounds/in
 import { ViewShipmentComponent } from './page/shipping-order/domestic/view-shipment/view-shipment.component';
 import { ViewShipmentAirComponent } from './page/shipping-order/international/by-air/view-shipment-air/view-shipment-air.component';
 import { ViewShipmentRoadComponent } from './page/shipping-order/international/by-road/view-shipment-road/view-shipment-road.component';
+import { GetDomesticRoutesComponent } from './page/domesticRoutes/get-domestic-routes/get-domestic-routes.component';
 
 
 const routes: Routes = [
   {
-    path:'',
-    component:DashboardComponent,
-    canActivate:[AuthGuard]
+    path: '',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'home',
-    component:DashboardComponent,
-    canActivate:[AuthGuard]
+    path: 'home',
+    component: DashboardComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'product-field',
-    component:ProductFieldListComponent,
-    canActivate:[AuthGuard]
+    path: 'product-field',
+    component: ProductFieldListComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'add-product-field',
-    component:ProductFieldAddComponent,
-    canActivate:[AuthGuard]
+    path: 'add-product-field',
+    component: ProductFieldAddComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'edit-product-field',
-    component:ProductFieldUpdateComponent,
-    canActivate:[AuthGuard]
+    path: 'edit-product-field',
+    component: ProductFieldUpdateComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'driver',
-    component:DriverListComponent,
-    canActivate:[AuthGuard]
+    path: 'driver',
+    component: DriverListComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'add-driver',
-    component:AddDriverComponent,
-    canActivate:[AuthGuard]
+    path: 'add-driver',
+    component: AddDriverComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'edit-driver/:id',
-    component:UpdateDriverComponent,
-    canActivate:[AuthGuard]
+    path: 'edit-driver/:id',
+    component: UpdateDriverComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'location',
-    component:LocationListComponent,
-    canActivate:[AuthGuard]
+    path: 'location',
+    component: LocationListComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'add-location',
-    component:AddLocationComponent,
-    canActivate:[AuthGuard]
+    path: 'add-location',
+    component: AddLocationComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'edit-location/:id',
-    component:UpdateLocationComponent,
-    canActivate:[AuthGuard]
+    path: 'edit-location/:id',
+    component: UpdateLocationComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'location-port',
-    component:LocationPortListComponent,
-    canActivate:[AuthGuard]
+    path: 'location-port',
+    component: LocationPortListComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'add-location-port',
-    component:AddLocationPortComponent,
-    canActivate:[AuthGuard]
+    path: 'add-location-port',
+    component: AddLocationPortComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'edit-location-port/:id',
-    component:UpdateLocationPortComponent,
-    canActivate:[AuthGuard]
+    path: 'edit-location-port/:id',
+    component: UpdateLocationPortComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'user',
-    component:UserListComponent,
-    canActivate:[AuthGuard]
+    path: 'user',
+    component: UserListComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'add-user',
-    component:AddUserComponent,
-    canActivate:[AuthGuard]
+    path: 'add-user',
+    component: AddUserComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'edit-user/:id',
-    component:UpdateUserComponent,
-    canActivate:[AuthGuard]
+    path: 'edit-user/:id',
+    component: UpdateUserComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'shipment-status',
-    component:ShipmentStatusListComponent,
-    canActivate:[AuthGuard]
+    path: 'shipment-status',
+    component: ShipmentStatusListComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'add-shipment-status',
-    component:AddShipmentStatusComponent,
-    canActivate:[AuthGuard]
+    path: 'add-shipment-status',
+    component: AddShipmentStatusComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'edit-shipment-status/:id',
-    component:UpdateShipmentStatusComponent,
-    canActivate:[AuthGuard]
+    path: 'edit-shipment-status/:id',
+    component: UpdateShipmentStatusComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'vehicle-type',
-    component:VehicleTypeListComponent,
-    canActivate:[AuthGuard]
+    path: 'vehicle-type',
+    component: VehicleTypeListComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'add-vehicle-type',
-    component:AddVehicleTypeComponent,
-    canActivate:[AuthGuard]
+    path: 'add-vehicle-type',
+    component: AddVehicleTypeComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'edit-vehicle-type/:id',
-    component:UpdateVehicleTypeComponent,
-    canActivate:[AuthGuard]
+    path: 'edit-vehicle-type/:id',
+    component: UpdateVehicleTypeComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'unauthorized',
-    component:UnauthorizedPageComponent,
+    path: 'unauthorized',
+    component: UnauthorizedPageComponent,
   },
-  // {
-  //   path:'permission',
-  //   component:PermissionListComponent,
+  {
+    path:'permission',
+    component:PermissionListComponent,
 
-  // },
-  // {
-  //   path:'add-permission',
-  //   component:AddPermissionComponent,
+  },
+  {
+    path:'add-permission',
+    component:AddPermissionComponent,
 
-  // },
-  // {
-  //   path:'edit-permission/:id',
-  //   component:EditPermissionComponent,
-  //   canActivate:[AuthGuard]
-  // },
+  },
   {
-    path:'role',
-    component:RoleListComponent,
+    path:'edit-permission/:id',
+    component:EditPermissionComponent,
     canActivate:[AuthGuard]
   },
   {
-    path:'add-role',
-    component:AddRoleComponent,
-    canActivate:[AuthGuard]
+    path: 'role',
+    component: RoleListComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'edit-role/:id',
-    component:EditRoleComponent,
-    canActivate:[AuthGuard]
+    path: 'add-role',
+    component: AddRoleComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'domestic-shipping',
-    component:DomesticShippingListComponent,
-    canActivate:[AuthGuard]
+    path: 'edit-role/:id',
+    component: EditRoleComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'domestic-shipping-history/:id',
-    component:DomesticShippingOrderHistoryComponent,
-    canActivate:[AuthGuard]
+    path: 'domestic-shipping',
+    component: DomesticShippingListComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'international-shipping-history-by-air/:id',
-    component:DomesticShippingOrderHistoryComponent,
-    canActivate:[AuthGuard]
+    path: 'domestic-shipping-history/:id',
+    component: DomesticShippingOrderHistoryComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'international-shipping-history-by-road/:id',
-    component:InternationalShippingOrderHistoryComponent,
-    canActivate:[AuthGuard]
+    path: 'international-shipping-history-by-air/:id',
+    component: DomesticShippingOrderHistoryComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'international-shipping-history-by-road/:id',
+    component: InternationalShippingOrderHistoryComponent,
+    canActivate: [AuthGuard]
   },
 
   {
-    path:'add-domestic-shipping',
-    component:AddDomesticShippingComponent,
-    canActivate:[AuthGuard]
+    path: 'add-domestic-shipping',
+    component: AddDomesticShippingComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'update-domestic-shipping/:id',
-    component:UpdateDomesticShippingComponent,
-    canActivate:[AuthGuard]
+    path: 'update-domestic-shipping/:id',
+    component: UpdateDomesticShippingComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'update-domestic-shipping-for-summary/:id',
-    component:UpdateDomesticShipmentForSummaryComponent,
-    canActivate:[AuthGuard]
+    path: 'update-domestic-shipping-for-summary/:id',
+    component: UpdateDomesticShipmentForSummaryComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'update-international-air-shipping-for-summary/:id',
-    component:UpdateInternationalAirForSummaryComponent,
-    canActivate:[AuthGuard]
+    path: 'update-international-air-shipping-for-summary/:id',
+    component: UpdateInternationalAirForSummaryComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'update-international-road-shipping-for-summary/:id',
-    component:UpdateInternationalRoadForSummaryComponent,
-    canActivate:[AuthGuard]
+    path: 'update-international-road-shipping-for-summary/:id',
+    component: UpdateInternationalRoadForSummaryComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'add-attachments/:id',
-    component:AttachmentsComponent,
-    canActivate:[AuthGuard]
+    path: 'add-attachments/:id',
+    component: AttachmentsComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'add-domestic-attachments/:id',
-    component:  DomesticAttachmentsComponent
+    path: 'add-domestic-attachments/:id',
+    component: DomesticAttachmentsComponent
     ,
-    canActivate:[AuthGuard]
+    canActivate: [AuthGuard]
   },
   {
-    path:'international-tile',
-    component:TileComponent,
-    canActivate:[AuthGuard]
+    path: 'international-tile',
+    component: TileComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'international-shipment-by-road',
-    component:InternationalShippingListComponent,
-    canActivate:[AuthGuard]
+    path: 'international-shipment-by-road',
+    component: InternationalShippingListComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'international-shipment-history-by-road/:id',
-    component:InternationalShippingOrderHistoryComponent,
-    canActivate:[AuthGuard]
+    path: 'international-shipment-history-by-road/:id',
+    component: InternationalShippingOrderHistoryComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'add-international-shipment-by-road',
-    component:AddInternationalShippingComponent,
-    canActivate:[AuthGuard]
+    path: 'add-international-shipment-by-road',
+    component: AddInternationalShippingComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'update-international-shipment-by-road/:id',
-    component:UpdateInternationalShippingComponent,
-    canActivate:[AuthGuard]
+    path: 'update-international-shipment-by-road/:id',
+    component: UpdateInternationalShippingComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'add-international-by-road-attachments/:id',
-    component:AddAttachmentsOfInternationalShipmentByRoadComponent,
-    canActivate:[AuthGuard]
+    path: 'add-international-by-road-attachments/:id',
+    component: AddAttachmentsOfInternationalShipmentByRoadComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'view-attachments/:name/:through/:id',
-    component:ViewAttachmentsComponent,
-    canActivate:[AuthGuard]
+    path: 'view-attachments/:name/:through/:id',
+    component: ViewAttachmentsComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'international-shipment-by-air',
-    component:InternationalShipmentListAirComponent,
-    canActivate:[AuthGuard]
+    path: 'international-shipment-by-air',
+    component: InternationalShipmentListAirComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'international-shipment-history-by-air/:id',
-    component:InternationalShipmentOrderHistoryByAirComponent,
-    canActivate:[AuthGuard]
+    path: 'international-shipment-history-by-air/:id',
+    component: InternationalShipmentOrderHistoryByAirComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'add-international-shipment-by-air',
-    component:AddInternationalShipmentByRoadComponent,
-    canActivate:[AuthGuard]
+    path: 'add-international-shipment-by-air',
+    component: AddInternationalShipmentByRoadComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'update-international-shipment-by-air/:id',
-    component:UpdateInternationalShipmentByAirComponent,
-    canActivate:[AuthGuard]
+    path: 'update-international-shipment-by-air/:id',
+    component: UpdateInternationalShipmentByAirComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'add-international-by-air-attachments/:id',
-    component:AddAttachmentsOfInternationalShipmentByAirComponent,
-    canActivate:[AuthGuard]
+    path: 'add-international-by-air-attachments/:id',
+    component: AddAttachmentsOfInternationalShipmentByAirComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'domestic-summary',
-    component:DomesticSummaryComponent,
-    canActivate:[AuthGuard]
+    path: 'domestic-summary',
+    component: DomesticSummaryComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'international-summary-by-air',
-    component:InternationalSummaryByAirComponent,
-    canActivate:[AuthGuard]
+    path: 'international-summary-by-air',
+    component: InternationalSummaryByAirComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'international-summary-by-air-attachment/:id',
-    component:InternationalSummaryByAirAttachmentsComponent,
-    canActivate:[AuthGuard]
+    path: 'international-summary-by-air-attachment/:id',
+    component: InternationalSummaryByAirAttachmentsComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'international-summary-by-road',
-    component:InternationalSummaryByRoadComponent,
-    canActivate:[AuthGuard]
+    path: 'international-summary-by-road',
+    component: InternationalSummaryByRoadComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'international-summary-by-road-attachment/:id',
-    component:InternationalSummaryByRoadAttachmentsComponent,
-    canActivate:[AuthGuard]
+    path: 'international-summary-by-road-attachment/:id',
+    component: InternationalSummaryByRoadAttachmentsComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'view-domestic-shipment/:id',
-    component:ViewShipmentComponent,
-    canActivate:[AuthGuard]
+    path: 'view-domestic-shipment/:id',
+    component: ViewShipmentComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'view-international-air/:id',
-    component:ViewShipmentAirComponent,
-    canActivate:[AuthGuard]
+    path: 'view-international-air/:id',
+    component: ViewShipmentAirComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'view-international-road/:id',
-    component:ViewShipmentRoadComponent,
-    canActivate:[AuthGuard]
+    path: 'view-international-road/:id',
+    component: ViewShipmentRoadComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:'login',
-    component:LoginFormComponent
+    path: 'domestic-routes',
+    component: GetDomesticRoutesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'add-domestic-routes',
+    component: AddDomesticRoutesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'update-domestic-routes/:id',
+    component: UpdateDomesticRoutesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'productFields',
+    component: ProductFieldListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'addProductFields',
+    component: ProductFieldAddComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'updateProductFields',
+    component: ProductFieldUpdateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'login',
+    component: LoginFormComponent
   }
-
 ];
 
 @NgModule({
@@ -382,4 +414,4 @@ const routes: Routes = [
 })
 export class AppRoutingModule {
 
- }
+}

@@ -17,7 +17,7 @@ export class DomesticShippingService {
     queryParams = queryParams.append("value",JSON.stringify(obj));
     queryParams = queryParams.append("page",page);
     queryParams = queryParams.append("size",size);
-    
+
     return this.http.get<any>(`${this.url}/all-domestic-shipments`,{params:queryParams});
   }
 
@@ -32,7 +32,7 @@ export class DomesticShippingService {
   updateDomesticShipment(id:number,domesticShipment:DomesticShipment){
     return this.http.put<DomesticShipment>(`${this.url}/edit-domestic-shipment/${id}`,domesticShipment)
   }
-  
+
   deleteDomesticShipment(id:number){
     return this.http.delete<any>(`${this.url}/delete-domestic-shipment/${id}`)
   }

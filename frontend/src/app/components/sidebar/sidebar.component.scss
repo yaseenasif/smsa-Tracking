@@ -3,125 +3,141 @@
 
 @import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
 
-.bi{
-    font-size: 2em;
+.bi {
+  font-size: 2em;
 }
 
 .bi {
-    position: relative;
-    display: table-cell;
-    width: 60px;
-    height: 36px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 28px;
+  position: relative;
+  display: table-cell;
+  width: 60px;
+  height: 36px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 28px;
 }
 
 
 .main-menu:hover,
 nav.main-menu.expanded {
-    width: 250px;
-    overflow: visible;
-    background: #400099;
-    color: white;
+  width: 250px;
+  overflow: visible;
+  background: #400099;
+  color: white;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: #555 #f4f4f4;
+  &::-webkit-scrollbar {
+    width: 12px; /* adjust the width as needed */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #a07dfb; /* Change this color to light purple */
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #8751e1; /* Change this color to a darker shade of purple on hover */
+  }
 }
 
 .main-menu {
-    color: white;
-    background: #400099;
-    border-right: 1px solid #e5e5e5;
-    height: 100vh;
-    position: fixed;
-    width:60px;
-    overflow: hidden;
-    transition: width .05s linear;
-    -webkit-transform: translateZ(0) scale(1, 1);
-    z-index: 100;
+  color: white;
+  background: #400099;
+  border-right: 1px solid #e5e5e5;
+  height: 100vh;
+  position: fixed;
+  width: 60px;
+  overflow: hidden;
+  transition: width .05s linear;
+  -webkit-transform: translateZ(0) scale(1, 1);
+  z-index: 100;
 }
 
 
 .main-menu>ul {
-    margin: 7px 0;
+  margin: 7px 0;
 }
 
 .main-menu li {
-    position: relative;
-    display: block;
-    width: 250px;
+  position: relative;
+  display: block;
+  width: 250px;
 }
 
 .main-menu li>a {
-    position: relative;
-    display: table;
-    border-collapse: collapse;
-    border-spacing: 0;
-    /* color: #999; */
-    color: black;
-    font-family: arial;
-    font-size: 14px;
-    text-decoration: none;
-    -webkit-transform: translateZ(0) scale(1, 1);
-    -webkit-transition: all .1s linear;
-    transition: all .1s linear;
+  position: relative;
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+  /* color: #999; */
+  color: black;
+  font-family: arial;
+  font-size: 14px;
+  text-decoration: none;
+  -webkit-transform: translateZ(0) scale(1, 1);
+  -webkit-transition: all .1s linear;
+  transition: all .1s linear;
 
 }
 
 .main-menu .nav-icon {
-    position: relative;
-    display: table-cell;
-    width: 60px;
-    height: 36px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 18px;
+  position: relative;
+  display: table-cell;
+  width: 60px;
+  height: 36px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 18px;
 }
 
 .main-menu .nav-text {
-    position: relative;
-    display: table-cell;
-    vertical-align: middle;
-    width: 190px;
-    font-family: 'Titillium Web', sans-serif;
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+  width: 190px;
+  font-family: 'Titillium Web', sans-serif;
 }
 
 .main-menu:hover .sidebar-head {
-    display: block;
-    padding: 0 52px;
+  display: block;
+  padding: 0 52px;
 }
 
 .main-menu>ul.logout {
-    position: absolute;
-    left: 0;
-    bottom: 0;
+  position: absolute;
+  left: 0;
+  bottom: 0;
 }
 
 .no-touch .scrollable.hover {
-    overflow-y: hidden;
+  overflow-y: hidden;
 }
 
 .no-touch .scrollable.hover:hover {
-    overflow-y: auto;
-    overflow: visible;
+  overflow-y: auto;
+  overflow: visible;
 }
 
 a:hover,
 a:focus {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 nav {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }
 
 nav ul,
 nav li {
-    outline: 0;
-    margin: 0;
-    padding: 0;
+  outline: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .main-menu li:hover>a,
@@ -133,39 +149,39 @@ nav.main-menu li.active>a,
 .dropdown-menu>.active>a:focus,
 .no-touch .dashboard-page nav.dashboard-menu ul li:hover a,
 .dashboard-page nav.dashboard-menu ul li.active a {
-    color: white;
-    background-color: #098178;
+  color: white;
+  background-color: #098178;
 }
 
 
 @font-face {
-    font-family: 'Titillium Web';
-    font-style: normal;
-    font-weight: 300;
-    src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
 }
 
 
 .main-menu:hover .sidebar-list-hover:hover {
-    background-color: #4d0fa3;
-    display: -webkit-inline-box;
-    cursor: pointer;
-    color: rgb(255, 255, 255);
+  background-color: #4d0fa3;
+  display: -webkit-inline-box;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
 }
 
 .sidebar-head {
-    display: none;
+  display: none;
 }
 
 .sidebar-head:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .main-menu:hover .sidebar-head {
-    display: block;
-    padding: 0 52px;
-}
-.padding-l{
-padding-left:10px;
+  display: block;
+  padding: 0 52px;
 }
 
+.padding-l {
+  padding-left: 10px;
+}

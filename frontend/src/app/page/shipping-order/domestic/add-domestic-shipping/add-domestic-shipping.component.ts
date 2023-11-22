@@ -71,10 +71,11 @@ export class AddDomesticShippingComponent {
   selectedVehicleTypes!:VehicleType;
 
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
- 
+
 
   shipmentStatus!:ShipmentStatus[];
   selectedShipmentStatus!:ShipmentStatus;
+  minETDDate: Date = new Date();
 
   drivers!:Driver[]
 
@@ -94,7 +95,7 @@ export class AddDomesticShippingComponent {
   selectedDriver:Driver|null=null;
 
   onUpload(event: any) {
-    
+
   }
 
   onUpload1(event:any) {
@@ -102,10 +103,10 @@ export class AddDomesticShippingComponent {
         this.uploadedFiles.push(file);
     }
   }
-  
+
   ngOnInit(): void {
 
-    
+
     this.items = [{ label: 'Domestic Shipment',routerLink:'/domestic-shipping'},{ label: 'Add Domestic Shipment'}];
     this.getAllLocations();
     this.getAllVehicleType();
@@ -145,37 +146,37 @@ export class AddDomesticShippingComponent {
 
   getAllLocations(){
     this.locationService.getAllLocationForDomestic().subscribe((res:Location[])=>{
-      this.location=res.filter(el => el.status);   
+      this.location=res.filter(el => el.status);
     },error=>{
       if(error.error.body){
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }   
+      }
     })
   }
 
   getAllVehicleType(){
     this.vehicleTypeService.getALLVehicleType().subscribe((res:VehicleType[])=>{
-      this.vehicleTypes=res;  
+      this.vehicleTypes=res;
     },error=>{
       if(error.error.body){
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }   
+      }
     })
    }
 
    getAllShipmentStatus(){
     this.shipmentStatusService.getALLShipmentStatus().subscribe((res:ShipmentStatus[])=>{
-      this.shipmentStatus=res; 
+      this.shipmentStatus=res;
     },error=>{
       if(error.error.body){
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }   
+      }
     })
    }
 
@@ -190,14 +191,14 @@ export class AddDomesticShippingComponent {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
         }else{
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-        }        
+        }
       })
    }
 
    getAllDriver(){
     this.driverService.getAllDriver().subscribe((res:PaginatedResponse<Driver>)=>{
-  
-     this.drivers=res.content.filter((el:Driver)=>el.status);  
+
+     this.drivers=res.content.filter((el:Driver)=>el.status);
     },error=>{})
    }
 
@@ -215,6 +216,10 @@ export class AddDomesticShippingComponent {
     this.domesticShipment.ata=this.datePipe.transform(this.domesticShipment.ata,'yyyy-MM-dd')
     this.addDomesticShipment(this.domesticShipment);
    }
+   onETDDateSelected(selectedETDDate: any) {
+    debugger
+    this.minETDDate = selectedETDDate;
+  }
 }
 
 

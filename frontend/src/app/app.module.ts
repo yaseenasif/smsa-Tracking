@@ -93,6 +93,15 @@ import { InternationalSummaryByRoadAttachmentsComponent } from './page/bounds/in
 import { ViewShipmentComponent } from './page/shipping-order/domestic/view-shipment/view-shipment.component';
 import { ViewShipmentAirComponent } from './page/shipping-order/international/by-air/view-shipment-air/view-shipment-air.component';
 import { ViewShipmentRoadComponent } from './page/shipping-order/international/by-road/view-shipment-road/view-shipment-road.component';
+import { GetInternationalAirRoutesComponent } from './page/InternationalRoutes/byAir/get-international-air-routes/get-international-air-routes.component';
+import { AddInternationalAirRoutesComponent } from './page/InternationalRoutes/byAir/add-international-air-routes/add-international-air-routes.component';
+import { UpdateInternationalAirRoutesComponent } from './page/InternationalRoutes/byAir/update-international-air-routes/update-international-air-routes.component';
+import { UpdateInternationalRoadRoutesComponent } from './page/InternationalRoutes/byRoad/update-international-road-routes/update-international-road-routes.component';
+import { AddInternationalRoadRoutesComponent } from './page/InternationalRoutes/byRoad/add-international-road-routes/add-international-road-routes.component';
+import { GetInternationalRoadRoutesComponent } from './page/InternationalRoutes/byRoad/get-international-road-routes/get-international-road-routes.component';
+import { GetDomesticRoutesComponent } from './page/domesticRoutes/get-domestic-routes/get-domestic-routes.component';
+import { AddDomesticRoutesComponent } from './page/domesticRoutes/add-domestic-routes/add-domestic-routes.component';
+import { UpdateDomesticRoutesComponent } from './page/domesticRoutes/update-domestic-routes/update-domestic-routes.component';
 
 
 
@@ -160,6 +169,15 @@ import { ViewShipmentRoadComponent } from './page/shipping-order/international/b
     ViewShipmentComponent,
     ViewShipmentAirComponent,
     ViewShipmentRoadComponent,
+    GetInternationalAirRoutesComponent,
+    AddInternationalAirRoutesComponent,
+    UpdateInternationalAirRoutesComponent,
+    UpdateInternationalRoadRoutesComponent,
+    AddInternationalRoadRoutesComponent,
+    GetInternationalRoadRoutesComponent,
+    GetDomesticRoutesComponent,
+    AddDomesticRoutesComponent,
+    UpdateDomesticRoutesComponent,
   ],
   imports: [
     BrowserModule,

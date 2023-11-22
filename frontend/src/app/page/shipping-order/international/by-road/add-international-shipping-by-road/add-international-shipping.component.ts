@@ -24,15 +24,15 @@ import { DatePipe } from '@angular/common';
   selector: 'app-add-international-shipping',
   templateUrl: './add-international-shipping.component.html',
   styleUrls: ['./add-international-shipping.component.scss'],
-  providers:[MessageService,DatePipe]
+  providers: [MessageService, DatePipe]
 })
 export class AddInternationalShippingComponent {
-  
-  internationalShipment:InternationalShipment={
+
+  internationalShipment: InternationalShipment = {
     id: null,
     actualWeight: null,
-    arrivalDate: null,  
-    arrivalTime: null,  
+    arrivalDate: null,
+    arrivalTime: null,
     ata: null,
     attachments: null,
     carrier: null,
@@ -68,55 +68,57 @@ export class AddInternationalShippingComponent {
     routeNumber: null,
     etd: null,
     eta: null,
-    atd: null
+    atd: null,
+    trip: null
   }
 
-  routes:any;
+  routes: any;
   items: MenuItem[] | undefined;
-  location!:Location[];
-  originPorts!:LocationPort[];
-  destinationPorts!:LocationPort[];
-  drivers!:Driver[]
-  vehicleTypes!:VehicleType[]
-  shipmentStatus!:ShipmentStatus[];
-  selectedDriver:Driver|null=null;
-  modeOptions:{ options: string }[] =Object.values(Mode).map(el => ({ options: el }));
-  shipmentMode:{ options: string }[] =Object.values(ShipmentMode).map(el => ({ options: el }));
+  location!: Location[];
+  originPorts!: LocationPort[];
+  destinationPorts!: LocationPort[];
+  drivers!: Driver[]
+  vehicleTypes!: VehicleType[]
+  shipmentStatus!: ShipmentStatus[];
+  selectedDriver: Driver | null = null;
+  modeOptions: { options: string }[] = Object.values(Mode).map(el => ({ options: el }));
+  shipmentMode: { options: string }[] = Object.values(ShipmentMode).map(el => ({ options: el }));
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
-  
- 
- 
+  minETDDate: Date = new Date();
 
-  constructor(private router:Router,
-              private internationalShippingService:InternationalShippingService,
-              private messageService:MessageService,
-              private locationService:LocationService,
-              private locationPortService:LocationPortService,
-              private driverService:DriverService,
-              private vehicleTypeService:VehicleTypeService,
-              private shipmentStatusService:ShipmentStatusService,
-              private datePipe: DatePipe) { }
-  name!:string;
-  checked!:boolean;
-  size=100000
+
+
+
+  constructor(private router: Router,
+    private internationalShippingService: InternationalShippingService,
+    private messageService: MessageService,
+    private locationService: LocationService,
+    private locationPortService: LocationPortService,
+    private driverService: DriverService,
+    private vehicleTypeService: VehicleTypeService,
+    private shipmentStatusService: ShipmentStatusService,
+    private datePipe: DatePipe) { }
+  name!: string;
+  checked!: boolean;
+  size = 100000
   uploadedFiles: any[] = [];
 
 
   getLocationPortByLocationForOrigin() {
-    this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.originCountry!).subscribe((res)=>{
-     this.originPorts=res;  
-    },(error)=>{})
+    this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.originCountry!).subscribe((res) => {
+      this.originPorts = res;
+    }, (error) => { })
   }
   getLocationPortByLocationForDestination() {
-    this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.destinationCountry!).subscribe((res)=>{
-     this.destinationPorts=res;
-    },(error)=>{})
+    this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.destinationCountry!).subscribe((res) => {
+      this.destinationPorts = res;
+    }, (error) => { })
   }
-  
+
   ngOnInit(): void {
 
-    
-    this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Road',routerLink:'/international-shipment-by-road'},{ label: 'Add International Shipment By Road'}];
+
+    this.items = [{ label: 'International Shipment', routerLink: '/international-tile' }, { label: 'International Shipment By Road', routerLink: '/international-shipment-by-road' }, { label: 'Add International Shipment By Road' }];
     this.getAllLocations();
     // this.getAllLocationPort();
     this.getAllDriver();
@@ -125,40 +127,40 @@ export class AddInternationalShippingComponent {
   }
 
   onSubmit() {
-    this.internationalShipment.etd=this.datePipe.transform(this.internationalShipment.etd,'yyyy-MM-dd')
-    this.internationalShipment.eta=this.datePipe.transform(this.internationalShipment.eta,'yyyy-MM-dd')
-    this.internationalShipment.atd=this.datePipe.transform(this.internationalShipment.atd,'yyyy-MM-dd')
-    this.internationalShipment.ata=this.datePipe.transform(this.internationalShipment.ata,'yyyy-MM-dd')
-    this.internationalShippingService.addInternationalShipment(this.internationalShipment).subscribe(res=>{
+    this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-dd')
+    this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-dd')
+    this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-dd')
+    this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-dd')
+    this.internationalShippingService.addInternationalShipment(this.internationalShipment).subscribe(res => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is added' });
       setTimeout(() => {
         this.router.navigate(['/international-shipment-by-road']);
-      },800);
-    },error=>{
+      }, 800);
+    }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'International Shipment is not added' });
-    })  
+    })
   }
 
   getInternationalRouteForRoad() {
-    this.routes=[]
-    if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null) {
-      this.internationalShippingService.getInternationalRouteForRoad(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!).subscribe((res:any)=>{
-        this.routes=res;
+    this.routes = []
+    if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null && this.internationalShipment.trip !== null) {
+      this.internationalShippingService.getInternationalRouteForRoad(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!,this.internationalShipment.trip!).subscribe((res: any) => {
+        this.routes = res;
         debugger
-      },(error:any)=>{
+      }, (error: any) => {
         console.log(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       })
 
-    }else{
+    } else {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You must have to select origin and destination port' });
     }
   }
 
-  getAllLocations(){
-    this.locationService.getAllLocationForInternational().subscribe((res:Location[])=>{
-      this.location=res.filter(el => el.status);         
-    },error=>{
+  getAllLocations() {
+    this.locationService.getAllLocationForInternational().subscribe((res: Location[]) => {
+      this.location = res.filter(el => el.status);
+    }, error => {
     })
   }
 
@@ -167,32 +169,36 @@ export class AddInternationalShippingComponent {
   //     this.locationPort=res.filter(el=>el.status)
   //   },error=>{})
   // }
-  getAllDriver(){
-    this.driverService.getAllDriver().subscribe((res:PaginatedResponse<Driver>)=>{
-  
-     this.drivers=res.content.filter((el:Driver)=>el.status);  
-    },error=>{})
-   }
-   getAllVehicleType(){
-    this.vehicleTypeService.getALLVehicleType().subscribe((res:VehicleType[])=>{
-      this.vehicleTypes=res;  
-    },error=>{
+  getAllDriver() {
+    this.driverService.getAllDriver().subscribe((res: PaginatedResponse<Driver>) => {
+
+      this.drivers = res.content.filter((el: Driver) => el.status);
+    }, error => { })
+  }
+  getAllVehicleType() {
+    this.vehicleTypeService.getALLVehicleType().subscribe((res: VehicleType[]) => {
+      this.vehicleTypes = res;
+    }, error => {
     })
-   }
+  }
 
-    getAllShipmentStatus(){
-    this.shipmentStatusService.getALLShipmentStatus().subscribe((res:ShipmentStatus[])=>{
-      this.shipmentStatus=res; 
-    },error=>{
+  getAllShipmentStatus() {
+    this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
+      this.shipmentStatus = res;
+    }, error => {
     })
-   }
+  }
 
-   driverData(){
-    this.internationalShipment.driverName=this.selectedDriver?.name;
-    this.internationalShipment.driverContact=this.selectedDriver?.contactNumber;
-    this.internationalShipment.referenceNumber=this.selectedDriver?.referenceNumber;
-   }
+  driverData() {
+    this.internationalShipment.driverName = this.selectedDriver?.name;
+    this.internationalShipment.driverContact = this.selectedDriver?.contactNumber;
+    this.internationalShipment.referenceNumber = this.selectedDriver?.referenceNumber;
+  }
 
+  onETDDateSelected(selectedETDDate: Date) {
+    // Update minETDDate to prevent selecting ETA dates before the selected ETD date
+    this.minETDDate = selectedETDDate;
+  }
 
 }
 

@@ -70,7 +70,8 @@ export class UpdateInternationalShipmentByAirComponent {
     routeNumber: null,
     etd: null,
     eta: null,
-    atd: null
+    atd: null,
+    trip: null,
   }
   location!:Location[];
   originPorts!:LocationPort[];
@@ -188,8 +189,8 @@ export class UpdateInternationalShipmentByAirComponent {
   getInternationalRouteForAir() {
     this.showDropDown = true;
     this.routes=[]
-    if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null) {
-      this.internationalShippingService.getInternationalRouteForAir(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!).subscribe((res:any)=>{
+    if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null && this.internationalShipment.trip !== null) {
+      this.internationalShippingService.getInternationalRouteForAir(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!,this.internationalShipment.trip!).subscribe((res:any)=>{
         this.routes=res;
         debugger
       },(error:any)=>{

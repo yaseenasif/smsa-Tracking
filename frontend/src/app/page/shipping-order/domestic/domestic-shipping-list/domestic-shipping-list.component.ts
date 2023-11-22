@@ -8,59 +8,59 @@ import { ActivatedRoute } from '@angular/router';
   selector: 'app-domestic-shipping-list',
   templateUrl: './domestic-shipping-list.component.html',
   styleUrls: ['./domestic-shipping-list.component.scss'],
-  providers:[MessageService]
+  providers: [MessageService]
 })
-export class DomesticShippingListComponent implements OnInit{
+export class DomesticShippingListComponent implements OnInit {
 
-  myApiResponse:any;
+  myApiResponse: any;
 
-  constructor(private domesticShipmentService:DomesticShippingService,
+  constructor(private domesticShipmentService: DomesticShippingService,
     private messageService: MessageService,
-    ) { }
-  domesticShipment:DomesticShipment[]=[]
+  ) { }
+  domesticShipment: DomesticShipment[] = []
   items: MenuItem[] | undefined;
- 
+
 
   ngOnInit() {
-      this.items = [{ label: 'Domestic Shipment'}];
-      this.getAllDomesticShipments();
+    this.items = [{ label: 'Domestic Shipment' }];
+    this.getAllDomesticShipments();
   }
-  page=0;
-  size=10;
+  page = 0;
+  size = 10;
   first: number = 0;
 
   rows: number = 10;
 
-  totalRecords:number =0;
+  totalRecords: number = 0;
 
-  getAllDomesticShipments(){
-    this.domesticShipmentService.getALLShipments({value:"",user:{}},this.first,this.rows).subscribe((res:any)=>{
+  getAllDomesticShipments() {
+    this.domesticShipmentService.getALLShipments({ value: "", user: {} }, this.first, this.rows).subscribe((res: any) => {
       debugger
-      this.myApiResponse=res;
-      this.totalRecords= this.myApiResponse.totalElements;
-      this.domesticShipment=this.myApiResponse.content;
-    },(error:any)=>{
-      if(error.error.body){
+      this.myApiResponse = res;
+      this.totalRecords = this.myApiResponse.totalElements;
+      this.domesticShipment = this.myApiResponse.content;
+    }, (error: any) => {
+      if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      }else{
+      } else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }   
+      }
     })
   }
 
-  deleteDomesticShipment(id:number){
-    this.domesticShipmentService.deleteDomesticShipment(id).subscribe((res:any)=>{
+  deleteDomesticShipment(id: number) {
+    this.domesticShipmentService.deleteDomesticShipment(id).subscribe((res: any) => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message });
 
       this.getAllDomesticShipments();
-      
-    },(error:any)=>{
-      
-      if(error.error.body){
+
+    }, (error: any) => {
+
+      if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      }else{
+      } else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }  
+      }
     })
   }
 
@@ -68,10 +68,10 @@ export class DomesticShippingListComponent implements OnInit{
 
 
   onPageChange(event: any) {
-      this.first = event.first;
-      this.rows = event.rows;
-      debugger
-      this.getAllDomesticShipments();
+    this.first = event.first;
+    this.rows = event.rows;
+    debugger
+    this.getAllDomesticShipments();
   }
-  
+
 }
