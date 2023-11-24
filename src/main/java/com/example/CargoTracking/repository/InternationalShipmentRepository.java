@@ -5,6 +5,7 @@ import com.example.CargoTracking.model.InternationalShipment;
 import com.example.CargoTracking.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -29,17 +30,17 @@ public interface InternationalShipmentRepository extends JpaRepository<Internati
     @Query("SELECT i FROM InternationalShipment i WHERE i.destinationCountry = :destinationCountry AND i.type = 'by Road'")
     Page<InternationalShipment> findByDestinationCountryByRoad(String destinationCountry, Pageable pageable);
 
-    @Query("SELECT i FROM InternationalShipment i WHERE i.createdBy = :user AND i.type = 'by Air'")
+    @Query("SELECT i FROM InternationalShipment i WHERE i.createdBy = :user AND i.type = 'By Air'")
     List<InternationalShipment> findAllByCreatedByForAir(User user);
 
-    @Query("SELECT i FROM InternationalShipment i WHERE i.type = 'by Air'")
-    List<InternationalShipment> findAllForAir();
+    @Query("SELECT i FROM InternationalShipment i WHERE i.type = 'By Air'")
+    Page<InternationalShipment> findAllForAir( Pageable pageable);
 
-    @Query("SELECT i FROM InternationalShipment i WHERE i.createdBy = :user AND i.type = 'by Road'")
+    @Query("SELECT i FROM InternationalShipment i WHERE i.createdBy = :user AND i.type = 'By Road'")
     List<InternationalShipment> findAllByCreatedByForRoad(User user);
 
-    @Query("SELECT i FROM InternationalShipment i WHERE i.type = 'by Road'")
-    List<InternationalShipment> findAllForRoad();
+    @Query("SELECT i FROM InternationalShipment i WHERE i.type = 'By Road'")
+    Page<InternationalShipment> findAllForRoad(Pageable pageable);
 
     @Query("SELECT i FROM InternationalShipment i WHERE i.createdAt = :createdAt")
     List<InternationalShipment> findByCreatedAt(@Param("createdAt") LocalDate createdAt);

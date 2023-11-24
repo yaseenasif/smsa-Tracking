@@ -2,6 +2,7 @@ package com.example.CargoTracking.controller;
 
 import com.example.CargoTracking.dto.InternationalRouteDto;
 import com.example.CargoTracking.model.InternationalRoute;
+import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.InternationalRouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -40,8 +41,19 @@ public class InternationalRouteController {
         return internationalRouteService.findAllInternationalRouteForRoad();
     }
 
-    @PostMapping("add-internationalRoute")
+    @PostMapping("/add-internationalRoute")
     public InternationalRouteDto addInternationRoute(@RequestBody InternationalRouteDto internationalRouteDto){
         return internationalRouteService.saveInternationalRoute(internationalRouteDto);
     }
+
+    @PutMapping("/update-international-route/{id}")
+    public ResponseEntity<InternationalRouteDto> updateInternationalRoute(@PathVariable Long id,@RequestBody InternationalRouteDto internationalRouteDto){
+        return ResponseEntity.ok(internationalRouteService.updateInternationalRoute(id,internationalRouteDto));
+    }
+
+    @DeleteMapping("/delete-international-route/{id}")
+    public ResponseEntity<ApiResponse> deleteInternationalRoute(@PathVariable Long id){
+        return ResponseEntity.ok(internationalRouteService.deleteInternationalRoute(id));
+    }
+
 }
