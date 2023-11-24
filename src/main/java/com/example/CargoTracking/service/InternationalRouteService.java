@@ -8,15 +8,20 @@ import com.example.CargoTracking.model.DomesticRoute;
 import com.example.CargoTracking.model.FileMetaData;
 import com.example.CargoTracking.model.InternationalRoute;
 import com.example.CargoTracking.model.InternationalShipment;
+import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.repository.InternationalRouteRepository;
 import com.example.CargoTracking.repository.InternationalShipmentRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -116,5 +121,37 @@ public class InternationalRouteService {
     }
     public InternationalRoute toEntity(InternationalRouteDto internationalRouteDto){
         return modelMapper.map(internationalRouteDto,InternationalRoute.class);
+    }
+
+    public InternationalRouteDto updateInternationalRoute(Long id, InternationalRouteDto internationalRouteDto) {
+        Optional<InternationalRoute> internationalRoute = internationalRouteRepository.findById(id);
+        if(internationalRoute.isPresent()){
+            internationalRoute.get().setOrigin(internationalRouteDto.getOrigin());
+            internationalRoute.get().setDestination(internationalRouteDto.getDestination());
+            internationalRoute.get().setRoute(internationalRouteDto.getRoute());
+            internationalRoute.get().setDriverId(internationalRouteDto.getDriverId());
+            internationalRoute.get().setFlight(internationalRouteDto.getFlight());
+            internationalRoute.get().setEta(internationalRouteDto.getEta());
+            internationalRoute.get().setEtd(internationalRouteDto.getEtd());
+
+            return toDto(internationalRoute.get());
+
+        }else{
+            throw new RecordNotFoundException(String.format("Shipment Route is not available for id: %d",id));
+        }
+    }
+
+    public ApiResponse deleteInternationalRoute(Long id) {
+        Optional<InternationalRoute> internationalRoute = internationalRouteRepository.findById(id);
+        if(internationalRoute.isPresent()){
+            internationalRouteRepository.deleteById(id);
+            return ApiResponse.builder()
+                    .message("Record delete successfully")
+                    .statusCode(HttpStatus.OK.value())
+                    .result(Collections.emptyList())
+                    .build();
+        }else{
+            throw new RecordNotFoundException(String.format("Shipment Route is not available for id: %d",id));
+        }
     }
 }

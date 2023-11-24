@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { InternationalShipment, Time } from 'src/app/model/InternationalShipment';
@@ -16,8 +16,12 @@ export class InternationalShippingService {
   getAllInternationalShipmentByRoad(): Observable<InternationalShipment[]> {
     return this.http.get<InternationalShipment[]>(this.url.concat('/international-shipments-by-user-road'));
   }
-  getAllInternationalShipmentByAir(): Observable<InternationalShipment[]> {
-    return this.http.get<InternationalShipment[]>(this.url.concat('/international-shipments-by-user-air'));
+  getAllInternationalShipmentByAir(obj:any,page:number,size:number): Observable<InternationalShipment[]> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("value",JSON.stringify(obj));
+    queryParams = queryParams.append("page",page);
+    queryParams = queryParams.append("size",size);
+    return this.http.get<InternationalShipment[]>(this.url.concat('/international-shipments-by-user-air'),{params:queryParams});
   }
   getInternationalShipmentByID(id: number): Observable<InternationalShipment> {
     return this.http.get<InternationalShipment>(this.url.concat('/international-shipment/', id.toString()));

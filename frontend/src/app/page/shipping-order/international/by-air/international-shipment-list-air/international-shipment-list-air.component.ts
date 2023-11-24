@@ -23,8 +23,8 @@ export class InternationalShipmentListAirComponent {
     
   
     getAllInternationalShipmentByAir(){
-      this.internationalShippingService.getAllInternationalShipmentByAir().subscribe((res:InternationalShipment[])=>{
-        this.internationalShipmentByAir=res; 
+      this.internationalShippingService.getAllInternationalShipmentByAir({ value: "Pre-Alert Created", user: {}, type:"" }, 0, 10).subscribe((res:any)=>{
+        this.internationalShipmentByAir=res.content; 
       },error=>{
 
       })

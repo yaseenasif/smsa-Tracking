@@ -1,5 +1,7 @@
 package com.example.CargoTracking.controller;
 
+import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
+import com.example.CargoTracking.criteria.SearchCriteriaForInternationalShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
@@ -21,7 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class InternationalShipmentController {
+public class  InternationalShipmentController {
     @Autowired
     InternationalShipmentService internationalShipmentService;
     @Autowired
@@ -55,13 +57,21 @@ public class InternationalShipmentController {
     }
 
     @GetMapping("/international-shipments-by-user-air")
-    public ResponseEntity<List<InternationalShipmentDto>> getAllInternationalShipmentByUserForAir(){
-        return ResponseEntity.ok(internationalShipmentService.getAllByUserAndForAir());
+    public ResponseEntity<Page<InternationalShipmentDto>> getAllInternationalShipmentByUserForAir(@RequestParam(value = "value",required = false) String value,
+                                                                                                  @RequestParam(defaultValue = "0") int page,
+                                                                                                  @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForInternationalShipment
+                searchCriteriaForInternationalShipment = new ObjectMapper().readValue(value, SearchCriteriaForInternationalShipment.class);
+        return ResponseEntity.ok(internationalShipmentService.getAllByUserAndForAir(searchCriteriaForInternationalShipment,page,size));
     }
 
     @GetMapping("/international-shipments-by-user-road")
-    public ResponseEntity<List<InternationalShipmentDto>> getAllInternationalShipmentByUserForRoad(){
-        return ResponseEntity.ok(internationalShipmentService.getAllByUserAndForRoad());
+    public ResponseEntity<Page<InternationalShipmentDto>> getAllInternationalShipmentByUserForRoad(@RequestParam(value = "value",required = false) String value,
+                                                                                                   @RequestParam(defaultValue = "0") int page,
+                                                                                                   @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForInternationalShipment
+                searchCriteriaForInternationalShipment = new ObjectMapper().readValue(value, SearchCriteriaForInternationalShipment.class);
+        return ResponseEntity.ok(internationalShipmentService.getAllByUserAndForRoad(searchCriteriaForInternationalShipment,page,size));
     }
 
     @GetMapping("/international-shipment/{id}")
