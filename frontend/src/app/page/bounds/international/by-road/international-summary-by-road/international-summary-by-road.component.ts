@@ -15,66 +15,69 @@ import { AuthguardService } from 'src/app/auth-service/authguard/authguard.servi
 })
 export class InternationalSummaryByRoadComponent {
 
-  name!:string;
-  bound!:Bound[];
-  shipmentStatus!:ShipmentStatus[];
-  role:any;
+  name!: string;
+  bound!: Bound[];
+  shipmentStatus!: ShipmentStatus[];
+  role: any;
 
-  selectedBound:Bound={
-    bound:"In bound"
+  selectedBound: Bound = {
+    bound: "In bound"
   };
 
-  search:any  ={
-    fromDate:null,
-    toDate:null,
-    status:null,
-    origin:null,
-    destination:null,
-    type:null
+  search: any = {
+    fromDate: null,
+    toDate: null,
+    status: null,
+    origin: null,
+    destination: null,
+    type: null
   }
+  paginationRes: any;
+  page: any;
+  size: any;
 
-  constructor(private summaryService:SummaryService,
+  constructor(private summaryService: SummaryService,
     private datePipe: DatePipe,
-    private authguardService:AuthguardService,
+    private authguardService: AuthguardService,
 
-    private shipmentStatusService:ShipmentStatusService) { }
+    private shipmentStatusService: ShipmentStatusService) { }
 
-    internationalShipmentByRoad:any=[];
-    items: MenuItem[] | undefined;
+  internationalShipmentByRoad: any = [];
+  items: MenuItem[] | undefined;
 
   ngOnInit() {
     this.getRole()
 
-      this.items = [{ label: 'International Summary By Road'}];
-      this.bound=[
-        {
-          bound:"In bound"
-        },
-        {
-          bound:"Out bound"
-        }
-      ]
-      this.getAllShipmentStatus();
-      this.getInboundSummary(this.search,0,10);
+    this.items = [{ label: 'International Summary By Road' }];
+    this.bound = [
+      {
+        bound: "In bound"
+      },
+      {
+        bound: "Out bound"
+      }
+    ]
+    this.getAllShipmentStatus();
+    this.getInboundSummary(this.search, 0, 10);
   }
-  getRole(){
+  getRole() {
     const token = localStorage.getItem('accessToken');
 
     const decodeToken = this.authguardService.getDecodedAccessToken(token!);
 
-    this.role=decodeToken.ROLES;
+    this.role = decodeToken.ROLES;
     console.log(this.role);
 
   }
 
   onBoundChange() {
-    this.search  ={
-      fromDate:null,
-      toDate:null,
-      status:null,
-      origin:null,
-      destination:null,
-      type:null
+    this.search = {
+      fromDate: null,
+      toDate: null,
+      status: null,
+      origin: null,
+      destination: null,
+      type: null
     }
     if (this.selectedBound && this.selectedBound.bound === "In bound") {
       this.getInboundSummary(this.search, 0, 10);
@@ -83,91 +86,99 @@ export class InternationalSummaryByRoadComponent {
     }
   }
 
-  getAllShipmentStatus(){
-    this.shipmentStatusService.getALLShipmentStatus().subscribe((res:ShipmentStatus[])=>{
-      this.shipmentStatus=res;
-    },error=>{
+  getAllShipmentStatus() {
+    this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
+      this.shipmentStatus = res;
+    }, error => {
 
-
-
-    })
-   }
-
-   getInboundSummary(obj:InternationalSummarySearch,page:number,size:number){
-    this.summaryService.getInboundSummaryForRoad(obj,page,size).subscribe((res:any)=>{
-      this.internationalShipmentByRoad=res.content;
-      this.search  ={
-        fromDate:null,
-        toDate:null,
-        status:null,
-        origin:null,
-        destination:null,
-        type:null
-      }
-    },(error:any)=>{
-
-      this.internationalShipmentByRoad=[];
 
 
     })
   }
 
-  getOutboundSummary(obj:InternationalSummarySearch,page:number,size:number){
-    this.summaryService.getOutboundSummaryForRoad(obj,page,size).subscribe((res:any)=>{
-      this.internationalShipmentByRoad=res.content;
-      this.search  ={
-        fromDate:null,
-        toDate:null,
-        status:null,
-        origin:null,
-        destination:null,
-        type:null
+  getInboundSummary(obj: InternationalSummarySearch, page: number, size: number) {
+    this.summaryService.getInboundSummaryForRoad(obj, page, size).subscribe((res: any) => {
+      this.internationalShipmentByRoad = res.content;
+      this.paginationRes = res;
+      this.search = {
+        fromDate: null,
+        toDate: null,
+        status: null,
+        origin: null,
+        destination: null,
+        type: null
       }
-    },(error:any)=>{
+    }, (error: any) => {
 
-      this.internationalShipmentByRoad=[];
+      this.internationalShipmentByRoad = [];
 
 
     })
   }
 
-  onSubmit(){
-    if(this.search.destination===null){
-      this.search.destination="";
+  getOutboundSummary(obj: InternationalSummarySearch, page: number, size: number) {
+    this.summaryService.getOutboundSummaryForRoad(obj, page, size).subscribe((res: any) => {
+      this.internationalShipmentByRoad = res.content;
+      this.paginationRes = res;
+      this.search = {
+        fromDate: null,
+        toDate: null,
+        status: null,
+        origin: null,
+        destination: null,
+        type: null
+      }
+    }, (error: any) => {
+
+      this.internationalShipmentByRoad = [];
+
+
+    })
+  }
+
+  onSubmit() {
+    if (this.search.destination === null) {
+      this.search.destination = "";
     }
-    if(this.search.origin===null){
-      this.search.origin="";
+    if (this.search.origin === null) {
+      this.search.origin = "";
     }
-    if(this.search.status===null){
-      this.search.status="";
+    if (this.search.status === null) {
+      this.search.status = "";
     }
-    if(this.search.status===null){
-      this.search.type="";
+    if (this.search.status === null) {
+      this.search.type = "";
     }
-    if(this.search.toDate===null){
-      this.search.toDate="";
+    if (this.search.toDate === null) {
+      this.search.toDate = "";
     }
-    else{
+    else {
       let originalDate = new Date(this.search.toDate);
       this.search.toDate = this.datePipe.transform(originalDate, 'yyyy-MM-dd');
     }
-    if(this.search.fromDate===null){
-      this.search.fromDate="";
+    if (this.search.fromDate === null) {
+      this.search.fromDate = "";
     }
-    else{
+    else {
       let originalDate = new Date(this.search.fromDate);
       this.search.fromDate = this.datePipe.transform(originalDate, 'yyyy-MM-dd');
     }
 
-    if(this.selectedBound.bound === "In bound"){
-      this.getInboundSummary(this.search,0,10);
-    }else{
-      this.getOutboundSummary(this.search,0,10);
+    if (this.selectedBound.bound === "In bound") {
+      this.getInboundSummary(this.search, 0, 10);
+    } else {
+      this.getOutboundSummary(this.search, 0, 10);
 
     }
   }
+  onPageChange(event: any) {
+    this.page = event.first;
+    this.size = event.rows;
+    this.getInboundSummary(this.search, this.page, this.size);
+    this.getOutboundSummary(this.search, this.page, this.size);
+  }
 }
 
-interface Bound{
-  bound:string
+interface Bound {
+  bound: string
 }

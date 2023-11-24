@@ -10,8 +10,9 @@ interface Pageable {
     paged: boolean;
     unpaged: boolean;
 }
-  
+
   // Define the main interface representing the structure of the paginated response
+  
 export  interface PaginatedResponse<T>{
     content:T[];
     pageable: Pageable;

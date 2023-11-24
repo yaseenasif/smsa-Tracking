@@ -13,15 +13,21 @@ export class InternationalShippingService {
   constructor(private http: HttpClient) { }
   url = environment.baseurl;
 
-  getAllInternationalShipmentByRoad(): Observable<InternationalShipment[]> {
-    return this.http.get<InternationalShipment[]>(this.url.concat('/international-shipments-by-user-road'));
-  }
-  getAllInternationalShipmentByAir(obj:any,page:number,size:number): Observable<InternationalShipment[]> {
+  getAllInternationalShipmentByRoad(obj?: any, page?: number, size?: number): Observable<InternationalShipment[]> {
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("value",JSON.stringify(obj));
-    queryParams = queryParams.append("page",page);
-    queryParams = queryParams.append("size",size);
-    return this.http.get<InternationalShipment[]>(this.url.concat('/international-shipments-by-user-air'),{params:queryParams});
+    debugger
+    queryParams = queryParams.append("value", JSON.stringify(obj));
+    queryParams = queryParams.append("page", page ? page : 0);
+    queryParams = queryParams.append("size", size ? size : 10);
+    return this.http.get<InternationalShipment[]>(this.url.concat('/international-shipments-by-user-road'), { params: queryParams });
+  }
+  getAllInternationalShipmentByAir(obj?: any, page?: number, size?: number): Observable<InternationalShipment[]> {
+    let queryParams = new HttpParams();
+    debugger
+    queryParams = queryParams.append("value", JSON.stringify(obj));
+    queryParams = queryParams.append("page", page ? page : 0);
+    queryParams = queryParams.append("size", size ? size : 10);
+    return this.http.get<InternationalShipment[]>(this.url.concat('/international-shipments-by-user-air'), { params: queryParams });
   }
   getInternationalShipmentByID(id: number): Observable<InternationalShipment> {
     return this.http.get<InternationalShipment>(this.url.concat('/international-shipment/', id.toString()));
@@ -45,7 +51,7 @@ export class InternationalShippingService {
   getInternationalRouteForAir(origin: string, destination: string, trip: number) {
     return this.http.get<any>(`${this.url}/getRoute-air/${origin}/${destination}/${trip}`)
   }
-  getInternationalRouteForRoad(origin: string, destination: string,trip:number) {
+  getInternationalRouteForRoad(origin: string, destination: string, trip: number) {
     return this.http.get<any>(`${this.url}/getRoute-road/${origin}/${destination}/${trip}`)
   }
 

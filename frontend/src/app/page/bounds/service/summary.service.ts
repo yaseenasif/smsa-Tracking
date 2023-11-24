@@ -7,68 +7,69 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class SummaryService {
-  url=environment.baseurl;
-  constructor(private http:HttpClient) { }
+  url = environment.baseurl;
+  constructor(private http: HttpClient) { }
 
   //For Domestic
 
-  getInboundSummary(obj:any,page:number,size:number):Observable<any>{
+  getInboundSummary(obj?: any, page?: number, size?: number): Observable<any> {
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("value",JSON.stringify(obj));
-    queryParams = queryParams.append("page",page);
-    queryParams = queryParams.append("size",size);
-    
-    return this.http.get<any>(`${this.url}/domestic-shipment/inbound`,{params:queryParams});
+    queryParams = queryParams.append("value", JSON.stringify(obj));
+    queryParams = queryParams.append("page", page ? page : 0);
+    queryParams = queryParams.append("size", size ? size : 10);
+    debugger
+    return this.http.get<any>(`${this.url}/domestic-shipment/inbound`, { params: queryParams });
   }
 
-  getOutboundSummary(obj:any,page:number,size:number):Observable<any>{
+  getOutboundSummary(obj?: any, page?: number, size?: number): Observable<any> {
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("value",JSON.stringify(obj));
-    queryParams = queryParams.append("page",page);
-    queryParams = queryParams.append("size",size);
-    
-    return this.http.get<any>(`${this.url}/domestic-shipment/outbound`,{params:queryParams});
+    queryParams = queryParams.append("value", JSON.stringify(obj));
+    queryParams = queryParams.append("page", page ? page : 0);
+    queryParams = queryParams.append("size", size ? size : 10);
+    debugger
+    return this.http.get<any>(`${this.url}/domestic-shipment/outbound`, { params: queryParams });
   }
 
   // ForInternational
 
-    // ForAir
+  // ForAir
 
-  getInboundSummaryForAir(obj:any,page:number,size:number):Observable<any>{
+  getInboundSummaryForAir(obj?: any, page?: number, size?: number): Observable<any> {
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("value",JSON.stringify(obj));
-    queryParams = queryParams.append("page",page);
-    queryParams = queryParams.append("size",size);
-    
-    return this.http.get<any>(`${this.url}/international-inbound-summery-air`,{params:queryParams});
+    debugger
+    queryParams = queryParams.append("value", JSON.stringify(obj));
+    queryParams = queryParams.append("page", page ? page : 0);
+    queryParams = queryParams.append("size", size ? size : 10);
+
+    return this.http.get<any>(`${this.url}/international-inbound-summery-air`, { params: queryParams });
   }
 
-  getOutboundSummaryForAir(obj:any,page:number,size:number):Observable<any>{
+  getOutboundSummaryForAir(obj: any, page: number, size: number): Observable<any> {
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("value",JSON.stringify(obj));
-    queryParams = queryParams.append("page",page);
-    queryParams = queryParams.append("size",size);
-    
-    return this.http.get<any>(`${this.url}/international-outbound-summery-air`,{params:queryParams});
+    queryParams = queryParams.append("value", JSON.stringify(obj));
+    queryParams = queryParams.append("page", page);
+    queryParams = queryParams.append("size", size);
+
+    return this.http.get<any>(`${this.url}/international-outbound-summery-air`, { params: queryParams });
   }
 
-    // ForRoad
+  // ForRoad
 
-    getInboundSummaryForRoad(obj:any,page:number,size:number):Observable<any>{
-      let queryParams = new HttpParams();
-      queryParams = queryParams.append("value",JSON.stringify(obj));
-      queryParams = queryParams.append("page",page);
-      queryParams = queryParams.append("size",size);
-      
-      return this.http.get<any>(`${this.url}/international-inbound-summery-road`,{params:queryParams});
-    }
-  
-    getOutboundSummaryForRoad(obj:any,page:number,size:number):Observable<any>{
-      let queryParams = new HttpParams();
-      queryParams = queryParams.append("value",JSON.stringify(obj));
-      queryParams = queryParams.append("page",page);
-      queryParams = queryParams.append("size",size);
-      
-      return this.http.get<any>(`${this.url}/international-outbound-summery-road`,{params:queryParams});
-    }
+  getInboundSummaryForRoad(obj: any, page: number, size: number): Observable<any> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("value", JSON.stringify(obj));
+    queryParams = queryParams.append("page", page);
+    queryParams = queryParams.append("size", size);
+
+    return this.http.get<any>(`${this.url}/international-inbound-summery-road`, { params: queryParams });
+  }
+
+  getOutboundSummaryForRoad(obj: any, page: number, size: number): Observable<any> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("value", JSON.stringify(obj));
+    queryParams = queryParams.append("page", page);
+    queryParams = queryParams.append("size", size);
+
+    return this.http.get<any>(`${this.url}/international-outbound-summery-road`, { params: queryParams });
+  }
 }
