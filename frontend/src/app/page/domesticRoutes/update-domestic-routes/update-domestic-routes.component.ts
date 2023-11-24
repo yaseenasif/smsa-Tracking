@@ -42,11 +42,11 @@ export class UpdateDomesticRoutesComponent {
   getDomesticRoute() {
     this.showDropDown = true;
     this.routeNumbers = []
-    debugger
+
     if (this.routes.origin !== null && this.routes.destination !== null) {
       this.domesticRouteService.getDomesticRoute(this.routes.origin!, this.routes.destination!).subscribe((res: any) => {
         this.routes = res;
-        debugger
+
       }, (error: any) => {
         console.log(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -60,7 +60,7 @@ export class UpdateDomesticRoutesComponent {
   ngOnInit(): void {
     this.domesticRouteId = +this.route.snapshot.paramMap.get('id')!;
     this.items = [{ label: 'Domestic Shipment Routes', routerLink: '/domestic-routes' }, { label: 'Edit Domestic Shipment Routes' }];
-    debugger
+
     this.domesticRouteService.getDomesticRouteById(this.domesticRouteId).subscribe(res => {
      }, err => { });
   }

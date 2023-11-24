@@ -1,21 +1,21 @@
 package com.example.CargoTracking.service;
-
 import com.example.CargoTracking.dto.DomesticRouteDto;
-import com.example.CargoTracking.dto.InternationalRouteDto;
 import com.example.CargoTracking.exception.RecordNotFoundException;
-import com.example.CargoTracking.model.DomesticRoute;
-import com.example.CargoTracking.model.DomesticShipment;
-import com.example.CargoTracking.model.InternationalRoute;
-import com.example.CargoTracking.model.InternationalShipment;
+import com.example.CargoTracking.model.*;
+import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.repository.DomesticRouteRepository;
 import com.example.CargoTracking.repository.DomesticShipmentRepository;
+import com.example.CargoTracking.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,22 +23,25 @@ public class DomesticRouteService {
     @Autowired
     DomesticRouteRepository domesticRouteRepository;
     @Autowired
-    DomesticShipmentRepository domesticShipmentRepository;
+    UserRepository userRepository;
     @Autowired
     ModelMapper modelMapper;
+
+    @Autowired
+    DomesticShipmentRepository domesticShipmentRepository;
 
     public List<DomesticRouteDto> findDomesticRoute(String origin, String destination) {
         List<DomesticRoute> byOriginAndDestination =
                 domesticRouteRepository.findByOriginAndDestination(origin, destination);
-        if(byOriginAndDestination.isEmpty()){
-            throw  new RecordNotFoundException(String.format("No routes available against given origin and destination"));
+        if (byOriginAndDestination.isEmpty()) {
+            throw new RecordNotFoundException(String.format("No routes available against given origin and destination"));
         }
 
         List<DomesticShipment> domesticShipment =
                 domesticShipmentRepository.findByCreatedAt(LocalDate.now());
 
         List<DomesticRoute> resultList = new ArrayList<>();
-        if(domesticShipment.isEmpty()){
+        if (domesticShipment.isEmpty()) {
             return toDtoList(byOriginAndDestination);
         }
         for (DomesticShipment shipment : domesticShipment) {
@@ -52,26 +55,26 @@ public class DomesticRouteService {
                             .collect(Collectors.toList())
             );
         }
-        if(resultList.isEmpty()){
+        if (resultList.isEmpty()) {
             throw new RecordNotFoundException(String.format("All routes have been used today"));
         }
         return toDtoList(resultList);
     }
 
-    public List<DomesticRouteDto> toDtoList(List<DomesticRoute> domesticRoutes){
+    public List<DomesticRouteDto> toDtoList(List<DomesticRoute> domesticRoutes) {
         return domesticRoutes.stream().map(this::toDto).collect(Collectors.toList());
     }
 
-    public DomesticRouteDto toDto(DomesticRoute domesticRoute){
+    public DomesticRouteDto toDto(DomesticRoute domesticRoute) {
         return modelMapper.map(domesticRoute, DomesticRouteDto.class);
     }
 
-    public DomesticRoute toEntity(DomesticRouteDto domesticRouteDto){
-        return modelMapper.map(domesticRouteDto,DomesticRoute.class);
+    public DomesticRoute toEntity(DomesticRouteDto domesticRouteDto) {
+        return modelMapper.map(domesticRouteDto, DomesticRoute.class);
     }
 
     public DomesticRoute findRouteByRouteNumber(String routeNumber) {
-        return  domesticRouteRepository.findByRoute(routeNumber);
+        return domesticRouteRepository.findByRoute(routeNumber);
     }
 
     public DomesticRouteDto saveDomesticRoute(DomesticRouteDto domesticRouteDto) {
@@ -82,4 +85,36 @@ public class DomesticRouteService {
     public List<DomesticRouteDto> findAllDomesticRoutes() {
         return toDtoList(domesticRouteRepository.findAll());
     }
+
+    public ApiResponse deleteDomesticRoute(Long id) {
+        Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(id);
+        if (domesticRoute.isPresent()) {
+            domesticRouteRepository.deleteById(id);
+            return ApiResponse.builder()
+                    .message("Record delete successfully")
+                    .statusCode(HttpStatus.OK.value())
+                    .result(Collections.emptyList())
+                    .build();
+        }
+        throw new RecordNotFoundException(String.format("Domestic Route not found by this id => %d", id));
+    }
+
+    public DomesticRouteDto updateDomesticRoute(Long id, DomesticRouteDto domesticRouteDto) {
+        Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(id);
+        if (domesticRoute.isPresent()) {
+
+            domesticRoute.get().setOrigin(domesticRouteDto.getOrigin());
+            domesticRoute.get().setOrigin(domesticRouteDto.getDestination());
+            domesticRoute.get().setRoute(domesticRouteDto.getRoute());
+            domesticRoute.get().setEtd(domesticRouteDto.getEtd());
+            domesticRoute.get().setEta(domesticRouteDto.getEta());
+
+            DomesticRoute save = domesticRouteRepository.save(domesticRoute.get());
+            return toDto(save);
+
+        } else {
+            throw new RecordNotFoundException(String.format("Domestic Route Not Found By This Id %d", id));
+        }
+    }
+
 }

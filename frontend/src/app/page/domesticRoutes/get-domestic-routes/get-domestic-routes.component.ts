@@ -26,7 +26,6 @@ export class GetDomesticRoutesComponent {
   }
 
   onPageChange(event: any) {
-    debugger
     this.first = event.first;
     this.rows = event.rows;
 }
@@ -39,9 +38,11 @@ export class GetDomesticRoutesComponent {
   }
 
   deleteDomesticRouteByID(id: number) {
-    this.domesticRouteService.deleteDomesticRoute(id).subscribe((res: Routes) => {
+    this.domesticRouteService.deleteDomesticRoute(id).subscribe((res: Error) => {
       this.visible = false;
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Route is deleted on id ' + res!.id!.toString() });
+      debugger
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Route is deleted on id ' + res.message });
+      debugger
       this.getAllDomesticRoutes();
     }, error => {
 

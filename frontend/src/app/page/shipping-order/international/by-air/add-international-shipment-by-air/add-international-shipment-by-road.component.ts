@@ -120,7 +120,7 @@ export class AddInternationalShipmentByRoadComponent {
 
   onSubmit() {
     console.log(this.internationalShipment);
-    debugger
+
     this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-dd')
     this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-dd')
     this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-dd')
@@ -151,11 +151,11 @@ export class AddInternationalShipmentByRoadComponent {
 
   getInternationalRouteForAir() {
     this.routes = []
-    debugger
+
     if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null && this.internationalShipment.trip !== null) {
       this.internationalShippingService.getInternationalRouteForAir(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!,this.internationalShipment.trip!).subscribe((res: any) => {
         this.routes = res;
-        debugger
+
       }, (error: any) => {
         console.log(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });

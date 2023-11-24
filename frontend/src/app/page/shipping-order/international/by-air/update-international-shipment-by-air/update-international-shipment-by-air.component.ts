@@ -192,7 +192,7 @@ export class UpdateInternationalShipmentByAirComponent {
     if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null && this.internationalShipment.trip !== null) {
       this.internationalShippingService.getInternationalRouteForAir(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!,this.internationalShipment.trip!).subscribe((res:any)=>{
         this.routes=res;
-        debugger
+
       },(error:any)=>{
         console.log(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });

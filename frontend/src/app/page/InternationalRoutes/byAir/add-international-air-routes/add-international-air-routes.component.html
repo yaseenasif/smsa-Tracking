@@ -1,1 +1,176 @@
-<p>add-international-air-routes works!</p>
+<div class="flex flex-row">
+  <app-sidebar></app-sidebar>
+  <div class="body-position">
+    <div class="body-holder">
+      <app-dashboard-head></app-dashboard-head>
+      <div class="main">
+        <div class="card flex justify-content-center">
+          <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+        </div>
+        <div class="body-card">
+          <p-toast></p-toast>
+          <div class="card">
+            <h1 class="mb-4 h-color">Add Route</h1>
+            <form #permissionForm="ngForm" (ngSubmit)="onSubmit()">
+              <div class="grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Origin Location</label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="location"
+                      name="originLocation"
+                      #originLocation="ngModel"
+                      [required]="true"
+                      [(ngModel)]="internationalShipment.originCountry"
+                      optionLabel="locationName"
+                      optionValue="locationName"
+                      [filter]="true"
+                      filterBy="locationName"
+                      [showClear]="true"
+                      placeholder="Select a Origin Location"
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="internationalShipment"
+                        >
+                          <div>{{ internationalShipment.originCountry }}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-location pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ location.locationName }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Destination Location</label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="location"
+                      name="destinationLocation"
+                      #destinationLocation="ngModel"
+                      [required]="true"
+                      [(ngModel)]="internationalShipment.destinationCountry"
+                      optionLabel="locationName"
+                      optionValue="locationName"
+                      [filter]="true"
+                      filterBy="locationName"
+                      [showClear]="true"
+                      placeholder="Select a Destination Location"
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="internationalShipment"
+                        >
+                          <div>{{ internationalShipment.destinationCountry }}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-location pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ location.locationName }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+              </div>
+              <div class="grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Route</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [(ngModel)]="routes.route"
+                      name="name"
+                      #name="ngModel"
+                      required
+                    />
+                    <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="name.invalid && (name.dirty || name.touched)"
+                      >Name is required.</small
+                    >
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Driver</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [(ngModel)]="routes.driver"
+                      name="name"
+                      #name="ngModel"
+                      required
+                    />
+                    <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="name.invalid && (name.dirty || name.touched)"
+                      >Name is required.</small
+                    >
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">ETD</label>
+                    <p-calendar
+                      [(ngModel)]="routes.etd"
+                      #etd="ngModel"
+                      [required]="true"
+                      name="etd"
+                      [minDate]="minETDDate"
+                      (onSelect)="onETDDateSelected($event)"
+                    ></p-calendar>
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">ETA</label>
+                    <p-calendar
+                      [(ngModel)]="routes.eta"
+                      #etd="ngModel"
+                      [required]="true"
+                      name="eta"
+                      [minDate]="minETDDate"
+                    ></p-calendar>
+                  </div>
+                </div>
+              </div>
+              <div class="flex align-items-center justify-content-end mt-4">
+                <p-button
+                  label="Cancel"
+                  class="bg-o-color mr"
+                  routerLink="/domestic-routes"
+                  styleClass="p-button-outlined"
+                >
+                </p-button>
+                <p-button
+                  type="submit"
+                  [disabled]="!permissionForm.form.valid"
+                  label="Save"
+                  class="bg-b-color ml"
+                >
+                </p-button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -60,10 +60,10 @@ export class InternationalSummaryByAirComponent {
     const token = localStorage.getItem('accessToken');
 
     const decodeToken = this.authguardService.getDecodedAccessToken(token!);
-    debugger
+
     this.role=decodeToken.ROLES;
     console.log(this.role);
-    
+
   }
 
   onBoundChange() {
@@ -84,10 +84,10 @@ export class InternationalSummaryByAirComponent {
 
   getAllShipmentStatus(){
     this.shipmentStatusService.getALLShipmentStatus().subscribe((res:ShipmentStatus[])=>{
-      this.shipmentStatus=res; 
+      this.shipmentStatus=res;
     },error=>{
-      
-  
+
+
 
     })
    }
@@ -104,10 +104,10 @@ export class InternationalSummaryByAirComponent {
         type:null
       }
     },(error:any)=>{
-     
+
       this.internationalShipmentByAir=[];
- 
-      
+
+
     })
   }
 
@@ -123,10 +123,10 @@ export class InternationalSummaryByAirComponent {
         type:null
       }
     },(error:any)=>{
-      
+
       this.internationalShipmentByAir=[];
-     
-      
+
+
     })
   }
 
@@ -157,8 +157,8 @@ export class InternationalSummaryByAirComponent {
       let originalDate = new Date(this.search.fromDate);
       this.search.fromDate = this.datePipe.transform(originalDate, 'yyyy-MM-dd');
     }
- 
-    
+
+
     if(this.selectedBound.bound === "In bound"){
       this.getInboundSummary(this.search,0,10);
     }else{

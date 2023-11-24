@@ -1,3 +1,9 @@
+import { UpdateInternationalAirRoutesComponent } from './page/InternationalRoutes/byAir/update-international-air-routes/update-international-air-routes.component';
+import { UpdateInternationalRoadRoutesComponent } from './page/InternationalRoutes/byRoad/update-international-road-routes/update-international-road-routes.component';
+import { AddInternationalRoadRoutesComponent } from './page/InternationalRoutes/byRoad/add-international-road-routes/add-international-road-routes.component';
+import { GetInternationalRoadRoutesComponent } from './page/InternationalRoutes/byRoad/get-international-road-routes/get-international-road-routes.component';
+import { AddInternationalAirRoutesComponent } from './page/InternationalRoutes/byAir/add-international-air-routes/add-international-air-routes.component';
+import { GetInternationalAirRoutesComponent } from './page/InternationalRoutes/byAir/get-international-air-routes/get-international-air-routes.component';
 import { UpdateDomesticRoutesComponent } from './page/domesticRoutes/update-domestic-routes/update-domestic-routes.component';
 import { AddDomesticRoutesComponent } from './page/domesticRoutes/add-domestic-routes/add-domestic-routes.component';
 import { NgModule } from '@angular/core';
@@ -68,7 +74,7 @@ import { GetDomesticRoutesComponent } from './page/domesticRoutes/get-domestic-r
 const routes: Routes = [
   {
     path: '',
-    component: DashboardComponent,
+    component: LoginFormComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -186,19 +192,19 @@ const routes: Routes = [
     component: UnauthorizedPageComponent,
   },
   {
-    path:'permission',
-    component:PermissionListComponent,
+    path: 'permission',
+    component: PermissionListComponent,
 
   },
   {
-    path:'add-permission',
-    component:AddPermissionComponent,
+    path: 'add-permission',
+    component: AddPermissionComponent,
 
   },
   {
-    path:'edit-permission/:id',
-    component:EditPermissionComponent,
-    canActivate:[AuthGuard]
+    path: 'edit-permission/:id',
+    component: EditPermissionComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'role',
@@ -388,6 +394,36 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'international-routes-for-air',
+    component: GetInternationalAirRoutesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'add-international-routes-for-air',
+    component: AddInternationalAirRoutesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'update-international-routes-for-air/:id',
+    component: UpdateInternationalAirRoutesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'international-routes-for-road',
+    component: GetInternationalRoadRoutesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'add-international-routes-for-road',
+    component: AddInternationalRoadRoutesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'update-international-routes-for-road/:id',
+    component: UpdateInternationalRoadRoutesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'productFields',
     component: ProductFieldListComponent,
     canActivate: [AuthGuard]
@@ -398,7 +434,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'updateProductFields',
+    path: 'updateProductFields/:id',
     component: ProductFieldUpdateComponent,
     canActivate: [AuthGuard]
   },

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Routes } from '../../../model/ShipmentRoutes'
+import { DomesticShipment } from '../../../model/DomesticShipment';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,10 +13,8 @@ export class DomesticRoutesService {
 
   constructor(private http: HttpClient) { }
 
-  addDomesticRoute(obj: any) {
-
-    let url = `${this.url}/add-domesticRoute`
-    return this.http.post(url, obj)
+  addDomesticRoute(domesticRouteObj:Routes){
+    return this.http.post<Routes>(`${this.url}/add-domesticRoute`,domesticRouteObj)
   }
 
   getDomesticRoute(origin: string, destination: string) {
@@ -27,9 +26,9 @@ export class DomesticRoutesService {
     return this.http.get<Routes[]>(url)
   }
 
-  deleteDomesticRoute(id: number): Observable<Routes> {
-    let url = `${this.url}//${id}`
-    return this.http.delete<Routes>(url)
+  deleteDomesticRoute(id: number): Observable<Error> {
+    let url = `${this.url}/delete-domestic-route/${id}`
+    return this.http.delete<Error>(url)
   }
 
   getDomesticRouteById(id: number) {

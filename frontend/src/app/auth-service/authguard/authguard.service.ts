@@ -34,20 +34,24 @@ export class AuthguardService {
     { permission: 'Role', route: ['/role', '/edit-role/:id'] },
     { permission: 'View Attachments', route: ['/view-attachments/:name/:through/:id'] },
     { permission: 'ShipmentRoutes', route: ['/domestic-routes', '/add-domestic-routes', '/update-domestic-routes/:id'] },
+    { permission: 'ShipmentRoutesForAir', route: ['/international-routes-for-air', '/add-international-routes-for-air', '/update-international-routes-for-air/:id'] },
+    { permission: 'ShipmentRoutesForRoad', route: ['/international-routes-for-road', '/add-international-routes-for-road', '/update-international-routes-for-road/:id'] },
     { permission: 'ProductField', route: ['/productFields', '/addProductField', '/updateProductField'] }
   ]
 
 
   isAuthenticated(state: RouterStateSnapshot): boolean {
+
     const token = localStorage.getItem('accessToken');
     const decodeToken = this.getDecodedAccessToken(token!)
     const userPermissions: string[] = decodeToken.PERMISSIONS;
 
     if (this.tokenExists()) {
-      
+
       this.permissionName = this.getPermissionByUrl(state.url);
 
       if (userPermissions.includes(this.permissionName!)) {
+
         return true;
       }
       else if (state.url == '/international-tile' && (this.hasPermission('International Shipment By Road') || this.hasPermission('International Shipment By Air'))) {

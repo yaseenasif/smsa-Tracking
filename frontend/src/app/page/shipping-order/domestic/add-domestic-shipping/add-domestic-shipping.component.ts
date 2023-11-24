@@ -24,6 +24,7 @@ import { DatePipe } from '@angular/common';
 export class AddDomesticShippingComponent {
   items: MenuItem[] | undefined;
   routes:any;
+
   domesticShipment:DomesticShipment={
     originFacility: null,
     originLocation: null,
@@ -129,11 +130,11 @@ export class AddDomesticShippingComponent {
 
   getDomesticRoute() {
     this.routes=[]
-    debugger
+
     if (this.domesticShipment.originLocation !== null && this.domesticShipment.destinationLocation !== null) {
       this.domesticShipmentService.getDomesticRoute(this.domesticShipment.originLocation!, this.domesticShipment.destinationLocation !).subscribe((res:any)=>{
         this.routes=res;
-        debugger
+
       },(error:any)=>{
         console.log(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -209,15 +210,15 @@ export class AddDomesticShippingComponent {
    }
 
    onSubmit(){
-
     this.domesticShipment.etd=this.datePipe.transform(this.domesticShipment.etd,'yyyy-MM-dd')
     this.domesticShipment.eta=this.datePipe.transform(this.domesticShipment.eta,'yyyy-MM-dd')
     this.domesticShipment.atd=this.datePipe.transform(this.domesticShipment.atd,'yyyy-MM-dd')
     this.domesticShipment.ata=this.datePipe.transform(this.domesticShipment.ata,'yyyy-MM-dd')
     this.addDomesticShipment(this.domesticShipment);
    }
+
    onETDDateSelected(selectedETDDate: any) {
-    debugger
+
     this.minETDDate = selectedETDDate;
   }
 }

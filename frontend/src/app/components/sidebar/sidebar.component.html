@@ -90,8 +90,32 @@
     </li>
     <li class="child" *ngIf="configTurner && hasPermission('ShipmentRoutes')">
       <span class="sidebar-list-hover" routerLink="/domestic-routes">
-        <i class="bi bi-geo-alt"></i>
-        <span class="nav-text"> Shipment Routes </span>
+        <i class="bi bi-train-freight-front-fill"></i>
+        <span class="nav-text"> Domestic Shipment Routes </span>
+      </span>
+    </li>
+    <li
+      class="child"
+      *ngIf="configTurner && hasPermission('ShipmentRoutesForAir')"
+    >
+      <span
+        class="sidebar-list-hover"
+        routerLink="/international-routes-for-air"
+      >
+      <i class="bi bi-airplane-fill"></i>
+        <span class="nav-text"> International Shipment Routes For Air </span>
+      </span>
+    </li>
+    <li
+      class="child"
+      *ngIf="configTurner && hasPermission('ShipmentRoutesForRoad')"
+    >
+      <span
+        class="sidebar-list-hover"
+        routerLink="/international-routes-for-road"
+      >
+      <i class="bi bi-train-freight-front-fill"></i>
+        <span class="nav-text"> International Shipment Routes For Road </span>
       </span>
     </li>
     <li class="child" *ngIf="configTurner && hasPermission('Location Port')">
@@ -112,14 +136,12 @@
         <span class="nav-text"> Vehicle Type </span>
       </span>
     </li>
-    <!-- <li class="child"  *ngIf="configTurner" >
-                    <span class="sidebar-list-hover" routerLink="/permission" >
-                        <i class="bi bi-key"></i>
-                        <span class="nav-text">
-                           Permission
-                        </span>
-                    </span>
-                </li> -->
+    <li class="child" *ngIf="configTurner">
+      <span class="sidebar-list-hover" routerLink="/permission">
+        <i class="bi bi-key"></i>
+        <span class="nav-text"> Permission </span>
+      </span>
+    </li>
     <li class="child" *ngIf="configTurner && hasPermission('ProductField')">
       <span class="sidebar-list-hover" routerLink="/productFields">
         <i class="bi bi-person-gear"></i>

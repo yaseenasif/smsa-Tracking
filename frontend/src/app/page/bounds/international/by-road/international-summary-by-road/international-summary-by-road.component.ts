@@ -14,7 +14,7 @@ import { AuthguardService } from 'src/app/auth-service/authguard/authguard.servi
   providers: [DatePipe]
 })
 export class InternationalSummaryByRoadComponent {
- 
+
   name!:string;
   bound!:Bound[];
   shipmentStatus!:ShipmentStatus[];
@@ -61,10 +61,10 @@ export class InternationalSummaryByRoadComponent {
     const token = localStorage.getItem('accessToken');
 
     const decodeToken = this.authguardService.getDecodedAccessToken(token!);
-    debugger
+
     this.role=decodeToken.ROLES;
     console.log(this.role);
-    
+
   }
 
   onBoundChange() {
@@ -85,10 +85,10 @@ export class InternationalSummaryByRoadComponent {
 
   getAllShipmentStatus(){
     this.shipmentStatusService.getALLShipmentStatus().subscribe((res:ShipmentStatus[])=>{
-      this.shipmentStatus=res; 
+      this.shipmentStatus=res;
     },error=>{
-      
-    
+
+
 
     })
    }
@@ -107,8 +107,8 @@ export class InternationalSummaryByRoadComponent {
     },(error:any)=>{
 
       this.internationalShipmentByRoad=[];
-   
-      
+
+
     })
   }
 
@@ -124,10 +124,10 @@ export class InternationalSummaryByRoadComponent {
         type:null
       }
     },(error:any)=>{
-      
+
       this.internationalShipmentByRoad=[];
-  
-      
+
+
     })
   }
 
@@ -158,7 +158,7 @@ export class InternationalSummaryByRoadComponent {
       let originalDate = new Date(this.search.fromDate);
       this.search.fromDate = this.datePipe.transform(originalDate, 'yyyy-MM-dd');
     }
-   
+
     if(this.selectedBound.bound === "In bound"){
       this.getInboundSummary(this.search,0,10);
     }else{

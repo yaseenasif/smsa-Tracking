@@ -112,11 +112,11 @@ export class UpdateDomesticShippingComponent {
   getDomesticRoute() {
     this.showDropDown = true;
     this.routes = []
-    debugger
+
     if (this.domesticShipment.originLocation !== null && this.domesticShipment.destinationLocation !== null) {
       this.domesticShipmentService.getDomesticRoute(this.domesticShipment.originLocation!, this.domesticShipment.destinationLocation!).subscribe((res: any) => {
         this.routes = res;
-        debugger
+
       }, (error: any) => {
         console.log(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -130,7 +130,7 @@ export class UpdateDomesticShippingComponent {
   ngOnInit(): void {
     this.domesticShipmentId = +this.route.snapshot.paramMap.get('id')!;
     this.items = [{ label: 'Domestic Shipment', routerLink: '/domestic-shipping' }, { label: 'Edit Domestic Shipment' }];
-debugger
+
     const locations$: Observable<Location[]> = this.locationService.getAllLocationForDomestic();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
@@ -233,7 +233,7 @@ debugger
       this.domesticShipment = res;
       // this.getDomesticRoute();
       this.getRouteByRouteNumber(this.domesticShipment.routeNumber!);
-      debugger
+
     }, (error: any) => {
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });

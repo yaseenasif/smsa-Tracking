@@ -53,7 +53,7 @@ export class DomesticSummaryComponent {
       this.getOutboundSummary(this.search, 0, 10);
     }
   }
- 
+
 
   ngOnInit() {
     this.getRole()
@@ -74,15 +74,15 @@ export class DomesticSummaryComponent {
     const token = localStorage.getItem('accessToken');
 
     const decodeToken = this.authguardService.getDecodedAccessToken(token!);
-    debugger
+
     this.role=decodeToken.ROLES;
     console.log(this.role);
-    
+
   }
 
   getInboundSummary(obj:SummarySearch,page:number,size:number){
     this.summaryService.getInboundSummary(obj,page,size).subscribe((res:any)=>{
-      
+
       this.domesticShipment=res.content;
       this.search  ={
         fromDate:null,
@@ -92,13 +92,13 @@ export class DomesticSummaryComponent {
         destination:null
       }
     },(error:any)=>{
-      
+
       if(error.error.body){
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }   
-      this.domesticShipment=[]; 
+      }
+      this.domesticShipment=[];
     })
   }
 
@@ -117,17 +117,17 @@ export class DomesticSummaryComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }   
-      this.domesticShipment=[];  
+      }
+      this.domesticShipment=[];
     })
   }
 
   getAllShipmentStatus(){
     this.shipmentStatusService.getALLShipmentStatus().subscribe((res:ShipmentStatus[])=>{
-      this.shipmentStatus=res; 
+      this.shipmentStatus=res;
     },error=>{
-      
-  
+
+
     })
    }
   onSubmit(){
