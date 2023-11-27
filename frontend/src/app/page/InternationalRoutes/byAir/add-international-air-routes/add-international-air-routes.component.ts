@@ -27,7 +27,7 @@ export class AddInternationalAirRoutesComponent {
     destination: null,
     driverId: null,
     flight: null,
-    type: null,
+    type: 'Air',
     eta: null,
     etd: null,
     origin: null,

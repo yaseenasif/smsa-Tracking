@@ -153,40 +153,6 @@
                     ></p-calendar>
                   </div>
                 </div>
-
-                <div class="col-12 md:col-6 lg:col-6">
-                  <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Type</label>
-                    <p-dropdown
-                      class="w-full"
-                      [options]="type"
-                      name="origin"
-                      #origin="ngModel"
-                      [required]="true"
-                      [(ngModel)]="internationalRoute.type"
-                      optionLabel="type"
-                      optionValue="type"
-                      [filter]="true"
-                      filterBy="type"
-                      [showClear]="true"
-                      placeholder="Select a Origin Location"
-                    >
-                      <ng-template pTemplate="selectedItem">
-                        <div
-                          class="flex align-items-center gap-2"
-                          *ngIf="internationalRoute"
-                        >
-                          <div>{{ internationalRoute.type }}</div>
-                        </div>
-                      </ng-template>
-                      <ng-template let-type pTemplate="item">
-                        <div class="flex align-items-center gap-2">
-                          <div>{{ type.type }}</div>
-                        </div>
-                      </ng-template>
-                    </p-dropdown>
-                  </div>
-                </div>
               </div>
               <div class="flex align-items-center justify-content-end mt-4">
                 <p-button

@@ -27,7 +27,7 @@ export class AddInternationalRoadRoutesComponent {
     destination: null,
     driverId: null,
     flight: null,
-    type: null,
+    type: 'Road',
     eta: null,
     etd: null,
     origin: null,
