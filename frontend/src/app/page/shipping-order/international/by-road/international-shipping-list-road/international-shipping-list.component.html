@@ -6,28 +6,55 @@
 
       <div class="main">
         <div class="card flex justify-content-center">
-            <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+          <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
         </div>
         <div class="body-card">
-            <div class="table-head">
-                <p-toolbar>
-                    <div class="p-toolbar-group-start">
-                      <h2 class="h-color">International Shipment By Road</h2>
-                    </div>
-                    <div class="p-toolbar-group-end">
-                        <p-button class="bg-b-color" routerLink="/add-international-shipment-by-road">
-                          <i class="bi bi-plus-lg" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Add Shipment
-                        </p-button>
-                    </div>
-                </p-toolbar>
-            </div>
-          
+          <div class="table-head">
+            <p-toolbar>
+              <div class="p-toolbar-group-start">
+                <h2 class="h-color">International Shipment By Road</h2>
+              </div>
+              <div class="p-toolbar-group-end">
+                <p-button
+                  class="bg-b-color"
+                  routerLink="/add-international-shipment-by-road"
+                >
+                  <i
+                    class="bi bi-plus-lg"
+                    style="font-size: 20px; font-weight: bold"
+                  ></i
+                  >&nbsp;Add Shipment
+                </p-button>
+              </div>
+            </p-toolbar>
+          </div>
 
           <div class="card">
-            <p-table [value]="internationalShipmentByRoad" [tableStyle]="{ 'min-width': '50rem' }">
+            <p-table
+              [value]="internationalShipmentByRoad"
+              [tableStyle]="{ 'min-width': '50rem' }"
+            >
+              <ng-template pTemplate="caption">
+                <div class="flex">
+                  <span class="p-input-icon-left">
+                    <input
+                      pInputText
+                      type="text"
+                      [(ngModel)]="searchedValue"
+                      (input)="
+                        getAllInternationalShipmentByRoad(
+                          searchedValue,
+                          undefined,
+                          undefined
+                        )
+                      "
+                      placeholder="Search keyword"
+                    />
+                  </span>
+                </div>
+              </ng-template>
               <ng-template pTemplate="header">
                 <tr>
-                  
                   <th class="text-center">Origin Country</th>
                   <th class="text-center">Origin Port</th>
                   <th class="text-center">Referigirated Truck</th>
@@ -65,64 +92,174 @@
               </ng-template>
               <ng-template pTemplate="body" let-internationalShipmentByRoad>
                 <tr>
-                  <td class="text-center">{{ internationalShipmentByRoad.originCountry}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.originPort}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.refrigeratedTruck}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.type}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.shipmentMode}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.preAlertNumber}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.destinationCountry}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.destinationPort}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.routeNumber}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.etd}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.eta}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.atd}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.actualWeight}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.numberOfShipments}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.driverName}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.driverContact}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.referenceNumber}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.vehicleType}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.numberOfPallets}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.numberOfBags}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.vehicleNumber}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.tagNumber}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.sealNumber}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.status}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.remarks}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.ata}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.totalShipments}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.overages}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.overageAWBs}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.received}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.shortages}}</td>
-                  <td class="text-center">{{ internationalShipmentByRoad.shortageAWBs}}</td>
-                  <td class="text-center flex flex-row"> 
-                    <p-button [routerLink]="['/view-international-road/',internationalShipmentByRoad.id]"
-                    icon="bi bi-eye" class='mr'
-                    styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
-                  </p-button>
-                    <p-button icon="bi bi-clock-history" [routerLink]="['/international-shipment-history-by-road/',internationalShipmentByRoad.id]" class='mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                    
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.originCountry }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.originPort }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.refrigeratedTruck }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.type }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.shipmentMode }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.preAlertNumber }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.destinationCountry }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.destinationPort }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.routeNumber }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.etd }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.eta }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.atd }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.actualWeight }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.numberOfShipments }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.driverName }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.driverContact }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.referenceNumber }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.vehicleType }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.numberOfPallets }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.numberOfBags }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.vehicleNumber }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.tagNumber }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.sealNumber }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.status }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.remarks }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.ata }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.totalShipments }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.overages }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.overageAWBs }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.received }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.shortages }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.shortageAWBs }}
+                  </td>
+                  <td class="text-center flex flex-row">
+                    <p-button
+                      [routerLink]="[
+                        '/view-international-road/',
+                        internationalShipmentByRoad.id
+                      ]"
+                      icon="bi bi-eye"
+                      class="mr"
+                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                    >
                     </p-button>
-                    <p-button [routerLink]="['/view-attachments/','internationalShipment','by-international-road-list',internationalShipmentByRoad.id]"
-                    icon="bi bi-download" class='mr'
-                    styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                    <p-button
+                      icon="bi bi-clock-history"
+                      [routerLink]="[
+                        '/international-shipment-history-by-road/',
+                        internationalShipmentByRoad.id
+                      ]"
+                      class="mr"
+                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                    >
                     </p-button>
-                    <p-button [routerLink]="['/add-international-by-road-attachments/',internationalShipmentByRoad.id]" icon="bi bi-paperclip"
-                    class='ml mr' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                    <p-button
+                      [routerLink]="[
+                        '/view-attachments/',
+                        'internationalShipment',
+                        'by-international-road-list',
+                        internationalShipmentByRoad.id
+                      ]"
+                      icon="bi bi-download"
+                      class="mr"
+                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                    >
                     </p-button>
-                    <p-button [routerLink]="['/update-international-shipment-by-road',internationalShipmentByRoad.id]" icon="bi bi-pen" class='ml mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
-                     
+                    <p-button
+                      [routerLink]="[
+                        '/add-international-by-road-attachments/',
+                        internationalShipmentByRoad.id
+                      ]"
+                      icon="bi bi-paperclip"
+                      class="ml mr"
+                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                    >
                     </p-button>
-                     <p-button icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                    
-                     </p-button>
-                    
+                    <p-button
+                      [routerLink]="[
+                        '/update-international-shipment-by-road',
+                        internationalShipmentByRoad.id
+                      ]"
+                      icon="bi bi-pen"
+                      class="ml mr"
+                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                    >
+                    </p-button>
+                    <p-button
+                      icon="bi bi-trash"
+                      class="ml"
+                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                    >
+                    </p-button>
                   </td>
                 </tr>
               </ng-template>
             </p-table>
+            <div class="card flex justify-content-center">
+              <p-paginator
+                [rows]="paginatedRes?.size"
+                [first]="paginatedRes?.pageable.pageNumber * paginatedRes?.size"
+                [totalRecords]="paginatedRes?.totalElements"
+                (onPageChange)="onPageChange($event)"
+                [showCurrentPageReport]="true"
+              ></p-paginator>
+            </div>
           </div>
         </div>
       </div>

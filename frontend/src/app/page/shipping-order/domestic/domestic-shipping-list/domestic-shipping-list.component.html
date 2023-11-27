@@ -10,7 +10,6 @@
         </div>
         <div class="body-card">
           <p-toast></p-toast>
-
           <div class="table-head">
             <p-toolbar>
               <div class="p-toolbar-group-start">
@@ -36,6 +35,25 @@
               [value]="domesticShipment"
               [tableStyle]="{ 'min-width': '50rem' }"
             >
+              <ng-template pTemplate="caption">
+                <div class="flex">
+                  <span class="p-input-icon-left">
+                    <input
+                      pInputText
+                      type="text"
+                      [(ngModel)]="searchItem"
+                      (input)="
+                        getAllDomesticShipments(
+                          searchItem,
+                          undefined,
+                          undefined
+                        )
+                      "
+                      placeholder="Search keyword"
+                    />
+                  </span>
+                </div>
+              </ng-template>
               <ng-template pTemplate="header">
                 <tr>
                   <th class="text-center">Origin Facility</th>

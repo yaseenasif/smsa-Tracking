@@ -9,48 +9,49 @@ import { environment } from 'src/environments/environment';
 })
 export class DomesticShippingService {
 
-  url=environment.baseurl;
-  constructor(private http:HttpClient) { }
+  url = environment.baseurl;
+  constructor(private http: HttpClient) { }
 
-  getALLShipments(obj:any,page:number,size:number):Observable<any>{
+  getALLShipments(obj?: any, page?: number, size?: number): Observable<any> {
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("value",JSON.stringify(obj));
-    queryParams = queryParams.append("page",page);
-    queryParams = queryParams.append("size",size);
+    debugger
+    queryParams = queryParams.append("value", obj ? JSON.stringify(obj) : '');
+    queryParams = queryParams.append("page", page ? page : 0);
+    queryParams = queryParams.append("size", size ? size : 10);
 
-    return this.http.get<any>(`${this.url}/all-domestic-shipments`,{params:queryParams});
+    return this.http.get<any>(`${this.url}/all-domestic-shipments`, { params: queryParams });
   }
 
-  addDomesticShipment(shipment:DomesticShipment){
-    return this.http.post<DomesticShipment>(`${this.url}/add-domestic-shipment`,shipment)
+  addDomesticShipment(shipment: DomesticShipment) {
+    return this.http.post<DomesticShipment>(`${this.url}/add-domestic-shipment`, shipment)
   }
 
-  getDomesticShipmentById(id:number){
+  getDomesticShipmentById(id: number) {
     return this.http.get<DomesticShipment>(`${this.url}/domestic-shipment/${id}`)
   }
 
-  updateDomesticShipment(id:number,domesticShipment:DomesticShipment){
-    return this.http.put<DomesticShipment>(`${this.url}/edit-domestic-shipment/${id}`,domesticShipment)
+  updateDomesticShipment(id: number, domesticShipment: DomesticShipment) {
+    return this.http.put<DomesticShipment>(`${this.url}/edit-domestic-shipment/${id}`, domesticShipment)
   }
 
-  deleteDomesticShipment(id:number){
+  deleteDomesticShipment(id: number) {
     return this.http.delete<any>(`${this.url}/delete-domestic-shipment/${id}`)
   }
 
-  getDomesticShipmentHistoryByDomesticShipmentId(id:number){
+  getDomesticShipmentHistoryByDomesticShipmentId(id: number) {
     return this.http.get<any>(`${this.url}/all-domestic-shipments-history/${id}`)
   }
 
-  getDomesticRoute(origin:string,destination:string){
+  getDomesticRoute(origin: string, destination: string) {
     return this.http.get<any>(`${this.url}/getRoute/${origin}/${destination}`)
   }
 
-  getRouteByRouteNumber(routeNumber:string){
+  getRouteByRouteNumber(routeNumber: string) {
     return this.http.get<any>(`${this.url}/domesticRoute/${routeNumber}`)
   }
 
-  downloadAttachments(fileName:string):Observable<Blob>{
-    return this.http.get(`${this.url}/download/${fileName}`,{
+  downloadAttachments(fileName: string): Observable<Blob> {
+    return this.http.get(`${this.url}/download/${fileName}`, {
       responseType: 'blob'
     });
   }

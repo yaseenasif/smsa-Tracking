@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { DomesticShippingService } from '../service/domestic-shipping.service';
-import { DomesticShipment } from 'src/app/model/DomesticShipment';
-import { ActivatedRoute } from '@angular/router';
+import { DomesticShipment } from '../../../../model/DomesticShipment';
+
 
 @Component({
   selector: 'app-domestic-shipping-list',
@@ -23,18 +23,20 @@ export class DomesticShippingListComponent implements OnInit {
 
   ngOnInit() {
     this.items = [{ label: 'Domestic Shipment' }];
-    this.getAllDomesticShipments();
+    this.getAllDomesticShipments(this.searchItem, undefined, undefined);
   }
   page = 0;
   size = 10;
   first: number = 0;
 
+  searchItem: string = '';
+
   rows: number = 10;
 
   totalRecords: number = 0;
 
-  getAllDomesticShipments() {
-    this.domesticShipmentService.getALLShipments({ value: "", user: {} }, this.first, this.rows).subscribe((res: any) => {
+  getAllDomesticShipments(value?: string, page?: number, size?: number) {
+    this.domesticShipmentService.getALLShipments({ value: value, user: {} }, page, size).subscribe((res: any) => {
 
       this.myApiResponse = res;
       this.totalRecords = this.myApiResponse.totalElements;
@@ -71,7 +73,7 @@ export class DomesticShippingListComponent implements OnInit {
     this.first = event.first;
     this.rows = event.rows;
 
-    this.getAllDomesticShipments();
+    this.getAllDomesticShipments(undefined, this.first, this.rows);
   }
 
 }

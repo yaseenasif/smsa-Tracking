@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { InternationalShippingService } from '../../service/international-shipping.service';
-import { InternationalShipment } from 'src/app/model/InternationalShipment';
+import { InternationalShipment } from '../../../../../model/InternationalShipment';
 
 @Component({
   selector: 'app-international-shipping-list',
@@ -9,23 +9,34 @@ import { InternationalShipment } from 'src/app/model/InternationalShipment';
   styleUrls: ['./international-shipping-list.component.scss']
 })
 export class InternationalShippingListComponent {
-  internationalShipmentByRoad!:InternationalShipment[];
-
-  constructor(private internationalShippingService:InternationalShippingService) { }
+  internationalShipmentByRoad!: InternationalShipment[];
+  paginatedRes: any;
+  page: number = 0;
+  size: number = 10;
+  searchedValue: string = '';
+  constructor(private internationalShippingService: InternationalShippingService) { }
   items: MenuItem[] | undefined;
 
- 
 
   ngOnInit() {
-      this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Road'}];
-      this.getAllInternationalShipmentByRoad();
+    this.items = [{ label: 'International Shipment', routerLink: '/international-tile' }, { label: 'International Shipment By Road' }];
+    this.getAllInternationalShipmentByRoad(this.searchedValue, this.page, this.size);
   }
-  
 
-  getAllInternationalShipmentByRoad(){
-    this.internationalShippingService.getAllInternationalShipmentByRoad().subscribe((res:InternationalShipment[])=>{
-      this.internationalShipmentByRoad=res;
-    },error=>{
+
+  getAllInternationalShipmentByRoad(searchedValue?: string, page?: number, size?: number) {
+    this.internationalShippingService.getAllInternationalShipmentByRoad({ value: searchedValue, user: {}, type: '' }, page, size).subscribe((res: any) => {
+      debugger
+      this.internationalShipmentByRoad = res.content;
+      this.paginatedRes = res;
+    }, error => {
     })
-   }
+  }
+
+  onPageChange(event: any) {
+    this.page = event.first;
+    this.size = event.rows;
+    debugger
+    this.getAllInternationalShipmentByRoad(this.searchedValue, this.page, this.size);
+  }
 }
