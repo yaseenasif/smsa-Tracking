@@ -47,22 +47,25 @@ public class InternationalRouteService {
         if(internationalShipment.isEmpty()){
             return toDtoList(byOriginAndDestination);
         }
-        for (InternationalShipment shipment : internationalShipment) {
-            resultList.addAll(
-                    byOriginAndDestination.stream()
-                            .filter(internationalRoute ->
-                                    !shipment.getOriginPort().equals(internationalRoute.getOrigin()) ||
-                                     !shipment.getDestinationPort().equals(internationalRoute.getDestination()) ||
-                                     !shipment.getRouteNumber().equals(internationalRoute.getRoute())||
-                                     shipment.getTrip() != trip
-                            )
-                            .collect(Collectors.toList())
-            );
+        List<InternationalRoute> usedRoute = new ArrayList<>();
+        for (InternationalRoute route: byOriginAndDestination) {
+            for(InternationalShipment shipment: internationalShipment){
+                if(route.getRoute().equals(shipment.getRouteNumber())){
+                    if(shipment.getTrip() == trip){
+                        usedRoute.add(route);
+                        break;
+                    }
+
+                }
+            }
+
         }
-        if(resultList.isEmpty()){
+        byOriginAndDestination.removeAll(usedRoute);
+
+        if(byOriginAndDestination.isEmpty()){
             throw new RecordNotFoundException(String.format("All routes have been used today"));
         }
-        return toDtoList(resultList);
+        return toDtoList(byOriginAndDestination);
     }
 
     public List<InternationalRouteDto> findInternationalRouteForRoad(String origin, String destination, int trip) {
@@ -80,19 +83,21 @@ public class InternationalRouteService {
             return toDtoList(byOriginAndDestination);
         }
 
-        for (InternationalShipment shipment : internationalShipment) {
-            resultList.addAll(
-                    byOriginAndDestination.stream()
-                            .filter(internationalRoute ->
-                                    !shipment.getOriginPort().equals(internationalRoute.getOrigin()) ||
-                                    !shipment.getDestinationPort().equals(internationalRoute.getDestination()) ||
-                                    !shipment.getRouteNumber().equals(internationalRoute.getRoute()) ||
-                                    shipment.getTrip() != trip
-                            )
-                            .collect(Collectors.toList())
-            );
+        List<InternationalRoute> usedRoute = new ArrayList<>();
+        for (InternationalRoute route:byOriginAndDestination){
+            for(InternationalShipment shipment : internationalShipment){
+                if(route.getRoute().equals(shipment.getRouteNumber())){
+                    if(shipment.getTrip() == trip){
+                        usedRoute.add(route);
+                        break;
+                    }
+                }
+
+            }
         }
-        if(resultList.isEmpty()){
+        byOriginAndDestination.removeAll(usedRoute);
+
+        if(byOriginAndDestination.isEmpty()){
             throw new RecordNotFoundException(String.format("All routes have been used today"));
         }
         return toDtoList(byOriginAndDestination);

@@ -36,10 +36,10 @@ export class DomesticShippingListComponent implements OnInit {
   totalRecords: number = 0;
 
   getAllDomesticShipments(value?: string, page?: number, size?: number) {
-    debugger
     this.domesticShipmentService.getALLShipments({ value: value, user: {} }, page, size).subscribe((res: any) => {
-      debugger
       this.myApiResponse = res;
+      this.page=res.pageable.pageNumber;
+      this.size=res.size;
       this.totalRecords = this.myApiResponse.totalElements;
       this.domesticShipment = this.myApiResponse.content;
     }, (error: any) => {
@@ -71,9 +71,10 @@ export class DomesticShippingListComponent implements OnInit {
 
 
   onPageChange(event: any) {
-    this.page = event.first;
+   
+    this.page = event.page;
     this.rows = event.rows;
-    this.getAllDomesticShipments(this.searchItem, this.first, this.rows);
+    this.getAllDomesticShipments(this.searchItem, this.page, this.rows);
   }
 
 }

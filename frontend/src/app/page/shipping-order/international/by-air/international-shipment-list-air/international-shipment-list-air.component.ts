@@ -38,9 +38,9 @@ export class InternationalShipmentListAirComponent {
     })
   }
   onPageChange(event: any) {
-    this.page = event.first;
+    this.page = event.page;
     this.size = event.rows;
-    debugger
+    
     this.getAllInternationalShipmentByAir(this.searchedValue, this.page, this.size);
   }
 }

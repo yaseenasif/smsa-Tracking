@@ -132,9 +132,9 @@ export class AddDomesticShippingComponent {
     this.routes=[]
 
     if (this.domesticShipment.originLocation !== null && this.domesticShipment.destinationLocation !== null) {
-      this.domesticShipmentService.getDomesticRoute(this.domesticShipment.originLocation!, this.domesticShipment.destinationLocation !).subscribe((res:any)=>{
+      this.domesticShipmentService.getDomesticRoute(this.domesticShipment.originLocation!, this.domesticShipment.destinationLocation!).subscribe((res:any)=>{
         this.routes=res;
-
+        debugger
       },(error:any)=>{
         console.log(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });

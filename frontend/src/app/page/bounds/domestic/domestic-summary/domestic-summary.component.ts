@@ -89,13 +89,13 @@ export class DomesticSummaryComponent {
 
       this.domesticShipment = res.content;
       this.paginationRes = res;
-      this.search = {
-        fromDate: null,
-        toDate: null,
-        status: null,
-        origin: null,
-        destination: null
-      }
+      // this.search = {
+      //   fromDate: null,
+      //   toDate: null,
+      //   status: null,
+      //   origin: null,
+      //   destination: null
+      // }
     }, (error: any) => {
 
       if (error.error.body) {
@@ -110,13 +110,13 @@ export class DomesticSummaryComponent {
   getOutboundSummary(obj: SummarySearch, page: number, size: number) {
     this.summaryService.getOutboundSummary(obj, page, size).subscribe((res: any) => {
       this.domesticShipment = res.content;
-      this.search = {
-        fromDate: null,
-        toDate: null,
-        status: null,
-        origin: null,
-        destination: null
-      }
+      // this.search = {
+      //   fromDate: null,
+      //   toDate: null,
+      //   status: null,
+      //   origin: null,
+      //   destination: null
+      // }
     }, (error: any) => {
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -168,7 +168,7 @@ export class DomesticSummaryComponent {
   }
 
   onPageChange(event: any) {
-    this.page = event.first;
+    this.page = event.page;
     this.size = event.rows;
 
     this.getInboundSummary(this.search, this.page, this.size);

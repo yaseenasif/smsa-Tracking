@@ -12,10 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,21 +41,24 @@ public class DomesticRouteService {
         if (domesticShipment.isEmpty()) {
             return toDtoList(byOriginAndDestination);
         }
-        for (DomesticShipment shipment : domesticShipment) {
-            resultList.addAll(
-                    byOriginAndDestination.stream()
-                            .filter(domesticRoute ->
-                                    !shipment.getOriginLocation().equals(domesticRoute.getOrigin()) ||
-                                            !shipment.getDestinationLocation().equals(domesticRoute.getDestination()) ||
-                                            !shipment.getRouteNumber().equals(domesticRoute.getRoute())
-                            )
-                            .collect(Collectors.toList())
-            );
+
+        List<DomesticRoute> usedRoute = new ArrayList<>();
+
+        for(DomesticRoute route:byOriginAndDestination){
+            for(DomesticShipment shipment : domesticShipment){
+                if (route.getRoute().equals(shipment.getRouteNumber())) {
+                    usedRoute.add(route);
+                    break;
+                }
+            }
         }
-        if (resultList.isEmpty()) {
+
+        byOriginAndDestination.removeAll(usedRoute);
+
+        if (byOriginAndDestination.isEmpty()) {
             throw new RecordNotFoundException(String.format("All routes have been used today"));
         }
-        return toDtoList(resultList);
+        return toDtoList(byOriginAndDestination);
     }
 
     public List<DomesticRouteDto> toDtoList(List<DomesticRoute> domesticRoutes) {

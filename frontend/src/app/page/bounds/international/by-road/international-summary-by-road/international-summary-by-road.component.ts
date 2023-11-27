@@ -172,7 +172,7 @@ export class InternationalSummaryByRoadComponent {
     }
   }
   onPageChange(event: any) {
-    this.page = event.first;
+    this.page = event.page;
     this.size = event.rows;
     this.getInboundSummary(this.search, this.page, this.size);
     this.getOutboundSummary(this.search, this.page, this.size);

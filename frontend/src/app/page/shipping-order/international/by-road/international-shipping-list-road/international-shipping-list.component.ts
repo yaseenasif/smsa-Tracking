@@ -34,9 +34,8 @@ export class InternationalShippingListComponent {
   }
 
   onPageChange(event: any) {
-    this.page = event.first;
+    this.page = event.page;
     this.size = event.rows;
-    debugger
     this.getAllInternationalShipmentByRoad(this.searchedValue, this.page, this.size);
   }
 }
