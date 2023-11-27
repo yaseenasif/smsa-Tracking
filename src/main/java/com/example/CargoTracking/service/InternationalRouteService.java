@@ -134,7 +134,8 @@ public class InternationalRouteService {
             internationalRoute.get().setEta(internationalRouteDto.getEta());
             internationalRoute.get().setEtd(internationalRouteDto.getEtd());
 
-            return toDto(internationalRoute.get());
+            InternationalRoute save = internationalRouteRepository.save(internationalRoute.get());
+            return toDto(save);
 
         }else{
             throw new RecordNotFoundException(String.format("Shipment Route is not available for id: %d",id));
@@ -150,6 +151,15 @@ public class InternationalRouteService {
                     .statusCode(HttpStatus.OK.value())
                     .result(Collections.emptyList())
                     .build();
+        }else{
+            throw new RecordNotFoundException(String.format("Shipment Route is not available for id: %d",id));
+        }
+    }
+
+    public InternationalRouteDto getInternationalRouteById(Long id) {
+        Optional<InternationalRoute> internationalRoute = internationalRouteRepository.findById(id);
+        if(internationalRoute.isPresent()){
+            return toDto(internationalRoute.get());
         }else{
             throw new RecordNotFoundException(String.format("Shipment Route is not available for id: %d",id));
         }

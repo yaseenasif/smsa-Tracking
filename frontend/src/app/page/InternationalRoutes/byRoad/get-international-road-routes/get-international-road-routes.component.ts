@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { InternationalRouteService } from '../../service/international-route.service';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Routes } from '../../../../model/ShipmentRoutes';
+import { InternationalRoutes } from 'src/app/model/InternationalRoute';
 
 @Component({
   selector: 'app-get-international-road-routes',
@@ -14,7 +15,7 @@ export class GetInternationalRoadRoutesComponent {
   constructor(private internationalRouteService: InternationalRouteService, private messageService: MessageService) { }
 
   items: MenuItem[] | undefined;
-  internationalRoutes!: Routes[];
+  internationalRoutes!: InternationalRoutes[];
   visible: boolean = false;
   rID!: number
   first: number = 0;
@@ -32,7 +33,7 @@ export class GetInternationalRoadRoutesComponent {
   }
 
   getAllInternationalRoutes() {
-    this.internationalRouteService.getAllInternationalRoutesForRoad().subscribe((res: Routes[]) => {
+    this.internationalRouteService.getAllInternationalRoutesForRoad().subscribe((res: InternationalRoutes[]) => {
 
       this.internationalRoutes = res;
     }, error => {
@@ -40,10 +41,10 @@ export class GetInternationalRoadRoutesComponent {
   }
 
   deleteInternationalRouteByID(id: number) {
-    this.internationalRouteService.deleteInternationalRoute(id).subscribe((res: Routes) => {
+    this.internationalRouteService.deleteInternationalRoute(id).subscribe((res: any) => {
       this.visible = false;
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Route is deleted on id ' + res!.id!.toString() });
       this.getAllInternationalRoutes();
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Route is deleted' });
     }, error => {
 
     });

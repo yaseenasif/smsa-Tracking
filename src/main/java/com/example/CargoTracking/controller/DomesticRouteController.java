@@ -19,7 +19,7 @@ public class DomesticRouteController {
     DomesticRouteService domesticRouteService;
 
     @GetMapping("/getRoute/{origin}/{destination}")
-    public List<DomesticRouteDto> getInternationalRouteForAir(@PathVariable String origin,
+    public List<DomesticRouteDto> getDomesticRoute(@PathVariable String origin,
                                                               @PathVariable String destination ){
         return domesticRouteService.findDomesticRoute(origin,destination);
     }
@@ -32,6 +32,11 @@ public class DomesticRouteController {
     @PostMapping("/add-domesticRoute")
     public DomesticRouteDto addDomesticRoute(@RequestBody DomesticRouteDto domesticRouteDto){
         return domesticRouteService.saveDomesticRoute(domesticRouteDto);
+    }
+
+    @GetMapping("/get-domestic-route/{id}")
+    public ResponseEntity<DomesticRouteDto> getDomesticRouteById(@PathVariable Long id){
+        return ResponseEntity.ok(domesticRouteService.getDomesticRouteById(id));
     }
 
 

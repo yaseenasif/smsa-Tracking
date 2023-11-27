@@ -31,14 +31,14 @@ export class DomesticRoutesService {
     return this.http.delete<Error>(url)
   }
 
-  getDomesticRouteById(id: number) {
-    let url = `${this.url}/-/${id}`
-    return this.http.get(url)
+  getDomesticRouteById(id: number): Observable<Routes> {
+    let url = `${this.url}/get-domestic-route/${id}`
+    return this.http.get<Routes>(url)
   }
 
-  updateDomesticRoute(id: number, obj: any) {
+  updateDomesticRoute(id: number, obj: any): Observable<Routes> {
 
-    let url = `${this.url}/--/${id}`
-    return this.http.put(url, obj)
+    let url = `${this.url}/update-domestic-route/${id}`
+    return this.http.patch<Routes>(url, obj)
   }
 }

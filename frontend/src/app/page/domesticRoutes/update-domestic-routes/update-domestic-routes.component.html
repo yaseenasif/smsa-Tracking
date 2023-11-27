@@ -11,109 +11,146 @@
         <div class="body-card">
           <p-toast></p-toast>
           <div class="card">
-            <h1 class="mb-4 h-color">Update Route</h1>
+            <h1 class="mb-4 h-color">Edit Route</h1>
             <form #permissionForm="ngForm" (ngSubmit)="onSubmit()">
               <div class="grid">
                 <div class="col-12 md:col-6 lg:col-6">
-                  <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Destination</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [(ngModel)]="routes.destination"
-                      name="destination"
-                      #name="ngModel"
-                      required
-                    />
-                    <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="name.invalid && (name.dirty || name.touched)"
-                      >Name is required.</small
-                    >
-                  </div>
-                </div>
-
-                <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Origin</label>
+                    <label htmlFor="name">Origin Location</label>
                     <p-dropdown
                       class="w-full"
-                      [options]="routeNumbers"
-                      name="originLocation"
-                      #originLocation="ngModel"
+                      [options]="location"
+                      name="origin"
+                      #origin="ngModel"
                       [required]="true"
-                      [(ngModel)]="routes.origin"
-                      optionLabel="origin"
-                      optionValue="origin"
+                      [(ngModel)]="domesticRoutes.origin"
+                      optionLabel="locationName"
+                      optionValue="locationName"
                       [filter]="true"
-                      filterBy="origin"
+                      filterBy="locationName"
                       [showClear]="true"
                       placeholder="Select a Origin Location"
                     >
                       <ng-template pTemplate="selectedItem">
                         <div
                           class="flex align-items-center gap-2"
-                          *ngIf="routes"
+                          *ngIf="domesticRoutes"
                         >
-                          <div>{{ routes.origin }}</div>
+                          <div>{{ domesticRoutes.origin }}</div>
                         </div>
                       </ng-template>
-                      <ng-template let-routes pTemplate="item">
+                      <ng-template let-location pTemplate="item">
                         <div class="flex align-items-center gap-2">
-                          <div>{{ routes.origin }}</div>
+                          <div>{{ location.locationName }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
                   </div>
                 </div>
 
-              </div>
-              <div class="grid">
-                <div class="col-12 md:col-6 lg:col-4">
+                <div class="col-12 md:col-6 lg:col-6">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name"
-                      >Route Number
-                      <span
-                        ><p-badge
-                          (click)="getDomesticRoute()"
-                          class=""
-                          value="Look up"
-                          severity="info"
-                        ></p-badge> </span
-                    ></label>
+                    <label htmlFor="name">Destination Location</label>
                     <p-dropdown
                       class="w-full"
-                      [options]="routeNumbers"
-                      #routeNumber="ngModel"
-                      name="routeNumber"
+                      [options]="location"
+                      name="destination"
+                      #destination="ngModel"
                       [required]="true"
-                      [(ngModel)]="routes.route"
-                      optionValue="route"
-                      optionLabel="route"
+                      [(ngModel)]="domesticRoutes.destination"
+                      optionLabel="locationName"
+                      optionValue="locationName"
                       [filter]="true"
-                      filterBy="route"
+                      filterBy="locationName"
                       [showClear]="true"
-                      placeholder="Select a Route Number
-                      "
+                      placeholder="Select a Destination Location"
                     >
                       <ng-template pTemplate="selectedItem">
                         <div
                           class="flex align-items-center gap-2"
-                          *ngIf="routes"
+                          *ngIf="domesticRoutes"
                         >
-                          <div>
-                            {{ routes.route }}
-                          </div>
+                          <div>{{ domesticRoutes.destination }}</div>
                         </div>
                       </ng-template>
-                      <ng-template let-routes pTemplate="item">
+                      <ng-template let-location pTemplate="item">
                         <div class="flex align-items-center gap-2">
-                          <div>{{ routes.route }}</div>
+                          <div>{{ location.locationName }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
+                  </div>
+                </div>
+              </div>
+              <div class="grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Route</label>
+                    <input
+                      pInputText
+                      id="route"
+                      aria-describedby="name-help"
+                      [(ngModel)]="domesticRoutes.route"
+                      name="route"
+                      #route="ngModel"
+                      required
+                    />
+                    <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="route.invalid && (route.dirty || route.touched)"
+                      >Route is required.</small
+                    >
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Driver</label>
+                    <input
+                      pInputText
+                      id="driver"
+                      aria-describedby="name-help"
+                      [(ngModel)]="domesticRoutes.driver"
+                      name="driver"
+                      #driver="ngModel"
+                    />
+                    <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="driver.invalid && (driver.dirty || driver.touched)"
+                      >Driver is required.</small
+                    >
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Departure Time</label>
+                    <p-calendar
+                      #etd="ngModel"
+                      name="etd"
+                      [required]="true"
+                      [(ngModel)]="domesticRoutes.etd"
+                      [timeOnly]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                    ></p-calendar>
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Arival Time</label>
+                    <p-calendar
+                      #eta="ngModel"
+                      name="eta"
+                      [required]="true"
+                      [(ngModel)]="domesticRoutes.eta"
+                      [timeOnly]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                    ></p-calendar>
                   </div>
                 </div>
               </div>

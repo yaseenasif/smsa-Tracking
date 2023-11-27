@@ -56,4 +56,9 @@ public class InternationalRouteController {
         return ResponseEntity.ok(internationalRouteService.deleteInternationalRoute(id));
     }
 
+    @GetMapping("/get-international-route-by-id/{id}")
+    public ResponseEntity<InternationalRouteDto> internationalRouteById(@PathVariable Long id){
+        return ResponseEntity.ok(internationalRouteService.getInternationalRouteById(id));
+    }
+
 }

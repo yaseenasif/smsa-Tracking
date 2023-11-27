@@ -108,6 +108,7 @@ public class DomesticRouteService {
             domesticRoute.get().setRoute(domesticRouteDto.getRoute());
             domesticRoute.get().setEtd(domesticRouteDto.getEtd());
             domesticRoute.get().setEta(domesticRouteDto.getEta());
+            domesticRoute.get().setDriver(domesticRouteDto.getDriver());
 
             DomesticRoute save = domesticRouteRepository.save(domesticRoute.get());
             return toDto(save);
@@ -117,4 +118,12 @@ public class DomesticRouteService {
         }
     }
 
+    public DomesticRouteDto getDomesticRouteById(Long id) {
+        Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(id);
+        if(domesticRoute.isPresent()){
+            return toDto(domesticRoute.get());
+        }else{
+            throw new RecordNotFoundException(String.format("Domestic Route Not Found By This Id %d", id));
+        }
+    }
 }

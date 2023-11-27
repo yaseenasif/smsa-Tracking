@@ -3,6 +3,7 @@
   <div class="body-position">
     <div class="body-holder">
       <app-dashboard-head></app-dashboard-head>
+
       <div class="main">
         <div class="card flex justify-content-center">
           <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
@@ -10,7 +11,7 @@
         <div class="body-card">
           <p-toast></p-toast>
           <div class="card">
-            <h1 class="mb-4 h-color">Add Route</h1>
+            <h1 class="mb-4 h-color">Add International Route</h1>
             <form #permissionForm="ngForm" (ngSubmit)="onSubmit()">
               <div class="grid">
                 <div class="col-12 md:col-6 lg:col-6">
@@ -19,28 +20,28 @@
                     <p-dropdown
                       class="w-full"
                       [options]="location"
-                      name="originLocation"
-                      #originLocation="ngModel"
+                      name="origin"
+                      #origin="ngModel"
                       [required]="true"
-                      [(ngModel)]="internationalShipment.originCountry"
-                      optionLabel="locationName"
-                      optionValue="locationName"
+                      [(ngModel)]="internationalRoute.origin"
+                      optionLabel="portName"
+                      optionValue="portName"
                       [filter]="true"
-                      filterBy="locationName"
+                      filterBy="portName"
                       [showClear]="true"
                       placeholder="Select a Origin Location"
                     >
                       <ng-template pTemplate="selectedItem">
                         <div
                           class="flex align-items-center gap-2"
-                          *ngIf="internationalShipment"
+                          *ngIf="internationalRoute"
                         >
-                          <div>{{ internationalShipment.originCountry }}</div>
+                          <div>{{ internationalRoute.origin }}</div>
                         </div>
                       </ng-template>
                       <ng-template let-location pTemplate="item">
                         <div class="flex align-items-center gap-2">
-                          <div>{{ location.locationName }}</div>
+                          <div>{{ location.portName }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -53,28 +54,28 @@
                     <p-dropdown
                       class="w-full"
                       [options]="location"
-                      name="destinationLocation"
-                      #destinationLocation="ngModel"
+                      name="destination"
+                      #destination="ngModel"
                       [required]="true"
-                      [(ngModel)]="internationalShipment.destinationCountry"
-                      optionLabel="locationName"
-                      optionValue="locationName"
+                      [(ngModel)]="internationalRoute.destination"
+                      optionLabel="portName"
+                      optionValue="portName"
                       [filter]="true"
-                      filterBy="locationName"
+                      filterBy="portName"
                       [showClear]="true"
                       placeholder="Select a Destination Location"
                     >
                       <ng-template pTemplate="selectedItem">
                         <div
                           class="flex align-items-center gap-2"
-                          *ngIf="internationalShipment"
+                          *ngIf="internationalRoute"
                         >
-                          <div>{{ internationalShipment.destinationCountry }}</div>
+                          <div>{{ internationalRoute.destination }}</div>
                         </div>
                       </ng-template>
                       <ng-template let-location pTemplate="item">
                         <div class="flex align-items-center gap-2">
-                          <div>{{ location.locationName }}</div>
+                          <div>{{ location.portName }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -87,67 +88,103 @@
                     <label htmlFor="name">Route</label>
                     <input
                       pInputText
-                      id="name"
+                      id="route"
                       aria-describedby="name-help"
-                      [(ngModel)]="routes.route"
-                      name="name"
-                      #name="ngModel"
+                      [(ngModel)]="internationalRoute.route"
+                      name="route"
+                      #route="ngModel"
                       required
                     />
                     <small
                       id="name-help"
                       class="color-red"
-                      *ngIf="name.invalid && (name.dirty || name.touched)"
-                      >Name is required.</small
+                      *ngIf="route.invalid && (route.dirty || route.touched)"
+                      >Route is required.</small
                     >
                   </div>
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-6">
                   <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Driver</label>
+                    <label htmlFor="name">Flight</label>
                     <input
                       pInputText
-                      id="name"
+                      id="driver"
                       aria-describedby="name-help"
-                      [(ngModel)]="routes.driver"
-                      name="name"
-                      #name="ngModel"
-                      required
+                      [(ngModel)]="internationalRoute.flight"
+                      name="driver"
+                      #driver="ngModel"
                     />
                     <small
                       id="name-help"
                       class="color-red"
-                      *ngIf="name.invalid && (name.dirty || name.touched)"
-                      >Name is required.</small
+                      *ngIf="driver.invalid && (driver.dirty || driver.touched)"
+                      >Driver is required.</small
                     >
                   </div>
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-6">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">ETD</label>
+                    <label htmlFor="name">Departure Time</label>
                     <p-calendar
-                      [(ngModel)]="routes.etd"
                       #etd="ngModel"
-                      [required]="true"
                       name="etd"
-                      [minDate]="minETDDate"
-                      (onSelect)="onETDDateSelected($event)"
+                      [required]="true"
+                      [(ngModel)]="internationalRoute.etd"
+                      [timeOnly]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
                     ></p-calendar>
                   </div>
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-6">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">ETA</label>
+                    <label htmlFor="name">Arival Time</label>
                     <p-calendar
-                      [(ngModel)]="routes.eta"
-                      #etd="ngModel"
-                      [required]="true"
+                      #eta="ngModel"
                       name="eta"
-                      [minDate]="minETDDate"
+                      [required]="true"
+                      [(ngModel)]="internationalRoute.eta"
+                      [timeOnly]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
                     ></p-calendar>
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Type</label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="type"
+                      name="origin"
+                      #origin="ngModel"
+                      [required]="true"
+                      [(ngModel)]="internationalRoute.type"
+                      optionLabel="type"
+                      optionValue="type"
+                      [filter]="true"
+                      filterBy="type"
+                      [showClear]="true"
+                      placeholder="Select a Origin Location"
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="internationalRoute"
+                        >
+                          <div>{{ internationalRoute.type }}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-type pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ type.type }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
                   </div>
                 </div>
               </div>
