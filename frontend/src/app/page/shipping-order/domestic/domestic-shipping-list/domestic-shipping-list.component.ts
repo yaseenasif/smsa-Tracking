@@ -36,8 +36,9 @@ export class DomesticShippingListComponent implements OnInit {
   totalRecords: number = 0;
 
   getAllDomesticShipments(value?: string, page?: number, size?: number) {
+    debugger
     this.domesticShipmentService.getALLShipments({ value: value, user: {} }, page, size).subscribe((res: any) => {
-
+      debugger
       this.myApiResponse = res;
       this.totalRecords = this.myApiResponse.totalElements;
       this.domesticShipment = this.myApiResponse.content;
@@ -70,10 +71,9 @@ export class DomesticShippingListComponent implements OnInit {
 
 
   onPageChange(event: any) {
-    this.first = event.first;
+    this.page = event.first;
     this.rows = event.rows;
-
-    this.getAllDomesticShipments(undefined, this.first, this.rows);
+    this.getAllDomesticShipments(this.searchItem, this.first, this.rows);
   }
 
 }
