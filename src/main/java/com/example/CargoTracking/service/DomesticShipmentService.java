@@ -297,6 +297,14 @@ public class DomesticShipmentService {
                       Duration duration = Duration.between(domesticShipment.get().getCreatedTime(), LocalDateTime.now());
                         domesticShipment.get().setTransitTimeTaken(duration.toMinutes());
                   }
+                  if(!domesticShipment.get().getStatus().equals(domesticShipmentDto.getStatus())){
+                      List<String> emails = userRepository.findEmailByLocation(domesticShipment.get().getDestinationLocation());
+
+                      for (String to :emails) {
+                          emailService.sendHtmlEmail(to,"Shipment status is changed");
+                      }
+
+                  }
 
                   DomesticShipment save = domesticShipmentRepository.save(domesticShipment.get());
                   return toDto(save);

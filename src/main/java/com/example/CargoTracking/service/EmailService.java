@@ -1,18 +1,31 @@
 package com.example.CargoTracking.service;
 
+import freemarker.template.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
+
 
 @Service
 public class EmailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
+
+    @Autowired
+    Configuration config;
 
 
     @Value("${spring.mail.username}")
@@ -42,5 +55,35 @@ public class EmailService {
         }
 
     }
+
+
+    public void sendHtmlEmail(String to,String subject) {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper;
+
+        try {
+            helper = new MimeMessageHelper(mimeMessage, true);
+            helper.setTo(to);
+            helper.setSubject(subject);
+            helper.setFrom(sender);
+//            EmailTemplate emailTemplate = emailTemplateRepository.findById(3L).get();
+//            String htmlContent = emailTemplate.getContent();
+//            String replacedContent = htmlContent.toString().replace("{name}", "JOHN DEO");
+//            helper.setText(replacedContent, true);
+            Map<String, Object> model = new HashMap<>();
+            model.put("name", "John Doe");
+
+            Template t = config.getTemplate("email-template.ftl");
+            String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
+
+            helper.setText(html, true);
+
+            javaMailSender.send(mimeMessage);
+        } catch (MessagingException | IOException | TemplateException e) {
+            // Handle exceptions
+        }
+    }
+
+
 
 }

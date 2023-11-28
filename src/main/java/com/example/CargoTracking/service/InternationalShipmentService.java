@@ -1,9 +1,7 @@
 package com.example.CargoTracking.service;
 
-import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForInternationalShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
-import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.dto.InternationalShipmentDto;
 import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.exception.UserNotFoundException;
@@ -14,8 +12,6 @@ import com.example.CargoTracking.repository.InternationalShipmentRepository;
 
 import com.example.CargoTracking.repository.InternationalShipmentHistoryRepository;
 import com.example.CargoTracking.repository.UserRepository;
-import com.example.CargoTracking.specification.DomesticShipmentSpecification;
-import com.example.CargoTracking.specification.DomesticSummarySpecification;
 import com.example.CargoTracking.specification.InternationalShipmentSpecification;
 import com.example.CargoTracking.specification.InternationalSummarySpecification;
 import org.modelmapper.ModelMapper;
@@ -36,7 +32,6 @@ import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -91,6 +86,11 @@ public class InternationalShipmentService {
             List<String> emails = userRepository.findEmailByLocation(internationalShipmentDto.getDestinationCountry());
 
             for (String to :emails) {
+//                String templateName = "templates/email-template.ftl";
+//                Map<String, Object> model = new HashMap<>();
+//                model.put("name", "John Doe");
+//                emailService.sendHtmlEmail();
+
                 emailService.sendEmail(to,"Shipment Notification");
             }
 
@@ -411,6 +411,13 @@ public class InternationalShipmentService {
                 internationalShipment.get().setTagNumber(internationalShipmentDto.getTagNumber());
                 internationalShipment.get().setSealNumber(internationalShipmentDto.getSealNumber());
                 internationalShipment.get().setAttachments(internationalShipmentDto.getAttachments());
+                if(!internationalShipment.get().getStatus().equals(internationalShipmentDto.getStatus())){
+                    List<String> emails = userRepository.findEmailByLocation(internationalShipment.get().getDestinationCountry());
+
+                    for (String to :emails) {
+                        emailService.sendHtmlEmail(to,"Shipment status is changed");
+                    }
+                }
                 internationalShipment.get().setStatus(internationalShipmentDto.getStatus());
                 internationalShipment.get().setRemarks(internationalShipmentDto.getRemarks());
                 internationalShipment.get().setAta(internationalShipmentDto.getAta());
@@ -425,6 +432,7 @@ public class InternationalShipmentService {
                     Duration duration = Duration.between(internationalShipment.get().getCreatedTime(), LocalDateTime.now());
                     internationalShipment.get().setTransitTimeTaken(duration.toMinutes());
                 }
+
                 InternationalShipment save = internationalShipmentRepository.save(internationalShipment.get());
                 return toDto(save);
             }else{
