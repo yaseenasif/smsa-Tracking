@@ -282,7 +282,6 @@ public class DomesticShipmentService {
                   domesticShipment.get().setVehicleNumber(domesticShipmentDto.getVehicleNumber());
                   domesticShipment.get().setTagNumber(domesticShipmentDto.getTagNumber());
                   domesticShipment.get().setSealNumber(domesticShipmentDto.getSealNumber());
-                  domesticShipment.get().setStatus(domesticShipmentDto.getStatus());
                   domesticShipment.get().setRemarks(domesticShipmentDto.getRemarks());
                   domesticShipment.get().setAta(domesticShipmentDto.getAta());
                   domesticShipment.get().setTotalShipments(domesticShipmentDto.getTotalShipments());
@@ -306,8 +305,27 @@ public class DomesticShipmentService {
                       }
 
                   }
+                  DomesticShipmentHistory domesticShipmentHistory;
+                  DomesticShipment save;
+                  if(domesticShipment.get().getStatus()!=domesticShipmentDto.getStatus()){
+                      domesticShipment.get().setStatus(domesticShipmentDto.getStatus());
+                      save = domesticShipmentRepository.save(domesticShipment.get());
 
-                  DomesticShipment save = domesticShipmentRepository.save(domesticShipment.get());
+                      domesticShipmentHistory= DomesticShipmentHistory.builder()
+                              .status(save.getStatus())
+                              .processTime(LocalDateTime.now())
+                              .locationCode(save.getOriginLocation())
+                              .user(user.getId())
+                              .domesticShipment(save)
+                              .remarks(save.getRemarks())
+                              .build();
+
+                      domesticShipmentHistoryRepository.save(domesticShipmentHistory);
+                  }
+                  else{
+                       save = domesticShipmentRepository.save(domesticShipment.get());
+                  }
+
                   return toDto(save);
             }else{
                   throw new UserNotFoundException(String.format("User not found while updating domestic shipment"));
