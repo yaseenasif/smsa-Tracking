@@ -411,14 +411,6 @@ public class InternationalShipmentService {
                 internationalShipment.get().setTagNumber(internationalShipmentDto.getTagNumber());
                 internationalShipment.get().setSealNumber(internationalShipmentDto.getSealNumber());
                 internationalShipment.get().setAttachments(internationalShipmentDto.getAttachments());
-                if(!internationalShipment.get().getStatus().equals(internationalShipmentDto.getStatus())){
-                    List<String> emails = userRepository.findEmailByLocation(internationalShipment.get().getDestinationCountry());
-                    emails.add(internationalShipment.get().getCreatedBy().getEmail());
-                    for (String to :emails) {
-                        emailService.sendHtmlEmail(to,"Shipment status is changed");
-                    }
-
-                }
                 internationalShipment.get().setRemarks(internationalShipmentDto.getRemarks());
                 internationalShipment.get().setAta(internationalShipmentDto.getAta());
                 internationalShipment.get().setTotalShipments(internationalShipmentDto.getTotalShipments());
@@ -428,12 +420,40 @@ public class InternationalShipmentService {
                 internationalShipment.get().setShortages(internationalShipmentDto.getShortages());
                 internationalShipment.get().setShortageAWBs(internationalShipmentDto.getShortageAWBs());
                 internationalShipment.get().setRouteNumber(internationalShipmentDto.getRouteNumber());
+                if(!internationalShipment.get().getStatus().equals(internationalShipmentDto.getStatus())){
+                    List<String> emails = userRepository.findEmailByLocation(internationalShipment.get().getDestinationCountry());
+                    emails.add(internationalShipment.get().getCreatedBy().getEmail());
+                    for (String to :emails) {
+                        emailService.sendHtmlEmail(to,"Shipment status is changed");
+                    }
+
+                }
                 if(internationalShipment.get().getStatus().equalsIgnoreCase("Arrived")){
                     Duration duration = Duration.between(internationalShipment.get().getCreatedTime(), LocalDateTime.now());
                     internationalShipment.get().setTransitTimeTaken(duration.toMinutes());
                 }
+                InternationalShipment save;
+                if(!internationalShipment.get().getStatus().equals(internationalShipmentDto.getStatus())){
+                    internationalShipment.get().setStatus(internationalShipmentDto.getStatus());
+                    save = internationalShipmentRepository.save(internationalShipment.get());
 
-                InternationalShipment save = internationalShipmentRepository.save(internationalShipment.get());
+                    InternationalShipmentHistory shipmentHistory = InternationalShipmentHistory.builder()
+                            .status(save.getStatus())
+                            .processTime(LocalDateTime.now())
+                            .locationCode(save.getOriginCountry())
+                            .user(user.getId())
+                            .type(save.getType())
+                            .internationalShipment(save)
+                            .remarks(save.getRemarks())
+                            .build();
+
+                    internationalShipmentHistoryRepository.save(shipmentHistory);
+
+                }else{
+                    save = internationalShipmentRepository.save(internationalShipment.get());
+                }
+
+
                 return toDto(save);
             }else{
                 throw new UserNotFoundException(String.format("User not found"));
