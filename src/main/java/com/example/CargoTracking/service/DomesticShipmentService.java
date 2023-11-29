@@ -126,13 +126,17 @@ public class DomesticShipmentService {
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
             if((user.getLocation() == null) &&
-                    (searchCriteriaForDomesticShipment.getValue().isEmpty() || searchCriteriaForDomesticShipment.getValue() == null)){
+                    (searchCriteriaForDomesticShipment.getFromDate().isEmpty() && searchCriteriaForDomesticShipment.getToDate().isEmpty() &&
+                            searchCriteriaForDomesticShipment.getOrigin().isEmpty() && searchCriteriaForDomesticShipment.getDestination().isEmpty() &&
+            searchCriteriaForDomesticShipment.getStatus().isEmpty() && searchCriteriaForDomesticShipment.getRouteNumber().isEmpty())){
                 Page<DomesticShipment> domesticShipmentPage = domesticShipmentRepository.findAll(pageable);
                 Page<DomesticShipmentDto> domesticShipmentDtoPage = domesticShipmentPage.map(entity->toDto(entity));
                 return domesticShipmentDtoPage;
             }
             if((user.getLocation() == null) &&
-                    ((!searchCriteriaForDomesticShipment.getValue().isEmpty() || searchCriteriaForDomesticShipment.getValue() != null))){
+                    ((!searchCriteriaForDomesticShipment.getFromDate().isEmpty() || !searchCriteriaForDomesticShipment.getToDate().isEmpty() ||
+                            !searchCriteriaForDomesticShipment.getOrigin().isEmpty() || !searchCriteriaForDomesticShipment.getDestination().isEmpty() ||
+                            !searchCriteriaForDomesticShipment.getStatus().isEmpty() || !searchCriteriaForDomesticShipment.getRouteNumber().isEmpty()))){
                 searchCriteriaForDomesticShipment.setUser(null);
                 Specification<DomesticShipment> domesticShipmentSpecification = DomesticShipmentSpecification.getSearchSpecification(searchCriteriaForDomesticShipment);
                 Page<DomesticShipment> domesticShipmentPage = domesticShipmentRepository.findAll(domesticShipmentSpecification,pageable);
@@ -141,7 +145,7 @@ public class DomesticShipmentService {
                 return domesticShipmentDtoPage;
             }else{
                 searchCriteriaForDomesticShipment.setUser(user);
-                Specification<DomesticShipment> domesticShipmentSpecification = DomesticShipmentSpecification.getSearchSpecification(searchCriteriaForDomesticShipment);
+                Specification<DomesticShipment> domesticShipmentSpecification = DomesticShipmentSpecification. getSearchSpecification(searchCriteriaForDomesticShipment);
                 Page<DomesticShipment> domesticShipmentPage = domesticShipmentRepository.findAll(domesticShipmentSpecification,pageable);
                 Page<DomesticShipmentDto> domesticShipmentDtoPage = domesticShipmentPage.map(entity->toDto(entity));
                 return domesticShipmentDtoPage;
