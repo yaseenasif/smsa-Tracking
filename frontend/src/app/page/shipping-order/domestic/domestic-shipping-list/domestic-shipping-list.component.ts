@@ -23,20 +23,25 @@ export class DomesticShippingListComponent implements OnInit {
 
   ngOnInit() {
     this.items = [{ label: 'Domestic Shipment' }];
-    this.getAllDomesticShipments(this.searchItem, undefined, undefined);
+    this.getAllDomesticShipments(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
   }
   page = 0;
   size = 10;
   first: number = 0;
 
-  searchItem: string = '';
+  fromDate: string = '';
+  toDate: string = '';
+  status: string = '';
+  origin: string = '';
+  destination: string = '';
+  routeNumber: string = '';
 
   rows: number = 10;
 
   totalRecords: number = 0;
 
-  getAllDomesticShipments(value?: string, page?: number, size?: number) {
-    this.domesticShipmentService.getALLShipments({ value: value, user: {} }, page, size).subscribe((res: any) => {
+  getAllDomesticShipments(fromDate?: string,toDate?: string,status?: string,origin?: string,destination?: string,routeNumber?: string, page?: number, size?: number) {
+    this.domesticShipmentService.getALLShipments({ fromDate: fromDate,toDate: toDate,status: status,origin: origin,destination: destination,routeNumber: routeNumber, user: {} }, page, size).subscribe((res: any) => {
       this.myApiResponse = res;
       this.page=res.pageable.pageNumber;
       this.size=res.size;
@@ -74,7 +79,10 @@ export class DomesticShippingListComponent implements OnInit {
    
     this.page = event.page;
     this.rows = event.rows;
-    this.getAllDomesticShipments(this.searchItem, this.page, this.rows);
+    this.getAllDomesticShipments(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, this.page, this.rows);
   }
 
+  searchByFilter(){
+    this.getAllDomesticShipments(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
+  }
 }
