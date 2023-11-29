@@ -413,12 +413,12 @@ public class InternationalShipmentService {
                 internationalShipment.get().setAttachments(internationalShipmentDto.getAttachments());
                 if(!internationalShipment.get().getStatus().equals(internationalShipmentDto.getStatus())){
                     List<String> emails = userRepository.findEmailByLocation(internationalShipment.get().getDestinationCountry());
-
+                    emails.add(internationalShipment.get().getCreatedBy().getEmail());
                     for (String to :emails) {
                         emailService.sendHtmlEmail(to,"Shipment status is changed");
                     }
+
                 }
-                internationalShipment.get().setStatus(internationalShipmentDto.getStatus());
                 internationalShipment.get().setRemarks(internationalShipmentDto.getRemarks());
                 internationalShipment.get().setAta(internationalShipmentDto.getAta());
                 internationalShipment.get().setTotalShipments(internationalShipmentDto.getTotalShipments());

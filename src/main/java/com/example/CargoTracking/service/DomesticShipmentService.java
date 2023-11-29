@@ -299,6 +299,7 @@ public class DomesticShipmentService {
                   }
                   if(!domesticShipment.get().getStatus().equals(domesticShipmentDto.getStatus())){
                       List<String> emails = userRepository.findEmailByLocation(domesticShipment.get().getDestinationLocation());
+                      emails.add(domesticShipment.get().getCreatedBy().getEmail());
 
                       for (String to :emails) {
                           emailService.sendHtmlEmail(to,"Shipment status is changed");
