@@ -436,9 +436,14 @@ public class InternationalShipmentService {
                     }
 
                 }
-                if(internationalShipment.get().getStatus().equalsIgnoreCase("Arrived")){
+                if(internationalShipmentDto.getStatus().equalsIgnoreCase("Arrived")){
                     Duration duration = Duration.between(internationalShipment.get().getCreatedTime(), LocalDateTime.now());
                     internationalShipment.get().setTransitTimeTaken(duration.toMinutes());
+                }
+                if(internationalShipmentDto.getStatus().equalsIgnoreCase("Cleared")){
+                    if(internationalShipment.get().getRedFlag()){
+                        internationalShipment.get().setRedFlag(false);
+                    }
                 }
                 InternationalShipment save;
                 if(!internationalShipment.get().getStatus().equals(internationalShipmentDto.getStatus())){

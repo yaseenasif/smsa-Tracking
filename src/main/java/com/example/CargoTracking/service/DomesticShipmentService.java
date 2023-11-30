@@ -295,11 +295,6 @@ public class DomesticShipmentService {
                   domesticShipment.get().setShortages(domesticShipmentDto.getShortages());
                   domesticShipment.get().setShortagesAwbs(domesticShipmentDto.getShortagesAwbs());
                   domesticShipment.get().setAttachments(domesticShipmentDto.getAttachments());
-
-                  if(domesticShipmentDto.getStatus().equalsIgnoreCase("Arrived")){
-                      Duration duration = Duration.between(domesticShipment.get().getCreatedTime(), LocalDateTime.now());
-                        domesticShipment.get().setTransitTimeTaken(duration.toMinutes());
-                  }
                   if(!domesticShipment.get().getStatus().equals(domesticShipmentDto.getStatus())){
                       List<String> emails = userRepository.findEmailByLocation(domesticShipment.get().getDestinationLocation());
                       emails.add(domesticShipment.get().getCreatedBy().getEmail());
@@ -308,6 +303,17 @@ public class DomesticShipmentService {
                           emailService.sendHtmlEmail(to,"Shipment status is changed");
                       }
 
+                  }
+
+                  if(domesticShipmentDto.getStatus().equalsIgnoreCase("Arrived")){
+                      Duration duration = Duration.between(domesticShipment.get().getCreatedTime(), LocalDateTime.now());
+                      domesticShipment.get().setTransitTimeTaken(duration.toMinutes());
+                  }
+
+                  if(domesticShipmentDto.getStatus().equalsIgnoreCase("Cleared")){
+                      if(domesticShipment.get().getRedFlag()){
+                          domesticShipment.get().setRedFlag(false);
+                      }
                   }
                   DomesticShipmentHistory domesticShipmentHistory;
                   DomesticShipment save;
