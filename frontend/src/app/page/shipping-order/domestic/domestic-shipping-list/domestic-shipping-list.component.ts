@@ -101,4 +101,13 @@ export class DomesticShippingListComponent implements OnInit {
 
     })
   }
+  clearFilter(){
+  this.fromDate = '';
+  this.toDate = '';
+  this.status = '';
+  this.origin = '';
+  this.destination = '';
+  this.routeNumber = '';
+  this.getAllDomesticShipments(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
+  }
 }

@@ -31,19 +31,17 @@
             
           </div>
           <p-toolbar>
-            <form #domesticShipmentForm="ngForm" (ngSubmit)="searchByFilter()">
+            <form class="w-full" #domesticShipmentForm="ngForm" (ngSubmit)="searchByFilter()">
 
-              <div class="grid">
-
-
-                    <div class="lg:col-2 md:col-6 col-12">
+              <div class="grid w-full">
+                    <div class="xl:col-2 lg:col-4 md:col-6 col-12">
                       <div class="flex flex-column gap-2 form-hook">
                         <label htmlFor="name">From Date</label>
                           <p-calendar [(ngModel)]="fromDate" #fromDate1="ngModel" name="fromDate1"></p-calendar>
                       </div>
                     </div>
 
-                    <div class="lg:col-2 md:col-6 col-12">
+                    <div class="xl:col-2  lg:col-4 md:col-6 col-12">
                       <div class="flex flex-column gap-2 form-hook">
                         <label htmlFor="name">To Date</label>
                           <p-calendar [(ngModel)]="toDate" #toDate1="ngModel" name="toDate1"></p-calendar>
@@ -52,15 +50,15 @@
 
 
 
-                    <div class="lg:col-2 md:col-6 col-12">
+                    <div class="xl:col-2  lg:col-4 md:col-6 col-12">
                       <div class="flex flex-column gap-2 form-hook">
                         <label htmlFor="name">Status</label>
                         <p-dropdown class="w-full" [options]="shipmentStatus" name="status1" #status1="ngModel"
                           [(ngModel)]="status" optionLabel="name" optionValue="name"
                           placeholder="Select a Status">
                           <ng-template pTemplate="selectedItem">
-                            <div class="flex align-items-center gap-2" *ngIf="shipmentStatus">
-                              <div>{{ shipmentStatus }}</div>
+                            <div class="flex align-items-center gap-2" *ngIf="status">
+                              <div>{{ status }}</div>
                             </div>
                           </ng-template>
                           <ng-template let-shipmentStatus pTemplate="item">
@@ -71,16 +69,30 @@
                         </p-dropdown>
                       </div>
                     </div>
-                    <div  class="lg:col-2 md:col-6 col-12">
+                    <div  class="xl:col-2  lg:col-4 md:col-6 col-12">
                       <div class="flex flex-column gap-2">
                         <label htmlFor="name">Origin</label>
                         <input pInputText id="name" aria-describedby="name-help" #origin1="ngModel" name="origin1"
                           [(ngModel)]="origin" />
                       </div>
                     </div>
+                    <div  class="xl:col-2  lg:col-4 md:col-6 col-12">
+                      <div class="flex flex-column gap-2">
+                        <label htmlFor="name">Destination</label>
+                        <input pInputText id="name" aria-describedby="name-help" #destination1="ngModel" name="destination1"
+                          [(ngModel)]="destination" />
+                      </div>
+                    </div>
+                    <div  class="xl:col-2  lg:col-4 md:col-6 col-12">
+                      <div class="flex flex-column gap-2">
+                        <label htmlFor="name">Route Number</label>
+                        <input pInputText id="name" aria-describedby="name-help" #routeNumber1="ngModel" name="routeNumber1"
+                          [(ngModel)]="routeNumber" />
+                      </div>
+                    </div>
 
-                <div class="lg:col-2 md:col-6 col-12 flex justify-content-end align-items-end">
-                  <p-button class="bg-b-color mr" >
+                <div class="xl:col-12 lg:col-12 md:col-12 col-12 flex justify-content-end align-items-end">
+                  <p-button class="bg-b-color mr" (click)="clearFilter()" >
                     Clear
                   </p-button>
                   <p-button type="submit"  label="Search"
