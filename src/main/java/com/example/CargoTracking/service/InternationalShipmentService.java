@@ -112,13 +112,17 @@ public class InternationalShipmentService {
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
             if((user.getLocation() == null) &&
-                    (searchCriteriaForInternationalSummary.getValue().isEmpty() || searchCriteriaForInternationalSummary.getValue() == null)){
+                    (searchCriteriaForInternationalSummary.getFromDate().isEmpty() && searchCriteriaForInternationalSummary.getToDate().isEmpty() &&
+                            searchCriteriaForInternationalSummary.getOrigin().isEmpty() && searchCriteriaForInternationalSummary.getDestination().isEmpty() &&
+                            searchCriteriaForInternationalSummary.getStatus().isEmpty() && searchCriteriaForInternationalSummary.getRouteNumber().isEmpty())){
                 Page<InternationalShipment> InternationalShipmentPage = internationalShipmentRepository.findAllForAir(pageable);
                 Page<InternationalShipmentDto> InternationalShipmentDtoPage = InternationalShipmentPage.map(entity->toDto(entity));
                 return InternationalShipmentDtoPage;
             }
             if((user.getLocation() == null) &&
-                    ((!searchCriteriaForInternationalSummary.getValue().isEmpty() || searchCriteriaForInternationalSummary.getValue() != null))){
+                    ((!searchCriteriaForInternationalSummary.getFromDate().isEmpty() || !searchCriteriaForInternationalSummary.getToDate().isEmpty() ||
+                            !searchCriteriaForInternationalSummary.getOrigin().isEmpty() || !searchCriteriaForInternationalSummary.getDestination().isEmpty() ||
+                            !searchCriteriaForInternationalSummary.getStatus().isEmpty() || !searchCriteriaForInternationalSummary.getRouteNumber().isEmpty()))){
                 searchCriteriaForInternationalSummary.setUser(null);
                 searchCriteriaForInternationalSummary.setType("By Air");
 
@@ -152,13 +156,17 @@ public class InternationalShipmentService {
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
             if((user.getLocation() == null) &&
-                    (searchCriteriaForInternationalSummary.getValue().isEmpty() || searchCriteriaForInternationalSummary.getValue() == null)){
+                    (searchCriteriaForInternationalSummary.getFromDate().isEmpty() && searchCriteriaForInternationalSummary.getToDate().isEmpty() &&
+                            searchCriteriaForInternationalSummary.getOrigin().isEmpty() && searchCriteriaForInternationalSummary.getDestination().isEmpty() &&
+                            searchCriteriaForInternationalSummary.getStatus().isEmpty() && searchCriteriaForInternationalSummary.getRouteNumber().isEmpty())){
                 Page<InternationalShipment> InternationalShipmentPage = internationalShipmentRepository.findAllForRoad(pageable);
                 Page<InternationalShipmentDto> InternationalShipmentDtoPage = InternationalShipmentPage.map(entity->toDto(entity));
                 return InternationalShipmentDtoPage;
             }
             if((user.getLocation() == null) &&
-                    ((!searchCriteriaForInternationalSummary.getValue().isEmpty() || searchCriteriaForInternationalSummary.getValue() != null))){
+                    ((!searchCriteriaForInternationalSummary.getFromDate().isEmpty() || !searchCriteriaForInternationalSummary.getToDate().isEmpty() ||
+                            !searchCriteriaForInternationalSummary.getOrigin().isEmpty() || !searchCriteriaForInternationalSummary.getDestination().isEmpty() ||
+                            !searchCriteriaForInternationalSummary.getStatus().isEmpty() || !searchCriteriaForInternationalSummary.getRouteNumber().isEmpty()))){
                 searchCriteriaForInternationalSummary.setUser(null);
                 searchCriteriaForInternationalSummary.setType("By Road");
                 Specification<InternationalShipment> internationalShipmentSpecification= InternationalShipmentSpecification.getSearchSpecification(searchCriteriaForInternationalSummary);

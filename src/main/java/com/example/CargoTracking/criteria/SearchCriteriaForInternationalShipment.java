@@ -11,7 +11,12 @@ import lombok.*;
 @ToString
 @Builder
 public class SearchCriteriaForInternationalShipment {
-    private String value;
+    private String fromDate;
+    private String toDate;
+    private String status;
+    private String origin;
+    private String destination;
+    private String routeNumber;
     private User user;
     private String type;
 }
