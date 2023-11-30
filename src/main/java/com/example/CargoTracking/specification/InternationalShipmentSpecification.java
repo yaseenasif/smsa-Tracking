@@ -32,8 +32,8 @@ public class InternationalShipmentSpecification {
                     criteriaBuilder.and(
                             criteriaBuilder.between(root.get("createdAt"), localFromDate, localToDate ),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("originLocation")), "%" + searchCriteria.getOrigin() + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationLocation")), "%" + searchCriteria.getDestination() + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("originCountry")), "%" + searchCriteria.getOrigin() + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationCountry")), "%" + searchCriteria.getDestination() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteria.getRouteNumber() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("type")),
                                     "%" + searchCriteria.getType() + "%"),
@@ -44,8 +44,8 @@ public class InternationalShipmentSpecification {
 
                     criteriaBuilder.and(
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("originLocation")), "%" + searchCriteria.getOrigin() + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationLocation")), "%" + searchCriteria.getDestination() + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("originCountry")), "%" + searchCriteria.getOrigin() + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationCountry")), "%" + searchCriteria.getDestination() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteria.getRouteNumber() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("type")),
                                     "%" + searchCriteria.getType() + "%"),
@@ -63,8 +63,8 @@ public class InternationalShipmentSpecification {
                     criteriaBuilder.and(
                             criteriaBuilder.between(root.get("createdAt"), localFromDate, localToDate ),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("originLocation")), "%" + searchCriteria.getOrigin() + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationLocation")), "%" + searchCriteria.getDestination() + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("originCountry")), "%" + searchCriteria.getOrigin() + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationCountry")), "%" + searchCriteria.getDestination() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteria.getRouteNumber() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("type")),
                                     "%" + searchCriteria.getType() + "%")
@@ -75,8 +75,8 @@ public class InternationalShipmentSpecification {
             return (root, query, criteriaBuilder) ->
                     criteriaBuilder.and(
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("originLocation")), "%" + searchCriteria.getOrigin() + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationLocation")), "%" + searchCriteria.getDestination() + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("originCountry")), "%" + searchCriteria.getOrigin() + "%"),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationCountry")), "%" + searchCriteria.getDestination() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteria.getRouteNumber() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("type")),
                                     "%" + searchCriteria.getType() + "%")
