@@ -39,13 +39,14 @@
                     <div class="lg:col-2 md:col-6 col-12">
                       <div class="flex flex-column gap-2 form-hook">
                         <label htmlFor="name">From Date</label>
-                          <p-calendar [(ngModel)]="fromDate" #fromDate="ngModel" name="fromDate"></p-calendar>
+                          <p-calendar [(ngModel)]="fromDate" #fromDate1="ngModel" name="fromDate1"></p-calendar>
                       </div>
                     </div>
+
                     <div class="lg:col-2 md:col-6 col-12">
                       <div class="flex flex-column gap-2 form-hook">
                         <label htmlFor="name">To Date</label>
-                          <p-calendar [(ngModel)]="toDate" #toDate="ngModel" name="toDate"></p-calendar>
+                          <p-calendar [(ngModel)]="toDate" #toDate1="ngModel" name="toDate1"></p-calendar>
                       </div>
                     </div>
 
@@ -54,12 +55,12 @@
                     <div class="lg:col-2 md:col-6 col-12">
                       <div class="flex flex-column gap-2 form-hook">
                         <label htmlFor="name">Status</label>
-                        <p-dropdown class="w-full" [options]="shipmentStatus" name="status" #status="ngModel"
+                        <p-dropdown class="w-full" [options]="shipmentStatus" name="status1" #status1="ngModel"
                           [(ngModel)]="status" optionLabel="name" optionValue="name"
                           placeholder="Select a Status">
                           <ng-template pTemplate="selectedItem">
-                            <div class="flex align-items-center gap-2" *ngIf="search">
-                              <div>{{ search.status}}</div>
+                            <div class="flex align-items-center gap-2" *ngIf="shipmentStatus">
+                              <div>{{ shipmentStatus }}</div>
                             </div>
                           </ng-template>
                           <ng-template let-shipmentStatus pTemplate="item">
@@ -73,7 +74,7 @@
                     <div  class="lg:col-2 md:col-6 col-12">
                       <div class="flex flex-column gap-2">
                         <label htmlFor="name">Origin</label>
-                        <input pInputText id="name" aria-describedby="name-help" #origin="ngModel" name="origin"
+                        <input pInputText id="name" aria-describedby="name-help" #origin1="ngModel" name="origin1"
                           [(ngModel)]="origin" />
                       </div>
                     </div>
