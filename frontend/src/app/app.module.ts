@@ -102,6 +102,7 @@ import { GetInternationalRoadRoutesComponent } from './page/InternationalRoutes/
 import { GetDomesticRoutesComponent } from './page/domesticRoutes/get-domestic-routes/get-domestic-routes.component';
 import { AddDomesticRoutesComponent } from './page/domesticRoutes/add-domestic-routes/add-domestic-routes.component';
 import { UpdateDomesticRoutesComponent } from './page/domesticRoutes/update-domestic-routes/update-domestic-routes.component';
+import { EmailManagmentComponent } from './page/email-managment/email-managment.component';
 
 
 
@@ -178,6 +179,7 @@ import { UpdateDomesticRoutesComponent } from './page/domesticRoutes/update-dome
     GetDomesticRoutesComponent,
     AddDomesticRoutesComponent,
     UpdateDomesticRoutesComponent,
+    EmailManagmentComponent,
   ],
   imports: [
     BrowserModule,

@@ -69,6 +69,7 @@ import { ViewShipmentComponent } from './page/shipping-order/domestic/view-shipm
 import { ViewShipmentAirComponent } from './page/shipping-order/international/by-air/view-shipment-air/view-shipment-air.component';
 import { ViewShipmentRoadComponent } from './page/shipping-order/international/by-road/view-shipment-road/view-shipment-road.component';
 import { GetDomesticRoutesComponent } from './page/domesticRoutes/get-domestic-routes/get-domestic-routes.component';
+import { EmailManagmentComponent } from './page/email-managment/email-managment.component';
 
 
 const routes: Routes = [
@@ -441,6 +442,11 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginFormComponent
+  },
+  {
+    path: 'emailManagement',
+    component: EmailManagmentComponent,
+    canActivate: [AuthGuard]
   }
 ];
 

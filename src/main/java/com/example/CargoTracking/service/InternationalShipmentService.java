@@ -205,7 +205,7 @@ public class InternationalShipmentService {
         LocalDate oneDayOlderDate = LocalDate.now().minusDays(1);
 
         List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findByCreatedAt(oneDayOlderDate);
-
+        List<InternationalShipment> internationalShipmentList1 = internationalShipmentRepository.findAll();
         try {
             LocalDate currentDate = LocalDate.now();
 
@@ -215,7 +215,21 @@ public class InternationalShipmentService {
                 }
             }
 
+
+
             internationalShipmentRepository.saveAll(internationalShipmentList);
+
+            for (InternationalShipment shipment : internationalShipmentList1){
+                Duration duration = Duration.between(shipment.getArrivedTime(), LocalDateTime.now());
+                if(duration.toMinutes() >= 480 && duration.toMinutes() <= 1440){
+                    //durationIsGreaterThan8HoursAndLessThan24Hours
+                    //sendEmailToOriginAndDestination
+                }
+                if(duration.toMinutes() > 1440){
+                    //ifDurationIsGreaterThan24Hours
+                    //SendEmailToManager
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
             Collections.emptyList();
@@ -437,6 +451,7 @@ public class InternationalShipmentService {
 
                 }
                 if(internationalShipmentDto.getStatus().equalsIgnoreCase("Arrived")){
+                    internationalShipment.get().setArrivedTime(LocalDateTime.now());
                     Duration duration = Duration.between(internationalShipment.get().getCreatedTime(), LocalDateTime.now());
                     internationalShipment.get().setTransitTimeTaken(duration.toMinutes());
                 }

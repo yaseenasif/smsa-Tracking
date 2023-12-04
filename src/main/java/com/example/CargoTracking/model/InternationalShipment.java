@@ -65,6 +65,8 @@ public class InternationalShipment {
     private String preAlertType;
     private long transitTimeTaken;
     private LocalDateTime createdTime;
+    private LocalDateTime arrivedTime;
+
     private int trip;
 
     @ManyToOne

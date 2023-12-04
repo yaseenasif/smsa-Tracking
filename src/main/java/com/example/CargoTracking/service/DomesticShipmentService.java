@@ -306,6 +306,7 @@ public class DomesticShipmentService {
                   }
 
                   if(domesticShipmentDto.getStatus().equalsIgnoreCase("Arrived")){
+                      domesticShipment.get().setArrivedTime(LocalDateTime.now());
                       Duration duration = Duration.between(domesticShipment.get().getCreatedTime(), LocalDateTime.now());
                       domesticShipment.get().setTransitTimeTaken(duration.toMinutes());
                   }
@@ -391,6 +392,7 @@ public class DomesticShipmentService {
         LocalDate oneDayOlderDate = LocalDate.now().minusDays(1);
 
         List<DomesticShipment> domesticShipmentList = domesticShipmentRepository.findByCreatedAt(oneDayOlderDate);
+        List<DomesticShipment> domesticShipmentList1 = domesticShipmentRepository.findAll();
 
         try {
             LocalDate currentDate = LocalDate.now();
@@ -402,6 +404,18 @@ public class DomesticShipmentService {
             }
 
             domesticShipmentRepository.saveAll(domesticShipmentList);
+
+            for(DomesticShipment shipment: domesticShipmentList1){
+                Duration duration = Duration.between(shipment.getArrivedTime(), LocalDateTime.now());
+                if(duration.toMinutes() >= 480 && duration.toMinutes() <= 1440){
+                    //durationIsGreaterThan8HoursAndLessThan24Hours
+                    //sendEmailToOriginAndDestination
+                }
+                if(duration.toMinutes() > 1440){
+                    //ifDurationIsGreaterThan24Hours
+                    //SendEmailToManager
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
             Collections.emptyList();

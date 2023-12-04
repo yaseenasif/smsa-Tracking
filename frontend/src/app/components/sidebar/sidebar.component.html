@@ -51,6 +51,15 @@
         <span class="nav-text"> International Summary By Road </span>
       </span>
     </li>
+    <li class="child" *ngIf="hasPermission('Email Management')">
+      <span
+        class="sidebar-list-hover"
+        routerLink="/emailManagement"
+      >
+      <i class="bi bi-envelope"></i>
+        <span class="nav-text"> Email management </span>
+      </span>
+    </li>
     <li class="child" *ngIf="hasPermission('User')">
       <span class="sidebar-list-hover" routerLink="/user">
         <i class="bi bi-people-fill"></i>
