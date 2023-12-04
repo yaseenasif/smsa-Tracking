@@ -2,11 +2,15 @@ package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.dto.LocationDto;
 import com.example.CargoTracking.model.Location;
+import com.example.CargoTracking.repository.DestinationEmailsRepository;
+import com.example.CargoTracking.repository.EscalationEmailRepository;
 import com.example.CargoTracking.repository.LocationRepository;
+import com.example.CargoTracking.repository.OriginEmailsRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,13 +22,27 @@ public class LocationService {
     LocationRepository locationRepository;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    OriginEmailsRepository originEmailsRepository;
+    @Autowired
+    DestinationEmailsRepository destinationEmailsRepository;
+    @Autowired
+    EscalationEmailRepository escalationEmailRepository;
 
+    @Transactional
     public LocationDto addLocation(LocationDto locationDto) {
+
+        originEmailsRepository.saveAll(locationDto.getOriginEmailsList());
+        destinationEmailsRepository.saveAll(locationDto.getDestinationEmailsList());
+        escalationEmailRepository.saveAll(locationDto.getEscalationEmailsList());
 
         Location location = Location.builder()
                 .locationName(locationDto.getLocationName())
                 .type(locationDto.getType())
                 .status(Boolean.TRUE)
+                .originEmailsList(locationDto.getOriginEmailsList())
+                .destinationEmails(locationDto.getDestinationEmailsList())
+                .escalationEmailsList(locationDto.getEscalationEmailsList())
                 .build();
 
         return toDto(locationRepository.save(location));
@@ -67,6 +85,9 @@ public class LocationService {
         if(location.isPresent()){
             location.get().setLocationName(locationDto.getLocationName());
             location.get().setType(locationDto.getType());
+            location.get().setOriginEmailsList(locationDto.getOriginEmailsList());
+            location.get().setDestinationEmails(locationDto.getDestinationEmailsList());
+            location.get().setEscalationEmailsList(locationDto.getEscalationEmailsList());
             return toDto(locationRepository.save(location.get()));
         }
 
@@ -83,6 +104,10 @@ public class LocationService {
             return toDto(locationRepository.save(location.get()));
         }
         throw new RuntimeException(String.format("Location Not Found by this Id => %d" , id));
+    }
+
+    public LocationDto getLocationByName(String locationName,String type){
+        return locationRepository.findByLocationNameAndType(locationName,type);
     }
 
     public List<LocationDto> toDtoList(List<Location> location){

@@ -3,13 +3,11 @@ package com.example.CargoTracking.service;
 import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
-import com.example.CargoTracking.model.FileMetaData;
+import com.example.CargoTracking.dto.LocationDto;
+import com.example.CargoTracking.model.*;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.exception.UserNotFoundException;
-import com.example.CargoTracking.model.DomesticShipment;
-import com.example.CargoTracking.model.DomesticShipmentHistory;
-import com.example.CargoTracking.model.User;
 import com.example.CargoTracking.repository.DomesticShipmentHistoryRepository;
 import com.example.CargoTracking.repository.DomesticShipmentRepository;
 import com.example.CargoTracking.repository.FileMetaDataRepository;
@@ -42,6 +40,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class DomesticShipmentService {
@@ -60,6 +59,8 @@ public class DomesticShipmentService {
     StorageService storageService;
     @Autowired
     FileMetaDataRepository fileMetaDataRepository;
+    @Autowired
+    LocationService locationService;
 
 
 
@@ -106,7 +107,22 @@ public class DomesticShipmentService {
 
             domesticShipmentHistoryRepository.save(domesticShipmentHistory);
 
-            List<String> emails = userRepository.findEmailByLocation(domesticShipmentDto.getDestinationLocation());
+
+            List<String> domestic =
+                    locationService.getLocationByName(domesticShipment.getOriginLocation(), "Domestic")
+                            .getOriginEmailsList().stream().map(e -> e.getOriginEmail()).collect(Collectors.toList());
+
+            List<String> domestic1 =
+                    locationService.getLocationByName(domesticShipment.getDestinationLocation(), "Domestic")
+                            .getDestinationEmailsList().stream().map(e -> e.getDestinationEmail())
+                            .collect(Collectors.toList());
+
+
+            List<String> emails = new ArrayList<>();
+            emails.addAll(domestic);
+            emails.addAll(domestic1);
+
+//            List<String> emails = userRepository.findEmailByLocation(domesticShipmentDto.getDestinationLocation());
 
             for (String to :emails) {
                 emailService.sendEmail(to,"Shipment Notification");

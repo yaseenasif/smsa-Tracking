@@ -5,6 +5,7 @@ import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.DomesticShipmentService;
+import com.example.CargoTracking.service.LocationService;
 import com.example.CargoTracking.service.StorageService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,6 +26,7 @@ public class DomesticShipmentController {
     DomesticShipmentService domesticShipmentService;
     @Autowired
     StorageService storageService;
+
 
 
 
