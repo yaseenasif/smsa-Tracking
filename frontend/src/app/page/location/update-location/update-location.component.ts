@@ -18,7 +18,10 @@ export class UpdateLocationComponent implements OnInit {
     id: null,
     locationName: null,
     status: null,
-    type: null
+    type: null,
+    originEmailsList: null,
+    destinationEmailsList: null,
+    escalationEmailsList: null
   }
 
   type:any[]=["Domestic","International"];
