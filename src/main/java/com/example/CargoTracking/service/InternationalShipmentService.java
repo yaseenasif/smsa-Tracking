@@ -51,6 +51,8 @@ public class InternationalShipmentService {
     StorageService storageService;
     @Autowired
     FileMetaDataRepository fileMetaDataRepository;
+    @Autowired
+    LocationService locationService;
 
 
     public InternationalShipmentDto addShipment(InternationalShipmentDto internationalShipmentDto) {
@@ -83,7 +85,17 @@ public class InternationalShipmentService {
 
             internationalShipmentHistoryRepository.save(shipmentHistory);
 
-            List<String> emails = userRepository.findEmailByLocation(internationalShipmentDto.getDestinationCountry());
+            List<String> international =
+                    locationService.getLocationByName(internationalShipment.getOriginCountry(), "International")
+                            .getOriginEmailsList().stream().map(e -> e.getOriginEmail()).collect(
+                                    Collectors.toList());
+            List<String> international1 =
+                    locationService.getLocationByName(internationalShipment.getDestinationCountry(),"International")
+                            .getDestinationEmailsList().stream().map(e-> e.getDestinationEmail()).collect(Collectors.toList());
+
+            List<String> emails = new ArrayList<>();
+            emails.addAll(international);
+            emails.addAll(international1);
 
             for (String to :emails) {
 //                String templateName = "templates/email-template.ftl";
