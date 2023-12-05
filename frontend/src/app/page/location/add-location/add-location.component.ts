@@ -3,6 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { LocationService } from '../service/location.service';
 import { Router } from '@angular/router';
 import { Location } from '../../../model/Location'
+import { NonNullAssert } from '@angular/compiler';
 
 @Component({
   selector: 'app-add-location',
@@ -17,7 +18,28 @@ export class AddLocationComponent implements OnInit {
     id: null,
     locationName: null,
     status: null,
-    type: null
+    type: null,
+    originEmailsList: [{
+      id: null,
+      originEmail:null
+    }],
+    destinationEmailsList: [{
+      id: null,
+      destinationEmail:null
+    }],
+    escalationEmailsList: [{
+      id: null,
+      escalationEmail:null,
+      level:1
+    },{
+      id: null,
+      escalationEmail:null,
+      level:2
+    },{
+      id: null,
+      escalationEmail:null,
+      level:3
+    }],
   }
 
   type:any[]=["Domestic","International"];
@@ -26,6 +48,24 @@ export class AddLocationComponent implements OnInit {
   constructor(private LocationService:LocationService,
               private messageService: MessageService,
               private router: Router) { }
+deleteOrigenEmail(index:number){
+  this.location.originEmailsList!.splice(index,1);
+}
+addOrigenEmail(){
+this.location.originEmailsList!.push({
+id:null,
+originEmail:null
+})
+}      
+deleteDestinationEmail(index:number){
+  this.location.destinationEmailsList!.splice(index,1);
+}
+addDestinationEmail(){
+this.location.destinationEmailsList!.push({
+id:null,
+destinationEmail:null
+})
+}            
  
   
   ngOnInit(): void {

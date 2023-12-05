@@ -48,6 +48,105 @@
                   </p-dropdown>
                 </div>
               </div>
+           
+              <div class="col-12 md:col-6 lg:col-6">
+                <h2 class="mb-4 h-color">Origen Email Address</h2>
+                <div *ngFor="let origenEmails of location!.originEmailsList;let i=index">
+                
+                <div class="flex flex-column gap-2 mt-2">
+                  <label htmlFor="name">Email {{i+1}}</label>
+                  <div class="flex flex-row gap-3">
+                    <input
+                      pInputText
+                      id="name"
+                      class="w-full"
+                      aria-describedby="name-help"                    
+                      [(ngModel)]="origenEmails!.originEmail"
+                      name="oemail{{i}}"
+                      #oemail="ngModel"
+                      [required]="true"
+                    />
+                    <p-button *ngIf="i==0" icon="bi bi-plus-lg" severity="secondary" (click)="addOrigenEmail()"></p-button>
+                    <p-button *ngIf="i!=0" icon="bi bi-dash-lg" severity="danger" (click)="deleteOrigenEmail(i)"></p-button>
+                    </div>
+                  <small id="name-help" class="color-red"  *ngIf="oemail.invalid && (oemail.dirty ||oemail.touched)">Origin email {{i}} is required.</small> 
+                </div>
+              </div>
+              </div>
+              <div class="col-12 md:col-6 lg:col-6">
+                <h2 class="mb-4 h-color">Destination Email Address</h2>
+                <div *ngFor="let destinationEmails of location!.destinationEmailsList;let i=index">
+                
+                <div class="flex flex-column gap-2 mt-2">
+                  <label htmlFor="name">Email {{i+1}}</label>
+                  <div class="flex flex-row gap-3">
+                    <input
+                      pInputText
+                      id="name"
+                      class="w-full"
+                      aria-describedby="name-help"                    
+                      [(ngModel)]="destinationEmails!.destinationEmail"
+                      name="demail{{i}}"
+                      #demail="ngModel"
+                      [required]="true"
+                    />
+                    <p-button *ngIf="i==0" icon="bi bi-plus-lg" severity="secondary" (click)="addDestinationEmail()"></p-button>
+                    <p-button *ngIf="i!=0" icon="bi bi-dash-lg" severity="danger" (click)="deleteDestinationEmail(i)"></p-button>
+                    </div>
+                  <small id="name-help" class="color-red"  *ngIf="demail.invalid && (demail.dirty || demail.touched)">Destination email {{i}} is required.</small> 
+                </div>
+              </div>
+              </div>
+             <div class="col-12">
+              <h2 class="mb-4 h-color">Escalate</h2>
+             </div> 
+                
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Level 1</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"                    
+                      [(ngModel)]="location.escalationEmailsList![0].escalationEmail"
+                      name="level1"
+                      #level1="ngModel"
+                      required
+                    />
+                    <small id="name-help" class="color-red"  *ngIf="level1.invalid && (level1.dirty || level1.touched)">Level 1 is required.</small> 
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Level 2</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"                    
+                      [(ngModel)]="location.escalationEmailsList![1].escalationEmail"
+                      name="level2"
+                      #level2="ngModel"
+                      required
+                    />
+                    <small id="name-help" class="color-red"  *ngIf="level2.invalid && (level2.dirty || level2.touched)">Level 2 is required.</small> 
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Level 3</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"                    
+                      [(ngModel)]="location.escalationEmailsList![2].escalationEmail"
+                      name="level3"
+                      #level3="ngModel"
+                      required
+                    />
+                    <small id="name-help" class="color-red"  *ngIf="level3.invalid && (level3.dirty || level3.touched)">Level 3 is required.</small> 
+                  </div>
+                </div> 
+              
             </div>
             <div class="flex align-items-center justify-content-end mt-4">
                 <p-button label="Cancel" class="bg-o-color mr" routerLink="/location" styleClass="p-button-outlined">

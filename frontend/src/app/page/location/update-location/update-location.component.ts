@@ -18,7 +18,10 @@ export class UpdateLocationComponent implements OnInit {
     id: null,
     locationName: null,
     status: null,
-    type: null
+    type: null,
+    originEmailsList: null,
+    destinationEmailsList: null,
+    escalationEmailsList: null
   }
 
   type:any[]=["Domestic","International"];
@@ -26,6 +29,25 @@ export class UpdateLocationComponent implements OnInit {
     private locationService:LocationService,
     private messageService: MessageService,
     private router: Router) { }
+
+    deleteOrigenEmail(index:number){
+      this.location.originEmailsList!.splice(index,1);
+    }
+    addOrigenEmail(){
+    this.location.originEmailsList!.push({
+    id:null,
+    originEmail:null
+    })
+    }      
+    deleteDestinationEmail(index:number){
+      this.location.destinationEmailsList!.splice(index,1);
+    }
+    addDestinationEmail(){
+    this.location.destinationEmailsList!.push({
+    id:null,
+    destinationEmail:null
+    })
+    }      
  
   
   ngOnInit(): void {
