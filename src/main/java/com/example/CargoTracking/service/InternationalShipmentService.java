@@ -97,8 +97,55 @@ public class InternationalShipmentService {
             emails.addAll(originEmailAddresses);
             emails.addAll(destinationEmailAddresses);
 
+            String subject;
+            Map<String,Object> model = new HashMap<>();
+            String template;
+            if(internationalShipment.getType() == "By Air"){
+                template = "international-air-email-template.ftl";
+                subject = "TSM Pre-Alert(A): "+internationalShipment.getRouteNumber()+"/"+internationalShipment.getFlightNumber()+"/"+internationalShipment.getReferenceNumber()+"/"+internationalShipment.getEtd();
+                model.put("field1",internationalShipment.getCreatedAt());
+                model.put("field2",internationalShipment.getReferenceNumber());
+                model.put("field3",internationalShipment.getOriginCountry());
+                model.put("field4",internationalShipment.getDestinationCountry());
+                model.put("field5",internationalShipment.getOriginPort());
+                model.put("field6",internationalShipment.getDestinationPort());
+                model.put("field7",internationalShipment.getTotalShipments());
+                model.put("field8",internationalShipment.getCarrier());
+                model.put("field9",internationalShipment.getShortageAWBs());
+                model.put("field10",internationalShipment.getFlightNumber());
+                model.put("field11",internationalShipment.getNumberOfBags());
+                model.put("field12",internationalShipment.getNumberOfPallets());
+                model.put("field13",internationalShipment.getActualWeight());
+                model.put("field14",internationalShipment.getShipmentMode());
+                model.put("field15",internationalShipment.getEtd());
+                model.put("field16",internationalShipment.getEta());
+                model.put("field17",internationalShipment.getDepartureTime());
+                model.put("field18",internationalShipment.getArrivalTime());
+                model.put("field19",internationalShipment.getRemarks());
+            }else{
+                template = "international-road-email-template.ftl";
+                subject = "TSM Pre_Alert(R): "+internationalShipment.getRouteNumber()+"/"+internationalShipment.getVehicleType()+"/"+internationalShipment.getReferenceNumber()+"/"+internationalShipment.getEtd();
+                model.put("field1",internationalShipment.getCreatedAt());
+                model.put("field2",internationalShipment.getReferenceNumber());
+                model.put("field3",internationalShipment.getOriginCountry());
+                model.put("field4",internationalShipment.getDestinationCountry());
+                model.put("field5",internationalShipment.getOriginPort());
+                model.put("field6",internationalShipment.getDestinationPort());
+                model.put("field7",internationalShipment.getTotalShipments());
+                model.put("field8",internationalShipment.getVehicleType());
+                model.put("field9",internationalShipment.getNumberOfBags());
+                model.put("field10",internationalShipment.getNumberOfPallets());
+                model.put("field11",internationalShipment.getActualWeight());
+                model.put("field12",internationalShipment.getShipmentMode());
+                model.put("field13",internationalShipment.getEtd());
+                model.put("field14",internationalShipment.getEta());
+                model.put("field15",internationalShipment.getDepartureTime());
+                model.put("field16",internationalShipment.getArrivalTime());
+                model.put("field17",internationalShipment.getRemarks());
+            }
+
             for (String to :emails) {
-                emailService.sendEmail(to,"Shipment Notification");
+                emailService.sendHtmlEmail(to,subject,template,model);
             }
 
             return  toDto(internationalShipment);
@@ -453,7 +500,7 @@ public class InternationalShipmentService {
                     List<String> emails = userRepository.findEmailByLocation(internationalShipment.get().getDestinationCountry());
                     emails.add(internationalShipment.get().getCreatedBy().getEmail());
                     for (String to :emails) {
-                        emailService.sendHtmlEmail(to,"Shipment status is changed");
+//                        emailService.sendHtmlEmail(to,"Shipment status is changed");
                     }
 
                 }
