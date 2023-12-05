@@ -30,15 +30,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.rmi.server.ExportException;
 import java.time.Duration;
-import java.util.UUID;
+import java.util.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -122,10 +118,30 @@ public class DomesticShipmentService {
             emails.addAll(originEmailAddresses);
             emails.addAll(destinationEmailAddresses);
 
+            String subject = "TSM Pre-Alert(D): "+ domesticShipment.getRouteNumber() +"/"+ domesticShipment.getVehicleType() +"/"+ domesticShipment.getReferenceNumber() +"/"+ domesticShipment.getEtd();
+            Map<String, Object> model = new HashMap<>();
+            model.put("field1", domesticShipment.getCreatedAt());
+            model.put("field2", domesticShipment.getReferenceNumber());
+            model.put("field3", domesticShipment.getOriginLocation());
+            model.put("field4", domesticShipment.getDestinationLocation());
+            model.put("field5", domesticShipment.getTotalShipments());
+            model.put("field6", domesticShipment.getVehicleType());
+            model.put("field7", domesticShipment.getNumberOfBags());
+            model.put("field8", domesticShipment.getNumberOfPallets());
+            model.put("field9", domesticShipment.getWeight());
+            model.put("field10", "Road");
+            model.put("field11", domesticShipment.getEtd());
+            model.put("field12", domesticShipment.getEta());
+            model.put("field13", domesticShipment.getDepartureTime());
+            model.put("field14", domesticShipment.getArrivalTime());
+            model.put("field15", domesticShipment.getRemarks());
+
+
+
 //            List<String> emails = userRepository.findEmailByLocation(domesticShipmentDto.getDestinationLocation());
 
             for (String to :emails) {
-                emailService.sendEmail(to,"Shipment Notification");
+                emailService.sendHtmlEmail(to,subject,"domestic-email-template.ftl",model);
             }
 
             return  toDto(domesticShipment);
@@ -311,12 +327,14 @@ public class DomesticShipmentService {
                   domesticShipment.get().setShortages(domesticShipmentDto.getShortages());
                   domesticShipment.get().setShortagesAwbs(domesticShipmentDto.getShortagesAwbs());
                   domesticShipment.get().setAttachments(domesticShipmentDto.getAttachments());
+                  domesticShipment.get().setDepartureTime(domesticShipmentDto.getDepartureTime());
+                  domesticShipment.get().setArrivalTime(domesticShipmentDto.getArrivalTime());
                   if(!domesticShipment.get().getStatus().equals(domesticShipmentDto.getStatus())){
                       List<String> emails = userRepository.findEmailByLocation(domesticShipment.get().getDestinationLocation());
                       emails.add(domesticShipment.get().getCreatedBy().getEmail());
 
                       for (String to :emails) {
-                          emailService.sendHtmlEmail(to,"Shipment status is changed");
+//                          emailService.sendHtmlEmail(to,"Shipment status is changed");
                       }
 
                   }

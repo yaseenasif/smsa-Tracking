@@ -57,7 +57,7 @@ public class EmailService {
     }
 
 
-    public void sendHtmlEmail(String to,String subject) {
+    public void sendHtmlEmail(String to,String subject,String emailTemplate,Map<String,Object> model) {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper;
 
@@ -70,10 +70,10 @@ public class EmailService {
 //            String htmlContent = emailTemplate.getContent();
 //            String replacedContent = htmlContent.toString().replace("{name}", "JOHN DEO");
 //            helper.setText(replacedContent, true);
-            Map<String, Object> model = new HashMap<>();
-            model.put("name", "John Doe");
+//            Map<String, Object> model = new HashMap<>();
+//            model.put("name", "John Doe");
 
-            Template t = config.getTemplate("email-template.ftl");
+            Template t = config.getTemplate(emailTemplate);
             String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 
             helper.setText(html, true);
