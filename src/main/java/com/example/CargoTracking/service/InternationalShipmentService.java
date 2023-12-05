@@ -111,7 +111,7 @@ public class InternationalShipmentService {
                 model.put("field6",internationalShipment.getDestinationPort());
                 model.put("field7",internationalShipment.getTotalShipments());
                 model.put("field8",internationalShipment.getCarrier());
-                model.put("field9",internationalShipment.getShortageAWBs());
+                model.put("field9",internationalShipment.getPreAlertNumber());
                 model.put("field10",internationalShipment.getFlightNumber());
                 model.put("field11",internationalShipment.getNumberOfBags());
                 model.put("field12",internationalShipment.getNumberOfPallets());
