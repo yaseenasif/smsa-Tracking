@@ -85,24 +85,19 @@ public class InternationalShipmentService {
 
             internationalShipmentHistoryRepository.save(shipmentHistory);
 
-            List<String> international =
+            List<String> originEmailAddresses =
                     locationService.getLocationByName(internationalShipment.getOriginCountry(), "International")
                             .getOriginEmailsList().stream().map(e -> e.getOriginEmail()).collect(
                                     Collectors.toList());
-            List<String> international1 =
+            List<String> destinationEmailAddresses =
                     locationService.getLocationByName(internationalShipment.getDestinationCountry(),"International")
                             .getDestinationEmailsList().stream().map(e-> e.getDestinationEmail()).collect(Collectors.toList());
 
             List<String> emails = new ArrayList<>();
-            emails.addAll(international);
-            emails.addAll(international1);
+            emails.addAll(originEmailAddresses);
+            emails.addAll(destinationEmailAddresses);
 
             for (String to :emails) {
-//                String templateName = "templates/email-template.ftl";
-//                Map<String, Object> model = new HashMap<>();
-//                model.put("name", "John Doe");
-//                emailService.sendHtmlEmail();
-
                 emailService.sendEmail(to,"Shipment Notification");
             }
 

@@ -20,5 +20,5 @@ public interface LocationRepository extends JpaRepository<Location , Long> {
 
     Optional<Location> findByLocationName(String Location);
 
-    LocationDto findByLocationNameAndType(String locationName, String type);
+    Location findByLocationNameAndType(String locationName, String type);
 }

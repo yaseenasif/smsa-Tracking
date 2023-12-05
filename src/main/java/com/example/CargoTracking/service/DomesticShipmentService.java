@@ -108,19 +108,19 @@ public class DomesticShipmentService {
             domesticShipmentHistoryRepository.save(domesticShipmentHistory);
 
 
-            List<String> domestic =
+            List<String> originEmailAddresses =
                     locationService.getLocationByName(domesticShipment.getOriginLocation(), "Domestic")
                             .getOriginEmailsList().stream().map(e -> e.getOriginEmail()).collect(Collectors.toList());
 
-            List<String> domestic1 =
+            List<String> destinationEmailAddresses =
                     locationService.getLocationByName(domesticShipment.getDestinationLocation(), "Domestic")
                             .getDestinationEmailsList().stream().map(e -> e.getDestinationEmail())
                             .collect(Collectors.toList());
 
 
             List<String> emails = new ArrayList<>();
-            emails.addAll(domestic);
-            emails.addAll(domestic1);
+            emails.addAll(originEmailAddresses);
+            emails.addAll(destinationEmailAddresses);
 
 //            List<String> emails = userRepository.findEmailByLocation(domesticShipmentDto.getDestinationLocation());
 

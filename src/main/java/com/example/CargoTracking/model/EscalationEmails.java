@@ -23,7 +23,7 @@ public class EscalationEmails {
 
     private int level;
 
-    @ManyToMany(mappedBy = "destinationEmails")
+    @ManyToMany(mappedBy = "escalationEmailsList")
     @JsonIgnore
     Set<Location> locations = new HashSet<>();
 
