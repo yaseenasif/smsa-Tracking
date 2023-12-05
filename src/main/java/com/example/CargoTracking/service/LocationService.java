@@ -41,7 +41,7 @@ public class LocationService {
                 .type(locationDto.getType())
                 .status(Boolean.TRUE)
                 .originEmailsList(locationDto.getOriginEmailsList())
-                .destinationEmails(locationDto.getDestinationEmailsList())
+                .destinationEmailsList(locationDto.getDestinationEmailsList())
                 .escalationEmailsList(locationDto.getEscalationEmailsList())
                 .build();
 
@@ -86,7 +86,7 @@ public class LocationService {
             location.get().setLocationName(locationDto.getLocationName());
             location.get().setType(locationDto.getType());
             location.get().setOriginEmailsList(locationDto.getOriginEmailsList());
-            location.get().setDestinationEmails(locationDto.getDestinationEmailsList());
+            location.get().setDestinationEmailsList(locationDto.getDestinationEmailsList());
             location.get().setEscalationEmailsList(locationDto.getEscalationEmailsList());
             return toDto(locationRepository.save(location.get()));
         }
@@ -106,7 +106,7 @@ public class LocationService {
         throw new RuntimeException(String.format("Location Not Found by this Id => %d" , id));
     }
 
-    public LocationDto getLocationByName(String locationName,String type){
+    public Location getLocationByName(String locationName,String type){
         return locationRepository.findByLocationNameAndType(locationName,type);
     }
 
