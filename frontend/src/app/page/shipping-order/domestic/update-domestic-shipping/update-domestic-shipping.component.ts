@@ -57,7 +57,9 @@ export class UpdateDomesticShippingComponent {
     received: null,
     shortages: null,
     shortagesAwbs: null,
-    attachments: null
+    attachments: null,
+    arrivalTime: null,
+    departureTime: null
   };
 
   routes: any = [];
@@ -227,6 +229,8 @@ export class UpdateDomesticShippingComponent {
       res.eta = res.eta ? new Date(res.eta) : null;
       res.atd = res.atd ? new Date(res.atd) : null;
       res.ata = res.ata ? new Date(res.ata) : null;
+      res.departureTime=res.departureTime ? new Date(`1970-01-01 ${res.departureTime}`) : null;
+      res.arrivalTime = res.arrivalTime ? new Date(`1970-01-01 ${res.arrivalTime}`) : null;
       this.selectedDriver = this.drivers.find((el: Driver) => { return (el.name == res.driverName) && (el.contactNumber == res.driverContact) && (el.referenceNumber == res.referenceNumber) })
 
 
@@ -270,6 +274,8 @@ export class UpdateDomesticShippingComponent {
     this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-dd')
     this.domesticShipment.atd = this.datePipe.transform(this.domesticShipment.atd, 'yyyy-MM-dd')
     this.domesticShipment.ata = this.datePipe.transform(this.domesticShipment.ata, 'yyyy-MM-dd')
+    this.domesticShipment.departureTime = this.datePipe.transform(this.domesticShipment.departureTime, 'HH:mm:ss')
+    this.domesticShipment.arrivalTime = this.datePipe.transform(this.domesticShipment.arrivalTime, 'HH:mm:ss')
     this.updateDomesticShipment(this.domesticShipment);
   }
 

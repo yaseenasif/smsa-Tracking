@@ -309,6 +309,35 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Departure Time</label>
+                    <p-calendar
+                      #departureTime="ngModel"
+                      name="departureTime"
+                      [required]="true"
+                      [(ngModel)]="domesticShipment.departureTime"
+                      [timeOnly]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                    ></p-calendar>
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Arrival Time </label>
+                    <p-calendar
+                      #arrivalTime="ngModel"
+                      name="arrivalTime"
+                      [required]="true"
+                      [timeOnly]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [(ngModel)]="domesticShipment.arrivalTime"
+                    ></p-calendar>
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Driver Name </label>
                     <p-dropdown
                       class="w-full"

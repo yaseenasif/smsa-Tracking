@@ -345,6 +345,34 @@
                         > -->
                   </div>
                 </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Departure Time</label>
+                    <p-calendar
+                      #departureTime="ngModel"
+                      name="departureTime"
+                      [required]="true"
+                      [(ngModel)]="internationalShipment.departureTime"
+                      [timeOnly]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                    ></p-calendar>
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Arrival Time </label>
+                    <p-calendar
+                      #arrivalTime="ngModel"
+                      name="arrivalTime"
+                      [required]="true"
+                      [timeOnly]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [(ngModel)]="internationalShipment.arrivalTime"
+                    ></p-calendar>
+                  </div>
+                </div>
 
                 <!-- 5 -->
                 <div class="col-12 md:col-6 lg:col-4">

@@ -55,7 +55,9 @@ export class UpdateDomesticShipmentForSummaryComponent {
     received: null,
     shortages: null,
     shortagesAwbs: null,
-    attachments: null
+    attachments: null,
+    arrivalTime: null,
+    departureTime: null
   };
 
   location!:Location[];

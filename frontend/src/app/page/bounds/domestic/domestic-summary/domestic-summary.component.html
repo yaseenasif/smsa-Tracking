@@ -128,6 +128,8 @@
                   <th class="text-center">ETD (Date and time)</th>
                   <th class="text-center">ETA (Date and time)</th>
                   <th class="text-center">ATA</th>
+                  <th class="text-center">Arrival Time</th>
+                  <th class="text-center">Departure Time</th>
                   <th class="text-center">Status</th>
 
                   <th *ngIf="selectedBound.bound=='In bound'" class="text-center">Actions</th>
@@ -149,6 +151,8 @@
                   <td class="text-center" [classList]="domesticShipment.redFlag?'red':'withoutRed'">{{ domesticShipment.etd}}</td>
                   <td class="text-center" [classList]="domesticShipment.redFlag?'red':'withoutRed'">{{ domesticShipment.eta}}</td>
                   <td class="text-center" [classList]="domesticShipment.redFlag?'red':'withoutRed'">{{ domesticShipment.ata}}</td>
+                  <td class="text-center" [classList]="domesticShipment.redFlag?'red':'withoutRed'">{{ domesticShipment.arrivalTime }}</td>
+                  <td class="text-center" [classList]="domesticShipment.redFlag?'red':'withoutRed'">{{ domesticShipment.departureTime }}</td>
                   <td class="text-center" [classList]="domesticShipment.redFlag?'red':'withoutRed'">{{ domesticShipment.status}}</td>
                   <td *ngIf="selectedBound.bound=='In bound'" class="text-center flex flex-row">
                     <p-button [routerLink]="['/view-attachments/','domesticShipment','by-domestic-summary',domesticShipment.id]"

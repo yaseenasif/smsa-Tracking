@@ -122,6 +122,8 @@
                   <th class="text-center">ETD</th>
                   <th class="text-center">ETA</th>
                   <th class="text-center">ATD</th>
+                  <th class="text-center">Arrival Time</th>
+                  <th class="text-center">Departure Time</th>
                   <th class="text-center">Actual Weight</th>
                   <th class="text-center">Number of Shipments</th>
                   <th class="text-center">Driver Name</th>
@@ -182,6 +184,12 @@
                   </td>
                   <td class="text-center">
                     {{ internationalShipmentByRoad.atd }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.arrivalTime }}
+                  </td>
+                  <td class="text-center">
+                    {{ internationalShipmentByRoad.departureTime }}
                   </td>
                   <td class="text-center">
                     {{ internationalShipmentByRoad.actualWeight }}

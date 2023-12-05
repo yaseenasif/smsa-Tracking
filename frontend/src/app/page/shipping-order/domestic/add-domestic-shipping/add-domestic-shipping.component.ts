@@ -55,7 +55,9 @@ export class AddDomesticShippingComponent {
     received: null,
     shortages: null,
     shortagesAwbs: null,
-    attachments: null
+    attachments: null,
+    arrivalTime: null,
+    departureTime: null
   };
 
   location!:Location[];
@@ -210,6 +212,8 @@ export class AddDomesticShippingComponent {
    }
 
    onSubmit(){
+    this.domesticShipment.departureTime = this.datePipe.transform(this.domesticShipment.departureTime, 'HH:mm:ss')
+    this.domesticShipment.arrivalTime = this.datePipe.transform(this.domesticShipment.arrivalTime, 'HH:mm:ss')
     this.domesticShipment.etd=this.datePipe.transform(this.domesticShipment.etd,'yyyy-MM-dd')
     this.domesticShipment.eta=this.datePipe.transform(this.domesticShipment.eta,'yyyy-MM-dd')
     this.domesticShipment.atd=this.datePipe.transform(this.domesticShipment.atd,'yyyy-MM-dd')
