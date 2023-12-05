@@ -327,6 +327,8 @@ public class DomesticShipmentService {
                   domesticShipment.get().setShortages(domesticShipmentDto.getShortages());
                   domesticShipment.get().setShortagesAwbs(domesticShipmentDto.getShortagesAwbs());
                   domesticShipment.get().setAttachments(domesticShipmentDto.getAttachments());
+                  domesticShipment.get().setDepartureTime(domesticShipmentDto.getDepartureTime());
+                  domesticShipment.get().setArrivalTime(domesticShipmentDto.getArrivalTime());
                   if(!domesticShipment.get().getStatus().equals(domesticShipmentDto.getStatus())){
                       List<String> emails = userRepository.findEmailByLocation(domesticShipment.get().getDestinationLocation());
                       emails.add(domesticShipment.get().getCreatedBy().getEmail());
