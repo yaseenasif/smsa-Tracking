@@ -1,5 +1,6 @@
 package com.example.CargoTracking.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -52,7 +53,9 @@ public class DomesticShipmentDto {
     private long preAlertNumber;
     private String preAlertType;
     private long transitTimeTaken;
+    @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime departureTime;
+    @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime arrivalTime;
 
 }
