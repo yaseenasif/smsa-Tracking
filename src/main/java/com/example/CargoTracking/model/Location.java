@@ -43,7 +43,7 @@ public class Location {
             joinColumns = @JoinColumn(name = "location_id"),
             inverseJoinColumns = @JoinColumn(name = "destination_email_id")
     )
-    private List<DestinationEmails> destinationEmails = new ArrayList<>();
+    private List<DestinationEmails> destinationEmailsList = new ArrayList<>();
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(

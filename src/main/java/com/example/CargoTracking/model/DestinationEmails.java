@@ -22,7 +22,7 @@ public class DestinationEmails {
     private String destinationEmail;
 
 
-    @ManyToMany(mappedBy = "escalationEmailsList")
+    @ManyToMany(mappedBy = "destinationEmailsList")
     @JsonIgnore
     Set<Location> locations = new HashSet<>();
 }
