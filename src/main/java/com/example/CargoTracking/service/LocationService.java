@@ -2,15 +2,15 @@ package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.dto.LocationDto;
 import com.example.CargoTracking.model.Location;
-import com.example.CargoTracking.repository.DestinationEmailsRepository;
-import com.example.CargoTracking.repository.EscalationEmailRepository;
+import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.repository.LocationRepository;
-import com.example.CargoTracking.repository.OriginEmailsRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -22,27 +22,21 @@ public class LocationService {
     LocationRepository locationRepository;
     @Autowired
     ModelMapper modelMapper;
-    @Autowired
-    OriginEmailsRepository originEmailsRepository;
-    @Autowired
-    DestinationEmailsRepository destinationEmailsRepository;
-    @Autowired
-    EscalationEmailRepository escalationEmailRepository;
+
 
     @Transactional
     public LocationDto addLocation(LocationDto locationDto) {
 
-        originEmailsRepository.saveAll(locationDto.getOriginEmailsList());
-        destinationEmailsRepository.saveAll(locationDto.getDestinationEmailsList());
-        escalationEmailRepository.saveAll(locationDto.getEscalationEmailsList());
+
 
         Location location = Location.builder()
                 .locationName(locationDto.getLocationName())
                 .type(locationDto.getType())
                 .status(Boolean.TRUE)
-                .originEmailsList(locationDto.getOriginEmailsList())
-                .destinationEmailsList(locationDto.getDestinationEmailsList())
-                .escalationEmailsList(locationDto.getEscalationEmailsList())
+                .originEmail(locationDto.getOriginEmail())
+                .destinationEmail(locationDto.getDestinationEmail())
+                .originEscalation(locationDto.getOriginEscalation())
+                .destinationEscalation(locationDto.getDestinationEscalation())
                 .build();
 
         return toDto(locationRepository.save(location));
@@ -68,12 +62,18 @@ public class LocationService {
         throw new RuntimeException(String.format("Location Not Found On this Id => %d",id));
     }
 
-    public LocationDto deleteLocationById(Long id){
+    public ApiResponse deleteLocationById(Long id){
         Optional<Location> location = locationRepository.findById(id);
 
         if(location.isPresent()){
-            location.get().setStatus(Boolean.FALSE);
-            return toDto(locationRepository.save(location.get()));
+//            location.get().setStatus(Boolean.FALSE);
+//            return toDto(locationRepository.save(location.get()));
+            locationRepository.delete(location.get());
+            return ApiResponse.builder()
+                    .message("Record delete successfully")
+                    .statusCode(HttpStatus.OK.value())
+                    .result(Collections.emptyList())
+                    .build();
         }
 
         throw new RuntimeException("Record doesn't exist");
@@ -85,9 +85,11 @@ public class LocationService {
         if(location.isPresent()){
             location.get().setLocationName(locationDto.getLocationName());
             location.get().setType(locationDto.getType());
-            location.get().setOriginEmailsList(locationDto.getOriginEmailsList());
-            location.get().setDestinationEmailsList(locationDto.getDestinationEmailsList());
-            location.get().setEscalationEmailsList(locationDto.getEscalationEmailsList());
+            location.get().setOriginEmail(locationDto.getOriginEmail());
+            location.get().setDestinationEmail(locationDto.getDestinationEmail());
+            location.get().setOriginEscalation(locationDto.getOriginEscalation());
+            location.get().setDestinationEscalation(locationDto.getDestinationEscalation());
+
             return toDto(locationRepository.save(location.get()));
         }
 

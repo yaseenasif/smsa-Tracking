@@ -1,6 +1,7 @@
 package com.example.CargoTracking.controller;
 
 import com.example.CargoTracking.dto.LocationDto;
+import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +46,7 @@ public class LocationController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/location/{id}")
-    public ResponseEntity<LocationDto> deleteLocationById(@PathVariable Long id){
+    public ResponseEntity<ApiResponse> deleteLocationById(@PathVariable Long id){
         return ResponseEntity.ok(locationService.deleteLocationById(id));
     }
 
