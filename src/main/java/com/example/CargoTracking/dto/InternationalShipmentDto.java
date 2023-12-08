@@ -34,7 +34,7 @@ public class InternationalShipmentDto {
     private LocalDate etd;
     private LocalDate eta;
     private LocalDate atd;
-    private Integer flightNumber;//air
+    private String flightNumber;//air
     private Integer numberOfShipments;
     private LocalDate arrivalDate;
     @JsonFormat(pattern = "HH:mm:ss")

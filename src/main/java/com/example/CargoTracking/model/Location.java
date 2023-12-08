@@ -22,35 +22,15 @@ public class Location {
     private String locationName;
     private String type;
     private boolean status;
+    private String originEmail;
+    private String destinationEmail;
+    private String originEscalation;
+    private String destinationEscalation;
 
 
 
-    @OneToMany(mappedBy = "location")
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<LocationPort> locationPorts = new ArrayList<>();
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "location_origin_email_association",
-            joinColumns = @JoinColumn(name = "location_id"),
-            inverseJoinColumns = @JoinColumn(name = "origin_email_id")
-    )
-    private List<OriginEmails> originEmailsList = new ArrayList<>();
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "location_destination_email_association",
-            joinColumns = @JoinColumn(name = "location_id"),
-            inverseJoinColumns = @JoinColumn(name = "destination_email_id")
-    )
-    private List<DestinationEmails> destinationEmailsList = new ArrayList<>();
-
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "location_escalation_email_association",
-            joinColumns = @JoinColumn(name = "location_id"),
-            inverseJoinColumns = @JoinColumn(name = "escalation_email_id")
-    )
-    private List<EscalationEmails> escalationEmailsList = new ArrayList<>();
 
 }

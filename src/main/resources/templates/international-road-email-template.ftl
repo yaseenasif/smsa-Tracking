@@ -34,7 +34,7 @@
                     Processed Date
                 </td>
                 <td style="text-align: center;" colspan="3">
-                    field1
+                    ${field1}
                 </td>
             </tr>
             <tr>
@@ -42,7 +42,7 @@
                     Reference Number
                 </td>
                 <td  style="text-align: center;" colspan="3">
-                    field2
+                    ${field2}
                 </td>
             </tr>
             <tr>
@@ -50,13 +50,13 @@
                     Origin Country
                 </td>
                 <td style="text-align: center;" >
-                    field3
+                    ${field3}
                 </td>
                 <td style="background-color:#420097;color:white;font-weight: bolder;">
                     Destination Country
                 </td>
                 <td style="text-align: center;" >
-                    field4
+                    ${field4}
                 </td>
             </tr>
             <tr>
@@ -64,13 +64,13 @@
                     Origin HUB/Gateway
                 </td>
                 <td style="text-align: center;" >
-                    field5
+                    ${field5}
                 </td>
                 <td style="background-color:#420097;color:white;font-weight: bolder;">
                     Destination HUB/Gateway
                 </td>
                 <td style="text-align: center;" >
-                    field6
+                    ${field6}
                 </td>
             </tr>
             <tr>
@@ -78,13 +78,13 @@
                     Total No of Shipments
                 </td>
                 <td style="text-align: center;" >
-                    field7
+                    ${field7}
                 </td>
                 <td style="background-color:#420097;color:white;font-weight: bolder;">
                     Vehicle
                 </td>
                 <td style="text-align: center;" >
-                    field8
+                    ${field8}
                 </td>
             </tr>
             <tr>
@@ -92,13 +92,13 @@
                     No of bags
                 </td>
                 <td style="text-align: center;" >
-                    field9
+                    ${field9}
                 </td>
                 <td style="background-color:#420097;color:white;font-weight: bolder;">
                     Pallets
                 </td>
                 <td style="text-align: center;" >
-                    field10
+                    ${field10}
                 </td>
             </tr>
             <tr>
@@ -106,13 +106,13 @@
                     Weight (kg)
                 </td>
                 <td style="text-align: center;" >
-                    field11
+                    ${field11}
                 </td>
                 <td style="background-color:#420097;color:white;font-weight: bolder;">
                     Mode
                 </td>
                 <td style="text-align: center;" >
-                    field12
+                    ${field12}
                 </td>
             </tr>
             <tr>
@@ -120,13 +120,13 @@
                     Local Departure Date
                 </td>
                 <td style="text-align: center;" >
-                    field13
+                    ${field13}
                 </td>
                 <td style="background-color:#420097;color:white;font-weight: bolder;">
                     Local Arrival Date
                 </td>
                 <td style="text-align: center;" >
-                    field14
+                    ${field14}
                 </td>
             </tr>
             <tr>
@@ -134,13 +134,13 @@
                     Local Departure Time
                 </td>
                 <td style="text-align: center;" >
-                    field15
+                    ${field15}
                 </td>
                 <td style="background-color:#420097;color:white;font-weight: bolder;">
                     Local Arrival Time
                 </td>
                 <td style="text-align: center;" >
-                    field16
+                    ${field16}
                 </td>
             </tr>
             <tr>
@@ -148,7 +148,7 @@
                     Remarks
                 </td>
                 <td style="text-align: center;" colspan="3">
-                    field17
+                    ${field17}
                 </td>
             </tr>
         </tbody>
