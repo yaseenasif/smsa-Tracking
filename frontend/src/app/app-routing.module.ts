@@ -75,8 +75,12 @@ import { EmailManagmentComponent } from './page/email-managment/email-managment.
 const routes: Routes = [
   {
     path: '',
-    component: LoginFormComponent,
+    component: DashboardComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'login',
+    component: LoginFormComponent,
   },
   {
     path: 'home',
@@ -192,21 +196,21 @@ const routes: Routes = [
     path: 'unauthorized',
     component: UnauthorizedPageComponent,
   },
-  {
-    path: 'permission',
-    component: PermissionListComponent,
+  // {
+  //   path: 'permission',
+  //   component: PermissionListComponent,
 
-  },
-  {
-    path: 'add-permission',
-    component: AddPermissionComponent,
+  // },
+  // {
+  //   path: 'add-permission',
+  //   component: AddPermissionComponent,
 
-  },
-  {
-    path: 'edit-permission/:id',
-    component: EditPermissionComponent,
-    canActivate: [AuthGuard]
-  },
+  // },
+  // {
+  //   path: 'edit-permission/:id',
+  //   component: EditPermissionComponent,
+  //   canActivate: [AuthGuard]
+  // },
   {
     path: 'role',
     component: RoleListComponent,

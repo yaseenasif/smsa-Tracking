@@ -43,16 +43,20 @@ export class AuthguardService {
 
 
   isAuthenticated(state: RouterStateSnapshot): boolean {
-
+    
     const token = localStorage.getItem('accessToken');
-    const decodeToken = this.getDecodedAccessToken(token!)
-    const userPermissions: string[] = decodeToken.PERMISSIONS;
 
+    let userPermissions: string[]|null =null
+    if(token){
+    const decodeToken = this.getDecodedAccessToken(token!)
+     userPermissions= decodeToken.PERMISSIONS;
+    }
+    
     if (this.tokenExists()) {
 
       this.permissionName = this.getPermissionByUrl(state.url);
 
-      if (userPermissions.includes(this.permissionName!)) {
+      if (userPermissions!.includes(this.permissionName!)) {
 
         return true;
       }
@@ -64,6 +68,7 @@ export class AuthguardService {
         return false;
       }
     } else {
+      
       this.router.navigate(['/login']);
       return false;
     }
