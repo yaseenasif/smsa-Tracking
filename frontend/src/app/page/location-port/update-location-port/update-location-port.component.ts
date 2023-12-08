@@ -28,10 +28,11 @@ export class UpdateLocationPortComponent implements OnInit {
       id: null,
       locationName: null,
       type: null,
-      status: null,
-      originEmailsList: null,
-      destinationEmailsList:null,
-      escalationEmailsList:null,
+      originEmail:null,
+      destinationEmail:null,
+      originEscalation:null,
+      destinationEscalation:null,
+      status:null
     },
     portName: null,
     status: null

@@ -23,13 +23,14 @@ export class AddLocationPortComponent implements OnInit {
  locationPort: LocationPort = {
    id: null,
    location: {
-     id: null,
-     locationName: null,
-     type: null,
-     status: null, 
-     originEmailsList: null,
-     destinationEmailsList:null,
-     escalationEmailsList:null,
+    id: null,
+    locationName: null,
+    type: null,
+    originEmail:null,
+    destinationEmail:null,
+    originEscalation:null,
+    destinationEscalation:null,
+    status:null
    },
    portName: null,
    status: null

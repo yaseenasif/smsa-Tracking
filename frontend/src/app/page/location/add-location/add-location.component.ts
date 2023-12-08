@@ -15,31 +15,14 @@ export class AddLocationComponent implements OnInit {
 
   items: MenuItem[] | undefined;
   location:Location={
-    id: null,
-    locationName: null,
-    status: null,
-    type: null,
-    originEmailsList: [{
-      id: null,
-      originEmail:null
-    }],
-    destinationEmailsList: [{
-      id: null,
-      destinationEmail:null
-    }],
-    escalationEmailsList: [{
-      id: null,
-      escalationEmail:null,
-      level:1
-    },{
-      id: null,
-      escalationEmail:null,
-      level:2
-    },{
-      id: null,
-      escalationEmail:null,
-      level:3
-    }],
+    id: undefined,
+    locationName: undefined,
+    type: undefined,
+    originEmail: null,
+    destinationEmail: null,
+    originEscalation: null,
+    destinationEscalation: null,
+    status: undefined
   }
 
   type:any[]=["Domestic","International"];
@@ -48,24 +31,7 @@ export class AddLocationComponent implements OnInit {
   constructor(private LocationService:LocationService,
               private messageService: MessageService,
               private router: Router) { }
-deleteOrigenEmail(index:number){
-  this.location.originEmailsList!.splice(index,1);
-}
-addOrigenEmail(){
-this.location.originEmailsList!.push({
-id:null,
-originEmail:null
-})
-}      
-deleteDestinationEmail(index:number){
-  this.location.destinationEmailsList!.splice(index,1);
-}
-addDestinationEmail(){
-this.location.destinationEmailsList!.push({
-id:null,
-destinationEmail:null
-})
-}            
+
  
   
   ngOnInit(): void {
