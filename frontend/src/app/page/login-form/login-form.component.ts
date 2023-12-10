@@ -25,6 +25,7 @@ export class LoginFormComponent implements OnInit {
   constructor(private formBuilder:FormBuilder,private authService:AuthService,private router: Router) { }
 
   ngOnInit(): void {
+    localStorage.clear();
     // this.loginForm = this.formBuilder.group({
     //   name:['',[Validators.required,Validators.min(7)]],
     //   password:['',[Validators.required,Validators.min(7)]]
@@ -46,11 +47,12 @@ export class LoginFormComponent implements OnInit {
   
 
   login(credentials:any){
+    debugger
     this.authService.login(credentials).subscribe((res:any)=>{
-    
+      
       localStorage.setItem("accessToken", res.accessToken);
       this.router.navigate(['/home']);
-
+debugger
     },(error:any)=>{
      
       this.error=true;

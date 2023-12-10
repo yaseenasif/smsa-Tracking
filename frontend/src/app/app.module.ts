@@ -103,6 +103,7 @@ import { GetDomesticRoutesComponent } from './page/domesticRoutes/get-domestic-r
 import { AddDomesticRoutesComponent } from './page/domesticRoutes/add-domestic-routes/add-domestic-routes.component';
 import { UpdateDomesticRoutesComponent } from './page/domesticRoutes/update-domestic-routes/update-domestic-routes.component';
 import { EmailManagmentComponent } from './page/email-managment/email-managment.component';
+import { ChipsModule } from 'primeng/chips';
 
 
 
@@ -182,6 +183,7 @@ import { EmailManagmentComponent } from './page/email-managment/email-managment.
     EmailManagmentComponent,
   ],
   imports: [
+    ChipsModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

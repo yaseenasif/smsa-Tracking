@@ -145,12 +145,12 @@
         <span class="nav-text"> Vehicle Type </span>
       </span>
     </li>
-    <li class="child" *ngIf="configTurner">
+    <!-- <li class="child" *ngIf="configTurner">
       <span class="sidebar-list-hover" routerLink="/permission">
         <i class="bi bi-key"></i>
         <span class="nav-text"> Permission </span>
       </span>
-    </li>
+    </li> -->
     <li class="child" *ngIf="configTurner && hasPermission('ProductField')">
       <span class="sidebar-list-hover" routerLink="/productFields">
         <i class="bi bi-person-gear"></i>

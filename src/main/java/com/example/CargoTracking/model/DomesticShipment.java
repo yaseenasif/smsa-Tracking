@@ -63,6 +63,10 @@ public class DomesticShipment {
     private LocalTime departureTime;
     private LocalTime arrivalTime;
     private Boolean activeStatus;
+    private boolean escalationFlagOne;
+    private boolean escalationFlagTwo;
+    private boolean escalationFlagThree;
+
 
 //    private List<String> urls;
 

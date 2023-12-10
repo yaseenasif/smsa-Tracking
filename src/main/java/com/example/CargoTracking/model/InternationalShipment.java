@@ -36,7 +36,7 @@ public class InternationalShipment {
     private LocalDate etd;
     private LocalDate eta;
     private LocalDate atd;
-    private Integer flightNumber;//air
+    private String flightNumber;//air
     private Integer numberOfShipments;
     private LocalDate arrivalDate;
     private LocalTime arrivalTime;
@@ -66,6 +66,9 @@ public class InternationalShipment {
     private long transitTimeTaken;
     private LocalDateTime createdTime;
     private LocalDateTime arrivedTime;
+    private boolean escalationFlagOne;
+    private boolean escalationFlagTwo;
+    private boolean escalationFlagThree;
 
     private int trip;
 

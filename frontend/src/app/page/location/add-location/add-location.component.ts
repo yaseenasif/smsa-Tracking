@@ -15,32 +15,16 @@ export class AddLocationComponent implements OnInit {
 
   items: MenuItem[] | undefined;
   location:Location={
-    id: null,
-    locationName: null,
-    status: null,
-    type: null,
-    originEmailsList: [{
-      id: null,
-      originEmail:null
-    }],
-    destinationEmailsList: [{
-      id: null,
-      destinationEmail:null
-    }],
-    escalationEmailsList: [{
-      id: null,
-      escalationEmail:null,
-      level:1
-    },{
-      id: null,
-      escalationEmail:null,
-      level:2
-    },{
-      id: null,
-      escalationEmail:null,
-      level:3
-    }],
+    id: undefined,
+    locationName: undefined,
+    type: undefined,
+    originEmail: null,
+    destinationEmail: null,
+    status: undefined,
+    originEscalation: [],
+    destinationEscalation: []
   }
+  
 
   type:any[]=["Domestic","International"];
   
@@ -48,24 +32,7 @@ export class AddLocationComponent implements OnInit {
   constructor(private LocationService:LocationService,
               private messageService: MessageService,
               private router: Router) { }
-deleteOrigenEmail(index:number){
-  this.location.originEmailsList!.splice(index,1);
-}
-addOrigenEmail(){
-this.location.originEmailsList!.push({
-id:null,
-originEmail:null
-})
-}      
-deleteDestinationEmail(index:number){
-  this.location.destinationEmailsList!.splice(index,1);
-}
-addDestinationEmail(){
-this.location.destinationEmailsList!.push({
-id:null,
-destinationEmail:null
-})
-}            
+
  
   
   ngOnInit(): void {
@@ -73,6 +40,13 @@ destinationEmail:null
   }
 
   onSubmit() {
+    if(Array.isArray(this.location.originEmail) && Array.isArray(this.location.originEscalation)&& Array.isArray(this.location.destinationEmail)&& Array.isArray(this.location.destinationEscalation)){
+      this.location.originEmail=this.location.originEmail!.join(',');
+      this.location.destinationEmail=this.location.destinationEmail!.join(',');
+      this.location.originEscalation=this.location.originEscalation!.join(',');
+      this.location.destinationEscalation=this.location.destinationEscalation!.join(',');
+    }
+
     this.LocationService.addLocation(this.location).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Location is added' });
       setTimeout(() => {
