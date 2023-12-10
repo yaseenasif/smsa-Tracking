@@ -86,6 +86,7 @@ public class DomesticShipmentService {
             unSaveDomesticShipment.setCreatedAt(LocalDate.now());
             unSaveDomesticShipment.setCreatedBy(user);
             unSaveDomesticShipment.setRedFlag(Boolean.FALSE);
+            unSaveDomesticShipment.setActiveStatus(Boolean.TRUE);
             unSaveDomesticShipment.setPreAlertNumber(System.currentTimeMillis() / 1000);
             unSaveDomesticShipment.setPreAlertType("Domestic");
             unSaveDomesticShipment.setCreatedTime(LocalDateTime.now());
@@ -94,6 +95,7 @@ public class DomesticShipmentService {
 
             DomesticShipmentHistory domesticShipmentHistory = DomesticShipmentHistory.builder()
                     .status(domesticShipmentDto.getStatus())
+                    .activeStatus(Boolean.TRUE)
                     .processTime(LocalDateTime.now())
                     .locationCode(domesticShipmentDto.getOriginLocation())
                     .user(user.getId())
@@ -161,7 +163,7 @@ public class DomesticShipmentService {
                     (searchCriteriaForDomesticShipment.getFromDate().isEmpty() && searchCriteriaForDomesticShipment.getToDate().isEmpty() &&
                             searchCriteriaForDomesticShipment.getOrigin().isEmpty() && searchCriteriaForDomesticShipment.getDestination().isEmpty() &&
             searchCriteriaForDomesticShipment.getStatus().isEmpty() && searchCriteriaForDomesticShipment.getRouteNumber().isEmpty())){
-                Page<DomesticShipment> domesticShipmentPage = domesticShipmentRepository.findAll(pageable);
+                Page<DomesticShipment> domesticShipmentPage = domesticShipmentRepository.findAllByActiveStatus(pageable);
                 Page<DomesticShipmentDto> domesticShipmentDtoPage = domesticShipmentPage.map(entity->toDto(entity));
                 return domesticShipmentDtoPage;
             }
@@ -385,7 +387,16 @@ public class DomesticShipmentService {
     public ApiResponse deleteDomesticShipment(Long id) {
         Optional<DomesticShipment> domesticShipment = domesticShipmentRepository.findById(id);
         if(domesticShipment.isPresent()){
-            domesticShipmentRepository.deleteById(id);
+            DomesticShipment shipment = domesticShipment.get();
+            shipment.setActiveStatus(Boolean.FALSE);
+            domesticShipmentRepository.save(shipment);
+
+            List<DomesticShipmentHistory> domesticShipmentHistoryList = domesticShipmentHistoryRepository.findByDomesticShipmentId(id);
+            for (DomesticShipmentHistory shipmentHistory: domesticShipmentHistoryList) {
+                shipmentHistory.setActiveStatus(Boolean.FALSE);
+                domesticShipmentHistoryRepository.save(shipmentHistory);
+            }
+
             return ApiResponse.builder()
                     .message("Record delete successfully")
                     .statusCode(HttpStatus.OK.value())

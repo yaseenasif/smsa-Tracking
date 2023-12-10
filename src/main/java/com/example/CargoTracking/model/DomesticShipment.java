@@ -62,6 +62,7 @@ public class DomesticShipment {
     private LocalDateTime arrivedTime;
     private LocalTime departureTime;
     private LocalTime arrivalTime;
+    private Boolean activeStatus;
 
 //    private List<String> urls;
 

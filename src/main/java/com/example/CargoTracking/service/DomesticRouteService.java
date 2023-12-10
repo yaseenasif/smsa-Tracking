@@ -78,18 +78,22 @@ public class DomesticRouteService {
     }
 
     public DomesticRouteDto saveDomesticRoute(DomesticRouteDto domesticRouteDto) {
-        DomesticRoute domesticRoute = domesticRouteRepository.save(toEntity(domesticRouteDto));
+        DomesticRoute domesticRoute = toEntity(domesticRouteDto);
+        domesticRoute.setActiveStatus(Boolean.TRUE);
+        domesticRoute = domesticRouteRepository.save(domesticRoute);
         return toDto(domesticRoute);
     }
 
     public List<DomesticRouteDto> findAllDomesticRoutes() {
-        return toDtoList(domesticRouteRepository.findAll());
+        return toDtoList(domesticRouteRepository.getActiveDomesticRoutes());
     }
 
     public ApiResponse deleteDomesticRoute(Long id) {
         Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(id);
         if (domesticRoute.isPresent()) {
-            domesticRouteRepository.deleteById(id);
+            DomesticRoute route = domesticRoute.get();
+            route.setActiveStatus(Boolean.FALSE);
+            domesticRouteRepository.save(route);
             return ApiResponse.builder()
                     .message("Record delete successfully")
                     .statusCode(HttpStatus.OK.value())

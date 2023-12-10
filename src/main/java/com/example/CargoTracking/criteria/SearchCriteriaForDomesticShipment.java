@@ -18,4 +18,5 @@ public class SearchCriteriaForDomesticShipment {
     private String destination;
     private String routeNumber;
     private User user;
+    private boolean activeStatus;
 }

@@ -53,6 +53,7 @@ public class DomesticShipmentDto {
     private long preAlertNumber;
     private String preAlertType;
     private long transitTimeTaken;
+    private Boolean activeStatus;
     @JsonFormat(pattern = "HH:mm:ss")
     private LocalTime departureTime;
     @JsonFormat(pattern = "HH:mm:ss")

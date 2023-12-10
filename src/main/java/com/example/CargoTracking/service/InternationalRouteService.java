@@ -121,7 +121,9 @@ public class InternationalRouteService {
         return toDtoList(internationalRouteForRoad);
     }
     public InternationalRouteDto saveInternationalRoute(InternationalRouteDto internationalRouteDto) {
-        InternationalRoute internationalRoute = internationalRouteRepository.save(toEntity(internationalRouteDto));
+        InternationalRoute internationalRoute = toEntity(internationalRouteDto);
+        internationalRoute.setStatus(Boolean.TRUE);
+        internationalRoute = internationalRouteRepository.save(internationalRoute);
         return toDto(internationalRoute);
     }
     public InternationalRoute toEntity(InternationalRouteDto internationalRouteDto){
@@ -150,7 +152,9 @@ public class InternationalRouteService {
     public ApiResponse deleteInternationalRoute(Long id) {
         Optional<InternationalRoute> internationalRoute = internationalRouteRepository.findById(id);
         if(internationalRoute.isPresent()){
-            internationalRouteRepository.deleteById(id);
+            InternationalRoute route = internationalRoute.get();
+            route.setStatus(Boolean.FALSE);
+            internationalRouteRepository.save(route);
             return ApiResponse.builder()
                     .message("Record delete successfully")
                     .statusCode(HttpStatus.OK.value())

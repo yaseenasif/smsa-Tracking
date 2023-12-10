@@ -23,6 +23,7 @@ public class DomesticShipmentHistory {
     private String locationCode;
     private Long user;
     private String remarks;
+    private Boolean activeStatus;
 
     @ManyToOne
     @JoinColumn(name = "domestic_shipment_id")
