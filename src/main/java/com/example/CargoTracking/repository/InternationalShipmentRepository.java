@@ -33,14 +33,14 @@ public interface InternationalShipmentRepository extends JpaRepository<Internati
     @Query("SELECT i FROM InternationalShipment i WHERE i.createdBy = :user AND i.type = 'By Air'")
     List<InternationalShipment> findAllByCreatedByForAir(User user);
 
-    @Query("SELECT i FROM InternationalShipment i WHERE i.type = 'By Air'")
-    Page<InternationalShipment> findAllForAir( Pageable pageable);
+    @Query("SELECT i FROM InternationalShipment i WHERE i.type = 'By Air' AND i.activeStatus = :activeStatus")
+    Page<InternationalShipment> findAllForAir( Pageable pageable,boolean activeStatus);
 
     @Query("SELECT i FROM InternationalShipment i WHERE i.createdBy = :user AND i.type = 'By Road'")
     List<InternationalShipment> findAllByCreatedByForRoad(User user);
 
-    @Query("SELECT i FROM InternationalShipment i WHERE i.type = 'By Road'")
-    Page<InternationalShipment> findAllForRoad(Pageable pageable);
+    @Query("SELECT i FROM InternationalShipment i WHERE i.type = 'By Road' AND i.activeStatus = :activeStatus")
+    Page<InternationalShipment> findAllForRoad(Pageable pageable,boolean activeStatus);
 
     @Query("SELECT i FROM InternationalShipment i WHERE i.createdAt = :createdAt")
     List<InternationalShipment> findByCreatedAt(@Param("createdAt") LocalDate createdAt);

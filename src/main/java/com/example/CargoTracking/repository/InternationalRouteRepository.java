@@ -9,7 +9,8 @@ import java.util.List;
 
 @Repository
 public interface InternationalRouteRepository extends JpaRepository<InternationalRoute,Long> {
-    List<InternationalRoute> findByOriginAndDestinationAndType(String origin, String destination, String Type);
+    List<InternationalRoute> findByOriginAndDestinationAndTypeAndStatus(String origin, String destination, String Type,boolean status);
 
-    List<InternationalRoute> findAllByType(String type);
+
+    List<InternationalRoute> findAllByTypeAndStatus(String air,boolean status);
 }

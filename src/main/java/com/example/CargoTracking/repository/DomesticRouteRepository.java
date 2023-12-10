@@ -17,4 +17,6 @@ public interface DomesticRouteRepository extends JpaRepository<DomesticRoute,Lon
 
     @Query("SELECT r FROM DomesticRoute r WHERE r.activeStatus = true")
     List<DomesticRoute> getActiveDomesticRoutes();
+
+    List<DomesticRoute> findByOriginAndDestinationAndActiveStatus(String origin, String destination, boolean b);
 }

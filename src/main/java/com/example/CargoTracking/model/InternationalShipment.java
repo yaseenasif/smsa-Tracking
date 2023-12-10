@@ -69,7 +69,7 @@ public class InternationalShipment {
     private boolean escalationFlagOne;
     private boolean escalationFlagTwo;
     private boolean escalationFlagThree;
-
+    private boolean activeStatus;
     private int trip;
 
     @ManyToOne

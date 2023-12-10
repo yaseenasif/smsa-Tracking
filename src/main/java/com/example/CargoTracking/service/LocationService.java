@@ -66,9 +66,8 @@ public class LocationService {
         Optional<Location> location = locationRepository.findById(id);
 
         if(location.isPresent()){
-//            location.get().setStatus(Boolean.FALSE);
-//            return toDto(locationRepository.save(location.get()));
-            locationRepository.delete(location.get());
+            location.get().setStatus(Boolean.FALSE);
+            locationRepository.save(location.get());
             return ApiResponse.builder()
                     .message("Record delete successfully")
                     .statusCode(HttpStatus.OK.value())

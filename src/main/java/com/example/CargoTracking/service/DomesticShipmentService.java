@@ -163,9 +163,12 @@ public class DomesticShipmentService {
                     (searchCriteriaForDomesticShipment.getFromDate().isEmpty() && searchCriteriaForDomesticShipment.getToDate().isEmpty() &&
                             searchCriteriaForDomesticShipment.getOrigin().isEmpty() && searchCriteriaForDomesticShipment.getDestination().isEmpty() &&
             searchCriteriaForDomesticShipment.getStatus().isEmpty() && searchCriteriaForDomesticShipment.getRouteNumber().isEmpty())){
-                Page<DomesticShipment> domesticShipmentPage = domesticShipmentRepository.findAllByActiveStatus(pageable);
-                Page<DomesticShipmentDto> domesticShipmentDtoPage = domesticShipmentPage.map(entity->toDto(entity));
-                return domesticShipmentDtoPage;
+
+                    Page<DomesticShipment> domesticShipmentPage = domesticShipmentRepository.findAllByActiveStatus(pageable,
+                            searchCriteriaForDomesticShipment.isActiveStatus());
+                    Page<DomesticShipmentDto> domesticShipmentDtoPage = domesticShipmentPage.map(entity->toDto(entity));
+                    return domesticShipmentDtoPage;
+
             }
             if((user.getLocation() == null) &&
                     ((!searchCriteriaForDomesticShipment.getFromDate().isEmpty() || !searchCriteriaForDomesticShipment.getToDate().isEmpty() ||
@@ -391,11 +394,11 @@ public class DomesticShipmentService {
             shipment.setActiveStatus(Boolean.FALSE);
             domesticShipmentRepository.save(shipment);
 
-            List<DomesticShipmentHistory> domesticShipmentHistoryList = domesticShipmentHistoryRepository.findByDomesticShipmentId(id);
-            for (DomesticShipmentHistory shipmentHistory: domesticShipmentHistoryList) {
-                shipmentHistory.setActiveStatus(Boolean.FALSE);
-                domesticShipmentHistoryRepository.save(shipmentHistory);
-            }
+//            List<DomesticShipmentHistory> domesticShipmentHistoryList = domesticShipmentHistoryRepository.findByDomesticShipmentId(id);
+//            for (DomesticShipmentHistory shipmentHistory: domesticShipmentHistoryList) {
+//                shipmentHistory.setActiveStatus(Boolean.FALSE);
+//                domesticShipmentHistoryRepository.save(shipmentHistory);
+//            }
 
             return ApiResponse.builder()
                     .message("Record delete successfully")

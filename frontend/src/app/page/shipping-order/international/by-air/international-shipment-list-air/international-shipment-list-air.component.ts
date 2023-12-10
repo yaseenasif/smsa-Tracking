@@ -44,7 +44,7 @@ export class InternationalShipmentListAirComponent {
 
   getAllInternationalShipmentByAir(fromDate?: string,toDate?: string,status?: string,origin?: string,destination?: string,routeNumber?: string, page?: number, size?: number) {
     debugger
-    this.internationalShippingService.getAllInternationalShipmentByAir({ fromDate:this.fromDate?this.datePipe.transform(new Date(this.fromDate),'yyyy-MM-dd'):'',toDate:this.toDate?this.datePipe.transform(new Date(this.toDate),'yyyy-MM-dd'):'',status: status,origin: origin,destination: destination,routeNumber: routeNumber, user: {} ,type:""}, this.page , this.size).subscribe((res: any) => {
+    this.internationalShippingService.getAllInternationalShipmentByAir({ fromDate:this.fromDate?this.datePipe.transform(new Date(this.fromDate),'yyyy-MM-dd'):'',toDate:this.toDate?this.datePipe.transform(new Date(this.toDate),'yyyy-MM-dd'):'',status: status,origin: origin,destination: destination,routeNumber: routeNumber, user: {} ,type:"",activeStatus:true}, this.page , this.size).subscribe((res: any) => {
       this.internationalShipmentByAir = res.content;
       debugger
       this.paginationRes = res;

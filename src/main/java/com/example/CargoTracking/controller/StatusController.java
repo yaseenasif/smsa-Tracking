@@ -1,6 +1,7 @@
 package com.example.CargoTracking.controller;
 
 import com.example.CargoTracking.model.Status;
+import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.StatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +35,8 @@ public class StatusController {
 
         @PreAuthorize("hasRole('ROLE_ADMIN')")
         @DeleteMapping("/status/{id}")
-        public void deleteById(@PathVariable Long id){
-                statusService.deleteById(id);
+        public ResponseEntity<ApiResponse> deleteById(@PathVariable Long id){
+                return ResponseEntity.ok(statusService.deleteById(id));
         }
 
         @PreAuthorize("hasRole('ROLE_ADMIN')")
