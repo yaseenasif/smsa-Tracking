@@ -28,9 +28,9 @@ export class AddLocationPortComponent implements OnInit {
     type: null,
     originEmail:null,
     destinationEmail:null,
-    originEscalation:null,
-    destinationEscalation:null,
-    status:null
+    status:null,
+    originEscalation: null,
+    destinationEscalation: null
    },
    portName: null,
    status: null

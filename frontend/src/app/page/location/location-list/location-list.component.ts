@@ -33,9 +33,9 @@ export class LocationListComponent implements OnInit {
 
   deleteLocationByID(id:number){
     this.locationService.deleteLocationByID(id).subscribe((res:Location)=>{
+      this.getAllLocations();
       this.visible = false;
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Location is deleted on id '+res!.id!.toString()});
-      this.getAllLocations();
     },error=>{
       
     });

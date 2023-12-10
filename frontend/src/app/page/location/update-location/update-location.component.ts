@@ -20,9 +20,9 @@ export class UpdateLocationComponent implements OnInit {
     type: undefined,
     originEmail: null,
     destinationEmail: null,
+    status: undefined,
     originEscalation: null,
-    destinationEscalation: null,
-    status: undefined
+    destinationEscalation: null
   }
 
   type:any[]=["Domestic","International"];
@@ -42,6 +42,14 @@ export class UpdateLocationComponent implements OnInit {
   
   getPermissionById(){
     this.locationService.getLocationByID(this.lID).subscribe((res:Location)=>{
+      if (typeof res.originEmail === 'string' && typeof res.destinationEmail === 'string' && typeof res.originEscalation === 'string' && typeof res.destinationEscalation === 'string') {
+      res.originEmail=res.originEmail!.split(',')
+      res.destinationEmail=res.destinationEmail!.split(',')
+      res.originEscalation=res.originEscalation!.split(',')
+      res.destinationEscalation=res.destinationEscalation!.split(',')
+    }
+    console.log(res);
+    
      this.location=res;
     },error=>{
      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not find location on this id'});
@@ -49,6 +57,12 @@ export class UpdateLocationComponent implements OnInit {
    }
 
    onSubmit() {
+    if(Array.isArray(this.location.originEmail) && Array.isArray(this.location.originEscalation)&& Array.isArray(this.location.destinationEmail)&& Array.isArray(this.location.destinationEscalation)){
+      this.location.originEmail=this.location.originEmail!.join(',');
+      this.location.destinationEmail=this.location.destinationEmail!.join(',');
+      this.location.originEscalation=this.location.originEscalation!.join(',');
+      this.location.destinationEscalation=this.location.destinationEscalation!.join(',');
+    }
     this.locationService.updateLocationById(this.lID,this.location).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Location is updated on id'+res.id});
       setTimeout(() => {

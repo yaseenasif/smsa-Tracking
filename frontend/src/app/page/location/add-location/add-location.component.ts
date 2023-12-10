@@ -20,10 +20,11 @@ export class AddLocationComponent implements OnInit {
     type: undefined,
     originEmail: null,
     destinationEmail: null,
-    originEscalation: null,
-    destinationEscalation: null,
-    status: undefined
+    status: undefined,
+    originEscalation: [],
+    destinationEscalation: []
   }
+  
 
   type:any[]=["Domestic","International"];
   
@@ -39,6 +40,13 @@ export class AddLocationComponent implements OnInit {
   }
 
   onSubmit() {
+    if(Array.isArray(this.location.originEmail) && Array.isArray(this.location.originEscalation)&& Array.isArray(this.location.destinationEmail)&& Array.isArray(this.location.destinationEscalation)){
+      this.location.originEmail=this.location.originEmail!.join(',');
+      this.location.destinationEmail=this.location.destinationEmail!.join(',');
+      this.location.originEscalation=this.location.originEscalation!.join(',');
+      this.location.destinationEscalation=this.location.destinationEscalation!.join(',');
+    }
+
     this.LocationService.addLocation(this.location).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Location is added' });
       setTimeout(() => {
