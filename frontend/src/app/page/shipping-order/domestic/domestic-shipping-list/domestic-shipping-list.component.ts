@@ -67,7 +67,7 @@ export class DomesticShippingListComponent implements OnInit {
     this.domesticShipmentService.deleteDomesticShipment(id).subscribe((res: any) => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message });
 
-      this.getAllDomesticShipments();
+      this.getAllDomesticShipments('','','','','','',this.page,this.size);
 
     }, (error: any) => {
 

@@ -149,14 +149,14 @@ export class InternationalSummaryByRoadComponent {
     if (this.search.status === null) {
       this.search.type = "";
     }
-    if (this.search.toDate === null) {
+    if (this.search.toDate === null || this.search.toDate === "") {
       this.search.toDate = "";
     }
     else {
       let originalDate = new Date(this.search.toDate);
       this.search.toDate = this.datePipe.transform(originalDate, 'yyyy-MM-dd');
     }
-    if (this.search.fromDate === null) {
+    if (this.search.fromDate === null || this.search.fromDate === "") {
       this.search.fromDate = "";
     }
     else {

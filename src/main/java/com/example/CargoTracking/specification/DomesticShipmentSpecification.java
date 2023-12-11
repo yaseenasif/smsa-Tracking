@@ -34,7 +34,7 @@ public class DomesticShipmentSpecification {
 
                     criteriaBuilder.and(
                             criteriaBuilder.between(root.get("createdAt"), localFromDate, localToDate ),
-                            criteriaBuilder.equal(criteriaBuilder.lower(root.get("activeStatus")),searchCriteria.isActiveStatus()),
+                            criteriaBuilder.equal(root.get("activeStatus"),true),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("originLocation")), "%" + searchCriteria.getOrigin() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationLocation")), "%" + searchCriteria.getDestination() + "%"),
@@ -46,7 +46,7 @@ public class DomesticShipmentSpecification {
 
                     criteriaBuilder.and(
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
-                            criteriaBuilder.equal(criteriaBuilder.lower(root.get("activeStatus")),searchCriteria.isActiveStatus()),
+                            criteriaBuilder.equal(root.get("activeStatus"),true),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("originLocation")), "%" + searchCriteria.getOrigin() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationLocation")), "%" + searchCriteria.getDestination() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteria.getRouteNumber() + "%"),
@@ -63,7 +63,7 @@ public class DomesticShipmentSpecification {
 
                     criteriaBuilder.and(
                             criteriaBuilder.between(root.get("createdAt"), localFromDate, localToDate ),
-                            criteriaBuilder.equal(criteriaBuilder.lower(root.get("activeStatus")),searchCriteria.isActiveStatus()),
+                            criteriaBuilder.equal(root.get("activeStatus"),true),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("originLocation")), "%" + searchCriteria.getOrigin() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationLocation")), "%" + searchCriteria.getDestination() + "%"),
@@ -75,7 +75,7 @@ public class DomesticShipmentSpecification {
                 return (root, query, criteriaBuilder) ->
                         criteriaBuilder.and(
                                 criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
-                                criteriaBuilder.equal(criteriaBuilder.lower(root.get("activeStatus")),searchCriteria.isActiveStatus()),
+                                criteriaBuilder.equal(root.get("activeStatus"),true),
                                 criteriaBuilder.like(criteriaBuilder.lower(root.get("originLocation")), "%" + searchCriteria.getOrigin() + "%"),
                                 criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationLocation")), "%" + searchCriteria.getDestination() + "%"),
                                 criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteria.getRouteNumber() + "%")
