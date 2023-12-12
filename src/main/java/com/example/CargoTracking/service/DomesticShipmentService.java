@@ -87,7 +87,7 @@ public class DomesticShipmentService {
             unSaveDomesticShipment.setCreatedBy(user);
             unSaveDomesticShipment.setRedFlag(Boolean.FALSE);
             unSaveDomesticShipment.setActiveStatus(Boolean.TRUE);
-            unSaveDomesticShipment.setPreAlertNumber(System.currentTimeMillis() / 1000);
+//            unSaveDomesticShipment.setPreAlertNumber(System.currentTimeMillis() / 1000);
             unSaveDomesticShipment.setPreAlertType("Domestic");
             unSaveDomesticShipment.setCreatedTime(LocalDateTime.now());
 

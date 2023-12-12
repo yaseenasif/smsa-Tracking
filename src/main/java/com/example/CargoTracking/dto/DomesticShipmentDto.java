@@ -50,7 +50,7 @@ public class DomesticShipmentDto {
     private String shortagesAwbs;
     private String attachments;
     private Boolean redFlag;
-    private long preAlertNumber;
+    private String preAlertNumber;
     private String preAlertType;
     private long transitTimeTaken;
     private Boolean activeStatus;
