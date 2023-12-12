@@ -7,6 +7,7 @@ export interface DomesticShipment{
     routeNumber: string|null|undefined,
     numberOfShipments: number|null|undefined,
     weight: number|null|undefined,
+    preAlertNumber:string|null|undefined,
     etd: Date|string|null|undefined,
     eta: Date|string|null|undefined,
     atd: Date|string|null|undefined,

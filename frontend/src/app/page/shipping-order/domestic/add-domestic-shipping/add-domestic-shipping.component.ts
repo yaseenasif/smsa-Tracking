@@ -57,7 +57,8 @@ export class AddDomesticShippingComponent {
     shortagesAwbs: null,
     attachments: null,
     arrivalTime: null,
-    departureTime: null
+    departureTime: null,
+    preAlertNumber: null
   };
 
   location!:Location[];
@@ -96,6 +97,19 @@ export class AddDomesticShippingComponent {
   uploadedFiles: any[] = [];
   fromDate:any;
   selectedDriver:Driver|null=null;
+
+
+  flag=false;
+  dashAfterThree(){
+    let charToAdd="-";
+    if(this.domesticShipment.preAlertNumber!.length===3){
+    this.flag=true;
+    }
+    if(this.domesticShipment.preAlertNumber!.length===4&&this.flag){
+      this.domesticShipment.preAlertNumber=this.domesticShipment.preAlertNumber!.slice(0, 3) + charToAdd + this.domesticShipment.preAlertNumber!.slice(3);
+      this.flag=false;
+    }
+  }
 
   onUpload(event: any) {
 

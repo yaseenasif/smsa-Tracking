@@ -59,7 +59,8 @@ export class UpdateDomesticShippingComponent {
     shortagesAwbs: null,
     attachments: null,
     arrivalTime: null,
-    departureTime: null
+    departureTime: null,
+    preAlertNumber: undefined
   };
 
   routes: any = [];
@@ -100,6 +101,18 @@ export class UpdateDomesticShippingComponent {
   checked!: boolean;
   size = 100000
   uploadedFiles: any[] = [];
+
+  flag=false;
+  dashAfterThree(){
+    let charToAdd="-";
+    if(this.domesticShipment.preAlertNumber!.length===3){
+    this.flag=true;
+    }
+    if(this.domesticShipment.preAlertNumber!.length===4&&this.flag){
+      this.domesticShipment.preAlertNumber=this.domesticShipment.preAlertNumber!.slice(0, 3) + charToAdd + this.domesticShipment.preAlertNumber!.slice(3);
+      this.flag=false;
+    }
+  }
 
   onUpload(event: any) {
 

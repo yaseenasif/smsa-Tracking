@@ -247,7 +247,48 @@
                   </div>
                 </div>
 
-                <div class="col-12 md:col-6 lg:col-4"></div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Pre Alert Number</label>
+                    <input
+                    pInputText
+                    id="name"
+                    pattern="\d{3}-\d{9}"
+                    minlength="13"
+                    maxlength="13"
+                    aria-describedby="name-help"
+                    name="preAlertNumber"
+                    [(ngModel)]="domesticShipment.preAlertNumber"
+                    #preAlertNumber="ngModel"
+                    (input)="dashAfterThree()"
+                    required
+                    [ngClass]="{
+                      error:
+                      preAlertNumber.invalid &&
+                        (preAlertNumber.dirty || preAlertNumber.touched)
+                    }"
+                  />
+
+                  <small
+                    class="color-red error"
+                    *ngIf="preAlertNumber.invalid && (preAlertNumber.dirty || preAlertNumber.touched )&&preAlertNumber?.errors?.['required']"
+                  >
+                  Pre Alert Number is required.
+                  </small>
+                  <small
+                    class="color-red error"
+                    *ngIf="preAlertNumber.invalid && (preAlertNumber.dirty || preAlertNumber.touched )&&preAlertNumber?.errors?.['pattern']"
+                  >
+                    Invalid pattern
+                  </small>
+                  <small
+                  class="color-red error"
+                  *ngIf="preAlertNumber.invalid && (preAlertNumber.dirty || preAlertNumber.touched )&&preAlertNumber?.errors?.['minlength']"
+                   >
+                  Minimum 15 cheater is required
+                  </small>
+                  </div>
+                </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">

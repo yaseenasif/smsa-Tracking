@@ -202,6 +202,18 @@ export class AddInternationalShippingComponent {
     this.minETDDate = selectedETDDate;
   }
 
+  flag=false;
+  dashAfterThree(){
+    let charToAdd="-";
+    if(this.internationalShipment.preAlertNumber!.length===3){
+    this.flag=true;
+    }
+    if(this.internationalShipment.preAlertNumber!.length===4&&this.flag){
+      this.internationalShipment.preAlertNumber=this.internationalShipment.preAlertNumber!.slice(0, 3) + charToAdd + this.internationalShipment.preAlertNumber!.slice(3);
+      this.flag=false;
+    }
+  }
+
 }
 
 

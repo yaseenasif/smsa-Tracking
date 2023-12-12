@@ -57,7 +57,8 @@ export class ViewShipmentComponent {
     shortagesAwbs: null,
     attachments: null,
     arrivalTime: null,
-    departureTime: null
+    departureTime: null,
+    preAlertNumber: undefined
   };
 
   location!:Location[];
