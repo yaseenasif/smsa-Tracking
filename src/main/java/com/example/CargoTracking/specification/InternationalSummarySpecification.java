@@ -28,6 +28,7 @@ public class InternationalSummarySpecification {
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteriaForInternationalSummary.getStatus() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("originCountry")), "%" + searchCriteriaForInternationalSummary.getOrigin() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationCountry")), "%" + searchCriteriaForInternationalSummary.getDestination() + "%"),
+                            criteriaBuilder.equal(root.get("activeStatus"),true),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("type")), "%" + searchCriteriaForInternationalSummary.getType() + "%")
 
                     );
@@ -41,6 +42,7 @@ public class InternationalSummarySpecification {
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteriaForInternationalSummary.getStatus() + "%"),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("originCountry")), "%" + searchCriteriaForInternationalSummary.getOrigin() + "%"),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationCountry")), "%" + searchCriteriaForInternationalSummary.getDestination() + "%"),
+                        criteriaBuilder.equal(root.get("activeStatus"),true),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("type")), "%" + searchCriteriaForInternationalSummary.getType() + "%")
 
                 );

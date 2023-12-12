@@ -2,10 +2,13 @@ package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.model.Status;
+import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.repository.StatusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,11 +20,12 @@ public class StatusService {
 
 
     public Status addStatus(Status status) {
+        status.setStatus(true);
         return statusRepository.save(status);
     }
 
     public List<Status> getAll() {
-        return statusRepository.findAll();
+        return statusRepository.findByStatus(true);
     }
 
     public Status getById(Long id) {
@@ -32,11 +36,17 @@ public class StatusService {
         throw new RecordNotFoundException(String.format("Status Not Found On this Id => %d", id));
     }
 
-    public void deleteById(Long id) {
+    public ApiResponse deleteById(Long id) {
         Optional<Status> vehicleType = statusRepository.findById(id);
 
         if (vehicleType.isPresent()) {
-           statusRepository.deleteById(id);
+            vehicleType.get().setStatus(false);
+           statusRepository.save(vehicleType.get());
+            return ApiResponse.builder()
+                    .message("Record delete successfully")
+                    .statusCode(HttpStatus.OK.value())
+                    .result(Collections.emptyList())
+                    .build();
         }
         throw new RecordNotFoundException(String.format("Status not found by this id => %d",id));
     }

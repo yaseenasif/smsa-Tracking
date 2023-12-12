@@ -19,4 +19,6 @@ public class SearchCriteriaForInternationalShipment {
     private String routeNumber;
     private User user;
     private String type;
+    private boolean activeStatus;
+
 }

@@ -27,7 +27,7 @@ public class InternationalShipment {
     private Boolean refrigeratedTruck;//new road
     private String type;
     private String shipmentMode;
-    private long preAlertNumber;//new
+    private String preAlertNumber;//new
     private String destinationCountry;
     private String destinationPort;
     private String carrier;//air
@@ -69,7 +69,7 @@ public class InternationalShipment {
     private boolean escalationFlagOne;
     private boolean escalationFlagTwo;
     private boolean escalationFlagThree;
-
+    private boolean activeStatus;
     private int trip;
 
     @ManyToOne

@@ -66,9 +66,10 @@ public class InternationalShipmentService {
             unSaveInternationalShipment.setCreatedAt(LocalDate.now());
             unSaveInternationalShipment.setCreatedBy(user);
             unSaveInternationalShipment.setRedFlag(Boolean.FALSE);
-            unSaveInternationalShipment.setPreAlertNumber(System.currentTimeMillis() / 1000);
+//            unSaveInternationalShipment.setPreAlertNumber(System.currentTimeMillis() / 1000);
             unSaveInternationalShipment.setPreAlertType(unSaveInternationalShipment.getType().equalsIgnoreCase("By Road") ? "International-Road" : "International-Air");
             unSaveInternationalShipment.setCreatedTime(LocalDateTime.now());
+            unSaveInternationalShipment.setActiveStatus(true);
             InternationalShipment internationalShipment = internationalShipmentRepository
                     .save(unSaveInternationalShipment);
 
@@ -171,7 +172,8 @@ public class InternationalShipmentService {
                     (searchCriteriaForInternationalSummary.getFromDate().isEmpty() && searchCriteriaForInternationalSummary.getToDate().isEmpty() &&
                             searchCriteriaForInternationalSummary.getOrigin().isEmpty() && searchCriteriaForInternationalSummary.getDestination().isEmpty() &&
                             searchCriteriaForInternationalSummary.getStatus().isEmpty() && searchCriteriaForInternationalSummary.getRouteNumber().isEmpty())){
-                Page<InternationalShipment> InternationalShipmentPage = internationalShipmentRepository.findAllForAir(pageable);
+                Page<InternationalShipment> InternationalShipmentPage = internationalShipmentRepository.findAllForAir(pageable,
+                        searchCriteriaForInternationalSummary.isActiveStatus());
                 Page<InternationalShipmentDto> InternationalShipmentDtoPage = InternationalShipmentPage.map(entity->toDto(entity));
                 return InternationalShipmentDtoPage;
             }
@@ -215,7 +217,8 @@ public class InternationalShipmentService {
                     (searchCriteriaForInternationalSummary.getFromDate().isEmpty() && searchCriteriaForInternationalSummary.getToDate().isEmpty() &&
                             searchCriteriaForInternationalSummary.getOrigin().isEmpty() && searchCriteriaForInternationalSummary.getDestination().isEmpty() &&
                             searchCriteriaForInternationalSummary.getStatus().isEmpty() && searchCriteriaForInternationalSummary.getRouteNumber().isEmpty())){
-                Page<InternationalShipment> InternationalShipmentPage = internationalShipmentRepository.findAllForRoad(pageable);
+                Page<InternationalShipment> InternationalShipmentPage = internationalShipmentRepository.findAllForRoad(pageable,
+                        searchCriteriaForInternationalSummary.isActiveStatus());
                 Page<InternationalShipmentDto> InternationalShipmentDtoPage = InternationalShipmentPage.map(entity->toDto(entity));
                 return InternationalShipmentDtoPage;
             }
@@ -658,5 +661,27 @@ public class InternationalShipmentService {
             throw new RecordNotFoundException(String.format("File already exists on the bucket with this name"));
         }
 
+    }
+
+    public ApiResponse deleteInternationalShipment(Long id) {
+        Optional<InternationalShipment> internationalShipment = internationalShipmentRepository.findById(id);
+        if(internationalShipment.isPresent()){
+            InternationalShipment shipment = internationalShipment.get();
+            shipment.setActiveStatus(Boolean.FALSE);
+            internationalShipmentRepository.save(shipment);
+
+//            List<DomesticShipmentHistory> domesticShipmentHistoryList = domesticShipmentHistoryRepository.findByDomesticShipmentId(id);
+//            for (DomesticShipmentHistory shipmentHistory: domesticShipmentHistoryList) {
+//                shipmentHistory.setActiveStatus(Boolean.FALSE);
+//                domesticShipmentHistoryRepository.save(shipmentHistory);
+//            }
+
+            return ApiResponse.builder()
+                    .message("Record delete successfully")
+                    .statusCode(HttpStatus.OK.value())
+                    .result(Collections.emptyList())
+                    .build();
+        }
+        throw new RecordNotFoundException(String.format("Domestic Shipment not found by this id => %d",id));
     }
 }

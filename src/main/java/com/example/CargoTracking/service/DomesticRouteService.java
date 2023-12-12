@@ -29,7 +29,7 @@ public class DomesticRouteService {
 
     public List<DomesticRouteDto> findDomesticRoute(String origin, String destination) {
         List<DomesticRoute> byOriginAndDestination =
-                domesticRouteRepository.findByOriginAndDestination(origin, destination);
+                domesticRouteRepository.findByOriginAndDestinationAndActiveStatus(origin, destination,true);
         if (byOriginAndDestination.isEmpty()) {
             throw new RecordNotFoundException(String.format("No routes available against given origin and destination"));
         }

@@ -120,4 +120,9 @@ public class  InternationalShipmentController {
     public ResponseEntity<InternationalShipmentDto> update(@PathVariable Long id, @RequestBody InternationalShipmentDto internationalShipmentDto){
         return ResponseEntity.ok(internationalShipmentService.updateInternationalShipment(id,internationalShipmentDto));
     }
+
+    @DeleteMapping("/delete-international-shipment/{id}")
+    public ResponseEntity<ApiResponse> deleteDomesticShipment(@PathVariable Long id){
+        return ResponseEntity.ok(internationalShipmentService.deleteInternationalShipment(id));
+    }
 }

@@ -19,7 +19,7 @@ export class ShipmentStatusService {
     return this.http.get<ShipmentStatus>(this.url.concat('/status/',id.toString()));
   }
   updateShipmentStatusById(id:number,body:ShipmentStatus):Observable<ShipmentStatus>{
-    return this.http.patch<ShipmentStatus>(this.url.concat('/status/',id.toString()),body);
+    return this.http.put<ShipmentStatus>(this.url.concat('/status/',id.toString()),body);
   }
   addShipmentStatus(body:ShipmentStatus):Observable<ShipmentStatus>{
    return this.http.post<ShipmentStatus>(this.url.concat('/status'),body);

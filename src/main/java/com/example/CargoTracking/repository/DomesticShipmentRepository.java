@@ -28,6 +28,6 @@ public interface DomesticShipmentRepository extends JpaRepository<DomesticShipme
     @Query("SELECT d FROM DomesticShipment d WHERE d.createdAt = :createdAt")
     List<DomesticShipment> findByCreatedAt(@Param("createdAt") LocalDate createdAt);
 
-    @Query("SELECT d FROM DomesticShipment d WHERE d.activeStatus = true")
-    Page<DomesticShipment> findAllByActiveStatus(Pageable pageable);
+    @Query("SELECT d FROM DomesticShipment d WHERE d.activeStatus = :status")
+    Page<DomesticShipment> findAllByActiveStatus(Pageable pageable,boolean status);
 }

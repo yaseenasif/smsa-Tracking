@@ -35,7 +35,7 @@ public class InternationalRouteService {
 
     public List<InternationalRouteDto> findInternationalRouteForAir(String origin, String destination, int trip) {
         List<InternationalRoute> byOriginAndDestination =
-                internationalRouteRepository.findByOriginAndDestinationAndType(origin, destination,"Air");
+                internationalRouteRepository.findByOriginAndDestinationAndTypeAndStatus(origin, destination,"Air",true);
         if(byOriginAndDestination.isEmpty()){
             throw  new RecordNotFoundException(String.format("No routes available against given origin and destination"));
         }
@@ -70,7 +70,7 @@ public class InternationalRouteService {
 
     public List<InternationalRouteDto> findInternationalRouteForRoad(String origin, String destination, int trip) {
         List<InternationalRoute> byOriginAndDestination =
-                internationalRouteRepository.findByOriginAndDestinationAndType(origin, destination,"Road");
+                internationalRouteRepository.findByOriginAndDestinationAndTypeAndStatus(origin, destination,"Road",true);
         if(byOriginAndDestination.isEmpty()){
             throw  new RecordNotFoundException(String.format("No routes available against given origin and destination"));
         }
@@ -112,12 +112,12 @@ public class InternationalRouteService {
     }
 
     public List<InternationalRouteDto> findAllInternationalRouteForAir() {
-        List<InternationalRoute> internationalRouteForAir = internationalRouteRepository.findAllByType("Air");
+        List<InternationalRoute> internationalRouteForAir = internationalRouteRepository.findAllByTypeAndStatus("Air",true);
         return toDtoList(internationalRouteForAir);
     }
 
     public List<InternationalRouteDto> findAllInternationalRouteForRoad() {
-        List<InternationalRoute> internationalRouteForRoad = internationalRouteRepository.findAllByType("Road");
+        List<InternationalRoute> internationalRouteForRoad = internationalRouteRepository.findAllByTypeAndStatus("Road",true);
         return toDtoList(internationalRouteForRoad);
     }
     public InternationalRouteDto saveInternationalRoute(InternationalRouteDto internationalRouteDto) {

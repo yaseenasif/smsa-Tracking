@@ -24,7 +24,7 @@ public class InternationalShipmentDto {
     private Boolean refrigeratedTruck;//new road
     private String type;
     private String shipmentMode;
-    private long preAlertNumber;//new
+    private String preAlertNumber;
     private String destinationCountry;
     private String destinationPort;
     private String carrier;//air

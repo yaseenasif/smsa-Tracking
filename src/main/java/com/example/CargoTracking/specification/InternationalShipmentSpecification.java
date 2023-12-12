@@ -31,6 +31,7 @@ public class InternationalShipmentSpecification {
 
                     criteriaBuilder.and(
                             criteriaBuilder.between(root.get("createdAt"), localFromDate, localToDate ),
+                            criteriaBuilder.equal(root.get("activeStatus"),true),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("originCountry")), "%" + searchCriteria.getOrigin() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationCountry")), "%" + searchCriteria.getDestination() + "%"),
@@ -44,6 +45,7 @@ public class InternationalShipmentSpecification {
 
                     criteriaBuilder.and(
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
+                            criteriaBuilder.equal(root.get("activeStatus"),true),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("originCountry")), "%" + searchCriteria.getOrigin() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationCountry")), "%" + searchCriteria.getDestination() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteria.getRouteNumber() + "%"),
@@ -62,6 +64,7 @@ public class InternationalShipmentSpecification {
 
                     criteriaBuilder.and(
                             criteriaBuilder.between(root.get("createdAt"), localFromDate, localToDate ),
+                            criteriaBuilder.equal(root.get("activeStatus"),true),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("originCountry")), "%" + searchCriteria.getOrigin() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationCountry")), "%" + searchCriteria.getDestination() + "%"),
@@ -75,6 +78,7 @@ public class InternationalShipmentSpecification {
             return (root, query, criteriaBuilder) ->
                     criteriaBuilder.and(
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
+                            criteriaBuilder.equal(root.get("activeStatus"),true),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("originCountry")), "%" + searchCriteria.getOrigin() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationCountry")), "%" + searchCriteria.getDestination() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteria.getRouteNumber() + "%"),
