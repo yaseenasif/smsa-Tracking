@@ -162,7 +162,11 @@ export class UpdateInternationalShippingComponent {
         this.router.navigate(['/international-shipment-by-road']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'International Shipment is not updated'});
+      if(error.error.body){
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      }else{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.error });
+      } 
     })
   }
 

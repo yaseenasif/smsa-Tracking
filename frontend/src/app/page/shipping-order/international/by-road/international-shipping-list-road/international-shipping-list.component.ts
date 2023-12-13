@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { InternationalShippingService } from '../../service/international-shipping.service';
 import { InternationalShipment } from '../../../../../model/InternationalShipment';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
   selector: 'app-international-shipping-list',
   templateUrl: './international-shipping-list.component.html',
   styleUrls: ['./international-shipping-list.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe,MessageService]
 })
 export class InternationalShippingListComponent {
   internationalShipmentByRoad!: InternationalShipment[];
@@ -30,7 +30,8 @@ export class InternationalShippingListComponent {
 
   constructor(private internationalShippingService: InternationalShippingService,
     private datePipe:DatePipe,
-    private shipmentStatusService: ShipmentStatusService) { }
+    private shipmentStatusService: ShipmentStatusService,
+    private messageService:MessageService) { }
   items: MenuItem[] | undefined;
 
 
@@ -55,7 +56,7 @@ export class InternationalShippingListComponent {
       this.shipmentStatus = res;
     }, error => {
 
-
+   
     })
   }
 

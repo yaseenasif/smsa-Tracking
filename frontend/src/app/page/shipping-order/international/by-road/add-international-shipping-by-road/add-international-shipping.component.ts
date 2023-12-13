@@ -140,8 +140,10 @@ export class AddInternationalShippingComponent {
       }, 800);
     }, error => {
       if(error.error.body){
+        debugger
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{
+        debugger
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
       }    })
   }

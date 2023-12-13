@@ -6,6 +6,7 @@ import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.dto.InternationalShipmentDto;
+import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.InternationalShipmentService;
 import com.example.CargoTracking.service.StorageService;
@@ -60,9 +61,11 @@ public class  InternationalShipmentController {
     public ResponseEntity<Page<InternationalShipmentDto>> getAllInternationalShipmentByUserForAir(@RequestParam(value = "value",required = false) String value,
                                                                                                   @RequestParam(defaultValue = "0") int page,
                                                                                                   @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
-        SearchCriteriaForInternationalShipment
-                searchCriteriaForInternationalShipment = new ObjectMapper().readValue(value, SearchCriteriaForInternationalShipment.class);
-        return ResponseEntity.ok(internationalShipmentService.getAllByUserAndForAir(searchCriteriaForInternationalShipment,page,size));
+//        SearchCriteriaForInternationalShipment
+//                searchCriteriaForInternationalShipment = new ObjectMapper().readValue(value, SearchCriteriaForInternationalShipment.class);
+//        return ResponseEntity.ok(internationalShipmentService.getAllByUserAndForAir(searchCriteriaForInternationalShipment,page,size));
+//         throw new RecordNotFoundException("skjdfjhjhjh");
+         return ResponseEntity.status(500).build();
     }
 
     @GetMapping("/international-shipments-by-user-road")
