@@ -37,8 +37,7 @@ export class InternationalShippingListComponent {
   ngOnInit() {
     this.items = [{ label: 'International Shipment', routerLink: '/international-tile' }, { label: 'International Shipment By Road' }];
     this.getAllInternationalShipmentByRoad(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
-
-    // this.getAllInternationalShipmentByRoad(this.searchedValue, this.page, this.size);
+    this.getAllShipmentStatus();
   }
 
 

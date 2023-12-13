@@ -39,14 +39,13 @@ export class InternationalShipmentListAirComponent {
   ngOnInit() {
     this.items = [{ label: 'International Shipment', routerLink: '/international-tile' }, { label: 'International Shipment By Air' }];
     this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
+    this.getAllShipmentStatus();
   }
 
 
   getAllInternationalShipmentByAir(fromDate?: string,toDate?: string,status?: string,origin?: string,destination?: string,routeNumber?: string, page?: number, size?: number) {
-    debugger
     this.internationalShippingService.getAllInternationalShipmentByAir({ fromDate:this.fromDate?this.datePipe.transform(new Date(this.fromDate),'yyyy-MM-dd'):'',toDate:this.toDate?this.datePipe.transform(new Date(this.toDate),'yyyy-MM-dd'):'',status: status,origin: origin,destination: destination,routeNumber: routeNumber, user: {} ,type:"",activeStatus:true}, this.page , this.size).subscribe((res: any) => {
       this.internationalShipmentByAir = res.content;
-      debugger
       this.paginationRes = res;
     }, error => {
 
@@ -55,6 +54,7 @@ export class InternationalShipmentListAirComponent {
 
   getAllShipmentStatus() {
     this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
+      debugger
       this.shipmentStatus = res;
     }, error => {
 
