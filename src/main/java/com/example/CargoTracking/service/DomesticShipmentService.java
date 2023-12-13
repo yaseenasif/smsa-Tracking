@@ -28,6 +28,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.rmi.server.ExportException;
 import java.time.Duration;
 import java.util.*;
@@ -60,6 +61,7 @@ public class DomesticShipmentService {
 
 
 
+    @Transactional
     public DomesticShipmentDto addShipment(DomesticShipmentDto domesticShipmentDto) throws IOException {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -81,7 +83,12 @@ public class DomesticShipmentService {
                 }
             }
 
-
+            List<DomesticShipment> all = domesticShipmentRepository.findAll();
+            for(DomesticShipment domesticShipment : all){
+                if(domesticShipment.getPreAlertNumber().equals(domesticShipmentDto.getPreAlertNumber())){
+                    throw new RecordNotFoundException(String.format("Shipment with the given pre alert number is already exist"));
+                }
+            }
             DomesticShipment unSaveDomesticShipment = toEntity(domesticShipmentDto);
             unSaveDomesticShipment.setCreatedAt(LocalDate.now());
             unSaveDomesticShipment.setCreatedBy(user);
@@ -294,6 +301,7 @@ public class DomesticShipmentService {
 //        throw new RuntimeException("Shipment not found");
 //    }
 
+    @Transactional
     public DomesticShipmentDto updateDomesticShipment(Long id, DomesticShipmentDto domesticShipmentDto) {
         Optional<DomesticShipment> domesticShipment = domesticShipmentRepository.findById(id);
         if(domesticShipment.isPresent()){

@@ -136,8 +136,11 @@ export class AddInternationalShipmentByRoadComponent {
         this.router.navigate(['/international-shipment-by-air']);
       }, 800);
     }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'International Shipment is not added' });
-    })
+      if(error.error.body){
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      }else{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+      }    })
   }
 
   getAllLocations() {

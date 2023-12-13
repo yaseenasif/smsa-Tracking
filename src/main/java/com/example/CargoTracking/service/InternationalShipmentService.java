@@ -28,6 +28,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDate;
@@ -55,13 +56,19 @@ public class InternationalShipmentService {
     LocationService locationService;
 
 
+    @Transactional
     public InternationalShipmentDto addShipment(InternationalShipmentDto internationalShipmentDto) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof UserDetails){
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
 
-
+            List<InternationalShipment> all = internationalShipmentRepository.findAll();
+            for (InternationalShipment internationalShipment: all) {
+                if(internationalShipment.getPreAlertNumber().equals(internationalShipmentDto.getPreAlertNumber())){
+                    throw new RecordNotFoundException(String.format("Shipment with the given pre alert number is already exist"));
+                }
+            }
             InternationalShipment unSaveInternationalShipment = toEntity(internationalShipmentDto);
             unSaveInternationalShipment.setCreatedAt(LocalDate.now());
             unSaveInternationalShipment.setCreatedBy(user);
@@ -70,6 +77,7 @@ public class InternationalShipmentService {
             unSaveInternationalShipment.setPreAlertType(unSaveInternationalShipment.getType().equalsIgnoreCase("By Road") ? "International-Road" : "International-Air");
             unSaveInternationalShipment.setCreatedTime(LocalDateTime.now());
             unSaveInternationalShipment.setActiveStatus(true);
+
             InternationalShipment internationalShipment = internationalShipmentRepository
                     .save(unSaveInternationalShipment);
 
@@ -539,6 +547,7 @@ public class InternationalShipmentService {
         throw new UserNotFoundException(String.format("User not found"));
     }
 
+    @Transactional
     public InternationalShipmentDto updateInternationalShipment(Long id, InternationalShipmentDto internationalShipmentDto) {
         Optional<InternationalShipment> internationalShipment = internationalShipmentRepository.findById(id);
         if(internationalShipment.isPresent()){

@@ -47,4 +47,6 @@ public interface InternationalShipmentRepository extends JpaRepository<Internati
 
     @Query("SELECT i FROM InternationalShipment i WHERE i.createdAt = :now And i.type = :type")
     List<InternationalShipment> findByCreatedAtAndType(LocalDate now, String type);
+
+    InternationalShipment findByPreAlertNumber(String preAlertNumber);
 }

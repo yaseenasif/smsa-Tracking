@@ -55,6 +55,7 @@ public class DomesticShipment {
     private String shortagesAwbs;
     private String attachments;
     private Boolean redFlag;
+    @Column(unique = true)
     private String preAlertNumber;
     private String preAlertType;
     private long transitTimeTaken;

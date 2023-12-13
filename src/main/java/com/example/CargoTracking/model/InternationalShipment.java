@@ -27,6 +27,7 @@ public class InternationalShipment {
     private Boolean refrigeratedTruck;//new road
     private String type;
     private String shipmentMode;
+    @Column(unique = true)
     private String preAlertNumber;//new
     private String destinationCountry;
     private String destinationPort;
