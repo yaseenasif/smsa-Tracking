@@ -71,7 +71,7 @@ export class AddDomesticRoutesComponent {
   }
 
   addDomesticRoutes(domesticRoutes: Routes) {
-    debugger
+    
     this.domesticRouteService.addDomesticRoute(domesticRoutes).subscribe((res: Routes) => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Route Added Successfully' });
       setTimeout(() => {

@@ -45,7 +45,7 @@ export class InternationalShippingListComponent {
 
   getAllInternationalShipmentByRoad(fromDate?: string,toDate?: string,status?: string,origin?: string,destination?: string,routeNumber?: string, page?: number, size?: number) {
     this.internationalShippingService.getAllInternationalShipmentByRoad({ fromDate:this.fromDate?this.datePipe.transform(new Date(this.fromDate),'yyyy-MM-dd'):'',toDate:this.toDate?this.datePipe.transform(new Date(this.toDate),'yyyy-MM-dd'):'',status: status,origin: origin,destination: destination,routeNumber: routeNumber, user: {} ,type:"",activeStatus:true}, this.page , this.size).subscribe((res: any) => {
-      debugger
+      
       this.internationalShipmentByRoad = res.content;
       this.paginatedRes = res;
     }, error => {

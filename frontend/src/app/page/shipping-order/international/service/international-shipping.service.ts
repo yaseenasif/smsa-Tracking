@@ -15,7 +15,7 @@ export class InternationalShippingService {
 
   getAllInternationalShipmentByRoad(obj?: any, page?: number, size?: number): Observable<InternationalShipment[]> {
     let queryParams = new HttpParams();
-    debugger
+    
     queryParams = queryParams.append("value", JSON.stringify(obj));
     queryParams = queryParams.append("page", page ? page : 0);
     queryParams = queryParams.append("size", size ? size : 10);

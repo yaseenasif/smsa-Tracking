@@ -41,9 +41,9 @@ export class GetDomesticRoutesComponent {
   deleteDomesticRouteByID(id: number) {
     this.domesticRouteService.deleteDomesticRoute(id).subscribe((res: Error) => {
       this.visible = false;
-      debugger
+      
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Route is deleted on id ' + res.message });
-      debugger
+      
       this.getAllDomesticRoutes();
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });

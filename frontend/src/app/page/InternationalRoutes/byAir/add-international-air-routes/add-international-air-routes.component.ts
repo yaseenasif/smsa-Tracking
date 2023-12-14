@@ -77,7 +77,7 @@ export class AddInternationalAirRoutesComponent {
   }
 
   addInternationalRoutes(internationalRoute: InternationalRoutes) {
-    debugger
+    
     this.internationalRouteService.addInternationalRoute(internationalRoute).subscribe((res: InternationalRoutes) => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Route For Air Added Successfully' });
       setTimeout(() => {

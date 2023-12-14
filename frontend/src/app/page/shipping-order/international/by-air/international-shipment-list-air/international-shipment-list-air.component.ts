@@ -55,7 +55,7 @@ export class InternationalShipmentListAirComponent {
 
   getAllShipmentStatus() {
     this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
-      debugger
+      
       this.shipmentStatus = res;
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });

@@ -84,14 +84,14 @@ export class UpdateInternationalRoadRoutesComponent {
       this.internationalRoute=res;
       this.internationalRoute.etd = this.internationalRoute.etd ? new Date(`1970-01-01 ${this.internationalRoute.etd}`) : null;
       this.internationalRoute.eta = this.internationalRoute.eta ? new Date(`1970-01-01 ${this.internationalRoute.eta}`) : null;
-      debugger
+      
     },(error:any)=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
   editInternationalRoutes(internationalRoute: InternationalRoutes) {
-    debugger
+    
     this.internationalRouteService.updateInternationalRoute(this.routeId,internationalRoute).subscribe((res: InternationalRoutes) => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Route For Road Updated Successfully' });
       setTimeout(() => {

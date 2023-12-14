@@ -84,7 +84,7 @@ export class DomesticSummaryComponent {
   }
 
   getInboundSummary(obj: SummarySearch, page: number, size: number) {
-    debugger
+    
     this.summaryService.getInboundSummary(obj, page, size).subscribe((res: any) => {
 
       this.domesticShipment = res.content;
@@ -136,7 +136,7 @@ export class DomesticSummaryComponent {
     })
   }
   onSubmit() {
-    debugger
+    
     if (this.search.destination === null) {
       this.search.destination = "";
     }

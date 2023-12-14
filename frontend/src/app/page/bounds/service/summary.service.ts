@@ -17,7 +17,7 @@ export class SummaryService {
     queryParams = queryParams.append("value", JSON.stringify(obj));
     queryParams = queryParams.append("page", page ? page : 0);
     queryParams = queryParams.append("size", size ? size : 10);
-    debugger
+    
     return this.http.get<any>(`${this.url}/domestic-shipment/inbound`, { params: queryParams });
   }
 
@@ -26,7 +26,7 @@ export class SummaryService {
     queryParams = queryParams.append("value", JSON.stringify(obj));
     queryParams = queryParams.append("page", page ? page : 0);
     queryParams = queryParams.append("size", size ? size : 10);
-    debugger
+    
     return this.http.get<any>(`${this.url}/domestic-shipment/outbound`, { params: queryParams });
   }
 
@@ -36,7 +36,7 @@ export class SummaryService {
 
   getInboundSummaryForAir(obj?: any, page?: number, size?: number): Observable<any> {
     let queryParams = new HttpParams();
-    debugger
+    
     queryParams = queryParams.append("value", JSON.stringify(obj));
     queryParams = queryParams.append("page", page ? page : 0);
     queryParams = queryParams.append("size", size ? size : 10);

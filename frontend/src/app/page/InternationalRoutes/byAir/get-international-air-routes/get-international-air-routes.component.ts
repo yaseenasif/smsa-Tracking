@@ -42,9 +42,9 @@ export class GetInternationalAirRoutesComponent {
   }
 
   deleteInternationalRouteByID(id: number) {
-    debugger
+    
     this.internationalRouteService.deleteInternationalRoute(id).subscribe((res: any) => {
-      debugger
+      
       this.visible = false;
       this.getAllInternationalRoutes();
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Route is deleted' });

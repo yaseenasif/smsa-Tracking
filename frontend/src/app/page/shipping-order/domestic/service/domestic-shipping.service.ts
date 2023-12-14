@@ -14,7 +14,7 @@ export class DomesticShippingService {
 
   getALLShipments(obj?: any, page?: number, size?: number): Observable<any> {
     let queryParams = new HttpParams();
-    debugger
+    
     queryParams = queryParams.append("value", obj ? JSON.stringify(obj) : '');
     queryParams = queryParams.append("page", page ? page : 0);
     queryParams = queryParams.append("size", size ? size : 10);

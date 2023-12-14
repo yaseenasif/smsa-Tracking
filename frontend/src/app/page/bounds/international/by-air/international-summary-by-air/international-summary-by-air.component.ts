@@ -99,10 +99,10 @@ export class InternationalSummaryByAirComponent {
   }
 
   getInboundSummary(obj: InternationalSummarySearch, page: number, size: number) {
-    debugger
+    
     this.summaryService.getInboundSummaryForAir(obj, page, size).subscribe((res: any) => {
       this.internationalShipmentByAir = res.content;
-      debugger
+      
       this.paginationRes = res;
       this.search = {
         fromDate: null,
@@ -178,7 +178,7 @@ export class InternationalSummaryByAirComponent {
     }
   }
   onPageChange(event: any) {
-    debugger
+    
     this.page = event.page;
     this.size = event.rows;
     this.getInboundSummary(this.search, this.page, this.size);

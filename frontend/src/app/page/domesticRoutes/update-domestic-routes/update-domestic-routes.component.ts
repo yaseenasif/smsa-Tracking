@@ -82,14 +82,14 @@ export class UpdateDomesticRoutesComponent {
   }
 
   onSubmit() {
-    debugger
+    
     this.domesticRoutes.etd = this.datePipe.transform(this.domesticRoutes.etd, 'HH:mm:ss')
     this.domesticRoutes.eta = this.datePipe.transform(this.domesticRoutes.eta, 'HH:mm:ss')
     this.editDomesticRoutes(this.domesticRoutes);
   }
 
   editDomesticRoutes(domesticRoutes: Routes) {
-    debugger
+    
     this.domesticRouteService.updateDomesticRoute(this.routeId, domesticRoutes).subscribe((res: Routes) => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Route Updated Successfully' });
       setTimeout(() => {

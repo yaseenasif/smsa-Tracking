@@ -49,12 +49,12 @@ export class LoginFormComponent implements OnInit {
   
 
   login(credentials:any){
-    debugger
+    
     this.authService.login(credentials).subscribe((res:any)=>{
       
       localStorage.setItem("accessToken", res.accessToken);
       this.router.navigate(['/home']);
-debugger
+
     },(error:any)=>{
      
       this.error=true;
