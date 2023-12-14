@@ -45,6 +45,7 @@ export class EditRoleComponent {
       
       this.fullPermissions=res.filter(el=>el.status);
     },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
@@ -53,6 +54,7 @@ export class EditRoleComponent {
       this.role=res; 
       this.getAllPermissions();
     },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
   onSubmit() {
@@ -68,7 +70,7 @@ export class EditRoleComponent {
         this.router.navigate(['/role']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'role is not updated'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })  
   }
 

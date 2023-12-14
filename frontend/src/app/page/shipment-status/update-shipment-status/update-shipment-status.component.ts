@@ -35,7 +35,7 @@ export class UpdateShipmentStatusComponent {
    this.shipmentStatusService.getShipmentStatusByID(this.sSId).subscribe((res:ShipmentStatus)=>{
     this.shipmentStatus.name=res.name;
    },error=>{
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not get shipment status by id'});
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
    })
   }
   
@@ -46,7 +46,7 @@ export class UpdateShipmentStatusComponent {
         this.router.navigate(['/shipment-status']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Shipment Status is not updated'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })  
   }
 }

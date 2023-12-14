@@ -51,14 +51,16 @@ export class UpdateLocationPortComponent implements OnInit {
   getAllLocation(){
     this.locationService.getAllLocationForInternational().subscribe((res:Location[])=>{
       this.location=res.filter(location => location.status)    
-    },error=>{})
+    },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    })
   }
 
   getLocationPortByID(){
     this.locationPortService.getLocationPortByID(this.lpID).subscribe((res:LocationPort)=>{
       this.locationPort=res
      },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not find location port on this id'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
      })
   }
  
@@ -69,7 +71,7 @@ export class UpdateLocationPortComponent implements OnInit {
         this.router.navigate(['/location-port']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Location Port is not updated'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })  
   }
 

@@ -5,12 +5,13 @@ import { InternationalShipment } from '../../../../../model/InternationalShipmen
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
 import { DatePipe } from '@angular/common';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-international-shipping-list',
   templateUrl: './international-shipping-list.component.html',
   styleUrls: ['./international-shipping-list.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe,MessageService]
 })
 export class InternationalShippingListComponent {
   internationalShipmentByRoad!: InternationalShipment[];
@@ -30,6 +31,7 @@ export class InternationalShippingListComponent {
 
   constructor(private internationalShippingService: InternationalShippingService,
     private datePipe:DatePipe,
+    private messageService:MessageService,
     private shipmentStatusService: ShipmentStatusService) { }
   items: MenuItem[] | undefined;
 
@@ -47,6 +49,7 @@ export class InternationalShippingListComponent {
       this.internationalShipmentByRoad = res.content;
       this.paginatedRes = res;
     }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
@@ -55,7 +58,7 @@ export class InternationalShippingListComponent {
       this.shipmentStatus = res;
     }, error => {
 
-
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 

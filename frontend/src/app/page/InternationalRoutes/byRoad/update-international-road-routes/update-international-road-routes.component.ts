@@ -86,7 +86,7 @@ export class UpdateInternationalRoadRoutesComponent {
       this.internationalRoute.eta = this.internationalRoute.eta ? new Date(`1970-01-01 ${this.internationalRoute.eta}`) : null;
       debugger
     },(error:any)=>{
-
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 

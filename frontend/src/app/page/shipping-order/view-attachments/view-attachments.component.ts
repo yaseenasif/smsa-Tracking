@@ -21,6 +21,7 @@ export class ViewAttachmentsComponent {
 
   constructor(private internationalShippingService: InternationalShippingService,
     private domesticShippingService:DomesticShippingService,
+    private messageService:MessageService,
     private route:ActivatedRoute){
 
   }
@@ -41,7 +42,7 @@ export class ViewAttachmentsComponent {
         this.fileMetaData=res;
       },(error:any)=>{
         console.log(error);
-        
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       })
     }
     else if(this.shipmentType=='internationalShipment'){
@@ -49,7 +50,7 @@ export class ViewAttachmentsComponent {
         this.fileMetaData=res;
       },(error:any)=>{
         console.log(error);
-        
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       })
     }
   

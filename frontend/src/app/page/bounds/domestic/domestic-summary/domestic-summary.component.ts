@@ -131,8 +131,8 @@ export class DomesticSummaryComponent {
     this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
       this.shipmentStatus = res;
     }, error => {
-
-
+  
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
   onSubmit() {

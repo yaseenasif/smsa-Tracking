@@ -31,7 +31,9 @@ export class DriverListComponent implements OnInit {
     this.drivers=res.content.filter((el:Driver)=>el.status); 
 
     
-   },error=>{})
+   },error=>{
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+   })
   }
 
   deleteDriverByID(id:number){
@@ -40,7 +42,7 @@ export class DriverListComponent implements OnInit {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Driver is deleted on id '+res!.id!.toString()});
       this.getAllDriver();
     },error=>{
-      
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     });
    }
 

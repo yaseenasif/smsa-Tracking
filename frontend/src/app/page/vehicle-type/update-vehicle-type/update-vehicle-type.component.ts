@@ -36,7 +36,7 @@ export class UpdateVehicleTypeComponent implements OnInit {
     this.vehicleTypeService.getByIDVehicleType(this.vTID).subscribe((res:VehicleType)=>{
      this.vehicleType.name=res.name;
     },error=>{
-     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not permission by id'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
    }
 
@@ -47,7 +47,7 @@ export class UpdateVehicleTypeComponent implements OnInit {
         this.router.navigate(['/vehicle-type']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Vehicle Type is not updated'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })  
   }
 }

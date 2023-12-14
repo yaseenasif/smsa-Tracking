@@ -25,6 +25,7 @@ export class VehicleTypeListComponent implements OnInit {
     this.vehicleTypeService.getALLVehicleType().subscribe((res:VehicleType[])=>{
       this.vehicleTypes=res;  
     },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
    }
 
@@ -39,7 +40,7 @@ export class VehicleTypeListComponent implements OnInit {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Vehicle type is deleted on id '+res!.id!.toString()});
       this.getAllVehicleType();
     },error=>{
-      
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     });
    }
 

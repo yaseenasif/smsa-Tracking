@@ -36,7 +36,7 @@ export class EditPermissionComponent {
    this.permissionService.getByIDPermission(this.pId).subscribe((res:Permission)=>{
     this.permission.name=res.name;
    },error=>{
-    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not permission by id'});
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
    })
   }
   
@@ -47,7 +47,7 @@ export class EditPermissionComponent {
         this.router.navigate(['/permission']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Permission is not updated'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })  
   }
 

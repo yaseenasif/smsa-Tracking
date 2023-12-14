@@ -153,7 +153,9 @@ export class UpdateDomesticShipmentForSummaryComponent {
   
      this.drivers=res.content.filter((el:Driver)=>el.status);  
    
-    },error=>{})
+    },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    })
   }
 
   getAllLocations(){

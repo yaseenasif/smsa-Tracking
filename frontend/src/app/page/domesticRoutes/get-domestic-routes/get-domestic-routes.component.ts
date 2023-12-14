@@ -34,6 +34,7 @@ export class GetDomesticRoutesComponent {
     this.domesticRouteService.getAllDomesticRoutes().subscribe((res: Routes[]) => {
       this.domesticRoutes = res;
     }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
@@ -45,7 +46,7 @@ export class GetDomesticRoutesComponent {
       debugger
       this.getAllDomesticRoutes();
     }, error => {
-
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     });
   }
 

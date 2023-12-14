@@ -52,7 +52,7 @@ export class UpdateLocationComponent implements OnInit {
     
      this.location=res;
     },error=>{
-     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not find location on this id'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
    }
 
@@ -69,7 +69,7 @@ export class UpdateLocationComponent implements OnInit {
         this.router.navigate(['/location']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Location is not updated'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })  
   }
 

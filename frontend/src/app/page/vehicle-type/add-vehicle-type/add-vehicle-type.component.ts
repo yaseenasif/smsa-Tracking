@@ -34,7 +34,7 @@ export class AddVehicleTypeComponent implements OnInit {
         this.router.navigate(['/vehicle-type']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Vehicle Type is not added' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })  
   }
 

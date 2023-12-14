@@ -27,7 +27,9 @@ export class LocationPortListComponent implements OnInit {
   getAllLocationPort(){
     this.locationPortService.getAllLocationPort().subscribe((res:LocationPort[])=>{
       this.locationPort=res.filter(el=>el.status)
-    },error=>{})
+    },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    })
   }
 
   deleteLocationPortByID(id:number){
@@ -36,7 +38,7 @@ export class LocationPortListComponent implements OnInit {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Location Port is deleted on id '+res!.id!.toString()});
       this.getAllLocationPort();
     },error=>{
-      
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     });
   }
 

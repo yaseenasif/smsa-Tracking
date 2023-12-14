@@ -89,12 +89,16 @@ export class AddInternationalShipmentByRoadComponent {
   getLocationPortByLocationForOrigin() {
     this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.originCountry!).subscribe((res) => {
       this.originPorts = res;
-    }, (error) => { })
+    }, (error) => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+     })
   }
   getLocationPortByLocationForDestination() {
     this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.destinationCountry!).subscribe((res) => {
       this.destinationPorts = res;
-    }, (error) => { })
+    }, (error) => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+     })
   }
 
   constructor(private router: Router,
@@ -149,6 +153,7 @@ export class AddInternationalShipmentByRoadComponent {
 
 
     }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
@@ -178,12 +183,15 @@ export class AddInternationalShipmentByRoadComponent {
     this.driverService.getAllDriver().subscribe((res: PaginatedResponse<Driver>) => {
 
       this.drivers = res.content.filter((el: Driver) => el.status);
-    }, error => { })
+    }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+     })
   }
   getAllVehicleType() {
     this.vehicleTypeService.getALLVehicleType().subscribe((res: VehicleType[]) => {
       this.vehicleTypes = res;
     }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
@@ -191,6 +199,7 @@ export class AddInternationalShipmentByRoadComponent {
     this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
       this.shipmentStatus = res;
     }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 

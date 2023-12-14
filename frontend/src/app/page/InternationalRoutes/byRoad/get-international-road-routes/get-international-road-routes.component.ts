@@ -37,6 +37,7 @@ export class GetInternationalRoadRoutesComponent {
 
       this.internationalRoutes = res;
     }, error => {
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
@@ -46,7 +47,7 @@ export class GetInternationalRoadRoutesComponent {
       this.getAllInternationalRoutes();
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Route is deleted' });
     }, error => {
-
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     });
   }
 

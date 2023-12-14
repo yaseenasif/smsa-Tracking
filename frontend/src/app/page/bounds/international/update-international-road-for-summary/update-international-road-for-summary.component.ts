@@ -146,7 +146,7 @@ export class UpdateInternationalRoadForSummaryComponent {
         this.router.navigate(['/international-summary-by-road']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'International Shipment is not updated'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
@@ -163,7 +163,7 @@ export class UpdateInternationalRoadForSummaryComponent {
 
 
     },error=>{
-     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not International Shipment by id'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
@@ -173,24 +173,30 @@ export class UpdateInternationalRoadForSummaryComponent {
 
 
     },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
   getAllLocationPort(){
     this.locationPortService.getAllLocationPort().subscribe((res:LocationPort[])=>{
       this.locationPort=res.filter(el=>el.status)
-    },error=>{})
+    },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    })
   }
   getAllDriver(){
     this.driverService.getAllDriver().subscribe((res:PaginatedResponse<Driver>)=>{
 
      this.drivers=res.content.filter((el:Driver)=>el.status);
-    },error=>{})
+    },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    })
    }
    getAllVehicleType(){
     this.vehicleTypeService.getALLVehicleType().subscribe((res:VehicleType[])=>{
       this.vehicleTypes=res;
     },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
    }
 
@@ -198,6 +204,7 @@ export class UpdateInternationalRoadForSummaryComponent {
     this.shipmentStatusService.getALLShipmentStatus().subscribe((res:ShipmentStatus[])=>{
       this.shipmentStatus=res;
     },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
    }
 

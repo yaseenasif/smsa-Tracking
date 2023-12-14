@@ -32,7 +32,7 @@ export class AddShipmentStatusComponent {
         this.router.navigate(['/shipment-status']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Shipment Status is not added' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })  
   }
 }

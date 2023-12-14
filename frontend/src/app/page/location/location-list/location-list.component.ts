@@ -28,6 +28,7 @@ export class LocationListComponent implements OnInit {
     this.locationService.getAllLocation().subscribe((res:Location[])=>{
       this.location=res.filter(el => el.status);   
     },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
@@ -37,7 +38,7 @@ export class LocationListComponent implements OnInit {
       this.visible = false;
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Location is deleted on id '+res!.id!.toString()});
     },error=>{
-      
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     });
    }
 

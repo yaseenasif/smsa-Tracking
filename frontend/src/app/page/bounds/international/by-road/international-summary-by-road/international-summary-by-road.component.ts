@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { SummaryService } from '../../../service/summary.service';
 import { DatePipe } from '@angular/common';
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
@@ -11,7 +11,7 @@ import { AuthguardService } from 'src/app/auth-service/authguard/authguard.servi
   selector: 'app-international-summary-by-road',
   templateUrl: './international-summary-by-road.component.html',
   styleUrls: ['./international-summary-by-road.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe,MessageService]
 })
 export class InternationalSummaryByRoadComponent {
 
@@ -37,6 +37,7 @@ export class InternationalSummaryByRoadComponent {
   size: any;
 
   constructor(private summaryService: SummaryService,
+    private messageService:MessageService,
     private datePipe: DatePipe,
     private authguardService: AuthguardService,
 
@@ -90,9 +91,7 @@ export class InternationalSummaryByRoadComponent {
     this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
       this.shipmentStatus = res;
     }, error => {
-
-
-
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
@@ -111,7 +110,7 @@ export class InternationalSummaryByRoadComponent {
     }, (error: any) => {
 
       this.internationalShipmentByRoad = [];
-
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
 
     })
   }
@@ -131,7 +130,7 @@ export class InternationalSummaryByRoadComponent {
     }, (error: any) => {
 
       this.internationalShipmentByRoad = [];
-
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
 
     })
   }

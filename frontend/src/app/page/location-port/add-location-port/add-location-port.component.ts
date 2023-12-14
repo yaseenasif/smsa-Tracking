@@ -46,7 +46,9 @@ export class AddLocationPortComponent implements OnInit {
   getAllLocation(){
     this.locationService.getAllLocationForInternational().subscribe((res:Location[])=>{
       this.location=res.filter(location => location.status)    
-    },error=>{})
+    },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    })
   }
 
     onSubmit() {
@@ -56,7 +58,7 @@ export class AddLocationPortComponent implements OnInit {
         this.router.navigate(['/location-port']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Location Port is not added' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })  
   }
 

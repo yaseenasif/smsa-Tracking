@@ -25,6 +25,7 @@ export class PermissionListComponent {
     this.permissionService.getALLPermission().subscribe((res:Permission[])=>{
       this.permissions=res.filter(el=>el.status);   
     },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
    }
    deletePermissionByID(id:number){
@@ -33,7 +34,7 @@ export class PermissionListComponent {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Permission is deleted on id '+res!.id!.toString()});
       this.getAllPermissions();
     },error=>{
-      
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     });
    }
 

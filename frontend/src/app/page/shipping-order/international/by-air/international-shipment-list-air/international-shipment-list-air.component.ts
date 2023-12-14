@@ -1,6 +1,6 @@
 import { PaginatedResponse } from '../../../../../model/PaginatedResponse';
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { InternationalShipment } from 'src/app/model/InternationalShipment';
 import { InternationalShippingService } from '../../service/international-shipping.service';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
@@ -11,7 +11,7 @@ import { DatePipe } from '@angular/common';
   selector: 'app-international-shipment-list-air',
   templateUrl: './international-shipment-list-air.component.html',
   styleUrls: ['./international-shipment-list-air.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe,MessageService]
 })
 export class InternationalShipmentListAirComponent {
 
@@ -30,6 +30,7 @@ export class InternationalShipmentListAirComponent {
   routeNumber: string = '';
 
   constructor(private internationalShippingService: InternationalShippingService,
+    private messageService:MessageService,
     private datePipe:DatePipe,
     private shipmentStatusService: ShipmentStatusService,) { }
   items: MenuItem[] | undefined;
@@ -48,7 +49,7 @@ export class InternationalShipmentListAirComponent {
       this.internationalShipmentByAir = res.content;
       this.paginationRes = res;
     }, error => {
-
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
@@ -57,8 +58,7 @@ export class InternationalShipmentListAirComponent {
       debugger
       this.shipmentStatus = res;
     }, error => {
-
-
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 

@@ -24,6 +24,7 @@ export class ShipmentStatusListComponent {
     this.shipmentStatusService.getALLShipmentStatus().subscribe((res:ShipmentStatus[])=>{
       this.shipmentStatus=res; 
     },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
    }
    deleteShipmentStatusByID(id:number){
@@ -33,8 +34,7 @@ export class ShipmentStatusListComponent {
       this.visible = false;
        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Shipment Status is successfully deleted' });
     },(error)=>{
-    
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Shipment Status is not deleted' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     });
    }
 

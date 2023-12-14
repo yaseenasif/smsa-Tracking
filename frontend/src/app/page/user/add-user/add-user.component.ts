@@ -49,6 +49,7 @@ export class AddUserComponent implements OnInit {
     this.locationService.getAllLocation().subscribe((res:Location[])=>{
       this.locations=res.filter(el => el.status);   
     },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
   
@@ -56,7 +57,8 @@ export class AddUserComponent implements OnInit {
     this.roleService.getALLRole().subscribe((res:Role[])=>{
       this.roles=res;
         
-    },error=>{  
+    },error=>{ 
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body }); 
     })
   }
 
@@ -67,7 +69,7 @@ export class AddUserComponent implements OnInit {
         this.router.navigate(['/user']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'User is not added' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })  
   }
 

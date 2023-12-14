@@ -98,7 +98,7 @@ export class DomesticShippingListComponent implements OnInit {
       this.shipmentStatus = res;
     }, error => {
 
-
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
   clearFilter(){

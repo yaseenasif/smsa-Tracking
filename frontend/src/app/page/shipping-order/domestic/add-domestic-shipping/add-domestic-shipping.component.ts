@@ -216,7 +216,9 @@ export class AddDomesticShippingComponent {
     this.driverService.getAllDriver().subscribe((res:PaginatedResponse<Driver>)=>{
 
      this.drivers=res.content.filter((el:Driver)=>el.status);
-    },error=>{})
+    },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    })
    }
 
    driverData(){

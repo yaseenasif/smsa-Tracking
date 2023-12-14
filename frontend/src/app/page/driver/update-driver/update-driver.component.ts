@@ -37,7 +37,7 @@ export class UpdateDriverComponent implements OnInit {
     this.driverService.getDriverByID(this.dId).subscribe((res:Driver)=>{
      this.driver=res;
     },error=>{
-     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not find Driver on this id'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
    }
 
@@ -48,7 +48,7 @@ export class UpdateDriverComponent implements OnInit {
         this.router.navigate(['/driver']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Driver is not updated'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })  
   }
 

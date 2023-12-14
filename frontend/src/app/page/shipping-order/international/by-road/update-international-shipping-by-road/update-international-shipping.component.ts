@@ -140,12 +140,16 @@ export class UpdateInternationalShippingComponent {
   getLocationPortByLocationForOrigin() {
     this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.originCountry!).subscribe((res)=>{
      this.originPorts=res;
-    },(error)=>{})
+    },(error)=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    })
   }
   getLocationPortByLocationForDestination() {
     this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.destinationCountry!).subscribe((res)=>{
      this.destinationPorts=res;
-    },(error)=>{})
+    },(error)=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    })
   }
 
    onSubmit() {
@@ -162,7 +166,7 @@ export class UpdateInternationalShippingComponent {
         this.router.navigate(['/international-shipment-by-road']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'International Shipment is not updated'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
@@ -184,7 +188,7 @@ export class UpdateInternationalShippingComponent {
 
 
     },error=>{
-     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Can not International Shipment by id'});
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
@@ -211,6 +215,7 @@ export class UpdateInternationalShippingComponent {
 
 
     },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
 
@@ -224,12 +229,15 @@ export class UpdateInternationalShippingComponent {
     this.driverService.getAllDriver().subscribe((res:PaginatedResponse<Driver>)=>{
 
      this.drivers=res.content.filter((el:Driver)=>el.status);
-    },error=>{})
+    },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    })
    }
    getAllVehicleType(){
     this.vehicleTypeService.getALLVehicleType().subscribe((res:VehicleType[])=>{
       this.vehicleTypes=res;
     },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
    }
 
@@ -237,6 +245,7 @@ export class UpdateInternationalShippingComponent {
     this.shipmentStatusService.getALLShipmentStatus().subscribe((res:ShipmentStatus[])=>{
       this.shipmentStatus=res;
     },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
    }
 

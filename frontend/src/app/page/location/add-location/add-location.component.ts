@@ -53,7 +53,7 @@ export class AddLocationComponent implements OnInit {
         this.router.navigate(['/location']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Location is not added' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })  
   }
   

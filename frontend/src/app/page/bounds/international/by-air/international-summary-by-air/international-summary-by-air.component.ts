@@ -1,6 +1,6 @@
 import { PaginatedResponse } from '../../../../../model/PaginatedResponse';
 import { Component } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { MenuItem, MessageService } from 'primeng/api';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { SummaryService } from '../../../service/summary.service';
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
@@ -11,7 +11,7 @@ import { AuthguardService } from 'src/app/auth-service/authguard/authguard.servi
   selector: 'app-international-summary-by-air',
   templateUrl: './international-summary-by-air.component.html',
   styleUrls: ['./international-summary-by-air.component.scss'],
-  providers: [DatePipe]
+  providers: [DatePipe,MessageService]
 })
 export class InternationalSummaryByAirComponent {
 
@@ -38,6 +38,7 @@ export class InternationalSummaryByAirComponent {
   size: number = 10;
 
   constructor(private summaryService: SummaryService,
+    private messageService:MessageService,
     private datePipe: DatePipe,
     private authguardService: AuthguardService,
     private shipmentStatusService: ShipmentStatusService) { }
@@ -92,7 +93,7 @@ export class InternationalSummaryByAirComponent {
       this.shipmentStatus = res;
     }, error => {
 
-
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
 
     })
   }
@@ -112,7 +113,8 @@ export class InternationalSummaryByAirComponent {
         type: null
       }
     }, (error: any) => {
-
+      
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       this.internationalShipmentByAir = [];
 
 
@@ -132,7 +134,7 @@ export class InternationalSummaryByAirComponent {
         type: null
       }
     }, (error: any) => {
-
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       this.internationalShipmentByAir = [];
 
 

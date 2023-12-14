@@ -34,7 +34,7 @@ export class AddDriverComponent implements OnInit {
         this.router.navigate(['/driver']);
       },800);
     },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Driver is not added' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })  
   }
   
