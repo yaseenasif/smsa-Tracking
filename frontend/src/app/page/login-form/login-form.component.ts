@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/auth-service/auth.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login-form',
@@ -53,6 +54,9 @@ export class LoginFormComponent implements OnInit {
     this.authService.login(credentials).subscribe((res:any)=>{
       
       localStorage.setItem("accessToken", res.accessToken);
+      let token= jwtDecode(res.accessToken)
+      console.log(token);
+      
       this.router.navigate(['/home']);
 debugger
     },(error:any)=>{

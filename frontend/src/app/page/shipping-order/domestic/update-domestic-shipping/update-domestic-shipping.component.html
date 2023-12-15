@@ -253,14 +253,13 @@
                     <input
                     pInputText
                     id="name"
-                    pattern="\d{3}-\d{9}"
-                    minlength="13"
-                    maxlength="13"
+                    pattern="[0-9]+"
+                    minlength="12"
+                    maxlength="12"
                     aria-describedby="name-help"
                     name="preAlertNumber"
                     [(ngModel)]="domesticShipment.preAlertNumber"
                     #preAlertNumber="ngModel"
-                    (input)="dashAfterThree()"
                     required
                     [ngClass]="{
                       error:
