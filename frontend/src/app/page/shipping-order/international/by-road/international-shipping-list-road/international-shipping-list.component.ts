@@ -28,6 +28,8 @@ export class InternationalShippingListComponent {
   origin: string = '';
   destination: string = '';
   routeNumber: string = '';
+  ISid!: number;
+  visible: boolean=false;
 
   constructor(private internationalShippingService: InternationalShippingService,
     private datePipe:DatePipe,
@@ -79,5 +81,22 @@ export class InternationalShippingListComponent {
     this.destination = '';
     this.routeNumber = '';
     this.getAllInternationalShipmentByRoad(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
+    }
+
+
+    deleteInternationalShipmentByID(id:number){
+      this.internationalShippingService.deleteInternationalShipmentByID(id).subscribe((res)=>{
+        this.messageService.add({ severity: 'success', summary: 'Success', detail:"shipment is deleted successfully"});
+        this.getAllInternationalShipmentByRoad(this.fromDate ,this.toDate,this.status,this.origin,this.destination,this.routeNumber, this.page, this.size);
+        this.visible=false;
+      },(error)=>{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+        this.visible=false;
+      })
+    }
+
+    showModal(id:number){
+     this.visible=true
+     this.ISid=id
     }
 }
