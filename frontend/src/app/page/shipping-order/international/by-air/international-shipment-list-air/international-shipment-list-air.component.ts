@@ -19,6 +19,8 @@ export class InternationalShipmentListAirComponent {
   paginationRes: any;
   page: number = 0;
   size: number = 10;
+  visible:boolean=false;
+  ISid!:number;
 
   shipmentStatus!: ShipmentStatus[];
 
@@ -81,5 +83,22 @@ export class InternationalShipmentListAirComponent {
     this.destination = '';
     this.routeNumber = '';
     this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
+    }
+
+
+    deleteInternationalShipmentByID(id:number){
+      this.internationalShippingService.deleteInternationalShipmentByID(id).subscribe((res)=>{
+        this.messageService.add({ severity: 'success', summary: 'Success', detail:"shipment is deleted successfully"});
+        this.getAllInternationalShipmentByAir(this.fromDate ,this.toDate,this.status,this.origin,this.destination,this.routeNumber, this.page, this.size);
+        this.visible=false;
+      },(error)=>{
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+        this.visible=false;
+      })
+    }
+
+    showModal(id:number){
+     this.visible=true
+     this.ISid=id
     }
 }
