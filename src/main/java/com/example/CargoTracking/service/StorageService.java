@@ -22,8 +22,9 @@ import java.io.IOException;
 @Slf4j
 public class StorageService {
 
+    @Value("${application.bucket.name}")
+    public String BUCKET_NAME;
 
-    public static final String BUCKET_NAME="cdvinv";
     @Autowired
     private AmazonS3 s3Client;
 
