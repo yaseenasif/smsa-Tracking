@@ -45,6 +45,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { PaginatorModule } from 'primeng/paginator';
 import { BadgeModule } from 'primeng/badge';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 //primeng imports
 import { ChartModule } from 'primeng/chart';
@@ -217,6 +218,7 @@ import { ChipsModule } from 'primeng/chips';
   providers: [
     // AuthGuard,
     // DatePipe,
+    {provide: LocationStrategy, useClass: HashLocationStrategy},
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     // { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }, // Register the AuthInterceptor
     // provideRouter(routes, withHashLocation()),

@@ -5,9 +5,10 @@ background-color:$primary-color;
 }
 .bg-w-color{
     background-color:$white-color;
+
 }
 .login-form{
-    width: 80%;
+    width: 35%;
     background-color:$white-color;
     border-radius: 10px;
     padding:20px;
@@ -17,5 +18,16 @@ color:$error-color;
 }
 .sidebar-img {
     max-width: 100%;
-    height: auto;
-  }
+    height: 100%;
+}
+
+.remove-gap{
+    margin: 0px;
+    padding: 0px;
+}
+.img1{
+background-image: url('../../../assets/tms.png');
+background-repeat: no-repeat;
+background-size: cover;
+opacity: 0.8;
+}
