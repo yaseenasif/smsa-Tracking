@@ -94,7 +94,6 @@ public class DomesticShipmentService {
             unSaveDomesticShipment.setCreatedBy(user);
             unSaveDomesticShipment.setRedFlag(Boolean.FALSE);
             unSaveDomesticShipment.setActiveStatus(Boolean.TRUE);
-//            unSaveDomesticShipment.setPreAlertNumber(System.currentTimeMillis() / 1000);
             unSaveDomesticShipment.setPreAlertType("Domestic");
             unSaveDomesticShipment.setCreatedTime(LocalDateTime.now());
 
@@ -287,20 +286,6 @@ public class DomesticShipmentService {
         throw new UserNotFoundException("User not found");
     }
 
-//    public List<DomesticShipmentDto> getInboundShipment() {
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        if(principal instanceof UserDetails) {
-//            String username = ((UserDetails) principal).getUsername();
-//            User user = userRepository.findByEmail(username);
-//            if(user.getLocation() == null){
-//                return new ArrayList<>();
-//            }
-//            return toDtoList(domesticShipmentRepository.findByDestinationLocation(user.getLocation().getLocationName()));
-//        }
-//
-//        throw new RuntimeException("Shipment not found");
-//    }
-
     @Transactional
     public DomesticShipmentDto updateDomesticShipment(Long id, DomesticShipmentDto domesticShipmentDto) {
         Optional<DomesticShipment> domesticShipment = domesticShipmentRepository.findById(id);
@@ -311,6 +296,13 @@ public class DomesticShipmentService {
                 String username = ((UserDetails) principal).getUsername();
                 User user = userRepository.findByEmail(username);
                 domesticShipment.get().setUpdatedBy(user);
+                  List<DomesticShipment> all = domesticShipmentRepository.findAll();
+                  for(DomesticShipment domesticShipmentForPreAlertNumber : all){
+                      if(domesticShipmentForPreAlertNumber.getPreAlertNumber().equals(domesticShipmentDto.getPreAlertNumber())){
+                          throw new RecordNotFoundException(String.format("Shipment with the given pre alert number is already exist"));
+                      }
+                  }
+                  domesticShipment.get().setPreAlertNumber(domesticShipmentDto.getPreAlertNumber());
                   domesticShipment.get().setOriginFacility(domesticShipmentDto.getOriginFacility());
                   domesticShipment.get().setOriginLocation(domesticShipmentDto.getOriginLocation());
                   domesticShipment.get().setRefrigeratedTruck(domesticShipmentDto.getRefrigeratedTruck());
@@ -465,7 +457,7 @@ public class DomesticShipmentService {
             List<DomesticShipment> domesticShipmentList1 = domesticShipmentRepository.findAll();
             if(!domesticShipmentList1.isEmpty()){
                 for(DomesticShipment shipment: domesticShipmentList1){
-                    if(shipment.getArrivedTime() != null){
+                    if(shipment.getArrivedTime() != null && shipment.getStatus()!="Cleared"){
                         Duration duration = Duration.between(shipment.getArrivedTime(), LocalDateTime.now());
                         if(duration.toMinutes() >= 480 && duration.toMinutes() <= 1440){
                             if(!shipment.isEscalationFlagOne()){
