@@ -35,6 +35,14 @@ background-color: $primary-color;
 .bg-b-color>.p-button{
 background-color: $hover-bg-color;
 }
+
+.bg-bt-color>.p-button:hover{
+    background-color:whitesmoke;
+    }
+    .bg-bt-color>.p-button{
+    background-color: $white-color;
+    color:$primary-color;
+    }
 .hook>.p-element>.p-toolbar{
     border-radius:0px;
     background-color:$white-color;
