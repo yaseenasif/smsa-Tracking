@@ -48,8 +48,8 @@
                 <div class="flex flex-column gap-2 form-hook1">
                   <label htmlFor="password">Password</label>
                  
-                 <p-password [(ngModel)]="user.password" #password="ngModel" name="password" required [toggleMask]="true"></p-password>
-                 <small id="name-help" class="color-red"  *ngIf="password.invalid && (password.dirty || password.touched)">Password is required.</small>
+                 <p-password [(ngModel)]="user.password" #password="ngModel" name="password"  [toggleMask]="true"></p-password>
+                 <!-- <small id="name-help" class="color-red"  *ngIf="password.invalid && (password.dirty || password.touched)">Password is required.</small> -->
                 </div>
               </div>
               <div class="col-12 md:col-12 lg:col-6">
@@ -72,20 +72,24 @@
               <div class="col-12 md:col-12 lg:col-6">
                 <div class="flex flex-column gap-2 form-hook">
                   <label htmlFor="name">Role
+                    
+                    
 
                   </label>
-                  <p-dropdown *ngIf="user.roles && user.roles.length > 0" class="w-full" [options]="roles" [required]="true" name="role" #role="ngModel" [(ngModel)]="user.roles[0]" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Role">
-                    <ng-template pTemplate="selectedItem">
-                        <div class="flex align-items-center gap-2" *ngIf="user">
-                            <div>{{user.roles}}</div>
-                        </div>
-                    </ng-template>
-                    <ng-template let-roles pTemplate="item">
-                        <div class="flex align-items-center gap-2">
-                            <div>{{ roles.name }}</div>
-                        </div>
-                    </ng-template>
-                </p-dropdown>
+                 
+                  <p-dropdown class="w-full" [options]="roles"  [required]="true" name="role" #role="ngModel" [(ngModel)]="user.roles![0]"  optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Role
+                  ">
+                      <ng-template pTemplate="selectedItem">
+                          <div class="flex align-items-center gap-2" *ngIf="user">
+                              <div>{{user.roles![0].name}}</div>
+                          </div>
+                      </ng-template>
+                      <ng-template let-roles pTemplate="item">
+                          <div class="flex align-items-center gap-2">
+                              <div>{{ roles.name }}</div>
+                          </div>
+                      </ng-template>
+                  </p-dropdown>
               </div>
               </div>
             </div>
@@ -97,7 +101,7 @@
                 styleClass="p-button-outlined"
               >
               </p-button>
-              <p-button type="submit" [disabled]="!userForm.form.valid"  label="Update" class="bg-b-color ml">
+              <p-button type="submit" [disabled]="!userForm.form.valid"  label="Save" class="bg-b-color ml">
               </p-button>
             </div>
           </form>

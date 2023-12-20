@@ -22,11 +22,6 @@ export class AddUserComponent implements OnInit {
 
   constructor (private router: Router,private messageService:MessageService,private roleService:RoleService,private locationService:LocationService,private userService:UserService) { }
 
-  name!:string;
-  email!:string;
-  password!:string;
-  role!: string
-  selectedLocation!:Location;
 
   user:User={
     email: null,
@@ -34,7 +29,7 @@ export class AddUserComponent implements OnInit {
     location: null,
     name: null,
     password: null,
-    roles: null
+    roles: []
   };
   roles!:Role[];
   locations!:Location[];
@@ -63,8 +58,6 @@ export class AddUserComponent implements OnInit {
   }
 
   onSubmit(){
-    this.user.roles=this.roles.filter(e=>e.name==this.user.roles);
-    debugger
     this.userService.addUser(this.user).subscribe(res=>{
       debugger
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User is added' });

@@ -45,13 +45,13 @@ public class UserService {
                 for (Roles roleList:userDto.getRoles()) {
                     Optional<Roles> roles = Optional.ofNullable(roleRepository
                             .findByName(roleList.getName())
-                            .orElseThrow(() -> new RuntimeException("Role is incorrect")));
+                            .orElseThrow(() -> new RecordNotFoundException("Role is incorrect")));
 
                     if(roleList.getName().equals("ROLE_ADMIN")){
                         location = null;
                     }else{
                         location = locationRepository.findByLocationName(userDto.getLocation())
-                                .orElseThrow(()-> new RuntimeException("Location is not in record"));
+                                .orElseThrow(()-> new RecordNotFoundException("Location is not in record"));
                     }
                     rolesList.add(roles.get());
                 }
@@ -72,10 +72,10 @@ public class UserService {
                 return toDtoForResponse(save);
 
             }catch(Exception e){
-                throw new RuntimeException("Some information is incorrect");
+                throw new RecordNotFoundException("Some information is incorrect");
             }
         }else{
-            throw new RuntimeException("Email is Already exist");
+            throw new RecordNotFoundException("Email is Already exist");
         }
 
 
@@ -99,36 +99,34 @@ public class UserService {
                 for (Roles roleList:userDto.getRoles()) {
                     Optional<Roles> roles = Optional.ofNullable(roleRepository
                             .findByName(roleList.getName())
-                            .orElseThrow(() -> new RuntimeException("Role is incorrect")));
+                            .orElseThrow(() -> new RecordNotFoundException("Role is incorrect")));
 
                     if(roleList.getName().equals("ROLE_ADMIN")){
                         location = null;
                     }else{
                         location = locationRepository.findByLocationName(userDto.getLocation())
-                                .orElseThrow(()-> new RuntimeException("Location is not in record"));
+                                .orElseThrow(()-> new RecordNotFoundException("Location is not in record"));
                     }
                     rolesList.add(roles.get());
                 }
 
 
 
+                user.get().setName(userDto.getName());
+                user.get().setEmail(userDto.getEmail());
+                user.get().setPassword(userDto.getPassword() != null ? bCryptPasswordEncoder.encode(userDto.getPassword()) : user.get().getPassword());
+                user.get().setRoles(rolesList);
+                user.get().setStatus(Boolean.TRUE);
+                user.get().setLocation(location);
+                User save = userRepository.save(user.get());
 
-                User user1 = User.builder()
-                        .name(userDto.getName())
-                        .password(userDto.getPassword() != null ? bCryptPasswordEncoder.encode(userDto.getPassword()) : user.get().getPassword())
-                        .roles(rolesList)
-                        .status(Boolean.TRUE)
-                        .location(location)
-                        .email(userDto.getEmail())
-                        .build();
-                User save = userRepository.save(user1);
                 return toDtoForResponse(save);
 
             }catch(Exception e){
-                throw new RuntimeException("Some information is incorrect");
+                throw new RecordNotFoundException("Some information is incorrect");
             }
         }
-        throw new RuntimeException("User Not Found");
+        throw new RecordNotFoundException("User Not Found");
     }
 
     public List<UserDto> toDtoList(List<User> user){

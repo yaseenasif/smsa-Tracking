@@ -28,7 +28,7 @@ export class UpdateUserComponent implements OnInit {
     roles: []
   };
   selectedRole!:Role;
-  roles!:Role[];
+  roles:Role[]=[];
   locations!:Location[];
 
   userId?:number;
@@ -58,6 +58,8 @@ export class UpdateUserComponent implements OnInit {
 
   getAllLRole(){
     this.roleService.getALLRole().subscribe((res:Role[])=>{
+      res[0].permissions= res[0].permissions!.sort((a,b)=> a.id!-b.id!)
+      res[1].permissions= res[1].permissions!.sort((a,b)=> a.id!-b.id!)
       this.roles=res;
     },error=>{ 
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body }); 
@@ -66,6 +68,7 @@ export class UpdateUserComponent implements OnInit {
 
   getUserById(userId:number){
     this.userService.getUserById(userId).subscribe((res:User)=>{
+      res.roles![0].permissions=res.roles![0].permissions!.sort((a,b)=> a.id!-b.id!)
       this.user=res;
     },(error:any)=>{
       if (error.error.body) {
@@ -77,8 +80,9 @@ export class UpdateUserComponent implements OnInit {
   }
 
   onSubmit(){
+  
     this.userService.updateUserById(this.userId!,this.user).subscribe(res=>{
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User is added' });
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User is updated successfully' });
       setTimeout(() => {
         this.router.navigate(['/user']);
       },800);
