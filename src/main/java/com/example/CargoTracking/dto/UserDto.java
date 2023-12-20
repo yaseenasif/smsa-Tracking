@@ -1,10 +1,13 @@
 package com.example.CargoTracking.dto;
 
+import com.example.CargoTracking.model.Roles;
 import lombok.*;
 
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -26,7 +29,7 @@ public class UserDto {
     @NotBlank(message = "Email is required")
     private String email;
     @NotBlank(message = "Role is required")
-    private String role;
+    private Set<Roles> roles;
 
     private String location;
 

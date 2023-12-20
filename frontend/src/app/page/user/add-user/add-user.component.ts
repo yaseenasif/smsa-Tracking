@@ -34,7 +34,7 @@ export class AddUserComponent implements OnInit {
     location: null,
     name: null,
     password: null,
-    role: null
+    roles: null
   };
   roles!:Role[];
   locations!:Location[];
@@ -56,14 +56,17 @@ export class AddUserComponent implements OnInit {
   getAllLRole(){
     this.roleService.getALLRole().subscribe((res:Role[])=>{
       this.roles=res;
-        
+      debugger
     },error=>{ 
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body }); 
     })
   }
 
   onSubmit(){
+    this.user.roles=this.roles.filter(e=>e.name==this.user.roles);
+    debugger
     this.userService.addUser(this.user).subscribe(res=>{
+      debugger
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User is added' });
       setTimeout(() => {
         this.router.navigate(['/user']);

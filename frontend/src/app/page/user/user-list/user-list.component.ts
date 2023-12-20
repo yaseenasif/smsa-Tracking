@@ -13,6 +13,7 @@ export class UserListComponent implements OnInit {
 
   items: MenuItem[] | undefined;
   users!:User[]
+
   visible: boolean = false;
   uID!:number
 
