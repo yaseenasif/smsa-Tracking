@@ -17,6 +17,8 @@ export class DomesticShippingListComponent implements OnInit {
 
   myApiResponse: any;
   shipmentStatus!: ShipmentStatus[];
+  visible: boolean=false;
+  DSid!: number;
 
   constructor(private domesticShipmentService: DomesticShippingService,
     private messageService: MessageService,
@@ -63,21 +65,7 @@ export class DomesticShippingListComponent implements OnInit {
     })
   }
 
-  deleteDomesticShipment(id: number) {
-    this.domesticShipmentService.deleteDomesticShipment(id).subscribe((res: any) => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: res.message });
-
-      this.getAllDomesticShipments('','','','','','',this.page,this.size);
-
-    }, (error: any) => {
-
-      if (error.error.body) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }
-    })
-  }
+  
 
 
   onPageChange(event: any) {
@@ -108,5 +96,24 @@ export class DomesticShippingListComponent implements OnInit {
   this.destination = '';
   this.routeNumber = '';
   this.getAllDomesticShipments(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
+  }
+
+  deleteDomesticShipmentByID(id:number){
+      this.domesticShipmentService.deleteDomesticShipment(id).subscribe((res: any) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail:"shipment is deleted successfully"});
+        this.getAllDomesticShipments(this.fromDate ,this.toDate,this.status,this.origin,this.destination,this.routeNumber, this.page, this.size);
+        this.visible=false;
+      }, (error: any) => {
+        if (error.error.body) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+        }
+        this.visible=false;
+      })
+  }
+  showModal(id:number){
+   this.visible=true
+   this.DSid=id
   }
 }

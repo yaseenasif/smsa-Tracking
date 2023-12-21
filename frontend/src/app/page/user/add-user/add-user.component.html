@@ -74,11 +74,11 @@
                   <label htmlFor="name">Role
 
                   </label>
-                  <p-dropdown class="w-full" [options]="roles"  [required]="true" name="role" #role="ngModel" [(ngModel)]="user.role" optionValue="name" optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Role
+                  <p-dropdown class="w-full" [options]="roles"  [required]="true" name="role" #role="ngModel" [(ngModel)]="user.roles![0]"  optionLabel="name" [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Role
                   ">
                       <ng-template pTemplate="selectedItem">
                           <div class="flex align-items-center gap-2" *ngIf="user">
-                              <div>{{user.role}}</div>
+                              <div>{{user.roles![0].name}}</div>
                           </div>
                       </ng-template>
                       <ng-template let-roles pTemplate="item">

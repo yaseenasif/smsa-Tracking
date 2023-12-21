@@ -18,12 +18,16 @@ export class UserService {
   //   return this.http.get<User>(this.url.concat('/user/',id.toString()));
   // }
   updateUserById(id:number,body:User):Observable<User>{
-    return this.http.put<User>(this.url.concat('/user/',id.toString()),body);
+    debugger
+    return this.http.put<User>(this.url.concat('/edit-user/',id.toString()),body);
   }
   addUser(body:User):Observable<User>{
    return this.http.post<User>(this.url.concat('/user'),body);
   }
   deleteUserByID(id:number):Observable<User>{
     return this.http.delete<User>(this.url.concat('/delete-user/',id.toString()));
+  }
+  getUserById(id:number):Observable<User>{
+    return this.http.get<User>(this.url.concat('/get-user/',id.toString()))
   }
 }

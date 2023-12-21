@@ -1,6 +1,7 @@
 package com.example.CargoTracking.controller;
 
 import com.example.CargoTracking.dto.UserDto;
+import com.example.CargoTracking.dto.UserResponseDto;
 import com.example.CargoTracking.model.User;
 import com.example.CargoTracking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,27 +22,31 @@ public class UserController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/user")
-    public ResponseEntity<UserDto> addUser(@Valid @RequestBody UserDto userDto){
+    public ResponseEntity<UserResponseDto> addUser(@Valid @RequestBody UserDto userDto){
 
-        UserDto user = userService.addUser(userDto);
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(userService.addUser(userDto));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/all-user")
-    public ResponseEntity<List<UserDto>> getAllUser(){
+    public ResponseEntity<List<UserResponseDto>> getAllUser(){
         return ResponseEntity.ok(userService.getAllUser());
+    }
+
+    @GetMapping("/get-user/{id}")
+    public ResponseEntity<UserResponseDto> getUserById(@PathVariable long id){
+        return  ResponseEntity.ok(userService.getUserById(id));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/edit-user/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, @RequestBody UserDto userDto){
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id, @RequestBody UserDto userDto){
         return ResponseEntity.ok(userService.updateUser(id,userDto));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/delete-user/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable Long id){
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id){
         return ResponseEntity.ok(userService.deleteUser(id));
     }
 

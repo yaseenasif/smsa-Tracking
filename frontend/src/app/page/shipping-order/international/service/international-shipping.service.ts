@@ -37,8 +37,8 @@ export class InternationalShippingService {
   addInternationalShipment(body: InternationalShipment): Observable<InternationalShipment> {
     return this.http.post<InternationalShipment>(this.url.concat('/add-international-shipment'), body);
   }
-  deletePermissionByID(id: number): Observable<InternationalShipment> {
-    return this.http.delete<InternationalShipment>(this.url.concat('/InternationalShipment/', id.toString()));
+  deleteInternationalShipmentByID(id: number): Observable<InternationalShipment> {
+    return this.http.delete<InternationalShipment>(this.url.concat('/delete-international-shipment/', id.toString()));
   }
   getInternationalShipmentHistoryByInternationalShipmentId(id: number) {
     return this.http.get<any>(`${this.url}/all-international-shipments-history/${id}`)
