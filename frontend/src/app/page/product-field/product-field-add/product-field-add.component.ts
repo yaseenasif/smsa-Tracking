@@ -1,102 +1,124 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductFieldServiceService } from '../service/product-field-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MenuItem, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-product-field-add',
   templateUrl: './product-field-add.component.html',
-  styleUrls: ['./product-field-add.component.scss']
+  styleUrls: ['./product-field-add.component.scss'],
+  providers: [MessageService]
 })
 export class ProductFieldAddComponent implements OnInit {
 
-  name:any;
-  selectedDropdownType: any;
-  makeProductField:Boolean=false;
-  productFieldValues:any[]=[];
-  editId:any;
-  heading:string='Add';
-  buttonText:string='Submit';
+  typesDropDown: any = ["DROPDOWN", "MULTISELECT"]
+  statusDropDown: any = ["Active", "Inactive"]
+  typeValue: String = ''
+  nameValue: String = ''
+  Value: String = ''
+  statusValue: String = 'Active'
+  pfvalueFlag: Boolean = false
+  pfvaluesArray: any = []
+  idFromQueryParam!: number
+  fieldToUpdate: any = []
+  buttonName: String = 'Add'
+  visible!: boolean
+  error: string = ''
+  items: MenuItem[] | undefined;
 
-  dropdownTypes:any[]=["DROPDOWN","MULTISELECT"];
-  constructor(private productFieldServiceService:ProductFieldServiceService,
-              private router:Router,
-              private route: ActivatedRoute        
-    ) { }
+
+  constructor(
+    private productFieldServiceService: ProductFieldServiceService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private messageService: MessageService
+  ) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      this.editId = params['id'];
-    });
-   
-    if(this.editId == undefined){
-      this.heading='Add';
-      this.buttonText='Submit';
-    }else{
-      this.heading='Update';
-      this.buttonText='Update';
-      this.productFieldServiceService.getProductFieldById(this.editId).subscribe((res:any)=>{
-       
-        this.makeProductField=true;
-        this.name=res.name;
-        this.selectedDropdownType=res.type;
-        this.productFieldValues=res.productFieldValuesList;
-        
-      },(error:any)=>{
+    this.route.queryParams.subscribe(param => {
+      this.idFromQueryParam = +param['id']
+      if (Number.isNaN(this.idFromQueryParam)) {
+        this.items = [{ label: 'Product Field List',routerLink:'/productFields'},{ label: 'Add Product Field'}];
+        this.buttonName = 'Add'
+      } else {
+        this.items = [{ label: 'Product Field List',routerLink:'/productFields'},{ label: 'Update Product Field'}];
+        this.buttonName = 'Update';
+        this.productFieldServiceService.getProductFieldById(this.idFromQueryParam).subscribe(res => {
+          this.fieldToUpdate = res
+          if (this.fieldToUpdate.type == "MULTISELECT" || this.fieldToUpdate.type == "DROPDOWN") {
+            this.pfvalueFlag = true
+          }
+          this.pfvaluesArray = this.fieldToUpdate.productFieldValuesList
+          this.nameValue = this.fieldToUpdate.name
+          this.Value = this.fieldToUpdate.
+          this.statusValue = this.fieldToUpdate.status
+          this.typeValue = this.fieldToUpdate.type
+        }, error => {
+          this.showError(error);
+          this.visible = true;
+        })
+      }
+    })
+  }
 
-      })
+
+  type() {
+    if (this.typeValue == "DROPDOWN" || this.typeValue == "MULTISELECT") {
+      if (Number.isNaN(this.idFromQueryParam)) {
+        this.pfvaluesArray.length == 0 ? this.pfvaluesArray.push({ name: null, status: 'Active' }) : null;
+      }
+      debugger
+      this.pfvalueFlag = true
     }
   }
 
-  formProductField(item:any){
-  
-    
+  addpfvalues() {
+    this.pfvaluesArray.push({ name: null, status: "Active" });
   }
 
-  addFormProducts(){
-  
-
-    let ProductFieldObj={name:this.name,status:null,createdAt:null,type:this.selectedDropdownType,productFieldValuesList:this.productFieldValues}
-    
-    if(this.editId == undefined){
-      this.productFieldServiceService
-      .saveProductField(ProductFieldObj)
-      .subscribe((res:any)=>{
-    
-        this.router.navigate(['/product-field']);
-      },(error:any)=>{
- 
-      })
-    }else{
-      this.productFieldServiceService.updateProductField(this.editId,ProductFieldObj).subscribe((res:any)=>{
-    
-        this.router.navigate(['/product-field']);
-      },(error:any)=>{
-
+  removeElement(i: number) {
+    if (!Number.isNaN(this.idFromQueryParam)) {
+      this.productFieldServiceService.removeProductFieldValues(this.idFromQueryParam, this.pfvaluesArray[i].id).subscribe(() => {
+      }, error => {
+        this.showError(error);
+        this.visible = true;
       })
     }
-    
-  }
-  type(){
-    this.productFieldValues.push({name:null , status:null});
-    this.makeProductField=true;
+    this.pfvaluesArray.splice(i, 1)
   }
 
-  addProductFieldValues(){
-    this.productFieldValues.push({name:null , status:null});
-  }
-
-  removeProductFieldValues(index:any){
-    if(this.editId !=undefined){
-      this.productFieldServiceService
-      .removeProductFieldValues(this.editId,this.productFieldValues[index].id)
-      .subscribe((res:any)=>{
-     
-        
-      },(error:any)=>{
-     
-        
+  addProduct() {
+    this.typeValue == "TEXTFIELD" || this.typeValue == "TOGGLE" ? this.pfvaluesArray = [] : null;
+    this.pfvaluesArray.forEach((element: any) => {
+      element.name = element.name.split(' ');
+      element.name = element.name.map((word: any) => word.toUpperCase()).join('_')
+    })
+    let obj = {
+      name: this.nameValue,
+      status: this.statusValue,
+      type: this.typeValue,
+      productFieldValuesList: this.pfvaluesArray
+    }
+    if (Number.isNaN(this.idFromQueryParam)) {
+      this.productFieldServiceService.saveProductField(obj).subscribe(() => {
+        this.router.navigateByUrl('productFields')
+      }, error => {
+        this.showError(error);
+        this.visible = true;
+      })
+    } else {
+      this.productFieldServiceService.updateProductField(this.idFromQueryParam, obj).subscribe(() => {
+        this.router.navigateByUrl('productFields')
+      }, error => {
+        this.showError(error);
+        this.visible = true;
       })
     }
-    this.productFieldValues.splice(index,1)
+  }
+  isTypeValueEmpty(): boolean {
+    return !this.typeValue;
+  }
+  showError(error: any) {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.error });
   }
 }

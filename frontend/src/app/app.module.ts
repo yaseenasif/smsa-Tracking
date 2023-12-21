@@ -32,7 +32,6 @@ import { EditRoleComponent } from './page/role/edit-role/edit-role.component';
 import { CommonModule } from '@angular/common';
 import { ProductFieldListComponent } from './page/product-field/product-field-list/product-field-list.component';
 import { ProductFieldAddComponent } from './page/product-field/product-field-add/product-field-add.component';
-import { ProductFieldUpdateComponent } from './page/product-field/product-field-update/product-field-update.component';
 import {FormsModule} from'@angular/forms'
 import {DomesticShippingListComponent} from './page/shipping-order/domestic/domestic-shipping-list/domestic-shipping-list.component';
 import {
@@ -131,7 +130,6 @@ import { ChipsModule } from 'primeng/chips';
     UpdateVehicleTypeComponent,
     ProductFieldListComponent,
     ProductFieldAddComponent,
-    ProductFieldUpdateComponent,
     PermissionListComponent,
     AddPermissionComponent,
     EditPermissionComponent,

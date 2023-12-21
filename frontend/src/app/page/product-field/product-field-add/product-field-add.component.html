@@ -1,61 +1,138 @@
-<app-sidebar></app-sidebar>
-<div class="body-position">
-    <app-dashboard-head></app-dashboard-head>
-
-    <div class="main-container">
-        <div>
-            <h3>{{heading}} Product Field</h3>
+<div class="flex flex-row">
+  <app-sidebar></app-sidebar>
+  <div class="body-position">
+    <div class="body-holder">
+      <app-dashboard-head></app-dashboard-head>
+      <div class="main">
+        <div class="card flex justify-content-center">
+          <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
         </div>
-
+        <div class="body-card">
+          <p-toast></p-toast>
+          <div class="card">
+            <h1 class="mb-4 h-color">{{ buttonName }} Product Field</h1>
             <form #productField="ngForm">
-                <div class="order-body">
-                    <div class="row order-form">
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 marg-ss">
-                                <label class="add-order-label">Name</label>
-                                <input type="text" class="form-control order-search" [(ngModel)]="name" name="productFieldName">
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 marg-ss">
-                            <label class="add-order-label">Select Type</label>
-                            <select (ngModelChange)="type()" name="dropdownType" [(ngModel)]="selectedDropdownType" class="order-search form-control" >
-                                <option value="" disabled selected>Select Dropdown Type</option>
-                                <option value="DROPDOWN"  selected>DROPDOWN</option>
-                                <option value="MULTISELECT"  selected>MULTISELECT</option>                                
-                                <!-- <option *ngFor="let origin of originCountry" value="origin">{{origin}}</option> -->
-                            </select>
-                        </div>
-                    </div>
+              <div class="grid">
+                <div class="col-12 md:col-12 lg:col-12">
+                  <div class="flex flex-column gap-2">
+                    <label class="add-order-label">Name</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      name="name"
+                      type="text"
+                      [(ngModel)]="nameValue"
+                      name="nameValue"
+                      required
+                    />
+                  </div>
                 </div>
-                
-                <div *ngIf="makeProductField"  class="row text-right mt-4 mb-3">
-                    <div>
-                        <button type="button" class="btn btn-sty" (click)="addProductFieldValues()">Add</button>
-                    </div>
+                <div class="col-12 md:col-12 lg:col-6">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label class="add-order-label">Select Type</label>
+                    <p-dropdown
+                      [options]="typesDropDown"
+                      styleClass="w-100"
+                      placeholder="Select Type"
+                      [(ngModel)]="typeValue"
+                      (ngModelChange)="type()"
+                      name="typeValue"
+                      #typedropdown="ngModel"
+                      [required]="true"
+                    ></p-dropdown>
+                  </div>
                 </div>
+                <div class="col-12 md:col-12 lg:col-6">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label class="add-order-label">Select Status</label>
+                    <p-dropdown
+                      [options]="statusDropDown"
+                      styleClass="w-100"
+                      placeholder="Select Status"
+                      [(ngModel)]="statusValue"
+                      name="statusValue"
+                      [required]="true"
+                    ></p-dropdown>
+                  </div>
+                </div>
+              </div>
 
-                <div class="order-body mt-2" *ngFor="let pfVal of productFieldValues; let i = index">
-                    <div class="row order-form">
-                        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 marg-ss ">
-                                <label class="add-order-label">Name</label>
-                                <input type="text" class="form-control order-search" [(ngModel)]="pfVal.name" [name]="'pfValuesName'+i">
-                        </div> 
-                        
-                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 marg-ss ">
-                            <div class="mt-5">
-                                <button type="button" (click)="removeProductFieldValues(i)" class="btn btn-sty">Delete</button>
-                            </div>
-                        </div>
-                    </div>
+              <div *ngIf="pfvalueFlag" class="row text-right mt-4 mb-3">
+                <div>
+                  <p-button
+                    icon="bi bi-plus"
+                    (click)="addpfvalues()"
+                    styleClass="p-button-rounded p-button-help p-button-text p-button-raised"
+                    type="button"
+                  >
+                  </p-button>
                 </div>
-                
-                
-                <div class="row text-right mt-4 mb-3">
-                    <div>
-                        <button class="btn btn-sty" (click)="addFormProducts()">{{buttonText}}</button>
+              </div>
+
+              <div
+                class="order-body mt-2"
+                *ngFor="let element of pfvaluesArray; let i = index"
+              >
+                <div class="grid">
+                  <div class="col-12 md:col-12 lg:col-5">
+                    <div class="flex flex-column gap-2 form-hook">
+                      <label class="add-order-label">Name</label>
+                      <input
+                        pInputText
+                        type="text"
+                        [(ngModel)]="element.name"
+                        [name]="'elementName[' + i + ']'"
+                        required
+                      />
                     </div>
+                  </div>
+
+                  <div class="col-12 md:col-12 lg:col-5">
+                    <div class="flex flex-column gap-2 form-hook">
+                      <label class="add-order-label m-0">Select Status</label>
+                      <p-dropdown
+                        [options]="statusDropDown"
+                        styleClass="w-100"
+                        placeholder="Select Status"
+                        [(ngModel)]="element.status"
+                        [name]="'elementStatus[' + i + ']'"
+                        [required]="true"
+                      ></p-dropdown>
+                    </div>
+                  </div>
+
+                  <div class="col-12 md:col-12 lg:col-2">
+                    <div class="mt-4">
+                      <p-button
+                        (click)="removeElement(i)"
+                        icon="bi bi-trash"
+                        class=""
+                        styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                        type="button"
+                      >
+                      </p-button>
+                    </div>
+                  </div>
                 </div>
-                
+              </div>
+
+              <div class="row text-right mt-4 mb-3">
+                <div>
+                  <p-button
+                    (click)="addProduct()"
+                    type="submit"
+                    [disabled]="!productField.valid"
+                    label="{{ buttonName }}"
+                    class="bg-b-color ml"
+                  >
+                  </p-button>
+                </div>
+              </div>
             </form>
-
+          </div>
+        </div>
+      </div>
     </div>
-    
-</div>  
+  </div>
+</div>

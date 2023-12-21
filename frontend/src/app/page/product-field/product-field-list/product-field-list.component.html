@@ -14,7 +14,7 @@
                     <h2 class="h-color">Product Field</h2>
                   </div>
                   <div class="p-toolbar-group-end">
-                    <p-button class="bg-b-color" routerLink="/add-productField">
+                    <p-button class="bg-b-color" routerLink="/add-ProductField">
                       <i
                         class="bi bi-plus-lg"
                         style="font-size: 20px; font-weight: bold"
@@ -32,7 +32,6 @@
                   <ng-template pTemplate="header">
                     <tr>
                       <th class="text-center">Name</th>
-                      <th class="text-center">Sequence</th>
                       <th class="text-center">Type</th>
                       <th class="text-center">Status</th>
                       <th class="text-center">Action</th>
@@ -41,13 +40,12 @@
                   <ng-template pTemplate="body" let-fields>
                     <tr>
                       <td class="text-center">{{ fields.name }}</td>
-                      <td class="text-center">{{ fields.sequence }}</td>
                       <td class="text-center">{{ fields.type }}</td>
                       <td class="text-center">{{ fields.status }}</td>
 
                       <td class="text-center">
                         <p-button
-                          [routerLink]="['/edit-field', fID]"
+                          (onClick)="editProductField(fields.id)"
                           icon="bi bi-pen"
                           class="mr"
                           styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
