@@ -6,9 +6,7 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.HashSet;
 import java.util.Set;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,13 +14,10 @@ import java.util.Set;
 @Setter
 @ToString
 @Builder
-public class UserDto {
-
+public class UserResponseDto {
     private Long id;
     @NotBlank(message = "Name is required")
     private String name;
-    @NotBlank(message = "Password is required")
-    private String password;
     @NotBlank(message = "Email is required")
     @Column(unique = true)
     @Email(message = "Invalid email address")
@@ -32,5 +27,4 @@ public class UserDto {
     private Set<Roles> roles;
 
     private String location;
-
 }

@@ -312,6 +312,11 @@
                 "
                 [totalRecords]="paginationRes?.totalElements"
                 (onPageChange)="onPageChange($event)"
+                currentPageReportTemplate="Showing {{
+                  paginationRes?.number * paginationRes?.size + 1
+                }} to {{
+                  (paginationRes?.number + 1) * paginationRes?.size
+                }} of {{ paginationRes?.totalElements }} entries"
                 [showCurrentPageReport]="true"
               ></p-paginator>
             </div>

@@ -73,7 +73,6 @@ public class InternationalShipmentService {
             unSaveInternationalShipment.setCreatedAt(LocalDate.now());
             unSaveInternationalShipment.setCreatedBy(user);
             unSaveInternationalShipment.setRedFlag(Boolean.FALSE);
-//            unSaveInternationalShipment.setPreAlertNumber(System.currentTimeMillis() / 1000);
             unSaveInternationalShipment.setPreAlertType(unSaveInternationalShipment.getType().equalsIgnoreCase("By Road") ? "International-Road" : "International-Air");
             unSaveInternationalShipment.setCreatedTime(LocalDateTime.now());
             unSaveInternationalShipment.setActiveStatus(true);
@@ -290,7 +289,7 @@ public class InternationalShipmentService {
             List<InternationalShipment> internationalShipmentList1 = internationalShipmentRepository.findAll();
             if(!internationalShipmentList1.isEmpty()){
                 for(InternationalShipment shipment: internationalShipmentList1){
-                    if(shipment.getArrivedTime() != null){
+                    if(shipment.getArrivedTime() != null && shipment.getStatus()!="Cleared"){
                         Duration duration = Duration.between(shipment.getArrivedTime(), LocalDateTime.now());
                         if(duration.toMinutes() >= 480 && duration.toMinutes() <= 1440){
                             if(!shipment.isEscalationFlagOne()){
@@ -555,6 +554,12 @@ public class InternationalShipmentService {
             if(principal instanceof UserDetails){
                 String username = ((UserDetails) principal).getUsername();
                 User user = userRepository.findByEmail(username);
+                List<InternationalShipment> all = internationalShipmentRepository.findAll();
+                for (InternationalShipment internationalShipmentForPreAlertNumber: all) {
+                    if(internationalShipmentForPreAlertNumber.getPreAlertNumber().equals(internationalShipmentDto.getPreAlertNumber())){
+                        throw new RecordNotFoundException(String.format("Shipment with the given pre alert number is already exist"));
+                    }
+                }
 
                 internationalShipment.get().setUpdatedAt(LocalDate.now());
                 internationalShipment.get().setUpdatedBy(user);
