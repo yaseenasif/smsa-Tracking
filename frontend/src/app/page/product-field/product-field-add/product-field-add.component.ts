@@ -15,7 +15,6 @@ export class ProductFieldAddComponent implements OnInit {
   statusDropDown: any = ["Active", "Inactive"]
   typeValue: String = ''
   nameValue: String = ''
-  Value: String = ''
   statusValue: String = 'Active'
   pfvalueFlag: Boolean = false
   pfvaluesArray: any = []
@@ -50,7 +49,6 @@ export class ProductFieldAddComponent implements OnInit {
           }
           this.pfvaluesArray = this.fieldToUpdate.productFieldValuesList
           this.nameValue = this.fieldToUpdate.name
-          this.Value = this.fieldToUpdate.
           this.statusValue = this.fieldToUpdate.status
           this.typeValue = this.fieldToUpdate.type
         }, error => {

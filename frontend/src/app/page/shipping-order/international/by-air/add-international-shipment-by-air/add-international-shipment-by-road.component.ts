@@ -18,6 +18,8 @@ import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
 import { InternationalShipment } from 'src/app/model/InternationalShipment';
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
 import { DatePipe } from '@angular/common';
+import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
+import { ProductField } from 'src/app/model/ProductField';
 
 @Component({
   selector: 'app-add-international-shipment-by-road',
@@ -57,7 +59,7 @@ export class AddInternationalShipmentByRoadComponent {
     shipmentMode: null,
     shortageAWBs: null,
     shortages: null,
-    status: 'Pre-Alert Created',
+    status: null,
     tagNumber: null,
     totalShipments: null,
     type: 'By Air',
@@ -78,7 +80,7 @@ export class AddInternationalShipmentByRoadComponent {
   destinationPorts!: LocationPort[];
   drivers!: Driver[]
   vehicleTypes!: VehicleType[]
-  shipmentStatus!: ShipmentStatus[];
+  shipmentStatus!: ProductField;
   selectedDriver: Driver | null = null;
   modeOptions: { options: string }[] = Object.values(Mode).map(el => ({ options: el }));
   shipmentMode: { options: string }[] = Object.values(ShipmentMode).map(el => ({ options: el }));
@@ -108,7 +110,7 @@ export class AddInternationalShipmentByRoadComponent {
     private locationPortService: LocationPortService,
     private driverService: DriverService,
     private vehicleTypeService: VehicleTypeService,
-    private shipmentStatusService: ShipmentStatusService,
+    private shipmentStatusService: ProductFieldServiceService,
     private datePipe: DatePipe) { }
   name!: string;
   checked!: boolean;
@@ -196,8 +198,10 @@ export class AddInternationalShipmentByRoadComponent {
   }
 
   getAllShipmentStatus() {
-    this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
-      this.shipmentStatus = res;
+    this.shipmentStatusService.getProductFieldByName("Auto_Status").subscribe((res: ProductField) => {
+      for (const list of res.productFieldValuesList) {
+        this.internationalShipment.status = list.name;
+      }
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })

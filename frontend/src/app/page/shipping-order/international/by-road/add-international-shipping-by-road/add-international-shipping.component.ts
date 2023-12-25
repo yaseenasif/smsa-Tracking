@@ -19,6 +19,8 @@ import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
 import { DatePipe } from '@angular/common';
+import { ProductField } from 'src/app/model/ProductField';
+import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
 
 @Component({
   selector: 'app-add-international-shipping',
@@ -59,7 +61,7 @@ export class AddInternationalShippingComponent {
     shipmentMode: null,
     shortageAWBs: null,
     shortages: null,
-    status: 'Pre-Alert Created',
+    status: null,
     tagNumber: null,
     totalShipments: null,
     type: 'By Road',
@@ -79,7 +81,7 @@ export class AddInternationalShippingComponent {
   destinationPorts!: LocationPort[];
   drivers!: Driver[]
   vehicleTypes!: VehicleType[]
-  shipmentStatus!: ShipmentStatus[];
+  shipmentStatus!: ProductField;
   selectedDriver: Driver | null = null;
   modeOptions: { options: string }[] = Object.values(Mode).map(el => ({ options: el }));
   shipmentMode: { options: string }[] = Object.values(ShipmentMode).map(el => ({ options: el }));
@@ -96,7 +98,7 @@ export class AddInternationalShippingComponent {
     private locationPortService: LocationPortService,
     private driverService: DriverService,
     private vehicleTypeService: VehicleTypeService,
-    private shipmentStatusService: ShipmentStatusService,
+    private shipmentStatusService: ProductFieldServiceService,
     private datePipe: DatePipe) { }
   name!: string;
   checked!: boolean;
@@ -109,14 +111,14 @@ export class AddInternationalShippingComponent {
       this.originPorts = res;
     }, (error) => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-     })
+    })
   }
   getLocationPortByLocationForDestination() {
     this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.destinationCountry!).subscribe((res) => {
       this.destinationPorts = res;
     }, (error) => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-     })
+    })
   }
 
   ngOnInit(): void {
@@ -143,17 +145,18 @@ export class AddInternationalShippingComponent {
         this.router.navigate(['/international-shipment-by-road']);
       }, 800);
     }, error => {
-      if(error.error.body){
+      if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      }else{
+      } else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }    })
+      }
+    })
   }
 
   getInternationalRouteForRoad() {
     this.routes = []
     if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null && this.internationalShipment.trip !== null) {
-      this.internationalShippingService.getInternationalRouteForRoad(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!,this.internationalShipment.trip!).subscribe((res: any) => {
+      this.internationalShippingService.getInternationalRouteForRoad(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!, this.internationalShipment.trip!).subscribe((res: any) => {
         this.routes = res;
 
       }, (error: any) => {
@@ -183,7 +186,7 @@ export class AddInternationalShippingComponent {
     this.driverService.getAllDriver().subscribe((res: PaginatedResponse<Driver>) => {
 
       this.drivers = res.content.filter((el: Driver) => el.status);
-    }, error => { 
+    }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
@@ -196,8 +199,10 @@ export class AddInternationalShippingComponent {
   }
 
   getAllShipmentStatus() {
-    this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
-      this.shipmentStatus = res;
+    this.shipmentStatusService.getProductFieldByName("Auto_Status").subscribe((res: ProductField) => {
+      for (const productFieldValue of res.productFieldValuesList) {
+        this.internationalShipment.status = productFieldValue.name;
+      }
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
@@ -214,15 +219,15 @@ export class AddInternationalShippingComponent {
     this.minETDDate = selectedETDDate;
   }
 
-  flag=false;
-  dashAfterThree(){
-    let charToAdd="-";
-    if(this.internationalShipment.preAlertNumber!.length===3){
-    this.flag=true;
+  flag = false;
+  dashAfterThree() {
+    let charToAdd = "-";
+    if (this.internationalShipment.preAlertNumber!.length === 3) {
+      this.flag = true;
     }
-    if(this.internationalShipment.preAlertNumber!.length===4&&this.flag){
-      this.internationalShipment.preAlertNumber=this.internationalShipment.preAlertNumber!.slice(0, 3) + charToAdd + this.internationalShipment.preAlertNumber!.slice(3);
-      this.flag=false;
+    if (this.internationalShipment.preAlertNumber!.length === 4 && this.flag) {
+      this.internationalShipment.preAlertNumber = this.internationalShipment.preAlertNumber!.slice(0, 3) + charToAdd + this.internationalShipment.preAlertNumber!.slice(3);
+      this.flag = false;
     }
   }
 

@@ -20,6 +20,8 @@ import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
 import { Observable, forkJoin } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { InternationalShippingService } from 'src/app/page/shipping-order/international/service/international-shipping.service';
+import { ProductField } from 'src/app/model/ProductField';
+import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
 
 @Component({
   selector: 'app-update-international-air-for-summary',
@@ -77,7 +79,7 @@ export class UpdateInternationalAirForSummaryComponent {
   locationPort!: LocationPort[]
   drivers!: Driver[]
   vehicleTypes!: VehicleType[]
-  shipmentStatus!: ShipmentStatus[];
+  shipmentStatus!: ProductField;
   selectedDriver!: Driver | null | undefined;
   modeOptions: { options: string }[] = Object.values(Mode).map(el => ({ options: el }));
   shipmentMode: { options: string }[] = Object.values(ShipmentMode).map(el => ({ options: el }));
@@ -93,7 +95,7 @@ export class UpdateInternationalAirForSummaryComponent {
     private driverService: DriverService,
     private route: ActivatedRoute,
     private vehicleTypeService: VehicleTypeService,
-    private shipmentStatusService: ShipmentStatusService,
+    private shipmentStatusService: ProductFieldServiceService,
     private datePipe: DatePipe) { }
 
   name!: string;
@@ -117,7 +119,7 @@ export class UpdateInternationalAirForSummaryComponent {
     const locationPort$: Observable<LocationPort[]> = this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
-    const shipmentStatus$: Observable<ShipmentStatus[]> = this.shipmentStatusService.getALLShipmentStatus();
+    const shipmentStatus$: Observable<ProductField> = this.shipmentStatusService.getProductFieldByName("Destination_Of_International_By_Air");
 
     forkJoin([locations$, locationPort$, driver$, vehicleType$, shipmentStatus$]).subscribe(
       ([locationsResponse, locationPortResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
@@ -189,7 +191,7 @@ export class UpdateInternationalAirForSummaryComponent {
       this.locationPort = res.filter(el => el.status)
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-     })
+    })
   }
   getAllDriver() {
     this.driverService.getAllDriver().subscribe((res: PaginatedResponse<Driver>) => {
@@ -197,7 +199,7 @@ export class UpdateInternationalAirForSummaryComponent {
       this.drivers = res.content.filter((el: Driver) => el.status);
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-     })
+    })
   }
   getAllVehicleType() {
     this.vehicleTypeService.getALLVehicleType().subscribe((res: VehicleType[]) => {
@@ -208,7 +210,7 @@ export class UpdateInternationalAirForSummaryComponent {
   }
 
   getAllShipmentStatus() {
-    this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
+    this.shipmentStatusService.getProductFieldByName("Destination_Of_International_By_Air").subscribe((res: ProductField) => {
       this.shipmentStatus = res;
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
