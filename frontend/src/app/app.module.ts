@@ -105,8 +105,6 @@ import { UpdateDomesticRoutesComponent } from './page/domesticRoutes/update-dome
 import { EmailManagmentComponent } from './page/email-managment/email-managment.component';
 import { ChipsModule } from 'primeng/chips';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -146,7 +146,16 @@ export class AddInternationalShipmentByRoadComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }    })
+      }   
+       this.internationalShipment.etd= this.internationalShipment.etd ? new Date( this.internationalShipment.etd) : null;
+       this.internationalShipment.eta= this.internationalShipment.eta ? new Date( this.internationalShipment.eta) : null;
+       this.internationalShipment.atd= this.internationalShipment.atd ? new Date( this.internationalShipment.atd) : null;
+       this.internationalShipment.ata= this.internationalShipment.ata ? new Date( this.internationalShipment.ata) : null;
+       this.internationalShipment.departureDate= this.internationalShipment.departureDate ? new Date( this.internationalShipment.departureDate) : null;
+       this.internationalShipment.arrivalDate= this.internationalShipment.arrivalDate ? new Date( this.internationalShipment.arrivalDate) : null;
+       this.internationalShipment.departureTime= this.internationalShipment.departureTime ? new Date(`1970-01-01 ${ this.internationalShipment.departureTime}`) : null;
+       this.internationalShipment.arrivalTime =  this.internationalShipment.arrivalTime ? new Date(`1970-01-01 ${ this.internationalShipment.arrivalTime}`) : null;
+     })
   }
 
   getAllLocations() {

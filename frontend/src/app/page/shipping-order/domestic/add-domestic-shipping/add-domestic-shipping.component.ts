@@ -205,20 +205,27 @@ export class AddDomesticShippingComponent {
 
 
 
-  addDomesticShipment(domesticShipment: DomesticShipment) {
-    this.domesticShipmentService.addDomesticShipment(domesticShipment).subscribe((res: DomesticShipment) => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Shipment Added Successfully' });
-      setTimeout(() => {
-        this.router.navigate(['/domestic-shipping']);
-      }, 800);
-    }, (error: any) => {
-      if (error.error.body) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }
-    })
-  }
+   addDomesticShipment(domesticShipment:DomesticShipment){
+      this.domesticShipmentService.addDomesticShipment(domesticShipment).subscribe((res:DomesticShipment)=>{
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Shipment Added Successfully' });
+        setTimeout(() => {
+          this.router.navigate(['/domestic-shipping']);
+        },800);
+      },(error:any)=>{
+        if(error.error.body){
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+        }else{
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+        }
+
+        this.domesticShipment.etd = this.domesticShipment.etd ? new Date( this.domesticShipment.etd) : null;
+        this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
+        this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
+        this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
+        this.domesticShipment.departureTime= this.domesticShipment.departureTime ? new Date(`1970-01-01 ${ this.domesticShipment.departureTime}`) : null;
+        this.domesticShipment.arrivalTime =  this.domesticShipment.arrivalTime ? new Date(`1970-01-01 ${ this.domesticShipment.arrivalTime}`) : null;
+      })
+   }
 
   getAllDriver() {
     this.driverService.getAllDriver().subscribe((res: PaginatedResponse<Driver>) => {
