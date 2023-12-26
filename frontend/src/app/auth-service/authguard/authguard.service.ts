@@ -36,7 +36,7 @@ export class AuthguardService {
     { permission: 'ShipmentRoutes', route: ['/domestic-routes', '/add-domestic-routes', '/update-domestic-routes/:id'] },
     { permission: 'ShipmentRoutesForAir', route: ['/international-routes-for-air', '/add-international-routes-for-air', '/update-international-routes-for-air/:id'] },
     { permission: 'ShipmentRoutesForRoad', route: ['/international-routes-for-road', '/add-international-routes-for-road', '/update-international-routes-for-road/:id'] },
-    { permission: 'Reports', route: ['/report-tiles','/domestic-report-performance','/international-air-report-performance','/international-air-report-status','/international-road-report-performance','/international-road-report-status'] }
+    { permission: 'Reports', route: ['/report-tiles','/domestic-report-performance','/international-air-report-performance','/international-air-report-status','/international-road-report-performance','/international-road-report-status'] },
     { permission: 'ProductField', route: ['/productFields', '/add-ProductField','/add-ProductField/:id'] }
   ]
 
