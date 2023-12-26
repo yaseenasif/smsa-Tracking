@@ -1,260 +1,477 @@
 <div class="flex flex-row">
-    <app-sidebar></app-sidebar>
-    <div class="body-position">
-        <div class="body-holder">
-            <app-dashboard-head></app-dashboard-head>
+  <app-sidebar></app-sidebar>
+  <div class="body-position">
+    <div class="body-holder">
+      <app-dashboard-head></app-dashboard-head>
 
-            <div class="main">
-                <div class="card flex justify-content-center">
-                    <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+      <div class="main">
+        <div class="card flex justify-content-center">
+          <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+        </div>
+        <div class="body-card">
+          <p-toast></p-toast>
+          <div class="table-head mb-4">
+            <h1 class="mb-4 h-color">Edit International Shipment By Road</h1>
+            <p-toolbar>
+              <div class="grid w-full">
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Origin Country :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.originCountry }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">Origin Port :</label>
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.originPort }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Referigirated Truck :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.refrigeratedTruck }}</label
+                      >
+                    </div>
+                  </div>
                 </div>
-                <div class="body-card">
-                    <p-toast></p-toast>
-                    <div class="table-head mb-4">
-                        <h1 class="mb-4 h-color">Edit International Shipment By Road</h1>
-                        <p-toolbar>
-                          <div class="grid w-full">
-                            <div class="lg:col-12 md:col-6 col-12">
-                              <div class="grid">
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Origin Country :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.originCountry}}</label>
-                                </div>
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Origin Port :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.originPort}}</label>
-                                </div>
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Referigirated Truck :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.refrigeratedTruck}}</label>
-                                </div>
-            
-                              </div>
-                            </div>
-                            <div class="lg:col-12 md:col-6 col-12">
-                              <div class="grid">
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Mode :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.type}}</label>
-                                </div>
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Shipment Mode :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.shipmentMode}}</label>
-                                </div>
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Pre-Alert Number :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.preAlertNumber}}</label>
-                                </div>
-            
-                              </div>
-                            </div>
-                            <div class="lg:col-12 md:col-6 col-12">
-                              <div class="grid">
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Destination Country :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.destinationCountry}}</label>
-                                </div>
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Destination Port :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.destinationPort}}</label>
-                                </div>
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Route Number :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.routeNumber}}</label>
-                                </div>
-            
-                              </div>
-                            </div>
-                            <div class="lg:col-12 md:col-6 col-12">
-                              <div class="grid">
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">ETD :</label> &nbsp;
-                                    <label for=""> {{internationalShipment.etd | date:"shortDate"}}</label>
-                                  </div>
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">ETA :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.eta | date:"shortDate" }}</label>
-                                </div>
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">ATD :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.atd | date:"shortDate" }}</label>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="lg:col-12 md:col-6 col-12">
-                              <div class="grid">
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Actual Weight :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.actualWeight}}</label>
-                                </div>
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Number of Shipments :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.numberOfShipments}}</label>
-                                </div>
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Driver Name:</label> &nbsp;
-                                  <label for=""> {{internationalShipment.driverName}}</label>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="lg:col-12 md:col-6 col-12">
-                              <div class="grid">
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Driver Contact :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.driverContact}}</label>
-                                </div>
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Reference Number :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.referenceNumber}}</label>
-                                </div>
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Vehicle Type :</label> &nbsp;
-                                    <label for=""> {{internationalShipment.vehicleType}}</label>
-                                  </div>
-                              </div>
-                            </div>
-                            <div class="lg:col-12 md:col-6 col-12">
-                              <div class="grid">
-                                
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Number of Pallets :</label> &nbsp;
-                                  <label for=""> {{internationalShipment.numberOfPallets}}</label>
-                                </div>
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Number of Bags :</label> &nbsp;
-                                    <label for=""> {{internationalShipment.numberOfBags}}</label>
-                                </div>
-                                <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Vehicle Number :</label> &nbsp;
-                                    <label for=""> {{internationalShipment.vehicleNumber}}</label>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="lg:col-12 md:col-6 col-12">
-                                <div class="grid">                                
-                                  <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Tag Number :</label> &nbsp;
-                                    <label for=""> {{internationalShipment.tagNumber}}</label>
-                                  </div>
-                                  <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Seal Number :</label> &nbsp;
-                                      <label for=""> {{internationalShipment.sealNumber}}</label>
-                                  </div>
-                                </div>
-                              </div>
-                          </div>
-                        </p-toolbar>
-                      </div>
-                    <div class="card">
-                       
-                        <form #ISForm="ngForm" (ngSubmit)="onSubmit()">
-                            <div class="grid">
-                                <div class="col-12 md:col-6 lg:col-4">
-                                    <div class="flex flex-column gap-2 form-hook">
-                                        <label htmlFor="name">Status</label>
-                                        <p-dropdown class="w-full" [options]="shipmentStatus" #status="ngModel"
-                                            name="status" [required]="true" [(ngModel)]="internationalShipment.status"
-                                            optionValue="name" optionLabel="name" [filter]="true" filterBy="name"
-                                            [showClear]="true" placeholder="Select a Status">
-                                            <ng-template pTemplate="selectedItem">
-                                                <div class="flex align-items-center gap-2"
-                                                    *ngIf="internationalShipment">
-                                                    <div>{{ internationalShipment.status}}</div>
-                                                </div>
-                                            </ng-template>
-                                            <ng-template let-shipmentStatus pTemplate="item">
-                                                <div class="flex align-items-center gap-2">
-                                                    <div>{{ shipmentStatus.name }}</div>
-                                                </div>
-                                            </ng-template>
-                                        </p-dropdown>
-                                    </div>
-                                </div>
-                                <div class="col-12 md:col-6 lg:col-4">
-                                    <div class="flex flex-column gap-2">
-                                        <label htmlFor="name">Remarks</label>
-                                        <input pInputText id="name" aria-describedby="name-help"
-                                            [(ngModel)]="internationalShipment.remarks" #remarks="ngModel"
-                                            name="remarks" [required]="true"  />
-                                        <small id="name-help" class="color-red"
-                                            *ngIf="remarks.invalid && (remarks.dirty || remarks.touched)">Remarks is
-                                            required.</small>
-                                    </div>
-                                </div>
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">Mode :</label> &nbsp;
+                      <label for=""> {{ internationalShipment.type }}</label>
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Shipment Mode :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.shipmentMode }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Pre-Alert Number :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.preAlertNumber }}</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Destination Country :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.destinationCountry }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Destination Port :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.destinationPort }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">Route Number :</label>
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.routeNumber }}</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">ETD :</label> &nbsp;
+                      <label for="">
+                        {{
+                          internationalShipment.etd | date : "shortDate"
+                        }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">ETA :</label> &nbsp;
+                      <label for="">
+                        {{
+                          internationalShipment.eta | date : "shortDate"
+                        }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">ATD :</label> &nbsp;
+                      <label for="">
+                        {{
+                          internationalShipment.atd | date : "shortDate"
+                        }}</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Actual Weight :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.actualWeight }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Number of Shipments :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.numberOfShipments }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">Driver Name:</label>
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.driverName }}</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Driver Contact :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.driverContact }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Reference Number :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.referenceNumber }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">Vehicle Type :</label>
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.vehicleType }}</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Number of Pallets :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.numberOfPallets }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Number of Bags :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.numberOfBags }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Vehicle Number :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.vehicleNumber }}</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">Tag Number :</label>
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.tagNumber }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">Seal Number :</label>
+                      &nbsp;
+                      <label for="">
+                        {{ internationalShipment.sealNumber }}</label
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p-toolbar>
+          </div>
+          <div class="card">
+            <form #ISForm="ngForm" (ngSubmit)="onSubmit()">
+              <div class="grid">
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Status</label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="shipmentStatus.productFieldValuesList"
+                      #status="ngModel"
+                      name="status"
+                      [required]="true"
+                      [(ngModel)]="internationalShipment.status"
+                      optionValue="name"
+                      optionLabel="name"
+                      [filter]="true"
+                      filterBy="name"
+                      [showClear]="true"
+                      placeholder="Select a Status"
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="internationalShipment"
+                        >
+                          <div>{{ internationalShipment.status }}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-shipmentStatus pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ shipmentStatus.name }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Remarks</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [(ngModel)]="internationalShipment.remarks"
+                      #remarks="ngModel"
+                      name="remarks"
+                      [required]="true"
+                    />
+                    <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="
+                        remarks.invalid && (remarks.dirty || remarks.touched)
+                      "
+                      >Remarks is required.</small
+                    >
+                  </div>
+                </div>
 
-                                <!-- 10 -->
+                <!-- 10 -->
 
-                                <div class="col-12 md:col-6 lg:col-4">
-                                    <div class="flex flex-column gap-2 form-hook">
-                                        <label htmlFor="name">ATA</label>
-                                        <p-calendar #ata="ngModel" name="ata" [required]="true"
-                                            [(ngModel)]="internationalShipment.ata"></p-calendar>
-                                        <!-- <small id="name-help"
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">ATA</label>
+                    <p-calendar
+                      #ata="ngModel"
+                      name="ata"
+                      [required]="true"
+                      [(ngModel)]="internationalShipment.ata"
+                    ></p-calendar>
+                    <!-- <small id="name-help"
                           >{{name}}</small
                         > -->
-                                    </div>
-                                </div>
-                                <div class="col-12 md:col-6 lg:col-4">
-                                    <div class="flex flex-column gap-2">
-                                        <label htmlFor="name">Total Shipments</label>
-                                        <input pInputText id="name" aria-describedby="name-help"
-                                            [(ngModel)]="internationalShipment.totalShipments" #totalShipments="ngModel"
-                                            name="totalShipments" [required]="true" />
-                                        <small id="name-help" class="color-red"
-                                            *ngIf="totalShipments.invalid && (totalShipments.dirty || totalShipments.touched)">Total
-                                            Shipments is required.</small>
-                                    </div>
-                                </div>
-                                <div class="col-12 md:col-6 lg:col-4">
-                                    <div class="flex flex-column gap-2">
-                                        <label htmlFor="name">Overages</label>
-                                        <input pInputText id="name" aria-describedby="name-help"
-                                            [(ngModel)]="internationalShipment.overages" #overages="ngModel"
-                                            name="overages" [required]="true" />
-                                        <small id="name-help" class="color-red"
-                                            *ngIf="overages.invalid && (overages.dirty || overages.touched)">Overages is
-                                            required.</small>
-                                    </div>
-                                </div>
-                                <!-- 11 -->
-                                <div class="col-12 md:col-6 lg:col-4">
-                                    <div class="flex flex-column gap-2">
-                                        <label htmlFor="name">Overage AWBs</label>
-                                        <input pInputText id="name" aria-describedby="name-help" #overagesAWBs="ngModel"
-                                            name="overagesAWBs" [required]="true"
-                                            [(ngModel)]="internationalShipment.overageAWBs" />
-                                        <small id="name-help" class="color-red"
-                                            *ngIf="overagesAWBs.invalid && (overagesAWBs.dirty || overagesAWBs.touched)">Overages
-                                            AWBs is required.</small>
-                                    </div>
-                                </div>
-                                <div class="col-12 md:col-6 lg:col-4">
-                                    <div class="flex flex-column gap-2">
-                                        <label htmlFor="name">Received</label>
-                                        <input pInputText id="name" aria-describedby="name-help" #received="ngModel"
-                                            name="received" [required]="true"
-                                            [(ngModel)]="internationalShipment.received" />
-                                        <small id="name-help" class="color-red"
-                                            *ngIf="received.invalid && (received.dirty || received.touched)">Received is
-                                            required.</small>
-                                    </div>
-                                </div>
-                                <div class="col-12 md:col-6 lg:col-4">
-                                    <div class="flex flex-column gap-2">
-                                        <label htmlFor="name">Shortages</label>
-                                        <input pInputText id="name" aria-describedby="name-help" #shortages="ngModel"
-                                            name="shortages" [required]="true"
-                                            [(ngModel)]="internationalShipment.shortages" />
-                                        <small id="name-help" class="color-red"
-                                            *ngIf="shortages.invalid && (shortages.dirty || shortages.touched)">Shortages
-                                            is required.</small>
-                                    </div>
-                                </div>
-
-                                <div class="col-12 md:col-6 lg:col-4">
-                                    <div class="flex flex-column gap-2">
-                                        <label htmlFor="name">Shortages AWBs</label>
-                                        <input pInputText id="name" aria-describedby="name-help"
-                                            [ngModelOptions]="{standalone:true}"
-                                            [(ngModel)]="internationalShipment.shortageAWBs" #shortageAWBs="ngModel"
-                                            name="shortageAWBs" [required]="true" />
-                                        <small id="name-help" class="color-red"
-                                            *ngIf="shortageAWBs.invalid && (shortageAWBs.dirty || shortageAWBs.touched)">Shortage
-                                            AWBs is required.</small>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="flex align-items-center justify-content-end mt-4">
-                                <p-button label="Cancel" class="bg-o-color mr"
-                                    routerLink="/international-shipment-by-road" styleClass="p-button-outlined">
-                                </p-button>
-                                <p-button type="submit" [disabled]="!ISForm.form.valid" label="Update"
-                                    class="bg-b-color ml">
-                                </p-button>
-                            </div>
-                        </form>
-                    </div>
+                  </div>
                 </div>
-            </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Total Shipments</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [(ngModel)]="internationalShipment.totalShipments"
+                      #totalShipments="ngModel"
+                      name="totalShipments"
+                      [required]="true"
+                    />
+                    <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="
+                        totalShipments.invalid &&
+                        (totalShipments.dirty || totalShipments.touched)
+                      "
+                      >Total Shipments is required.</small
+                    >
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Overages</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [(ngModel)]="internationalShipment.overages"
+                      #overages="ngModel"
+                      name="overages"
+                      [required]="true"
+                    />
+                    <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="
+                        overages.invalid && (overages.dirty || overages.touched)
+                      "
+                      >Overages is required.</small
+                    >
+                  </div>
+                </div>
+                <!-- 11 -->
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Overage AWBs</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      #overagesAWBs="ngModel"
+                      name="overagesAWBs"
+                      [required]="true"
+                      [(ngModel)]="internationalShipment.overageAWBs"
+                    />
+                    <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="
+                        overagesAWBs.invalid &&
+                        (overagesAWBs.dirty || overagesAWBs.touched)
+                      "
+                      >Overages AWBs is required.</small
+                    >
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Received</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      #received="ngModel"
+                      name="received"
+                      [required]="true"
+                      [(ngModel)]="internationalShipment.received"
+                    />
+                    <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="
+                        received.invalid && (received.dirty || received.touched)
+                      "
+                      >Received is required.</small
+                    >
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Shortages</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      #shortages="ngModel"
+                      name="shortages"
+                      [required]="true"
+                      [(ngModel)]="internationalShipment.shortages"
+                    />
+                    <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="
+                        shortages.invalid &&
+                        (shortages.dirty || shortages.touched)
+                      "
+                      >Shortages is required.</small
+                    >
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Shortages AWBs</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [ngModelOptions]="{ standalone: true }"
+                      [(ngModel)]="internationalShipment.shortageAWBs"
+                      #shortageAWBs="ngModel"
+                      name="shortageAWBs"
+                      [required]="true"
+                    />
+                    <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="
+                        shortageAWBs.invalid &&
+                        (shortageAWBs.dirty || shortageAWBs.touched)
+                      "
+                      >Shortage AWBs is required.</small
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex align-items-center justify-content-end mt-4">
+                <p-button
+                  label="Cancel"
+                  class="bg-o-color mr"
+                  routerLink="/international-shipment-by-road"
+                  styleClass="p-button-outlined"
+                >
+                </p-button>
+                <p-button
+                  type="submit"
+                  [disabled]="!ISForm.form.valid"
+                  label="Update"
+                  class="bg-b-color ml"
+                >
+                </p-button>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

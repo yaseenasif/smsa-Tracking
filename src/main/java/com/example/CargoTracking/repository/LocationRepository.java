@@ -20,6 +20,6 @@ public interface LocationRepository extends JpaRepository<Location , Long> {
 
     Optional<Location> findByLocationName(String Location);
 
-    @Query("SELECT l FROM Location l WHERE l.locationName = :locationName AND l.type =:type")
+    @Query("SELECT l FROM Location l WHERE l.locationName = :locationName AND l.type =:type And l.status = true")
     Location findByLocationNameAndType(String locationName, String type);
 }

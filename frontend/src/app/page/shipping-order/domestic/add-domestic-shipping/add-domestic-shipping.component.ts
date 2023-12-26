@@ -15,17 +15,19 @@ import { DriverService } from 'src/app/page/driver/service/driver.service';
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
 import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
 import { DatePipe } from '@angular/common';
+import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
+import { ProductField } from 'src/app/model/ProductField';
 @Component({
   selector: 'app-add-domestic-shipping',
   templateUrl: './add-domestic-shipping.component.html',
   styleUrls: ['./add-domestic-shipping.component.scss'],
-  providers:[MessageService,DatePipe]
+  providers: [MessageService, DatePipe]
 })
 export class AddDomesticShippingComponent {
   items: MenuItem[] | undefined;
-  routes:any;
+  routes: any;
 
-  domesticShipment:DomesticShipment={
+  domesticShipment: DomesticShipment = {
     originFacility: null,
     originLocation: null,
     refrigeratedTruck: false,
@@ -46,7 +48,7 @@ export class AddDomesticShippingComponent {
     vehicleNumber: null,
     tagNumber: null,
     sealNumber: null,
-    status: 'Pre-Alert Created',
+    status: "Created",
     remarks: null,
     ata: null,
     totalShipments: null,
@@ -61,132 +63,147 @@ export class AddDomesticShippingComponent {
     preAlertNumber: null
   };
 
-  location!:Location[];
-  selectedLocation!:Location;
-  selectedOriginLocation!:Location;
-  selectedDestinationLocation!:Location;
+  location!: Location[];
+  selectedLocation!: Location;
+  selectedOriginLocation!: Location;
+  selectedDestinationLocation!: Location;
 
 
-  originFacility!:originFacility[];
-  selectedOriginFacility!:originFacility;
-  selectedDestinationFacility!:originFacility;
+  originFacility!: originFacility[];
+  selectedOriginFacility!: originFacility;
+  selectedDestinationFacility!: originFacility;
 
-  vehicleTypes!:VehicleType[];
-  selectedVehicleTypes!:VehicleType;
+  vehicleTypes!: VehicleType[];
+  selectedVehicleTypes!: VehicleType;
 
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
 
 
-  shipmentStatus!:ShipmentStatus[];
-  selectedShipmentStatus!:ShipmentStatus;
+  shipmentStatus!: ProductField;
+  selectedShipmentStatus!: ProductField;
   minETDDate: Date = new Date();
 
-  drivers!:Driver[]
+  drivers!: Driver[]
 
   constructor(private locationService: LocationService,
-    private vehicleTypeService:VehicleTypeService,
-    private shipmentStatusService:ShipmentStatusService,
+    private vehicleTypeService: VehicleTypeService,
+    private shipmentStatusService: ShipmentStatusService,
     private messageService: MessageService,
-    private domesticShipmentService:DomesticShippingService,
-    private driverService:DriverService,
-    private router:Router,
-    private datePipe:DatePipe) { }
-  name!:string;
-  checked!:boolean;
-  size=100000
+    private domesticShipmentService: DomesticShippingService,
+    private driverService: DriverService,
+    private router: Router,
+    private datePipe: DatePipe,
+    private productFieldService: ProductFieldServiceService
+  ) { }
+  name!: string;
+  checked!: boolean;
+  size = 100000
   uploadedFiles: any[] = [];
-  fromDate:any;
-  selectedDriver:Driver|null=null;
+  fromDate: any;
+  selectedDriver: Driver | null = null;
 
 
-  flag=false;
+  flag = false;
 
 
   onUpload(event: any) {
 
   }
 
-  onUpload1(event:any) {
-    for(let file of event.files) {
-        this.uploadedFiles.push(file);
+  onUpload1(event: any) {
+    for (let file of event.files) {
+      this.uploadedFiles.push(file);
     }
   }
 
   ngOnInit(): void {
 
 
-    this.items = [{ label: 'Domestic Shipment',routerLink:'/domestic-shipping'},{ label: 'Add Domestic Shipment'}];
+    this.items = [{ label: 'Domestic Shipment', routerLink: '/domestic-shipping' }, { label: 'Add Domestic Shipment' }];
     this.getAllLocations();
     this.getAllVehicleType();
-    this.getAllShipmentStatus();
+    // this.getAllShipmentStatus();
     this.getAllDriver();
 
-    this.originFacility=[
+    this.originFacility = [
       {
-        originFacility:"HUB"
+        originFacility: "HUB"
       },
       {
-        originFacility:"Station"
+        originFacility: "Station"
       },
       {
-        originFacility:"Gateway"
+        originFacility: "Gateway"
       }
     ]
 
   }
 
   getDomesticRoute() {
-    this.routes=[]
+    this.routes = []
 
     if (this.domesticShipment.originLocation !== null && this.domesticShipment.destinationLocation !== null) {
-      this.domesticShipmentService.getDomesticRoute(this.domesticShipment.originLocation!, this.domesticShipment.destinationLocation!).subscribe((res:any)=>{
-        this.routes=res;
-        
-      },(error:any)=>{
+      this.domesticShipmentService.getDomesticRoute(this.domesticShipment.originLocation!, this.domesticShipment.destinationLocation!).subscribe((res: any) => {
+        this.routes = res;
+
+      }, (error: any) => {
         console.log(error);
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       })
 
-    }else{
+    } else {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You must have to select origin and destination port' });
     }
   }
 
-  getAllLocations(){
-    this.locationService.getAllLocationForDomestic().subscribe((res:Location[])=>{
-      this.location=res.filter(el => el.status);
-    },error=>{
-      if(error.error.body){
+  getAllLocations() {
+    this.locationService.getAllLocationForDomestic().subscribe((res: Location[]) => {
+      this.location = res.filter(el => el.status);
+    }, error => {
+      if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      }else{
+      } else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
       }
     })
   }
 
-  getAllVehicleType(){
-    this.vehicleTypeService.getALLVehicleType().subscribe((res:VehicleType[])=>{
-      this.vehicleTypes=res;
-    },error=>{
-      if(error.error.body){
+  getAllVehicleType() {
+    this.vehicleTypeService.getALLVehicleType().subscribe((res: VehicleType[]) => {
+      this.vehicleTypes = res;
+    }, error => {
+      if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      }else{
+      } else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
       }
     })
-   }
+  }
 
-   getAllShipmentStatus(){
-    this.shipmentStatusService.getALLShipmentStatus().subscribe((res:ShipmentStatus[])=>{
-      this.shipmentStatus=res;
-    },error=>{
-      if(error.error.body){
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      }else{
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }
-    })
-   }
+  // getAllShipmentStatus() {
+  //   this.productFieldService.getProductFieldByName("Auto_Status").subscribe(
+  //     (res: ProductField) => {
+  //       this.domesticShipment.status = res.productFieldValuesList[0].name;
+  //     },
+  //     (error) => {
+  //       if (error.error.body) {
+  //         this.messageService.add({
+  //           severity: 'error',
+  //           summary: 'Error',
+  //           detail: error.error.body,
+  //         });
+  //       } else {
+  //         this.messageService.add({
+  //           severity: 'error',
+  //           summary: 'Error',
+  //           detail: error.error,
+  //         });
+  //       }
+  //     }
+  //   );
+  // }
+
+
 
    addDomesticShipment(domesticShipment:DomesticShipment){
       this.domesticShipmentService.addDomesticShipment(domesticShipment).subscribe((res:DomesticShipment)=>{
@@ -210,40 +227,42 @@ export class AddDomesticShippingComponent {
       })
    }
 
-   getAllDriver(){
-    this.driverService.getAllDriver().subscribe((res:PaginatedResponse<Driver>)=>{
+  getAllDriver() {
+    this.driverService.getAllDriver().subscribe((res: PaginatedResponse<Driver>) => {
 
-     this.drivers=res.content.filter((el:Driver)=>el.status);
-    },error=>{
+      this.drivers = res.content.filter((el: Driver) => el.status);
+    }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
-   }
+  }
 
-   driverData(){
-    this.domesticShipment.driverName=this.selectedDriver?.name;
-    this.domesticShipment.driverContact=this.selectedDriver?.contactNumber;
-    this.domesticShipment.referenceNumber=this.selectedDriver?.referenceNumber;
-   }
+  driverData() {
+    this.domesticShipment.driverName = this.selectedDriver?.name;
+    this.domesticShipment.driverContact = this.selectedDriver?.contactNumber;
+    this.domesticShipment.referenceNumber = this.selectedDriver?.referenceNumber;
+  }
 
-   onSubmit(){
+  onSubmit() {
+    debugger
     this.domesticShipment.departureTime = this.datePipe.transform(this.domesticShipment.departureTime, 'HH:mm:ss')
     this.domesticShipment.arrivalTime = this.datePipe.transform(this.domesticShipment.arrivalTime, 'HH:mm:ss')
-    this.domesticShipment.etd=this.datePipe.transform(this.domesticShipment.etd,'yyyy-MM-dd')
-    this.domesticShipment.eta=this.datePipe.transform(this.domesticShipment.eta,'yyyy-MM-dd')
-    this.domesticShipment.atd=this.datePipe.transform(this.domesticShipment.atd,'yyyy-MM-dd')
-    this.domesticShipment.ata=this.datePipe.transform(this.domesticShipment.ata,'yyyy-MM-dd')
+    this.domesticShipment.etd = this.datePipe.transform(this.domesticShipment.etd, 'yyyy-MM-dd')
+    this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-dd')
+    this.domesticShipment.atd = this.datePipe.transform(this.domesticShipment.atd, 'yyyy-MM-dd')
+    this.domesticShipment.ata = this.datePipe.transform(this.domesticShipment.ata, 'yyyy-MM-dd')
+    debugger
     this.addDomesticShipment(this.domesticShipment);
-   }
+  }
 
-   onETDDateSelected(selectedETDDate: any) {
+  onETDDateSelected(selectedETDDate: any) {
 
     this.minETDDate = selectedETDDate;
   }
 }
 
 
-interface originFacility{
-  originFacility:string
+interface originFacility {
+  originFacility: string
 }
 
 

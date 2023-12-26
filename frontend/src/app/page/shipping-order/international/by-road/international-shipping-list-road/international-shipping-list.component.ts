@@ -6,6 +6,8 @@ import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
 import { DatePipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
+import { ProductField } from 'src/app/model/ProductField';
+import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
 
 @Component({
   selector: 'app-international-shipping-list',
@@ -20,7 +22,8 @@ export class InternationalShippingListComponent {
   size: number = 10;
   searchedValue: string = '';
 
-  shipmentStatus!: ShipmentStatus[];
+  // shipmentStatus!: ShipmentStatus[];
+  shipmentStatus!: ProductField | null | undefined;
 
   fromDate: string = '';
   toDate: string = '';
@@ -31,10 +34,13 @@ export class InternationalShippingListComponent {
   ISid!: number;
   visible: boolean=false;
 
-  constructor(private internationalShippingService: InternationalShippingService,
+  constructor(
+    private internationalShippingService: InternationalShippingService,
     private datePipe:DatePipe,
     private messageService:MessageService,
-    private shipmentStatusService: ShipmentStatusService) { }
+    // private shipmentStatusService: ShipmentStatusService
+    private shipmentStatusService: ProductFieldServiceService
+    ) { }
   items: MenuItem[] | undefined;
 
 
@@ -47,7 +53,7 @@ export class InternationalShippingListComponent {
 
   getAllInternationalShipmentByRoad(fromDate?: string,toDate?: string,status?: string,origin?: string,destination?: string,routeNumber?: string, page?: number, size?: number) {
     this.internationalShippingService.getAllInternationalShipmentByRoad({ fromDate:this.fromDate?this.datePipe.transform(new Date(this.fromDate),'yyyy-MM-dd'):'',toDate:this.toDate?this.datePipe.transform(new Date(this.toDate),'yyyy-MM-dd'):'',status: status,origin: origin,destination: destination,routeNumber: routeNumber, user: {} ,type:"",activeStatus:true}, this.page , this.size).subscribe((res: any) => {
-      
+
       this.internationalShipmentByRoad = res.content;
       this.paginatedRes = res;
     }, error => {
@@ -56,10 +62,9 @@ export class InternationalShippingListComponent {
   }
 
   getAllShipmentStatus() {
-    this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
+    this.shipmentStatusService.getProductFieldByName("Search_For_International_By_Road").subscribe((res: ProductField) => {
       this.shipmentStatus = res;
     }, error => {
-
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }

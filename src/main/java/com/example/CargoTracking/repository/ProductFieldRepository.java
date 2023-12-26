@@ -15,7 +15,8 @@ public interface ProductFieldRepository extends JpaRepository<ProductField, Long
 
     List<ProductField> findByProductFieldValuesList_Id(Long productFieldValueId);
     List<ProductField> findAllByStatus(String Status);
-    ProductField findByName(String name);
+    @Query("SELECT pf FROM ProductField pf WHERE pf.name = :name AND pf.status = 'Active'")
+    ProductField findByNameAndStatusIsActive(String name);
     @Query("SELECT pf FROM ProductField pf WHERE pf.name LIKE %:searchName%")
     List<ProductField> findProductFieldsByName(@Param("searchName") String searchName);
     @Modifying

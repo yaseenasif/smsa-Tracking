@@ -27,7 +27,6 @@ import { UpdateVehicleTypeComponent } from './page/vehicle-type/update-vehicle-t
 import { VehicleTypeListComponent } from './page/vehicle-type/vehicle-type-list/vehicle-type-list.component';
 import { ProductFieldListComponent } from './page/product-field/product-field-list/product-field-list.component';
 import { ProductFieldAddComponent } from './page/product-field/product-field-add/product-field-add.component';
-import { ProductFieldUpdateComponent } from './page/product-field/product-field-update/product-field-update.component';
 import { AuthGuard } from './auth-service/authguard/authguard';
 import { PermissionListComponent } from './page/permission/permission-list/permission-list.component';
 import { AddPermissionComponent } from './page/permission/add-permission/add-permission.component';
@@ -91,21 +90,6 @@ const routes: Routes = [
   {
     path: 'home',
     component: DashboardComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'product-field',
-    component: ProductFieldListComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'add-product-field',
-    component: ProductFieldAddComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'edit-product-field',
-    component: ProductFieldUpdateComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -440,13 +424,13 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'addProductFields',
+    path: 'add-ProductField',
     component: ProductFieldAddComponent,
     canActivate: [AuthGuard]
   },
   {
-    path: 'updateProductFields/:id',
-    component: ProductFieldUpdateComponent,
+    path: 'add-ProductField/:id',
+    component: ProductFieldAddComponent,
     canActivate: [AuthGuard]
   },
   {

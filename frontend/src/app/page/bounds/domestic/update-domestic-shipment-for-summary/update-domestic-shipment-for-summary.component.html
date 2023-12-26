@@ -1,243 +1,376 @@
 <div class="flex flex-row">
-    <app-sidebar></app-sidebar>
-    <div class="body-position">
-      <div class="body-holder">
-        <app-dashboard-head></app-dashboard-head>
-  
-        <div class="main">
-          <div class="card flex justify-content-center">
-            <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+  <app-sidebar></app-sidebar>
+  <div class="body-position">
+    <div class="body-holder">
+      <app-dashboard-head></app-dashboard-head>
+
+      <div class="main">
+        <div class="card flex justify-content-center">
+          <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+        </div>
+        <div class="body-card">
+          <p-toast></p-toast>
+          <div class="table-head mb-4">
+            <h1 class="mb-4 h-color">Edit Domestic Shipment</h1>
+            <p-toolbar>
+              <div class="grid w-full">
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Origin Facility :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ domesticShipment.originFacility }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Origin Location :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ domesticShipment.originLocation }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Referigirated Truck :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ domesticShipment.refrigeratedTruck }}</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Destination Facility :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ domesticShipment.destinationFacility }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Destination Location :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ domesticShipment.destinationLocation }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">Route Number :</label>
+                      &nbsp;
+                      <label for=""> {{ domesticShipment.routeNumber }}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Number of Shipments :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ domesticShipment.numberOfShipments }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">Weight :</label>
+                      &nbsp;
+                      <label for=""> {{ domesticShipment.weight }}</label>
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">ETD :</label> &nbsp;
+                      <label for="">
+                        {{ domesticShipment.etd | date : "shortDate" }}</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">ETA :</label> &nbsp;
+                      <label for="">
+                        {{ domesticShipment.eta | date : "shortDate" }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">ATD :</label> &nbsp;
+                      <label for="">
+                        {{ domesticShipment.atd | date : "shortDate" }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">Driver Name :</label>
+                      &nbsp;
+                      <label for=""> {{ domesticShipment.driverName }}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Driver Contact :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ domesticShipment.driverContact }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Reference Number :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ domesticShipment.referenceNumber }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">Vehicle Type :</label>
+                      &nbsp;
+                      <label for=""> {{ domesticShipment.vehicleType }}</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Number of Pallets :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ domesticShipment.numberOfPallets }}</label
+                      >
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Number of Bags :</label
+                      >
+                      &nbsp;
+                      <label for=""> {{ domesticShipment.numberOfBags }}</label>
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable"
+                        >Vehicle Number :</label
+                      >
+                      &nbsp;
+                      <label for="">
+                        {{ domesticShipment.vehicleNumber }}</label
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="lg:col-12 md:col-6 col-12">
+                  <div class="grid">
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">Tag Number :</label>
+                      &nbsp;
+                      <label for=""> {{ domesticShipment.tagNumber }}</label>
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12">
+                      <label for="" class="heading-lable">Seal Number :</label>
+                      &nbsp;
+                      <label for=""> {{ domesticShipment.sealNumber }}</label>
+                    </div>
+                    <div class="lg:col-4 md:col-12 col-12"></div>
+                  </div>
+                </div>
+              </div>
+            </p-toolbar>
           </div>
-          <div class="body-card">
-            <p-toast></p-toast>
-            <div class="table-head mb-4">
-              <h1 class="mb-4 h-color">Edit Domestic Shipment</h1>
-              <p-toolbar>
-                <div class="grid w-full">
-                  <div class="lg:col-12 md:col-6 col-12">
-                    <div class="grid">
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Origin Facility :</label> &nbsp;
-                        <label for=""> {{domesticShipment.originFacility}}</label>
-                      </div>
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Origin Location :</label> &nbsp;
-                        <label for=""> {{domesticShipment.originLocation}}</label>
-                      </div>
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Referigirated Truck :</label> &nbsp;
-                        <label for=""> {{domesticShipment.refrigeratedTruck}}</label>
-                      </div>
-  
-                    </div>
-                  </div>
-                  <div class="lg:col-12 md:col-6 col-12">
-                    <div class="grid">
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Destination Facility :</label> &nbsp;
-                        <label for=""> {{domesticShipment.destinationFacility}}</label>
-                      </div>
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Destination Location :</label> &nbsp;
-                        <label for=""> {{domesticShipment.destinationLocation}}</label>
-                      </div>
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Route Number :</label> &nbsp;
-                        <label for=""> {{domesticShipment.routeNumber}}</label>
-                      </div>
-  
-                    </div>
-                  </div>
-                  <div class="lg:col-12 md:col-6 col-12">
-                    <div class="grid">
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Number of Shipments :</label> &nbsp;
-                        <label for=""> {{domesticShipment.numberOfShipments}}</label>
-                      </div>
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Weight :</label> &nbsp;
-                        <label for=""> {{domesticShipment.weight}}</label>
-                      </div>
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">ETD :</label> &nbsp;
-                        <label for=""> {{domesticShipment.etd| date:"shortDate" }}</label>
-                      </div>
-  
-                    </div>
-                  </div>
-                  <div class="lg:col-12 md:col-6 col-12">
-                    <div class="grid">
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">ETA :</label> &nbsp;
-                        <label for=""> {{domesticShipment.eta| date:"shortDate" }}</label>
-                      </div>
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">ATD :</label> &nbsp;
-                        <label for=""> {{domesticShipment.atd| date:"shortDate" }}</label>
-                      </div>
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Driver Name :</label> &nbsp;
-                        <label for=""> {{domesticShipment.driverName}}</label>
-                      </div>
-  
-                    </div>
-                  </div>
-                  <div class="lg:col-12 md:col-6 col-12">
-                    <div class="grid">
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Driver Contact :</label> &nbsp;
-                        <label for=""> {{domesticShipment.driverContact}}</label>
-                      </div>
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Reference Number :</label> &nbsp;
-                        <label for=""> {{domesticShipment.referenceNumber}}</label>
-                      </div>
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Vehicle Type :</label> &nbsp;
-                        <label for=""> {{domesticShipment.vehicleType}}</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="lg:col-12 md:col-6 col-12">
-                    <div class="grid">
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Number of Pallets :</label> &nbsp;
-                        <label for=""> {{domesticShipment.numberOfPallets}}</label>
-                      </div>
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Number of Bags :</label> &nbsp;
-                        <label for=""> {{domesticShipment.numberOfBags}}</label>
-                      </div>
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Vehicle Number :</label> &nbsp;
-                        <label for=""> {{domesticShipment.vehicleNumber}}</label>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="lg:col-12 md:col-6 col-12">
-                    <div class="grid">
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Tag Number :</label> &nbsp;
-                        <label for=""> {{domesticShipment.tagNumber}}</label>
-                      </div>
-                      <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Seal Number :</label> &nbsp;
-                        <label for=""> {{domesticShipment.sealNumber}}</label>
-                      </div>
-                      <div class="lg:col-4 md:col-12 col-12">
-                      </div>
-                    </div>
+          <div class="card">
+            <form #domesticShipmentForm="ngForm" (ngSubmit)="onSubmit()">
+              <div class="grid">
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Status</label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="shipmentStatus?.productFieldValuesList"
+                      name="status"
+                      #status="ngModel"
+                      [required]="true"
+                      [(ngModel)]="domesticShipment.status"
+                      optionLabel="name"
+                      optionValue="name"
+                      [filter]="true"
+                      filterBy="name"
+                      [showClear]="true"
+                      placeholder="Select a Status"
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="domesticShipment"
+                        >
+                          <div>{{ domesticShipment.status }}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-shipmentStatus pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ shipmentStatus.name }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
                   </div>
                 </div>
-              </p-toolbar>
-            </div>
-            <div class="card">  
-              <form #domesticShipmentForm="ngForm" (ngSubmit)="onSubmit()">
-  
-                <div class="grid">
-  
-  
-                 
-                  
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2 form-hook">
-                      <label htmlFor="name">Status</label>
-                      <p-dropdown class="w-full" [options]="shipmentStatus" name="status" #status="ngModel"
-                        [required]="true" [(ngModel)]="domesticShipment.status" optionLabel="name" optionValue="name"
-                        [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Status">
-                        <ng-template pTemplate="selectedItem">
-                          <div class="flex align-items-center gap-2" *ngIf="domesticShipment">
-                            <div>{{ domesticShipment.status}}</div>
-                          </div>
-                        </ng-template>
-                        <ng-template let-shipmentStatus pTemplate="item">
-                          <div class="flex align-items-center gap-2">
-                            <div>{{ shipmentStatus.name }}</div>
-                          </div>
-                        </ng-template>
-                      </p-dropdown>
-                    </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Remarks</label>
-                      <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.remarks"
-                        #remarks="ngModel" required name="remarks" />
-                      <!-- <small id="name-help"
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Remarks</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.remarks"
+                      #remarks="ngModel"
+                      required
+                      name="remarks"
+                    />
+                    <!-- <small id="name-help"
                         >{{name}}</small
                       > -->
-                    </div>
                   </div>
-                  <!-- 9 -->
-  
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2 form-hook">
-                      <label htmlFor="name">ATA</label>
-                      <!-- <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.ata"
+                </div>
+                <!-- 9 -->
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">ATA</label>
+                    <!-- <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.ata"
                         #ata="ngModel" required name="ata" /> -->
-                      <p-calendar [(ngModel)]="domesticShipment.ata" #ata="ngModel" [required]="true"
-                        name="ata"></p-calendar>
-                      <!-- <small id="name-help"
+                    <p-calendar
+                      [(ngModel)]="domesticShipment.ata"
+                      #ata="ngModel"
+                      [required]="true"
+                      name="ata"
+                    ></p-calendar>
+                    <!-- <small id="name-help"
                         >{{name}}</small
                       > -->
-                    </div>
                   </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Total Shipments</label>
-                      <input pInputText id="name" aria-describedby="name-help"
-                        [(ngModel)]="domesticShipment.totalShipments" #totalShipments="ngModel" required
-                        name="totalShipments" />
-                      <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                    </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Overages</label>
-                      <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.overages"
-                        #overages="ngModel" required name="overages" />
-                      <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                    </div>
-                  </div>
-  
-                  <!-- 10 -->
-  
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Overage AWBs</label>
-                      <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.overagesAwbs"
-                        #overageAwbs="ngModel" required name="overageAwbs" />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Received</label>
-                      <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.received"
-                        #received="ngModel" required name="received" />
-                      <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                    </div>
-                  </div>
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Shortages</label>
-                      <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.shortages"
-                        #shortages="ngModel" required name="shortages" />
-                      <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
-                    </div>
-                  </div>
-                  <!-- 11 -->
-                  <div class="col-12 md:col-6 lg:col-4">
-                    <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Shortage AWBs</label>
-                      <input pInputText id="name" aria-describedby="name-help"
-                        [(ngModel)]="domesticShipment.shortagesAwbs" #shortageAwbs="ngModel" required
-                        name="shortageAwbs" />
-                      <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
-                    </div>
-                  </div>
-  
-  
-  
-  
-  
-  
-  
                 </div>
-  
-                <!-- <h2 class="mb-4 mt-4">Attachments</h2>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Total Shipments</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.totalShipments"
+                      #totalShipments="ngModel"
+                      required
+                      name="totalShipments"
+                    />
+                    <!-- <small id="name-help"
+                          >{{name}}</small
+                        > -->
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Overages</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.overages"
+                      #overages="ngModel"
+                      required
+                      name="overages"
+                    />
+                    <!-- <small id="name-help"
+                          >{{name}}</small
+                        > -->
+                  </div>
+                </div>
+
+                <!-- 10 -->
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Overage AWBs</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.overagesAwbs"
+                      #overageAwbs="ngModel"
+                      required
+                      name="overageAwbs"
+                    />
+                    <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Received</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.received"
+                      #received="ngModel"
+                      required
+                      name="received"
+                    />
+                    <!-- <small id="name-help"
+                          >{{name}}</small
+                        > -->
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Shortages</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.shortages"
+                      #shortages="ngModel"
+                      required
+                      name="shortages"
+                    />
+                    <!-- <small id="name-help"
+                          >{{name}}</small
+                        > -->
+                  </div>
+                </div>
+                <!-- 11 -->
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Shortage AWBs</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.shortagesAwbs"
+                      #shortageAwbs="ngModel"
+                      required
+                      name="shortageAwbs"
+                    />
+                    <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- <h2 class="mb-4 mt-4">Attachments</h2>
                 <div class="grid">
                   <div class=" lg:col-6 md:col-12 sm:col-12 ">
                     <div class="flex flex-column gap-2 form-hook">
@@ -360,19 +493,26 @@
                   </div>
                   </div>
                 </div> -->
-                <div class="flex align-items-center justify-content-end mt-4">
-                  <p-button label="Cancel" class="bg-o-color mr" routerLink="/domestic-shipping"
-                    styleClass="p-button-outlined">
-                  </p-button>
-                  <p-button type="submit" [disabled]="!domesticShipmentForm.form.valid" label="Update"
-                    class="bg-b-color ml">
-                  </p-button>
-                </div>
-              </form>
-            </div>
+              <div class="flex align-items-center justify-content-end mt-4">
+                <p-button
+                  label="Cancel"
+                  class="bg-o-color mr"
+                  routerLink="/domestic-shipping"
+                  styleClass="p-button-outlined"
+                >
+                </p-button>
+                <p-button
+                  type="submit"
+                  [disabled]="!domesticShipmentForm.form.valid"
+                  label="Update"
+                  class="bg-b-color ml"
+                >
+                </p-button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
