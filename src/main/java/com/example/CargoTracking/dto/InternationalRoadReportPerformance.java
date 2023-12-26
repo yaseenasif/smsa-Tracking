@@ -19,8 +19,8 @@ public class InternationalRoadReportPerformance {
     private String destination;
     private String route;
     private String vehicleType;
-    private LocalDate actualTimeDeparture;
-    private LocalDate actualTimeArrival;
+    private LocalDateTime actualTimeDeparture;
+    private LocalDateTime actualTimeArrival;
     private LocalDateTime offloaded;
     private long totalTransitTime;
     private long totalLeadTime;

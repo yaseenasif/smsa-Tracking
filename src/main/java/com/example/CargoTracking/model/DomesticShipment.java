@@ -32,9 +32,9 @@ public class DomesticShipment {
     private String routeNumber;
     private Integer numberOfShipments;
     private Double weight;
-    private LocalDate etd;
-    private LocalDate eta;
-    private LocalDate atd;
+    private LocalDateTime etd;
+    private LocalDateTime eta;
+    private LocalDateTime atd;
     private String driverName;
     private String driverContact;
     private String referenceNumber;
@@ -46,7 +46,7 @@ public class DomesticShipment {
     private Long sealNumber;
     private String status;
     private String remarks;
-    private LocalDate ata;
+    private LocalDateTime ata;
     private Integer totalShipments;
     private String overages;
     private String overagesAwbs;

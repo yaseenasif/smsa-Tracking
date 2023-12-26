@@ -442,7 +442,7 @@ public class DomesticShipmentService {
         List<DomesticShipment> domesticShipmentList = domesticShipmentRepository.findByCreatedAt(oneDayOlderDate);
 
         try {
-            LocalDate currentDate = LocalDate.now();
+            LocalDateTime currentDate = LocalDateTime.now();
 
             if(!domesticShipmentList.isEmpty()){
                 for (DomesticShipment entity : domesticShipmentList) {

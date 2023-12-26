@@ -21,10 +21,10 @@ public class InternationalAirReportStatusDto {
     private String flightNumber;
     private Integer shipments;//no of shipments
     private Integer bags; // no of bags
-    private LocalDate etd;
-    private LocalDate atd;
-    private LocalDate eta;
-    private LocalDate ata;
+    private LocalDateTime etd;
+    private LocalDateTime atd;
+    private LocalDateTime eta;
+    private LocalDateTime ata;
     private LocalDateTime created;
     private LocalDateTime offLoadedFromAircraft;
     private LocalDateTime flightDelayed;
@@ -33,6 +33,8 @@ public class InternationalAirReportStatusDto {
     private LocalDateTime heldInCustoms;
     private LocalDateTime awaitingPayments;
     private LocalDateTime cleared;
+    private long etdVsEta;
+    private long etaVSAta;
     private long leadTime;
     private String remarks;
 

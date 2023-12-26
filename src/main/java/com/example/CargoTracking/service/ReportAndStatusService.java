@@ -41,6 +41,15 @@ public class ReportAndStatusService {
             internationalAirReportStatusDto.setAtd(internationalShipment.getAtd());
             internationalAirReportStatusDto.setEta(internationalShipment.getEta());
             internationalAirReportStatusDto.setAta(internationalShipment.getAta());
+            if(internationalShipment.getEtd()!=null && internationalShipment.getEta()!=null){
+                Duration durationForEtdVsEta = Duration.between(internationalShipment.getEtd(), internationalShipment.getEta());
+                internationalAirReportStatusDto.setEtdVsEta(durationForEtdVsEta.toHours());
+            }
+            if(internationalShipment.getEta()!=null && internationalShipment.getAta()!=null){
+                Duration durationForEtaVSAta = Duration.between(internationalShipment.getEta(), internationalShipment.getAta());
+                internationalAirReportStatusDto.setEtaVSAta(durationForEtaVSAta.toHours());
+            }
+
             internationalAirReportStatusDto.setRemarks(internationalShipment.getRemarks());
             List<InternationalShipmentHistory> internationalShipmentHistoryList = internationalShipmentHistoryRepository.findByInternationalShipmentId(internationalShipment.getId());
             for (InternationalShipmentHistory internationalShipmentHistory : internationalShipmentHistoryList) {
@@ -55,8 +64,11 @@ public class ReportAndStatusService {
                 }
                 if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Cleared")) {
                     internationalAirReportStatusDto.setCleared(internationalShipmentHistory.getProcessTime());
-                    Duration duration = Duration.between(internationalShipmentHistory.getProcessTime(), internationalShipment.getAtd());
-                    internationalAirReportStatusDto.setLeadTime(duration.toHours());
+                    if(internationalShipment.getAtd()!=null && internationalShipmentHistory.getProcessTime()!=null){
+                        Duration duration = Duration.between(internationalShipmentHistory.getProcessTime(), internationalShipment.getAtd());
+                        internationalAirReportStatusDto.setLeadTime(duration.toHours());
+                    }
+
                 }
                 if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Not Arrived as planned")) {
                     internationalAirReportStatusDto.setNotArrivedAsPlanned(internationalShipmentHistory.getProcessTime());
@@ -98,6 +110,14 @@ public class ReportAndStatusService {
             internationalRoadReportStatusDto.setAtd(internationalShipment.getAtd());
             internationalRoadReportStatusDto.setEta(internationalShipment.getEta());
             internationalRoadReportStatusDto.setAta(internationalShipment.getAta());
+            if(internationalShipment.getEtd()!=null && internationalShipment.getEta()!=null){
+                Duration durationForEtdVsEta = Duration.between(internationalShipment.getEtd(), internationalShipment.getEta());
+                internationalRoadReportStatusDto.setEtdVsEta(durationForEtdVsEta.toHours());
+            }
+            if(internationalShipment.getEta()!=null && internationalShipment.getAta()!=null){
+                Duration durationForEtaVSAta = Duration.between(internationalShipment.getEta(), internationalShipment.getAta());
+                internationalRoadReportStatusDto.setEtaVSAta(durationForEtaVSAta.toHours());
+            }
             internationalRoadReportStatusDto.setRemarks(internationalShipment.getRemarks());
             List<InternationalShipmentHistory> internationalShipmentHistoryList = internationalShipmentHistoryRepository.findByInternationalShipmentId(internationalShipment.getId());
             for (InternationalShipmentHistory internationalShipmentHistory : internationalShipmentHistoryList) {
@@ -118,8 +138,10 @@ public class ReportAndStatusService {
                 }
                 if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Cleared")) {
                     internationalRoadReportStatusDto.setCleared(internationalShipmentHistory.getProcessTime());
-                    Duration duration = Duration.between(internationalShipmentHistory.getProcessTime(), internationalShipment.getAtd());
-                    internationalRoadReportStatusDto.setLeadTime(duration.toHours());
+                    if(internationalShipment.getAtd()!=null && internationalShipmentHistory.getProcessTime()!=null){
+                        Duration duration = Duration.between(internationalShipmentHistory.getProcessTime(), internationalShipment.getAtd());
+                        internationalRoadReportStatusDto.setLeadTime(duration.toHours());
+                    }
                 }
                 if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Accident")) {
                     internationalRoadReportStatusDto.setAccident(internationalShipmentHistory.getProcessTime());
@@ -148,14 +170,19 @@ public class ReportAndStatusService {
             internationalAirReportPerformance.setFlight(internationalShipment.getFlightNumber());
             internationalAirReportPerformance.setActualTimeArrival(internationalShipment.getAta());
             internationalAirReportPerformance.setActualTimeDeparture(internationalShipment.getAtd());
-            Duration durationForTransitTime = Duration.between(internationalShipment.getAta(), internationalShipment.getAtd());
-            internationalAirReportPerformance.setTotalTransitTime(durationForTransitTime.toHours());
+            if(internationalShipment.getAta()!=null && internationalShipment.getAtd()!=null){
+                Duration durationForTransitTime = Duration.between(internationalShipment.getAta(), internationalShipment.getAtd());
+                internationalAirReportPerformance.setTotalTransitTime(durationForTransitTime.toHours());
+            }
             List<InternationalShipmentHistory> internationalShipmentHistoryList = internationalShipmentHistoryRepository.findByInternationalShipmentId(internationalShipment.getId());
             for(InternationalShipmentHistory internationalShipmentHistory: internationalShipmentHistoryList){
                 if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Cleared")) {
                     internationalAirReportPerformance.setCleared(internationalShipmentHistory.getProcessTime());
-                    Duration durationForLeadTime = Duration.between(internationalShipmentHistory.getProcessTime(), internationalShipment.getAtd());
-                    internationalAirReportPerformance.setTotalLeadTime(durationForLeadTime.toHours());
+                    if(internationalShipmentHistory.getProcessTime()!=null && internationalShipment.getAtd()!=null){
+                        Duration durationForLeadTime = Duration.between(internationalShipmentHistory.getProcessTime(), internationalShipment.getAtd());
+                        internationalAirReportPerformance.setTotalLeadTime(durationForLeadTime.toHours());
+                    }
+
                 }
             }
             internationalAirReportPerformanceList.add(internationalAirReportPerformance);
@@ -177,14 +204,18 @@ public class ReportAndStatusService {
             internationalRoadReportPerformance.setVehicleType(internationalShipment.getVehicleType());
             internationalRoadReportPerformance.setActualTimeArrival(internationalShipment.getAta());
             internationalRoadReportPerformance.setActualTimeDeparture(internationalShipment.getAtd());
-            Duration durationForTransitTime = Duration.between(internationalShipment.getAta(), internationalShipment.getAtd());
-            internationalRoadReportPerformance.setTotalTransitTime(durationForTransitTime.toHours());
+            if(internationalShipment.getAta()!=null && internationalShipment.getAtd()!=null){
+                Duration durationForTransitTime = Duration.between(internationalShipment.getAta(), internationalShipment.getAtd());
+                internationalRoadReportPerformance.setTotalTransitTime(durationForTransitTime.toHours());
+            }
             List<InternationalShipmentHistory> internationalShipmentHistoryList = internationalShipmentHistoryRepository.findByInternationalShipmentId(internationalShipment.getId());
             for(InternationalShipmentHistory internationalShipmentHistory: internationalShipmentHistoryList){
                 if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Offloaded at Destination")) {
                     internationalRoadReportPerformance.setOffloaded(internationalShipmentHistory.getProcessTime());
-                    Duration durationForLeadTime = Duration.between(internationalShipmentHistory.getProcessTime(), internationalShipment.getAtd());
-                    internationalRoadReportPerformance.setTotalLeadTime(durationForLeadTime.toHours());
+                    if(internationalShipmentHistory.getProcessTime()!=null && internationalShipment.getAtd()!=null){
+                        Duration durationForLeadTime = Duration.between(internationalShipmentHistory.getProcessTime(), internationalShipment.getAtd());
+                        internationalRoadReportPerformance.setTotalLeadTime(durationForLeadTime.toHours());
+                    }
                 }
             }
             internationalRoadReportPerformanceList.add(internationalRoadReportPerformance);

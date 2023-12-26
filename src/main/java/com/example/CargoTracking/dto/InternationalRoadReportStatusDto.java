@@ -23,10 +23,10 @@ public class InternationalRoadReportStatusDto {
     private Integer pallets; // no of pallets
     private String occupancy;
     private Integer bags; // no of bags
-    private LocalDate etd;
-    private LocalDate atd;
-    private LocalDate eta;
-    private LocalDate ata;
+    private LocalDateTime etd;
+    private LocalDateTime atd;
+    private LocalDateTime eta;
+    private LocalDateTime ata;
     private LocalDateTime created;
     private LocalDateTime departed;
     private LocalDateTime notArrived;
@@ -36,6 +36,8 @@ public class InternationalRoadReportStatusDto {
     private LocalDateTime borderDelay;
     private LocalDateTime offloadedAtDestination;
     private LocalDateTime Cleared;
+    private long etdVsEta;
+    private long etaVSAta;
     private long leadTime;
     private String remarks;
 

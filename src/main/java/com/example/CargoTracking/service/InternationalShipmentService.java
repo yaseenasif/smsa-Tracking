@@ -272,7 +272,7 @@ public class InternationalShipmentService {
 
         List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findByCreatedAt(oneDayOlderDate);
         try {
-            LocalDate currentDate = LocalDate.now();
+            LocalDateTime currentDate = LocalDateTime.now();
 
             if(!internationalShipmentList.isEmpty()){
                 for (InternationalShipment entity : internationalShipmentList) {
