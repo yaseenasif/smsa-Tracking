@@ -69,6 +69,12 @@ import { ViewShipmentComponent } from './page/shipping-order/domestic/view-shipm
 import { ViewShipmentAirComponent } from './page/shipping-order/international/by-air/view-shipment-air/view-shipment-air.component';
 import { ViewShipmentRoadComponent } from './page/shipping-order/international/by-road/view-shipment-road/view-shipment-road.component';
 import { GetDomesticRoutesComponent } from './page/domesticRoutes/get-domestic-routes/get-domestic-routes.component';
+import { ReportTilesComponent } from './page/report/report-tiles/report-tiles.component';
+import { DomesticReportPerformanceComponent } from './page/report/domestic-report-performance/domestic-report-performance.component';
+import { InternationalAirReportPerformanceComponent } from './page/report/international-air-report-performance/international-air-report-performance.component';
+import { InternationalAirReportStatusComponent } from './page/report/international-air-report-status/international-air-report-status.component';
+import { InternationalRoadReportPerformanceComponent } from './page/report/international-road-report-performance/international-road-report-performance.component';
+import { InternationalRoadReportStatusComponent } from './page/report/international-road-report-status/international-road-report-status.component';
 // import { EmailManagmentComponent } from './page/email-managment/email-managment.component';
 
 
@@ -441,6 +447,36 @@ const routes: Routes = [
   {
     path: 'updateProductFields/:id',
     component: ProductFieldUpdateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'report-tiles',
+    component: ReportTilesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'domestic-report-performance',
+    component: DomesticReportPerformanceComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'international-air-report-performance',
+    component:  InternationalAirReportPerformanceComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'international-air-report-status',
+    component:  InternationalAirReportStatusComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'international-road-report-performance',
+    component:  InternationalRoadReportPerformanceComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'international-road-report-status',
+    component:  InternationalRoadReportStatusComponent,
     canActivate: [AuthGuard]
   },
   {

@@ -37,7 +37,7 @@ export class AuthguardService {
     { permission: 'ShipmentRoutesForAir', route: ['/international-routes-for-air', '/add-international-routes-for-air', '/update-international-routes-for-air/:id'] },
     { permission: 'ShipmentRoutesForRoad', route: ['/international-routes-for-road', '/add-international-routes-for-road', '/update-international-routes-for-road/:id'] },
     { permission: 'ProductField', route: ['/productFields', '/addProductField', '/updateProductField'] },
-    { permission: 'Email Management', route: ['/emailManagement'] }
+    { permission: 'Reports', route: ['/report-tiles','/domestic-report-performance','/international-air-report-performance','/international-air-report-status','/international-road-report-performance','/international-road-report-status'] }
 
   ]
 
