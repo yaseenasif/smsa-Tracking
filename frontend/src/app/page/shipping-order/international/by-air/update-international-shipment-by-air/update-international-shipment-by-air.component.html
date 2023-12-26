@@ -323,7 +323,7 @@
                           class=""
                           value="Look up"
                           severity="info"
-                        ></p-badge> 
+                        ></p-badge>
                         </span
                     ></label>
                     <span *ngIf="!showDropDown">{{
@@ -335,7 +335,7 @@
                       [options]="routes"
                       #routeNumber="ngModel"
                       name="routeNumber"
-                      [required]="true"
+
                       [(ngModel)]="internationalShipment.routeNumber"
                       optionValue="route"
                       optionLabel="route"
@@ -644,7 +644,7 @@
                     <label htmlFor="name">Status</label>
                     <p-dropdown
                       class="w-full"
-                      [options]="shipmentStatus.productFieldValuesList"
+                      [options]="shipmentStatus?.productFieldValuesList"
                       name="status"
                       #status="ngModel"
                       [required]="true"

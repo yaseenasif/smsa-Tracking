@@ -48,7 +48,7 @@ export class AddDomesticShippingComponent {
     vehicleNumber: null,
     tagNumber: null,
     sealNumber: null,
-    status: null,
+    status: "Created",
     remarks: null,
     ata: null,
     totalShipments: null,
@@ -122,7 +122,7 @@ export class AddDomesticShippingComponent {
     this.items = [{ label: 'Domestic Shipment', routerLink: '/domestic-shipping' }, { label: 'Add Domestic Shipment' }];
     this.getAllLocations();
     this.getAllVehicleType();
-    this.getAllShipmentStatus();
+    // this.getAllShipmentStatus();
     this.getAllDriver();
 
     this.originFacility = [
@@ -180,28 +180,28 @@ export class AddDomesticShippingComponent {
     })
   }
 
-  getAllShipmentStatus() {
-    this.productFieldService.getProductFieldByName("Auto_Status").subscribe(
-      (res: ProductField) => {
-        this.shipmentStatus = res;
-      },
-      (error) => {
-        if (error.error.body) {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: error.error.body,
-          });
-        } else {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: error.error,
-          });
-        }
-      }
-    );
-  }
+  // getAllShipmentStatus() {
+  //   this.productFieldService.getProductFieldByName("Auto_Status").subscribe(
+  //     (res: ProductField) => {
+  //       this.domesticShipment.status = res.productFieldValuesList[0].name;
+  //     },
+  //     (error) => {
+  //       if (error.error.body) {
+  //         this.messageService.add({
+  //           severity: 'error',
+  //           summary: 'Error',
+  //           detail: error.error.body,
+  //         });
+  //       } else {
+  //         this.messageService.add({
+  //           severity: 'error',
+  //           summary: 'Error',
+  //           detail: error.error,
+  //         });
+  //       }
+  //     }
+  //   );
+  // }
 
 
 
@@ -243,12 +243,14 @@ export class AddDomesticShippingComponent {
   }
 
   onSubmit() {
+    debugger
     this.domesticShipment.departureTime = this.datePipe.transform(this.domesticShipment.departureTime, 'HH:mm:ss')
     this.domesticShipment.arrivalTime = this.datePipe.transform(this.domesticShipment.arrivalTime, 'HH:mm:ss')
     this.domesticShipment.etd = this.datePipe.transform(this.domesticShipment.etd, 'yyyy-MM-dd')
     this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-dd')
     this.domesticShipment.atd = this.datePipe.transform(this.domesticShipment.atd, 'yyyy-MM-dd')
     this.domesticShipment.ata = this.datePipe.transform(this.domesticShipment.ata, 'yyyy-MM-dd')
+    debugger
     this.addDomesticShipment(this.domesticShipment);
   }
 

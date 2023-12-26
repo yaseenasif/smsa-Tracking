@@ -59,7 +59,7 @@ export class AddInternationalShipmentByRoadComponent {
     shipmentMode: null,
     shortageAWBs: null,
     shortages: null,
-    status: null,
+    status: "Created",
     tagNumber: null,
     totalShipments: null,
     type: 'By Air',
@@ -107,10 +107,10 @@ export class AddInternationalShipmentByRoadComponent {
     private internationalShippingService: InternationalShippingService,
     private messageService: MessageService,
     private locationService: LocationService,
-    private locationPortService: LocationPortService,
+    // private locationPortService: LocationPortService,
     private driverService: DriverService,
     private vehicleTypeService: VehicleTypeService,
-    private shipmentStatusService: ProductFieldServiceService,
+    // private shipmentStatusService: ProductFieldServiceService,
     private datePipe: DatePipe) { }
   name!: string;
   checked!: boolean;
@@ -121,7 +121,7 @@ export class AddInternationalShipmentByRoadComponent {
     // this.getAllLocationPort();
     this.getAllDriver();
     this.getAllVehicleType();
-    this.getAllShipmentStatus();
+    // this.getAllShipmentStatus();
   }
 
   onSubmit() {
@@ -146,7 +146,7 @@ export class AddInternationalShipmentByRoadComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }   
+      }
        this.internationalShipment.etd= this.internationalShipment.etd ? new Date( this.internationalShipment.etd) : null;
        this.internationalShipment.eta= this.internationalShipment.eta ? new Date( this.internationalShipment.eta) : null;
        this.internationalShipment.atd= this.internationalShipment.atd ? new Date( this.internationalShipment.atd) : null;
@@ -206,15 +206,15 @@ export class AddInternationalShipmentByRoadComponent {
     })
   }
 
-  getAllShipmentStatus() {
-    this.shipmentStatusService.getProductFieldByName("Auto_Status").subscribe((res: ProductField) => {
-      for (const list of res.productFieldValuesList) {
-        this.internationalShipment.status = list.name;
-      }
-    }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-    })
-  }
+  // getAllShipmentStatus() {
+  //   this.shipmentStatusService.getProductFieldByName("Auto_Status").subscribe((res: ProductField) => {
+  //     for (const list of res.productFieldValuesList) {
+  //       this.internationalShipment.status = list.name;
+  //     }
+  //   }, error => {
+  //     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+  //   })
+  // }
 
   driverData() {
     this.internationalShipment.driverName = this.selectedDriver?.name;

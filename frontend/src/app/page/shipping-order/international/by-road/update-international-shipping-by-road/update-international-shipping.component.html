@@ -687,7 +687,7 @@
                     <label htmlFor="name">Status</label>
                     <p-dropdown
                       class="w-full"
-                      [options]="shipmentStatus.productFieldValuesList"
+                      [options]="shipmentStatus?.productFieldValuesList"
                       name="status"
                       #status="ngModel"
                       [required]="true"

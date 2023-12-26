@@ -13,7 +13,7 @@ import { DriverService } from 'src/app/page/driver/service/driver.service';
 import { Driver } from 'src/app/model/Driver';
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
 import { DatePipe } from '@angular/common';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, catchError, forkJoin } from 'rxjs';
 import { DomesticShippingService } from 'src/app/page/shipping-order/domestic/service/domestic-shipping.service';
 import { ProductField } from 'src/app/model/ProductField';
 import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
@@ -81,8 +81,8 @@ export class UpdateDomesticShipmentForSummaryComponent {
 
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
 
-  shipmentStatus!: ProductField;
-  selectedShipmentStatus!: ProductField;
+  shipmentStatus!: ProductField | null | undefined;
+  // selectedShipmentStatus!: ProductField;
 
   domesticShipmentId: any;
 
@@ -119,7 +119,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     const locations$: Observable<Location[]> = this.locationService.getAllLocation();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
-    const shipmentStatus$: Observable<ProductField> = this.shipmentStatusService.getProductFieldByName("Origin_Of_Domestic");
+    const shipmentStatus$: Observable<ProductField> = this.getAllShipmentStatus();
 
     forkJoin([locations$, driver$, vehicleType$, shipmentStatus$]).subscribe(
       ([locationsResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
@@ -129,7 +129,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
         this.drivers = driverResponse.content.filter((el: Driver) => el.status);
         this.vehicleTypes = vehicleTypeResponse
         this.shipmentStatus = shipmentStatusResponse
-
+        debugger
 
         this.domesticShipmentById(this.domesticShipmentId);
       }
@@ -184,16 +184,17 @@ export class UpdateDomesticShipmentForSummaryComponent {
     })
   }
 
-  getAllShipmentStatus() {
-    this.shipmentStatusService.getProductFieldByName("Origin_Of_Domestic").subscribe((res: ProductField) => {
-      this.shipmentStatus = res;
-    }, error => {
-      if (error.error.body) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }
-    })
+  getAllShipmentStatus(): Observable<ProductField> {
+    return this.shipmentStatusService.getProductFieldByName("Destination_Of_Domestic").pipe(
+      catchError(error => {
+        if (error.error.body) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+        }
+        throw error
+      })
+    );
   }
 
   domesticShipmentById(id: number) {
@@ -232,10 +233,11 @@ export class UpdateDomesticShipmentForSummaryComponent {
         this.router.navigate(['/domestic-summary']);
       }, 800);
     }, (error: any) => {
+      debugger
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.error });
       }
     })
   }
@@ -245,6 +247,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-dd')
     this.domesticShipment.atd = this.datePipe.transform(this.domesticShipment.atd, 'yyyy-MM-dd')
     this.domesticShipment.ata = this.datePipe.transform(this.domesticShipment.ata, 'yyyy-MM-dd')
+    debugger
     this.updateDomesticShipment(this.domesticShipment);
   }
 

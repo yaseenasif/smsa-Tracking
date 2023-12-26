@@ -14,7 +14,6 @@ import java.util.List;
 @Builder
 public class ProductFieldDto {
     private Long id;
-
     private String name;
     private String status;
     private LocalDate createdAt;

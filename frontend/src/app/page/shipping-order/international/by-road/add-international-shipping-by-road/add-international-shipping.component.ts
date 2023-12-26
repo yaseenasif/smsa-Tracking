@@ -61,7 +61,7 @@ export class AddInternationalShippingComponent {
     shipmentMode: null,
     shortageAWBs: null,
     shortages: null,
-    status: null,
+    status: "Created",
     tagNumber: null,
     totalShipments: null,
     type: 'By Road',
@@ -129,7 +129,7 @@ export class AddInternationalShippingComponent {
     // this.getAllLocationPort();
     this.getAllDriver();
     this.getAllVehicleType();
-    this.getAllShipmentStatus();
+    // this.getAllShipmentStatus();
   }
 
   onSubmit() {
@@ -204,15 +204,15 @@ export class AddInternationalShippingComponent {
     })
   }
 
-  getAllShipmentStatus() {
-    this.shipmentStatusService.getProductFieldByName("Auto_Status").subscribe((res: ProductField) => {
-      for (const productFieldValue of res.productFieldValuesList) {
-        this.internationalShipment.status = productFieldValue.name;
-      }
-    }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-    })
-  }
+  // getAllShipmentStatus() {
+  //   this.shipmentStatusService.getProductFieldByName("Auto_Status").subscribe((res: ProductField) => {
+  //     for (const productFieldValue of res.productFieldValuesList) {
+  //       this.internationalShipment.status = productFieldValue.name;
+  //     }
+  //   }, error => {
+  //     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+  //   })
+  // }
 
   driverData() {
     this.internationalShipment.driverName = this.selectedDriver?.name;

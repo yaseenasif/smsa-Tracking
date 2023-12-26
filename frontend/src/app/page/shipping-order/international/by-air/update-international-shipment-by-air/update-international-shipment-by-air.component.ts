@@ -17,7 +17,7 @@ import { ShipmentMode } from 'src/app/model/ShipmentMode';
 import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
 import { Location } from '../../../../../model/Location'
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, catchError, forkJoin } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { ProductField } from 'src/app/model/ProductField';
 import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
@@ -80,7 +80,7 @@ export class UpdateInternationalShipmentByAirComponent {
   destinationPorts!: LocationPort[];
   drivers!: Driver[]
   vehicleTypes!: VehicleType[]
-  shipmentStatus!: ProductField;
+  shipmentStatus!: ProductField | null | undefined;
   selectedDriver!: Driver | null | undefined;
   modeOptions: { options: string }[] = Object.values(Mode).map(el => ({ options: el }));
   shipmentMode: { options: string }[] = Object.values(ShipmentMode).map(el => ({ options: el }));
@@ -109,7 +109,7 @@ export class UpdateInternationalShipmentByAirComponent {
     // const locationPort$: Observable<LocationPort[]> =this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
-    const shipmentStatus$: Observable<ProductField> = this.shipmentStatusService.getProductFieldByName("Origin_Of_International_By_Air");
+    const shipmentStatus$: Observable<ProductField> = this.getAllShipmentStatus();
 
     forkJoin([locations$, driver$, vehicleType$, shipmentStatus$]).subscribe(
       ([locationsResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
@@ -141,6 +141,7 @@ export class UpdateInternationalShipmentByAirComponent {
   }
 
   onSubmit() {
+    debugger
     this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-dd')
     this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-dd')
     this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-dd')
@@ -157,14 +158,14 @@ export class UpdateInternationalShipmentByAirComponent {
       }, 800);
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      this.internationalShipment.etd= this.internationalShipment.etd ? new Date( this.internationalShipment.etd) : null;
-      this.internationalShipment.eta= this.internationalShipment.eta ? new Date( this.internationalShipment.eta) : null;
-      this.internationalShipment.atd= this.internationalShipment.atd ? new Date( this.internationalShipment.atd) : null;
-      this.internationalShipment.ata= this.internationalShipment.ata ? new Date( this.internationalShipment.ata) : null;
-      this.internationalShipment.departureDate= this.internationalShipment.departureDate ? new Date( this.internationalShipment.departureDate) : null;
-      this.internationalShipment.arrivalDate= this.internationalShipment.arrivalDate ? new Date( this.internationalShipment.arrivalDate) : null;
-      this.internationalShipment.departureTime= this.internationalShipment.departureTime ? new Date(`1970-01-01 ${ this.internationalShipment.departureTime}`) : null;
-      this.internationalShipment.arrivalTime =  this.internationalShipment.arrivalTime ? new Date(`1970-01-01 ${ this.internationalShipment.arrivalTime}`) : null;
+      this.internationalShipment.etd = this.internationalShipment.etd ? new Date(this.internationalShipment.etd) : null;
+      this.internationalShipment.eta = this.internationalShipment.eta ? new Date(this.internationalShipment.eta) : null;
+      this.internationalShipment.atd = this.internationalShipment.atd ? new Date(this.internationalShipment.atd) : null;
+      this.internationalShipment.ata = this.internationalShipment.ata ? new Date(this.internationalShipment.ata) : null;
+      this.internationalShipment.departureDate = this.internationalShipment.departureDate ? new Date(this.internationalShipment.departureDate) : null;
+      this.internationalShipment.arrivalDate = this.internationalShipment.arrivalDate ? new Date(this.internationalShipment.arrivalDate) : null;
+      this.internationalShipment.departureTime = this.internationalShipment.departureTime ? new Date(`1970-01-01 ${this.internationalShipment.departureTime}`) : null;
+      this.internationalShipment.arrivalTime = this.internationalShipment.arrivalTime ? new Date(`1970-01-01 ${this.internationalShipment.arrivalTime}`) : null;
     })
   }
 
@@ -230,7 +231,6 @@ export class UpdateInternationalShipmentByAirComponent {
   // }
   getAllDriver() {
     this.driverService.getAllDriver().subscribe((res: PaginatedResponse<Driver>) => {
-
       this.drivers = res.content.filter((el: Driver) => el.status);
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -244,12 +244,14 @@ export class UpdateInternationalShipmentByAirComponent {
     })
   }
 
-  getAllShipmentStatus() {
-    this.shipmentStatusService.getProductFieldByName("Origin_Of_International_By_Air").subscribe((res: ProductField) => {
-      this.shipmentStatus = res;
-    }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-    })
+  getAllShipmentStatus(): Observable<ProductField> {
+    return this.shipmentStatusService.getProductFieldByName("Origin_Of_International_By_Air").pipe(
+      catchError(
+        error => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+          throw error
+        })
+    );
   }
 
   driverData() {

@@ -16,7 +16,7 @@ import { ShipmentMode } from 'src/app/model/ShipmentMode';
 import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
 import { Location } from 'src/app/model/Location'
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, catchError, forkJoin } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { InternationalShippingService } from 'src/app/page/shipping-order/international/service/international-shipping.service';
 import { ProductField } from 'src/app/model/ProductField';
@@ -119,7 +119,7 @@ export class UpdateInternationalRoadForSummaryComponent {
     const locationPort$: Observable<LocationPort[]> = this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
-    const shipmentStatus$: Observable<ProductField> = this.shipmentStatusService.getProductFieldByName("Destination_Of_International_By_Road");
+    const shipmentStatus$: Observable<ProductField> = this.getAllShipmentStatus();
 
     forkJoin([locations$, locationPort$, driver$, vehicleType$, shipmentStatus$]).subscribe(
       ([locationsResponse, locationPortResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
@@ -202,12 +202,13 @@ export class UpdateInternationalRoadForSummaryComponent {
     })
   }
 
-  getAllShipmentStatus() {
-    this.shipmentStatusService.getProductFieldByName("Destination_Of_International_By_Road").subscribe((res: ProductField) => {
-      this.shipmentStatus = res;
-    }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-    })
+  getAllShipmentStatus(): Observable<ProductField> {
+    return this.shipmentStatusService.getProductFieldByName("Destination_Of_International_By_Road").pipe(
+      catchError(error => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+        throw error
+      })
+    );
   }
 
   driverData() {
