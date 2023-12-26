@@ -7,17 +7,20 @@ import { ShipmentStatusService } from 'src/app/page/shipment-status/service/ship
 import { DatePipe } from '@angular/common';
 import { InternationalSummarySearch } from 'src/app/model/InternationalSummarySearch'
 import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
+import { ProductField } from 'src/app/model/ProductField';
+import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
 @Component({
   selector: 'app-international-summary-by-air',
   templateUrl: './international-summary-by-air.component.html',
   styleUrls: ['./international-summary-by-air.component.scss'],
-  providers: [DatePipe,MessageService]
+  providers: [DatePipe, MessageService]
 })
 export class InternationalSummaryByAirComponent {
 
   name!: string;
   bound!: Bound[];
-  shipmentStatus!: ShipmentStatus[];
+  // shipmentStatus!: ShipmentStatus[];
+  shipmentStatus!: ProductField | null | undefined;
   role: any;
 
   selectedBound: Bound = {
@@ -37,11 +40,14 @@ export class InternationalSummaryByAirComponent {
   page: number = 0;
   size: number = 10;
 
-  constructor(private summaryService: SummaryService,
-    private messageService:MessageService,
+  constructor(
+    private summaryService: SummaryService,
+    private messageService: MessageService,
     private datePipe: DatePipe,
     private authguardService: AuthguardService,
-    private shipmentStatusService: ShipmentStatusService) { }
+    // private shipmentStatusService: ShipmentStatusService,
+    private shipmentStatusService: ProductFieldServiceService,
+  ) { }
 
   internationalShipmentByAir: any = [];
   items: MenuItem[] | undefined;
@@ -89,7 +95,7 @@ export class InternationalSummaryByAirComponent {
   }
 
   getAllShipmentStatus() {
-    this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
+    this.shipmentStatusService.getProductFieldByName("Search_For_International_By_Air").subscribe((res: ProductField) => {
       this.shipmentStatus = res;
     }, error => {
 
@@ -99,10 +105,10 @@ export class InternationalSummaryByAirComponent {
   }
 
   getInboundSummary(obj: InternationalSummarySearch, page: number, size: number) {
-    
+
     this.summaryService.getInboundSummaryForAir(obj, page, size).subscribe((res: any) => {
       this.internationalShipmentByAir = res.content;
-      
+
       this.paginationRes = res;
       this.search = {
         fromDate: null,
@@ -113,7 +119,7 @@ export class InternationalSummaryByAirComponent {
         type: null
       }
     }, (error: any) => {
-      
+
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       this.internationalShipmentByAir = [];
 
@@ -178,7 +184,7 @@ export class InternationalSummaryByAirComponent {
     }
   }
   onPageChange(event: any) {
-    
+
     this.page = event.page;
     this.size = event.rows;
     this.getInboundSummary(this.search, this.page, this.size);

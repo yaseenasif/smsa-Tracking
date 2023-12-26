@@ -8,7 +8,6 @@
     background-color: #ffffff;
     padding: 25px;
     border-radius: 15px;
-    height: 80vh;
   }
   .heading {
     color: #400099;
@@ -26,27 +25,27 @@
     overflow: auto;
     border-radius: 10px;
   }
-  
+
   .table thead tr {
     position: sticky;
     top: 0;
   }
-  
+
   .table-holder::-webkit-scrollbar {
     width: 5px;
   }
-  
+
   /* Track */
   .table-holder::-webkit-scrollbar-track {
     background: #f1f1f1;
   }
-  
+
   /* Handle */
   .table-holder::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 5px;
   }
-  
+
   /* Handle on hover */
   .table-holder::-webkit-scrollbar-thumb:hover:vertical {
     background: #555;
@@ -60,7 +59,7 @@
     background-color: #400099;
     color: #ffffff;
   }
-  
+
   .btn-sty:hover {
       background-color: #400099;
       color: #ffffff;
@@ -68,21 +67,21 @@
   .btn-sty{
       display: inline-block;
   }
-  
+
   .header{
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin-bottom:10px;
   }
-  
+
   .fa-plus{
       color: #400099;
       height: 20px;
       width: 20px;
   }
-  
-  
+
+
   .fa-plus:hover{
       color: #ffffff;
   }
@@ -102,4 +101,3 @@
       height:35px ;
       margin: 0 5px;
   }
-  

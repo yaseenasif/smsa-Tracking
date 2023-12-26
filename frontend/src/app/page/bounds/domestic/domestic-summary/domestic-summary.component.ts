@@ -6,6 +6,8 @@ import { DatePipe } from '@angular/common';
 import { ShipmentStatusService } from '../../../shipment-status/service/shipment-status.service';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
+import { ProductField } from 'src/app/model/ProductField';
+import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
 
 @Component({
   selector: 'app-domestic-summary',
@@ -16,7 +18,8 @@ import { AuthguardService } from 'src/app/auth-service/authguard/authguard.servi
 export class DomesticSummaryComponent {
   name!: string;
   bound!: Bound[];
-  shipmentStatus!: ShipmentStatus[];
+  // shipmentStatus!: ShipmentStatus[];
+  shipmentStatus!: ProductField | null | undefined;
   role: any;
 
   selectedBound: Bound = {
@@ -26,11 +29,14 @@ export class DomesticSummaryComponent {
   size: number = 10;
   paginationRes: any;
 
-  constructor(private summaryService: SummaryService,
+  constructor(
+    private summaryService: SummaryService,
     private datePipe: DatePipe,
     private messageService: MessageService,
     private authguardService: AuthguardService,
-    private shipmentStatusService: ShipmentStatusService) { }
+    // private shipmentStatusService: ShipmentStatusService,
+    private shipmentStatusService: ProductFieldServiceService,
+  ) { }
   domesticShipment: any = [];
   items: MenuItem[] | undefined;
 
@@ -84,7 +90,7 @@ export class DomesticSummaryComponent {
   }
 
   getInboundSummary(obj: SummarySearch, page: number, size: number) {
-    
+
     this.summaryService.getInboundSummary(obj, page, size).subscribe((res: any) => {
 
       this.domesticShipment = res.content;
@@ -128,15 +134,14 @@ export class DomesticSummaryComponent {
   }
 
   getAllShipmentStatus() {
-    this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
+    this.shipmentStatusService.getProductFieldByName("Search_For_Domestic").subscribe((res: ProductField) => {
       this.shipmentStatus = res;
     }, error => {
-  
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
   onSubmit() {
-    
+
     if (this.search.destination === null) {
       this.search.destination = "";
     }
