@@ -22,7 +22,7 @@ public class InternationalRoadReportPerformance {
     private LocalDate actualTimeDeparture;
     private LocalDate actualTimeArrival;
     private LocalDateTime offloaded;
-    private String totalTransitTime;
-    private String totalLeadTime;
+    private long totalTransitTime;
+    private long totalLeadTime;
 
 }

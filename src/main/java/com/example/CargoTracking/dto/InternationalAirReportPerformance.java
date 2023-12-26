@@ -22,6 +22,6 @@ public class InternationalAirReportPerformance {
     private LocalDate actualTimeDeparture;
     private LocalDate actualTimeArrival;
     private LocalDateTime cleared;
-    private String totalTransitTime;
-    private String totalLeadTime;
+    private long totalTransitTime;
+    private long totalLeadTime;
 }
