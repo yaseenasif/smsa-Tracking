@@ -84,7 +84,7 @@ export class UpdateInternationalAirForSummaryComponent {
   modeOptions: { options: string }[] = Object.values(Mode).map(el => ({ options: el }));
   shipmentMode: { options: string }[] = Object.values(ShipmentMode).map(el => ({ options: el }));
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
-
+  minDate: Date = new Date();
   selectedLocation!: Location;
 
   constructor(private router: Router,
@@ -137,10 +137,10 @@ export class UpdateInternationalAirForSummaryComponent {
   }
 
   onSubmit() {
-    this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-dd')
-    this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-dd')
-    this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-dd')
-    this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-dd')
+    this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
+    this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
+    this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
+    this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.departureDate = this.datePipe.transform(this.internationalShipment.departureDate, 'yyyy-MM-dd')
     this.internationalShipment.arrivalDate = this.datePipe.transform(this.internationalShipment.arrivalDate, 'yyyy-MM-dd')
     this.internationalShipment.departureTime = this.datePipe.transform(this.internationalShipment.departureTime, 'HH:mm:ss')
@@ -153,6 +153,7 @@ export class UpdateInternationalAirForSummaryComponent {
       }, 800);
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      this.internationalShipment.ata =  this.internationalShipment.ata ? new Date( this.internationalShipment.ata) : null;
     })
   }
 

@@ -74,6 +74,7 @@ export class UpdateInternationalRoadForSummaryComponent {
     atd: null,
     trip: null,
   }
+  minDate: Date = new Date();
   location!: Location[];
   locationPort!: LocationPort[]
   drivers!: Driver[]
@@ -137,10 +138,10 @@ export class UpdateInternationalRoadForSummaryComponent {
   }
 
   onSubmit() {
-    this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-dd')
-    this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-dd')
-    this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-dd')
-    this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-dd')
+    this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
+    this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
+    this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
+    this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
 
     this.internationalShippingService.updateInternationalShipmentById(this.iSID, this.internationalShipment).subscribe(res => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is updated on id' + res.id });
@@ -149,6 +150,7 @@ export class UpdateInternationalRoadForSummaryComponent {
       }, 800);
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      this.internationalShipment.ata =  this.internationalShipment.ata ? new Date( this.internationalShipment.ata) : null;
     })
   }
 

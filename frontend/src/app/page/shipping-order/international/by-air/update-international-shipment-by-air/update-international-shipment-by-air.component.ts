@@ -87,6 +87,7 @@ export class UpdateInternationalShipmentByAirComponent {
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
   showDropDown: boolean = false;
   selectedLocation!: Location;
+  minDate: Date = new Date();
 
   constructor(private router: Router,
     private internationalShippingService: InternationalShippingService,
@@ -142,10 +143,10 @@ export class UpdateInternationalShipmentByAirComponent {
 
   onSubmit() {
     debugger
-    this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-dd')
-    this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-dd')
-    this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-dd')
-    this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-dd')
+    this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
+    this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
+    this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
+    this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.departureDate = this.datePipe.transform(this.internationalShipment.departureDate, 'yyyy-MM-dd')
     this.internationalShipment.arrivalDate = this.datePipe.transform(this.internationalShipment.arrivalDate, 'yyyy-MM-dd')
     this.internationalShipment.departureTime = this.datePipe.transform(this.internationalShipment.departureTime, 'HH:mm:ss')

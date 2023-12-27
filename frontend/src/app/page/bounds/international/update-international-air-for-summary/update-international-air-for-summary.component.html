@@ -303,9 +303,13 @@
                     <label htmlFor="name">ATA</label>
                     <p-calendar
                       #ata="ngModel"
-                      name="ata"
-                      [required]="true"
+                      name="ata"                     
                       [(ngModel)]="internationalShipment.ata"
+                      [required]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"  
                     ></p-calendar>
                     <!-- <small id="name-help"
                         >{{name}}</small
