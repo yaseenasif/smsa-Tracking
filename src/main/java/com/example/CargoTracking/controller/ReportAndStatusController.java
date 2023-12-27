@@ -1,9 +1,6 @@
 package com.example.CargoTracking.controller;
 
-import com.example.CargoTracking.dto.InternationalAirReportPerformance;
-import com.example.CargoTracking.dto.InternationalAirReportStatusDto;
-import com.example.CargoTracking.dto.InternationalRoadReportPerformance;
-import com.example.CargoTracking.dto.InternationalRoadReportStatusDto;
+import com.example.CargoTracking.dto.*;
 import com.example.CargoTracking.service.ReportAndStatusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,5 +34,10 @@ public class ReportAndStatusController {
     @GetMapping("/int-road-report-performance")
     public ResponseEntity<List<InternationalRoadReportPerformance>> findInternationalRoadReportPerformance(){
         return ResponseEntity.ok(reportAndStatusService.findInternationalRoadReportPerformance());
+    }
+
+    @GetMapping("/domestic-performance")
+    public ResponseEntity<List<DomesticPerformance>> findDomesticPerformance(){
+        return ResponseEntity.ok(reportAndStatusService.findDomesticPerformance());
     }
 }

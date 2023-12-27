@@ -1,13 +1,11 @@
 package com.example.CargoTracking.service;
 
-import com.example.CargoTracking.dto.InternationalAirReportPerformance;
-import com.example.CargoTracking.dto.InternationalAirReportStatusDto;
-import com.example.CargoTracking.dto.InternationalRoadReportPerformance;
-import com.example.CargoTracking.dto.InternationalRoadReportStatusDto;
+import com.example.CargoTracking.dto.*;
+import com.example.CargoTracking.model.DomesticRoute;
+import com.example.CargoTracking.model.DomesticShipment;
 import com.example.CargoTracking.model.InternationalShipment;
 import com.example.CargoTracking.model.InternationalShipmentHistory;
-import com.example.CargoTracking.repository.InternationalShipmentHistoryRepository;
-import com.example.CargoTracking.repository.InternationalShipmentRepository;
+import com.example.CargoTracking.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +20,12 @@ public class ReportAndStatusService {
     InternationalShipmentRepository internationalShipmentRepository;
     @Autowired
     InternationalShipmentHistoryRepository internationalShipmentHistoryRepository;
+    @Autowired
+    DomesticShipmentRepository domesticShipmentRepository;
+    @Autowired
+    DomesticShipmentHistoryRepository domesticShipmentHistoryRepository;
+    @Autowired
+    DomesticRouteRepository domesticRouteRepository;
 
     public List<InternationalAirReportStatusDto> findInternationalAirReportStatus() {
         List<InternationalAirReportStatusDto> internationalAirReportStatusDtoList = new ArrayList<>();
@@ -221,5 +225,43 @@ public class ReportAndStatusService {
             internationalRoadReportPerformanceList.add(internationalRoadReportPerformance);
         }
         return  internationalRoadReportPerformanceList;
+    }
+
+    public List<DomesticPerformance> findDomesticPerformance() {
+        List<DomesticPerformance> domesticPerformanceList = new ArrayList<>();
+        List<DomesticShipment> domesticShipmentList = domesticShipmentRepository.findAllByActiveStatusMock(true);
+        for(DomesticShipment domesticShipment: domesticShipmentList){
+            DomesticPerformance domesticPerformance = new DomesticPerformance();
+            domesticPerformance.setId(domesticShipment.getId());
+            domesticPerformance.setPreAlertNumber(domesticShipment.getPreAlertNumber());
+            domesticPerformance.setReferenceNumber(domesticShipment.getReferenceNumber());
+            domesticPerformance.setOrigin(domesticShipment.getOriginLocation());
+            domesticPerformance.setDestination(domesticShipment.getDestinationLocation());
+            domesticPerformance.setRoute(domesticShipment.getRouteNumber());
+            domesticPerformance.setVehicle(domesticShipment.getVehicleNumber());
+            domesticPerformance.setShipments(domesticShipment.getTotalShipments());
+            domesticPerformance.setPallets(domesticShipment.getNumberOfPallets());
+            domesticPerformance.setOccupancy(domesticShipment.getVehicleType());
+            domesticPerformance.setBags(domesticShipment.getNumberOfShipments());
+            DomesticRoute domesticRoute = domesticRouteRepository.findByRoute(domesticShipment.getRouteNumber());
+            domesticPerformance.setPlanedEta(domesticRoute.getEta());
+            domesticPerformance.setPlanedEtd(domesticRoute.getEtd());
+            domesticPerformance.setAta(domesticShipment.getAta());
+            domesticPerformance.setAtd(domesticShipment.getAtd());
+            if(domesticRoute.getEta()!=null && domesticShipment.getAta()!=null){
+                Duration durationForEtaAndAta = Duration.between(domesticRoute.getEta(), domesticShipment.getAta());
+                domesticPerformance.setPlanedEtaVsAta(durationForEtaAndAta.toHours());
+            }
+            if(domesticRoute.getEtd()!=null && domesticShipment.getAtd()!=null){
+                Duration durationForEtdAndAtd = Duration.between(domesticRoute.getEtd(), domesticShipment.getAtd());
+                domesticPerformance.setPlanedEtaVsAta(durationForEtdAndAtd.toHours());
+            }
+            if(domesticShipment.getAtd()!=null && domesticShipment.getAta()!=null){
+                Duration durationForTransitTime = Duration.between(domesticShipment.getAta(), domesticShipment.getAtd());
+                domesticPerformance.setTransitTime(durationForTransitTime.toHours());
+            }
+            domesticPerformanceList.add(domesticPerformance);
+        }
+        return domesticPerformanceList;
     }
 }
