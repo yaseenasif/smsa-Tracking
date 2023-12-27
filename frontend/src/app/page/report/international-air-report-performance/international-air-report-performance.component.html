@@ -88,7 +88,7 @@
                         </form> -->
                     </p-toolbar>
                     <div class="card">
-                        <p-table [value]="value" [tableStyle]="{ 'min-width': '50rem' }">
+                        <p-table [value]="internationalAirReportPerformance" [tableStyle]="{ 'min-width': '50rem' }">
                             <!-- <ng-template pTemplate="caption">
                   <div class="flex">
                     <span class="p-input-icon-left">
@@ -121,42 +121,21 @@
                                     <th class="text-center">Cleared</th>
                                     <th class="text-center">Total Transit Time (Days)</th>
                                     <th class="text-center">Total Lead Time (Days)</th>
-                                    <th class="text-center">Action<th>
                                 </tr>
                             </ng-template>
-                            <ng-template pTemplate="body" let-domesticShipment>
+                            <ng-template pTemplate="body" let-internationalAirReportPerformance>
                                 <tr>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center"></td>
-                                    <td class="text-center flex flex-row">
-                                        <p-button icon="bi bi-eye" class="mr"
-                                            styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
-                                        </p-button>
-                                        <p-button icon="bi bi-download" class="mr"
-                                            styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
-                                        </p-button>
-                                        <p-button icon="bi bi-clock-history" class="ml mr"
-                                            styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                                        </p-button>
-                                        <p-button icon="bi bi-paperclip" class="ml mr"
-                                            styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                                        </p-button>
-                                        <p-button icon="bi bi-pen" class="ml mr"
-                                            styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
-                                        </p-button>
-                                        <p-button icon="bi bi-trash" class="ml"
-                                            styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                                        </p-button>
-                                    </td>
+                                    <td class="text-center">{{internationalAirReportPerformance.preAlertNumber}}</td>
+                                    <td class="text-center">{{internationalAirReportPerformance.referenceNumber}}</td>
+                                    <td class="text-center">{{internationalAirReportPerformance.origin}}</td>
+                                    <td class="text-center">{{internationalAirReportPerformance.destination}}</td>
+                                    <td class="text-center">{{internationalAirReportPerformance.route}}</td>
+                                    <td class="text-center">{{internationalAirReportPerformance.flight}}</td>
+                                    <td class="text-center">{{internationalAirReportPerformance.actualTimeDeparture}}</td>
+                                    <td class="text-center">{{internationalAirReportPerformance.actualTimeArrival}}</td>
+                                    <td class="text-center">{{internationalAirReportPerformance.cleared}}</td>
+                                    <td class="text-center">{{internationalAirReportPerformance.totalTransitTime}}</td>
+                                    <td class="text-center">{{internationalAirReportPerformance.totalLeadTime}}</td>
                                 </tr>
                             </ng-template>
                         </p-table>
