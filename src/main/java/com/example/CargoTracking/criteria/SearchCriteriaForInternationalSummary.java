@@ -16,4 +16,5 @@ public class SearchCriteriaForInternationalSummary {
     private String origin;
     private String destination;
     private String type;
+    private String routeNumber;
 }

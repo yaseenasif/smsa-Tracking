@@ -33,7 +33,8 @@ export class InternationalSummaryByRoadComponent {
     status: null,
     origin: null,
     destination: null,
-    type: null
+    type: null,
+    routeNumber:""
   }
   paginationRes: any;
   page: any;
@@ -83,7 +84,8 @@ export class InternationalSummaryByRoadComponent {
       status: null,
       origin: null,
       destination: null,
-      type: null
+      type: null,
+      routeNumber:""
     }
     if (this.selectedBound && this.selectedBound.bound === "In bound") {
       this.getInboundSummary(this.search, 0, 10);

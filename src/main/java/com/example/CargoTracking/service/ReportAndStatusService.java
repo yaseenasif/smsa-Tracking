@@ -1,5 +1,6 @@
 package com.example.CargoTracking.service;
 
+import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.*;
 import com.example.CargoTracking.model.DomesticRoute;
@@ -8,6 +9,7 @@ import com.example.CargoTracking.model.InternationalShipment;
 import com.example.CargoTracking.model.InternationalShipmentHistory;
 import com.example.CargoTracking.repository.*;
 import com.example.CargoTracking.specification.DomesticSummarySpecification;
+import com.example.CargoTracking.specification.InternationalSummarySpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -32,9 +34,18 @@ public class ReportAndStatusService {
     @Autowired
     DomesticRouteRepository domesticRouteRepository;
 
-    public List<InternationalAirReportStatusDto> findInternationalAirReportStatus() {
+    public List<InternationalAirReportStatusDto> findInternationalAirReportStatus(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         List<InternationalAirReportStatusDto> internationalAirReportStatusDtoList = new ArrayList<>();
-        List<InternationalShipment> internationalShipmentsList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Air");
+        List<InternationalShipment> internationalShipmentsList = new ArrayList<>();
+        if(searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
+                && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
+                && searchCriteriaForInternationalSummary.getStatus() ==null && searchCriteriaForInternationalSummary.getRouteNumber() == null){
+             internationalShipmentsList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Air");
+        }else{
+            searchCriteriaForInternationalSummary.setType("By Air");
+            Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
+            internationalShipmentsList = internationalShipmentRepository.findAll(internationalShipmentSpecification);
+        }
         for (InternationalShipment internationalShipment : internationalShipmentsList) {
             InternationalAirReportStatusDto internationalAirReportStatusDto = new InternationalAirReportStatusDto();
             internationalAirReportStatusDto.setId(internationalShipment.getId());
@@ -99,9 +110,18 @@ public class ReportAndStatusService {
         return internationalAirReportStatusDtoList;
     }
 
-    public List<InternationalRoadReportStatusDto> findInternationalRoadReportStatus() {
+    public List<InternationalRoadReportStatusDto> findInternationalRoadReportStatus(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         List<InternationalRoadReportStatusDto> internationalRoadReportStatusDtoList = new ArrayList<>();
-        List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Road");
+        List<InternationalShipment> internationalShipmentList = new ArrayList<>();
+        if(searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
+                && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
+                && searchCriteriaForInternationalSummary.getStatus() ==null && searchCriteriaForInternationalSummary.getRouteNumber() == null){
+            internationalShipmentList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Road");
+        }else{
+            searchCriteriaForInternationalSummary.setType("By Road");
+            Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
+            internationalShipmentList = internationalShipmentRepository.findAll(internationalShipmentSpecification);
+        }
         for (InternationalShipment internationalShipment : internationalShipmentList) {
             InternationalRoadReportStatusDto internationalRoadReportStatusDto = new InternationalRoadReportStatusDto();
             internationalRoadReportStatusDto.setId(internationalShipment.getId());
@@ -165,10 +185,19 @@ public class ReportAndStatusService {
         return internationalRoadReportStatusDtoList;
     }
 
-    public List<InternationalAirReportPerformance> findInternationalAirReportPerformance() {
+    public List<InternationalAirReportPerformance> findInternationalAirReportPerformance(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         List<InternationalAirReportPerformance> internationalAirReportPerformanceList = new ArrayList<>();
-        List<InternationalShipment> internationalShipmentsList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Air");
-        for (InternationalShipment internationalShipment: internationalShipmentsList){
+        List<InternationalShipment> internationalShipmentList = new ArrayList<>();
+        if(searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
+                && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
+                && searchCriteriaForInternationalSummary.getStatus() ==null && searchCriteriaForInternationalSummary.getRouteNumber() == null){
+            internationalShipmentList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Air");
+        }else{
+            searchCriteriaForInternationalSummary.setType("By Air");
+            Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
+            internationalShipmentList = internationalShipmentRepository.findAll(internationalShipmentSpecification);
+        }
+        for (InternationalShipment internationalShipment: internationalShipmentList){
             InternationalAirReportPerformance internationalAirReportPerformance = new InternationalAirReportPerformance();
             internationalAirReportPerformance.setId(internationalShipment.getId());
             internationalAirReportPerformance.setPreAlertNumber(internationalShipment.getPreAlertNumber());
@@ -199,10 +228,20 @@ public class ReportAndStatusService {
         return internationalAirReportPerformanceList;
     }
 
-    public List<InternationalRoadReportPerformance> findInternationalRoadReportPerformance() {
+    public List<InternationalRoadReportPerformance> findInternationalRoadReportPerformance(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         List<InternationalRoadReportPerformance> internationalRoadReportPerformanceList = new ArrayList<>();
-        List<InternationalShipment> internationalShipmentsList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Road");
-        for(InternationalShipment internationalShipment: internationalShipmentsList){
+        List<InternationalShipment> internationalShipmentList = new ArrayList<>();
+        if(searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
+                && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
+                && searchCriteriaForInternationalSummary.getStatus() ==null && searchCriteriaForInternationalSummary.getRouteNumber() == null){
+            internationalShipmentList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Road");
+        }else{
+            searchCriteriaForInternationalSummary.setType("By Road");
+            Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
+            internationalShipmentList = internationalShipmentRepository.findAll(internationalShipmentSpecification);
+        }
+//        List<InternationalShipment> internationalShipmentsList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Road");
+        for(InternationalShipment internationalShipment: internationalShipmentList){
             InternationalRoadReportPerformance internationalRoadReportPerformance = new InternationalRoadReportPerformance();
             internationalRoadReportPerformance.setId(internationalShipment.getId());
             internationalRoadReportPerformance.setPreAlertNumber(internationalShipment.getPreAlertNumber());
