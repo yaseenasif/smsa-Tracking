@@ -254,8 +254,12 @@
                     <p-calendar
                       [(ngModel)]="domesticShipment.ata"
                       #ata="ngModel"
-                      [required]="true"
                       name="ata"
+                      [required]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate" 
                     ></p-calendar>
                     <!-- <small id="name-help"
                         >{{name}}</small

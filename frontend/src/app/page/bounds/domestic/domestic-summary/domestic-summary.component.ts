@@ -45,7 +45,8 @@ export class DomesticSummaryComponent {
     toDate: null,
     status: null,
     origin: null,
-    destination: null
+    destination: null,
+    routeNumber:""
   }
 
   onBoundChange() {
@@ -54,7 +55,8 @@ export class DomesticSummaryComponent {
       toDate: null,
       status: null,
       origin: null,
-      destination: null
+      destination: null,
+      routeNumber:""
     }
     if (this.selectedBound && this.selectedBound.bound === "In bound") {
       this.getInboundSummary(this.search, 0, 10);
