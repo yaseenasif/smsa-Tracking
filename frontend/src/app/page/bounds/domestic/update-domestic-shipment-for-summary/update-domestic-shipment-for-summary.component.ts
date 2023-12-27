@@ -99,6 +99,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
   checked!: boolean;
   size = 100000
   uploadedFiles: any[] = [];
+  minDate: Date = new Date();
 
   onUpload(event: any) {
 
@@ -239,15 +240,19 @@ export class UpdateDomesticShipmentForSummaryComponent {
       } else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.error });
       }
+      this.domesticShipment.etd =  this.domesticShipment.etd ? new Date( this.domesticShipment.etd) : null;
+      this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
+      this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
+      this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
     })
   }
 
   onSubmit() {
-    this.domesticShipment.etd = this.datePipe.transform(this.domesticShipment.etd, 'yyyy-MM-dd')
-    this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-dd')
-    this.domesticShipment.atd = this.datePipe.transform(this.domesticShipment.atd, 'yyyy-MM-dd')
-    this.domesticShipment.ata = this.datePipe.transform(this.domesticShipment.ata, 'yyyy-MM-dd')
-    debugger
+    this.domesticShipment.etd = this.datePipe.transform(this.domesticShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
+    this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
+    this.domesticShipment.atd = this.datePipe.transform(this.domesticShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
+    this.domesticShipment.ata = this.datePipe.transform(this.domesticShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
+    
     this.updateDomesticShipment(this.domesticShipment);
   }
 
