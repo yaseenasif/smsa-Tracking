@@ -6,18 +6,21 @@ import { ShipmentStatusService } from 'src/app/page/shipment-status/service/ship
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { InternationalSummarySearch } from 'src/app/model/InternationalSummarySearch';
 import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
+import { ProductField } from 'src/app/model/ProductField';
+import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
 
 @Component({
   selector: 'app-international-summary-by-road',
   templateUrl: './international-summary-by-road.component.html',
   styleUrls: ['./international-summary-by-road.component.scss'],
-  providers: [DatePipe,MessageService]
+  providers: [DatePipe, MessageService]
 })
 export class InternationalSummaryByRoadComponent {
 
   name!: string;
   bound!: Bound[];
-  shipmentStatus!: ShipmentStatus[];
+  // shipmentStatus!: ShipmentStatus[];
+  shipmentStatus!: ProductField | null | undefined;
   role: any;
 
   selectedBound: Bound = {
@@ -36,12 +39,14 @@ export class InternationalSummaryByRoadComponent {
   page: any;
   size: any;
 
-  constructor(private summaryService: SummaryService,
-    private messageService:MessageService,
+  constructor(
+    private summaryService: SummaryService,
+    private messageService: MessageService,
     private datePipe: DatePipe,
     private authguardService: AuthguardService,
-
-    private shipmentStatusService: ShipmentStatusService) { }
+    // private shipmentStatusService: ShipmentStatusService,
+    private shipmentStatusService: ProductFieldServiceService
+    ) { }
 
   internationalShipmentByRoad: any = [];
   items: MenuItem[] | undefined;
@@ -88,7 +93,7 @@ export class InternationalSummaryByRoadComponent {
   }
 
   getAllShipmentStatus() {
-    this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
+    this.shipmentStatusService.getProductFieldByName("Search_For_International_By_Road").subscribe((res: ProductField) => {
       this.shipmentStatus = res;
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });

@@ -32,7 +32,6 @@ import { EditRoleComponent } from './page/role/edit-role/edit-role.component';
 import { CommonModule } from '@angular/common';
 import { ProductFieldListComponent } from './page/product-field/product-field-list/product-field-list.component';
 import { ProductFieldAddComponent } from './page/product-field/product-field-add/product-field-add.component';
-import { ProductFieldUpdateComponent } from './page/product-field/product-field-update/product-field-update.component';
 import {FormsModule} from'@angular/forms'
 import {DomesticShippingListComponent} from './page/shipping-order/domestic/domestic-shipping-list/domestic-shipping-list.component';
 import {
@@ -105,6 +104,12 @@ import { AddDomesticRoutesComponent } from './page/domesticRoutes/add-domestic-r
 import { UpdateDomesticRoutesComponent } from './page/domesticRoutes/update-domestic-routes/update-domestic-routes.component';
 import { EmailManagmentComponent } from './page/email-managment/email-managment.component';
 import { ChipsModule } from 'primeng/chips';
+import { ReportTilesComponent } from './page/report/report-tiles/report-tiles.component';
+import { InternationalAirReportPerformanceComponent } from './page/report/international-air-report-performance/international-air-report-performance.component';
+import { InternationalAirReportStatusComponent } from './page/report/international-air-report-status/international-air-report-status.component';
+import { InternationalRoadReportStatusComponent } from './page/report/international-road-report-status/international-road-report-status.component';
+import { InternationalRoadReportPerformanceComponent } from './page/report/international-road-report-performance/international-road-report-performance.component';
+import { DomesticReportPerformanceComponent } from './page/report/domestic-report-performance/domestic-report-performance.component';
 
 @NgModule({
   declarations: [
@@ -130,7 +135,6 @@ import { ChipsModule } from 'primeng/chips';
     UpdateVehicleTypeComponent,
     ProductFieldListComponent,
     ProductFieldAddComponent,
-    ProductFieldUpdateComponent,
     PermissionListComponent,
     AddPermissionComponent,
     EditPermissionComponent,
@@ -180,6 +184,12 @@ import { ChipsModule } from 'primeng/chips';
     AddDomesticRoutesComponent,
     UpdateDomesticRoutesComponent,
     EmailManagmentComponent,
+    ReportTilesComponent,
+    InternationalAirReportPerformanceComponent,
+    InternationalAirReportStatusComponent,
+    InternationalRoadReportStatusComponent,
+    InternationalRoadReportPerformanceComponent,
+    DomesticReportPerformanceComponent,
   ],
   imports: [
     ChipsModule,

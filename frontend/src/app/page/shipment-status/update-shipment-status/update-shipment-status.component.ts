@@ -3,6 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { ShipmentStatusService } from '../service/shipment-status.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProductField } from 'src/app/model/ProductField';
 
 @Component({
   selector: 'app-update-shipment-status',
@@ -15,9 +16,13 @@ export class UpdateShipmentStatusComponent {
   items: MenuItem[] | undefined;
   sSId!: number;
   name!:string;
-  shipmentStatus:ShipmentStatus={
+  shipmentStatus:ProductField={
     id: null,
-    name: null
+    name: null,
+    createdAt: null,
+    status: null,
+    type: null,
+    productFieldValuesList: []
   }
 
   constructor(private route: ActivatedRoute,
@@ -38,7 +43,7 @@ export class UpdateShipmentStatusComponent {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
    })
   }
-  
+
   onSubmit() {
     this.shipmentStatusService.updateShipmentStatusById(this.sSId,this.shipmentStatus).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Shipment Status is updated on id'+res.id});
@@ -47,6 +52,6 @@ export class UpdateShipmentStatusComponent {
       },800);
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-    })  
+    })
   }
 }

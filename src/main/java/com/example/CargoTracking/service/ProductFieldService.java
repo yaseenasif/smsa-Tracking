@@ -2,6 +2,7 @@ package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.dto.ProductFieldDto;
 import com.example.CargoTracking.dto.ProductFieldValuesDto;
+import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.model.ProductField;
 import com.example.CargoTracking.model.ProductFieldValues;
 import com.example.CargoTracking.repository.ProductFieldRepository;
@@ -67,19 +68,19 @@ public class ProductFieldService {
             return toDto(productField);
         }
         else {
-            throw new RuntimeException(String.format("Product Field not found for id => %d", id));
+            throw new RecordNotFoundException(String.format("Product Field not found for id => %d", id));
         }
     }
 
     public ProductFieldDto findByName(String name) {
-        Optional<ProductField> productFieldOptional = Optional.ofNullable(productFieldRepository.findByName(name));
+        Optional<ProductField> productFieldOptional = Optional.ofNullable(productFieldRepository.findByNameAndStatusIsActive(name));
 
         if(productFieldOptional.isPresent()){
             ProductField productField = productFieldOptional.get();
             return toDto(productField);
         }
         else {
-            throw new RuntimeException(String.format("ProductField not found at => %s", name));
+            throw new RecordNotFoundException(String.format("ProductField not found at => %s", name));
         }
     }
 
@@ -106,7 +107,7 @@ public class ProductFieldService {
             }
             return productFieldDtoList;
         } else{
-            throw new RuntimeException(String.format("ProductField not found on Product Field Value id => %d", productFieldValueId));
+            throw new RecordNotFoundException(String.format("ProductField not found on Product Field Value id => %d", productFieldValueId));
         }
     }
 
@@ -120,7 +121,7 @@ public class ProductFieldService {
             productFieldRepository.deleteById(id);
         }
         else {
-            throw new RuntimeException(String.format("Product Field not found for id => %d", id));
+            throw new RecordNotFoundException(String.format("Product Field not found for id => %d", id));
         }
         return null;
     }
@@ -159,7 +160,7 @@ public class ProductFieldService {
             ProductField updatedPf = productFieldRepository.save(existingPf);
             return toDto(updatedPf);
         } else {
-            throw new RuntimeException(String.format("Product Field not found for id => %d", id));
+            throw new RecordNotFoundException(String.format("Product Field not found for id => %d", id));
         }
     }
 
@@ -186,10 +187,10 @@ public class ProductFieldService {
                 // Save the updated ProductField entity to reflect the changes in the database
                 productFieldRepository.save(productField);
             } else{
-                throw new RuntimeException("Product Field Value not found");
+                throw new RecordNotFoundException("Product Field Value not found");
             }
         } else {
-            throw new RuntimeException(String.format("Product Field not found for id => %d", id));
+            throw new RecordNotFoundException(String.format("Product Field not found for id => %d", id));
 
         }
     }

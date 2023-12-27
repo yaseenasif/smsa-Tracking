@@ -18,6 +18,8 @@ import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
 import { InternationalShipment } from 'src/app/model/InternationalShipment';
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
 import { DatePipe } from '@angular/common';
+import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
+import { ProductField } from 'src/app/model/ProductField';
 
 @Component({
   selector: 'app-add-international-shipment-by-road',
@@ -57,7 +59,7 @@ export class AddInternationalShipmentByRoadComponent {
     shipmentMode: null,
     shortageAWBs: null,
     shortages: null,
-    status: 'Pre-Alert Created',
+    status: "Created",
     tagNumber: null,
     totalShipments: null,
     type: 'By Air',
@@ -78,7 +80,7 @@ export class AddInternationalShipmentByRoadComponent {
   destinationPorts!: LocationPort[];
   drivers!: Driver[]
   vehicleTypes!: VehicleType[]
-  shipmentStatus!: ShipmentStatus[];
+  shipmentStatus!: ProductField;
   selectedDriver: Driver | null = null;
   modeOptions: { options: string }[] = Object.values(Mode).map(el => ({ options: el }));
   shipmentMode: { options: string }[] = Object.values(ShipmentMode).map(el => ({ options: el }));
@@ -105,10 +107,10 @@ export class AddInternationalShipmentByRoadComponent {
     private internationalShippingService: InternationalShippingService,
     private messageService: MessageService,
     private locationService: LocationService,
-    private locationPortService: LocationPortService,
+    // private locationPortService: LocationPortService,
     private driverService: DriverService,
     private vehicleTypeService: VehicleTypeService,
-    private shipmentStatusService: ShipmentStatusService,
+    // private shipmentStatusService: ProductFieldServiceService,
     private datePipe: DatePipe) { }
   name!: string;
   checked!: boolean;
@@ -119,7 +121,7 @@ export class AddInternationalShipmentByRoadComponent {
     // this.getAllLocationPort();
     this.getAllDriver();
     this.getAllVehicleType();
-    this.getAllShipmentStatus();
+    // this.getAllShipmentStatus();
   }
 
   onSubmit() {
@@ -144,7 +146,7 @@ export class AddInternationalShipmentByRoadComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }   
+      }
        this.internationalShipment.etd= this.internationalShipment.etd ? new Date( this.internationalShipment.etd) : null;
        this.internationalShipment.eta= this.internationalShipment.eta ? new Date( this.internationalShipment.eta) : null;
        this.internationalShipment.atd= this.internationalShipment.atd ? new Date( this.internationalShipment.atd) : null;
@@ -204,13 +206,15 @@ export class AddInternationalShipmentByRoadComponent {
     })
   }
 
-  getAllShipmentStatus() {
-    this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
-      this.shipmentStatus = res;
-    }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-    })
-  }
+  // getAllShipmentStatus() {
+  //   this.shipmentStatusService.getProductFieldByName("Auto_Status").subscribe((res: ProductField) => {
+  //     for (const list of res.productFieldValuesList) {
+  //       this.internationalShipment.status = list.name;
+  //     }
+  //   }, error => {
+  //     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+  //   })
+  // }
 
   driverData() {
     this.internationalShipment.driverName = this.selectedDriver?.name;

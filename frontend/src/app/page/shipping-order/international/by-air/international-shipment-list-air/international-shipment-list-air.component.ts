@@ -6,6 +6,8 @@ import { InternationalShippingService } from '../../service/international-shippi
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
 import { DatePipe } from '@angular/common';
+import { ProductField } from 'src/app/model/ProductField';
+import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
 
 @Component({
   selector: 'app-international-shipment-list-air',
@@ -22,7 +24,8 @@ export class InternationalShipmentListAirComponent {
   visible:boolean=false;
   ISid!:number;
 
-  shipmentStatus!: ShipmentStatus[];
+  // shipmentStatus!: ShipmentStatus[];
+  shipmentStatus!: ProductField | null | undefined;
 
   fromDate: string = '';
   toDate: string = '';
@@ -31,10 +34,13 @@ export class InternationalShipmentListAirComponent {
   destination: string = '';
   routeNumber: string = '';
 
-  constructor(private internationalShippingService: InternationalShippingService,
+  constructor(
+    private internationalShippingService: InternationalShippingService,
     private messageService:MessageService,
     private datePipe:DatePipe,
-    private shipmentStatusService: ShipmentStatusService,) { }
+    // private shipmentStatusService: ShipmentStatusService,
+    private shipmentStatusService: ProductFieldServiceService,
+    ) { }
   items: MenuItem[] | undefined;
   searchedValue: string = '';
 
@@ -56,8 +62,7 @@ export class InternationalShipmentListAirComponent {
   }
 
   getAllShipmentStatus() {
-    this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
-      
+    this.shipmentStatusService.getProductFieldByName("Search_For_International_By_Air").subscribe((res: ProductField) => {
       this.shipmentStatus = res;
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -67,7 +72,7 @@ export class InternationalShipmentListAirComponent {
   onPageChange(event: any) {
     this.page = event.page;
     this.size = event.rows;
-    
+
     this.getAllInternationalShipmentByAir(this.fromDate ,this.toDate,this.status,this.origin,this.destination,this.routeNumber, this.page, this.size);
   }
 

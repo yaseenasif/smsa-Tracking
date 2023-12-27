@@ -5,6 +5,8 @@ import { DomesticShipment } from '../../../../model/DomesticShipment';
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { DatePipe } from '@angular/common';
+import { ProductField } from 'src/app/model/ProductField';
+import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
 
 
 @Component({
@@ -16,13 +18,15 @@ import { DatePipe } from '@angular/common';
 export class DomesticShippingListComponent implements OnInit {
 
   myApiResponse: any;
-  shipmentStatus!: ShipmentStatus[];
+  // shipmentStatus!: ShipmentStatus[];
+  shipmentStatus!: ProductField | null| undefined;
   visible: boolean=false;
   DSid!: number;
 
   constructor(private domesticShipmentService: DomesticShippingService,
     private messageService: MessageService,
-    private shipmentStatusService: ShipmentStatusService,
+    // private shipmentStatusService: ShipmentStatusService,
+    private shipmentStatusService: ProductFieldServiceService,
     private datePipe:DatePipe
   ) { }
   domesticShipment: DomesticShipment[] = []
@@ -65,13 +69,11 @@ export class DomesticShippingListComponent implements OnInit {
     })
   }
 
-  
-
 
 
 
   onPageChange(event: any) {
-   
+
     this.page = event.page;
     this.rows = event.rows;
     this.getAllDomesticShipments(this.fromDate ,this.toDate,this.status,this.origin,this.destination,this.routeNumber, this.page, this.rows);
@@ -82,7 +84,7 @@ export class DomesticShippingListComponent implements OnInit {
   }
 
   getAllShipmentStatus() {
-    this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
+    this.shipmentStatusService.getProductFieldByName("Search_For_Domestic").subscribe((res: ProductField) => {
       this.shipmentStatus = res;
     }, error => {
 

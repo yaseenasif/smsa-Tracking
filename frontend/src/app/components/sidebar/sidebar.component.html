@@ -51,6 +51,16 @@
         <span class="nav-text"> International Summary By Road </span>
       </span>
     </li>
+
+    <li class="child" *ngIf="hasPermission('Reports')">
+      <span
+        class="sidebar-list-hover"
+        routerLink="/report-tiles"
+      >
+        <i class="bi bi-clipboard2-pulse"></i>
+        <span class="nav-text">Reports</span>
+      </span>
+    </li>
     <!-- <li class="child" *ngIf="hasPermission('Email Management')">
       <span
         class="sidebar-list-hover"

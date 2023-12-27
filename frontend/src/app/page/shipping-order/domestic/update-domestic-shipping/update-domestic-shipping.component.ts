@@ -15,7 +15,9 @@ import { DriverService } from 'src/app/page/driver/service/driver.service';
 import { Driver } from 'src/app/model/Driver';
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
 import { DatePipe } from '@angular/common';
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, catchError, forkJoin } from 'rxjs';
+import { ProductField } from 'src/app/model/ProductField';
+import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
 
 
 @Component({
@@ -82,15 +84,15 @@ export class UpdateDomesticShippingComponent {
 
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
 
-  shipmentStatus!: ShipmentStatus[];
-  selectedShipmentStatus!: ShipmentStatus;
+  shipmentStatus!: ProductField | null | undefined;
+  selectedShipmentStatus!: ProductField;
 
   domesticShipmentId: any;
   showDropDown: boolean = false;
 
   constructor(private locationService: LocationService,
     private vehicleTypeService: VehicleTypeService,
-    private shipmentStatusService: ShipmentStatusService,
+    private shipmentStatusService: ProductFieldServiceService,
     private domesticShipmentService: DomesticShippingService,
     private driverService: DriverService,
     private router: Router,
@@ -149,7 +151,7 @@ export class UpdateDomesticShippingComponent {
     const locations$: Observable<Location[]> = this.locationService.getAllLocationForDomestic();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
-    const shipmentStatus$: Observable<ShipmentStatus[]> = this.shipmentStatusService.getALLShipmentStatus();
+    const shipmentStatus$: Observable<ProductField> = this.getAllShipmentStatus();
 
     forkJoin([locations$, driver$, vehicleType$, shipmentStatus$]).subscribe(
       ([locationsResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
@@ -159,8 +161,6 @@ export class UpdateDomesticShippingComponent {
         this.drivers = driverResponse.content.filter((el: Driver) => el.status);
         this.vehicleTypes = vehicleTypeResponse
         this.shipmentStatus = shipmentStatusResponse
-
-
         this.domesticShipmentById(this.domesticShipmentId);
       }
     );
@@ -185,7 +185,7 @@ export class UpdateDomesticShippingComponent {
 
       this.drivers = res.content.filter((el: Driver) => el.status);
 
-    }, error => { 
+    }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
@@ -226,16 +226,30 @@ export class UpdateDomesticShippingComponent {
     })
   }
 
-  getAllShipmentStatus() {
-    this.shipmentStatusService.getALLShipmentStatus().subscribe((res: ShipmentStatus[]) => {
-      this.shipmentStatus = res;
-    }, error => {
-      if (error.error.body) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }
-    })
+  // getAllShipmentStatus() {
+  //   this.shipmentStatusService.getProductFieldByName("Origin_Of_Domestic").subscribe((res: ProductField) => {
+  //     this.shipmentStatus = res;
+  //   }, error => {
+  //     debugger
+  //     if (error.error.body) {
+  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+  //     } else {
+  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+  //     }
+  //   })
+  // }
+
+  getAllShipmentStatus(): Observable<ProductField> {
+    return this.shipmentStatusService.getProductFieldByName("Origin_Of_Domestic").pipe(
+      catchError(error => {
+        if (error.error.body) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+        }
+        throw error;
+      })
+    );
   }
 
   domesticShipmentById(id: number) {
@@ -299,11 +313,6 @@ export class UpdateDomesticShippingComponent {
     this.domesticShipment.arrivalTime = this.datePipe.transform(this.domesticShipment.arrivalTime, 'HH:mm:ss')
     this.updateDomesticShipment(this.domesticShipment);
   }
-
-
-
-
-
 
 }
 
