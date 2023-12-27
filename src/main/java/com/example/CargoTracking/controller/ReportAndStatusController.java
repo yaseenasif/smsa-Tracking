@@ -1,5 +1,6 @@
 package com.example.CargoTracking.controller;
 
+import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.*;
 import com.example.CargoTracking.service.ReportAndStatusService;
@@ -21,23 +22,31 @@ public class ReportAndStatusController {
     ReportAndStatusService reportAndStatusService;
 
     @GetMapping("/int-air-report-status")
-    public ResponseEntity<List<InternationalAirReportStatusDto>> findInternationalAirReportStatus(){
-        return ResponseEntity.ok(reportAndStatusService.findInternationalAirReportStatus());
+    public ResponseEntity<List<InternationalAirReportStatusDto>> findInternationalAirReportStatus(@RequestParam(value = "value",required = false) String value) throws JsonProcessingException {
+        SearchCriteriaForInternationalSummary
+                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
+        return ResponseEntity.ok(reportAndStatusService.findInternationalAirReportStatus(searchCriteriaForInternationalSummary));
     }
 
     @GetMapping("/int-road-report-status")
-    public ResponseEntity<List<InternationalRoadReportStatusDto>> findInternationalRoadReportStatus(){
-        return ResponseEntity.ok(reportAndStatusService.findInternationalRoadReportStatus());
+    public ResponseEntity<List<InternationalRoadReportStatusDto>> findInternationalRoadReportStatus(@RequestParam(value = "value",required = false) String value) throws JsonProcessingException {
+        SearchCriteriaForInternationalSummary
+                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
+        return ResponseEntity.ok(reportAndStatusService.findInternationalRoadReportStatus(searchCriteriaForInternationalSummary));
     }
 
     @GetMapping("/int-air-report-performance")
-    public ResponseEntity<List<InternationalAirReportPerformance>> findInternationalAirReportPerformance(){
-        return ResponseEntity.ok(reportAndStatusService.findInternationalAirReportPerformance());
+    public ResponseEntity<List<InternationalAirReportPerformance>> findInternationalAirReportPerformance(@RequestParam(value = "value",required = false) String value) throws JsonProcessingException {
+        SearchCriteriaForInternationalSummary
+                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
+        return ResponseEntity.ok(reportAndStatusService.findInternationalAirReportPerformance(searchCriteriaForInternationalSummary));
     }
 
     @GetMapping("/int-road-report-performance")
-    public ResponseEntity<List<InternationalRoadReportPerformance>> findInternationalRoadReportPerformance(){
-        return ResponseEntity.ok(reportAndStatusService.findInternationalRoadReportPerformance());
+    public ResponseEntity<List<InternationalRoadReportPerformance>> findInternationalRoadReportPerformance(@RequestParam(value = "value",required = false) String value) throws JsonProcessingException {
+        SearchCriteriaForInternationalSummary
+                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
+        return ResponseEntity.ok(reportAndStatusService.findInternationalRoadReportPerformance(searchCriteriaForInternationalSummary));
     }
 
     @GetMapping("/domestic-performance")
