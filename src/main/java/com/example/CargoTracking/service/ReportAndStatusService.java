@@ -1,12 +1,17 @@
 package com.example.CargoTracking.service;
 
+import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.*;
 import com.example.CargoTracking.model.DomesticRoute;
 import com.example.CargoTracking.model.DomesticShipment;
 import com.example.CargoTracking.model.InternationalShipment;
 import com.example.CargoTracking.model.InternationalShipmentHistory;
 import com.example.CargoTracking.repository.*;
+import com.example.CargoTracking.specification.DomesticSummarySpecification;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -227,9 +232,18 @@ public class ReportAndStatusService {
         return  internationalRoadReportPerformanceList;
     }
 
-    public List<DomesticPerformance> findDomesticPerformance() {
+    public List<DomesticPerformance> findDomesticPerformance(SearchCriteriaForSummary searchCriteriaForSummary) {
         List<DomesticPerformance> domesticPerformanceList = new ArrayList<>();
-        List<DomesticShipment> domesticShipmentList = domesticShipmentRepository.findAllByActiveStatusMock(true);
+        List<DomesticShipment> domesticShipmentList = new ArrayList<>();
+        if(searchCriteriaForSummary.getDestination() == null && searchCriteriaForSummary.getOrigin() == null
+                && searchCriteriaForSummary.getToDate() == null && searchCriteriaForSummary.getFromDate() == null
+                && searchCriteriaForSummary.getStatus() ==null && searchCriteriaForSummary.getRouteNumber() == null){
+             domesticShipmentList = domesticShipmentRepository.findAllByActiveStatusMock(true);
+
+        }else{
+            Specification<DomesticShipment> domesticSummarySpecification = DomesticSummarySpecification.getSearchSpecification(searchCriteriaForSummary);
+            domesticShipmentList = domesticShipmentRepository.findAll(domesticSummarySpecification);
+        }
         for(DomesticShipment domesticShipment: domesticShipmentList){
             DomesticPerformance domesticPerformance = new DomesticPerformance();
             domesticPerformance.setId(domesticShipment.getId());
