@@ -298,10 +298,12 @@
                     <p-calendar
                       [(ngModel)]="domesticShipment.etd"
                       #etd="ngModel"
-                      [required]="true"
                       name="etd"
-                      [minDate]="minETDDate"
-                      (onSelect)="onETDDateSelected($event)"
+                      [required]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"                    
                     ></p-calendar>
                     <!-- <small id="name-help"
                       >{{name}}</small
@@ -316,10 +318,13 @@
                       #eta="ngModel" required name="eta" /> -->
                     <p-calendar
                       [(ngModel)]="domesticShipment.eta"
-                      #eta="ngModel"
+                      #eta="ngModel"              
+                      name="eta"                  
                       [required]="true"
-                      name="eta"
-                      [minDate]="minETDDate"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"  
                     ></p-calendar>
 
                     <!-- <small id="name-help"
@@ -337,7 +342,10 @@
                       [(ngModel)]="domesticShipment.atd"
                       #atd="ngModel"
                       [required]="true"
-                      [minDate]="minETDDate"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"  
                       name="atd"
                     ></p-calendar>
 
