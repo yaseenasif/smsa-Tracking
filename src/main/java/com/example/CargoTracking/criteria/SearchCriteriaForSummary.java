@@ -17,4 +17,5 @@ public class SearchCriteriaForSummary {
     private String status;
     private String origin;
     private String destination;
+    private String routeNumber;
 }

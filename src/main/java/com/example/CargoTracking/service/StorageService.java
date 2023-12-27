@@ -41,8 +41,7 @@ public class StorageService {
             return fileUrl;
         }catch (Exception e){
             logger.error("file not uplaoded to s3 bucket",fileName);
-            throw new RuntimeException(e.getMessage());
-        }
+            throw new RuntimeException(e.getMessage());}
 
     }
 

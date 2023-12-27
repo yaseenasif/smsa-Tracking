@@ -272,7 +272,7 @@ public class InternationalShipmentService {
 
         List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findByCreatedAt(oneDayOlderDate);
         try {
-            LocalDate currentDate = LocalDate.now();
+            LocalDateTime currentDate = LocalDateTime.now();
 
             if(!internationalShipmentList.isEmpty()){
                 for (InternationalShipment entity : internationalShipmentList) {
@@ -557,7 +557,9 @@ public class InternationalShipmentService {
                 List<InternationalShipment> all = internationalShipmentRepository.findAll();
                 for (InternationalShipment internationalShipmentForPreAlertNumber: all) {
                     if(internationalShipmentForPreAlertNumber.getPreAlertNumber().equals(internationalShipmentDto.getPreAlertNumber())){
-                        throw new RecordNotFoundException(String.format("Shipment with the given pre alert number is already exist"));
+                        if(internationalShipment.get().getId() != internationalShipmentDto.getId()){
+                            throw new RecordNotFoundException(String.format("Shipment with the given pre alert number is already exist"));
+                        }
                     }
                 }
 

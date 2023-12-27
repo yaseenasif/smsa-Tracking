@@ -49,4 +49,6 @@ public interface InternationalShipmentRepository extends JpaRepository<Internati
     List<InternationalShipment> findByCreatedAtAndType(LocalDate now, String type);
 
     InternationalShipment findByPreAlertNumber(String preAlertNumber);
+
+    List<InternationalShipment> findByActiveStatusAndType(boolean activeStatus, String type);
 }

@@ -299,7 +299,10 @@ public class DomesticShipmentService {
                   List<DomesticShipment> all = domesticShipmentRepository.findAll();
                   for(DomesticShipment domesticShipmentForPreAlertNumber : all){
                       if(domesticShipmentForPreAlertNumber.getPreAlertNumber().equals(domesticShipmentDto.getPreAlertNumber())){
-                          throw new RecordNotFoundException(String.format("Shipment with the given pre alert number is already exist"));
+                          if(domesticShipment.get().getId() != domesticShipmentDto.getId()){
+                              throw new RecordNotFoundException(String.format("Shipment with the given pre alert number is already exist"));
+
+                          }
                       }
                   }
                   domesticShipment.get().setPreAlertNumber(domesticShipmentDto.getPreAlertNumber());
@@ -442,7 +445,7 @@ public class DomesticShipmentService {
         List<DomesticShipment> domesticShipmentList = domesticShipmentRepository.findByCreatedAt(oneDayOlderDate);
 
         try {
-            LocalDate currentDate = LocalDate.now();
+            LocalDateTime currentDate = LocalDateTime.now();
 
             if(!domesticShipmentList.isEmpty()){
                 for (DomesticShipment entity : domesticShipmentList) {
