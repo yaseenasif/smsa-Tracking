@@ -254,7 +254,7 @@ public class ReportAndStatusService {
             }
             if(domesticRoute.getEtd()!=null && domesticShipment.getAtd()!=null){
                 Duration durationForEtdAndAtd = Duration.between(domesticRoute.getEtd(), domesticShipment.getAtd());
-                domesticPerformance.setPlanedEtaVsAta(durationForEtdAndAtd.toHours());
+                domesticPerformance.setPlanedEtdVsAtd(durationForEtdAndAtd.toHours());
             }
             if(domesticShipment.getAtd()!=null && domesticShipment.getAta()!=null){
                 Duration durationForTransitTime = Duration.between(domesticShipment.getAta(), domesticShipment.getAtd());
