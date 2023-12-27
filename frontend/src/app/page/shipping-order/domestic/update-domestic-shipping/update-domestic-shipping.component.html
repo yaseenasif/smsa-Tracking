@@ -11,7 +11,7 @@
         <div class="body-card">
           <p-toast></p-toast>
           <div class="card">
-            <h1 class="mb-4 h-color">Edit Domestic Shipment</h1>
+            <h1 class="mb-4 h-color">Add Domestic Shipment</h1>
             <form #domesticShipmentForm="ngForm" (ngSubmit)="onSubmit()">
               <div class="grid">
                 <!-- 1 -->
@@ -178,28 +178,29 @@
                           severity="info"
                         ></p-badge> </span
                     ></label>
-                    <span *ngIf="!showDropDown">{{domesticShipment.routeNumber}}</span>
                     <p-dropdown
-                      *ngIf="showDropDown"
                       class="w-full"
                       [options]="routes"
-                      name="route1"
-                      #route1="ngModel"
+                      #routeNumber="ngModel"
+                      name="routeNumber"
                       [required]="true"
                       [(ngModel)]="domesticShipment.routeNumber"
-                      optionLabel="route"
                       optionValue="route"
+                      optionLabel="route"
                       [filter]="true"
                       filterBy="route"
                       [showClear]="true"
-                      placeholder="Select a Origin Facility"
+                      placeholder="Select a Route Number
+                      "
                     >
                       <ng-template pTemplate="selectedItem">
                         <div
                           class="flex align-items-center gap-2"
                           *ngIf="domesticShipment"
                         >
-                          <div>{{ domesticShipment.routeNumber }}</div>
+                          <div>
+                            {{ domesticShipment.routeNumber }}
+                          </div>
                         </div>
                       </ng-template>
                       <ng-template let-routes pTemplate="item">
@@ -216,7 +217,7 @@
                     <label htmlFor="name">Number of Shipments</label>
                     <input
                       pInputText
-                      id="numberOfShipments"
+                      id="name"
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.numberOfShipments"
                       #numberOfShipments="ngModel"
@@ -234,7 +235,7 @@
                     <label htmlFor="name">Weight</label>
                     <input
                       pInputText
-                      id="weight"
+                      id="name"
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.weight"
                       #weight="ngModel"
@@ -284,7 +285,7 @@
                   class="color-red error"
                   *ngIf="preAlertNumber.invalid && (preAlertNumber.dirty || preAlertNumber.touched )&&preAlertNumber?.errors?.['minlength']"
                    >
-                  Minimum 15 cheater is required
+                  Minimum 12 cheater is required
                   </small>
                   </div>
                 </div>
@@ -297,8 +298,12 @@
                     <p-calendar
                       [(ngModel)]="domesticShipment.etd"
                       #etd="ngModel"
-                      [required]="true"
                       name="etd"
+                      [required]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"                    
                     ></p-calendar>
                     <!-- <small id="name-help"
                       >{{name}}</small
@@ -313,9 +318,13 @@
                       #eta="ngModel" required name="eta" /> -->
                     <p-calendar
                       [(ngModel)]="domesticShipment.eta"
-                      #eta="ngModel"
+                      #eta="ngModel"              
+                      name="eta"                  
                       [required]="true"
-                      name="eta"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"  
                     ></p-calendar>
 
                     <!-- <small id="name-help"
@@ -333,6 +342,10 @@
                       [(ngModel)]="domesticShipment.atd"
                       #atd="ngModel"
                       [required]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"  
                       name="atd"
                     ></p-calendar>
 
@@ -341,6 +354,7 @@
                     > -->
                   </div>
                 </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Departure Time</label>
@@ -410,7 +424,7 @@
                     <input
                       pInputText
                       [readOnly]="true"
-                      id="driverContact"
+                      id="name"
                       #driverContact="ngModel"
                       name="driverContact"
                       [required]="true"
@@ -429,14 +443,14 @@
                     <input
                       [readOnly]="true"
                       pInputText
-                      id="referenceNumber"
+                      id="name"
                       aria-describedby="name-help"
                       #referenceNumber="ngModel"
                       name="referenceNumber"
                       [required]="true"
                       [(ngModel)]="this.domesticShipment.referenceNumber"
                     />
-                    <small id="reference-help" class="color-warning"
+                    <small id="name-help" class="color-warning"
                       >this field is auto select when we select driver
                       name</small
                     >
@@ -516,7 +530,7 @@
                     <label htmlFor="name">Number of Bags</label>
                     <p-inputNumber
                       [maxlength]="3"
-                      id="numberOfBags"
+                      id="name"
                       [(ngModel)]="domesticShipment.numberOfBags"
                       #numberOfBags="ngModel"
                       [required]="true"
@@ -534,7 +548,7 @@
                     <label htmlFor="name">Vehicle Number</label>
                     <input
                       pInputText
-                      id="vehicleNumber"
+                      id="name"
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.vehicleNumber"
                       #vehicleNumber="ngModel"
@@ -551,7 +565,7 @@
                     <label htmlFor="name">Tag Number</label>
                     <input
                       pInputText
-                      id="tagNumber"
+                      id="name"
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.tagNumber"
                       #tagNumber="ngModel"
@@ -568,7 +582,7 @@
                     <label htmlFor="name">Seal Number</label>
                     <input
                       pInputText
-                      id="sealNumber"
+                      id="name"
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.sealNumber"
                       #sealNumber="ngModel"
@@ -583,35 +597,17 @@
                 <!-- 8 -->
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Status</label>
-                    <p-dropdown
-                      class="w-full"
-                      [options]="shipmentStatus?.productFieldValuesList"
-                      name="status"
-                      #status="ngModel"
+                    <label htmlFor="name">Status </label>
+                    <input
+                      #mode="ngModel"
+                      name="mode"
                       [required]="true"
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [readOnly]="true"
                       [(ngModel)]="domesticShipment.status"
-                      optionLabel="name"
-                      optionValue="name"
-                      [filter]="true"
-                      filterBy="name"
-                      [showClear]="true"
-                      placeholder="Select a Status"
-                    >
-                      <ng-template pTemplate="selectedItem">
-                        <div
-                          class="flex align-items-center gap-2"
-                          *ngIf="domesticShipment"
-                        >
-                          <div>{{ domesticShipment.status }}</div>
-                        </div>
-                      </ng-template>
-                      <ng-template let-shipmentStatus pTemplate="item">
-                        <div class="flex align-items-center gap-2">
-                          <div>{{ shipmentStatus.name }}</div>
-                        </div>
-                      </ng-template>
-                    </p-dropdown>
+                    />
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
@@ -619,7 +615,7 @@
                     <label htmlFor="name">Remarks</label>
                     <input
                       pInputText
-                      id="remarks"
+                      id="name"
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.remarks"
                       #remarks="ngModel"
@@ -829,7 +825,7 @@
                 <p-button
                   type="submit"
                   [disabled]="!domesticShipmentForm.form.valid"
-                  label="Update"
+                  label="Save"
                   class="bg-b-color ml"
                 >
                 </p-button>

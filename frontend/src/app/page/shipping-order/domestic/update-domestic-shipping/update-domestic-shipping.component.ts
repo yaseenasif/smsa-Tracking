@@ -65,6 +65,7 @@ export class UpdateDomesticShippingComponent {
     preAlertNumber: undefined
   };
 
+  minDate: Date = new Date();
   routes: any = [];
   location!: Location[];
   selectedLocation!: Location;

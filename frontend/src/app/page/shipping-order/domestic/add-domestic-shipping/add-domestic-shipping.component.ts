@@ -243,15 +243,13 @@ export class AddDomesticShippingComponent {
   }
 
   onSubmit() {
-    debugger
     this.domesticShipment.departureTime = this.datePipe.transform(this.domesticShipment.departureTime, 'HH:mm:ss')
     this.domesticShipment.arrivalTime = this.datePipe.transform(this.domesticShipment.arrivalTime, 'HH:mm:ss')
     this.domesticShipment.etd = this.datePipe.transform(this.domesticShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.atd = this.datePipe.transform(this.domesticShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.ata = this.datePipe.transform(this.domesticShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
-    debugger
-    // this.addDomesticShipment(this.domesticShipment);
+    this.addDomesticShipment(this.domesticShipment);
   }
 
 }
