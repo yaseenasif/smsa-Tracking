@@ -85,7 +85,7 @@ export class AddInternationalShipmentByRoadComponent {
   modeOptions: { options: string }[] = Object.values(Mode).map(el => ({ options: el }));
   shipmentMode: { options: string }[] = Object.values(ShipmentMode).map(el => ({ options: el }));
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
-  minETDDate: Date = new Date();
+  minDate: Date = new Date();
 
 
   getLocationPortByLocationForOrigin() {
@@ -127,10 +127,10 @@ export class AddInternationalShipmentByRoadComponent {
   onSubmit() {
     console.log(this.internationalShipment);
 
-    this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-dd')
-    this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-dd')
-    this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-dd')
-    this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-dd')
+    this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
+    this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
+    this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
+    this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.departureDate = this.datePipe.transform(this.internationalShipment.departureDate, 'yyyy-MM-dd')
     this.internationalShipment.arrivalDate = this.datePipe.transform(this.internationalShipment.arrivalDate, 'yyyy-MM-dd')
     this.internationalShipment.departureTime = this.datePipe.transform(this.internationalShipment.departureTime, 'HH:mm:ss')
@@ -221,10 +221,7 @@ export class AddInternationalShipmentByRoadComponent {
     this.internationalShipment.driverContact = this.selectedDriver?.contactNumber;
     this.internationalShipment.referenceNumber = this.selectedDriver?.referenceNumber;
   }
-  onETDDateSelected(selectedETDDate: Date) {
-    // Update minETDDate to prevent selecting ETA dates before the selected ETD date
-    this.minETDDate = selectedETDDate;
-  }
+
 
   flag=false;
   dashAfterThree(){

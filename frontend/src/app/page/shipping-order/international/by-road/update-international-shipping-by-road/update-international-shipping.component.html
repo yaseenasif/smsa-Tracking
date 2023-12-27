@@ -32,7 +32,7 @@
                       filterBy="locationName"
                       [showClear]="true"
                       placeholder="Select a Origin Country
-                  "
+                    "
                     >
                       <ng-template pTemplate="selectedItem">
                         <div
@@ -66,7 +66,7 @@
                       filterBy="portName"
                       [showClear]="true"
                       placeholder="Select a Origin Port
-                  "
+                    "
                     >
                       <ng-template pTemplate="selectedItem">
                         <div
@@ -128,7 +128,7 @@
                       filterBy="options"
                       [showClear]="true"
                       placeholder="Select a Shipment Mode
-                  "
+                    "
                     >
                       <ng-template pTemplate="selectedItem">
                         <div
@@ -146,19 +146,37 @@
                     </p-dropdown>
                   </div>
                 </div>
-                <div class="col-12 md:col-6 lg:col-4">
-                  <!-- <div class="flex flex-column gap-2">
-                      <label htmlFor="name">Pre-Alert Number</label>
-                      <input
-                        #PAN="ngModel" name="PAN" [required]="true"
-                        pInputText
-                        id="name"
-                        aria-describedby="name-help"
+                <!-- <div class="col-12 md:col-6 lg:col-4"> -->
+                <!-- <div class="flex flex-column gap-2">
+                        <label htmlFor="name">Pre-Alert Number</label>
+                        <input
+                          #PAN="ngModel" name="PAN" [required]="true"
+                          pInputText
+                          id="name"
+                          aria-describedby="name-help"
 
-                        [(ngModel)]="internationalShipment.preAlertNumber"
-                      />
-                      <small id="name-help" class="color-red"  *ngIf="PAN.invalid && (PAN.dirty || PAN.touched)">Pre Alert Number is required.</small>
-                    </div> -->
+                          [(ngModel)]="internationalShipment.preAlertNumber"
+                        />
+                        <small id="name-help" class="color-red"  *ngIf="PAN.invalid && (PAN.dirty || PAN.touched)">Pre Alert Number is required.</small>
+                      </div> -->
+                <!-- </div> -->
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Trip</label>
+                    <input
+                      pInputText
+                      id="trip"
+                      aria-describedby="name-help"
+                      [(ngModel)]="internationalShipment.trip"
+                      #trip="ngModel"
+                      required
+                      name="trip"
+                    />
+                    <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                  </div>
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
@@ -178,7 +196,7 @@
                       filterBy="locationName"
                       [showClear]="true"
                       placeholder="Select a Destination Country
-                    "
+                      "
                     >
                       <ng-template pTemplate="selectedItem">
                         <div
@@ -215,7 +233,7 @@
                       filterBy="portName"
                       [showClear]="true"
                       placeholder="Select a Destination Port
-                    "
+                      "
                     >
                       <ng-template pTemplate="selectedItem">
                         <div
@@ -244,14 +262,9 @@
                           class=""
                           value="Look up"
                           severity="info"
-                        ></p-badge>
-                         </span
+                        ></p-badge> </span
                     ></label>
-                    <span *ngIf="!showDropDown">{{
-                      internationalShipment.routeNumber
-                    }}</span>
                     <p-dropdown
-                      *ngIf="showDropDown"
                       class="w-full"
                       [options]="routes"
                       #routeNumber="ngModel"
@@ -264,7 +277,7 @@
                       filterBy="route"
                       [showClear]="true"
                       placeholder="Select a Route Number
-                      "
+                        "
                     >
                       <ng-template pTemplate="selectedItem">
                         <div
@@ -292,12 +305,16 @@
                     <p-calendar
                       #etd="ngModel"
                       name="etd"
-                      [required]="true"
                       [(ngModel)]="internationalShipment.etd"
+                      [required]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"  
                     ></p-calendar>
                     <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
+                        >{{name}}</small
+                      > -->
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
@@ -306,12 +323,16 @@
                     <p-calendar
                       #eta="ngModel"
                       name="eta"
-                      [required]="true"
                       [(ngModel)]="internationalShipment.eta"
+                      [required]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"  
                     ></p-calendar>
                     <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
+                          >{{name}}</small
+                        > -->
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
@@ -319,13 +340,17 @@
                     <label htmlFor="name">ATD</label>
                     <p-calendar
                       #atd="ngModel"
-                      name="atd"
-                      [required]="true"
+                      name="atd"              
                       [(ngModel)]="internationalShipment.atd"
+                      [required]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"  
                     ></p-calendar>
                     <!-- <small id="name-help"
-                        >{{name}}</small
-                      > -->
+                          >{{name}}</small
+                        > -->
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
@@ -442,7 +467,7 @@
                   class="color-red error"
                   *ngIf="preAlertNumber.invalid && (preAlertNumber.dirty || preAlertNumber.touched )&&preAlertNumber?.errors?.['minlength']"
                    >
-                  Minimum 15 cheater is required
+                  Minimum 11 cheater is required
                   </small>
                   </div>
                 </div>
@@ -684,38 +709,19 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Status</label>
-                    <p-dropdown
-                      class="w-full"
-                      [options]="shipmentStatus?.productFieldValuesList"
-                      name="status"
+                    <label htmlFor="name">Status </label>
+                    <input
                       #status="ngModel"
+                      name="status"
                       [required]="true"
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      [readOnly]="true"
                       [(ngModel)]="internationalShipment.status"
-                      optionLabel="name"
-                      optionValue="name"
-                      [filter]="true"
-                      filterBy="name"
-                      [showClear]="true"
-                      placeholder="Select a Status"
-                    >
-                      <ng-template pTemplate="selectedItem">
-                        <div
-                          class="flex align-items-center gap-2"
-                          *ngIf="internationalShipment"
-                        >
-                          <div>{{ internationalShipment.status }}</div>
-                        </div>
-                      </ng-template>
-                      <ng-template let-shipmentStatus pTemplate="item">
-                        <div class="flex align-items-center gap-2">
-                          <div>{{ shipmentStatus.name }}</div>
-                        </div>
-                      </ng-template>
-                    </p-dropdown>
+                    />
                   </div>
                 </div>
-
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Remarks</label>

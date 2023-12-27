@@ -305,10 +305,12 @@
                     <p-calendar
                       #etd="ngModel"
                       name="etd"
-                      [required]="true"
                       [(ngModel)]="internationalShipment.etd"
-                      (onSelect)="onETDDateSelected($event)"
-                      [minDate]="minETDDate"
+                      [required]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"  
                     ></p-calendar>
                     <!-- <small id="name-help"
                         >{{name}}</small
@@ -321,9 +323,12 @@
                     <p-calendar
                       #eta="ngModel"
                       name="eta"
-                      [required]="true"
                       [(ngModel)]="internationalShipment.eta"
-                      [minDate]="minETDDate"
+                      [required]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"  
                     ></p-calendar>
                     <!-- <small id="name-help"
                           >{{name}}</small
@@ -335,10 +340,13 @@
                     <label htmlFor="name">ATD</label>
                     <p-calendar
                       #atd="ngModel"
-                      name="atd"
-                      [required]="true"
+                      name="atd"              
                       [(ngModel)]="internationalShipment.atd"
-                      [minDate]="minETDDate"
+                      [required]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"  
                     ></p-calendar>
                     <!-- <small id="name-help"
                           >{{name}}</small

@@ -327,11 +327,13 @@
                     <label htmlFor="name">ETD</label>
                     <p-calendar
                       #etd="ngModel"
-                      name="etd"
-                      [required]="true"
+                      name="etd"       
                       [(ngModel)]="internationalShipment.etd"
-                      (onSelect)="onETDDateSelected($event)"
-                      [minDate]="minETDDate"
+                      [required]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"  
                     ></p-calendar>
                     <!-- <small id="name-help"
                         >{{name}}</small
@@ -344,9 +346,12 @@
                     <p-calendar
                       #eta="ngModel"
                       name="eta"
-                      [required]="true"
                       [(ngModel)]="internationalShipment.eta"
-                      [minDate]="minETDDate"
+                      [required]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"  
                     ></p-calendar>
                     <!-- <small id="name-help"
                           >{{name}}</small
@@ -359,9 +364,12 @@
                     <p-calendar
                       #atd="ngModel"
                       name="atd"
-                      [minDate]="minETDDate"
-                      [required]="true"
                       [(ngModel)]="internationalShipment.atd"
+                      [required]="true"
+                      [showTime]="true"
+                      [showSeconds]="true"
+                      [selectOtherMonths]="true"                    
+                      [minDate]="minDate"  
                     ></p-calendar>
                     <!-- <small id="name-help"
                           >{{name}}</small
@@ -400,7 +408,7 @@
                       #departureDate="ngModel"
                       name="departureDate"
                       [required]="true"
-                      [minDate]="minETDDate"
+                      [minDate]="minDate"
                       [(ngModel)]="internationalShipment.departureDate"
                     ></p-calendar>
                   </div>
@@ -454,7 +462,7 @@
                       #arrivalDate="ngModel"
                       name="arrivalDate"
                       [required]="true"
-                      [minDate]="minETDDate"
+                      [minDate]="minDate"
                       [(ngModel)]="internationalShipment.arrivalDate"
                     ></p-calendar>
                   </div>
