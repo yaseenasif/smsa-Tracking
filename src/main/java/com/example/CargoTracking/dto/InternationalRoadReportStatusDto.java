@@ -36,9 +36,7 @@ public class InternationalRoadReportStatusDto {
     private LocalDateTime borderDelay;
     private LocalDateTime offloadedAtDestination;
     private LocalDateTime Cleared;
-    private long etdVsEta;
-    private long etaVSAta;
-    private long leadTime;
+    private Long leadTime;
     private String remarks;
 
 }

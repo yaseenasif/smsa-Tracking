@@ -15,6 +15,13 @@
                             <div class="p-toolbar-group-start">
                                 <h2 class="h-color">International Shipment By Air Report Of Performance</h2>
                             </div>
+                            <p-button
+                            icon="bi bi-download"
+                            class="mr float-right"
+                            styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                            (click)="downloadFile()"
+                          >
+                          </p-button>
                         </p-toolbar>
                     </div>
                     <p-toolbar>
@@ -119,8 +126,8 @@
                                     <th class="text-center">Actual Time Departure</th>
                                     <th class="text-center">Actual Time Arrival</th>
                                     <th class="text-center">Cleared</th>
-                                    <th class="text-center">Total Transit Time (Days)</th>
-                                    <th class="text-center">Total Lead Time (Days)</th>
+                                    <th class="text-center">Total Transit Time </th>
+                                    <th class="text-center">Total Lead Time </th>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-internationalAirReportPerformance>
