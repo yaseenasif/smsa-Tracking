@@ -1,0 +1,27 @@
+export interface InternationalAirReportStatus{
+      id:number|null;
+      preAlertNumber:string|null;
+      referenceNumber:string|null;
+      origin:string|null;
+      destination:string|null;
+      route:string|null;
+      flightNumber:string|null;
+      shipments:number|null;
+      bags:number|null; 
+      etd:Date|string|null;
+      atd:Date|string|null;
+      eta:Date|string|null;
+      ata:Date|string|null;
+      created:Date|string|null;
+      offLoadedFromAircraft:Date|string|null;
+      flightDelayed:Date|string|null;
+      notArrivedAsPlanned:Date|string|null;
+      inProgress:Date|string|null;
+      heldInCustoms:Date|string|null;
+      awaitingPayments:Date|string|null;
+      cleared:Date|string|null;
+      etdVsEta:number|null;
+      etaVSAta:number|null;
+      leadTime:number|null;
+      remarks:string|null;
+}
