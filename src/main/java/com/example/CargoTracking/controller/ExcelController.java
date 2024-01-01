@@ -30,7 +30,7 @@ public class ExcelController {
                 .body(file);
     }
 
-    @GetMapping("/int-air-rep-per")
+    @GetMapping("/int-road-rep-per")
     public ResponseEntity<Resource> internationalRoadReportPerformanceExcelDownload() throws IOException {
 
         Resource file = excelService.internationalRoadReportPerformanceExcelDownload();
@@ -41,7 +41,7 @@ public class ExcelController {
                 .body(file);
     }
 
-    @GetMapping("/int-air-rep-per")
+    @GetMapping("/int-air-rep-status")
     public ResponseEntity<Resource> internationalAirReportStatusExcelDownload() throws IOException {
 
         Resource file = excelService.internationalAirReportStatusExcelDownload();
@@ -52,7 +52,7 @@ public class ExcelController {
                 .body(file);
     }
 
-    @GetMapping("/int-air-rep-per")
+    @GetMapping("/int-road-rep-status")
     public ResponseEntity<Resource> internationalRoadReportStatusExcelDownload() throws IOException {
 
         Resource file = excelService.internationalRoadReportStatusExcelDownload();

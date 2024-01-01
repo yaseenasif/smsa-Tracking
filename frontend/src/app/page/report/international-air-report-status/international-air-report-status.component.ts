@@ -78,6 +78,10 @@ export class InternationalAirReportStatusComponent {
       routeNumber: ''
     }
   }
+
+  downloadFile() {
+    this.reportService.downloadReportExcel("/int-air-rep-status");
+  }
 }
 
 interface SearchBy {

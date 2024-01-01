@@ -79,6 +79,9 @@ clearFilter(){
   }
 }
 
+downloadFile() {
+  this.reportService.downloadReportExcel("/dom-per");
+}
 }
 
 interface SearchBy{
