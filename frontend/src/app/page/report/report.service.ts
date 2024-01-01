@@ -44,11 +44,11 @@ export class ReportService {
     queryParams = queryParams.append("value", searchBy ? JSON.stringify(searchBy) : '' );
     return this.http.get<InternationalRoadReportStatus[]>(this.url.concat('/int-road-report-status'),{ params: queryParams });
   }
-
-  downloadExcelOfInternationalAirReportPerformance(){
+ 
+  downloadReportExcel(address:string){
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.http
-      .get(`${this.url}/int-air-rep-per`, {
+      .get(`${this.url}${address}`, {
         responseType: 'blob',
         headers,
       })

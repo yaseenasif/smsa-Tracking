@@ -76,6 +76,9 @@ export class InternationalRoadReportPerformanceComponent {
       routeNumber: ''
     }
   }
+  downloadFile() {
+    this.reportService.downloadReportExcel("/int-road-rep-per");
+  }
 }
 
 interface SearchBy {

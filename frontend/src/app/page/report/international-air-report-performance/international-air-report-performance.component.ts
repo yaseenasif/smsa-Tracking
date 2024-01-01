@@ -84,7 +84,7 @@ export class InternationalAirReportPerformanceComponent {
     }
 
     downloadFile() {
-      this.reportService.downloadExcelOfInternationalAirReportPerformance();
+      this.reportService.downloadReportExcel("/int-air-rep-per");
     }
 
     // exportToExcel(): void {
