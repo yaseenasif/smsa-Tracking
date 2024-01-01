@@ -27,7 +27,7 @@ public class DomesticPerformance {
     private LocalTime planedEta;
     private LocalDateTime atd;
     private LocalDateTime ata;
-    private long planedEtdVsAtd;
-    private long planedEtaVsAta;
-    private long transitTime;
+    private Long planedEtdVsAtd;
+    private Long planedEtaVsAta;
+    private Long transitTime;
 }

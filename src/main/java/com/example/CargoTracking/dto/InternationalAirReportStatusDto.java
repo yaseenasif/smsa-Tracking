@@ -33,9 +33,9 @@ public class InternationalAirReportStatusDto {
     private LocalDateTime heldInCustoms;
     private LocalDateTime awaitingPayments;
     private LocalDateTime cleared;
-    private long etdVsEta;
-    private long etaVSAta;
-    private long leadTime;
+    private Long etdVsEta;
+    private Long etaVSAta;
+    private Long leadTime;
     private String remarks;
 
 }

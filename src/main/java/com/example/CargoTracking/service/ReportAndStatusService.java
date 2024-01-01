@@ -139,14 +139,6 @@ public class ReportAndStatusService {
             internationalRoadReportStatusDto.setAtd(internationalShipment.getAtd());
             internationalRoadReportStatusDto.setEta(internationalShipment.getEta());
             internationalRoadReportStatusDto.setAta(internationalShipment.getAta());
-            if(internationalShipment.getEtd()!=null && internationalShipment.getEta()!=null){
-                Duration durationForEtdVsEta = Duration.between(internationalShipment.getEtd(), internationalShipment.getEta());
-                internationalRoadReportStatusDto.setEtdVsEta(durationForEtdVsEta.toHours());
-            }
-            if(internationalShipment.getEta()!=null && internationalShipment.getAta()!=null){
-                Duration durationForEtaVSAta = Duration.between(internationalShipment.getEta(), internationalShipment.getAta());
-                internationalRoadReportStatusDto.setEtaVSAta(durationForEtaVSAta.toHours());
-            }
             internationalRoadReportStatusDto.setRemarks(internationalShipment.getRemarks());
             List<InternationalShipmentHistory> internationalShipmentHistoryList = internationalShipmentHistoryRepository.findByInternationalShipmentId(internationalShipment.getId());
             for (InternationalShipmentHistory internationalShipmentHistory : internationalShipmentHistoryList) {
