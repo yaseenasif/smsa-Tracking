@@ -309,8 +309,8 @@
                       [required]="true"
                       [showTime]="true"
                       [showSeconds]="true"
-                      [selectOtherMonths]="true"                    
-                      [minDate]="minDate"  
+                      [selectOtherMonths]="true"
+                      [minDate]="minDate"
                     ></p-calendar>
                     <!-- <small id="name-help"
                         >{{name}}</small
@@ -327,8 +327,8 @@
                       [required]="true"
                       [showTime]="true"
                       [showSeconds]="true"
-                      [selectOtherMonths]="true"                    
-                      [minDate]="minDate"  
+                      [selectOtherMonths]="true"
+                      [minDate]="minDate"
                     ></p-calendar>
                     <!-- <small id="name-help"
                           >{{name}}</small
@@ -340,13 +340,13 @@
                     <label htmlFor="name">ATD</label>
                     <p-calendar
                       #atd="ngModel"
-                      name="atd"              
+                      name="atd"
                       [(ngModel)]="internationalShipment.atd"
                       [required]="true"
                       [showTime]="true"
                       [showSeconds]="true"
-                      [selectOtherMonths]="true"                    
-                      [minDate]="minDate"  
+                      [selectOtherMonths]="true"
+                      [minDate]="minDate"
                     ></p-calendar>
                     <!-- <small id="name-help"
                           >{{name}}</small
@@ -433,42 +433,42 @@
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Pre Alert Number</label>
                     <input
-                    pInputText
-                    id="name"
-                    pattern="\d{3}-\d{8}"
-                    minlength="12"
-                    maxlength="12"
-                    aria-describedby="name-help"
-                    name="preAlertNumber"
-                    [(ngModel)]="internationalShipment.preAlertNumber"
-                    #preAlertNumber="ngModel"
-                    (input)="dashAfterThree()"
-                    required
-                    [ngClass]="{
-                      error:
-                      preAlertNumber.invalid &&
-                        (preAlertNumber.dirty || preAlertNumber.touched)
-                    }"
-                  />
+                      pInputText
+                      id="name"
+                      pattern="\d{3}-\d{8}"
+                      minlength="12"
+                      maxlength="12"
+                      aria-describedby="name-help"
+                      name="preAlertNumber"
+                      [(ngModel)]="internationalShipment.preAlertNumber"
+                      #preAlertNumber="ngModel"
+                      (input)="dashAfterThree()"
+                      required
+                      [ngClass]="{
+                        error:
+                          preAlertNumber.invalid &&
+                          (preAlertNumber.dirty || preAlertNumber.touched)
+                      }"
+                    />
 
-                  <small
-                    class="color-red error"
-                    *ngIf="preAlertNumber.invalid && (preAlertNumber.dirty || preAlertNumber.touched )&&preAlertNumber?.errors?.['required']"
-                  >
-                  Pre Alert Number is required.
-                  </small>
-                  <small
-                    class="color-red error"
-                    *ngIf="preAlertNumber.invalid && (preAlertNumber.dirty || preAlertNumber.touched )&&preAlertNumber?.errors?.['pattern']"
-                  >
-                    Invalid pattern
-                  </small>
-                  <small
-                  class="color-red error"
-                  *ngIf="preAlertNumber.invalid && (preAlertNumber.dirty || preAlertNumber.touched )&&preAlertNumber?.errors?.['minlength']"
-                   >
-                  Minimum 11 cheater is required
-                  </small>
+                    <small
+                      class="color-red error"
+                      *ngIf="preAlertNumber.invalid && (preAlertNumber.dirty || preAlertNumber.touched )&&preAlertNumber?.errors?.['required']"
+                    >
+                      Pre Alert Number is required.
+                    </small>
+                    <small
+                      class="color-red error"
+                      *ngIf="preAlertNumber.invalid && (preAlertNumber.dirty || preAlertNumber.touched )&&preAlertNumber?.errors?.['pattern']"
+                    >
+                      Invalid pattern
+                    </small>
+                    <small
+                      class="color-red error"
+                      *ngIf="preAlertNumber.invalid && (preAlertNumber.dirty || preAlertNumber.touched )&&preAlertNumber?.errors?.['minlength']"
+                    >
+                      Minimum 11 cheater is required
+                    </small>
                   </div>
                 </div>
 
@@ -709,19 +709,38 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Status </label>
-                    <input
-                      #status="ngModel"
+                    <label htmlFor="name">Status</label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="shipmentStatus?.productFieldValuesList"
                       name="status"
+                      #status="ngModel"
                       [required]="true"
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [readOnly]="true"
-                      [(ngModel)]="internationalShipment.status"
-                    />
+                      [(ngModel)]="internationalShipment!.status"
+                      optionLabel="name"
+                      optionValue="name"
+                      [filter]="true"
+                      filterBy="name"
+                      [showClear]="true"
+                      placeholder="Select a Status"
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="internationalShipment"
+                        >
+                          <div>{{ internationalShipment!.status }}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-shipmentStatus pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ shipmentStatus.name }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
                   </div>
                 </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Remarks</label>
