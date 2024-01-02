@@ -76,7 +76,7 @@ public class ReportAndStatusService {
                 if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Created")) {
                     internationalAirReportStatusDto.setCreated(internationalShipmentHistory.getProcessTime());
                 }
-                if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Offloaded from Aircarft")) {
+                if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Offloaded from Aircraft")) {
                     internationalAirReportStatusDto.setOffLoadedFromAircraft(internationalShipmentHistory.getProcessTime());
                 }
                 if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Flight Delayed")) {
