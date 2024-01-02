@@ -45,7 +45,7 @@ export class ReportService {
     return this.http.get<InternationalRoadReportStatus[]>(this.url.concat('/int-road-report-status'),{ params: queryParams });
   }
  
-  downloadReportExcel(address:string,searchBy:any){
+  downloadReportExcel(address:string,searchBy:any,name:any){
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     let queryParams = new HttpParams();
 
@@ -61,7 +61,7 @@ export class ReportService {
         const a = document.createElement('a');
         a.style.display = 'none';
         a.href = url;
-        a.download = 'International Air Report performance.xlsx';
+        a.download = name;
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);

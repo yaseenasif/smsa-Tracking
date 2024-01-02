@@ -86,7 +86,7 @@ export class InternationalAirReportPerformanceComponent {
     downloadFile() {
       this.searchBy.fromDate=this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd'))!:"";
       this.searchBy.toDate=this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd'))!:"";
-      this.reportService.downloadReportExcel("/int-air-rep-per",this.searchBy);
+      this.reportService.downloadReportExcel("/int-air-rep-per",this.searchBy,"International Air Report Performance.xlsx");
     }
 
     // exportToExcel(): void {
