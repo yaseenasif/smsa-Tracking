@@ -87,10 +87,10 @@ export class ProductFieldAddComponent implements OnInit {
 
   addProduct() {
     this.typeValue == "TEXTFIELD" || this.typeValue == "TOGGLE" ? this.pfvaluesArray = [] : null;
-    this.pfvaluesArray.forEach((element: any) => {
-      element.name = element.name.split(' ');
-      element.name = element.name.map((word: any) => word.toUpperCase()).join('_')
-    })
+    // this.pfvaluesArray.forEach((element: any) => {
+    //   element.name = element.name.split(' ');
+    //   element.name = element.name.map((word: any) => word.toUpperCase()).join('_')
+    // })
     let obj = {
       name: this.nameValue,
       status: this.statusValue,
