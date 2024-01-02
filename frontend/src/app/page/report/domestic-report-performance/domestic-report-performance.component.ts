@@ -61,7 +61,7 @@ searchByFilter(){
 }
 
 getAllShipmentStatus() {
-  this.productFieldServiceService.getProductFieldByName("Search_For_International_By_Air").subscribe((res: ProductField) => {
+  this.productFieldServiceService.getProductFieldByName("Search_For_Domestic").subscribe((res: ProductField) => {
     this.shipmentStatus = res;
   }, (error) => {
     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
