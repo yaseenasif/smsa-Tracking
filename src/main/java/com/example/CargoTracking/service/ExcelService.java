@@ -26,9 +26,9 @@ public class ExcelService {
     ReportAndStatusService reportAndStatusService;
     @Value("${excel.file.location}")
     private String sampleFileLocalLocation;
-    public Resource internationalAirReportPerformanceExcelDownload() {
+    public Resource internationalAirReportPerformanceExcelDownload(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         try{
-            SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary = new SearchCriteriaForInternationalSummary();
+//            SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary = new SearchCriteriaForInternationalSummary();
             List<InternationalAirReportPerformance> intAirReportPerformance = this.reportAndStatusService.findInternationalAirReportPerformance(searchCriteriaForInternationalSummary);
             FileInputStream fileInputStream = new FileInputStream(sampleFileLocalLocation + "/internationalAirPerformance.xlsx");
             Workbook  newWorkBook = WorkbookFactory.create(fileInputStream);
@@ -75,9 +75,9 @@ public class ExcelService {
         }
     }
 
-    public Resource internationalRoadReportPerformanceExcelDownload() {
+    public Resource internationalRoadReportPerformanceExcelDownload(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         try{
-            SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary = new SearchCriteriaForInternationalSummary();
+//            SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary = new SearchCriteriaForInternationalSummary();
             List<InternationalRoadReportPerformance> intRoadReportPerformance = this.reportAndStatusService.findInternationalRoadReportPerformance(searchCriteriaForInternationalSummary);
             FileInputStream fileInputStream = new FileInputStream(sampleFileLocalLocation + "/internationalRoadPerformance.xlsx");
             Workbook  newWorkBook = WorkbookFactory.create(fileInputStream);
@@ -124,9 +124,9 @@ public class ExcelService {
         }
     }
 
-    public Resource internationalAirReportStatusExcelDownload() {
+    public Resource internationalAirReportStatusExcelDownload(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         try{
-            SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary = new SearchCriteriaForInternationalSummary();
+//            SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary = new SearchCriteriaForInternationalSummary();
             List<InternationalAirReportStatusDto> intAirReportStatus = this.reportAndStatusService.findInternationalAirReportStatus(searchCriteriaForInternationalSummary);
             FileInputStream fileInputStream = new FileInputStream(sampleFileLocalLocation + "/internationalAirStatus.xlsx");
             Workbook  newWorkBook = WorkbookFactory.create(fileInputStream);
@@ -186,9 +186,9 @@ public class ExcelService {
         }
     }
 
-    public Resource internationalRoadReportStatusExcelDownload() {
+    public Resource internationalRoadReportStatusExcelDownload(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         try{
-            SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary = new SearchCriteriaForInternationalSummary();
+//            SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary = new SearchCriteriaForInternationalSummary();
             List<InternationalRoadReportStatusDto> intRoadReportStatus = this.reportAndStatusService.findInternationalRoadReportStatus(searchCriteriaForInternationalSummary);
             FileInputStream fileInputStream = new FileInputStream(sampleFileLocalLocation + "/internationalRoadStatus.xlsx");
             Workbook  newWorkBook = WorkbookFactory.create(fileInputStream);
@@ -249,9 +249,9 @@ public class ExcelService {
         }
     }
 
-    public Resource domesticPerformanceExcelDownload() {
+    public Resource domesticPerformanceExcelDownload(SearchCriteriaForSummary searchCriteriaForDomesticSummary) {
         try{
-            SearchCriteriaForSummary searchCriteriaForDomesticSummary = new SearchCriteriaForSummary();
+//            SearchCriteriaForSummary searchCriteriaForDomesticSummary = new SearchCriteriaForSummary();
             List<DomesticPerformance> domesticPerformanceList = this.reportAndStatusService.findDomesticPerformance(searchCriteriaForDomesticSummary);
             FileInputStream fileInputStream = new FileInputStream(sampleFileLocalLocation + "/domesticPerformance.xlsx");
             Workbook  newWorkBook = WorkbookFactory.create(fileInputStream);

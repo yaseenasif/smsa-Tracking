@@ -45,10 +45,13 @@ export class ReportService {
     return this.http.get<InternationalRoadReportStatus[]>(this.url.concat('/int-road-report-status'),{ params: queryParams });
   }
  
-  downloadReportExcel(address:string){
+  downloadReportExcel(address:string,searchBy:any){
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    let queryParams = new HttpParams();
+
+    queryParams = queryParams.append("value", searchBy ? JSON.stringify(searchBy) : '' );
     this.http
-      .get(`${this.url}${address}`, {
+      .get(`${this.url}${address}`,{ params: queryParams ,
         responseType: 'blob',
         headers,
       })

@@ -80,7 +80,10 @@ clearFilter(){
 }
 
 downloadFile() {
-  this.reportService.downloadReportExcel("/dom-per");
+  this.searchBy.fromDate=this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd'))!:"";
+  this.searchBy.toDate=this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd'))!:"";
+
+  this.reportService.downloadReportExcel("/dom-per",this.searchBy);
 }
 }
 
