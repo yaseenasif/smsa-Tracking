@@ -254,7 +254,9 @@
                         '/view-domestic-shipment/',
                         domesticShipment.id
                       ]"
-                      icon="bi bi-eye"
+                      pTooltip="View"  icon="bi bi-eye"  tooltipPosition="top"
+
+
                       class="mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
@@ -266,7 +268,7 @@
                         'by-domestic-list',
                         domesticShipment.id
                       ]"
-                      icon="bi bi-download"
+                        icon="bi bi-download"  tooltipPosition="top" pTooltip="Download" 
                       class="mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
@@ -286,7 +288,7 @@
                         '/add-domestic-attachments/',
                         domesticShipment.id
                       ]"
-                      icon="bi bi-paperclip"
+                        icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment" 
                       class="ml mr"
                       styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
                     >
@@ -296,14 +298,14 @@
                         '/update-domestic-shipping/',
                         domesticShipment.id
                       ]"
-                      icon="bi bi-pen"
+                       icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit" 
                       class="ml mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
                     </p-button>
                     <p-button
                       (click)="showModal(domesticShipment.id)"
-                      icon="bi bi-trash"
+                       icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete" 
                       class="ml"
                       styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
                     >

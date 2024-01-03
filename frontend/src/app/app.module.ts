@@ -111,6 +111,9 @@ import { InternationalRoadReportStatusComponent } from './page/report/internatio
 import { InternationalRoadReportPerformanceComponent } from './page/report/international-road-report-performance/international-road-report-performance.component';
 import { DomesticReportPerformanceComponent } from './page/report/domestic-report-performance/domestic-report-performance.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { ViewDomesticShippingForSummaryComponent } from './page/bounds/domestic/view-domestic-shipping-for-summary/view-domestic-shipping-for-summary.component';
+import { ViewAirShippingForSummaryComponent } from './page/bounds/international/by-air/view-air-shipping-for-summary/view-air-shipping-for-summary.component';
+import { ViewRoadShippingForSummaryComponent } from './page/bounds/international/by-road/view-road-shipping-for-summary/view-road-shipping-for-summary.component';
 
 @NgModule({
   declarations: [
@@ -191,6 +194,9 @@ import { TooltipModule } from 'primeng/tooltip';
     InternationalRoadReportStatusComponent,
     InternationalRoadReportPerformanceComponent,
     DomesticReportPerformanceComponent,
+    ViewDomesticShippingForSummaryComponent,
+    ViewAirShippingForSummaryComponent,
+    ViewRoadShippingForSummaryComponent,
   ],
   imports: [
     ChipsModule,

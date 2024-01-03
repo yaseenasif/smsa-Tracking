@@ -251,7 +251,9 @@
                         '/view-international-road/',
                         internationalShipmentByRoad.id
                       ]"
-                      icon="bi bi-eye"
+                      pTooltip="View"  icon="bi bi-eye"  tooltipPosition="top"
+
+
                       class="mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
@@ -273,7 +275,7 @@
                         'by-international-road-list',
                         internationalShipmentByRoad.id
                       ]"
-                      icon="bi bi-download"
+                        icon="bi bi-download"  tooltipPosition="top" pTooltip="Download" 
                       class="mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
@@ -283,7 +285,7 @@
                         '/add-international-by-road-attachments/',
                         internationalShipmentByRoad.id
                       ]"
-                      icon="bi bi-paperclip"
+                        icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment" 
                       class="ml mr"
                       styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
                     >
@@ -293,13 +295,13 @@
                         '/update-international-shipment-by-road',
                         internationalShipmentByRoad.id
                       ]"
-                      icon="bi bi-pen"
+                       icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit" 
                       class="ml mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
                     </p-button>
                     <p-button
-                      icon="bi bi-trash"
+                       icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete" 
                       class="ml"
                       styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
                       (click)="showModal(internationalShipmentByRoad.id)"

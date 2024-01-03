@@ -39,10 +39,10 @@
                   <td class="text-center">{{ locationPort!.portName }}</td>
                   <td class="text-center">{{ locationPort!.location!.locationName }}</td>
                   <td class="text-center"> 
-                    <p-button [routerLink]="['/edit-location-port',locationPort.id]" icon="bi bi-pen" class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                    <p-button [routerLink]="['/edit-location-port',locationPort.id]"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                      
                     </p-button>
-                     <p-button (click)="showDialog(locationPort.id)" icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                     <p-button (click)="showDialog(locationPort.id)"  icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"  class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                     
                      </p-button>
                   </td>
