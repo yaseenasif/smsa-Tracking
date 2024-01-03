@@ -110,6 +110,7 @@ import { InternationalAirReportStatusComponent } from './page/report/internation
 import { InternationalRoadReportStatusComponent } from './page/report/international-road-report-status/international-road-report-status.component';
 import { InternationalRoadReportPerformanceComponent } from './page/report/international-road-report-performance/international-road-report-performance.component';
 import { DomesticReportPerformanceComponent } from './page/report/domestic-report-performance/domestic-report-performance.component';
+import { TooltipModule } from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -216,6 +217,7 @@ import { DomesticReportPerformanceComponent } from './page/report/domestic-repor
     NgxUiLoaderModule,
     DialogModule,
     InputNumberModule,
+    TooltipModule,
     PaginatorModule,
     BadgeModule,
     NgxUiLoaderHttpModule.forRoot({

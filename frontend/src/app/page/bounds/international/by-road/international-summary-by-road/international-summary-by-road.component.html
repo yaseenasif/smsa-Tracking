@@ -177,8 +177,6 @@
                   <th class="text-center">Total Shipment</th>
                   <th class="text-center">Pallets</th>
                   <th class="text-center">Bags</th>
-                  <th class="text-center">ETD (Date and time)</th>
-                  <th class="text-center">ETA (Date and time)</th>
                   <th class="text-center">ATA</th>
                   <th class="text-center">Arrival Time</th>
                   <th class="text-center">Departure Time</th>
@@ -280,22 +278,6 @@
                     "
                   >
                     {{ internationalShipmentByRoad.numberOfBags }}
-                  </td>
-                  <td
-                    class="text-center"
-                    [classList]="
-                      internationalShipmentByRoad.redFlag ? 'red' : 'withoutRed'
-                    "
-                  >
-                    {{ internationalShipmentByRoad.etd }}
-                  </td>
-                  <td
-                    class="text-center"
-                    [classList]="
-                      internationalShipmentByRoad.redFlag ? 'red' : 'withoutRed'
-                    "
-                  >
-                    {{ internationalShipmentByRoad.eta }}
                   </td>
                   <td
                     class="text-center"

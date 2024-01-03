@@ -157,31 +157,20 @@
                   <th class="text-center">Destination Country</th>
                   <th class="text-center">Destination Port</th>
                   <th class="text-center">Route Number</th>
-                  <th class="text-center">ETD</th>
-                  <th class="text-center">ETA</th>
-                  <th class="text-center">ATD</th>
                   <th class="text-center">Arrival Time</th>
                   <th class="text-center">Departure Time</th>
                   <th class="text-center">Actual Weight</th>
                   <th class="text-center">Number of Shipments</th>
-                  <th class="text-center">Driver Name</th>
-                  <th class="text-center">Driver Contact</th>
                   <th class="text-center">Reference Number</th>
                   <th class="text-center">Vehicle Type</th>
                   <th class="text-center">Number of Pallets</th>
                   <th class="text-center">Number of Bags</th>
                   <th class="text-center">Vehicle Number</th>
-                  <th class="text-center">Tag Number</th>
-                  <th class="text-center">Seal Number</th>
                   <th class="text-center">Status</th>
-                  <th class="text-center">Remarks</th>
                   <th class="text-center">ATA</th>
                   <th class="text-center">Total Shipments</th>
                   <th class="text-center">Overages</th>
-                  <th class="text-center">Overage AWBS</th>
-                  <th class="text-center">Received</th>
                   <th class="text-center">Shortages</th>
-                  <th class="text-center">Shortage AWBs</th>
                   <th class="text-center">Actions</th>
                 </tr>
               </ng-template>
@@ -215,15 +204,6 @@
                     {{ internationalShipmentByRoad.routeNumber }}
                   </td>
                   <td class="text-center">
-                    {{ internationalShipmentByRoad.etd }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByRoad.eta }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByRoad.atd }}
-                  </td>
-                  <td class="text-center">
                     {{ internationalShipmentByRoad.arrivalTime }}
                   </td>
                   <td class="text-center">
@@ -234,12 +214,6 @@
                   </td>
                   <td class="text-center">
                     {{ internationalShipmentByRoad.numberOfShipments }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByRoad.driverName }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByRoad.driverContact }}
                   </td>
                   <td class="text-center">
                     {{ internationalShipmentByRoad.referenceNumber }}
@@ -257,16 +231,7 @@
                     {{ internationalShipmentByRoad.vehicleNumber }}
                   </td>
                   <td class="text-center">
-                    {{ internationalShipmentByRoad.tagNumber }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByRoad.sealNumber }}
-                  </td>
-                  <td class="text-center">
                     {{ internationalShipmentByRoad.status }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByRoad.remarks }}
                   </td>
                   <td class="text-center">
                     {{ internationalShipmentByRoad.ata }}
@@ -276,18 +241,9 @@
                   </td>
                   <td class="text-center">
                     {{ internationalShipmentByRoad.overages }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByRoad.overageAWBs }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByRoad.received }}
-                  </td>
+                  </td>          
                   <td class="text-center">
                     {{ internationalShipmentByRoad.shortages }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByRoad.shortageAWBs }}
                   </td>
                   <td class="text-center flex flex-row">
                     <p-button

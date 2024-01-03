@@ -155,9 +155,6 @@
                   <th class="text-center">Destination Country</th>
                   <th class="text-center">Destination Port</th>
                   <th class="text-center">Route Number</th>
-                  <th class="text-center">ETD</th>
-                  <th class="text-center">ETA</th>
-                  <th class="text-center">ATD</th>
                   <th class="text-center">Carrier</th>
                   <th class="text-center">Departure Date</th>
                   <th class="text-center">Departure Time</th>
@@ -170,14 +167,12 @@
                   <th class="text-center">Number of Pallets</th>
                   <th class="text-center">Number of Bags</th>
                   <th class="text-center">Status</th>
-                  <th class="text-center">Remarks</th>
                   <th class="text-center">ATA</th>
                   <th class="text-center">Total Shipments</th>
                   <th class="text-center">Overages</th>
-                  <th class="text-center">Overage AWBS</th>
-                  <th class="text-center">Received</th>
+
                   <th class="text-center">Shortages</th>
-                  <th class="text-center">Shortage AWBs</th>
+                 
                   <th class="text-center">Action</th>
                 </tr>
               </ng-template>
@@ -206,15 +201,6 @@
                   </td>
                   <td class="text-center">
                     {{ internationalShipmentByAir.routeNumber }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByAir.etd }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByAir.eta }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByAir.atd }}
                   </td>
                   <td class="text-center">
                     {{ internationalShipmentByAir.carrier }}
@@ -253,9 +239,6 @@
                     {{ internationalShipmentByAir.status }}
                   </td>
                   <td class="text-center">
-                    {{ internationalShipmentByAir.remarks }}
-                  </td>
-                  <td class="text-center">
                     {{ internationalShipmentByAir.ata }}
                   </td>
                   <td class="text-center">
@@ -263,20 +246,10 @@
                   </td>
                   <td class="text-center">
                     {{ internationalShipmentByAir.overages }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByAir.overageAWBs }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByAir.received }}
-                  </td>
+                  </td>  
                   <td class="text-center">
                     {{ internationalShipmentByAir.shortages }}
                   </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByAir.shortageAWBs }}
-                  </td>
-
                   <td class="text-center flex flex-row">
                     <p-button
                       [routerLink]="[

@@ -174,29 +174,20 @@
                   <th class="text-center">Number of Shipments</th>
                   <th class="text-center">Weight</th>
                   <th class="text-center">Pre Alert Number</th>
-                  <th class="text-center">ETD</th>
-                  <th class="text-center">ETA</th>
-                  <th class="text-center">ATD</th>
                   <th class="text-center">Arrival Time</th>
                   <th class="text-center">Departure Time</th>
-                  <th class="text-center">Driver Name</th>
-                  <th class="text-center">Driver Contact</th>
                   <th class="text-center">Reference Number</th>
                   <th class="text-center">Vehicle Type</th>
                   <th class="text-center">Number of Pallets</th>
                   <th class="text-center">NUmber of Bags</th>
                   <th class="text-center">Vehicle Number</th>
-                  <th class="text-center">Tag Number</th>
-                  <th class="text-center">Seal Number</th>
                   <th class="text-center">Status</th>
-                  <th class="text-center">Remarks</th>
                   <th class="text-center">ATA</th>
                   <th class="text-center">Total Shipments</th>
                   <th class="text-center">Overages</th>
-                  <th class="text-center">Overage AWBS</th>
-                  <th class="text-center">Received</th>
+
                   <th class="text-center">Shortages</th>
-                  <th class="text-center">Shortage AWBs</th>
+
                   <th class="text-center">Actions</th>
                 </tr>
               </ng-template>
@@ -227,18 +218,11 @@
                   <td class="text-center">
                     {{ domesticShipment.preAlertNumber }}
                   </td>
-                  <td class="text-center">{{ domesticShipment.etd }}</td>
-                  <td class="text-center">{{ domesticShipment.eta }}</td>
-                  <td class="text-center">{{ domesticShipment.atd }}</td>
                   <td class="text-center">
                     {{ domesticShipment.arrivalTime }}
                   </td>
                   <td class="text-center">
                     {{ domesticShipment.departureTime }}
-                  </td>
-                  <td class="text-center">{{ domesticShipment.driverName }}</td>
-                  <td class="text-center">
-                    {{ domesticShipment.driverContact }}
                   </td>
                   <td class="text-center">
                     {{ domesticShipment.referenceNumber }}
@@ -255,23 +239,14 @@
                   <td class="text-center">
                     {{ domesticShipment.vehicleNumber }}
                   </td>
-                  <td class="text-center">{{ domesticShipment.tagNumber }}</td>
-                  <td class="text-center">{{ domesticShipment.sealNumber }}</td>
                   <td class="text-center">{{ domesticShipment.status }}</td>
-                  <td class="text-center">{{ domesticShipment.remarks }}</td>
                   <td class="text-center">{{ domesticShipment.ata }}</td>
                   <td class="text-center">
                     {{ domesticShipment.totalShipments }}
                   </td>
                   <td class="text-center">{{ domesticShipment.overages }}</td>
-                  <td class="text-center">
-                    {{ domesticShipment.overagesAwbs }}
-                  </td>
-                  <td class="text-center">{{ domesticShipment.received }}</td>
+
                   <td class="text-center">{{ domesticShipment.shortages }}</td>
-                  <td class="text-center">
-                    {{ domesticShipment.shortagesAwbs }}
-                  </td>
 
                   <td class="text-center flex flex-row">
                     <p-button
