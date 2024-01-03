@@ -33,13 +33,9 @@ export class ViewShipmentAirComponent {
   internationalShipment: InternationalShipment = {
     id: null,
     actualWeight: null,
-    arrivalDate: null,
-    arrivalTime: null,
     ata: null,
     attachments: null,
     carrier: null,
-    departureDate: null,
-    departureTime: null,
     destinationCountry: null,
     destinationPort: null,
     driverContact: null,
@@ -139,10 +135,6 @@ export class ViewShipmentAirComponent {
     this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-dd')
     this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-dd')
     this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-dd')
-    this.internationalShipment.departureDate = this.datePipe.transform(this.internationalShipment.departureDate, 'yyyy-MM-dd')
-    this.internationalShipment.arrivalDate = this.datePipe.transform(this.internationalShipment.arrivalDate, 'yyyy-MM-dd')
-    this.internationalShipment.departureTime = this.datePipe.transform(this.internationalShipment.departureTime, 'HH:mm:ss')
-    this.internationalShipment.arrivalTime = this.datePipe.transform(this.internationalShipment.arrivalTime, 'HH:mm:ss')
 
     this.internationalShippingService.updateInternationalShipmentById(this.iSID, this.internationalShipment).subscribe(res => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is updated on id' + res.id });
@@ -161,11 +153,6 @@ export class ViewShipmentAirComponent {
       res.eta = res.eta ? new Date(res.eta) : null;
       res.atd = res.atd ? new Date(res.atd) : null;
       res.ata = res.ata ? new Date(res.ata) : null;
-      res.departureDate = res.departureDate ? new Date(res.departureDate) : null;
-      res.arrivalDate = res.arrivalDate ? new Date(res.arrivalDate) : null;
-      res.departureTime = res.departureTime ? new Date(`1970-01-01 ${res.departureTime}`) : null;
-      res.arrivalTime = res.arrivalTime ? new Date(`1970-01-01 ${res.arrivalTime}`) : null;
-
       this.selectedDriver = this.drivers.find(el => (el.name == res.driverName) && (el.contactNumber == res.driverContact) && (el.referenceNumber == res.referenceNumber))
       this.internationalShipment = res;
 

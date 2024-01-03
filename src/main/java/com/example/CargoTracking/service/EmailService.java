@@ -67,13 +67,6 @@ public class EmailService {
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setFrom(sender);
-//            EmailTemplate emailTemplate = emailTemplateRepository.findById(3L).get();
-//            String htmlContent = emailTemplate.getContent();
-//            String replacedContent = htmlContent.toString().replace("{name}", "JOHN DEO");
-//            helper.setText(replacedContent, true);
-//            Map<String, Object> model = new HashMap<>();
-//            model.put("name", "John Doe");
-
             Template t = config.getTemplate(emailTemplate);
             String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
 

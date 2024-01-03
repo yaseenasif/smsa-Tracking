@@ -34,13 +34,9 @@ export class UpdateInternationalRoadForSummaryComponent {
   internationalShipment: InternationalShipment = {
     id: null,
     actualWeight: null,
-    arrivalDate: null,
-    arrivalTime: null,
     ata: null,
     attachments: null,
     carrier: null,
-    departureDate: null,
-    departureTime: null,
     destinationCountry: null,
     destinationPort: null,
     driverContact: null,

@@ -32,15 +32,11 @@ public class InternationalShipment {
     private String destinationCountry;
     private String destinationPort;
     private String carrier;//air
-    private LocalDate departureDate;
-    private LocalTime departureTime;
     private LocalDateTime etd;
     private LocalDateTime eta;
     private LocalDateTime atd;
     private String flightNumber;//air
     private Integer numberOfShipments;
-    private LocalDate arrivalDate;
-    private LocalTime arrivalTime;
     private Double actualWeight;
     private String driverName;
     private String driverContact;

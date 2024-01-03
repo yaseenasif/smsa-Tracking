@@ -13,4 +13,6 @@ public interface VehicleTypeRepository extends JpaRepository<VehicleType,Long> {
     @Query("SELECT v FROM VehicleType v WHERE v.status = true")
     List<VehicleType> getActiveVehicles();
 
+    VehicleType findByName(String name);
+
 }

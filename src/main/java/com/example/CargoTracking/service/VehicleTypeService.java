@@ -23,6 +23,7 @@ public class VehicleTypeService {
 
         VehicleType vehicleType= VehicleType.builder()
                 .name(vehicleTypeDto.getName())
+                .occupancy(vehicleTypeDto.getOccupancy())
                 .status(Boolean.TRUE)
                 .build();
 
@@ -52,11 +53,17 @@ public class VehicleTypeService {
         throw new RuntimeException("Record doesn't exist");
     }
 
+    public VehicleTypeDto getVehicleTypeByVehicleTypeName(String name){
+        return  toDto(vehicleTypeRepository.findByName(name));
+    }
+
     public VehicleTypeDto updateById(Long id, VehicleTypeDto vehicleTypeDto) {
         Optional<VehicleType> vehicleType = vehicleTypeRepository.findById(id);
 
         if(vehicleType.isPresent()){
             vehicleType.get().setName(vehicleTypeDto.getName());
+            vehicleType.get().setOccupancy(vehicleTypeDto.getOccupancy());
+
             return toDto(vehicleTypeRepository.save(vehicleType.get()));
         }
         throw new RuntimeException(String.format("Vehicle Type Not Found by this Id => %d" , id));

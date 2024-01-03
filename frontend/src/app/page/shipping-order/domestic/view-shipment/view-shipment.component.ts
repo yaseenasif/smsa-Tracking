@@ -56,8 +56,6 @@ export class ViewShipmentComponent {
     shortages: null,
     shortagesAwbs: null,
     attachments: null,
-    arrivalTime: null,
-    departureTime: null,
     preAlertNumber: undefined
   };
 

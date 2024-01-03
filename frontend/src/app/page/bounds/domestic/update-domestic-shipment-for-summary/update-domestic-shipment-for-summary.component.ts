@@ -58,8 +58,6 @@ export class UpdateDomesticShipmentForSummaryComponent {
     shortages: null,
     shortagesAwbs: null,
     attachments: null,
-    arrivalTime: null,
-    departureTime: null,
     preAlertNumber: undefined
   };
 

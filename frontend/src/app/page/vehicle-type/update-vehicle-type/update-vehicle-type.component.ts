@@ -16,7 +16,8 @@ export class UpdateVehicleTypeComponent implements OnInit {
   vTID!: number;
   vehicleType:VehicleType={
     id: null,
-    name: null
+    name: null,
+    occupancy:null
   }
 
   constructor(private route: ActivatedRoute,
@@ -35,6 +36,7 @@ export class UpdateVehicleTypeComponent implements OnInit {
   getVehicleTypeById(){
     this.vehicleTypeService.getByIDVehicleType(this.vTID).subscribe((res:VehicleType)=>{
      this.vehicleType.name=res.name;
+     this.vehicleType.occupancy=res.occupancy;
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })

@@ -58,8 +58,6 @@ export class AddDomesticShippingComponent {
     shortages: null,
     shortagesAwbs: null,
     attachments: null,
-    arrivalTime: null,
-    departureTime: null,
     preAlertNumber: null
   };
 
@@ -222,8 +220,6 @@ export class AddDomesticShippingComponent {
         this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
         this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
         this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
-        this.domesticShipment.departureTime= this.domesticShipment.departureTime ? new Date(`1970-01-01 ${ this.domesticShipment.departureTime}`) : null;
-        this.domesticShipment.arrivalTime =  this.domesticShipment.arrivalTime ? new Date(`1970-01-01 ${ this.domesticShipment.arrivalTime}`) : null;
       })
    }
 
@@ -243,8 +239,6 @@ export class AddDomesticShippingComponent {
   }
 
   onSubmit() {
-    this.domesticShipment.departureTime = this.datePipe.transform(this.domesticShipment.departureTime, 'HH:mm:ss')
-    this.domesticShipment.arrivalTime = this.datePipe.transform(this.domesticShipment.arrivalTime, 'HH:mm:ss')
     this.domesticShipment.etd = this.datePipe.transform(this.domesticShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.atd = this.datePipe.transform(this.domesticShipment.atd, 'yyyy-MM-ddTHH:mm:ss')

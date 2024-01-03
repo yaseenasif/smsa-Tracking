@@ -28,17 +28,11 @@ public class InternationalShipmentDto {
     private String destinationCountry;
     private String destinationPort;
     private String carrier;//air
-    private LocalDate departureDate;
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime departureTime;
     private LocalDateTime etd;
     private LocalDateTime eta;
     private LocalDateTime atd;
     private String flightNumber;//air
     private Integer numberOfShipments;
-    private LocalDate arrivalDate;
-    @JsonFormat(pattern = "HH:mm:ss")
-    private LocalTime arrivalTime;
     private Double actualWeight;
     private String driverName;
     private String driverContact;

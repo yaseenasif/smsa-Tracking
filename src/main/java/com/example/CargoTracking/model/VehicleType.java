@@ -21,6 +21,7 @@ public class VehicleType {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String occupancy;
     private boolean status;
 
 }

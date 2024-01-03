@@ -60,8 +60,6 @@ export class UpdateDomesticShippingComponent {
     shortages: null,
     shortagesAwbs: null,
     attachments: null,
-    arrivalTime: null,
-    departureTime: null,
     preAlertNumber: undefined
   };
 
@@ -259,8 +257,6 @@ export class UpdateDomesticShippingComponent {
       res.eta = res.eta ? new Date(res.eta) : null;
       res.atd = res.atd ? new Date(res.atd) : null;
       res.ata = res.ata ? new Date(res.ata) : null;
-      res.departureTime=res.departureTime ? new Date(`1970-01-01 ${res.departureTime}`) : null;
-      res.arrivalTime = res.arrivalTime ? new Date(`1970-01-01 ${res.arrivalTime}`) : null;
       this.selectedDriver = this.drivers.find((el: Driver) => { return (el.name == res.driverName) && (el.contactNumber == res.driverContact) && (el.referenceNumber == res.referenceNumber) })
 
 
@@ -300,8 +296,6 @@ export class UpdateDomesticShippingComponent {
       this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
       this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
       this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
-      this.domesticShipment.departureTime= this.domesticShipment.departureTime ? new Date(`1970-01-01 ${ this.domesticShipment.departureTime}`) : null;
-      this.domesticShipment.arrivalTime =  this.domesticShipment.arrivalTime ? new Date(`1970-01-01 ${ this.domesticShipment.arrivalTime}`) : null;
     })
   }
 
@@ -310,8 +304,6 @@ export class UpdateDomesticShippingComponent {
     this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.atd = this.datePipe.transform(this.domesticShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.ata = this.datePipe.transform(this.domesticShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
-    this.domesticShipment.departureTime = this.datePipe.transform(this.domesticShipment.departureTime, 'HH:mm:ss')
-    this.domesticShipment.arrivalTime = this.datePipe.transform(this.domesticShipment.arrivalTime, 'HH:mm:ss')
     this.updateDomesticShipment(this.domesticShipment);
   }
 

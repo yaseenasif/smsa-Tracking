@@ -33,6 +33,8 @@ public class ReportAndStatusService {
     DomesticShipmentHistoryRepository domesticShipmentHistoryRepository;
     @Autowired
     DomesticRouteRepository domesticRouteRepository;
+    @Autowired
+    VehicleTypeService vehicleTypeService;
 
     public List<InternationalAirReportStatusDto> findInternationalAirReportStatus(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         List<InternationalAirReportStatusDto> internationalAirReportStatusDtoList = new ArrayList<>();
@@ -133,7 +135,7 @@ public class ReportAndStatusService {
             internationalRoadReportStatusDto.setVehicle(internationalShipment.getVehicleNumber());
             internationalRoadReportStatusDto.setShipments(internationalShipment.getTotalShipments());
             internationalRoadReportStatusDto.setPallets(internationalShipment.getNumberOfPallets());
-            internationalRoadReportStatusDto.setOccupancy(internationalShipment.getVehicleType());
+            internationalRoadReportStatusDto.setOccupancy(getOccupancyByVehicleType(internationalShipment.getVehicleType()));
             internationalRoadReportStatusDto.setBags(internationalShipment.getNumberOfBags());
             internationalRoadReportStatusDto.setEtd(internationalShipment.getEtd());
             internationalRoadReportStatusDto.setAtd(internationalShipment.getAtd());
@@ -286,7 +288,7 @@ public class ReportAndStatusService {
             domesticPerformance.setVehicle(domesticShipment.getVehicleNumber());
             domesticPerformance.setShipments(domesticShipment.getTotalShipments());
             domesticPerformance.setPallets(domesticShipment.getNumberOfPallets());
-            domesticPerformance.setOccupancy(domesticShipment.getVehicleType());
+            domesticPerformance.setOccupancy(getOccupancyByVehicleType(domesticShipment.getVehicleType()));
             domesticPerformance.setBags(domesticShipment.getNumberOfShipments());
             DomesticRoute domesticRoute = domesticRouteRepository.findByRoute(domesticShipment.getRouteNumber());
             domesticPerformance.setPlanedEta(domesticRoute.getEta());
@@ -308,5 +310,9 @@ public class ReportAndStatusService {
             domesticPerformanceList.add(domesticPerformance);
         }
         return domesticPerformanceList;
+    }
+
+    private String getOccupancyByVehicleType(String name){
+        return vehicleTypeService.getVehicleTypeByVehicleTypeName(name).getOccupancy();
     }
 }

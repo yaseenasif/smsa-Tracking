@@ -16,5 +16,7 @@ public class VehicleTypeDto {
     private Long id;
     @NotBlank(message = "Vehicle type is required")
     private String name;
+    @NotBlank(message = "occupancy is required")
+    private String occupancy;
 
 }

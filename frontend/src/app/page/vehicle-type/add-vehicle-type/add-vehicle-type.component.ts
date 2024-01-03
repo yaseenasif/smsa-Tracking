@@ -15,7 +15,8 @@ export class AddVehicleTypeComponent implements OnInit {
   items: MenuItem[] | undefined;
   vehicleType:VehicleType={
     id: null,
-    name: null
+    name: null,
+    occupancy:null
   };
 
   constructor(private vehicleTypeService:VehicleTypeService,
@@ -28,6 +29,7 @@ export class AddVehicleTypeComponent implements OnInit {
   }
 
   onSubmit() {
+    debugger
     this.vehicleTypeService.addVehicleType(this.vehicleType).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Vehicle Type is added' });
       setTimeout(() => {

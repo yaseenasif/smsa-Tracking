@@ -33,13 +33,9 @@ export class AddInternationalShippingComponent {
   internationalShipment: InternationalShipment = {
     id: null,
     actualWeight: null,
-    arrivalDate: null,
-    arrivalTime: null,
     ata: null,
     attachments: null,
     carrier: null,
-    departureDate: null,
-    departureTime: null,
     destinationCountry: null,
     destinationPort: null,
     driverContact: null,
@@ -133,8 +129,6 @@ export class AddInternationalShippingComponent {
   }
 
   onSubmit() {
-    this.internationalShipment.departureTime = this.datePipe.transform(this.internationalShipment.departureTime, 'HH:mm:ss')
-    this.internationalShipment.arrivalTime = this.datePipe.transform(this.internationalShipment.arrivalTime, 'HH:mm:ss')
     this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
@@ -154,9 +148,7 @@ export class AddInternationalShippingComponent {
       this.internationalShipment.eta=this.internationalShipment.eta?new Date(this.internationalShipment.eta):null;
       this.internationalShipment.atd=this.internationalShipment.atd?new Date(this.internationalShipment.atd):null;
       this.internationalShipment.ata=this.internationalShipment.ata?new Date(this.internationalShipment.ata):null;
-      this.internationalShipment.departureTime=this.internationalShipment.departureTime ? new Date(`1970-01-01 ${this.internationalShipment.departureTime}`) : null;
-      this.internationalShipment.arrivalTime = this.internationalShipment.arrivalTime ? new Date(`1970-01-01 ${this.internationalShipment.arrivalTime}`) : null;
-    })
+     })
   }
 
   getInternationalRouteForRoad() {

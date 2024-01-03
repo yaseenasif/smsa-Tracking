@@ -30,6 +30,7 @@
                 <tr>
                   
                   <th class="text-center">Vehicle Type</th>
+                  <th class="text-center">Occupancy</th>
                  
                   <th class="text-center">Actions</th>
                 </tr>
@@ -37,6 +38,7 @@
               <ng-template pTemplate="body" let-vehicleTypes>
                 <tr>
                   <td class="text-center">{{ vehicleTypes!.name }}</td>
+                  <td class="text-center">{{ vehicleTypes!.occupancy }}</td>
                   <td class="text-center"> 
                     <p-button [routerLink]="['/edit-vehicle-type',vehicleTypes.id]" icon="bi bi-pen" class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                      

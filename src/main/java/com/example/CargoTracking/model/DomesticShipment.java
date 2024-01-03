@@ -61,8 +61,6 @@ public class DomesticShipment {
     private long transitTimeTaken;
     private LocalDateTime createdTime;
     private LocalDateTime arrivedTime;
-    private LocalTime departureTime;
-    private LocalTime arrivalTime;
     private Boolean activeStatus;
     private boolean escalationFlagOne;
     private boolean escalationFlagTwo;

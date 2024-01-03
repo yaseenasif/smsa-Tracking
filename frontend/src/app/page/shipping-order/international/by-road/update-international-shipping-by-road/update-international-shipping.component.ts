@@ -36,13 +36,9 @@ export class UpdateInternationalShippingComponent {
   internationalShipment: InternationalShipment = {
     id: null,
     actualWeight: null,
-    arrivalDate: null,
-    arrivalTime: null,
     ata: null,
     attachments: null,
     carrier: null,
-    departureDate: null,
-    departureTime: null,
     destinationCountry: null,
     destinationPort: null,
     driverContact: null,
@@ -160,9 +156,7 @@ export class UpdateInternationalShippingComponent {
     this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
-    this.internationalShipment.departureTime = this.datePipe.transform(this.internationalShipment.departureTime, 'HH:mm:ss')
-    this.internationalShipment.arrivalTime = this.datePipe.transform(this.internationalShipment.arrivalTime, 'HH:mm:ss')
-
+ 
     this.internationalShippingService.updateInternationalShipmentById(this.iSID, this.internationalShipment).subscribe(res => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is updated on id' + res.id });
       setTimeout(() => {
@@ -174,9 +168,7 @@ export class UpdateInternationalShippingComponent {
       this.internationalShipment.eta = this.internationalShipment.eta ? new Date(this.internationalShipment.eta) : null;
       this.internationalShipment.atd = this.internationalShipment.atd ? new Date(this.internationalShipment.atd) : null;
       this.internationalShipment.ata = this.internationalShipment.ata ? new Date(this.internationalShipment.ata) : null;
-      this.internationalShipment.departureTime = this.internationalShipment.departureTime ? new Date(`1970-01-01 ${this.internationalShipment.departureTime}`) : null;
-      this.internationalShipment.arrivalTime = this.internationalShipment.arrivalTime ? new Date(`1970-01-01 ${this.internationalShipment.arrivalTime}`) : null;
-    })
+     })
   }
 
   getInternationalShipmentById(id: number) {
@@ -186,8 +178,6 @@ export class UpdateInternationalShippingComponent {
       res.eta = res.eta ? new Date(res.eta) : null;
       res.atd = res.atd ? new Date(res.atd) : null;
       res.ata = res.ata ? new Date(res.ata) : null;
-      res.departureTime = res.departureTime ? new Date(`1970-01-01 ${res.departureTime}`) : null;
-      res.arrivalTime = res.arrivalTime ? new Date(`1970-01-01 ${res.arrivalTime}`) : null;
       this.selectedDriver = this.drivers.find(el => (el.name == res.driverName) && (el.contactNumber == res.driverContact) && (el.referenceNumber == res.referenceNumber))
 
       this.internationalShipment = res;

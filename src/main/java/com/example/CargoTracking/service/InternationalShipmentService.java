@@ -34,6 +34,7 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
@@ -127,10 +128,10 @@ public class InternationalShipmentService {
                 model.put("field12",internationalShipment.getNumberOfPallets().toString());
                 model.put("field13",internationalShipment.getActualWeight().toString());
                 model.put("field14",internationalShipment.getShipmentMode());
-                model.put("field15",internationalShipment.getEtd().toString());
-                model.put("field16",internationalShipment.getEta().toString());
-                model.put("field17",internationalShipment.getDepartureTime().toString());
-                model.put("field18",internationalShipment.getArrivalTime().toString());
+                model.put("field15",internationalShipment.getEtd().toLocalDate().toString());
+                model.put("field16",internationalShipment.getEta().toLocalDate().toString());
+                model.put("field17",internationalShipment.getEtd().toLocalTime().toString());
+                model.put("field18",internationalShipment.getEta().toLocalTime().toString());
                 model.put("field19",internationalShipment.getRemarks());
             }else{
                 template = "international-road-email-template.ftl";
@@ -147,21 +148,28 @@ public class InternationalShipmentService {
                 model.put("field10",internationalShipment.getNumberOfPallets().toString());
                 model.put("field11",internationalShipment.getActualWeight().toString());
                 model.put("field12",internationalShipment.getShipmentMode());
-                model.put("field13",internationalShipment.getEtd().toString());
-                model.put("field14",internationalShipment.getEta().toString());
-                model.put("field15",internationalShipment.getDepartureTime().toString());
-                model.put("field16",internationalShipment.getArrivalTime().toString());
+                model.put("field13",internationalShipment.getEtd().toLocalDate().toString());
+                model.put("field14",internationalShipment.getEta().toLocalDate().toString());
+                model.put("field15",internationalShipment.getEtd().toLocalTime().toString());
+                model.put("field16",internationalShipment.getEta().toLocalTime().toString());
                 model.put("field17",internationalShipment.getRemarks());
             }
 
-            for (String to :emails) {
-                emailService.sendHtmlEmail(to,subject,template,model);
-            }
+            sendEmailsAsync(emails, subject, template, model);
+
 
             return  toDto(internationalShipment);
 
         }
         throw new UserNotFoundException(String.format("User not found while creating international shipment"));
+    }
+
+    private void sendEmailsAsync(List<String> emails, String subject, String template, Map<String, Object> model) {
+        CompletableFuture.runAsync(() -> {
+            for (String to : emails) {
+                emailService.sendHtmlEmail(to, subject, template, model);
+            }
+        });
     }
 
     public List<InternationalShipmentDto> getAll() {
@@ -575,15 +583,13 @@ public class InternationalShipmentService {
                 internationalShipment.get().setDestinationCountry(internationalShipmentDto.getDestinationCountry());
                 internationalShipment.get().setDestinationPort(internationalShipmentDto.getDestinationPort());
                 internationalShipment.get().setCarrier(internationalShipmentDto.getCarrier());
-                internationalShipment.get().setDepartureDate(internationalShipmentDto.getDepartureDate());
-                internationalShipment.get().setDepartureTime(internationalShipmentDto.getDepartureTime());
+
                 internationalShipment.get().setEtd(internationalShipmentDto.getEtd());
                 internationalShipment.get().setEta(internationalShipmentDto.getEta());
                 internationalShipment.get().setAtd(internationalShipmentDto.getAtd());
                 internationalShipment.get().setFlightNumber(internationalShipmentDto.getFlightNumber());
                 internationalShipment.get().setNumberOfShipments(internationalShipmentDto.getNumberOfShipments());
-                internationalShipment.get().setArrivalDate(internationalShipmentDto.getArrivalDate());
-                internationalShipment.get().setArrivalTime(internationalShipmentDto.getArrivalTime());
+
                 internationalShipment.get().setActualWeight(internationalShipmentDto.getActualWeight());
                 internationalShipment.get().setDriverName(internationalShipmentDto.getDriverName());
                 internationalShipment.get().setDriverContact(internationalShipmentDto.getDriverContact());

@@ -11,8 +11,6 @@ export interface DomesticShipment{
     etd: Date|string|null|undefined,
     eta: Date|string|null|undefined,
     atd: Date|string|null|undefined,
-    arrivalTime: Date | string | null,
-    departureTime: Date | string | null,
     driverName: string|null|undefined,
     driverContact: string|null|undefined,
     referenceNumber: string|null|undefined,
