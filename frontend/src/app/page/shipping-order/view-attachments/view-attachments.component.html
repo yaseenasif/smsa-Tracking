@@ -40,7 +40,7 @@
                     <td class="text-center">{{ fileMetaData.fileName }}</td>
                     <td class="text-center">{{ fileMetaData.attachmentType }}</td>
                     <td class="text-center">{{ fileMetaData.fileExtension }}</td>
-                    <td class="text-center">   <p-button (click)="downloadAttachment(fileMetaData.fileUrl,fileMetaData.fileName)"  icon="bi bi-download" class='mr'
+                    <td class="text-center">   <p-button (click)="downloadAttachment(fileMetaData.fileUrl,fileMetaData.fileName)"    icon="bi bi-download"  tooltipPosition="top" pTooltip="Download"  class='mr'
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                     </p-button></td>
 

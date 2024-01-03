@@ -155,9 +155,6 @@
                   <th class="text-center">Destination Country</th>
                   <th class="text-center">Destination Port</th>
                   <th class="text-center">Route Number</th>
-                  <th class="text-center">ETD</th>
-                  <th class="text-center">ETA</th>
-                  <th class="text-center">ATD</th>
                   <th class="text-center">Carrier</th>
                   <th class="text-center">Flight Number</th>
                   <th class="text-center">Number of Shipments</th>
@@ -166,14 +163,12 @@
                   <th class="text-center">Number of Pallets</th>
                   <th class="text-center">Number of Bags</th>
                   <th class="text-center">Status</th>
-                  <th class="text-center">Remarks</th>
                   <th class="text-center">ATA</th>
                   <th class="text-center">Total Shipments</th>
                   <th class="text-center">Overages</th>
-                  <th class="text-center">Overage AWBS</th>
-                  <th class="text-center">Received</th>
+
                   <th class="text-center">Shortages</th>
-                  <th class="text-center">Shortage AWBs</th>
+                 
                   <th class="text-center">Action</th>
                 </tr>
               </ng-template>
@@ -204,15 +199,6 @@
                     {{ internationalShipmentByAir.routeNumber }}
                   </td>
                   <td class="text-center">
-                    {{ internationalShipmentByAir.etd }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByAir.eta }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByAir.atd }}
-                  </td>
-                  <td class="text-center">
                     {{ internationalShipmentByAir.carrier }}
                   </td>
                  
@@ -239,9 +225,6 @@
                     {{ internationalShipmentByAir.status }}
                   </td>
                   <td class="text-center">
-                    {{ internationalShipmentByAir.remarks }}
-                  </td>
-                  <td class="text-center">
                     {{ internationalShipmentByAir.ata }}
                   </td>
                   <td class="text-center">
@@ -249,27 +232,19 @@
                   </td>
                   <td class="text-center">
                     {{ internationalShipmentByAir.overages }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByAir.overageAWBs }}
-                  </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByAir.received }}
-                  </td>
+                  </td>  
                   <td class="text-center">
                     {{ internationalShipmentByAir.shortages }}
                   </td>
-                  <td class="text-center">
-                    {{ internationalShipmentByAir.shortageAWBs }}
-                  </td>
-
                   <td class="text-center flex flex-row">
                     <p-button
                       [routerLink]="[
                         '/view-international-air/',
                         internationalShipmentByAir.id
                       ]"
-                      icon="bi bi-eye"
+                      pTooltip="View"  icon="bi bi-eye"  tooltipPosition="top"
+
+
                       class="mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
@@ -291,7 +266,7 @@
                         'by-international-air-list',
                         internationalShipmentByAir.id
                       ]"
-                      icon="bi bi-download"
+                        icon="bi bi-download"  tooltipPosition="top" pTooltip="Download" 
                       class="mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
@@ -301,7 +276,7 @@
                         '/add-international-by-air-attachments/',
                         internationalShipmentByAir.id
                       ]"
-                      icon="bi bi-paperclip"
+                        icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment" 
                       class="ml mr"
                       styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
                     >
@@ -311,13 +286,13 @@
                         '/update-international-shipment-by-air',
                         internationalShipmentByAir.id
                       ]"
-                      icon="bi bi-pen"
+                       icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit" 
                       class="ml mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
                     </p-button>
                     <p-button
-                      icon="bi bi-trash"
+                       icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete" 
                       class="ml"
                       styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
                     >

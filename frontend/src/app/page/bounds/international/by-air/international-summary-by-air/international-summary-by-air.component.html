@@ -176,8 +176,6 @@
                   <th class="text-center">Total Shipment</th>
                   <th class="text-center">Pallets</th>
                   <th class="text-center">Bags</th>
-                  <th class="text-center">ETD (Date and time)</th>
-                  <th class="text-center">ETA (Date and time)</th>
                   <th class="text-center">ATA</th>
                   <th class="text-center">Status</th>
                   <th
@@ -276,22 +274,6 @@
                       internationalShipmentByAir.redFlag ? 'red' : 'withoutRed'
                     "
                   >
-                    {{ internationalShipmentByAir.etd }}
-                  </td>
-                  <td
-                    class="text-center"
-                    [classList]="
-                      internationalShipmentByAir.redFlag ? 'red' : 'withoutRed'
-                    "
-                  >
-                    {{ internationalShipmentByAir.eta }}
-                  </td>
-                  <td
-                    class="text-center"
-                    [classList]="
-                      internationalShipmentByAir.redFlag ? 'red' : 'withoutRed'
-                    "
-                  >
                     {{ internationalShipmentByAir.ata }}
                   </td>
                   <td
@@ -314,7 +296,7 @@
                         'by-international-air-summary',
                         internationalShipmentByAir.id
                       ]"
-                      icon="bi bi-download"
+                        icon="bi bi-download"  tooltipPosition="top" pTooltip="Download" 
                       class="mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
@@ -324,7 +306,7 @@
                         '/international-summary-by-road-attachment/',
                         internationalShipmentByAir.id
                       ]"
-                      icon="bi bi-paperclip"
+                        icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment" 
                       class="ml mr"
                       styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
                     >
@@ -334,7 +316,7 @@
                         '/update-international-air-shipping-for-summary/',
                         internationalShipmentByAir.id
                       ]"
-                      icon="bi bi-pen"
+                       icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit" 
                       class="ml mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >

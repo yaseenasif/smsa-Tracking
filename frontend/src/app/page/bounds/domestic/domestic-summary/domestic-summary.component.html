@@ -177,8 +177,6 @@
                   <th class="text-center">Total Shipment</th>
                   <th class="text-center">Pallets</th>
                   <th class="text-center">Bags</th>
-                  <th class="text-center">ETD (Date and time)</th>
-                  <th class="text-center">ETA (Date and time)</th>
                   <th class="text-center">ATA</th>
                   <th class="text-center">Status</th>
 
@@ -280,22 +278,7 @@
                   >
                     {{ domesticShipment.numberOfBags }}
                   </td>
-                  <td
-                    class="text-center"
-                    [classList]="
-                      domesticShipment.redFlag ? 'red' : 'withoutRed'
-                    "
-                  >
-                    {{ domesticShipment.etd }}
-                  </td>
-                  <td
-                    class="text-center"
-                    [classList]="
-                      domesticShipment.redFlag ? 'red' : 'withoutRed'
-                    "
-                  >
-                    {{ domesticShipment.eta }}
-                  </td>
+              
                   <td
                     class="text-center"
                     [classList]="
@@ -324,14 +307,14 @@
                         'by-domestic-summary',
                         domesticShipment.id
                       ]"
-                      icon="bi bi-download"
+                        icon="bi bi-download"  tooltipPosition="top" pTooltip="Download" 
                       class="ml mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
                     </p-button>
                     <p-button
                       [routerLink]="['/add-attachments/', domesticShipment.id]"
-                      icon="bi bi-paperclip"
+                        icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment" 
                       class="ml mr"
                       styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
                     >
@@ -341,7 +324,7 @@
                         '/update-domestic-shipping-for-summary/',
                         domesticShipment.id
                       ]"
-                      icon="bi bi-pen"
+                       icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit" 
                       class="ml mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
