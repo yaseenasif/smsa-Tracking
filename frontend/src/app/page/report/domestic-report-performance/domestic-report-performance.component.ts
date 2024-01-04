@@ -47,7 +47,7 @@ this.reportService.getDomesticReportPerformance(searchBy).subscribe((res:Domesti
 
 searchByFilter(){
   this.searchBy.fromDate=this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd'))!:"";
-  this.searchBy.toDate=this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd'))!:"";
+  this.searchBy.toDate=this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd'))!:"";
   this.domesticPerformance=[]
   this.reportService.getDomesticReportPerformance(this.searchBy).subscribe((res:DomesticPerformance[])=>{
     this.domesticPerformance=res;

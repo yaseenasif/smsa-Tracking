@@ -59,7 +59,7 @@ export class InternationalAirReportPerformanceComponent {
     searchByFilter(){
       this.internationalAirReportPerformance=[]
       this.searchBy.fromDate=this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd'))!:"";
-      this.searchBy.toDate=this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd'))!:"";
+      this.searchBy.toDate=this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd'))!:"";
       this.reportService.getInternationalAirReportPerformance(this.searchBy).subscribe((res:InternationalAirReportPerformance[])=>{
         this.internationalAirReportPerformance=res;
         this.searchBy.fromDate= this.searchBy.fromDate ? new Date( this.searchBy.fromDate) : "";

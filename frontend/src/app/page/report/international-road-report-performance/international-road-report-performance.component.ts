@@ -39,7 +39,7 @@ export class InternationalRoadReportPerformanceComponent {
   searchByFilter(){
     this.internationalRoadReportPerformance=[]
     this.searchBy.fromDate=this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd'))!:"";
-    this.searchBy.toDate=this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd'))!:"";
+    this.searchBy.toDate=this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd'))!:"";
     this.reportService.getInternationalRoadReportPerformance(this.searchBy).subscribe((res:InternationalRoadReportPerformance[]) => {
       this.internationalRoadReportPerformance = res;
       this.searchBy.fromDate= this.searchBy.fromDate ? new Date( this.searchBy.fromDate) : "";
