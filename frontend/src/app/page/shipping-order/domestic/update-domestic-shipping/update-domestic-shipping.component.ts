@@ -60,7 +60,9 @@ export class UpdateDomesticShippingComponent {
     shortages: null,
     shortagesAwbs: null,
     attachments: null,
-    preAlertNumber: undefined
+    preAlertNumber: undefined,
+    transitTimeTaken: null,
+    preAlertType: null
   };
 
   minDate: Date = new Date();

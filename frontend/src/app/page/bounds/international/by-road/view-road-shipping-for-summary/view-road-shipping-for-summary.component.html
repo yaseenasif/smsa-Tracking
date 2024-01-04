@@ -1,1 +1,252 @@
-<p>view-road-shipping-for-summary works!</p>
+<div class="flex flex-row">
+    <app-sidebar></app-sidebar>
+    <div class="body-position">
+        <div class="body-holder">
+            <app-dashboard-head></app-dashboard-head>
+
+            <div class="main">
+                <div class="card flex justify-content-center">
+                    <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+                </div>
+                <div class="body-card">
+                    <p-toast></p-toast>
+                    <div class="table-head mb-4">
+                        <h1 class="mb-4 h-color">View International Shipment By Road</h1>
+                        <p-toolbar>
+                            <div class="grid w-full">
+                                <div class="lg:col-12 md:col-6 col-12">
+                                    <div class="grid">
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Origin Country :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.originCountry}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Origin Port :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.originPort}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Referigirated Truck :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.refrigeratedTruck}}</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="lg:col-12 md:col-6 col-12">
+                                    <div class="grid">
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Mode
+                                                :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.type}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Shipment Mode :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.shipmentMode}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Pre-Alert Number :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.preAlertNumber}}</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="lg:col-12 md:col-6 col-12">
+                                    <div class="grid">
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Destination Country :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.destinationCountry}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Destination Port :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.destinationPort}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Route
+                                                Number :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.routeNumber}}</label>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="lg:col-12 md:col-6 col-12">
+                                    <div class="grid">
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">ETD
+                                                :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.etd | date:"shortDate"}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">ETA
+                                                :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.eta | date:"shortDate" }}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">ATD
+                                                :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.atd | date:"shortDate" }}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lg:col-12 md:col-6 col-12">
+                                    <div class="grid">
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Actual Weight :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.actualWeight}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Number of Shipments :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.numberOfShipments}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Driver Name:</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.driverName}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lg:col-12 md:col-6 col-12">
+                                    <div class="grid">
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Driver Contact :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.driverContact}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Reference Number :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.referenceNumber}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Vehicle Type :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.vehicleType}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lg:col-12 md:col-6 col-12">
+                                    <div class="grid">
+
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Number of Pallets :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.numberOfPallets}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Number of Bags :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.numberOfBags}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Vehicle Number :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.vehicleNumber}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lg:col-12 md:col-6 col-12">
+                                    <div class="grid">
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Tag
+                                                Number :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.tagNumber}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Seal
+                                                Number :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.sealNumber}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Status :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.status}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lg:col-12 md:col-6 col-12">
+                                    <div class="grid">
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Remarks :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.remarks}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">ATA :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.ata | date:"shortDate"}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Total Shipments :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.totalShipments}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lg:col-12 md:col-6 col-12">
+                                    <div class="grid">
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Overages :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.overages}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Overages AWBs :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.overageAWBs}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for=""
+                                                class="heading-lable">Received :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.received}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lg:col-12 md:col-6 col-12">
+                                    <div class="grid">
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Shortages :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.shortages}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Shortages AWBs :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.shortageAWBs}}</label>
+                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Pre-Alert Type :</label> &nbsp;
+                                            <label for=""  class="fr mr-8"> {{internationalShipment.preAlertType}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="lg:col-12 md:col-6 col-12">
+                                    <div class="grid">
+
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Manifested :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.numberOfShipments}}</label>
+                                          </div>
+                                          <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Transit Time Taken :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.transitTimeTaken}}</label>
+                                          </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-toolbar>
+                    </div>
+                    <div class="table-head">
+                        <h2 class="h-color mb-3">International Shipment History By Road</h2>
+                      </div>
+            
+            
+                      <div class="card">
+                        <p-table [value]="InternationalShipmentHistory" [tableStyle]="{ 'min-width': '50rem' }">
+                          <ng-template pTemplate="header">
+                            <tr>
+            
+                              <th class="text-center">Status</th>
+            
+                              <th class="text-center">Process time</th>
+            
+                              <th class="text-center">Location Code</th>
+            
+                              <th class="text-center">User</th>
+            
+                              <th class="text-center">Remarks</th>
+            
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-InternationalShipmentHistory>
+                            <tr>
+                              <td class="text-center">{{ InternationalShipmentHistory.status }}</td>
+                              <td class="text-center">{{ InternationalShipmentHistory.processTime }}</td>
+                              <td class="text-center">{{ InternationalShipmentHistory.locationCode }}</td>
+                              <td class="text-center">{{ InternationalShipmentHistory.user }}</td>
+                              <td class="text-center">{{ InternationalShipmentHistory.remarks }}</td>
+            
+                              <!-- <td class="text-center"> 
+                                <p-button routerLink="/edit-location"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                                 
+                                </p-button>
+                                 <p-button  icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"  class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                                
+                                 </p-button>
+                              </td> -->
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                      </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

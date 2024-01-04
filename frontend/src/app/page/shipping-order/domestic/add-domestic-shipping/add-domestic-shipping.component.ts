@@ -58,7 +58,9 @@ export class AddDomesticShippingComponent {
     shortages: null,
     shortagesAwbs: null,
     attachments: null,
-    preAlertNumber: null
+    preAlertNumber: null,
+    transitTimeTaken: null,
+    preAlertType: null
   };
 
   location!: Location[];

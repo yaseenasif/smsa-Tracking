@@ -69,7 +69,9 @@ export class UpdateInternationalAirForSummaryComponent {
     etd: null,
     eta: null,
     atd: null,
-    trip: null
+    trip: null,
+    preAlertType: null,
+    transitTimeTaken: null
   }
   location!: Location[];
   locationPort!: LocationPort[]

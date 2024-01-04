@@ -182,21 +182,67 @@
                                         <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Shortages AWBs :</label> &nbsp;
                                             <label for="" class="fr mr-8"> {{internationalShipment.shortageAWBs}}</label>
                                         </div>
-
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Pre-Alert Type :</label> &nbsp;
+                                            <label for=""  class="fr mr-8"> {{internationalShipment.preAlertType}}</label>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="lg:col-12 md:col-6 col-12">
                                     <div class="grid">
 
-                                        <div class="lg:col-4 md:col-12 col-12">
-                                        </div>
-                                        <div class="lg:col-4 md:col-12 col-12">
-                                        </div>
+                                        <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Manifested :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.numberOfShipments}}</label>
+                                          </div>
+                                          <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Transit Time Taken :</label> &nbsp;
+                                            <label for="" class="fr mr-8"> {{internationalShipment.transitTimeTaken}}</label>
+                                          </div>
                                     </div>
                                 </div>
                             </div>
                         </p-toolbar>
                     </div>
+                    <div class="table-head">
+                        <h2 class="h-color mb-3">International Shipment History By Road</h2>
+                      </div>
+            
+            
+                      <div class="card">
+                        <p-table [value]="InternationalShipmentHistory" [tableStyle]="{ 'min-width': '50rem' }">
+                          <ng-template pTemplate="header">
+                            <tr>
+            
+                              <th class="text-center">Status</th>
+            
+                              <th class="text-center">Process time</th>
+            
+                              <th class="text-center">Location Code</th>
+            
+                              <th class="text-center">User</th>
+            
+                              <th class="text-center">Remarks</th>
+            
+                            </tr>
+                          </ng-template>
+                          <ng-template pTemplate="body" let-InternationalShipmentHistory>
+                            <tr>
+                              <td class="text-center">{{ InternationalShipmentHistory.status }}</td>
+                              <td class="text-center">{{ InternationalShipmentHistory.processTime }}</td>
+                              <td class="text-center">{{ InternationalShipmentHistory.locationCode }}</td>
+                              <td class="text-center">{{ InternationalShipmentHistory.user }}</td>
+                              <td class="text-center">{{ InternationalShipmentHistory.remarks }}</td>
+            
+                              <!-- <td class="text-center"> 
+                                <p-button routerLink="/edit-location"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                                 
+                                </p-button>
+                                 <p-button  icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"  class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                                
+                                 </p-button>
+                              </td> -->
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                      </div>
 
                 </div>
             </div>
