@@ -1,3 +1,5 @@
+import { InputNumberInputEvent } from "primeng/inputnumber";
+
 export interface DomesticShipment{
     originFacility: string|null|undefined,
     originLocation: string|null|undefined,
@@ -29,5 +31,7 @@ export interface DomesticShipment{
     received: string|null|undefined,
     shortages: string|null|undefined,
     shortagesAwbs: string|null|undefined,
-    attachments: string|null|undefined
+    attachments: string|null|undefined,
+    transitTimeTaken:number|null,
+    preAlertType:string|null
 }

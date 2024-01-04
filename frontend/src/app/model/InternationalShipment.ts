@@ -37,6 +37,8 @@ export interface InternationalShipment {
   shortages: string | null | undefined,
   shortageAWBs: string | null | undefined,
   trip: number | null | undefined,
+  preAlertType:string|null,
+  transitTimeTaken:number|null
 }
 
 export interface Time {

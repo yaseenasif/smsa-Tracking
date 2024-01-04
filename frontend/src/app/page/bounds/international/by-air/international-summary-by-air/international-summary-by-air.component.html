@@ -289,6 +289,18 @@
                     *ngIf="selectedBound.bound == 'In bound'"
                     class="text-center flex flex-row"
                   >
+                  <p-button
+                  [routerLink]="[
+                    '/view-air-shipping-for-summary/',
+                    internationalShipmentByAir.id
+                  ]"
+                  pTooltip="View"  icon="bi bi-eye"  tooltipPosition="top"
+
+
+                  class="mr"
+                  styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                >
+                </p-button>
                     <p-button
                       [routerLink]="[
                         '/view-attachments/',

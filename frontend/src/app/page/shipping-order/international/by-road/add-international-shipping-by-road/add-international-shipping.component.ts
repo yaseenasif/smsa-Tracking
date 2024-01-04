@@ -67,7 +67,9 @@ export class AddInternationalShippingComponent {
     etd: null,
     eta: null,
     atd: null,
-    trip: null
+    trip: null,
+    preAlertType: null,
+    transitTimeTaken: null
   }
 
   routes: any;

@@ -74,6 +74,9 @@ import { InternationalAirReportPerformanceComponent } from './page/report/intern
 import { InternationalAirReportStatusComponent } from './page/report/international-air-report-status/international-air-report-status.component';
 import { InternationalRoadReportPerformanceComponent } from './page/report/international-road-report-performance/international-road-report-performance.component';
 import { InternationalRoadReportStatusComponent } from './page/report/international-road-report-status/international-road-report-status.component';
+import { ViewDomesticShippingForSummaryComponent } from './page/bounds/domestic/view-domestic-shipping-for-summary/view-domestic-shipping-for-summary.component';
+import { ViewAirShippingForSummaryComponent } from './page/bounds/international/by-air/view-air-shipping-for-summary/view-air-shipping-for-summary.component';
+import { ViewRoadShippingForSummaryComponent } from './page/bounds/international/by-road/view-road-shipping-for-summary/view-road-shipping-for-summary.component';
 // import { EmailManagmentComponent } from './page/email-managment/email-managment.component';
 
 
@@ -221,11 +224,11 @@ const routes: Routes = [
     component: DomesticShippingListComponent,
     canActivate: [AuthGuard]
   },
-  {
-    path: 'domestic-shipping-history/:id',
-    component: DomesticShippingOrderHistoryComponent,
-    canActivate: [AuthGuard]
-  },
+  // {
+  //   path: 'domestic-shipping-history/:id',
+  //   component: DomesticShippingOrderHistoryComponent,
+  //   canActivate: [AuthGuard]
+  // },
   {
     path: 'international-shipping-history-by-air/:id',
     component: DomesticShippingOrderHistoryComponent,
@@ -252,6 +255,17 @@ const routes: Routes = [
     component: UpdateDomesticShipmentForSummaryComponent,
     canActivate: [AuthGuard]
   },
+  {
+    path: 'update-domestic-shipping-for-summary/:id',
+    component: UpdateDomesticShipmentForSummaryComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'view-domestic-shipping-for-summary/:id',
+    component: ViewDomesticShippingForSummaryComponent,
+    canActivate: [AuthGuard]
+  },
+  
   {
     path: 'update-international-air-shipping-for-summary/:id',
     component: UpdateInternationalAirForSummaryComponent,
@@ -283,11 +297,11 @@ const routes: Routes = [
     component: InternationalShippingListComponent,
     canActivate: [AuthGuard]
   },
-  {
-    path: 'international-shipment-history-by-road/:id',
-    component: InternationalShippingOrderHistoryComponent,
-    canActivate: [AuthGuard]
-  },
+  // {
+  //   path: 'international-shipment-history-by-road/:id',
+  //   component: InternationalShippingOrderHistoryComponent,
+  //   canActivate: [AuthGuard]
+  // },
   {
     path: 'add-international-shipment-by-road',
     component: AddInternationalShippingComponent,
@@ -313,11 +327,11 @@ const routes: Routes = [
     component: InternationalShipmentListAirComponent,
     canActivate: [AuthGuard]
   },
-  {
-    path: 'international-shipment-history-by-air/:id',
-    component: InternationalShipmentOrderHistoryByAirComponent,
-    canActivate: [AuthGuard]
-  },
+  // {
+  //   path: 'international-shipment-history-by-air/:id',
+  //   component: InternationalShipmentOrderHistoryByAirComponent,
+  //   canActivate: [AuthGuard]
+  // },
   {
     path: 'add-international-shipment-by-air',
     component: AddInternationalShipmentByRoadComponent,
@@ -344,6 +358,11 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'view-air-shipping-for-summary/:id',
+    component:ViewAirShippingForSummaryComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'international-summary-by-air-attachment/:id',
     component: InternationalSummaryByAirAttachmentsComponent,
     canActivate: [AuthGuard]
@@ -351,6 +370,11 @@ const routes: Routes = [
   {
     path: 'international-summary-by-road',
     component: InternationalSummaryByRoadComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path:'view-road-shipping-for-summary/:id',
+    component:ViewRoadShippingForSummaryComponent,
     canActivate: [AuthGuard]
   },
   {

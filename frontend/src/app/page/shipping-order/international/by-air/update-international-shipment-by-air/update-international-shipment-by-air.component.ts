@@ -70,6 +70,8 @@ export class UpdateInternationalShipmentByAirComponent {
     eta: null,
     atd: null,
     trip: null,
+    preAlertType: null,
+    transitTimeTaken: null
   }
   location!: Location[];
   originPorts!: LocationPort[];

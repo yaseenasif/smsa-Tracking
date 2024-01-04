@@ -14,16 +14,7 @@ export class DomesticShippingOrderHistoryComponent {
   constructor(private domesticShippingService:DomesticShippingService,
     private messageService: MessageService,
     private route:ActivatedRoute) { }
-  domesticShipmentHistory:any=[{status:"Cleared",processTime:"10/16/2022 15:45",locationCode:"KSA GW",user:"9590",remarks:"Load Cleared and Forward"},
-  {status:"Cleared",processTime:"10/16/2022 15:45",locationCode:"KSA GW",user:"9590",remarks:"Load Cleared and Forward"},
-  {status:"Cleared",processTime:"10/16/2022 15:45",locationCode:"KSA GW",user:"9590",remarks:"Load Cleared and Forward"},
-  {status:"Cleared",processTime:"10/16/2022 15:45",locationCode:"KSA GW",user:"9590",remarks:"Load Cleared and Forward"},
-  {status:"Cleared",processTime:"10/16/2022 15:45",locationCode:"KSA GW",user:"9590",remarks:"Load Cleared and Forward"},
-  {status:"Cleared",processTime:"10/16/2022 15:45",locationCode:"KSA GW",user:"9590",remarks:"Load Cleared and Forward"},
-  {status:"Cleared",processTime:"10/16/2022 15:45",locationCode:"KSA GW",user:"9590",remarks:"Load Cleared and Forward"},
-  {status:"Cleared",processTime:"10/16/2022 15:45",locationCode:"KSA GW",user:"9590",remarks:"Load Cleared and Forward"},
-  {status:"Cleared",processTime:"10/16/2022 15:45",locationCode:"KSA GW",user:"9590",remarks:"Load Cleared and Forward"},
-  {status:"Cleared",processTime:"10/16/2022 15:45",locationCode:"KSA GW",user:"9590",remarks:"Load Cleared and Forward"},];
+  domesticShipmentHistory:any;
   items: MenuItem[] | undefined;
 
   domesticShipment:any;

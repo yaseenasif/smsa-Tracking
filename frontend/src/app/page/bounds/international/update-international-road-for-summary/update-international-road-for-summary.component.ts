@@ -69,6 +69,8 @@ export class UpdateInternationalRoadForSummaryComponent {
     eta: null,
     atd: null,
     trip: null,
+    preAlertType: null,
+    transitTimeTaken: null
   }
   minDate: Date = new Date();
   location!: Location[];

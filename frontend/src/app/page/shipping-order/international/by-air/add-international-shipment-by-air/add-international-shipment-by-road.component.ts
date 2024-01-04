@@ -67,6 +67,8 @@ export class AddInternationalShipmentByRoadComponent {
     eta: null,
     atd: null,
     trip: null,
+    preAlertType: null,
+    transitTimeTaken: null
   }
 
   // route:any;
