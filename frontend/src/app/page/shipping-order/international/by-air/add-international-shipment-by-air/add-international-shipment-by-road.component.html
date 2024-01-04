@@ -379,25 +379,36 @@
 
                 <!-- 5 -->
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Carrier</label>
-                    <input
-                      #carrier="ngModel"
+                    <p-dropdown
+                      class="w-full"
+                      [options]="carrier?.productFieldValuesList"
                       name="carrier"
+                      #status="ngModel"
                       [required]="true"
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [(ngModel)]="internationalShipment.carrier"
-                    />
-                    <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="
-                        carrier.invalid && (carrier.dirty || carrier.touched)
-                      "
-                      >Carrier is required.</small
+                      [(ngModel)]="internationalShipment!.carrier"
+                      optionLabel="name"
+                      optionValue="name"
+                      [filter]="true"
+                      filterBy="name"
+                      [showClear]="true"
+                      placeholder="Select a Status"
                     >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="internationalShipment"
+                        >
+                          <div>{{ internationalShipment.carrier}}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-shipmentStatus pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ shipmentStatus.name }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
                   </div>
                 </div>
 
