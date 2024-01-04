@@ -20,6 +20,7 @@ import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
 import { DatePipe } from '@angular/common';
 import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
 import { ProductField } from 'src/app/model/ProductField';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-add-international-shipment-by-road',
@@ -82,6 +83,7 @@ export class AddInternationalShipmentByRoadComponent {
   shipmentMode: { options: string }[] = Object.values(ShipmentMode).map(el => ({ options: el }));
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
   minDate: Date = new Date();
+  carrier:ProductField|undefined|null;
 
 
   getLocationPortByLocationForOrigin() {
@@ -103,6 +105,7 @@ export class AddInternationalShipmentByRoadComponent {
     private internationalShippingService: InternationalShippingService,
     private messageService: MessageService,
     private locationService: LocationService,
+    private shipmentStatusService: ProductFieldServiceService,
     // private locationPortService: LocationPortService,
     private driverService: DriverService,
     private vehicleTypeService: VehicleTypeService,
@@ -117,6 +120,7 @@ export class AddInternationalShipmentByRoadComponent {
     // this.getAllLocationPort();
     this.getAllDriver();
     this.getAllVehicleType();
+    this.getAllShipmentCarrier();
     // this.getAllShipmentStatus();
   }
 
@@ -192,6 +196,16 @@ export class AddInternationalShipmentByRoadComponent {
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
+  }
+
+  getAllShipmentCarrier() {
+    return this.shipmentStatusService.getProductFieldByName("Carrier").subscribe(
+      res=>{
+          this.carrier=res;
+      },error=>{
+
+      }
+     );
   }
 
   // getAllShipmentStatus() {

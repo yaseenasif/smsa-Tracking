@@ -84,6 +84,7 @@ export class UpdateInternationalShipmentByAirComponent {
   showDropDown: boolean = false;
   selectedLocation!: Location;
   minDate: Date = new Date();
+  carrier:ProductField|undefined|null;
 
   constructor(private router: Router,
     private internationalShippingService: InternationalShippingService,
@@ -107,15 +108,19 @@ export class UpdateInternationalShipmentByAirComponent {
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
     const shipmentStatus$: Observable<ProductField> = this.getAllShipmentStatus();
+    const shipmentCarrier$: Observable<ProductField> = this.getAllShipmentCarrier();
 
-    forkJoin([locations$, driver$, vehicleType$, shipmentStatus$]).subscribe(
-      ([locationsResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
+
+    forkJoin([locations$, driver$, vehicleType$, shipmentStatus$, shipmentCarrier$]).subscribe(
+      ([locationsResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse, shipmentCarrierResponse]) => {
         // Access responses here
         this.location = locationsResponse.filter(el => el.status);
         // this.locationPort=locationPortResponse.filter(el => el.status);
         this.drivers = driverResponse.content.filter((el: Driver) => el.status);
         this.vehicleTypes = vehicleTypeResponse
         this.shipmentStatus = shipmentStatusResponse
+        this.carrier = shipmentCarrierResponse
+        debugger
         // Now that you have the responses, you can proceed with the next steps
         this.getInternationalShipmentById(this.iSID);
       }
@@ -166,7 +171,7 @@ export class UpdateInternationalShipmentByAirComponent {
       res.eta = res.eta ? new Date(res.eta) : null;
       res.atd = res.atd ? new Date(res.atd) : null;
       res.ata = res.ata ? new Date(res.ata) : null;
-
+debugger
       this.selectedDriver = this.drivers.find(el => (el.name == res.driverName) && (el.contactNumber == res.driverContact) && (el.referenceNumber == res.referenceNumber))
       this.internationalShipment = res;
       this.getLocationPortByLocationForOrigin();
@@ -175,6 +180,16 @@ export class UpdateInternationalShipmentByAirComponent {
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
+  }
+
+  getAllShipmentCarrier(): Observable<ProductField>  {
+    return this.shipmentStatusService.getProductFieldByName("Carrier").pipe(
+      catchError(
+        error => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+          throw error
+        })
+    );
   }
 
   getAllLocations() {
