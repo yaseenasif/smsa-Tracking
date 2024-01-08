@@ -542,6 +542,46 @@ public class DomesticShipmentService {
         }
     }
 
+    public Page<DomesticShipmentDto> getAllForSummery(SearchCriteriaForSummary searchCriteriaForSummary, int page, int size) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            Pageable pageable = PageRequest.of(page, size);
+            Page<DomesticShipment> domesticShipmentPage;
+            String username = ((UserDetails) principal).getUsername();
+            User user = userRepository.findByEmail(username);
+            if ((user.getLocation() == null) && (searchCriteriaForSummary.getDestination() == null && searchCriteriaForSummary.getOrigin() == null
+                    && searchCriteriaForSummary.getToDate() == null && searchCriteriaForSummary.getFromDate() == null
+                    && searchCriteriaForSummary.getStatus() == null)) {
+                throw new RecordNotFoundException(String.format("Domestic shipment Not Found because user haven't an origin"));
+            }
+            if (searchCriteriaForSummary.getDestination() == null && searchCriteriaForSummary.getOrigin() == null
+                    && searchCriteriaForSummary.getToDate() == null && searchCriteriaForSummary.getFromDate() == null
+                    && searchCriteriaForSummary.getStatus() == null) {
+                Page<DomesticShipment> pageDomesticShipment =
+                        domesticShipmentRepository.findByOriginLocation(user.getLocation().getLocationName(), pageable);
+                Page<DomesticShipmentDto> pageDomesticShipmentDto = pageDomesticShipment.map(entity -> toDto(entity));
+                return pageDomesticShipmentDto;
+            } else {
+                if (user.getLocation() != null) {
+                    if (searchCriteriaForSummary.getOrigin() == null || searchCriteriaForSummary.getOrigin().isEmpty()) {
+                        searchCriteriaForSummary.setOrigin(user.getLocation().getLocationName());
+                    }
+                }
+
+                Specification<DomesticShipment> domesticSummarySpecification = DomesticSummarySpecification.getSearchSpecification(searchCriteriaForSummary);
+                Page<DomesticShipment> pageDomesticShipmentDto = domesticShipmentRepository.
+                        findAll(domesticSummarySpecification, pageable);
+                Page<DomesticShipmentDto> pageDomesticShipmentDtoWithSpec = pageDomesticShipmentDto.map(entity -> toDto(entity));
+
+                return pageDomesticShipmentDtoWithSpec;
+            }
+
+        }
+
+        throw new UserNotFoundException("User not found");
+    }
+
+
 
     public List<DomesticShipmentDto> toDtoList(List<DomesticShipment> domesticShipmentList) {
         return domesticShipmentList.stream().map(this::toDto).collect(Collectors.toList());

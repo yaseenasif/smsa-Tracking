@@ -73,6 +73,14 @@ public class DomesticShipmentController {
         return ResponseEntity.ok(domesticShipmentService.updateDomesticShipment(id,domesticShipmentDto));
     }
 
+    @GetMapping("/domestic-shipment-summery/all")
+    public ResponseEntity<Page<DomesticShipmentDto>> getAllForSummery(@RequestParam(value = "value",required = false) String value,
+                                                                         @RequestParam(defaultValue = "0") int page,
+                                                                         @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForSummary searchCriteriaForSummary = new ObjectMapper().readValue(value, SearchCriteriaForSummary.class);
+        return ResponseEntity.ok(domesticShipmentService.getAllForSummery(searchCriteriaForSummary,page,size));
+    }
+
     @GetMapping("/domestic-shipment/outbound")
     public ResponseEntity<Page<DomesticShipmentDto>> getOutboundShipment(@RequestParam(value = "value",required = false) String value,
                                                                          @RequestParam(defaultValue = "0") int page,

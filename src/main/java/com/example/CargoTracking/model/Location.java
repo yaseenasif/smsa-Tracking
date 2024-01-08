@@ -33,4 +33,8 @@ public class Location {
     @JsonIgnore
     private List<LocationPort> locationPorts = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name="facility_id")
+    private Facility facility;
+
 }

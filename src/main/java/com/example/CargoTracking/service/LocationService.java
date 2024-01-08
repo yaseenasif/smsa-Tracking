@@ -1,8 +1,11 @@
 package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.dto.LocationDto;
+import com.example.CargoTracking.exception.RecordNotFoundException;
+import com.example.CargoTracking.model.Facility;
 import com.example.CargoTracking.model.Location;
 import com.example.CargoTracking.payload.ApiResponse;
+import com.example.CargoTracking.repository.FacilityRepository;
 import com.example.CargoTracking.repository.LocationRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,8 @@ public class LocationService {
     @Autowired
     LocationRepository locationRepository;
     @Autowired
+    FacilityRepository facilityRepository;
+    @Autowired
     ModelMapper modelMapper;
 
 
@@ -37,6 +42,7 @@ public class LocationService {
                 .destinationEmail(locationDto.getDestinationEmail())
                 .originEscalation(locationDto.getOriginEscalation())
                 .destinationEscalation(locationDto.getDestinationEscalation())
+                .facility(locationDto.getFacility())
                 .build();
 
         return toDto(locationRepository.save(location));
@@ -88,7 +94,7 @@ public class LocationService {
             location.get().setDestinationEmail(locationDto.getDestinationEmail());
             location.get().setOriginEscalation(locationDto.getOriginEscalation());
             location.get().setDestinationEscalation(locationDto.getDestinationEscalation());
-
+            location.get().setFacility(locationDto.getFacility());
             return toDto(locationRepository.save(location.get()));
         }
 
@@ -107,6 +113,19 @@ public class LocationService {
         throw new RuntimeException(String.format("Location Not Found by this Id => %d" , id));
     }
 
+    public List<LocationDto> getLocationByFacilityName(Long facility, String type) {
+        Optional<Facility> facilityByIdAndStatus = facilityRepository.findByIdAndStatus(facility, Boolean.TRUE);
+        if(!facilityByIdAndStatus.isPresent()){
+            throw  new RecordNotFoundException("Facility do not exist");
+        }
+        List<Location> locations = locationRepository.getAllByFacilityAndType(facilityByIdAndStatus.get(),type);
+        if(!locations.isEmpty()){
+            return toDtoList(locations);
+        }else{
+            throw new RecordNotFoundException(String.format("Location Not Found"));
+        }
+    }
+
     public Location getLocationByName(String locationName,String type){
         return locationRepository.findByLocationNameAndType(locationName,type);
     }
@@ -118,5 +137,6 @@ public class LocationService {
     public LocationDto toDto(Location location){
         return modelMapper.map(location, LocationDto.class);
     }
+
 
 }

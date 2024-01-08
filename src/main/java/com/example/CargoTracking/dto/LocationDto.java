@@ -1,5 +1,7 @@
 package com.example.CargoTracking.dto;
 
+import com.example.CargoTracking.model.Facility;
+import com.example.CargoTracking.model.Location;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -21,5 +23,7 @@ public class LocationDto {
     private String destinationEmail;
     private String originEscalation;
     private String destinationEscalation;
+    @NotBlank(message = "Facility is required")
+    private Facility facility;
 
 }

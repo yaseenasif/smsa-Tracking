@@ -1,6 +1,7 @@
 package com.example.CargoTracking.repository;
 
 import com.example.CargoTracking.dto.LocationDto;
+import com.example.CargoTracking.model.Facility;
 import com.example.CargoTracking.model.Location;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,4 +23,6 @@ public interface LocationRepository extends JpaRepository<Location , Long> {
 
     @Query("SELECT l FROM Location l WHERE l.locationName = :locationName AND l.type =:type And l.status = true")
     Location findByLocationNameAndType(String locationName, String type);
+
+    List<Location> getAllByFacilityAndType(Facility facility, String type);
 }

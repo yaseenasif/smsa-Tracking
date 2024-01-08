@@ -1,8 +1,12 @@
 package com.example.CargoTracking.controller;
 
+import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.LocationDto;
+import com.example.CargoTracking.model.Facility;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.LocationService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -60,6 +64,11 @@ public class LocationController {
     @PatchMapping("/location/active/{id}")
     public ResponseEntity<LocationDto> makeLocationActive(@PathVariable Long id){
         return ResponseEntity.ok(locationService.makeLocationActive(id));
+    }
+
+    @GetMapping("get-all-by-facility/{facilityId}/{type}")
+    public ResponseEntity<List<LocationDto>> getLocationByFacility(@PathVariable Long facilityId, @PathVariable String type) {
+        return ResponseEntity.ok(locationService.getLocationByFacilityName(facilityId,type));
     }
 
 }
