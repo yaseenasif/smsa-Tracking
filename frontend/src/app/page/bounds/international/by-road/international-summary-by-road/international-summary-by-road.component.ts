@@ -8,6 +8,7 @@ import { InternationalSummarySearch } from 'src/app/model/InternationalSummarySe
 import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 import { ProductField } from 'src/app/model/ProductField';
 import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
+import { InternationalShippingService } from 'src/app/page/shipping-order/international/service/international-shipping.service';
 
 @Component({
   selector: 'app-international-summary-by-road',
@@ -24,16 +25,16 @@ export class InternationalSummaryByRoadComponent {
   role: any;
 
   selectedBound: Bound = {
-    bound: "In bound"
+    bound: "All"
   };
 
   search: any = {
-    fromDate: null,
-    toDate: null,
-    status: null,
-    origin: null,
-    destination: null,
-    type: null,
+    fromDate: "",
+    toDate: "",
+    status: "",
+    origin: "",
+    destination: "",
+    type: "",
     routeNumber:""
   }
   paginationRes: any;
@@ -45,8 +46,8 @@ export class InternationalSummaryByRoadComponent {
     private messageService: MessageService,
     private datePipe: DatePipe,
     private authguardService: AuthguardService,
-    // private shipmentStatusService: ShipmentStatusService,
-    private shipmentStatusService: ProductFieldServiceService
+    private shipmentStatusService: ProductFieldServiceService,
+    private internationalShippingService:InternationalShippingService
     ) { }
 
   internationalShipmentByRoad: any = [];
@@ -62,10 +63,13 @@ export class InternationalSummaryByRoadComponent {
       },
       {
         bound: "Out bound"
+      },
+      {
+        bound: "All"
       }
     ]
     this.getAllShipmentStatus();
-    this.getInboundSummary(this.search, 0, 10);
+    this.getAllInternationalShipmentByRoad(this.search, 0, 10);
   }
   getRole() {
     const token = localStorage.getItem('accessToken');
@@ -78,19 +82,25 @@ export class InternationalSummaryByRoadComponent {
   }
 
   onBoundChange() {
-    this.search = {
-      fromDate: null,
-      toDate: null,
-      status: null,
-      origin: null,
-      destination: null,
-      type: null,
-      routeNumber:""
-    }
+    this.internationalShipmentByRoad=[];
+  this.clear();
     if (this.selectedBound && this.selectedBound.bound === "In bound") {
       this.getInboundSummary(this.search, 0, 10);
     } else if (this.selectedBound && this.selectedBound.bound === "Out bound") {
       this.getOutboundSummary(this.search, 0, 10);
+    }else{
+      this.getAllInternationalShipmentByRoad(this.search, 0, 10);
+    }
+  }
+  clear(){
+    this.search = {
+      fromDate: "",
+      toDate: "",
+      status: "",
+      origin: "",
+      destination: "",
+      type: "",
+      routeNumber:""
     }
   }
 
@@ -106,17 +116,12 @@ export class InternationalSummaryByRoadComponent {
     this.summaryService.getInboundSummaryForRoad(obj, page, size).subscribe((res: any) => {
       this.internationalShipmentByRoad = res.content;
       this.paginationRes = res;
-      this.search = {
-        fromDate: null,
-        toDate: null,
-        status: null,
-        origin: null,
-        destination: null,
-        type: null
-      }
+      this.search.fromDate= this.search.fromDate ? new Date( this.search.fromDate) : "";
+      this.search.toDate= this.search.toDate ? new Date( this.search.toDate) : "";
     }, (error: any) => {
-
-      this.internationalShipmentByRoad = [];
+      this.search.fromDate= this.search.fromDate ? new Date( this.search.fromDate) : "";
+      this.search.toDate= this.search.toDate ? new Date( this.search.toDate) : "";
+    
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
 
     })
@@ -126,62 +131,66 @@ export class InternationalSummaryByRoadComponent {
     this.summaryService.getOutboundSummaryForRoad(obj, page, size).subscribe((res: any) => {
       this.internationalShipmentByRoad = res.content;
       this.paginationRes = res;
-      this.search = {
-        fromDate: null,
-        toDate: null,
-        status: null,
-        origin: null,
-        destination: null,
-        type: null
-      }
+      this.search.fromDate= this.search.fromDate ? new Date( this.search.fromDate) : "";
+      this.search.toDate= this.search.toDate ? new Date( this.search.toDate) : "";
     }, (error: any) => {
-
-      this.internationalShipmentByRoad = [];
+      this.search.fromDate= this.search.fromDate ? new Date( this.search.fromDate) : "";
+      this.search.toDate= this.search.toDate ? new Date( this.search.toDate) : "";
+   
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
 
     })
   }
 
+  getAllInternationalShipmentByRoad(obj: InternationalSummarySearch, page?: number, size?: number) {
+    let objForAll={
+      fromDate: obj.fromDate,
+      toDate: obj.toDate,
+      status: obj.status,
+      origin: obj.origin,
+      destination: obj.destination,
+      routeNumber:"",
+      user: {} ,
+      type:"",
+      activeStatus:true
+    }
+    this.internationalShippingService.getAllInternationalShipmentByRoad(objForAll, this.page , this.size).subscribe((res: any) => {
+      this.internationalShipmentByRoad = res.content;
+      this.paginationRes = res;
+      this.search.fromDate= this.search.fromDate ? new Date( this.search.fromDate) : "";
+      this.search.toDate= this.search.toDate ? new Date( this.search.toDate) : "";
+    }, error => {
+      this.search.fromDate= this.search.fromDate ? new Date( this.search.fromDate) : "";
+      this.search.toDate= this.search.toDate ? new Date( this.search.toDate) : "";
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    })
+  }
+
   onSubmit() {
-    if (this.search.destination === null) {
-      this.search.destination = "";
-    }
-    if (this.search.origin === null) {
-      this.search.origin = "";
-    }
-    if (this.search.status === null) {
-      this.search.status = "";
-    }
-    if (this.search.status === null) {
-      this.search.type = "";
-    }
-    if (this.search.toDate === null || this.search.toDate === "") {
-      this.search.toDate = "";
-    }
-    else {
-      let originalDate = new Date(this.search.toDate);
-      this.search.toDate = this.datePipe.transform(originalDate, 'yyyy-MM-dd');
-    }
-    if (this.search.fromDate === null || this.search.fromDate === "") {
-      this.search.fromDate = "";
-    }
-    else {
-      let originalDate = new Date(this.search.fromDate);
-      this.search.fromDate = this.datePipe.transform(originalDate, 'yyyy-MM-dd');
-    }
+    this.internationalShipmentByRoad=[]
+    this.search.fromDate=this.datePipe.transform(this.search.fromDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.search.fromDate, 'yyyy-MM-dd'))!:"";
+    this.search.toDate=this.datePipe.transform(this.search.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.search.toDate, 'yyyy-MM-dd'))!:"";
 
     if (this.selectedBound.bound === "In bound") {
       this.getInboundSummary(this.search, 0, 10);
-    } else {
+    } else if(this.selectedBound.bound === "Out bound"){
       this.getOutboundSummary(this.search, 0, 10);
-
+    }else{
+      this.getAllInternationalShipmentByRoad(this.search, 0, 10);
     }
   }
   onPageChange(event: any) {
     this.page = event.page;
     this.size = event.rows;
+    if (this.selectedBound.bound === "In bound") {
     this.getInboundSummary(this.search, this.page, this.size);
+    }
+    else if(this.selectedBound.bound === "Out bound"){
     this.getOutboundSummary(this.search, this.page, this.size);
+    }
+    else{
+      this.getAllInternationalShipmentByRoad(this.search, this.page, this.size);
+    }
   }
 }
 
