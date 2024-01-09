@@ -145,7 +145,7 @@
                   <div
                     class="lg:col-2 md:col-6 col-12 flex justify-content-end align-items-end"
                   >
-                    <p-button class="bg-b-color mr"> Clear </p-button>
+                    <p-button class="bg-b-color mr" (click)="clear()"> Clear </p-button>
                     <p-button
                       type="submit"
                       [disabled]="!domesticShipmentForm.form.valid"

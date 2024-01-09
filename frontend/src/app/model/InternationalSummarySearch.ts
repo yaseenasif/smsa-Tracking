@@ -5,4 +5,5 @@ export interface InternationalSummarySearch{
     origin:string|null|undefined,
     destination:string|null|undefined,
     type:string|null|undefined
+    routeNumber:string|null
 }

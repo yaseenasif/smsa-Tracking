@@ -26,6 +26,7 @@ export class InternationalShippingService {
     queryParams = queryParams.append("value", JSON.stringify(obj));
     queryParams = queryParams.append("page", page ? page : 0);
     queryParams = queryParams.append("size", size ? size : 10);
+    
     return this.http.get<InternationalShipment[]>(this.url.concat('/international-shipments-by-user-air'), { params: queryParams });
   }
   getInternationalShipmentByID(id: number): Observable<InternationalShipment> {

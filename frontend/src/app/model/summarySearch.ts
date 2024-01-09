@@ -3,5 +3,6 @@ export interface SummarySearch{
     toDate:Date|null|undefined,
     status:string|null|undefined,
     origin:string|null|undefined,
-    destination:string|null|undefined
+    destination:string|null|undefined,
+    routeNumber:string|null|undefined
 }
