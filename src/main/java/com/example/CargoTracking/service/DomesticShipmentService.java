@@ -218,15 +218,15 @@ public class DomesticShipmentService {
             Page<DomesticShipment> domesticShipmentPage;
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
-            if ((user.getLocation() == null) && (searchCriteriaForSummary.getDestination() == null && searchCriteriaForSummary.getOrigin() == null
-                    && searchCriteriaForSummary.getToDate() == null && searchCriteriaForSummary.getFromDate() == null
-                    && searchCriteriaForSummary.getStatus() == null)) {
+            if ((user.getLocation() == null ) && ((searchCriteriaForSummary.getDestination() == null || searchCriteriaForSummary.getDestination()=="") && (searchCriteriaForSummary.getOrigin() == null || searchCriteriaForSummary.getOrigin()=="")
+                    && (searchCriteriaForSummary.getToDate() == null || searchCriteriaForSummary.getToDate()=="") && (searchCriteriaForSummary.getFromDate() == null || searchCriteriaForSummary.getFromDate()=="")
+                    && (searchCriteriaForSummary.getStatus() == null || searchCriteriaForSummary.getStatus()==""))) {
 
                 throw new RecordNotFoundException(String.format("Domestic shipment Not Found because user haven't an origin"));
             }
-            if (searchCriteriaForSummary.getDestination() == null && searchCriteriaForSummary.getOrigin() == null
-                    && searchCriteriaForSummary.getToDate() == null && searchCriteriaForSummary.getFromDate() == null
-                    && searchCriteriaForSummary.getStatus() == null) {
+            if ( (searchCriteriaForSummary.getDestination() == null || searchCriteriaForSummary.getDestination()=="")  && (searchCriteriaForSummary.getOrigin() == null || searchCriteriaForSummary.getOrigin()=="")
+                    && (searchCriteriaForSummary.getToDate() == null || searchCriteriaForSummary.getToDate()=="") && (searchCriteriaForSummary.getFromDate() == null || searchCriteriaForSummary.getFromDate()=="")
+                    && (searchCriteriaForSummary.getStatus() == null || searchCriteriaForSummary.getStatus()=="")) {
                 Page<DomesticShipment> pageDomesticShipment =
                         domesticShipmentRepository.findByOriginLocation(user.getLocation().getLocationName(), pageable);
                 Page<DomesticShipmentDto> pageDomesticShipmentDto = pageDomesticShipment.map(entity -> toDto(entity));
@@ -258,14 +258,14 @@ public class DomesticShipmentService {
             Page<DomesticShipment> domesticShipmentPage;
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
-            if ((user.getLocation() == null) && (searchCriteriaForSummary.getDestination() == null && searchCriteriaForSummary.getOrigin() == null
-                    && searchCriteriaForSummary.getToDate() == null && searchCriteriaForSummary.getFromDate() == null
-                    && searchCriteriaForSummary.getStatus() == null)) {
+            if ((user.getLocation() == null) && ((searchCriteriaForSummary.getDestination() == null || searchCriteriaForSummary.getDestination() == "") && (searchCriteriaForSummary.getOrigin() == null|| searchCriteriaForSummary.getOrigin()=="" )
+                    && (searchCriteriaForSummary.getToDate() == null || searchCriteriaForSummary.getToDate() == "") && (searchCriteriaForSummary.getFromDate() == null || searchCriteriaForSummary.getFromDate()=="")
+                    && (searchCriteriaForSummary.getStatus() == null|| searchCriteriaForSummary.getStatus() == ""))) {
                 throw new RecordNotFoundException(String.format("Domestic shipment Not Found because user haven't an origin"));
             }
-            if (searchCriteriaForSummary.getDestination() == null && searchCriteriaForSummary.getOrigin() == null
-                    && searchCriteriaForSummary.getToDate() == null && searchCriteriaForSummary.getFromDate() == null
-                    && searchCriteriaForSummary.getStatus() == null) {
+            if ((searchCriteriaForSummary.getDestination() == null || searchCriteriaForSummary.getDestination()=="" ) && (searchCriteriaForSummary.getOrigin() == null ||searchCriteriaForSummary.getOrigin() =="")
+                    && (searchCriteriaForSummary.getToDate() == null|| searchCriteriaForSummary.getToDate() == "") && (searchCriteriaForSummary.getFromDate() == null || searchCriteriaForSummary.getFromDate()=="")
+                    && (searchCriteriaForSummary.getStatus() == null|| searchCriteriaForSummary.getStatus() == "")) {
                 Page<DomesticShipment> pageDomesticShipment =
                         domesticShipmentRepository.findByDestinationLocation(user.getLocation().getLocationName(), pageable);
                 Page<DomesticShipmentDto> pageDomesticShipmentDto = pageDomesticShipment.map(entity -> toDto(entity));

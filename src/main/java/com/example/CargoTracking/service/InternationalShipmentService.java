@@ -416,14 +416,14 @@ public class InternationalShipmentService {
             Pageable pageable = PageRequest.of(page, size);
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
-            if((user.getLocation() == null) && (searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
-                    && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
-                    && searchCriteriaForInternationalSummary.getStatus() ==null)){
+            if((user.getLocation() == null) && ((searchCriteriaForInternationalSummary.getDestination() == null || searchCriteriaForInternationalSummary.getDestination() == "") && (searchCriteriaForInternationalSummary.getOrigin() == null || searchCriteriaForInternationalSummary.getOrigin() == "")
+                    && (searchCriteriaForInternationalSummary.getToDate() == null || searchCriteriaForInternationalSummary.getToDate() == "") && (searchCriteriaForInternationalSummary.getFromDate() == null || searchCriteriaForInternationalSummary.getFromDate() == "")
+                    && (searchCriteriaForInternationalSummary.getStatus() ==null || searchCriteriaForInternationalSummary.getStatus() == ""))){
                 throw new RecordNotFoundException(String.format("International shipment Not Found because user haven't an origin"));
             }
-            if(searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
-                    && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
-                    && searchCriteriaForInternationalSummary.getStatus() ==null){
+            if((searchCriteriaForInternationalSummary.getDestination() == null || searchCriteriaForInternationalSummary.getDestination() == "") && (searchCriteriaForInternationalSummary.getOrigin() == null || searchCriteriaForInternationalSummary.getOrigin() == "")
+                    && (searchCriteriaForInternationalSummary.getToDate() == null || searchCriteriaForInternationalSummary.getToDate() == "") && (searchCriteriaForInternationalSummary.getFromDate() == null || searchCriteriaForInternationalSummary.getFromDate() == "")
+                    && (searchCriteriaForInternationalSummary.getStatus() ==null || searchCriteriaForInternationalSummary.getStatus() == "")){
                 Page<InternationalShipment> pageInternationalShipment =
                         internationalShipmentRepository.findByOriginCountryByAir(user.getLocation().getLocationName(),
                                 pageable);
@@ -453,14 +453,14 @@ public class InternationalShipmentService {
             Pageable pageable = PageRequest.of(page, size);
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
-            if((user.getLocation() == null) && (searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
-                    && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
-                    && searchCriteriaForInternationalSummary.getStatus() ==null)){
+            if((user.getLocation() == null) && ((searchCriteriaForInternationalSummary.getDestination() == null || searchCriteriaForInternationalSummary.getDestination() == "") && (searchCriteriaForInternationalSummary.getOrigin() == null || searchCriteriaForInternationalSummary.getOrigin() == "")
+                    && (searchCriteriaForInternationalSummary.getToDate() == null || searchCriteriaForInternationalSummary.getToDate() == "") && (searchCriteriaForInternationalSummary.getFromDate() == null || searchCriteriaForInternationalSummary.getFromDate() == "")
+                    && (searchCriteriaForInternationalSummary.getStatus() ==null || searchCriteriaForInternationalSummary.getStatus() == ""))){
                 throw new RecordNotFoundException(String.format("International shipment Not Found because user haven't an origin"));
             }
-            if(searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
-                    && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
-                    && searchCriteriaForInternationalSummary.getStatus() ==null){
+            if((searchCriteriaForInternationalSummary.getDestination() == null || searchCriteriaForInternationalSummary.getDestination() == "") && (searchCriteriaForInternationalSummary.getOrigin() == null || searchCriteriaForInternationalSummary.getOrigin() == "")
+                    && (searchCriteriaForInternationalSummary.getToDate() == null || searchCriteriaForInternationalSummary.getToDate()== "")  && (searchCriteriaForInternationalSummary.getFromDate() == null || searchCriteriaForInternationalSummary.getFromDate() == "")
+                    && (searchCriteriaForInternationalSummary.getStatus() ==null || searchCriteriaForInternationalSummary.getStatus()=="")){
                 Page<InternationalShipment> pageInternationalShipment =
                         internationalShipmentRepository.findByDestinationCountryByAir(user.getLocation().getLocationName(),
                                 pageable);

@@ -143,7 +143,7 @@ export class UpdateInternationalAirForSummaryComponent {
     this.internationalShippingService.updateInternationalShipmentById(this.iSID, this.internationalShipment).subscribe(res => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is updated on id' + res.id });
       setTimeout(() => {
-        this.router.navigate(['/international-shipment-by-air']);
+        this.router.navigate(['/international-summary-by-air']);
       }, 800);
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
