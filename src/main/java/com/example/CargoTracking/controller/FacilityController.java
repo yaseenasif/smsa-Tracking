@@ -42,7 +42,7 @@ public class FacilityController {
     }
 
     @GetMapping("get-by-country/{country}")
-    public ResponseEntity<List<FacilityDto>> getFacilitiesByCountry(@PathVariable String country){
+    public ResponseEntity<List<FacilityDto>> getFacilitiesByCountry(@PathVariable Long country){
         return ResponseEntity.ok(facilityService.getFacilitiesByCountryName(country));
     }
 }

@@ -13,5 +13,5 @@ public interface FacilityRepository extends JpaRepository<Facility,Long> {
 
     Optional<Facility> findByIdAndStatus(Long id, Boolean status);
 
-    List<Facility> getAllByStatusAndCountryName(Boolean status, String country_name);
+    List<Facility> getAllByStatusAndCountryId(Boolean status, Long country_name);
 }

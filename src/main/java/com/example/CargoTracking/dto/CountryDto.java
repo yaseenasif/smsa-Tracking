@@ -11,4 +11,5 @@ import lombok.*;
 public class CountryDto {
     private Long id;
     private String name;
+    private Boolean status;
 }

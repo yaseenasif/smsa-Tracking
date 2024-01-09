@@ -1,4 +1,5 @@
 import { DestinationEmails, EscalationEmails, OriginEmails } from "./Email";
+import { Facility } from "./Facility";
 
 
 export interface Location{
@@ -10,5 +11,6 @@ export interface Location{
     destinationEmail:string[]|string|null,
     originEscalation:any,
     destinationEscalation:any,
-    status: boolean|undefined|null
+    status: boolean|undefined|null,
+    facility: Facility|undefined|null
 }

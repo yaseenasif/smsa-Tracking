@@ -48,6 +48,47 @@
                   </p-dropdown>
                 </div>
               </div>
+
+              <div class="col-12 md:col-6 lg:col-6">
+                <div class="flex flex-column gap-2 form-hook">
+                  <label htmlFor="name">Country</label>
+                  <p-dropdown class="w-full" [options]="country" name="country1" #country1="ngModel"
+                    [(ngModel)]="countryName" 
+                    (onChange)="getCountryBySelectedFacility()"
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="flex align-items-center gap-2" *ngIf="countryName">
+                        <div>{{countryName.name}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-country pTemplate="item">
+                      <div class="flex align-items-center gap-2">
+                        <div>{{ country.name }}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </div>
+              </div>
+
+              <div class="col-12 md:col-6 lg:col-6">
+                <div class="flex flex-column gap-2 form-hook">
+                  <label htmlFor="name">Facility</label>
+                  <p-dropdown class="w-full" [options]="facility" name="facility1" #facility1="ngModel"
+                    [(ngModel)]="location.facility" 
+                    [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Facility">
+                    <ng-template pTemplate="selectedItem">
+                      <div class="flex align-items-center gap-2" *ngIf="location">
+                        <div>{{location.facility}}</div>
+                      </div>
+                    </ng-template>
+                    <ng-template let-facility pTemplate="item">
+                      <div class="flex align-items-center gap-2">
+                        <div>{{ facility.name }}</div>
+                      </div>
+                    </ng-template>
+                  </p-dropdown>
+                </div>
+              </div>
            
               <div class="col-12 md:col-12 lg:col-12">
                 <div class="flex flex-column gap-2 form-hook">

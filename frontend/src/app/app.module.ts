@@ -114,6 +114,12 @@ import { TooltipModule } from 'primeng/tooltip';
 import { ViewDomesticShippingForSummaryComponent } from './page/bounds/domestic/view-domestic-shipping-for-summary/view-domestic-shipping-for-summary.component';
 import { ViewAirShippingForSummaryComponent } from './page/bounds/international/by-air/view-air-shipping-for-summary/view-air-shipping-for-summary.component';
 import { ViewRoadShippingForSummaryComponent } from './page/bounds/international/by-road/view-road-shipping-for-summary/view-road-shipping-for-summary.component';
+import { AddCountryComponent } from './page/country/add-country/add-country.component';
+import { CountryListComponent } from './page/country/country-list/country-list.component';
+import { CountryUpdateComponent } from './page/country/country-update/country-update.component';
+import { AddFacilityComponent } from './page/facility/add-facility/add-facility.component';
+import { FacilityUpdateComponent } from './page/facility/facility-update/facility-update.component';
+import { FacilityListComponent } from './page/facility/facility-list/facility-list.component';
 
 @NgModule({
   declarations: [
@@ -197,6 +203,12 @@ import { ViewRoadShippingForSummaryComponent } from './page/bounds/international
     ViewDomesticShippingForSummaryComponent,
     ViewAirShippingForSummaryComponent,
     ViewRoadShippingForSummaryComponent,
+    AddCountryComponent,
+    CountryListComponent,
+    CountryUpdateComponent,
+    AddFacilityComponent,
+    FacilityUpdateComponent,
+    FacilityListComponent,
   ],
   imports: [
     ChipsModule,
