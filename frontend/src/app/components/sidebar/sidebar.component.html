@@ -155,6 +155,18 @@
         <span class="nav-text"> Vehicle Type </span>
       </span>
     </li>
+    <li class="child" *ngIf="configTurner && hasPermission('Country')">
+      <span class="sidebar-list-hover" routerLink="/country-list">
+        <i class="bi bi-truck"></i>
+        <span class="nav-text"> Country </span>
+      </span>
+    </li>
+    <li class="child" *ngIf="configTurner && hasPermission('Facility')">
+      <span class="sidebar-list-hover" routerLink="/facility-list">
+        <i class="bi bi-truck"></i>
+        <span class="nav-text"> Facility </span>
+      </span>
+    </li>
     <!-- <li class="child" *ngIf="configTurner">
       <span class="sidebar-list-hover" routerLink="/permission">
         <i class="bi bi-key"></i>

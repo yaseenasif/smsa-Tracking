@@ -37,9 +37,10 @@ export class AuthguardService {
     { permission: 'ShipmentRoutesForAir', route: ['/international-routes-for-air', '/add-international-routes-for-air', '/update-international-routes-for-air/:id'] },
     { permission: 'ShipmentRoutesForRoad', route: ['/international-routes-for-road', '/add-international-routes-for-road', '/update-international-routes-for-road/:id'] },
     { permission: 'Reports', route: ['/report-tiles','/domestic-report-performance','/international-air-report-performance','/international-air-report-status','/international-road-report-performance','/international-road-report-status'] },
-    { permission: 'ProductField', route: ['/productFields', '/add-ProductField','/add-ProductField/:id'] }
+    { permission: 'ProductField', route: ['/productFields', '/add-ProductField','/add-ProductField/:id'] },
+    { permission: 'Country', route: ['/country-list','/add-country','/update-country/:id'] },
+    { permission: 'Facility', route: ['/facility-list','/add-facility','/update-facility/:id'] },
   ]
-
 
   isAuthenticated(state: RouterStateSnapshot): boolean {
 

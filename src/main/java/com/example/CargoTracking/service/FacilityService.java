@@ -76,8 +76,8 @@ public class FacilityService {
         }
     }
 
-    public List<FacilityDto> getFacilitiesByCountryName(String country) {
-        List<Facility> facilities = facilityRepository.getAllByStatusAndCountryName(Boolean.TRUE,country);
+    public List<FacilityDto> getFacilitiesByCountryName(Long country) {
+        List<Facility> facilities = facilityRepository.getAllByStatusAndCountryId(Boolean.TRUE,country);
         if(!facilities.isEmpty()){
             return toDtoList(facilities);
         }

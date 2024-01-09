@@ -4,6 +4,10 @@ import { LocationService } from '../service/location.service';
 import { Router } from '@angular/router';
 import { Location } from '../../../model/Location'
 import { NonNullAssert } from '@angular/compiler';
+import { CountryService } from '../../country/service/country.service';
+import { Country } from 'src/app/model/Country';
+import { FacilityService } from '../../facility/service/facility.service';
+import { Facility } from 'src/app/model/Facility';
 
 @Component({
   selector: 'app-add-location',
@@ -22,8 +26,13 @@ export class AddLocationComponent implements OnInit {
     destinationEmail: null,
     status: undefined,
     originEscalation: [],
-    destinationEscalation: []
+    destinationEscalation: [],
+    facility:undefined
   }
+  country!:Country[];
+  countryName!:any;
+  facility!:Facility[];
+
   
 
   type:any[]=["Domestic","International"];
@@ -31,13 +40,36 @@ export class AddLocationComponent implements OnInit {
   
   constructor(private LocationService:LocationService,
               private messageService: MessageService,
-              private router: Router) { }
+              private router: Router,
+              private countryService:CountryService,
+              private facilityService:FacilityService) { }
 
  
   
   ngOnInit(): void {
     this.items = [{ label: 'Location List',routerLink:'/location'},{ label: 'Add Location'}];
+    this.getAllCountry();
   }
+
+  getCountryBySelectedFacility(){
+    this.getFacilityByCountryId(this.countryName.id);
+  }
+  
+  getAllCountry(){
+    this.countryService.getAllCountry().subscribe((res:Country[])=>{
+      this.country=res;  
+    },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    })
+   }
+
+   getFacilityByCountryId(id:number){
+    this.facilityService.getFacilityByCountryID(id).subscribe((res:Facility[])=>{
+      this.facility=res;  
+    },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    })
+   }
 
   onSubmit() {
     if(Array.isArray(this.location.originEmail) && Array.isArray(this.location.originEscalation)&& Array.isArray(this.location.destinationEmail)&& Array.isArray(this.location.destinationEscalation)){

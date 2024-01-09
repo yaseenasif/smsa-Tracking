@@ -22,7 +22,8 @@ export class UpdateLocationComponent implements OnInit {
     destinationEmail: null,
     status: undefined,
     originEscalation: null,
-    destinationEscalation: null
+    destinationEscalation: null,
+    facility: undefined
   }
 
   type:any[]=["Domestic","International"];

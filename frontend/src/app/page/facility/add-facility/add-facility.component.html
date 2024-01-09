@@ -1,0 +1,80 @@
+<div class="flex flex-row">
+    <app-sidebar></app-sidebar>
+    <div class="body-position">
+      <div class="body-holder">
+        <app-dashboard-head></app-dashboard-head>
+  
+        <div class="main">
+          <div class="card flex justify-content-center">
+            <p-breadcrumb class="max-w-full" [model]="items"></p-breadcrumb>
+          </div>
+          <div class="body-card">
+            <p-toast></p-toast>
+            <div class="card">
+              <h1 class="mb-4 h-color">Add Facility</h1>
+              <form #countryForm="ngForm" (ngSubmit)="onSubmit()">
+              <div class="grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Facility</label>
+                    <input                     
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"                    
+                      name="name"
+                      [(ngModel)]="facility.name"
+                      #name="ngModel"
+                      required
+                    />
+                    <small id="name-help" class="color-red"  *ngIf="name.invalid && (name.dirty || name.touched)">Name is required.</small>                  
+                  </div>
+                </div>
+  
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Occupancy</label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="country"
+                      name="country1"
+                      #country1="ngModel"
+                      [required]="true"
+                      [(ngModel)]="facility.country"
+                      optionLabel="name"
+                      [filter]="true"
+                      filterBy="name"
+                      [showClear]="true"
+                      placeholder="Select a Country"
+                    >
+                      <ng-template pTemplate="facility">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="facility.country?.name"
+                        >
+                          <div>{{ facility.country?.name }}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-country pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ country.name }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>                 
+                  </div>
+                </div>
+              </div>
+              <div class="flex align-items-center justify-content-end mt-4">
+                  <p-button label="Cancel" class="bg-o-color mr" routerLink="/facility-list " styleClass="p-button-outlined">
+                  </p-button>
+                  <p-button type="submit" [disabled]="!countryForm.form.valid"  label="Save" class="bg-b-color ml">
+                  </p-button>
+              </div>
+             </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

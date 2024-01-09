@@ -77,6 +77,12 @@ import { InternationalRoadReportStatusComponent } from './page/report/internatio
 import { ViewDomesticShippingForSummaryComponent } from './page/bounds/domestic/view-domestic-shipping-for-summary/view-domestic-shipping-for-summary.component';
 import { ViewAirShippingForSummaryComponent } from './page/bounds/international/by-air/view-air-shipping-for-summary/view-air-shipping-for-summary.component';
 import { ViewRoadShippingForSummaryComponent } from './page/bounds/international/by-road/view-road-shipping-for-summary/view-road-shipping-for-summary.component';
+import { CountryListComponent } from './page/country/country-list/country-list.component';
+import { AddCountryComponent } from './page/country/add-country/add-country.component';
+import { CountryUpdateComponent } from './page/country/country-update/country-update.component';
+import { FacilityListComponent } from './page/facility/facility-list/facility-list.component';
+import { AddFacilityComponent } from './page/facility/add-facility/add-facility.component';
+import { FacilityUpdateComponent } from './page/facility/facility-update/facility-update.component';
 // import { EmailManagmentComponent } from './page/email-managment/email-managment.component';
 
 
@@ -485,6 +491,36 @@ const routes: Routes = [
   {
     path: 'international-road-report-status',
     component:  InternationalRoadReportStatusComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'country-list',
+    component:  CountryListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'add-country',
+    component:  AddCountryComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'update-country/:id',
+    component:  CountryUpdateComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'facility-list',
+    component:  FacilityListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'add-facility',
+    component:  AddFacilityComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'update-facility/:id',
+    component:  FacilityUpdateComponent,
     canActivate: [AuthGuard]
   },
   {
