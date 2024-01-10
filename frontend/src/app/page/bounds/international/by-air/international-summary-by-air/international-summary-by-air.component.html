@@ -145,7 +145,9 @@
                   <div
                     class="lg:col-2 md:col-6 col-12 flex justify-content-end align-items-end"
                   >
-                    <p-button class="bg-b-color mr" (click)="clear()"> Clear </p-button>
+                    <p-button class="bg-b-color mr" (click)="clear()">
+                      Clear
+                    </p-button>
                     <p-button
                       type="submit"
                       [disabled]="!domesticShipmentForm.form.valid"
@@ -178,12 +180,7 @@
                   <th class="text-center">Bags</th>
                   <th class="text-center">ATA</th>
                   <th class="text-center">Status</th>
-                  <th
-                    *ngIf="selectedBound.bound == 'In bound'"
-                    class="text-center"
-                  >
-                    Actions
-                  </th>
+                  <th class="text-center">Actions</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-internationalShipmentByAir>
@@ -289,18 +286,18 @@
                     *ngIf="selectedBound.bound == 'In bound'"
                     class="text-center flex flex-row"
                   >
-                  <p-button
-                  [routerLink]="[
-                    '/view-air-shipping-for-summary/',
-                    internationalShipmentByAir.id
-                  ]"
-                  pTooltip="View"  icon="bi bi-eye"  tooltipPosition="top"
-
-
-                  class="mr"
-                  styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                >
-                </p-button>
+                    <p-button
+                      [routerLink]="[
+                        '/view-air-shipping-for-summary/',
+                        internationalShipmentByAir.id
+                      ]"
+                      pTooltip="View"
+                      icon="bi bi-eye"
+                      tooltipPosition="top"
+                      class="mr"
+                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                    >
+                    </p-button>
                     <p-button
                       [routerLink]="[
                         '/view-attachments/',
@@ -308,7 +305,9 @@
                         'by-international-air-summary',
                         internationalShipmentByAir.id
                       ]"
-                        icon="bi bi-download"  tooltipPosition="top" pTooltip="Download" 
+                      icon="bi bi-download"
+                      tooltipPosition="top"
+                      pTooltip="Download"
                       class="mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
@@ -318,7 +317,9 @@
                         '/international-summary-by-road-attachment/',
                         internationalShipmentByAir.id
                       ]"
-                        icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment" 
+                      icon="bi bi-paperclip"
+                      tooltipPosition="top"
+                      pTooltip="Add Attachment"
                       class="ml mr"
                       styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
                     >
@@ -328,7 +329,30 @@
                         '/update-international-air-shipping-for-summary/',
                         internationalShipmentByAir.id
                       ]"
-                       icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit" 
+                      icon="bi bi-pen"
+                      tooltipPosition="top"
+                      pTooltip="Edit"
+                      class="ml mr"
+                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                    >
+                    </p-button>
+                  </td>
+                  <td
+                    *ngIf="
+                      selectedBound.bound == 'Out bound' ||
+                      selectedBound.bound == 'All'
+                    "
+                    class="text-center flex flex-row"
+                  >
+                    <p-button
+                      [routerLink]="[
+                        '/update-international-shipment-by-air',
+                        internationalShipmentByAir.id,
+                        '/from-summary'
+                      ]"
+                      icon="bi bi-pen"
+                      tooltipPosition="top"
+                      pTooltip="Edit"
                       class="ml mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >

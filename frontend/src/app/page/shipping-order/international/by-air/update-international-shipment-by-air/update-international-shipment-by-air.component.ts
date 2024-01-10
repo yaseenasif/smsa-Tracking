@@ -87,6 +87,7 @@ export class UpdateInternationalShipmentByAirComponent {
   selectedLocation!: Location;
   minDate: Date = new Date();
   carrier:ProductField|undefined|null;
+  iST!: string;
 
   constructor(private router: Router,
     private internationalShippingService: InternationalShippingService,
@@ -104,7 +105,14 @@ export class UpdateInternationalShipmentByAirComponent {
 
   ngOnInit(): void {
     this.iSID = +this.route.snapshot.paramMap.get('id')!;
-    this.items = [{ label: 'International Shipment', routerLink: '/international-tile' }, { label: 'International Shipment By Air', routerLink: '/international-shipment-by-air' }, { label: 'Edit International Shipment By Air' }];
+    this.iST = this.route.snapshot.paramMap.get('type')!;
+    if(this.iST=="/from-list"){
+      this.items = [{ label: 'International Shipment', routerLink: '/international-tile' }, { label: 'International Shipment By Air', routerLink: '/international-shipment-by-air' }, { label: 'Edit International Shipment By Air' }];
+    }else{
+     this.items = [{ label: 'International Summary By Air', routerLink: '/international-summary-by-air' }, { label: 'Edit International Shipment By Air' }];
+    }
+
+    
     const locations$: Observable<Location[]> = this.locationService.getAllLocationForInternational();
     // const locationPort$: Observable<LocationPort[]> =this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();

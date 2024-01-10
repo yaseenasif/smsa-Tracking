@@ -252,7 +252,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'update-domestic-shipping/:id',
+    path: 'update-domestic-shipping/:id/:type',
     component: UpdateDomesticShippingComponent,
     canActivate: [AuthGuard]
   },
@@ -314,7 +314,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'update-international-shipment-by-road/:id',
+    path: 'update-international-shipment-by-road/:id/:type',
     component: UpdateInternationalShippingComponent,
     canActivate: [AuthGuard]
   },
@@ -344,7 +344,7 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'update-international-shipment-by-air/:id',
+    path: 'update-international-shipment-by-air/:id/:type',
     component: UpdateInternationalShipmentByAirComponent,
     canActivate: [AuthGuard]
   },

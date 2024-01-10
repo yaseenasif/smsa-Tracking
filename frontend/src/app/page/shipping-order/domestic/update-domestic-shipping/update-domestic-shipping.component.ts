@@ -90,6 +90,7 @@ export class UpdateDomesticShippingComponent {
 
   domesticShipmentId: any;
   showDropDown: boolean = false;
+  domesticShipmentType!: string;
 
   constructor(private locationService: LocationService,
     private vehicleTypeService: VehicleTypeService,
@@ -147,8 +148,13 @@ export class UpdateDomesticShippingComponent {
 
   ngOnInit(): void {
     this.domesticShipmentId = +this.route.snapshot.paramMap.get('id')!;
-    this.items = [{ label: 'Domestic Shipment', routerLink: '/domestic-shipping' }, { label: 'Edit Domestic Shipment' }];
 
+    this.domesticShipmentType = this.route.snapshot.paramMap.get('type')!;
+   if(this.domesticShipmentType=="/from-list"){
+    this.items = [{ label: 'Domestic Shipment', routerLink: '/domestic-shipping' }, { label: 'Edit Domestic Shipment' }];
+   }else{
+    this.items = [{ label: 'Domestic Summary', routerLink: '/domestic-summary' }, { label: 'Edit Domestic Shipment' }];
+   }
     const locations$: Observable<Location[]> = this.locationService.getAllLocationForDomestic();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
