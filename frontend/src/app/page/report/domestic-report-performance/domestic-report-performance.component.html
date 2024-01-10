@@ -152,9 +152,9 @@
                                     <td class="text-center">{{domesticPerformance.atd}}</td>
                                     <td class="text-center">{{domesticPerformance.planedEta}}</td>
                                     <td class="text-center">{{domesticPerformance.ata}}</td>
-                                    <td class="text-center">{{domesticPerformance.planedEtdVsAtd}}</td>
-                                    <td class="text-center">{{domesticPerformance.planedEtaVsAta}}</td>
-                                    <td class="text-center">{{domesticPerformance.transitTime}}</td>
+                                    <td [ngClass]="{'red': domesticPerformance.planedEtdVsAtd<0 }" class="text-center">{{domesticPerformance.planedEtdVsAtd<0?-1*domesticPerformance.planedEtdVsAtd:domesticPerformance.planedEtdVsAtd}}</td>
+                                    <td [ngClass]="{'red': domesticPerformance.planedEtaVsAta<0 }" class="text-center">{{domesticPerformance.planedEtaVsAta<0?-1*domesticPerformance.planedEtaVsAta:domesticPerformance.planedEtaVsAta}}</td>
+                                    <td [ngClass]="{'red': domesticPerformance.transitTime<0 }" class="text-center">{{domesticPerformance.transitTime<0?-1*domesticPerformance.transitTime:domesticPerformance.transitTime}}</td>
                                 </tr>
                             </ng-template>
                         </p-table>
