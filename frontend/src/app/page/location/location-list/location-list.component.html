@@ -31,6 +31,8 @@
                   
                   <th class="text-center">Location Name</th>
                   <th class="text-center">Location Type</th>
+                  <th class="text-center">Facility</th>
+                  <th class="text-center">Country</th>
                   <th class="text-center">Actions</th>
                 </tr>
               </ng-template>
@@ -38,6 +40,10 @@
                 <tr>
                   <td class="text-center">{{ location.locationName }}</td>
                   <td class="text-center">{{ location.type }}</td>
+                  <td class="text-center">{{ location.facility.name }}</td>
+                  <td class="text-center">{{ location.facility.country.name }}</td>
+
+
 
                   <td class="text-center"> 
                     <p-button [routerLink]="['/edit-location',location.id]"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
