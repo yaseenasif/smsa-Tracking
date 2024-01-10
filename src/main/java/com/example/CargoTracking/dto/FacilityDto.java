@@ -15,6 +15,7 @@ import javax.validation.constraints.NotBlank;
 public class FacilityDto    {
     private Long id;
     private String name;
+    private boolean status;
     @NotBlank(message = "Country is required")
     private Country country;
 }
