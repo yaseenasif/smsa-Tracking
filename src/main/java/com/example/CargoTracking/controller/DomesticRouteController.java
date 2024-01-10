@@ -1,15 +1,19 @@
 package com.example.CargoTracking.controller;
 
+import com.example.CargoTracking.criteria.SearchCriteria;
+import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
 import com.example.CargoTracking.dto.DomesticRouteDto;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.dto.InternationalRouteDto;
 import com.example.CargoTracking.model.DomesticRoute;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.DomesticRouteService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.data.domain.Page;
 import java.util.List;
 
 @RestController
@@ -41,8 +45,12 @@ public class DomesticRouteController {
 
 
     @GetMapping("/all-domesticRoutes")
-    public List<DomesticRouteDto> findAllDomesticRoutes(){
-        return domesticRouteService.findAllDomesticRoutes();
+    public Page<DomesticRouteDto> findAllDomesticRoutes(@RequestParam(value = "value",required = false) String value,
+                                                        @RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteria
+                searchCriteria = new ObjectMapper().readValue(value, SearchCriteria.class);
+        return domesticRouteService.findAllDomesticRoutes(searchCriteria,page,size);
     }
 
     @DeleteMapping("/delete-domestic-route/{id}")

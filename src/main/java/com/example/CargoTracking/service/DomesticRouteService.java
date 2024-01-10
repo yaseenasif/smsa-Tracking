@@ -1,13 +1,22 @@
 package com.example.CargoTracking.service;
+import com.example.CargoTracking.criteria.SearchCriteria;
 import com.example.CargoTracking.dto.DomesticRouteDto;
+import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.model.*;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.repository.DomesticRouteRepository;
 import com.example.CargoTracking.repository.DomesticShipmentRepository;
 import com.example.CargoTracking.repository.UserRepository;
+import com.example.CargoTracking.specification.DomesticRouteSpecification;
+import com.example.CargoTracking.specification.DomesticShipmentSpecification;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -84,8 +93,14 @@ public class DomesticRouteService {
         return toDto(domesticRoute);
     }
 
-    public List<DomesticRouteDto> findAllDomesticRoutes() {
-        return toDtoList(domesticRouteRepository.getActiveDomesticRoutes());
+    public Page<DomesticRouteDto> findAllDomesticRoutes(SearchCriteria searchCriteria, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+        Specification<DomesticRoute> domesticRouteSpecification = DomesticRouteSpecification.getSearchSpecification(searchCriteria);
+        Page<DomesticRoute> domesticRoutes = domesticRouteRepository.findAll(domesticRouteSpecification, pageable);
+        Page<DomesticRouteDto> domesticRouteDtos = domesticRoutes.map(entity -> toDto(entity));
+
+        return domesticRouteDtos;
+//        return toDtoList(domesticRouteRepository.getActiveDomesticRoutes());
     }
 
     public ApiResponse deleteDomesticRoute(Long id) {

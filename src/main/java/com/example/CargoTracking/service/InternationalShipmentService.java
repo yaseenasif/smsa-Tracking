@@ -120,7 +120,7 @@ public class InternationalShipmentService {
                 model.put("field4",internationalShipment.getDestinationCountry());
                 model.put("field5",internationalShipment.getOriginPort());
                 model.put("field6",internationalShipment.getDestinationPort());
-                model.put("field7",internationalShipment.getTotalShipments() != null?internationalShipment.getTotalShipments().toString():"0");
+                model.put("field7",internationalShipment.getNumberOfShipments() != null?internationalShipment.getNumberOfShipments().toString():"0");
                 model.put("field8",internationalShipment.getCarrier());
                 model.put("field9",String.valueOf(internationalShipment.getPreAlertNumber()));
                 model.put("field10",internationalShipment.getFlightNumber().toString());
@@ -142,7 +142,7 @@ public class InternationalShipmentService {
                 model.put("field4",internationalShipment.getDestinationCountry());
                 model.put("field5",internationalShipment.getOriginPort());
                 model.put("field6",internationalShipment.getDestinationPort());
-                model.put("field7",internationalShipment.getTotalShipments() != null?internationalShipment.getTotalShipments().toString():"0");
+                model.put("field7",internationalShipment.getNumberOfShipments() != null?internationalShipment.getNumberOfShipments().toString():"0");
                 model.put("field8",internationalShipment.getVehicleType());
                 model.put("field9",internationalShipment.getNumberOfBags().toString());
                 model.put("field10",internationalShipment.getNumberOfPallets().toString());

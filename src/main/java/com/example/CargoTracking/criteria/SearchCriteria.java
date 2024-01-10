@@ -11,4 +11,5 @@ import lombok.*;
 @Builder
 public class SearchCriteria {
     private String value;
+    private boolean status;
 }

@@ -120,7 +120,7 @@ public class DomesticShipmentService {
 
             String destinationEmails = locationService.getLocationByName(domesticShipment.getDestinationLocation(), "Domestic")
                     .getDestinationEmail();
-            String[] resultListDestination = originEmails.split(",");
+            String[] resultListDestination = destinationEmails.split(",");
             List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestination));
 
 
@@ -134,7 +134,7 @@ public class DomesticShipmentService {
             model.put("field2", domesticShipment.getReferenceNumber());
             model.put("field3", domesticShipment.getOriginLocation());
             model.put("field4", domesticShipment.getDestinationLocation());
-            model.put("field5", domesticShipment.getTotalShipments() != null ? domesticShipment.getTotalShipments().toString() : "0");
+            model.put("field5", domesticShipment.getNumberOfShipments() != null ? domesticShipment.getNumberOfShipments().toString() : "0");
             model.put("field6", domesticShipment.getVehicleType());
             model.put("field7", domesticShipment.getNumberOfBags().toString());
             model.put("field8", domesticShipment.getNumberOfPallets().toString());
