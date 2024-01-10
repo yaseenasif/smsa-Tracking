@@ -87,6 +87,7 @@ export class UpdateInternationalShippingComponent {
   showDropDown: boolean = false;
   selectedLocation!: Location;
   minDate: Date = new Date();
+  iST!: string;
 
   constructor(private router: Router,
     private internationalShippingService: InternationalShippingService,
@@ -115,7 +116,12 @@ export class UpdateInternationalShippingComponent {
 
   ngOnInit(): void {
     this.iSID = +this.route.snapshot.paramMap.get('id')!;
-    this.items = [{ label: 'International Shipment', routerLink: '/international-tile' }, { label: 'International Shipment By Road', routerLink: '/international-shipment-by-road' }, { label: 'Edit International Shipment By Road' }];
+    this.iST = this.route.snapshot.paramMap.get('type')!;
+    if(this.iST=="/from-list"){
+      this.items = [{ label: 'International Shipment', routerLink: '/international-tile' }, { label: 'International Shipment By Road', routerLink: '/international-shipment-by-road' }, { label: 'Edit International Shipment By Road' }];
+    }else{
+     this.items = [{ label: 'International Summary By Road', routerLink: '/international-summary-by-road' },{ label: 'Edit International Shipment By Road' }];
+    }
 
     const locations$: Observable<Location[]> = this.locationService.getAllLocationForInternational();
     // const locationPort$: Observable<LocationPort[]> =this.locationPortService.getAllLocationPort();

@@ -169,7 +169,7 @@
                                     <td class="text-center">{{internationalRoadReportStatus.borderDelay}}</td>
                                     <td class="text-center">{{internationalRoadReportStatus.offloadedAtDestination}}</td>
                                     <td class="text-center">{{internationalRoadReportStatus.Cleared}}</td>
-                                    <td class="text-center">{{internationalRoadReportStatus.leadTime}}</td>
+                                    <td [ngClass]="{'red':internationalRoadReportStatus.leadTime<0}" class="text-center">{{internationalRoadReportStatus.leadTime<0?-1*internationalRoadReportStatus.leadTime:internationalRoadReportStatus.leadTime}}</td>
                                     <td class="text-center">{{internationalRoadReportStatus.remarks}}</td>
                                  
                                 </tr>

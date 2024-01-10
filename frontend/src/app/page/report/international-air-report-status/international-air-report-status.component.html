@@ -165,9 +165,9 @@
                                     <td class="text-center">{{internationalAirReportStatus.heldInCustoms}}</td>
                                     <td class="text-center">{{internationalAirReportStatus.awaitingPayments}}</td>
                                     <td class="text-center">{{internationalAirReportStatus.cleared}}</td>
-                                    <td class="text-center">{{internationalAirReportStatus.etdVsEta}}</td>
-                                    <td class="text-center">{{internationalAirReportStatus.etaVSAta}}</td>
-                                    <td class="text-center">{{internationalAirReportStatus.leadTime}}</td>
+                                    <td [ngClass]="{'red': internationalAirReportStatus.etdVsEta<0}" class="text-center">{{internationalAirReportStatus.etdVsEta<0?-1*internationalAirReportStatus.etdVsEta:internationalAirReportStatus.etdVsEta}}</td>
+                                    <td [ngClass]="{'red': internationalAirReportStatus.etaVSAta<0}" class="text-center">{{internationalAirReportStatus.etaVSAta<0?-1*internationalAirReportStatus.etdVsEta:internationalAirReportStatus.etdVsEta}}</td>
+                                    <td [ngClass]="{'red': internationalAirReportStatus.leadTime<0}" class="text-center">{{internationalAirReportStatus.leadTime<0?-1*internationalAirReportStatus.etdVsEta:internationalAirReportStatus.etdVsEta}}</td>
                                     <td class="text-center">{{internationalAirReportStatus.remarks}}</td>
                                 </tr>
                             </ng-template>

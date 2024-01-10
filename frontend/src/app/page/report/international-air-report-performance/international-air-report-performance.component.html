@@ -141,8 +141,8 @@
                                     <td class="text-center">{{internationalAirReportPerformance.actualTimeDeparture}}</td>
                                     <td class="text-center">{{internationalAirReportPerformance.actualTimeArrival}}</td>
                                     <td class="text-center">{{internationalAirReportPerformance.cleared}}</td>
-                                    <td class="text-center">{{internationalAirReportPerformance.totalTransitTime}}</td>
-                                    <td class="text-center">{{internationalAirReportPerformance.totalLeadTime}}</td>
+                                    <td [ngClass]="{'red': internationalAirReportPerformance.totalTransitTime<0 }" class="text-center">{{internationalAirReportPerformance.totalTransitTime<0?-1*internationalAirReportPerformance.totalTransitTime:internationalAirReportPerformance.totalTransitTime}}</td>
+                                    <td [ngClass]="{'red': internationalAirReportPerformance.totalLeadTime<0 }" class="text-center">{{internationalAirReportPerformance.totalLeadTime<0?-1*internationalAirReportPerformance.totalLeadTime:internationalAirReportPerformance.totalLeadTime}}</td>
                                 </tr>
                             </ng-template>
                         </p-table>

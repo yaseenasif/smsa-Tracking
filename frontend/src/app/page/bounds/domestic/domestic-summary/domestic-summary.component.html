@@ -181,7 +181,6 @@
                   <th class="text-center">Status</th>
 
                   <th
-                    *ngIf="selectedBound.bound == 'In bound'"
                     class="text-center"
                   >
                     Actions
@@ -340,6 +339,22 @@
                     >
                     </p-button>
                   </td>
+                  <td
+                  *ngIf="selectedBound.bound == 'Out bound' || selectedBound.bound == 'All'"
+                  class="text-center flex flex-row"
+                >
+                  <p-button
+                    [routerLink]="[
+                      '/update-domestic-shipping/',
+                      domesticShipment.id,
+                      '/from-summery'
+                    ]"
+                     icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit" 
+                    class="ml mr"
+                    styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                  >
+                  </p-button>
+                </td>
                 </tr>
               </ng-template>
             </p-table>
