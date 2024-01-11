@@ -2,6 +2,9 @@ package com.example.CargoTracking.repository;
 
 import com.example.CargoTracking.dto.InternationalRouteDto;
 import com.example.CargoTracking.model.InternationalRoute;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +16,6 @@ public interface InternationalRouteRepository extends JpaRepository<Internationa
 
 
     List<InternationalRoute> findAllByTypeAndStatus(String air,boolean status);
+
+    Page<InternationalRoute> findAll(Specification<InternationalRoute> specification, Pageable pageable);
 }

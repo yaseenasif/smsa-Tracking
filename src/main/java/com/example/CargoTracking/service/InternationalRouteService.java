@@ -1,5 +1,6 @@
 package com.example.CargoTracking.service;
 
+import com.example.CargoTracking.criteria.SearchCriteriaForInternationalRoute;
 import com.example.CargoTracking.dto.DomesticRouteDto;
 import com.example.CargoTracking.dto.FileMetaDataDto;
 import com.example.CargoTracking.dto.InternationalRouteDto;
@@ -11,8 +12,14 @@ import com.example.CargoTracking.model.InternationalShipment;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.repository.InternationalRouteRepository;
 import com.example.CargoTracking.repository.InternationalShipmentRepository;
+import com.example.CargoTracking.specification.InternationalRouteSpecification;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -111,14 +118,20 @@ public class InternationalRouteService {
         return modelMapper.map(internationalRoute, InternationalRouteDto.class);
     }
 
-    public List<InternationalRouteDto> findAllInternationalRouteForAir() {
-        List<InternationalRoute> internationalRouteForAir = internationalRouteRepository.findAllByTypeAndStatus("Air",true);
-        return toDtoList(internationalRouteForAir);
+    public Page<InternationalRouteDto> findAllInternationalRouteForAir(SearchCriteriaForInternationalRoute searchCriteriaForInternationalRoute,int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+        Specification<InternationalRoute> specification = InternationalRouteSpecification.getSearchSpecification((searchCriteriaForInternationalRoute));
+        Page<InternationalRoute> internationalRoutePage = internationalRouteRepository.findAll(specification,pageable);
+        Page<InternationalRouteDto> internationalRouteDtos =internationalRoutePage.map(entity->toDto(entity));
+        return internationalRouteDtos;
     }
 
-    public List<InternationalRouteDto> findAllInternationalRouteForRoad() {
-        List<InternationalRoute> internationalRouteForRoad = internationalRouteRepository.findAllByTypeAndStatus("Road",true);
-        return toDtoList(internationalRouteForRoad);
+    public Page<InternationalRouteDto> findAllInternationalRouteForRoad(SearchCriteriaForInternationalRoute searchCriteriaForInternationalRoute,int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+        Specification<InternationalRoute> specification = InternationalRouteSpecification.getSearchSpecification((searchCriteriaForInternationalRoute));
+        Page<InternationalRoute> internationalRoutePage = internationalRouteRepository.findAll(specification,pageable);
+        Page<InternationalRouteDto> internationalRouteDtos =internationalRoutePage.map(entity->toDto(entity));
+        return internationalRouteDtos;
     }
     public InternationalRouteDto saveInternationalRoute(InternationalRouteDto internationalRouteDto) {
         InternationalRoute internationalRoute = toEntity(internationalRouteDto);

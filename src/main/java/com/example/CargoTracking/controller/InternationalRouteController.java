@@ -1,10 +1,15 @@
 package com.example.CargoTracking.controller;
 
+import com.example.CargoTracking.criteria.SearchCriteriaForInternationalRoute;
+import com.example.CargoTracking.criteria.SearchCriteriaForInternationalShipment;
 import com.example.CargoTracking.dto.InternationalRouteDto;
 import com.example.CargoTracking.model.InternationalRoute;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.InternationalRouteService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,13 +37,21 @@ public class InternationalRouteController {
     }
 
     @GetMapping("/get-all-international-air")
-    public ResponseEntity<List<InternationalRouteDto>> getInternationalRouteByAir(){
-        return ResponseEntity.ok(internationalRouteService.findAllInternationalRouteForAir());
+    public ResponseEntity<Page<InternationalRouteDto>> getInternationalRouteByAir(@RequestParam(value = "value",required = false) String value,
+                                                                                  @RequestParam(defaultValue = "0") int page,
+                                                                                  @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForInternationalRoute
+                searchCriteriaForInternationalRoute = new ObjectMapper().readValue(value, SearchCriteriaForInternationalRoute.class);
+        return ResponseEntity.ok(internationalRouteService.findAllInternationalRouteForAir(searchCriteriaForInternationalRoute,page,size));
     }
 
     @GetMapping("/get-all-international-road")
-    public List<InternationalRouteDto> getInternationalRouteByRoad(){
-        return internationalRouteService.findAllInternationalRouteForRoad();
+    public ResponseEntity<Page<InternationalRouteDto>> getInternationalRouteByRoad(@RequestParam(value = "value",required = false) String value,
+                                                                                   @RequestParam(defaultValue = "0") int page,
+                                                                                   @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForInternationalRoute
+                searchCriteriaForInternationalRoute = new ObjectMapper().readValue(value, SearchCriteriaForInternationalRoute.class);
+        return ResponseEntity.ok(internationalRouteService.findAllInternationalRouteForRoad(searchCriteriaForInternationalRoute,page,size));
     }
 
     @PostMapping("/add-internationalRoute")

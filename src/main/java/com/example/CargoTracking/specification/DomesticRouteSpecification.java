@@ -15,7 +15,7 @@ public class DomesticRouteSpecification {
 //                .trim();
 //        String finalSearchCriteria = searchCriteria;
         return (root, query, criteriaBuilder) ->
-                criteriaBuilder.or(
+                criteriaBuilder.and(
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("route")), "%" + searchCriteria.getValue() + "%"),
                         criteriaBuilder.equal(root.get("activeStatus"),searchCriteria.isStatus())
                 );
