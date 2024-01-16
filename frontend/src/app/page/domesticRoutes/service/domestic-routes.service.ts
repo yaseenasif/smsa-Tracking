@@ -1,5 +1,5 @@
 import { environment } from './../../../../environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Routes } from '../../../model/ShipmentRoutes'
@@ -21,9 +21,15 @@ export class DomesticRoutesService {
     return this.http.get(`${this.url}/getRoute/${origin}/${destination}`)
   }
 
-  getAllDomesticRoutes(): Observable<Routes[]> {
+  getAllDomesticRoutes(obj?: any, page?: number, size?: number): Observable<any> {
+    let queryParams = new HttpParams();
+    
+    queryParams = queryParams.append("value", obj ? JSON.stringify(obj) : '');
+    queryParams = queryParams.append("page", page ? page : 0);
+    queryParams = queryParams.append("size", size ? size : 10);
+
     let url = `${this.url}/all-domesticRoutes`
-    return this.http.get<Routes[]>(url)
+    return this.http.get<any>(url, { params: queryParams })
   }
 
   deleteDomesticRoute(id: number): Observable<Error> {

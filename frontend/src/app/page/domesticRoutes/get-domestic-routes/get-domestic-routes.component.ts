@@ -19,20 +19,38 @@ export class GetDomesticRoutesComponent {
   rID!: number
   first: number = 0;
   rows: number = 10;
+  totalRecords: number = 0;
+  myApiResponse: any;
+  page = 0;
+  size = 10;
+
+  value: string = '';
+  status:boolean=true
+
 
   ngOnInit() {
     this.items = [{ label: 'Domestic Route List' }];
-    this.getAllDomesticRoutes();
+    this.getAllDomesticRoutes(this.value.trim(),this.status,this.page,this.size);
   }
-
+  searchByFilter(){
+    this.getAllDomesticRoutes(this.value.trim(),this.status,0,this.size);
+  }
+  clearFilter(){
+    this.value='';
+  }
   onPageChange(event: any) {
-    this.first = event.first;
+    this.page = event.page;
     this.rows = event.rows;
+    this.getAllDomesticRoutes(this.value.trim(),this.status,this.page,this.rows)
 }
 
-  getAllDomesticRoutes() {
-    this.domesticRouteService.getAllDomesticRoutes().subscribe((res: Routes[]) => {
-      this.domesticRoutes = res;
+  getAllDomesticRoutes(value:string,status:boolean,page:number,size:number) {
+    this.domesticRouteService.getAllDomesticRoutes({value:value,status:status},page,size).subscribe((res: any) => {
+      this.domesticRoutes = res.content;
+      this.myApiResponse = res;
+      this.page=res.pageable.pageNumber;
+      this.size=res.size;
+      this.totalRecords = this.myApiResponse.totalElements;
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
@@ -44,7 +62,7 @@ export class GetDomesticRoutesComponent {
       
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Route is deleted on id ' + res.message });
       
-      this.getAllDomesticRoutes();
+      this.getAllDomesticRoutes(this.value,this.status,this.page,this.size);
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     });
