@@ -33,19 +33,19 @@ export class AddLocationComponent implements OnInit {
   countryName!:any;
   facility!:Facility[];
 
-  
+
 
   type:any[]=["Domestic","International"];
-  
-  
+
+
   constructor(private LocationService:LocationService,
               private messageService: MessageService,
               private router: Router,
               private countryService:CountryService,
               private facilityService:FacilityService) { }
 
- 
-  
+
+
   ngOnInit(): void {
     this.items = [{ label: 'Location List',routerLink:'/location'},{ label: 'Add Location'}];
     this.getAllCountry();
@@ -54,10 +54,10 @@ export class AddLocationComponent implements OnInit {
   getCountryBySelectedFacility(){
     this.getFacilityByCountryId(this.countryName.id);
   }
-  
+
   getAllCountry(){
     this.countryService.getAllCountry().subscribe((res:Country[])=>{
-      this.country=res;  
+      this.country=res;
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
@@ -65,7 +65,7 @@ export class AddLocationComponent implements OnInit {
 
    getFacilityByCountryId(id:number){
     this.facilityService.getFacilityByCountryID(id).subscribe((res:Facility[])=>{
-      this.facility=res;  
+      this.facility=res;
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
@@ -86,8 +86,8 @@ export class AddLocationComponent implements OnInit {
       },800);
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-    })  
+    })
   }
-  
+
 
 }

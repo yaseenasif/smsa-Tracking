@@ -22,10 +22,10 @@ export class UpdateUserComponent implements OnInit {
   user:User={
     email: null,
     id: null,
-    location: null,
     name: null,
     password: null,
-    roles: []
+    roles: [],
+    locations:[]
   };
   selectedRole!:Role;
   roles:Role[]=[];

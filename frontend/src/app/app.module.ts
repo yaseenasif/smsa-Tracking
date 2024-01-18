@@ -47,6 +47,7 @@ import { BadgeModule } from 'primeng/badge';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 //primeng imports
+import { CheckboxModule } from 'primeng/checkbox';
 import { ChartModule } from 'primeng/chart';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
@@ -209,9 +210,11 @@ import { FacilityListComponent } from './page/facility/facility-list/facility-li
     AddFacilityComponent,
     FacilityUpdateComponent,
     FacilityListComponent,
+    
   ],
   imports: [
     ChipsModule,
+    CheckboxModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,

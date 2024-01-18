@@ -7,7 +7,6 @@ import {Location} from '../../../model/Location'
 import { RoleService } from '../../role/service/role.service';
 import { Role } from 'src/app/model/Role';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
@@ -17,7 +16,7 @@ import { Router } from '@angular/router';
 export class AddUserComponent implements OnInit {
 
   items: MenuItem[] | undefined;
- 
+  checked: boolean = false;
   
 
   constructor (private router: Router,private messageService:MessageService,private roleService:RoleService,private locationService:LocationService,private userService:UserService) { }
@@ -26,10 +25,10 @@ export class AddUserComponent implements OnInit {
   user:User={
     email: null,
     id: null,
-    location: null,
     name: null,
     password: null,
-    roles: []
+    roles: [],
+    locations: []
   };
   roles!:Role[];
   locations!:Location[];

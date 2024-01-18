@@ -41,22 +41,24 @@ public class UserService {
         if(userByEmail == null){
             try {
                 Set<Roles> rolesList = new HashSet<>();
-                Location location = null;
+
                 for (Roles roleList:userDto.getRoles()) {
                     Optional<Roles> roles = Optional.ofNullable(roleRepository
                             .findByName(roleList.getName())
                             .orElseThrow(() -> new RecordNotFoundException("Role is incorrect")));
 
-                    if(roleList.getName().equals("ROLE_ADMIN")){
-                        location = null;
-                    }else{
-                        location = locationRepository.findByLocationName(userDto.getLocation())
-                                .orElseThrow(()-> new RecordNotFoundException("Location is not in record"));
-                    }
                     rolesList.add(roles.get());
                 }
 
+                Set<Location> locationList = new HashSet<>();
 
+                for (Location location:userDto.getLocation()) {
+                    Optional<Location> location1 = Optional.ofNullable(locationRepository
+                            .findByLocationName(location.getLocationName())
+                            .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+
+                    locationList.add(location1.get());
+                }
 
 
 
@@ -65,7 +67,7 @@ public class UserService {
                         .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
                         .roles(rolesList)
                         .status(Boolean.TRUE)
-                        .location(location)
+                        .locations(locationList)
                         .email(userDto.getEmail())
                         .build();
                 User save = userRepository.save(user);
@@ -95,29 +97,31 @@ public class UserService {
 
             try {
                 Set<Roles> rolesList = new HashSet<>();
-                Location location = null;
+
                 for (Roles roleList:userDto.getRoles()) {
                     Optional<Roles> roles = Optional.ofNullable(roleRepository
                             .findByName(roleList.getName())
                             .orElseThrow(() -> new RecordNotFoundException("Role is incorrect")));
 
-                    if(roleList.getName().equals("ROLE_ADMIN")){
-                        location = null;
-                    }else{
-                        location = locationRepository.findByLocationName(userDto.getLocation())
-                                .orElseThrow(()-> new RecordNotFoundException("Location is not in record"));
-                    }
                     rolesList.add(roles.get());
                 }
 
+                Set<Location> locationList = new HashSet<>();
 
+                for (Location location:userDto.getLocation()) {
+                    Optional<Location> location1 = Optional.ofNullable(locationRepository
+                            .findByLocationName(location.getLocationName())
+                            .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+
+                    locationList.add(location1.get());
+                }
 
                 user.get().setName(userDto.getName());
                 user.get().setEmail(userDto.getEmail());
                 user.get().setPassword(userDto.getPassword() != null ? bCryptPasswordEncoder.encode(userDto.getPassword()) : user.get().getPassword());
                 user.get().setRoles(rolesList);
                 user.get().setStatus(Boolean.TRUE);
-                user.get().setLocation(location);
+                user.get().setLocations(locationList);
                 User save = userRepository.save(user.get());
 
                 return toDtoForResponse(save);

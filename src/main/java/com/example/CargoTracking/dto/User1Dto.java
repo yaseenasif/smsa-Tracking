@@ -7,7 +7,6 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -17,8 +16,7 @@ import java.util.Set;
 @Setter
 @ToString
 @Builder
-public class UserDto {
-
+public class User1Dto {
     private Long id;
     @NotBlank(message = "Name is required")
     private String name;
@@ -33,5 +31,4 @@ public class UserDto {
     private Set<Roles> roles;
 
     private Set<Location> location;
-
 }
