@@ -91,7 +91,8 @@
 
                     </label>
                     <div class="card">
-                      <p-table [value]="locations" [tableStyle]="{ 'min-width': '50rem' }">
+                    
+                      <p-table [value]="locationsList" [tableStyle]="{ 'min-width': '50rem' }">
                         <ng-template pTemplate="header">
                           <tr>
 
@@ -100,6 +101,12 @@
                             <th class="text-center">Facility</th>
                             <th class="text-center">Country</th>
                             <th class="text-center">Actions</th>
+                            <th class="text-center">Domestic Origin</th>
+                            <th class="text-center">Domestic Destination</th>
+                            <th class="text-center">International Air Origin</th>
+                            <th class="text-center">International Air Destination</th>
+                            <th class="text-center">International Road Origin</th>
+                            <th class="text-center">International Road Destination</th>
                           </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-location>
@@ -110,7 +117,41 @@
                             <td class="text-center">{{ location.facility.country.name }}</td>
                             <td class="text-center">
                               <div class="card flex justify-content-center">
-                                <p-checkbox [(ngModel)]="location.checked" [binary]="true" inputId="binary"></p-checkbox>
+                                <p-checkbox  [(ngModel)]="user.locations"    [value]="location" name="binary1" inputId="binary1"></p-checkbox>
+                              </div>
+                            </td>
+                            <td class="text-center">
+                              <div class="card flex justify-content-center">
+                                <p-checkbox [(ngModel)]="user.domesticOriginLocations" [disabled]="location.type !== 'Domestic'"  [value]="location" [name]="'binary0'+location.id" ></p-checkbox>
+                              </div>
+                            </td>
+                            <td class="text-center">
+                              <div class="card flex justify-content-center">
+                                <p-checkbox [(ngModel)]="user.domesticDestinationLocations" [disabled]="location.type !== 'Domestic'" [value]="location" [name]="'binary1'+location.id"></p-checkbox>
+                              </div>
+                            </td>
+                        
+                            <td class="text-center">
+                             
+                              <div class="card flex justify-content-center">
+                              
+                               
+                                <p-checkbox [(ngModel)]="user.internationalAirOriginLocation" [disabled]="location.type !== 'International Air'"   [value]="location" [name]="'binary2'+location.id"></p-checkbox>
+                              </div>
+                            </td>
+                            <td class="text-center">
+                              <div class="card flex justify-content-center">
+                                <p-checkbox [(ngModel)]="user.internationalAirDestinationLocation" [disabled]="location.type !== 'International Air'"  [value]="location" [name]="'binary3'+location.id"></p-checkbox>
+                              </div>
+                            </td>
+                            <td class="text-center">
+                              <div class="card flex justify-content-center">
+                                <p-checkbox [(ngModel)]="user.internationalRoadOriginLocation" [disabled]="location.type !== 'International Road'"  [value]="location" [name]="'binary4'+location.id"></p-checkbox>
+                              </div>
+                            </td>
+                            <td class="text-center">
+                              <div class="card flex justify-content-center">
+                                <p-checkbox [(ngModel)]="user.internationalRoadDestinationLocation" [disabled]="location.type !== 'International Road'"  [value]="location" [name]="'binary5'+location.id"></p-checkbox>
                               </div>
                             </td>
                           </tr>

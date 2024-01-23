@@ -7,6 +7,7 @@ import {Location} from '../../../model/Location'
 import { RoleService } from '../../role/service/role.service';
 import { Role } from 'src/app/model/Role';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-add-user',
   templateUrl: './add-user.component.html',
@@ -28,10 +29,19 @@ export class AddUserComponent implements OnInit {
     name: null,
     password: null,
     roles: [],
-    locations: []
+    locations: [],
+    domesticOriginLocations: [],
+    domesticDestinationLocations: [],
+    internationalAirOriginLocation: [],
+    internationalAirDestinationLocation: [],
+    internationalRoadOriginLocation: [],
+    internationalRoadDestinationLocation: []
   };
   roles!:Role[];
-  locations!:Location[];
+  locationsList!:Location[];
+  // Locations!:Location[];
+  // OrgLocations!:Location[];
+  // DesLocations!:Location[];
 
   ngOnInit(): void {
     this.items = [{ label: 'User',routerLink:'/user'},{ label: 'Add User'}];
@@ -41,7 +51,7 @@ export class AddUserComponent implements OnInit {
 
   getAllLocations(){
     this.locationService.getAllLocation().subscribe((res:Location[])=>{
-      this.locations=res.filter(el => el.status);   
+      this.locationsList=res.filter(el => el.status);   
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
@@ -56,7 +66,7 @@ export class AddUserComponent implements OnInit {
     })
   }
 
-  onSubmit(){
+  onSubmit(){ 
     this.userService.addUser(this.user).subscribe(res=>{
       debugger
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User is added' });
@@ -67,6 +77,8 @@ export class AddUserComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })  
   }
+   
+
 
 }
 

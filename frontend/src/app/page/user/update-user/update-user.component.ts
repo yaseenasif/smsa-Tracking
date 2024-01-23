@@ -25,11 +25,18 @@ export class UpdateUserComponent implements OnInit {
     name: null,
     password: null,
     roles: [],
-    locations:[]
+    locations: [],
+    domesticOriginLocations: [],
+    domesticDestinationLocations: [],
+    internationalAirOriginLocation: [],
+    internationalAirDestinationLocation: [],
+    internationalRoadOriginLocation: [],
+    internationalRoadDestinationLocation: []
   };
   selectedRole!:Role;
   roles:Role[]=[];
   locations!:Location[];
+
 
   userId?:number;
   name!:string;
@@ -70,6 +77,8 @@ export class UpdateUserComponent implements OnInit {
     this.userService.getUserById(userId).subscribe((res:User)=>{
       res.roles![0].permissions=res.roles![0].permissions!.sort((a,b)=> a.id!-b.id!)
       this.user=res;
+      console.log(this.user);
+      
     },(error:any)=>{
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });

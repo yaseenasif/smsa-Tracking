@@ -7,7 +7,9 @@ import { Country } from 'src/app/model/Country';
 import { Facility } from 'src/app/model/Facility';
 import { CountryService } from '../../country/service/country.service';
 import { FacilityService } from '../../facility/service/facility.service';
-import { switchMap } from 'rxjs';
+import { Observable, catchError, forkJoin, switchMap } from 'rxjs';
+import { ProductFieldServiceService } from '../../product-field/service/product-field-service.service';
+import { ProductField } from 'src/app/model/ProductField';
 
 @Component({
   selector: 'app-update-location',
@@ -31,12 +33,13 @@ export class UpdateLocationComponent implements OnInit {
     facility: undefined
   }
 
-  type:any[]=["Domestic","International"];
+  type:ProductField | null | undefined;
   constructor(private route: ActivatedRoute,
     private locationService:LocationService,
     private messageService: MessageService,
     private countryService:CountryService,
     private facilityService:FacilityService,
+    private productFieldService:ProductFieldServiceService,
     private router: Router) { }
     country!:Country[];
     countryName!:any;
@@ -66,7 +69,29 @@ export class UpdateLocationComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
 
+    const locationType$: Observable<ProductField> = this.getAllLocationType();
 
+    forkJoin([locationType$]).subscribe(
+      ([locationTypeResponse]) => {
+        // Access responses here
+        this.type = locationTypeResponse;
+      }
+    );
+
+
+  }
+
+  getAllLocationType(): Observable<ProductField> {
+    return this.productFieldService.getProductFieldByName("Location_Type").pipe(
+      catchError(error => {
+        if (error.error.body) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+        }
+        throw error;
+      })
+    );
   }
 
   getCountryBySelectedFacility(){

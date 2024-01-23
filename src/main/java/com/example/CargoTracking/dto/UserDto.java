@@ -32,6 +32,13 @@ public class UserDto {
     @NotBlank(message = "Role is required")
     private Set<Roles> roles;
 
-    private Set<Location> location;
+    private Set<Location> locations;
+
+    private Set<Location> domesticOriginLocations;
+    private Set<Location> domesticDestinationLocations;
+    private Set<Location> internationalAirOriginLocation;
+    private Set<Location> internationalAirDestinationLocation;
+    private Set<Location> internationalRoadOriginLocation;
+    private Set<Location> internationalRoadDestinationLocation;
 
 }

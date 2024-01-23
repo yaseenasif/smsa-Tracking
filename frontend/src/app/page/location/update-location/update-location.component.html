@@ -32,9 +32,12 @@
               <div class="col-12 md:col-6 lg:col-6">
                 <div class="flex flex-column gap-2 form-hook">
                   <label htmlFor="name">Location Type</label>
-                  <p-dropdown class="w-full" [options]="type" name="type1" #type1="ngModel"
-                    [(ngModel)]="location.type" 
-                    [filter]="true" filterBy="type" [showClear]="true" placeholder="Select a Location Type">
+                  <p-dropdown class="w-full"
+                   [options]="type?.productFieldValuesList" name="type1" #type1="ngModel"
+                   optionLabel="name"
+                   optionValue="name"
+                    [(ngModel)]="location.type" [filter]="true" filterBy="name" [showClear]="true"
+                    placeholder="Select a Location Type">
                     <ng-template pTemplate="selectedItem">
                       <div class="flex align-items-center gap-2" *ngIf="location">
                         <div>{{location.type}}</div>
@@ -42,7 +45,7 @@
                     </ng-template>
                     <ng-template let-type pTemplate="item">
                       <div class="flex align-items-center gap-2">
-                        <div>{{ type }}</div>
+                        <div>{{ type.name }}</div>
                       </div>
                     </ng-template>
                   </p-dropdown>

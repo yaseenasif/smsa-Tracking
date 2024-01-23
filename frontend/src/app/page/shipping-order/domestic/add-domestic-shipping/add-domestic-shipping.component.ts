@@ -17,6 +17,11 @@ import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
 import { DatePipe } from '@angular/common';
 import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
 import { ProductField } from 'src/app/model/ProductField';
+import { UserService } from 'src/app/page/user/service/user.service';
+import { User } from 'src/app/model/User';
+import { Country } from 'src/app/model/Country';
+import { Facility } from 'src/app/model/Facility';
+import { empty } from 'rxjs';
 @Component({
   selector: 'app-add-domestic-shipping',
   templateUrl: './add-domestic-shipping.component.html',
@@ -60,16 +65,24 @@ export class AddDomesticShippingComponent {
     attachments: null,
     preAlertNumber: null,
     transitTimeTaken: null,
-    preAlertType: null
+    preAlertType: null,
+    originCountry: null,
+    destinationCountry: null
   };
 
-  location!: Location[];
+  originCountry!: Country[];
+  destinationCountry!:Country[];
+
+  orgLocation: Location[]|undefined;
+  desLocation: Location[]|undefined;
   selectedLocation!: Location;
   selectedOriginLocation!: Location;
   selectedDestinationLocation!: Location;
 
 
-  originFacility!: originFacility[];
+  originFacility!: Facility[];
+  destinationFacility!: Facility[];
+  
   selectedOriginFacility!: originFacility;
   selectedDestinationFacility!: originFacility;
 
@@ -93,7 +106,8 @@ export class AddDomesticShippingComponent {
     private driverService: DriverService,
     private router: Router,
     private datePipe: DatePipe,
-    private productFieldService: ProductFieldServiceService
+    private productFieldService: ProductFieldServiceService,
+    private userService:UserService
   ) { }
   name!: string;
   checked!: boolean;
@@ -101,7 +115,7 @@ export class AddDomesticShippingComponent {
   uploadedFiles: any[] = [];
   fromDate: any;
   selectedDriver: Driver | null = null;
-
+  user!:User;
 
   flag = false;
 
@@ -120,23 +134,44 @@ export class AddDomesticShippingComponent {
 
 
     this.items = [{ label: 'Domestic Shipment', routerLink: '/domestic-shipping' }, { label: 'Add Domestic Shipment' }];
-    this.getAllLocations();
+    // this.getAllLocations();
     this.getAllVehicleType();
     // this.getAllShipmentStatus();
     this.getAllDriver();
+    this.getLoggedInUser(); 
+  }
 
-    this.originFacility = [
-      {
-        originFacility: "HUB"
-      },
-      {
-        originFacility: "Station"
-      },
-      {
-        originFacility: "Gateway"
-      }
-    ]
+  
+  getLoggedInUser(){
+      this.userService.getLoggedInUser().subscribe((res: User) => {
+        this.user=res;
+        this.originCountry=[];
+        this.destinationCountry=[];
+        res.domesticOriginLocations?.forEach((el)=>{
+          return this.originCountry.push(el.facility?.country!);
+        })
+        this.originCountry = this.originCountry.filter((obj, index, arr) =>
+        index === arr.findIndex((item:Country) => item.id === obj.id)
+        );
+        
 
+        res.domesticDestinationLocations?.forEach((el)=>{
+          return this.destinationCountry.push(el.facility?.country!);
+        })
+        this.destinationCountry = this.originCountry.filter((obj, index, arr) =>
+        index === arr.findIndex((item:Country) => item.id === obj.id)
+        );
+        console.log(this.originCountry);
+        console.log(this.destinationCountry);
+        console.log(this.user);
+        
+      }, error => {
+        if (error.error.body) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+        }
+      })
   }
 
   getDomesticRoute() {
@@ -156,17 +191,17 @@ export class AddDomesticShippingComponent {
     }
   }
 
-  getAllLocations() {
-    this.locationService.getAllLocationForDomestic().subscribe((res: Location[]) => {
-      this.location = res.filter(el => el.status);
-    }, error => {
-      if (error.error.body) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }
-    })
-  }
+  // getAllLocations() {
+  //   this.locationService.getAllLocationForDomestic().subscribe((res: Location[]) => {
+  //     this.location = res.filter(el => el.status);
+  //   }, error => {
+  //     if (error.error.body) {
+  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+  //     } else {
+  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+  //     }
+  //   })
+  // }
 
   getAllVehicleType() {
     this.vehicleTypeService.getALLVehicleType().subscribe((res: VehicleType[]) => {
@@ -248,6 +283,58 @@ export class AddDomesticShippingComponent {
     this.addDomesticShipment(this.domesticShipment);
   }
 
+
+  onOrgCountryChange(country:string){
+ 
+   let found= this.destinationCountry.find(obj => obj.name === country)
+   if(found){
+   this.domesticShipment.destinationCountry=country;
+   this.originFacility=[]
+   this.destinationFacility=[]
+   let orgFacility= this.user.domesticOriginLocations?.filter((obj => obj.facility?.country?.name === country));
+   let desFacility= this.user.domesticDestinationLocations?.filter((obj => obj.facility?.country?.name === country));
+   orgFacility?.forEach((el)=>{
+    return this.originFacility.push(el?.facility!);
+   })
+   desFacility?.forEach((el)=>{
+    return this.destinationFacility.push(el?.facility!);
+   })
+   }
+   else{
+    this.domesticShipment.originCountry=this.domesticShipment.destinationCountry;
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'User not have country:"'+country+'" in destination country' });
+   }
+  
+  }
+
+  onDesCountryChange(country:string){
+  
+    let found= this.originCountry.find(obj => obj.name === country)
+    if(found){
+    this.domesticShipment.originCountry=country;
+    this.originFacility=[]
+    this.destinationFacility=[]
+   
+    let orgFacility= this.user.domesticOriginLocations?.filter((obj => obj.facility?.country?.name === country));
+    let desFacility= this.user.domesticDestinationLocations?.filter((obj => obj.facility?.country?.name === country));
+    orgFacility?.forEach((el)=>{
+     return this.originFacility.push(el?.facility!);
+    })
+    desFacility?.forEach((el)=>{
+     return this.destinationFacility.push(el?.facility!);
+    })
+   }else{
+    this.domesticShipment.destinationCountry=this.domesticShipment.originCountry
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'User not have country:"'+country+'" in origen country' });
+   }
+  }
+
+  onOrgFacilityChange(facility:string){
+    this.orgLocation= this.user.domesticOriginLocations?.filter((obj => obj.facility?.country?.name === this.domesticShipment.originCountry && obj.facility?.name === facility));
+  }
+  onDesFacilityChange(facility:string){
+    this.desLocation= this.user.domesticOriginLocations?.filter((obj => obj.facility?.country?.name === this.domesticShipment.destinationCountry && obj.facility?.name === facility));
+  }
 }
 
 

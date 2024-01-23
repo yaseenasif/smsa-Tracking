@@ -30,4 +30,13 @@ public class Facility {
     @OneToMany(mappedBy = "facility",cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Location> locations = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Facility{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

@@ -41,4 +41,40 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "location_id"))
     private Set<Location> locations = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_domestic_origin_location",
+            joinColumns = @JoinColumn(name = "user_id") ,
+            inverseJoinColumns = @JoinColumn(name = "location_id"))
+    private Set<Location> domesticOriginLocations = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_domestic_destination_location",
+            joinColumns = @JoinColumn(name = "user_id") ,
+            inverseJoinColumns = @JoinColumn(name = "location_id"))
+    private Set<Location> domesticDestinationLocations = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_international_air_origin_location",
+            joinColumns = @JoinColumn(name = "user_id") ,
+            inverseJoinColumns = @JoinColumn(name = "location_id"))
+    private Set<Location> internationalAirOriginLocation = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_international_air_destination_location",
+            joinColumns = @JoinColumn(name = "user_id") ,
+            inverseJoinColumns = @JoinColumn(name = "location_id"))
+    private Set<Location> internationalAirDestinationLocation = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_international_road_origin_location",
+            joinColumns = @JoinColumn(name = "user_id") ,
+            inverseJoinColumns = @JoinColumn(name = "location_id"))
+    private Set<Location> internationalRoadOriginLocation = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_international_road_destination_location",
+            joinColumns = @JoinColumn(name = "user_id") ,
+            inverseJoinColumns = @JoinColumn(name = "location_id"))
+    private Set<Location> internationalRoadDestinationLocation = new HashSet<>();
+
 }

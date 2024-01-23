@@ -13,208 +13,178 @@
           <div class="card">
             <h1 class="mb-4 h-color">Add Location</h1>
             <form #permissionForm="ngForm" (ngSubmit)="onSubmit()">
-            <div class="grid">
-              <div class="col-12 md:col-6 lg:col-6">
-                <div class="flex flex-column gap-2">
-                  <label htmlFor="name">Location Name</label>
-                  <input
-                    pInputText
-                    id="name"
-                    aria-describedby="name-help"                    
-                    [(ngModel)]="location.locationName"
-                    name="name"
-                    #name="ngModel"
-                    required
-                  />
-                  <small id="name-help" class="color-red"  *ngIf="name.invalid && (name.dirty || name.touched)">Name is required.</small> 
-                </div>
-              </div>
-              <div class="col-12 md:col-6 lg:col-6">
-                <div class="flex flex-column gap-2 form-hook">
-                  <label htmlFor="name">Location Type</label>
-                  <p-dropdown class="w-full" [options]="type" name="type1" #type1="ngModel"
-                    [(ngModel)]="location.type" 
-                    [filter]="true" filterBy="type" [showClear]="true" placeholder="Select a Location Type">
-                    <ng-template pTemplate="selectedItem">
-                      <div class="flex align-items-center gap-2" *ngIf="location">
-                        <div>{{location.type}}</div>
-                      </div>
-                    </ng-template>
-                    <ng-template let-type pTemplate="item">
-                      <div class="flex align-items-center gap-2">
-                        <div>{{ type }}</div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                </div>
-              </div>
-
-              <div class="col-12 md:col-6 lg:col-6">
-                <div class="flex flex-column gap-2 form-hook">
-                  <label htmlFor="name">Country</label>
-                  <p-dropdown class="w-full" [options]="country" name="country1" #country1="ngModel"
-                    [(ngModel)]="countryName" 
-                    (onChange)="getCountryBySelectedFacility()"
-                    [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Country">
-                    <ng-template pTemplate="selectedItem">
-                      <div class="flex align-items-center gap-2" *ngIf="countryName">
-                        <div>{{countryName.name}}</div>
-                      </div>
-                    </ng-template>
-                    <ng-template let-country pTemplate="item">
-                      <div class="flex align-items-center gap-2">
-                        <div>{{ country.name }}</div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                </div>
-              </div>
-              <div class="col-12 md:col-6 lg:col-6">
-                <div class="flex flex-column gap-2 form-hook">
-                  <label htmlFor="name">Facility</label>
-                  <p-dropdown class="w-full" [options]="facility" name="facility1" #facility1="ngModel"
-                    [(ngModel)]="location.facility" 
-                    [filter]="true" filterBy="name" [showClear]="true" placeholder="Select a Facility">
-                    <ng-template pTemplate="selectedItem">
-                      <div class="flex align-items-center gap-2" *ngIf="location">
-                        <div>{{location.facility?.name}}</div>
-                      </div>
-                    </ng-template>
-                    <ng-template let-facility pTemplate="item">
-                      <div class="flex align-items-center gap-2">
-                        <div>{{ facility.name }}</div>
-                      </div>
-                    </ng-template>
-                  </p-dropdown>
-                </div>
-              </div>
-           
-              <div class="col-12 md:col-12 lg:col-12">
-                <div class="flex flex-column gap-2 form-hook">
-                  <label htmlFor="name">Origin Email</label>
-                  <div class="card p-fluid">
-                  <p-chips #originEmail="ngModel" name="originEmail"  [(ngModel)]="location.originEmail" ></p-chips>
+              <div class="grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Location Name</label>
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="location.locationName"
+                      name="name" #name="ngModel" required />
+                    <small id="name-help" class="color-red" *ngIf="name.invalid && (name.dirty || name.touched)">Name is
+                      required.</small>
                   </div>
-                </div>   
-              </div>
-              <div class="col-12 md:col-12 lg:col-12">
-                <div class="flex flex-column gap-2 form-hook">
-                  <label htmlFor="name">Destination Email</label>
-                  <div class="card p-fluid">
-                  <p-chips #destinationEmail="ngModel" name="destinationEmail"  [(ngModel)]="location.destinationEmail" ></p-chips>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Location Type</label>
+                    <p-dropdown class="w-full"
+                     [options]="type?.productFieldValuesList" name="type1" #type1="ngModel"
+                     optionLabel="name"
+                     optionValue="name"
+                      [(ngModel)]="location.type" [filter]="true" filterBy="name" [showClear]="true"
+                      placeholder="Select a Location Type">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="location">
+                          <div>{{location.type}}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-type pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ type.name }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
                   </div>
-                </div>   
-              </div>
+                </div>
 
-              <div class="col-12 md:col-12 lg:col-12">
-                <h1  class="mb-4 h-color">Origin Escalation</h1>
-              </div>
-              
-           <div class="col-12 md:col-6 lg:col-6">
-                <div class="flex flex-column gap-2">
-                  <label htmlFor="name">Level 1</label>
-                  <input
-                    pInputText
-                    id="name"
-                    aria-describedby="name-help"                    
-                    [(ngModel)]="location.originEscalation![0]"
-                    name="destinationEscalationLevel1"
-                    #destinationEscalationLevel1="ngModel"
-                    required
-                  />
-                  <small id="name-help" class="color-red"  *ngIf="destinationEscalationLevel1.invalid && (destinationEscalationLevel1.dirty || destinationEscalationLevel1.touched)">Level 1 is required.</small> 
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Country</label>
+                    <p-dropdown class="w-full" [options]="country" name="country1" #country1="ngModel"
+                      [(ngModel)]="countryName" (onChange)="getCountryBySelectedFacility()" [filter]="true"
+                      filterBy="name" [showClear]="true" placeholder="Select a Country">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="countryName">
+                          <div>{{countryName.name}}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-country pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ country.name }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
                 </div>
-            </div>
-       
-            <div class="col-12 md:col-6 lg:col-6">
-              <div class="flex flex-column gap-2">
-                <label htmlFor="name">Level 2</label>
-                <input
-                  pInputText
-                  id="name"
-                  aria-describedby="name-help"                    
-                  [(ngModel)]="location.originEscalation![1]"
-                  name="destinationEscalationLevel2"
-                  #destinationEscalationLevel2="ngModel"
-                  required
-                />
-                <small id="name-help" class="color-red"  *ngIf="destinationEscalationLevel2.invalid && (destinationEscalationLevel2.dirty || destinationEscalationLevel2.touched)">Level 2 is required.</small> 
-              </div>
-            </div>
-            <div class="col-12 md:col-6 lg:col-6">
-              <div class="flex flex-column gap-2">
-                <label htmlFor="name">Level 3</label>
-                <input
-                  pInputText
-                  id="name"
-                  aria-describedby="name-help"                    
-                  [(ngModel)]="location.originEscalation![2]"
-                  name="destinationEscalationLevel3"
-                  #destinationEscalationLevel3="ngModel"
-                  required
-                />
-                <small id="name-help" class="color-red"  *ngIf="destinationEscalationLevel3.invalid && (destinationEscalationLevel3.dirty || destinationEscalationLevel3.touched)">Name is required.</small> 
-              </div>
-            </div>
-              <div class="col-12 md:col-12 lg:col-12">
-                  <h1  class="mb-4 h-color">destination Escalation</h1>
-              </div>
-              <div class="col-12 md:col-6 lg:col-6">
-                <div class="flex flex-column gap-2">
-                  <label htmlFor="name">Level 1</label>
-                  <input
-                    pInputText
-                    id="name"
-                    aria-describedby="name-help"                    
-                    [(ngModel)]="location.destinationEscalation[0]"
-                    name="originEscalationLevel1"
-                    #originEscalationLevel1="ngModel"
-                    required
-                  />
-                  <small id="name-help" class="color-red"  *ngIf="originEscalationLevel1.invalid && (originEscalationLevel1.dirty || originEscalationLevel1.touched)">Level 1 is required.</small> 
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Facility</label>
+                    <p-dropdown class="w-full" [options]="facility" name="facility1" #facility1="ngModel"
+                      [(ngModel)]="location.facility" [filter]="true" filterBy="name" [showClear]="true"
+                      placeholder="Select a Facility">
+                      <ng-template pTemplate="selectedItem">
+                        <div class="flex align-items-center gap-2" *ngIf="location">
+                          <div>{{location.facility?.name}}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-facility pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ facility.name }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
                 </div>
-              </div>
-              <div class="col-12 md:col-6 lg:col-6">
-                <div class="flex flex-column gap-2">
-                  <label htmlFor="name">Level 2</label>
-                  <input
-                    pInputText
-                    id="name"
-                    aria-describedby="name-help"                    
-                    [(ngModel)]="location.destinationEscalation[1]"
-                    name="originEscalationLevel2"
-                    #originEscalationLevel2="ngModel"
-                    required
-                  />
-                  <small id="name-help" class="color-red"  *ngIf="originEscalationLevel2.invalid && (originEscalationLevel2.dirty || originEscalationLevel2.touched)">Name is required.</small> 
+
+                <div class="col-12 md:col-12 lg:col-12">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Origin Email</label>
+                    <div class="card p-fluid">
+                      <p-chips #originEmail="ngModel" name="originEmail" [(ngModel)]="location.originEmail"></p-chips>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div class="col-12 md:col-6 lg:col-6">
-                <div class="flex flex-column gap-2">
-                  <label htmlFor="name">Level 3</label>
-                  <input
-                    pInputText
-                    id="name"
-                    aria-describedby="name-help"                    
-                    [(ngModel)]="location.destinationEscalation[2]"
-                    name="originEscalationLevel3"
-                    #originEscalationLevel3="ngModel"
-                    required
-                  />
-                  <small id="name-help" class="color-red"  *ngIf="originEscalationLevel3.invalid && (originEscalationLevel3.dirty || originEscalationLevel3.touched)">Name is required.</small> 
+                <div class="col-12 md:col-12 lg:col-12">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Destination Email</label>
+                    <div class="card p-fluid">
+                      <p-chips #destinationEmail="ngModel" name="destinationEmail"
+                        [(ngModel)]="location.destinationEmail"></p-chips>
+                    </div>
+                  </div>
                 </div>
+
+                <div class="col-12 md:col-12 lg:col-12">
+                  <h1 class="mb-4 h-color">Origin Escalation</h1>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Level 1</label>
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="location.originEscalation![0]"
+                      name="destinationEscalationLevel1" #destinationEscalationLevel1="ngModel" required />
+                    <small id="name-help" class="color-red"
+                      *ngIf="destinationEscalationLevel1.invalid && (destinationEscalationLevel1.dirty || destinationEscalationLevel1.touched)">Level
+                      1 is required.</small>
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Level 2</label>
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="location.originEscalation![1]"
+                      name="destinationEscalationLevel2" #destinationEscalationLevel2="ngModel" required />
+                    <small id="name-help" class="color-red"
+                      *ngIf="destinationEscalationLevel2.invalid && (destinationEscalationLevel2.dirty || destinationEscalationLevel2.touched)">Level
+                      2 is required.</small>
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Level 3</label>
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="location.originEscalation![2]"
+                      name="destinationEscalationLevel3" #destinationEscalationLevel3="ngModel" required />
+                    <small id="name-help" class="color-red"
+                      *ngIf="destinationEscalationLevel3.invalid && (destinationEscalationLevel3.dirty || destinationEscalationLevel3.touched)">Name
+                      is required.</small>
+                  </div>
+                </div>
+                <div class="col-12 md:col-12 lg:col-12">
+                  <h1 class="mb-4 h-color">destination Escalation</h1>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Level 1</label>
+                    <input pInputText id="name" aria-describedby="name-help"
+                      [(ngModel)]="location.destinationEscalation[0]" name="originEscalationLevel1"
+                      #originEscalationLevel1="ngModel" required />
+                    <small id="name-help" class="color-red"
+                      *ngIf="originEscalationLevel1.invalid && (originEscalationLevel1.dirty || originEscalationLevel1.touched)">Level
+                      1 is required.</small>
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Level 2</label>
+                    <input pInputText id="name" aria-describedby="name-help"
+                      [(ngModel)]="location.destinationEscalation[1]" name="originEscalationLevel2"
+                      #originEscalationLevel2="ngModel" required />
+                    <small id="name-help" class="color-red"
+                      *ngIf="originEscalationLevel2.invalid && (originEscalationLevel2.dirty || originEscalationLevel2.touched)">Name
+                      is required.</small>
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Level 3</label>
+                    <input pInputText id="name" aria-describedby="name-help"
+                      [(ngModel)]="location.destinationEscalation[2]" name="originEscalationLevel3"
+                      #originEscalationLevel3="ngModel" required />
+                    <small id="name-help" class="color-red"
+                      *ngIf="originEscalationLevel3.invalid && (originEscalationLevel3.dirty || originEscalationLevel3.touched)">Name
+                      is required.</small>
+                  </div>
+                </div>
+
+
+
               </div>
-           
-             
-                    
-            </div>
-            <div class="flex align-items-center justify-content-end mt-4">
+              <div class="flex align-items-center justify-content-end mt-4">
                 <p-button label="Cancel" class="bg-o-color mr" routerLink="/location" styleClass="p-button-outlined">
                 </p-button>
-                <p-button type="submit" [disabled]="!permissionForm.form.valid"  label="Save" class="bg-b-color ml">
+                <p-button type="submit" [disabled]="!permissionForm.form.valid" label="Save" class="bg-b-color ml">
                 </p-button>
-            </div>
-          </form>
+              </div>
+            </form>
           </div>
         </div>
       </div>

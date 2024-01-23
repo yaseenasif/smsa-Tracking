@@ -1,5 +1,6 @@
 package com.example.CargoTracking.dto;
 
+import com.example.CargoTracking.model.Location;
 import com.example.CargoTracking.model.Roles;
 import lombok.*;
 
@@ -26,5 +27,13 @@ public class UserResponseDto {
     @NotBlank(message = "Role is required")
     private Set<Roles> roles;
 
-    private String location;
+
+    private Set<Location> location;
+
+    private Set<Location> domesticOriginLocations;
+    private Set<Location> domesticDestinationLocations;
+    private Set<Location> internationalAirOriginLocations;
+    private Set<Location> internationalAirDestinationLocations;
+    private Set<Location> internationalRoadOriginLocations;
+    private Set<Location> internationalRoadDestinationLocations;
 }

@@ -7,5 +7,11 @@ export interface User{
     name:string|null|undefined,
     password:string|null|undefined,
     roles:Role[]|null|undefined,
-    locations:Location[]|null|undefined
+    locations:Location[]|null|undefined;
+    domesticOriginLocations:Location[]|null|undefined;
+    domesticDestinationLocations:Location[]|null|undefined;
+    internationalAirOriginLocation:Location[]|null|undefined;
+    internationalAirDestinationLocation:Location[]|null|undefined;
+    internationalRoadOriginLocation:Location[]|null|undefined;
+    internationalRoadDestinationLocation:Location[]|null|undefined;
 }

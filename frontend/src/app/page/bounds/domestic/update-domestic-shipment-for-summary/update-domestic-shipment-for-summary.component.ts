@@ -60,7 +60,9 @@ export class UpdateDomesticShipmentForSummaryComponent {
     attachments: null,
     preAlertNumber: undefined,
     transitTimeTaken: null,
-    preAlertType: null
+    preAlertType: null,
+    originCountry: undefined,
+    destinationCountry: undefined
   };
 
   location!: Location[];

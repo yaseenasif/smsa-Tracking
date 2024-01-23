@@ -26,4 +26,13 @@ public class Country {
     @OneToMany(mappedBy = "country",cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Facility> facilities = new ArrayList<>();
+
+    @Override
+    public String toString() {
+        return "Country{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", status=" + status +
+                '}';
+    }
 }

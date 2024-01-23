@@ -8,6 +8,10 @@ import { CountryService } from '../../country/service/country.service';
 import { Country } from 'src/app/model/Country';
 import { FacilityService } from '../../facility/service/facility.service';
 import { Facility } from 'src/app/model/Facility';
+import { ProductFieldServiceService } from '../../product-field/service/product-field-service.service';
+import { ProductField } from 'src/app/model/ProductField';
+import { Observable, catchError, forkJoin } from 'rxjs';
+
 
 @Component({
   selector: 'app-add-location',
@@ -35,22 +39,44 @@ export class AddLocationComponent implements OnInit {
 
 
 
-  type:any[]=["Domestic","International"];
+  type:ProductField | null | undefined;
 
 
   constructor(private LocationService:LocationService,
               private messageService: MessageService,
               private router: Router,
               private countryService:CountryService,
-              private facilityService:FacilityService) { }
+              private facilityService:FacilityService,
+              private productFieldService:ProductFieldServiceService) { }
 
 
 
   ngOnInit(): void {
     this.items = [{ label: 'Location List',routerLink:'/location'},{ label: 'Add Location'}];
     this.getAllCountry();
-  }
+    this.getAllLocationType();
 
+    const locationType$: Observable<ProductField> = this.getAllLocationType();
+
+    forkJoin([locationType$]).subscribe(
+      ([locationTypeResponse]) => {
+        // Access responses here
+        this.type = locationTypeResponse;
+      }
+    );
+  }
+  getAllLocationType(): Observable<ProductField> {
+    return this.productFieldService.getProductFieldByName("Location_Type").pipe(
+      catchError(error => {
+        if (error.error.body) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+        }
+        throw error;
+      })
+    );
+  }
   getCountryBySelectedFacility(){
     this.getFacilityByCountryId(this.countryName.id);
   }

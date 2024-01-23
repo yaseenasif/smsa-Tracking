@@ -1,6 +1,8 @@
 import { InputNumberInputEvent } from "primeng/inputnumber";
 
 export interface DomesticShipment{
+    originCountry: string|null|undefined,
+    destinationCountry: string|null|undefined,
     originFacility: string|null|undefined,
     originLocation: string|null|undefined,
     refrigeratedTruck: boolean,

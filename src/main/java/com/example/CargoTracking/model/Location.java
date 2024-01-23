@@ -37,4 +37,15 @@ public class Location {
     @JoinColumn(name="facility_id")
     private Facility facility;
 
+    @Override
+    public String toString() {
+        return "Location{" +
+                "id=" + id +
+                ", locationName='" + locationName + '\'' +
+                ", type='" + type + '\'' +
+                ", status=" + status +
+                ", originEmail='" + originEmail + '\'' +
+                ", destinationEmail='" + destinationEmail + '\'' +
+                '}';
+    }
 }

@@ -20,6 +20,8 @@ import java.util.List;
 public class DomesticShipmentDto {
 
     private Long id;
+    private String originCountry;
+    private String destinationCountry;
     private String originFacility;
     private String originLocation;
     private Boolean refrigeratedTruck;
