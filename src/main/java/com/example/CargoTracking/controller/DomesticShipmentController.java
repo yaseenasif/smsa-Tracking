@@ -88,14 +88,14 @@ public class DomesticShipmentController {
 //        SearchCriteriaForSummary searchCriteriaForSummary = new ObjectMapper().readValue(value, SearchCriteriaForSummary.class);
 //        return ResponseEntity.ok(domesticShipmentService.getOutboundShipment(searchCriteriaForSummary,page,size));
 //    }
-//    @GetMapping("/domestic-shipment/inbound")
-//    public ResponseEntity<Page<DomesticShipmentDto>> getInboundShipment(@RequestParam(value = "value",required = false) String value,
-//                                                                        @RequestParam(defaultValue = "0") int page,
-//                                                                        @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
-//        SearchCriteriaForSummary searchCriteriaForSummary = new ObjectMapper().readValue(value, SearchCriteriaForSummary.class);
-//        return ResponseEntity.ok(domesticShipmentService.getInboundShipment(searchCriteriaForSummary,page,size));
-//    }
-//
+    @GetMapping("/domestic-shipment/inbound")
+    public ResponseEntity<Page<DomesticShipmentDto>> getInboundShipment(@RequestParam(value = "value",required = false) String value,
+                                                                        @RequestParam(defaultValue = "0") int page,
+                                                                        @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForSummary searchCriteriaForSummary = new ObjectMapper().readValue(value, SearchCriteriaForSummary.class);
+        return ResponseEntity.ok(domesticShipmentService.getInboundShipment(searchCriteriaForSummary,page,size));
+    }
+
     @PatchMapping("/update-domestic-shipment/{id}")
     public ResponseEntity<DomesticShipmentDto> update(@PathVariable Long id,@RequestBody DomesticShipmentDto domesticShipmentDto){
         return ResponseEntity.ok(domesticShipmentService.updateDomesticShipment(id,domesticShipmentDto));

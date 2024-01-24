@@ -1,62 +1,61 @@
-//package com.example.CargoTracking.service;
-//
-//import com.example.CargoTracking.criteria.SearchCriteriaForInternationalShipment;
-//import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
-//import com.example.CargoTracking.dto.InternationalShipmentDto;
-//import com.example.CargoTracking.exception.RecordNotFoundException;
-//import com.example.CargoTracking.exception.UserNotFoundException;
-//import com.example.CargoTracking.model.*;
-//import com.example.CargoTracking.payload.ApiResponse;
-//import com.example.CargoTracking.repository.FileMetaDataRepository;
-//import com.example.CargoTracking.repository.InternationalShipmentRepository;
-//
-//import com.example.CargoTracking.repository.InternationalShipmentHistoryRepository;
-//import com.example.CargoTracking.repository.UserRepository;
-//import com.example.CargoTracking.specification.InternationalShipmentSpecification;
-//import com.example.CargoTracking.specification.InternationalSummarySpecification;
-//import org.modelmapper.ModelMapper;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.domain.Page;
-//import org.springframework.data.domain.PageRequest;
-//import org.springframework.data.domain.Pageable;
-//import org.springframework.data.domain.Sort;
-//import org.springframework.data.jpa.domain.Specification;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.scheduling.annotation.Scheduled;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.stereotype.Service;
-//import org.springframework.web.multipart.MultipartFile;
-//
-//import javax.transaction.Transactional;
-//import java.io.IOException;
-//import java.time.Duration;
-//import java.time.LocalDate;
-//import java.time.LocalDateTime;
-//import java.util.*;
-//import java.util.concurrent.CompletableFuture;
-//import java.util.stream.Collectors;
-//
-//@Service
-//public class InternationalShipmentService {
-//    @Autowired
-//    InternationalShipmentRepository internationalShipmentRepository;
-//    @Autowired
-//    ModelMapper modelMapper;
-//    @Autowired
-//    UserRepository userRepository;
-//    @Autowired
-//    InternationalShipmentHistoryRepository internationalShipmentHistoryRepository;
-//    @Autowired
-//    EmailService emailService;
-//    @Autowired
-//    StorageService storageService;
-//    @Autowired
-//    FileMetaDataRepository fileMetaDataRepository;
-//    @Autowired
-//    LocationService locationService;
-//
-//
+package com.example.CargoTracking.service;
+
+import com.example.CargoTracking.criteria.SearchCriteriaForInternationalShipment;
+import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
+import com.example.CargoTracking.dto.InternationalShipmentDto;
+import com.example.CargoTracking.exception.RecordNotFoundException;
+import com.example.CargoTracking.exception.UserNotFoundException;
+import com.example.CargoTracking.model.*;
+import com.example.CargoTracking.payload.ApiResponse;
+import com.example.CargoTracking.repository.*;
+
+import com.example.CargoTracking.specification.InternationalShipmentSpecification;
+import com.example.CargoTracking.specification.InternationalSummarySpecification;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.transaction.Transactional;
+import java.io.IOException;
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+
+@Service
+public class InternationalShipmentService {
+    @Autowired
+    InternationalShipmentRepository internationalShipmentRepository;
+    @Autowired
+    ModelMapper modelMapper;
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    InternationalShipmentHistoryRepository internationalShipmentHistoryRepository;
+    @Autowired
+    EmailService emailService;
+    @Autowired
+    StorageService storageService;
+    @Autowired
+    FileMetaDataRepository fileMetaDataRepository;
+    @Autowired
+    LocationService locationService;
+    @Autowired
+    RoleRepository roleRepository;
+
+
 //    @Transactional
 //    public InternationalShipmentDto addShipment(InternationalShipmentDto internationalShipmentDto) {
 //        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -163,26 +162,53 @@
 //        }
 //        throw new UserNotFoundException(String.format("User not found while creating international shipment"));
 //    }
-//
-//    private void sendEmailsAsync(List<String> emails, String subject, String template, Map<String, Object> model) {
-//        CompletableFuture.runAsync(() -> {
-//            for (String to : emails) {
-//                emailService.sendHtmlEmail(to, subject, template, model);
-//            }
-//        });
-//    }
-//
-//    public List<InternationalShipmentDto> getAll() {
-//        return toDtoList(internationalShipmentRepository.findAll());
-//    }
-//
-//    public Page<InternationalShipmentDto>   getAllByUserAndForAir(SearchCriteriaForInternationalShipment searchCriteriaForInternationalSummary, int page, int size) {
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        if(principal instanceof UserDetails) {
-//            Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
-//
-//            String username = ((UserDetails) principal).getUsername();
-//            User user = userRepository.findByEmail(username);
+
+    private void sendEmailsAsync(List<String> emails, String subject, String template, Map<String, Object> model) {
+        CompletableFuture.runAsync(() -> {
+            for (String to : emails) {
+                emailService.sendHtmlEmail(to, subject, template, model);
+            }
+        });
+    }
+
+    public List<InternationalShipmentDto> getAll() {
+        return toDtoList(internationalShipmentRepository.findAll());
+    }
+
+    public Page<InternationalShipmentDto>   getAllByUserAndForAir(SearchCriteriaForInternationalShipment searchCriteriaForInternationalSummary, int page, int size) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof UserDetails) {
+            Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+
+            String username = ((UserDetails) principal).getUsername();
+            User user = userRepository.findByEmail(username);
+            String role ="";
+            for (Roles roleList:user.getRoles()) {
+              Optional<Roles> roles = Optional.ofNullable(roleRepository
+                    .findByName(roleList.getName())
+                    .orElseThrow(() -> new RecordNotFoundException("Role is incorrect")));
+
+              role = roles.get().getName();
+            }
+            if(role.equals("ROLE_ADMIN")){
+                searchCriteriaForInternationalSummary.setUser(null);
+                searchCriteriaForInternationalSummary.setType("By Air");
+
+                Specification<InternationalShipment> internationalShipmentSpecification= InternationalShipmentSpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
+                Page<InternationalShipment> InternationalShipmentPage = internationalShipmentRepository.findAll(internationalShipmentSpecification,pageable);
+                Page<InternationalShipmentDto> internationalShipmentDtoPage = InternationalShipmentPage.map(entity->toDto(entity));
+
+                return internationalShipmentDtoPage;
+            }else{
+              searchCriteriaForInternationalSummary.setUser(user);
+              searchCriteriaForInternationalSummary.setType("By Air");
+
+              Specification<InternationalShipment> internationalShipmentSpecification= InternationalShipmentSpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
+              Page<InternationalShipment> InternationalShipmentPage = internationalShipmentRepository.findAll(internationalShipmentSpecification,pageable);
+              Page<InternationalShipmentDto> internationalShipmentDtoPage = InternationalShipmentPage.map(entity->toDto(entity));
+
+              return internationalShipmentDtoPage;
+            }
 //            if((user.getLocation() == null) &&
 //                    (searchCriteriaForInternationalSummary.getFromDate().isEmpty() && searchCriteriaForInternationalSummary.getToDate().isEmpty() &&
 //                            searchCriteriaForInternationalSummary.getOrigin().isEmpty() && searchCriteriaForInternationalSummary.getDestination().isEmpty() &&
@@ -214,14 +240,10 @@
 //                return internationalShipmentDtoPage;
 //
 //            }
-////            if(user.getLocation() == null){
-////                return toDtoList(internationalShipmentRepository.findAllForAir());
-////            }
-////            return toDtoList(internationalShipmentRepository.findAllByCreatedByForAir(user));
-//        }
-//        throw new UserNotFoundException(String.format("User not found"));
-//    }
-//
+        }
+        throw new UserNotFoundException(String.format("User not found"));
+    }
+
 //    public Page<InternationalShipmentDto> getAllByUserAndForRoad(SearchCriteriaForInternationalShipment searchCriteriaForInternationalSummary, int page, int size) {
 //        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 //        if(principal instanceof UserDetails) {
@@ -396,19 +418,19 @@
 //            Collections.emptyList();
 //        }
 //    }
-//
-//    private List<InternationalShipmentDto> toDtoList(List<InternationalShipment> internationalShipmentList){
-//        return internationalShipmentList.stream().map(this::toDto).collect(Collectors.toList());
-//    }
-//
-//    private InternationalShipment toEntity(InternationalShipmentDto internationalShipmentDto){
-//        return modelMapper.map(internationalShipmentDto,InternationalShipment.class);
-//    }
-//
-//    private InternationalShipmentDto toDto(InternationalShipment internationalShipment){
-//        return modelMapper.map(internationalShipment,InternationalShipmentDto.class);
-//    }
-//
+
+    private List<InternationalShipmentDto> toDtoList(List<InternationalShipment> internationalShipmentList){
+        return internationalShipmentList.stream().map(this::toDto).collect(Collectors.toList());
+    }
+
+    private InternationalShipment toEntity(InternationalShipmentDto internationalShipmentDto){
+        return modelMapper.map(internationalShipmentDto,InternationalShipment.class);
+    }
+
+    private InternationalShipmentDto toDto(InternationalShipment internationalShipment){
+        return modelMapper.map(internationalShipment,InternationalShipmentDto.class);
+    }
+
 //    public Page<InternationalShipmentDto> getInternationalOutBoundSummeryForAir(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary,
 //                                                                                int page, int size) {
 //        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -659,32 +681,32 @@
 //            throw new RecordNotFoundException(String.format("International shipment Not Found By This Id %d",id));
 //        }
 //    }
-//
-//    public ApiResponse addAttachment(Long id,String attachementType, MultipartFile file) throws IOException {
-//        Optional<InternationalShipment> internationalShipment = internationalShipmentRepository.findById(id);
-//        FileMetaData byFileName = fileMetaDataRepository.findByFileName(file.getOriginalFilename());
-//        if(byFileName == null){
-//            String fileUrl = storageService.uploadFile(file.getBytes(), file.getOriginalFilename());
-//            String originalFileName = file.getOriginalFilename();
-//            String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
-//            FileMetaData fileMetaData = new FileMetaData();
-//            fileMetaData.setFileUrl(fileUrl);
-//            fileMetaData.setFileExtension(fileExtension);
-//            fileMetaData.setFileName(file.getOriginalFilename());
-//            fileMetaData.setAttachmentType(attachementType);
-//            fileMetaData.setInternationalShipment(internationalShipment.get());
-//            fileMetaDataRepository.save(fileMetaData);
-//            return ApiResponse.builder()
-//                    .message("File uploaded to the server successfully")
-//                    .statusCode(HttpStatus.OK.value())
-//                    .result(Collections.emptyList())
-//                    .build();
-//        }else{
-//            throw new RecordNotFoundException(String.format("File already exists on the bucket with this name"));
-//        }
-//
-//    }
-//
+
+    public ApiResponse addAttachment(Long id,String attachementType, MultipartFile file) throws IOException {
+        Optional<InternationalShipment> internationalShipment = internationalShipmentRepository.findById(id);
+        FileMetaData byFileName = fileMetaDataRepository.findByFileName(file.getOriginalFilename());
+        if(byFileName == null){
+            String fileUrl = storageService.uploadFile(file.getBytes(), file.getOriginalFilename());
+            String originalFileName = file.getOriginalFilename();
+            String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+            FileMetaData fileMetaData = new FileMetaData();
+            fileMetaData.setFileUrl(fileUrl);
+            fileMetaData.setFileExtension(fileExtension);
+            fileMetaData.setFileName(file.getOriginalFilename());
+            fileMetaData.setAttachmentType(attachementType);
+            fileMetaData.setInternationalShipment(internationalShipment.get());
+            fileMetaDataRepository.save(fileMetaData);
+            return ApiResponse.builder()
+                    .message("File uploaded to the server successfully")
+                    .statusCode(HttpStatus.OK.value())
+                    .result(Collections.emptyList())
+                    .build();
+        }else{
+            throw new RecordNotFoundException(String.format("File already exists on the bucket with this name"));
+        }
+
+    }
+
 //    public ApiResponse deleteInternationalShipment(Long id) {
 //        Optional<InternationalShipment> internationalShipment = internationalShipmentRepository.findById(id);
 //        if(internationalShipment.isPresent()){
@@ -706,4 +728,4 @@
 //        }
 //        throw new RecordNotFoundException(String.format("Domestic Shipment not found by this id => %d",id));
 //    }
-//}
+}

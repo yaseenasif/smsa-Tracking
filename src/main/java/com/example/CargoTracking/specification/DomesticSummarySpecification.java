@@ -26,7 +26,9 @@ public class DomesticSummarySpecification {
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("originLocation")), "%" + searchCriteriaForSummary.getOrigin() + "%"),
                             criteriaBuilder.equal(root.get("activeStatus"),true),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteriaForSummary.getRouteNumber() + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationLocation")), "%" + searchCriteriaForSummary.getDestination() + "%")
+//                            criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationLocation")), "%" + searchCriteriaForSummary.getDestination() + "%")
+                            root.get("destinationLocation").in(searchCriteriaForSummary.getDestinations())
+
                     );
         }
 
@@ -40,7 +42,7 @@ public class DomesticSummarySpecification {
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("originLocation")), "%" + searchCriteriaForSummary.getOrigin() + "%"),
                         criteriaBuilder.equal(root.get("activeStatus"),true),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteriaForSummary.getRouteNumber() + "%"),
-                        criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationLocation")), "%" + searchCriteriaForSummary.getDestination() + "%")
+                        root.get("destinationLocation").in(searchCriteriaForSummary.getDestinations())
                         );
     }
 }

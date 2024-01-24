@@ -268,7 +268,7 @@ public class ReportAndStatusService {
     public List<DomesticPerformance> findDomesticPerformance(SearchCriteriaForSummary searchCriteriaForSummary) {
         List<DomesticPerformance> domesticPerformanceList = new ArrayList<>();
         List<DomesticShipment> domesticShipmentList = new ArrayList<>();
-        if(searchCriteriaForSummary.getDestination() == null && searchCriteriaForSummary.getOrigin() == null
+        if(searchCriteriaForSummary.getDestinations() == null && searchCriteriaForSummary.getOrigin() == null
                 && searchCriteriaForSummary.getToDate() == null && searchCriteriaForSummary.getFromDate() == null
                 && searchCriteriaForSummary.getStatus() ==null && searchCriteriaForSummary.getRouteNumber() == null){
              domesticShipmentList = domesticShipmentRepository.findAllByActiveStatusMock(true);

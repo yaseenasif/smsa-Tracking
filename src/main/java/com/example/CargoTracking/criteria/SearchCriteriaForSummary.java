@@ -3,6 +3,7 @@ package com.example.CargoTracking.criteria;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -16,6 +17,6 @@ public class SearchCriteriaForSummary {
     private String toDate;
     private String status;
     private String origin;
-    private String destination;
+    private Set<String> destinations;
     private String routeNumber;
 }
