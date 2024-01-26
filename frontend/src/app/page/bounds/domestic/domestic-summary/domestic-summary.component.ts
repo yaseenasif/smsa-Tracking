@@ -54,13 +54,14 @@ export class DomesticSummaryComponent {
   onBoundChange() {
   this.clearSearch();
   this.domesticShipment=[];
-    if (this.selectedBound && this.selectedBound.bound === "In bound") {
-      this.getInboundSummary(this.search, 0, 10);
-    } else if (this.selectedBound && this.selectedBound.bound === "Out bound") {
-      this.getOutboundSummary(this.search, 0, 10);
-    }else{
-      this.getAllShipmentDomestic(this.search, 0, 10)
-    }
+  this.getInboundSummary(this.search, 0, 10);
+    // if (this.selectedBound && this.selectedBound.bound === "In bound") {
+    //   this.getInboundSummary(this.search, 0, 10);
+    // } else if (this.selectedBound && this.selectedBound.bound === "Out bound") {
+    //   this.getOutboundSummary(this.search, 0, 10);
+    // }else{
+    //   this.getAllShipmentDomestic(this.search, 0, 10)
+    // }
   }
 
    clearSearch(){
@@ -78,19 +79,21 @@ export class DomesticSummaryComponent {
   ngOnInit() {
     this.getRole()
     this.getAllShipmentStatus();
-    this.getAllShipmentDomestic(this.search, 0, 10);
+    // this.getAllShipmentDomestic(this.search, 0, 10);
+    //new
+    this.getInboundSummary(this.search, 0, 10);
     this.items = [{ label: 'Domestic Summary' }];
-    this.bound = [
-      {
-        bound: "All"
-      },
-      {
-        bound: "In bound"
-      },
-      {
-        bound: "Out bound"
-      }
-    ]
+    // this.bound = [
+    //   {
+    //     bound: "All"
+    //   },
+    //   {
+    //     bound: "In bound"
+    //   },
+    //   {
+    //     bound: "Out bound"
+    //   }
+    // ]
   }
 
   getRole() {
@@ -177,29 +180,32 @@ export class DomesticSummaryComponent {
     this.domesticShipment=[]
     this.search.fromDate=this.datePipe.transform(this.search.fromDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.search.fromDate, 'yyyy-MM-dd'))!:"";
     this.search.toDate=this.datePipe.transform(this.search.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.search.toDate, 'yyyy-MM-dd'))!:"";
-
-    if (this.selectedBound.bound === "In bound") {
-      this.getInboundSummary(this.search, 0, 10);
-    }
-    else if(this.selectedBound.bound === "Out bound"){
-      this.getOutboundSummary(this.search, 0, 10);
-    }else{
-      this.getAllShipmentDomestic(this.search, 0, 10)
-    }
+   //new
+    this.getInboundSummary(this.search, 0, 10);
+    // if (this.selectedBound.bound === "In bound") {
+    //   this.getInboundSummary(this.search, 0, 10);
+    // }
+    // else if(this.selectedBound.bound === "Out bound"){
+    //   this.getOutboundSummary(this.search, 0, 10);
+    // }else{
+    //   this.getAllShipmentDomestic(this.search, 0, 10)
+    // }
   }
 
   onPageChange(event: any) {
     this.page = event.page;
     this.size = event.rows;
-    if (this.selectedBound.bound === "In bound") {
+    //new
     this.getInboundSummary(this.search, this.page, this.size);
-    }
-    else if(this.selectedBound.bound === "Out bound"){
-    this.getOutboundSummary(this.search, this.page, this.size)
-    }
-    else{
-      this.getAllShipmentDomestic(this.search,this.page, this.size)
-    }
+    // if (this.selectedBound.bound === "In bound") {
+    // this.getInboundSummary(this.search, this.page, this.size);
+    // }
+    // else if(this.selectedBound.bound === "Out bound"){
+    // this.getOutboundSummary(this.search, this.page, this.size)
+    // }
+    // else{
+    //   this.getAllShipmentDomestic(this.search,this.page, this.size)
+    // }
   }
 }
 

@@ -155,7 +155,7 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Referigirated Truck</label>
+                    <label htmlFor="name">Vehicle</label>
                     <p-inputSwitch
                       #referigiratedTruck="ngModel"
                       name="referigiratedTruck"
@@ -302,19 +302,23 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Weight</label>
+                    <label htmlFor="name">Weight in kg</label>
                     <input
                       pInputText
                       id="name"
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.weight"
+                      pattern="[0-9]+"
                       #weight="ngModel"
                       required
                       name="weight"
                     />
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
+                    <small
+                    class="color-red error"
+                    *ngIf="weight.invalid && (weight.dirty || weight.touched )&&weight?.errors?.['pattern']"
+                  >
+                    only number is allowed
+                  </small>
                   </div>
                 </div>
 
@@ -360,11 +364,10 @@
                   </div>
                 </div>
 
-                <div class="col-12 md:col-6 lg:col-4">
+                <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">ETD</label>
-                    <!-- <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.etd"
-                      #etd="ngModel" required name="etd" /> -->
+                  
                     <p-calendar
                       [(ngModel)]="domesticShipment.etd"
                       #etd="ngModel"
@@ -375,17 +378,14 @@
                       [selectOtherMonths]="true"                    
                       [minDate]="minDate"                    
                     ></p-calendar>
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
+                   
                   </div>
-                </div>
+                </div> -->
 
-                <div class="col-12 md:col-6 lg:col-4">
+                <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">ETA</label>
-                    <!-- <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.eta"
-                      #eta="ngModel" required name="eta" /> -->
+               
                     <p-calendar
                       [(ngModel)]="domesticShipment.eta"
                       #eta="ngModel"              
@@ -397,11 +397,9 @@
                       [minDate]="minDate"  
                     ></p-calendar>
 
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
+               
                   </div>
-                </div>
+                </div> -->
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
@@ -618,7 +616,7 @@
                       > -->
                   </div>
                 </div>
-                <div class="col-12 md:col-6 lg:col-4">
+                <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Seal Number</label>
                     <input
@@ -629,12 +627,12 @@
                       #sealNumber="ngModel"
                       required
                       name="sealNumber"
-                    />
+                    /> -->
                     <!-- <small id="name-help"
                         >{{name}}</small
                       > -->
-                  </div>
-                </div>
+                  <!-- </div>
+                </div> -->
                 <!-- 8 -->
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">

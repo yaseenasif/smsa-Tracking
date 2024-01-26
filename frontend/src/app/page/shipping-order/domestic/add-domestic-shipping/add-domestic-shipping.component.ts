@@ -83,9 +83,6 @@ export class AddDomesticShippingComponent {
   originFacility!: Facility[];
   destinationFacility!: Facility[];
   
-  selectedOriginFacility!: originFacility;
-  selectedDestinationFacility!: originFacility;
-
   vehicleTypes!: VehicleType[];
   selectedVehicleTypes!: VehicleType;
 
@@ -109,10 +106,10 @@ export class AddDomesticShippingComponent {
     private productFieldService: ProductFieldServiceService,
     private userService:UserService
   ) { }
-  name!: string;
-  checked!: boolean;
-  size = 100000
-  uploadedFiles: any[] = [];
+  // name!: string;
+  // checked!: boolean;
+  // size = 100000
+  // uploadedFiles: any[] = [];
   fromDate: any;
   selectedDriver: Driver | null = null;
   user!:User;
@@ -120,15 +117,15 @@ export class AddDomesticShippingComponent {
   flag = false;
 
 
-  onUpload(event: any) {
+  // onUpload(event: any) {
 
-  }
+  // }
 
-  onUpload1(event: any) {
-    for (let file of event.files) {
-      this.uploadedFiles.push(file);
-    }
-  }
+  // onUpload1(event: any) {
+  //   for (let file of event.files) {
+  //     this.uploadedFiles.push(file);
+  //   }
+  // }
 
   ngOnInit(): void {
 
@@ -158,12 +155,10 @@ export class AddDomesticShippingComponent {
         res.domesticDestinationLocations?.forEach((el)=>{
           return this.destinationCountry.push(el.facility?.country!);
         })
-        this.destinationCountry = this.originCountry.filter((obj, index, arr) =>
+        this.destinationCountry = this.destinationCountry.filter((obj, index, arr) =>
         index === arr.findIndex((item:Country) => item.id === obj.id)
         );
-        console.log(this.originCountry);
-        console.log(this.destinationCountry);
-        console.log(this.user);
+        
         
       }, error => {
         if (error.error.body) {
@@ -291,8 +286,24 @@ export class AddDomesticShippingComponent {
    this.domesticShipment.destinationCountry=country;
    this.originFacility=[]
    this.destinationFacility=[]
-   let orgFacility= this.user.domesticOriginLocations?.filter((obj => obj.facility?.country?.name === country));
-   let desFacility= this.user.domesticDestinationLocations?.filter((obj => obj.facility?.country?.name === country));
+   let orgFacility=this.user.domesticOriginLocations!.filter(
+    (location, index, self) =>
+      location?.facility?.country?.name == country &&
+      index ===
+        self.findIndex(
+          (l) =>
+            l.facility!.id === location.facility!.id
+        )
+  );
+  let desFacility=this.user.domesticDestinationLocations!.filter(
+    (location, index, self) =>
+      location?.facility?.country?.name == country &&
+      index ===
+        self.findIndex(
+          (l) =>
+            l.facility!.id === location.facility!.id
+        )
+  );
    orgFacility?.forEach((el)=>{
     return this.originFacility.push(el?.facility!);
    })
@@ -315,14 +326,30 @@ export class AddDomesticShippingComponent {
     this.originFacility=[]
     this.destinationFacility=[]
    
-    let orgFacility= this.user.domesticOriginLocations?.filter((obj => obj.facility?.country?.name === country));
-    let desFacility= this.user.domesticDestinationLocations?.filter((obj => obj.facility?.country?.name === country));
-    orgFacility?.forEach((el)=>{
-     return this.originFacility.push(el?.facility!);
-    })
-    desFacility?.forEach((el)=>{
-     return this.destinationFacility.push(el?.facility!);
-    })
+    let orgFacility=this.user.domesticOriginLocations!.filter(
+      (location, index, self) =>
+        location?.facility?.country?.name == country &&
+        index ===
+          self.findIndex(
+            (l) =>
+              l.facility!.id === location.facility!.id
+          )
+    );
+    let desFacility=this.user.domesticDestinationLocations!.filter(
+      (location, index, self) =>
+        location?.facility?.country?.name == country &&
+        index ===
+          self.findIndex(
+            (l) =>
+              l.facility!.id === location.facility!.id
+          )
+    );
+     orgFacility?.forEach((el)=>{
+      return this.originFacility.push(el?.facility!);
+     })
+     desFacility?.forEach((el)=>{
+      return this.destinationFacility.push(el?.facility!);
+     })
    }else{
     this.domesticShipment.destinationCountry=this.domesticShipment.originCountry
     this.messageService.add({ severity: 'error', summary: 'Error', detail: 'User not have country:"'+country+'" in origen country' });
@@ -338,9 +365,6 @@ export class AddDomesticShippingComponent {
 }
 
 
-interface originFacility {
-  originFacility: string
-}
 
 
 
