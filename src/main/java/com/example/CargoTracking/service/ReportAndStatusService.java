@@ -39,7 +39,7 @@ public class ReportAndStatusService {
     public List<InternationalAirReportStatusDto> findInternationalAirReportStatus(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         List<InternationalAirReportStatusDto> internationalAirReportStatusDtoList = new ArrayList<>();
         List<InternationalShipment> internationalShipmentsList = new ArrayList<>();
-        if(searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
+        if(searchCriteriaForInternationalSummary.getDestinations() == null && searchCriteriaForInternationalSummary.getOrigin() == null
                 && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
                 && searchCriteriaForInternationalSummary.getStatus() ==null && searchCriteriaForInternationalSummary.getRouteNumber() == null){
              internationalShipmentsList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Air");
@@ -115,7 +115,7 @@ public class ReportAndStatusService {
     public List<InternationalRoadReportStatusDto> findInternationalRoadReportStatus(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         List<InternationalRoadReportStatusDto> internationalRoadReportStatusDtoList = new ArrayList<>();
         List<InternationalShipment> internationalShipmentList = new ArrayList<>();
-        if(searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
+        if(searchCriteriaForInternationalSummary.getDestinations() == null && searchCriteriaForInternationalSummary.getOrigin() == null
                 && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
                 && searchCriteriaForInternationalSummary.getStatus() ==null && searchCriteriaForInternationalSummary.getRouteNumber() == null){
             internationalShipmentList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Road");
@@ -182,7 +182,7 @@ public class ReportAndStatusService {
     public List<InternationalAirReportPerformance> findInternationalAirReportPerformance(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         List<InternationalAirReportPerformance> internationalAirReportPerformanceList = new ArrayList<>();
         List<InternationalShipment> internationalShipmentList = new ArrayList<>();
-        if(searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
+        if(searchCriteriaForInternationalSummary.getDestinations() == null && searchCriteriaForInternationalSummary.getOrigin() == null
                 && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
                 && searchCriteriaForInternationalSummary.getStatus() ==null && searchCriteriaForInternationalSummary.getRouteNumber() == null){
             internationalShipmentList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Air");
@@ -225,7 +225,7 @@ public class ReportAndStatusService {
     public List<InternationalRoadReportPerformance> findInternationalRoadReportPerformance(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         List<InternationalRoadReportPerformance> internationalRoadReportPerformanceList = new ArrayList<>();
         List<InternationalShipment> internationalShipmentList = new ArrayList<>();
-        if(searchCriteriaForInternationalSummary.getDestination() == null && searchCriteriaForInternationalSummary.getOrigin() == null
+        if(searchCriteriaForInternationalSummary.getDestinations() == null && searchCriteriaForInternationalSummary.getOrigin() == null
                 && searchCriteriaForInternationalSummary.getToDate() == null && searchCriteriaForInternationalSummary.getFromDate() == null
                 && searchCriteriaForInternationalSummary.getStatus() ==null && searchCriteriaForInternationalSummary.getRouteNumber() == null){
             internationalShipmentList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Road");

@@ -192,35 +192,6 @@ public class DomesticShipmentService {
 
                 return domesticShipmentDtoPage;
             }
-//            if ((user.getLocation() == null) &&
-//                    (searchCriteriaForDomesticShipment.getFromDate().isEmpty() && searchCriteriaForDomesticShipment.getToDate().isEmpty() &&
-//                            searchCriteriaForDomesticShipment.getOrigin().isEmpty() && searchCriteriaForDomesticShipment.getDestination().isEmpty() &&
-//                            searchCriteriaForDomesticShipment.getStatus().isEmpty() && searchCriteriaForDomesticShipment.getRouteNumber().isEmpty())) {
-//
-//                Page<DomesticShipment> domesticShipmentPage = domesticShipmentRepository.findAllByActiveStatus(pageable,
-//                        searchCriteriaForDomesticShipment.isActiveStatus());
-//                Page<DomesticShipmentDto> domesticShipmentDtoPage = domesticShipmentPage.map(entity -> toDto(entity));
-//                return domesticShipmentDtoPage;
-//
-//            }
-//            if ((user.getLocation() == null) &&
-//                    ((!searchCriteriaForDomesticShipment.getFromDate().isEmpty() || !searchCriteriaForDomesticShipment.getToDate().isEmpty() ||
-//                            !searchCriteriaForDomesticShipment.getOrigin().isEmpty() || !searchCriteriaForDomesticShipment.getDestination().isEmpty() ||
-//                            !searchCriteriaForDomesticShipment.getStatus().isEmpty() || !searchCriteriaForDomesticShipment.getRouteNumber().isEmpty()))) {
-//                searchCriteriaForDomesticShipment.setUser(null);
-//                Specification<DomesticShipment> domesticShipmentSpecification = DomesticShipmentSpecification.getSearchSpecification(searchCriteriaForDomesticShipment);
-//                Page<DomesticShipment> domesticShipmentPage = domesticShipmentRepository.findAll(domesticShipmentSpecification, pageable);
-//                Page<DomesticShipmentDto> domesticShipmentDtoPage = domesticShipmentPage.map(entity -> toDto(entity));
-//
-//                return domesticShipmentDtoPage;
-//            } else {
-//                searchCriteriaForDomesticShipment.setUser(user);
-//                Specification<DomesticShipment> domesticShipmentSpecification = DomesticShipmentSpecification.getSearchSpecification(searchCriteriaForDomesticShipment);
-//                Page<DomesticShipment> domesticShipmentPage = domesticShipmentRepository.findAll(domesticShipmentSpecification, pageable);
-//                Page<DomesticShipmentDto> domesticShipmentDtoPage = domesticShipmentPage.map(entity -> toDto(entity));
-//                return domesticShipmentDtoPage;
-//
-//            }
         }
         throw new UserNotFoundException(String.format("User not found"));
 
@@ -286,10 +257,11 @@ public class DomesticShipmentService {
             if(searchCriteriaForSummary.getDestinations().isEmpty()){
                 Set<Location> userLocations = user.getLocations();
                 if (!userLocations.isEmpty()) {
-                    Set<String> locationNames = userLocations.stream()
+                    Set<String> domesticLocationNamePresentInUser = userLocations.stream()
+                            .filter(location -> "Domestic".equals(location.getType()))
                             .map(Location::getLocationName)
                             .collect(Collectors.toSet());
-                    searchCriteriaForSummary.setDestinations(locationNames);
+                    searchCriteriaForSummary.setDestinations(domesticLocationNamePresentInUser);
                 }else{
                     searchCriteriaForSummary.setDestinations(Collections.emptySet());
                 }

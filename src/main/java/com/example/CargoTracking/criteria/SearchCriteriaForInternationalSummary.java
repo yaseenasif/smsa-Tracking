@@ -2,6 +2,8 @@ package com.example.CargoTracking.criteria;
 
 import lombok.*;
 
+import java.util.Set;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,7 +16,7 @@ public class SearchCriteriaForInternationalSummary {
     private String toDate;
     private String status;
     private String origin;
-    private String destination;
+    private Set<String> destinations;
     private String type;
     private String routeNumber;
 }
