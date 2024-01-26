@@ -27,7 +27,7 @@ public class InternationalSummarySpecification {
                     criteriaBuilder.and(
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteriaForInternationalSummary.getStatus() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("originCountry")), "%" + searchCriteriaForInternationalSummary.getOrigin() + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationCountry")), "%" + searchCriteriaForInternationalSummary.getDestination() + "%"),
+                            root.get("destinationCountry").in(searchCriteriaForInternationalSummary.getDestinations()),
                             criteriaBuilder.equal(root.get("activeStatus"),true),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteriaForInternationalSummary.getRouteNumber() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("type")), "%" + searchCriteriaForInternationalSummary.getType() + "%")
@@ -42,7 +42,7 @@ public class InternationalSummarySpecification {
                         criteriaBuilder.between(root.get("createdAt"), localFromDate, localToDate),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteriaForInternationalSummary.getStatus() + "%"),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("originCountry")), "%" + searchCriteriaForInternationalSummary.getOrigin() + "%"),
-                        criteriaBuilder.like(criteriaBuilder.lower(root.get("destinationCountry")), "%" + searchCriteriaForInternationalSummary.getDestination() + "%"),
+                        root.get("destinationCountry").in(searchCriteriaForInternationalSummary.getDestinations()),
                         criteriaBuilder.equal(root.get("activeStatus"),true),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteriaForInternationalSummary.getRouteNumber() + "%"),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("type")), "%" + searchCriteriaForInternationalSummary.getType() + "%")
