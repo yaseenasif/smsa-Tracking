@@ -33,7 +33,7 @@ export class InternationalSummaryByRoadComponent {
     toDate: "",
     status: "",
     origin: "",
-    destination: "",
+    destinations: [""],
     type: "",
     routeNumber:""
   }
@@ -57,19 +57,20 @@ export class InternationalSummaryByRoadComponent {
     this.getRole()
 
     this.items = [{ label: 'International Summary By Road' }];
-    this.bound = [
-      {
-        bound: "In bound"
-      },
-      {
-        bound: "Out bound"
-      },
-      {
-        bound: "All"
-      }
-    ]
+    // this.bound = [
+    //   {
+    //     bound: "In bound"
+    //   },
+    //   {
+    //     bound: "Out bound"
+    //   },
+    //   {
+    //     bound: "All"
+    //   }
+    // ]
     this.getAllShipmentStatus();
-    this.getAllInternationalShipmentByRoad(this.search, 0, 10);
+    this.getInboundSummary(this.search, 0, 10);
+    // this.getAllInternationalShipmentByRoad(this.search, 0, 10);
   }
   getRole() {
     const token = localStorage.getItem('accessToken');
@@ -82,15 +83,15 @@ export class InternationalSummaryByRoadComponent {
   }
 
   onBoundChange() {
-    this.internationalShipmentByRoad=[];
-  this.clear();
-    if (this.selectedBound && this.selectedBound.bound === "In bound") {
-      this.getInboundSummary(this.search, 0, 10);
-    } else if (this.selectedBound && this.selectedBound.bound === "Out bound") {
-      this.getOutboundSummary(this.search, 0, 10);
-    }else{
-      this.getAllInternationalShipmentByRoad(this.search, 0, 10);
-    }
+  //   this.internationalShipmentByRoad=[];
+  // this.clear();
+  //   if (this.selectedBound && this.selectedBound.bound === "In bound") {
+  //     this.getInboundSummary(this.search, 0, 10);
+  //   } else if (this.selectedBound && this.selectedBound.bound === "Out bound") {
+  //     this.getOutboundSummary(this.search, 0, 10);
+  //   }else{
+  //     this.getAllInternationalShipmentByRoad(this.search, 0, 10);
+  //   }
   }
   clear(){
     this.search = {
@@ -98,7 +99,7 @@ export class InternationalSummaryByRoadComponent {
       toDate: "",
       status: "",
       origin: "",
-      destination: "",
+      destinations: [""],
       type: "",
       routeNumber:""
     }
@@ -113,6 +114,7 @@ export class InternationalSummaryByRoadComponent {
   }
 
   getInboundSummary(obj: InternationalSummarySearch, page: number, size: number) {
+    this.internationalShipmentByRoad=[]
     this.summaryService.getInboundSummaryForRoad(obj, page, size).subscribe((res: any) => {
       this.internationalShipmentByRoad = res.content;
       this.paginationRes = res;
@@ -171,26 +173,28 @@ export class InternationalSummaryByRoadComponent {
     this.search.fromDate=this.datePipe.transform(this.search.fromDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.search.fromDate, 'yyyy-MM-dd'))!:"";
     this.search.toDate=this.datePipe.transform(this.search.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.search.toDate, 'yyyy-MM-dd'))!:"";
 
-    if (this.selectedBound.bound === "In bound") {
-      this.getInboundSummary(this.search, 0, 10);
-    } else if(this.selectedBound.bound === "Out bound"){
-      this.getOutboundSummary(this.search, 0, 10);
-    }else{
-      this.getAllInternationalShipmentByRoad(this.search, 0, 10);
-    }
+    this.getInboundSummary(this.search, 0, 10);
+    // if (this.selectedBound.bound === "In bound") {
+    //   this.getInboundSummary(this.search, 0, 10);
+    // } else if(this.selectedBound.bound === "Out bound"){
+    //   this.getOutboundSummary(this.search, 0, 10);
+    // }else{
+    //   this.getAllInternationalShipmentByRoad(this.search, 0, 10);
+    // }
   }
   onPageChange(event: any) {
     this.page = event.page;
     this.size = event.rows;
-    if (this.selectedBound.bound === "In bound") {
     this.getInboundSummary(this.search, this.page, this.size);
-    }
-    else if(this.selectedBound.bound === "Out bound"){
-    this.getOutboundSummary(this.search, this.page, this.size);
-    }
-    else{
-      this.getAllInternationalShipmentByRoad(this.search, this.page, this.size);
-    }
+    // if (this.selectedBound.bound === "In bound") {
+    // this.getInboundSummary(this.search, this.page, this.size);
+    // }
+    // else if(this.selectedBound.bound === "Out bound"){
+    // this.getOutboundSummary(this.search, this.page, this.size);
+    // }
+    // else{
+    //   this.getAllInternationalShipmentByRoad(this.search, this.page, this.size);
+    // }
   }
 }
 

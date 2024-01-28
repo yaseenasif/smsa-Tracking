@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   baseurl:"http://localhost:8080/api",
   // baseurl:"https://apitms.smsaexpress.com/api",
-  fileSize:1048576
+  fileSize:10000000
 };
 
 /*

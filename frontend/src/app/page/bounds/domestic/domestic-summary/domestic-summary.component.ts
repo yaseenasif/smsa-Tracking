@@ -47,14 +47,14 @@ export class DomesticSummaryComponent {
     toDate: "",
     status: "",
     origin: "",
-    destination: "",
+    destinations: [""],
     routeNumber:""
   }
 
   onBoundChange() {
-  this.clearSearch();
-  this.domesticShipment=[];
-  this.getInboundSummary(this.search, 0, 10);
+  // this.clearSearch();
+  // this.domesticShipment=[];
+  
     // if (this.selectedBound && this.selectedBound.bound === "In bound") {
     //   this.getInboundSummary(this.search, 0, 10);
     // } else if (this.selectedBound && this.selectedBound.bound === "Out bound") {
@@ -70,7 +70,7 @@ export class DomesticSummaryComponent {
       toDate: "",
       status: "",
       origin: "",
-      destination: "",
+      destinations: [""],
       routeNumber:""
     }
    }
@@ -107,6 +107,7 @@ export class DomesticSummaryComponent {
   }
 
   getInboundSummary(obj: SummarySearch, page: number, size: number) {
+    this.domesticShipment=[]
 
     this.summaryService.getInboundSummary(obj, page, size).subscribe((res: any) => {
 

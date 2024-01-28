@@ -101,7 +101,7 @@
                     ${field10}
                 </td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <td style="background-color:#420097;color:white;font-weight: bolder;">
                     Local Departure Date
                 </td>
@@ -114,8 +114,8 @@
                 <td style="text-align: center;" >
                     ${field12}
                 </td>
-            </tr>
-            <tr>
+            </tr> -->
+            <!-- <tr>
                 <td style="background-color:#420097;color:white;font-weight: bolder;">
                     Local Departure Time
                 </td>
@@ -127,6 +127,14 @@
                 </td>
                 <td style="text-align: center;" >
                     ${field14}
+                </td>
+            </tr> -->
+            <tr>
+                <td style="background-color:#420097;color:white;font-weight: bolder;">
+                    Route Number
+                </td>
+                <td style="text-align: center;" colspan="3">
+                    ${field11}
                 </td>
             </tr>
             <tr>

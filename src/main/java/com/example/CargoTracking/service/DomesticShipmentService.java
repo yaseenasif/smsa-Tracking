@@ -139,10 +139,11 @@ public class DomesticShipmentService {
             model.put("field8", domesticShipment.getNumberOfPallets().toString());
             model.put("field9", domesticShipment.getWeight().toString());
             model.put("field10", "Road");
-            model.put("field11", domesticShipment.getEtd().toLocalDate().toString());
-            model.put("field12", domesticShipment.getEta().toLocalDate().toString());
-            model.put("field13", domesticShipment.getEtd().toLocalTime().toString());
-            model.put("field14", domesticShipment.getEta().toLocalTime().toString());
+            model.put("field11", domesticShipment.getRouteNumber().toString());
+//            model.put("field11", domesticShipment.getEtd().toLocalDate().toString());
+//            model.put("field12", domesticShipment.getEta().toLocalDate().toString());
+//            model.put("field13", domesticShipment.getEtd().toLocalTime().toString());
+//            model.put("field14", domesticShipment.getEta().toLocalTime().toString());
             model.put("field15", domesticShipment.getRemarks());
 
             sendEmailsAsync(emails, subject, "domestic-email-template.ftl", model);

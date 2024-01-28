@@ -35,7 +35,7 @@ export class InternationalSummaryByAirComponent {
     toDate: "",
     status: "",
     origin: "",
-    destination: "",
+    destinations: [""],
     type: ""
   }
   page: number = 0;
@@ -57,19 +57,20 @@ export class InternationalSummaryByAirComponent {
     this.getRole()
 
     this.items = [{ label: 'International Summary By Air' }];
-    this.bound = [
-      {
-        bound: "In bound"
-      },
-      {
-        bound: "Out bound"
-      },
-      {
-        bound: "All"
-      }
-    ]
+    // this.bound = [
+    //   {
+    //     bound: "In bound"
+    //   },
+    //   {
+    //     bound: "Out bound"
+    //   },
+    //   {
+    //     bound: "All"
+    //   }
+    // ]
     this.getAllShipmentStatus();
-    this.getAllInternationalShipmentByAir(this.search, 0, 10);
+    this.getInboundSummary(this.search, 0, 10);
+    // this.getAllInternationalShipmentByAir(this.search, 0, 10);
   }
 
   getRole() {
@@ -83,16 +84,16 @@ export class InternationalSummaryByAirComponent {
   }
 
   onBoundChange() {
-   this.clear();
-   this.internationalShipmentByAir=[];
-    if (this.selectedBound && this.selectedBound.bound === "In bound") {
-      this.getInboundSummary(this.search, 0, 10);
-    } else if (this.selectedBound && this.selectedBound.bound === "Out bound") {
-      this.getOutboundSummary(this.search, 0, 10);
-    }
-    else{
-      this.getAllInternationalShipmentByAir(this.search, 0, 10);
-    }
+  //  this.clear();
+  //  this.internationalShipmentByAir=[];
+    // if (this.selectedBound && this.selectedBound.bound === "In bound") {
+    //   this.getInboundSummary(this.search, 0, 10);
+    // } else if (this.selectedBound && this.selectedBound.bound === "Out bound") {
+    //   this.getOutboundSummary(this.search, 0, 10);
+    // }
+    // else{
+    //   this.getAllInternationalShipmentByAir(this.search, 0, 10);
+    // }
 
   }
   clear(){
@@ -101,7 +102,7 @@ export class InternationalSummaryByAirComponent {
       toDate: "",
       status: "",
       origin: "",
-      destination: "",
+      destinations: [""],
       type: "",
       routeNumber:""
     }
@@ -120,7 +121,7 @@ export class InternationalSummaryByAirComponent {
 
 
   getInboundSummary(obj: InternationalSummarySearch, page: number, size: number) {
-
+    this.internationalShipmentByAir=[]
     this.summaryService.getInboundSummaryForAir(obj, page, size).subscribe((res: any) => {
       this.internationalShipmentByAir = res.content;
       this.paginationRes = res;
@@ -174,28 +175,30 @@ export class InternationalSummaryByAirComponent {
     this.internationalShipmentByAir=[]
     this.search.fromDate=this.datePipe.transform(this.search.fromDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.search.fromDate, 'yyyy-MM-dd'))!:"";
     this.search.toDate=this.datePipe.transform(this.search.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.search.toDate, 'yyyy-MM-dd'))!:"";
-    if (this.selectedBound.bound === "In bound") {
-      this.getInboundSummary(this.search, 0, 10);
-    }
-    else if(this.selectedBound.bound === "Out bound") {
-      this.getOutboundSummary(this.search, 0, 10);
-    }else{
-      this.getAllInternationalShipmentByAir(this.search, 0, 10);
-    }
+    this.getInboundSummary(this.search, 0, 10);
+    // if (this.selectedBound.bound === "In bound") {
+    //   this.getInboundSummary(this.search, 0, 10);
+    // }
+    // else if(this.selectedBound.bound === "Out bound") {
+    //   this.getOutboundSummary(this.search, 0, 10);
+    // }else{
+    //   this.getAllInternationalShipmentByAir(this.search, 0, 10);
+    // }
   }
   onPageChange(event: any) {
 
     this.page = event.page;
     this.size = event.rows;
-    if (this.selectedBound.bound === "In bound") {
     this.getInboundSummary(this.search, this.page, this.size);
-    }
-    else if(this.selectedBound.bound === "Out bound") {
-    this.getOutboundSummary(this.search, this.page, this.size);
-    }
-    else{
-      this.getAllInternationalShipmentByAir(this.search,this.page,this.size);
-    }
+    // if (this.selectedBound.bound === "In bound") {
+    // this.getInboundSummary(this.search, this.page, this.size);
+    // }
+    // else if(this.selectedBound.bound === "Out bound") {
+    // this.getOutboundSummary(this.search, this.page, this.size);
+    // }
+    // else{
+    //   this.getAllInternationalShipmentByAir(this.search,this.page,this.size);
+    // }
   }
 }
 

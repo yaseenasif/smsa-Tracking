@@ -21,6 +21,9 @@ import { ShipmentStatusService } from 'src/app/page/shipment-status/service/ship
 import { DatePipe } from '@angular/common';
 import { ProductField } from 'src/app/model/ProductField';
 import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
+import { User } from 'src/app/model/User';
+import { Country } from 'src/app/model/Country';
+import { UserService } from 'src/app/page/user/service/user.service';
 
 @Component({
   selector: 'app-add-international-shipping',
@@ -90,6 +93,7 @@ export class AddInternationalShippingComponent {
 
 
   constructor(private router: Router,
+    private userService:UserService,
     private internationalShippingService: InternationalShippingService,
     private messageService: MessageService,
     private locationService: LocationService,
@@ -102,7 +106,39 @@ export class AddInternationalShippingComponent {
   checked!: boolean;
   size = 100000
   uploadedFiles: any[] = [];
+  user!: User;
+  originCountry!: Country[];
+  destinationCountry!:Country[];
 
+  getLoggedInUser(){
+    this.userService.getLoggedInUser().subscribe((res: User) => {
+      this.user=res;
+      this.originCountry=[];
+      this.destinationCountry=[];
+      res.internationalRoadOriginLocation?.forEach((el)=>{
+        return this.originCountry.push(el.facility?.country!);
+      })
+      this.originCountry = this.originCountry.filter((obj, index, arr) =>
+      index === arr.findIndex((item:Country) => item.id === obj.id)
+      );
+      
+
+      res.internationalRoadDestinationLocation?.forEach((el)=>{
+        return this.destinationCountry.push(el.facility?.country!);
+      })
+      this.destinationCountry = this.destinationCountry.filter((obj, index, arr) =>
+      index === arr.findIndex((item:Country) => item.id === obj.id)
+      );
+      
+      
+    }, error => {
+      if (error.error.body) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      } else {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+      }
+    })
+} 
 
   getLocationPortByLocationForOrigin() {
     this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.originCountry!).subscribe((res) => {

@@ -102,11 +102,9 @@
                       </p-dropdown>
                     </div>
                   </div>
+                
                   <div
-                    *ngIf="
-                      role == 'ADMIN' ||
-                      (selectedBound.bound == 'In bound' && role == 'USER')
-                    "
+                 
                     class="lg:col-2 md:col-6 col-12"
                   >
                     <div class="flex flex-column gap-2">
@@ -121,12 +119,10 @@
                       />
                     </div>
                   </div>
+               
 
                   <div
-                    *ngIf="
-                      role == 'ADMIN' ||
-                      (selectedBound.bound == 'Out bound' && role == 'USER')
-                    "
+                   
                     class="lg:col-2 md:col-6 col-12"
                   >
                     <div class="flex flex-column gap-2">
@@ -137,7 +133,7 @@
                         aria-describedby="name-help"
                         #destination="ngModel"
                         name="destination"
-                        [(ngModel)]="search.destination"
+                        [(ngModel)]="search.destinations[0]"
                       />
                     </div>
                   </div>
@@ -295,8 +291,9 @@
                   >
                     {{ domesticShipment.status }}
                   </td>
+                  <!-- *ngIf="selectedBound.bound == 'In bound'" -->
                   <td
-                    *ngIf="selectedBound.bound == 'In bound'"
+                 
                     class="text-center flex flex-row"
                   >
                   <p-button
@@ -339,7 +336,7 @@
                     >
                     </p-button>
                   </td>
-                  <td
+                  <!-- <td
                   *ngIf="selectedBound.bound == 'Out bound' || selectedBound.bound == 'All'"
                   class="text-center flex flex-row"
                 >
@@ -354,7 +351,7 @@
                     styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                   >
                   </p-button>
-                </td> 
+                </td>  -->
                 </tr>
               </ng-template>
             </p-table>

@@ -1,5 +1,5 @@
 export const environment = {
   baseurl:"https://apitms.smsaexpress.com/api",
-  fileSize:1048576,
+  fileSize:10000000,
   production: true
 };
