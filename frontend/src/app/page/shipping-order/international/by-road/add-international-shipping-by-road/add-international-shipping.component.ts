@@ -287,6 +287,15 @@ export class AddInternationalShippingComponent {
     orgFacility?.forEach((el)=>{
      return this.originFacility.push(el?.facility!);
     })
+
+    this.destinationCountry = [];
+    this.user.internationalRoadDestinationLocation?.forEach((el) => {
+      return this.destinationCountry.push(el.facility?.country!);
+    });
+    this.destinationCountry = this.destinationCountry.filter(
+      (obj, index, arr) =>
+        index === arr.findIndex((item: Country) => item.id === obj.id)&&obj.name!=country
+    );
      
    }
  
@@ -304,6 +313,15 @@ export class AddInternationalShippingComponent {
       desFacility?.forEach((el)=>{
        return this.destinationFacility.push(el?.facility!);
       })
+      this.originCountry = [];
+    
+      this.user.internationalRoadOriginLocation?.forEach((el) => {
+        return this.originCountry.push(el.facility?.country!);
+      });
+      this.originCountry = this.originCountry.filter(
+        (obj, index, arr) =>
+          index === arr.findIndex((item: Country) => item.id === obj.id)&&obj.name!=country
+      );
    }
 
   onOrgFacilityChange(facility:string){
