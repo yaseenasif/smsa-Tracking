@@ -26,8 +26,8 @@ public class InternationalSummarySpecification {
 
                     criteriaBuilder.and(
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteriaForInternationalSummary.getStatus() + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("originCountry")), "%" + searchCriteriaForInternationalSummary.getOrigin() + "%"),
-                            root.get("destinationCountry").in(searchCriteriaForInternationalSummary.getDestinations()),
+                            criteriaBuilder.like(criteriaBuilder.lower(root.get("originLocation")), "%" + searchCriteriaForInternationalSummary.getOrigin() + "%"),
+                            root.get("destinationLocation").in(searchCriteriaForInternationalSummary.getDestinations()),
                             criteriaBuilder.equal(root.get("activeStatus"),true),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteriaForInternationalSummary.getRouteNumber() + "%"),
                             criteriaBuilder.like(criteriaBuilder.lower(root.get("type")), "%" + searchCriteriaForInternationalSummary.getType() + "%")
@@ -41,8 +41,8 @@ public class InternationalSummarySpecification {
                 criteriaBuilder.and(
                         criteriaBuilder.between(root.get("createdAt"), localFromDate, localToDate),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteriaForInternationalSummary.getStatus() + "%"),
-                        criteriaBuilder.like(criteriaBuilder.lower(root.get("originCountry")), "%" + searchCriteriaForInternationalSummary.getOrigin() + "%"),
-                        root.get("destinationCountry").in(searchCriteriaForInternationalSummary.getDestinations()),
+                        criteriaBuilder.like(criteriaBuilder.lower(root.get("originLocation")), "%" + searchCriteriaForInternationalSummary.getOrigin() + "%"),
+                        root.get("destinationLocation").in(searchCriteriaForInternationalSummary.getDestinations()),
                         criteriaBuilder.equal(root.get("activeStatus"),true),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteriaForInternationalSummary.getRouteNumber() + "%"),
                         criteriaBuilder.like(criteriaBuilder.lower(root.get("type")), "%" + searchCriteriaForInternationalSummary.getType() + "%")

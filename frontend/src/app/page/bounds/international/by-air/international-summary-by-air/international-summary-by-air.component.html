@@ -173,8 +173,8 @@
                   <th class="text-center">Flight Details</th>
                   <th class="text-center">Mode</th>
                   <th class="text-center">Origin</th>
-                  <th class="text-center">Origin Port</th>
-                  <th class="text-center">Destination Port</th>
+                  <th class="text-center">Origin Location</th>
+                  <th class="text-center">Destination Location</th>
                   <th class="text-center">Weight (kg)</th>
                   <th class="text-center">Total Shipment</th>
                   <th class="text-center">Pallets</th>
@@ -224,7 +224,7 @@
                       internationalShipmentByAir.redFlag ? 'red' : 'withoutRed'
                     "
                   >
-                    {{ internationalShipmentByAir.originPort }}
+                    {{ internationalShipmentByAir.originLocation }}
                   </td>
                   <td
                     class="text-center"
@@ -232,7 +232,7 @@
                       internationalShipmentByAir.redFlag ? 'red' : 'withoutRed'
                     "
                   >
-                    {{ internationalShipmentByAir.destinationPort }}
+                    {{ internationalShipmentByAir.destinationLocation }}
                   </td>
                   <td
                     class="text-center"
