@@ -101,34 +101,6 @@
                     ${field10}
                 </td>
             </tr>
-            <!-- <tr>
-                <td style="background-color:#420097;color:white;font-weight: bolder;">
-                    Local Departure Date
-                </td>
-                <td style="text-align: center;" >
-                    ${field11}
-                </td>
-                <td style="background-color:#420097;color:white;font-weight: bolder;">
-                    Local Arrival Date
-                </td>
-                <td style="text-align: center;" >
-                    ${field12}
-                </td>
-            </tr> -->
-            <!-- <tr>
-                <td style="background-color:#420097;color:white;font-weight: bolder;">
-                    Local Departure Time
-                </td>
-                <td style="text-align: center;" >
-                    ${field13}
-                </td>
-                <td style="background-color:#420097;color:white;font-weight: bolder;">
-                    Local Arrival Time
-                </td>
-                <td style="text-align: center;" >
-                    ${field14}
-                </td>
-            </tr> -->
             <tr>
                 <td style="background-color:#420097;color:white;font-weight: bolder;">
                     Route Number

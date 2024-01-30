@@ -22,7 +22,6 @@ export class ViewShipmentAirComponent {
     attachments: null,
     carrier: null,
     destinationCountry: null,
-    destinationPort: null,
     driverContact: null,
     driverName: null,
     flightNumber: null,
@@ -30,7 +29,6 @@ export class ViewShipmentAirComponent {
     numberOfPallets: null,
     numberOfShipments: null,
     originCountry: null,
-    originPort: null,
     overageAWBs: null,
     overages: null,
     preAlertNumber: null,
@@ -54,7 +52,11 @@ export class ViewShipmentAirComponent {
     atd: null,
     trip: null,
     preAlertType: null,
-    transitTimeTaken: null
+    transitTimeTaken: null,
+    originFacility: undefined,
+    originLocation: undefined,
+    destinationFacility: undefined,
+    destinationLocation: undefined
   }
  
   selectedLocation!: Location;

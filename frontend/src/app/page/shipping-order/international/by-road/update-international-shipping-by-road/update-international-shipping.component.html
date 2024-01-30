@@ -17,19 +17,19 @@
                 <!-- 1 -->
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Origin Country </label>
+                    <label htmlFor="name">Origin Country</label>
                     <p-dropdown
                       class="w-full"
-                      [options]="location"
-                      #originCountry="ngModel"
-                      name="originCountry"
+                      [options]="originCountry"
+                      #originCountry1="ngModel"
+                      (onChange)="onOrgCountryChange(internationalShipment.originCountry!)"
+                      name="originCountry1"
                       [required]="true"
-                      (onChange)="getLocationPortByLocationForOrigin()"
                       [(ngModel)]="internationalShipment.originCountry"
-                      optionValue="locationName"
-                      optionLabel="locationName"
+                      optionValue="name"
+                      optionLabel="name"
                       [filter]="true"
-                      filterBy="locationName"
+                      filterBy="name"
                       [showClear]="true"
                       placeholder="Select a Origin Country
                     "
@@ -42,6 +42,74 @@
                           <div>{{ internationalShipment.originCountry }}</div>
                         </div>
                       </ng-template>
+                      <ng-template let-originCountry pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ originCountry.name }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Origin Facility </label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="originFacility"
+                      (onChange)="onOrgFacilityChange(internationalShipment.originFacility!)"
+                      name="originFacility1"
+                      #originFacility1="ngModel"
+                      [required]="true"
+                      [(ngModel)]="internationalShipment.originFacility"
+                      optionLabel="name"
+                      optionValue="name"
+                      [filter]="true"
+                      filterBy="name"
+                      [showClear]="true"
+                      placeholder="Select a Origin Facility"
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="internationalShipment"
+                        >
+                          <div>{{ internationalShipment.originFacility }}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-originFacility pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ originFacility.name }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                  
+                    <label htmlFor="name">Origin Location</label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="orgLocation"
+                      name="originLocation"
+                      #originLocation="ngModel"
+                      [required]="true"
+                      [(ngModel)]="internationalShipment.originLocation"
+                      optionLabel="locationName"
+                      optionValue="locationName"
+                      [filter]="true"
+                      filterBy="locationName"
+                      [showClear]="true"
+                      placeholder="Select a Origin Location"
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="internationalShipment"
+                        >
+                          <div>{{ internationalShipment.originLocation }}</div>
+                        </div>
+                      </ng-template>
                       <ng-template let-location pTemplate="item">
                         <div class="flex align-items-center gap-2">
                           <div>{{ location.locationName }}</div>
@@ -50,7 +118,113 @@
                     </p-dropdown>
                   </div>
                 </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Destination Country </label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="destinationCountry"
+                      #destinationCountry1="ngModel"
+                      name="destinationCountry1"
+                      [required]="true"
+                      (onChange)="  onDesCountryChange(internationalShipment.destinationCountry!)"
+                      [(ngModel)]="internationalShipment.destinationCountry"
+                      optionValue="name"
+                      optionLabel="name"
+                      [filter]="true"
+                      filterBy="name"
+                      [showClear]="true"
+                      placeholder="Select a Destination Country
+                      "
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="internationalShipment"
+                        >
+                          <div>
+                            {{ internationalShipment.destinationCountry }}
+                          </div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-destinationCountry pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ destinationCountry.name }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Destination Facility </label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="destinationFacility"
+                      name="originFacility1"
+                      #originFacility1="ngModel"
+                      [required]="true"
+                      (onChange)="onDesFacilityChange(internationalShipment.destinationFacility!)"
+                      [(ngModel)]="internationalShipment.destinationFacility"
+                      optionLabel="name"
+                      optionValue="name"
+                      [filter]="true"
+                      filterBy="name"
+                      [showClear]="true"
+                      placeholder="Select a Destination Facility"
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="internationalShipment"
+                        >
+                          <div>{{ internationalShipment.destinationFacility }}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-destinationFacility pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ destinationFacility.name }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+      
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Destination Location</label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="desLocation"
+                      name="destinationLocation"
+                      #destinationLocation="ngModel"
+                      [required]="true"
+                      [(ngModel)]="internationalShipment.destinationLocation"
+                      optionLabel="locationName"
+                      optionValue="locationName"
+                      [filter]="true"
+                      filterBy="locationName"
+                      [showClear]="true"
+                      placeholder="Select a Destination Location"
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="internationalShipment"
+                        >
+                          <div>{{ internationalShipment.destinationLocation }}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-location pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ location.locationName }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+                <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Origin Port </label>
                     <p-dropdown
@@ -83,7 +257,7 @@
                       </ng-template>
                     </p-dropdown>
                   </div>
-                </div>
+                </div> -->
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Referigirated Truck</label>
@@ -179,7 +353,7 @@
                   </div>
                 </div>
 
-                <div class="col-12 md:col-6 lg:col-4">
+                <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Destination Country </label>
                     <p-dropdown
@@ -215,8 +389,8 @@
                       </ng-template>
                     </p-dropdown>
                   </div>
-                </div>
-
+                </div> -->
+<!-- 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Destination Port </label>
@@ -250,7 +424,7 @@
                       </ng-template>
                     </p-dropdown>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
@@ -344,9 +518,7 @@
                       [(ngModel)]="internationalShipment.atd"
                       [required]="true"
                       [showTime]="true"
-                      [showSeconds]="true"
                       [selectOtherMonths]="true"
-                      [minDate]="minDate"
                     ></p-calendar>
                     <!-- <small id="name-help"
                           >{{name}}</small

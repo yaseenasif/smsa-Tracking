@@ -24,6 +24,7 @@ import { Observable } from 'rxjs';
 import { UserService } from 'src/app/page/user/service/user.service';
 import { User } from 'src/app/model/User';
 import { Country } from 'src/app/model/Country';
+import { Facility } from 'src/app/model/Facility';
 
 @Component({
   selector: 'app-add-international-shipment-by-road',
@@ -39,7 +40,6 @@ export class AddInternationalShipmentByRoadComponent {
     attachments: null,
     carrier: null,
     destinationCountry: null,
-    destinationPort: null,
     driverContact: null,
     driverName: null,
     flightNumber: null,
@@ -47,7 +47,6 @@ export class AddInternationalShipmentByRoadComponent {
     numberOfPallets: null,
     numberOfShipments: null,
     originCountry: null,
-    originPort: null,
     overageAWBs: null,
     overages: null,
     preAlertNumber: null,
@@ -71,7 +70,11 @@ export class AddInternationalShipmentByRoadComponent {
     atd: null,
     trip: null,
     preAlertType: null,
-    transitTimeTaken: null
+    transitTimeTaken: null,
+    originFacility: null,
+    originLocation: null,
+    destinationFacility: null,
+    destinationLocation: null
   }
 
   // route:any;
@@ -92,6 +95,10 @@ export class AddInternationalShipmentByRoadComponent {
   user!: User;
   originCountry!: Country[];
   destinationCountry!:Country[];
+  originFacility!: Facility[];
+  destinationFacility!: Facility[];
+  orgLocation: Location[]|undefined;
+  desLocation: Location[]|undefined;
 
 
  getLoggedInUser(){
@@ -161,6 +168,7 @@ export class AddInternationalShipmentByRoadComponent {
     this.getAllDriver();
     this.getAllVehicleType();
     this.getAllShipmentCarrier();
+    this.getLoggedInUser()
     // this.getAllShipmentStatus();
   }
 
@@ -203,8 +211,8 @@ export class AddInternationalShipmentByRoadComponent {
   getInternationalRouteForAir() {
     this.routes = []
 
-    if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null && this.internationalShipment.trip !== null) {
-      this.internationalShippingService.getInternationalRouteForAir(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!,this.internationalShipment.trip!).subscribe((res: any) => {
+    if (this.internationalShipment.originLocation !== null && this.internationalShipment.destinationLocation !== null && this.internationalShipment.trip !== null) {
+      this.internationalShippingService.getInternationalRouteForAir(this.internationalShipment.originLocation!, this.internationalShipment.destinationLocation!,this.internationalShipment.trip!).subscribe((res: any) => {
         this.routes = res;
 
       }, (error: any) => {
@@ -275,5 +283,46 @@ export class AddInternationalShipmentByRoadComponent {
       this.internationalShipment.preAlertNumber=this.internationalShipment.preAlertNumber!.slice(0, 3) + charToAdd + this.internationalShipment.preAlertNumber!.slice(3);
       this.flag=false;
     }
+  }
+
+  onOrgCountryChange(country:string){
+    this.originFacility=[]
+    let orgFacility=this.user.internationalAirOriginLocation!.filter(
+     (location, index, self) =>
+       location?.facility?.country?.name == country &&
+       index ===
+         self.findIndex(
+           (l) =>
+             l.facility!.id === location.facility!.id
+         )
+   );
+   
+    orgFacility?.forEach((el)=>{
+     return this.originFacility.push(el?.facility!);
+    })
+     
+   }
+ 
+   onDesCountryChange(country:string){
+     this.destinationFacility=[]
+     let desFacility=this.user.internationalAirDestinationLocation!.filter(
+       (location, index, self) =>
+         location?.facility?.country?.name == country &&
+         index ===
+           self.findIndex(
+             (l) =>
+               l.facility!.id === location.facility!.id
+           )
+     );
+      desFacility?.forEach((el)=>{
+       return this.destinationFacility.push(el?.facility!);
+      })
+   }
+
+  onOrgFacilityChange(facility:string){
+    this.orgLocation= this.user.internationalAirOriginLocation?.filter((obj => obj.facility?.country?.name === this.internationalShipment.originCountry && obj.facility?.name === facility));
+  }
+  onDesFacilityChange(facility:string){
+    this.desLocation= this.user.internationalAirDestinationLocation?.filter((obj => obj.facility?.country?.name === this.internationalShipment.destinationCountry && obj.facility?.name === facility));
   }
 }

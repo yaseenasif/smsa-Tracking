@@ -47,7 +47,7 @@ export class DomesticSummaryComponent {
     toDate: "",
     status: "",
     origin: "",
-    destinations: [""],
+    destinations: [],
     routeNumber:""
   }
 
@@ -70,7 +70,7 @@ export class DomesticSummaryComponent {
       toDate: "",
       status: "",
       origin: "",
-      destinations: [""],
+      destinations: [],
       routeNumber:""
     }
    }

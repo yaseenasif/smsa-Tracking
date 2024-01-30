@@ -21,6 +21,10 @@ import { Observable, catchError, forkJoin } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
 import { ProductField } from 'src/app/model/ProductField';
+import { User } from 'src/app/model/User';
+import { Country } from 'src/app/model/Country';
+import { Facility } from 'src/app/model/Facility';
+import { UserService } from 'src/app/page/user/service/user.service';
 
 
 @Component({
@@ -40,7 +44,6 @@ export class UpdateInternationalShippingComponent {
     attachments: null,
     carrier: null,
     destinationCountry: null,
-    destinationPort: null,
     driverContact: null,
     driverName: null,
     flightNumber: null,
@@ -48,7 +51,6 @@ export class UpdateInternationalShippingComponent {
     numberOfPallets: null,
     numberOfShipments: null,
     originCountry: null,
-    originPort: null,
     overageAWBs: null,
     overages: null,
     preAlertNumber: null,
@@ -72,7 +74,11 @@ export class UpdateInternationalShippingComponent {
     atd: null,
     trip: null,
     preAlertType: null,
-    transitTimeTaken: null
+    transitTimeTaken: null,
+    originFacility: null,
+    originLocation: null,
+    destinationFacility: null,
+    destinationLocation: null
   }
   location!: Location[];
   originPorts!: LocationPort[];
@@ -98,21 +104,17 @@ export class UpdateInternationalShippingComponent {
     private route: ActivatedRoute,
     private vehicleTypeService: VehicleTypeService,
     private shipmentStatusService: ProductFieldServiceService,
-    private datePipe: DatePipe) { }
+    private datePipe: DatePipe,
+    private userService:UserService) { }
 
-  name!: string;
-  checked!: boolean;
-  size = 100000
-  uploadedFiles: any[] = [];
-  onUpload(event: any) {
 
-  }
-  onUpload1(event: any) {
-    for (let file of event.files) {
-      this.uploadedFiles.push(file);
-    }
-  }
-
+    user!: User;
+    originCountry!: Country[];
+    destinationCountry!:Country[];
+    originFacility!: Facility[];
+    destinationFacility!: Facility[];
+    orgLocation: Location[]|undefined;
+    desLocation: Location[]|undefined;
 
   ngOnInit(): void {
     this.iSID = +this.route.snapshot.paramMap.get('id')!;
@@ -128,21 +130,53 @@ export class UpdateInternationalShippingComponent {
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
     const shipmentStatus$: Observable<ProductField> = this.getAllShipmentStatus();
+    const LoggedInUser$: Observable<User> =this.userService.getLoggedInUser();
 
-    forkJoin([locations$, driver$, vehicleType$, shipmentStatus$]).subscribe(
-      ([locationsResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
+    forkJoin([locations$, driver$, vehicleType$, shipmentStatus$, LoggedInUser$]).subscribe(
+      ([locationsResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse,userResponse]) => {
         // Access responses here
+        this.getLoggedInUser();
         this.location = locationsResponse.filter(el => el.status);
         // this.locationPort=locationPortResponse.filter(el => el.status);
         this.drivers = driverResponse.content.filter((el: Driver) => el.status);
         this.vehicleTypes = vehicleTypeResponse
         this.shipmentStatus = shipmentStatusResponse
-
+        this.user=userResponse
         // Now that you have the responses, you can proceed with the next steps
         this.getInternationalShipmentById(this.iSID);
       }
     );
   }
+
+  getLoggedInUser(){
+    this.userService.getLoggedInUser().subscribe((res: User) => {
+      this.user=res;
+      this.originCountry=[];
+      this.destinationCountry=[];
+      res.internationalRoadOriginLocation?.forEach((el)=>{
+        return this.originCountry.push(el.facility?.country!);
+      })
+      this.originCountry = this.originCountry.filter((obj, index, arr) =>
+      index === arr.findIndex((item:Country) => item.id === obj.id)
+      );
+      
+
+      res.internationalRoadDestinationLocation?.forEach((el)=>{
+        return this.destinationCountry.push(el.facility?.country!);
+      })
+      this.destinationCountry = this.destinationCountry.filter((obj, index, arr) =>
+      index === arr.findIndex((item:Country) => item.id === obj.id)
+      );
+      
+      
+    }, error => {
+      if (error.error.body) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+      } else {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+      }
+    })
+  } 
 
   getLocationPortByLocationForOrigin() {
     this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.originCountry!).subscribe((res) => {
@@ -189,9 +223,31 @@ export class UpdateInternationalShippingComponent {
       this.selectedDriver = this.drivers.find(el => (el.name == res.driverName) && (el.contactNumber == res.driverContact) && (el.referenceNumber == res.referenceNumber))
 
       this.internationalShipment = res;
-      this.getLocationPortByLocationForOrigin();
-      this.getLocationPortByLocationForDestination();
-      //  this.getInternationalRouteForRoad();
+
+      this.originCountry=[];
+      this.destinationCountry=[];
+      this.user.internationalRoadOriginLocation?.forEach((el)=>{
+        return this.originCountry.push(el.facility?.country!);
+      })
+      this.originCountry = this.originCountry.filter((obj, index, arr) =>
+      index === arr.findIndex((item:Country) => item.id === obj.id)
+      );
+      
+
+      this.user.internationalRoadDestinationLocation?.forEach((el)=>{
+        return this.destinationCountry.push(el.facility?.country!);
+      })
+      this.destinationCountry = this.destinationCountry.filter((obj, index, arr) =>
+      index === arr.findIndex((item:Country) => item.id === obj.id)
+      );
+      
+      this.onOrgCountryChange(this.internationalShipment.originCountry!)
+      this.onDesCountryChange(this.internationalShipment.destinationCountry!)
+      this.onOrgFacilityChange(this.internationalShipment.originFacility!)
+      this.onDesFacilityChange(this.internationalShipment.destinationFacility!)
+      // this.getLocationPortByLocationForOrigin();
+      // this.getLocationPortByLocationForDestination();
+       this.getInternationalRouteForRoad();
 
 
     }, error => {
@@ -202,8 +258,8 @@ export class UpdateInternationalShippingComponent {
   getInternationalRouteForRoad() {
     this.showDropDown = true;
     this.routes = []
-    if (this.internationalShipment.originPort !== null && this.internationalShipment.destinationPort !== null && this.internationalShipment.trip !== null) {
-      this.internationalShippingService.getInternationalRouteForRoad(this.internationalShipment.originPort!, this.internationalShipment.destinationPort!, this.internationalShipment.trip!).subscribe((res: any) => {
+    if (this.internationalShipment.originLocation !== null && this.internationalShipment.destinationLocation !== null && this.internationalShipment.trip !== null) {
+      this.internationalShippingService.getInternationalRouteForRoad(this.internationalShipment.originLocation!, this.internationalShipment.destinationLocation!, this.internationalShipment.trip!).subscribe((res: any) => {
         this.routes = res;
 
       }, (error: any) => {
@@ -272,6 +328,47 @@ export class UpdateInternationalShippingComponent {
       this.internationalShipment.preAlertNumber = this.internationalShipment.preAlertNumber!.slice(0, 3) + charToAdd + this.internationalShipment.preAlertNumber!.slice(3);
       this.flag = false;
     }
+  }
+
+  onOrgCountryChange(country:string){
+    this.originFacility=[]
+    let orgFacility=this.user.internationalAirOriginLocation!.filter(
+     (location, index, self) =>
+       location?.facility?.country?.name == country &&
+       index ===
+         self.findIndex(
+           (l) =>
+             l.facility!.id === location.facility!.id
+         )
+   );
+   
+    orgFacility?.forEach((el)=>{
+     return this.originFacility.push(el?.facility!);
+    })
+     
+   }
+ 
+   onDesCountryChange(country:string){
+     this.destinationFacility=[]
+     let desFacility=this.user.internationalAirDestinationLocation!.filter(
+       (location, index, self) =>
+         location?.facility?.country?.name == country &&
+         index ===
+           self.findIndex(
+             (l) =>
+               l.facility!.id === location.facility!.id
+           )
+     );
+      desFacility?.forEach((el)=>{
+       return this.destinationFacility.push(el?.facility!);
+      })
+   }
+
+  onOrgFacilityChange(facility:string){
+    this.orgLocation= this.user.internationalAirOriginLocation?.filter((obj => obj.facility?.country?.name === this.internationalShipment.originCountry && obj.facility?.name === facility));
+  }
+  onDesFacilityChange(facility:string){
+    this.desLocation= this.user.internationalAirDestinationLocation?.filter((obj => obj.facility?.country?.name === this.internationalShipment.destinationCountry && obj.facility?.name === facility));
   }
 }
 

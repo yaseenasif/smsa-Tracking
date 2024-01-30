@@ -21,7 +21,6 @@ export class ViewRoadShippingForSummaryComponent {
     attachments: null,
     carrier: null,
     destinationCountry: null,
-    destinationPort: null,
     driverContact: null,
     driverName: null,
     flightNumber: null,
@@ -29,7 +28,6 @@ export class ViewRoadShippingForSummaryComponent {
     numberOfPallets: null,
     numberOfShipments: null,
     originCountry: null,
-    originPort: null,
     overageAWBs: null,
     overages: null,
     preAlertNumber: null,
@@ -53,7 +51,11 @@ export class ViewRoadShippingForSummaryComponent {
     atd: null,
     trip: null,
     preAlertType: null,
-    transitTimeTaken: null
+    transitTimeTaken: null,
+    originFacility: null,
+    originLocation: null,
+    destinationFacility: null,
+    destinationLocation: null
   }
 
 

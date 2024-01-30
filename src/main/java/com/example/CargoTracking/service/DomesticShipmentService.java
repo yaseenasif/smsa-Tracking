@@ -127,7 +127,9 @@ public class DomesticShipmentService {
             emails.addAll(originEmailAddresses);
             emails.addAll(destinationEmailAddresses);
 
-            String subject = "TSM Pre-Alert(D): " + domesticShipment.getRouteNumber() + "/" + domesticShipment.getVehicleType() + "/" + domesticShipment.getReferenceNumber() + "/" + domesticShipment.getEtd();
+            String subject = "TSM Pre-Alert(D): " + domesticShipment.getRouteNumber() + "/" + domesticShipment.getVehicleType() + "/" + domesticShipment.getReferenceNumber();
+
+//            String subject = "TSM Pre-Alert(D): " + domesticShipment.getRouteNumber() + "/" + domesticShipment.getVehicleType() + "/" + domesticShipment.getReferenceNumber() + "/" + domesticShipment.getEtd();
             Map<String, Object> model = new HashMap<>();
             model.put("field1", domesticShipment.getCreatedAt().toString());
             model.put("field2", domesticShipment.getReferenceNumber());

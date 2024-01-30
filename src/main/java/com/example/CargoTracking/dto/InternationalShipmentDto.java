@@ -20,13 +20,15 @@ import java.util.List;
 public class InternationalShipmentDto {
     private Long id;
     private String originCountry;
-    private String originPort;
+    private String originFacility;
+    private String originLocation;
     private Boolean refrigeratedTruck;//new road
     private String type;
     private String shipmentMode;
     private String preAlertNumber;
     private String destinationCountry;
-    private String destinationPort;
+    private String destinationFacility;
+    private String destinationLocation;
     private String carrier;//air
     private LocalDateTime etd;
     private LocalDateTime eta;

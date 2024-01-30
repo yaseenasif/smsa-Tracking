@@ -93,12 +93,12 @@ public class InternationalShipmentService {
 
             internationalShipmentHistoryRepository.save(shipmentHistory);
 
-            String originEmails = locationService.getLocationByName(internationalShipment.getOriginCountry(), "International")
+            String originEmails = locationService.getLocationByName(internationalShipment.getOriginLocation(), internationalShipment.getVehicleNumber()!=null ?"International Road":"International Air")
                     .getOriginEmail();
             String[] resultListOrigin = originEmails.split(",");
             List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOrigin));
 
-            String destinationEmails = locationService.getLocationByName(internationalShipment.getDestinationCountry(), "International")
+            String destinationEmails = locationService.getLocationByName(internationalShipment.getDestinationLocation(),internationalShipment.getVehicleNumber()!=null ?"International Road":"International Air")
                     .getDestinationEmail();
             String[] resultListDestination = destinationEmails.split(",");
             List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestination));
@@ -117,8 +117,8 @@ public class InternationalShipmentService {
                 model.put("field2",internationalShipment.getReferenceNumber());
                 model.put("field3",internationalShipment.getOriginCountry());
                 model.put("field4",internationalShipment.getDestinationCountry());
-                model.put("field5",internationalShipment.getOriginPort());
-                model.put("field6",internationalShipment.getDestinationPort());
+                model.put("field5",internationalShipment.getOriginLocation());
+                model.put("field6",internationalShipment.getDestinationLocation());
                 model.put("field7",internationalShipment.getNumberOfShipments() != null?internationalShipment.getNumberOfShipments().toString():"0");
                 model.put("field8",internationalShipment.getCarrier());
                 model.put("field9",String.valueOf(internationalShipment.getPreAlertNumber()));
@@ -139,8 +139,8 @@ public class InternationalShipmentService {
                 model.put("field2",internationalShipment.getReferenceNumber());
                 model.put("field3",internationalShipment.getOriginCountry());
                 model.put("field4",internationalShipment.getDestinationCountry());
-                model.put("field5",internationalShipment.getOriginPort());
-                model.put("field6",internationalShipment.getDestinationPort());
+                model.put("field5",internationalShipment.getOriginLocation());
+                model.put("field6",internationalShipment.getDestinationLocation());
                 model.put("field7",internationalShipment.getNumberOfShipments() != null?internationalShipment.getNumberOfShipments().toString():"0");
                 model.put("field8",internationalShipment.getVehicleType());
                 model.put("field9",internationalShipment.getNumberOfBags().toString());
@@ -546,13 +546,15 @@ public class InternationalShipmentService {
                 internationalShipment.get().setUpdatedBy(user);
 
                 internationalShipment.get().setOriginCountry(internationalShipmentDto.getOriginCountry());
-                internationalShipment.get().setOriginPort(internationalShipmentDto.getOriginPort());
+                internationalShipment.get().setOriginFacility(internationalShipmentDto.getOriginFacility());
+                internationalShipment.get().setDestinationFacility(internationalShipmentDto.getDestinationFacility());
+                internationalShipment.get().setOriginLocation(internationalShipmentDto.getOriginLocation());
                 internationalShipment.get().setRefrigeratedTruck(internationalShipmentDto.getRefrigeratedTruck());
                 internationalShipment.get().setType(internationalShipmentDto.getType());
                 internationalShipment.get().setShipmentMode(internationalShipmentDto.getShipmentMode());
                 internationalShipment.get().setPreAlertNumber(internationalShipmentDto.getPreAlertNumber());
                 internationalShipment.get().setDestinationCountry(internationalShipmentDto.getDestinationCountry());
-                internationalShipment.get().setDestinationPort(internationalShipmentDto.getDestinationPort());
+                internationalShipment.get().setDestinationLocation(internationalShipmentDto.getDestinationLocation());
                 internationalShipment.get().setCarrier(internationalShipmentDto.getCarrier());
 
                 internationalShipment.get().setEtd(internationalShipmentDto.getEtd());

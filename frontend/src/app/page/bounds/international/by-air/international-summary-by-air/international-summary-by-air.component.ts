@@ -35,7 +35,7 @@ export class InternationalSummaryByAirComponent {
     toDate: "",
     status: "",
     origin: "",
-    destinations: [""],
+    destinations: [],
     type: ""
   }
   page: number = 0;
@@ -102,7 +102,7 @@ export class InternationalSummaryByAirComponent {
       toDate: "",
       status: "",
       origin: "",
-      destinations: [""],
+      destinations: [],
       type: "",
       routeNumber:""
     }

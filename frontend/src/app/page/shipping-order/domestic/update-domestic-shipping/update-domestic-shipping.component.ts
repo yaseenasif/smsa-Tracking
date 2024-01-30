@@ -171,7 +171,7 @@ export class UpdateDomesticShippingComponent {
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
     const shipmentStatus$: Observable<ProductField> = this.getAllShipmentStatus();
-    const LoggedInUser$: Observable<User> =this.userService.getLoggedInUser()
+    const LoggedInUser$: Observable<User> =this.userService.getLoggedInUser();
 
     forkJoin([locations$, driver$, vehicleType$, shipmentStatus$,LoggedInUser$]).subscribe(
       ([locationsResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse,loggedInUserResponse]) => {
@@ -351,7 +351,6 @@ export class UpdateDomesticShippingComponent {
       // this.getDomesticRoute();
       this.getRouteByRouteNumber(this.domesticShipment.routeNumber!);
 
-      this.cdr.detectChanges();
 
     }, (error: any) => {
       if (error.error.body) {

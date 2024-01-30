@@ -53,8 +53,8 @@ public class ReportAndStatusService {
             internationalAirReportStatusDto.setId(internationalShipment.getId());
             internationalAirReportStatusDto.setPreAlertNumber(internationalShipment.getPreAlertNumber());
             internationalAirReportStatusDto.setReferenceNumber(internationalShipment.getReferenceNumber());
-            internationalAirReportStatusDto.setOrigin(internationalShipment.getOriginPort());
-            internationalAirReportStatusDto.setDestination(internationalShipment.getDestinationPort());
+            internationalAirReportStatusDto.setOrigin(internationalShipment.getOriginLocation());
+            internationalAirReportStatusDto.setDestination(internationalShipment.getDestinationLocation());
             internationalAirReportStatusDto.setRoute(internationalShipment.getRouteNumber());
             internationalAirReportStatusDto.setFlightNumber(internationalShipment.getFlightNumber());
             internationalAirReportStatusDto.setShipments(internationalShipment.getNumberOfShipments());
@@ -129,8 +129,8 @@ public class ReportAndStatusService {
             internationalRoadReportStatusDto.setId(internationalShipment.getId());
             internationalRoadReportStatusDto.setPreAlertNumber(internationalShipment.getPreAlertNumber());
             internationalRoadReportStatusDto.setReferenceNumber(internationalShipment.getReferenceNumber());
-            internationalRoadReportStatusDto.setOrigin(internationalShipment.getOriginPort());
-            internationalRoadReportStatusDto.setDestination(internationalShipment.getDestinationPort());
+            internationalRoadReportStatusDto.setOrigin(internationalShipment.getOriginLocation());
+            internationalRoadReportStatusDto.setDestination(internationalShipment.getDestinationLocation());
             internationalRoadReportStatusDto.setRoute(internationalShipment.getRouteNumber());
             internationalRoadReportStatusDto.setVehicle(internationalShipment.getVehicleNumber());
             internationalRoadReportStatusDto.setShipments(internationalShipment.getTotalShipments());
@@ -196,8 +196,8 @@ public class ReportAndStatusService {
             internationalAirReportPerformance.setId(internationalShipment.getId());
             internationalAirReportPerformance.setPreAlertNumber(internationalShipment.getPreAlertNumber());
             internationalAirReportPerformance.setReferenceNumber(internationalShipment.getReferenceNumber());
-            internationalAirReportPerformance.setOrigin(internationalShipment.getOriginPort());
-            internationalAirReportPerformance.setDestination(internationalShipment.getDestinationPort());
+            internationalAirReportPerformance.setOrigin(internationalShipment.getOriginLocation());
+            internationalAirReportPerformance.setDestination(internationalShipment.getDestinationLocation());
             internationalAirReportPerformance.setRoute(internationalShipment.getRouteNumber());
             internationalAirReportPerformance.setFlight(internationalShipment.getFlightNumber());
             internationalAirReportPerformance.setActualTimeArrival(internationalShipment.getAta());
@@ -240,8 +240,8 @@ public class ReportAndStatusService {
             internationalRoadReportPerformance.setId(internationalShipment.getId());
             internationalRoadReportPerformance.setPreAlertNumber(internationalShipment.getPreAlertNumber());
             internationalRoadReportPerformance.setReferenceNumber(internationalShipment.getReferenceNumber());
-            internationalRoadReportPerformance.setOrigin(internationalShipment.getOriginPort());
-            internationalRoadReportPerformance.setDestination(internationalShipment.getDestinationPort());
+            internationalRoadReportPerformance.setOrigin(internationalShipment.getOriginLocation());
+            internationalRoadReportPerformance.setDestination(internationalShipment.getDestinationLocation());
             internationalRoadReportPerformance.setRoute(internationalShipment.getRouteNumber());
             internationalRoadReportPerformance.setVehicleType(internationalShipment.getVehicleType());
             internationalRoadReportPerformance.setActualTimeArrival(internationalShipment.getAta());

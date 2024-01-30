@@ -23,14 +23,16 @@ public class InternationalShipment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String originCountry;
-    private String originPort;
+    private String originFacility;
+    private String originLocation;
     private Boolean refrigeratedTruck;//new road
     private String type;
     private String shipmentMode;
     @Column(unique = true)
     private String preAlertNumber;//new
     private String destinationCountry;
-    private String destinationPort;
+    private String destinationFacility;
+    private String destinationLocation;
     private String carrier;//air
     private LocalDateTime etd;
     private LocalDateTime eta;
@@ -87,7 +89,8 @@ public class InternationalShipment {
         return "InternationalShipment{" +
                 "id=" + id +
                 ", originCountry='" + originCountry + '\'' +
-                ", originPort='" + originPort + '\'' +
+                ", originFacility='" + originFacility + '\'' +
+                ", originLocation='" + originLocation + '\'' +
                 ", refrigeratedTruck=" + refrigeratedTruck +
                 ", type='" + type + '\'' +
                 ", shipmentMode='" + shipmentMode + '\'' +

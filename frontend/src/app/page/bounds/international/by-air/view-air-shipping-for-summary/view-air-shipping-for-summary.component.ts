@@ -23,7 +23,6 @@ export class ViewAirShippingForSummaryComponent {
     attachments: null,
     carrier: null,
     destinationCountry: null,
-    destinationPort: null,
     driverContact: null,
     driverName: null,
     flightNumber: null,
@@ -31,7 +30,6 @@ export class ViewAirShippingForSummaryComponent {
     numberOfPallets: null,
     numberOfShipments: null,
     originCountry: null,
-    originPort: null,
     overageAWBs: null,
     overages: null,
     preAlertNumber: null,
@@ -55,7 +53,11 @@ export class ViewAirShippingForSummaryComponent {
     atd: null,
     trip: null,
     preAlertType: null,
-    transitTimeTaken: null
+    transitTimeTaken: null,
+    originFacility: null,
+    originLocation: null,
+    destinationFacility: null,
+    destinationLocation: null
   }
  
   selectedLocation!: Location;
