@@ -33,7 +33,7 @@ export class InternationalSummaryByRoadComponent {
     toDate: "",
     status: "",
     origin: "",
-    destinations: [""],
+    destinations: [],
     type: "",
     routeNumber:""
   }
@@ -99,7 +99,7 @@ export class InternationalSummaryByRoadComponent {
       toDate: "",
       status: "",
       origin: "",
-      destinations: [""],
+      destinations: [],
       type: "",
       routeNumber:""
     }

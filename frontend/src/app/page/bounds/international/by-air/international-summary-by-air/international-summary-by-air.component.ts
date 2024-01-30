@@ -36,7 +36,8 @@ export class InternationalSummaryByAirComponent {
     status: "",
     origin: "",
     destinations: [],
-    type: ""
+    type: "",
+    routeNumber:""
   }
   page: number = 0;
   size: number = 10;
