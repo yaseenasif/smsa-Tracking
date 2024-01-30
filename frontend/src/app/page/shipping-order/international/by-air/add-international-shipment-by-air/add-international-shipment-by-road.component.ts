@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { InternationalShippingService } from '../../service/international-shipping.service';
@@ -30,7 +30,7 @@ import { Facility } from 'src/app/model/Facility';
   selector: 'app-add-international-shipment-by-road',
   templateUrl: './add-international-shipment-by-road.component.html',
   styleUrls: ['./add-international-shipment-by-road.component.scss'],
-  providers: [MessageService, DatePipe]
+  providers: [MessageService, DatePipe],
 })
 export class AddInternationalShipmentByRoadComponent {
   internationalShipment: InternationalShipment = {
@@ -58,7 +58,7 @@ export class AddInternationalShipmentByRoadComponent {
     shipmentMode: null,
     shortageAWBs: null,
     shortages: null,
-    status: "Created",
+    status: 'Created',
     tagNumber: null,
     totalShipments: null,
     type: 'By Air',
@@ -74,8 +74,8 @@ export class AddInternationalShipmentByRoadComponent {
     originFacility: null,
     originLocation: null,
     destinationFacility: null,
-    destinationLocation: null
-  }
+    destinationLocation: null,
+  };
 
   // route:any;
   routes: any;
@@ -83,72 +83,105 @@ export class AddInternationalShipmentByRoadComponent {
   location!: Location[];
   originPorts!: LocationPort[];
   destinationPorts!: LocationPort[];
-  drivers!: Driver[]
-  vehicleTypes!: VehicleType[]
+  drivers!: Driver[];
+  vehicleTypes!: VehicleType[];
   shipmentStatus!: ProductField;
   selectedDriver: Driver | null = null;
-  modeOptions: { options: string }[] = Object.values(Mode).map(el => ({ options: el }));
-  shipmentMode: { options: string }[] = Object.values(ShipmentMode).map(el => ({ options: el }));
-  numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
+  modeOptions: { options: string }[] = Object.values(Mode).map((el) => ({
+    options: el,
+  }));
+  shipmentMode: { options: string }[] = Object.values(ShipmentMode).map(
+    (el) => ({ options: el })
+  );
+  numberOfPallets: { options: number }[] = Object.values(NumberOfPallets)
+    .filter((value) => typeof value === 'number')
+    .map((value) => ({ options: value as number }));
   minDate: Date = new Date();
-  carrier:ProductField|undefined|null;
+  carrier: ProductField | undefined | null;
   user!: User;
   originCountry!: Country[];
-  destinationCountry!:Country[];
+  destinationCountry!: Country[];
   originFacility!: Facility[];
   destinationFacility!: Facility[];
-  orgLocation: Location[]|undefined;
-  desLocation: Location[]|undefined;
+  orgLocation: Location[] | undefined;
+  desLocation: Location[] | undefined;
 
+  getLoggedInUser() {
+    this.userService.getLoggedInUser().subscribe(
+      (res: User) => {
+        this.user = res;
+        this.originCountry = [];
+        this.destinationCountry = [];
+        res.internationalAirOriginLocation?.forEach((el) => {
+          return this.originCountry.push(el.facility?.country!);
+        });
+        this.originCountry = this.originCountry.filter(
+          (obj, index, arr) =>
+            index === arr.findIndex((item: Country) => item.id === obj.id)
+        );
 
- getLoggedInUser(){
-    this.userService.getLoggedInUser().subscribe((res: User) => {
-      this.user=res;
-      this.originCountry=[];
-      this.destinationCountry=[];
-      res.internationalAirOriginLocation?.forEach((el)=>{
-        return this.originCountry.push(el.facility?.country!);
-      })
-      this.originCountry = this.originCountry.filter((obj, index, arr) =>
-      index === arr.findIndex((item:Country) => item.id === obj.id)
-      );
-      
-
-      res.internationalAirDestinationLocation?.forEach((el)=>{
-        return this.destinationCountry.push(el.facility?.country!);
-      })
-      this.destinationCountry = this.destinationCountry.filter((obj, index, arr) =>
-      index === arr.findIndex((item:Country) => item.id === obj.id)
-      );
-      
-      
-    }, error => {
-      if (error.error.body) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+        res.internationalAirDestinationLocation?.forEach((el) => {
+          return this.destinationCountry.push(el.facility?.country!);
+        });
+        this.destinationCountry = this.destinationCountry.filter(
+          (obj, index, arr) =>
+            index === arr.findIndex((item: Country) => item.id === obj.id)
+        );
+      },
+      (error) => {
+        if (error.error.body) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error.body,
+          });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error,
+          });
+        }
       }
-    })
-} 
-
+    );
+  }
 
   getLocationPortByLocationForOrigin() {
-    this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.originCountry!).subscribe((res) => {
-      this.originPorts = res;
-    }, (error) => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-     })
+    this.internationalShippingService
+      .getLocationPortByLocation(this.internationalShipment.originCountry!)
+      .subscribe(
+        (res) => {
+          this.originPorts = res;
+        },
+        (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error.body,
+          });
+        }
+      );
   }
   getLocationPortByLocationForDestination() {
-    this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.destinationCountry!).subscribe((res) => {
-      this.destinationPorts = res;
-    }, (error) => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-     })
+    this.internationalShippingService
+      .getLocationPortByLocation(this.internationalShipment.destinationCountry!)
+      .subscribe(
+        (res) => {
+          this.destinationPorts = res;
+        },
+        (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error.body,
+          });
+        }
+      );
   }
 
-  constructor(private router: Router,
-    private userService:UserService,
+  constructor(
+    private router: Router,
+    private userService: UserService,
     private internationalShippingService: InternationalShippingService,
     private messageService: MessageService,
     private locationService: LocationService,
@@ -157,71 +190,140 @@ export class AddInternationalShipmentByRoadComponent {
     private driverService: DriverService,
     private vehicleTypeService: VehicleTypeService,
     // private shipmentStatusService: ProductFieldServiceService,
-    private datePipe: DatePipe) { }
+    private datePipe: DatePipe
+  ) {}
   name!: string;
   checked!: boolean;
 
   ngOnInit(): void {
-    this.items = [{ label: 'International Shipment', routerLink: '/international-tile' }, { label: 'International Shipment By Air', routerLink: '/international-shipment-by-air' }, { label: 'Add International Shipment By Air' }];
+    this.items = [
+      { label: 'International Shipment', routerLink: '/international-tile' },
+      {
+        label: 'International Shipment By Air',
+        routerLink: '/international-shipment-by-air',
+      },
+      { label: 'Add International Shipment By Air' },
+    ];
     this.getAllLocations();
     // this.getAllLocationPort();
     this.getAllDriver();
     this.getAllVehicleType();
     this.getAllShipmentCarrier();
-    this.getLoggedInUser()
+    this.getLoggedInUser();
     // this.getAllShipmentStatus();
   }
 
   onSubmit() {
     console.log(this.internationalShipment);
 
-    this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
-    this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
-    this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
-    this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
+    this.internationalShipment.etd = this.datePipe.transform(
+      this.internationalShipment.etd,
+      'yyyy-MM-ddTHH:mm:ss'
+    );
+    this.internationalShipment.eta = this.datePipe.transform(
+      this.internationalShipment.eta,
+      'yyyy-MM-ddTHH:mm:ss'
+    );
+    this.internationalShipment.atd = this.datePipe.transform(
+      this.internationalShipment.atd,
+      'yyyy-MM-ddTHH:mm:ss'
+    );
+    this.internationalShipment.ata = this.datePipe.transform(
+      this.internationalShipment.ata,
+      'yyyy-MM-ddTHH:mm:ss'
+    );
 
-    this.internationalShippingService.addInternationalShipment(this.internationalShipment).subscribe(res => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is added' });
-      setTimeout(() => {
-        this.router.navigate(['/international-shipment-by-air']);
-      }, 800);
-    }, error => {
-      if(error.error.body){
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      }else{
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }
-       this.internationalShipment.etd= this.internationalShipment.etd ? new Date( this.internationalShipment.etd) : null;
-       this.internationalShipment.eta= this.internationalShipment.eta ? new Date( this.internationalShipment.eta) : null;
-       this.internationalShipment.atd= this.internationalShipment.atd ? new Date( this.internationalShipment.atd) : null;
-       this.internationalShipment.ata= this.internationalShipment.ata ? new Date( this.internationalShipment.ata) : null;
-    })
+    this.internationalShippingService
+      .addInternationalShipment(this.internationalShipment)
+      .subscribe(
+        (res) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'International Shipment is added',
+          });
+          setTimeout(() => {
+            this.router.navigate(['/international-shipment-by-air']);
+          }, 800);
+        },
+        (error) => {
+          if (error.error.body) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: error.error.body,
+            });
+          } else {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: error.error,
+            });
+          }
+          this.internationalShipment.etd = this.internationalShipment.etd
+            ? new Date(this.internationalShipment.etd)
+            : null;
+          this.internationalShipment.eta = this.internationalShipment.eta
+            ? new Date(this.internationalShipment.eta)
+            : null;
+          this.internationalShipment.atd = this.internationalShipment.atd
+            ? new Date(this.internationalShipment.atd)
+            : null;
+          this.internationalShipment.ata = this.internationalShipment.ata
+            ? new Date(this.internationalShipment.ata)
+            : null;
+        }
+      );
   }
 
   getAllLocations() {
-    this.locationService.getAllLocationForInternational().subscribe((res: Location[]) => {
-      this.location = res.filter(el => el.status);
-
-
-    }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-    })
+    this.locationService.getAllLocationForInternational().subscribe(
+      (res: Location[]) => {
+        this.location = res.filter((el) => el.status);
+      },
+      (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error.error.body,
+        });
+      }
+    );
   }
 
   getInternationalRouteForAir() {
-    this.routes = []
+    this.routes = [];
 
-    if (this.internationalShipment.originLocation !== null && this.internationalShipment.destinationLocation !== null && this.internationalShipment.trip !== null) {
-      this.internationalShippingService.getInternationalRouteForAir(this.internationalShipment.originLocation!, this.internationalShipment.destinationLocation!,this.internationalShipment.trip!).subscribe((res: any) => {
-        this.routes = res;
-
-      }, (error: any) => {
-        console.log(error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      })
-
+    if (
+      this.internationalShipment.originLocation !== null &&
+      this.internationalShipment.destinationLocation !== null &&
+      this.internationalShipment.trip !== null
+    ) {
+      this.internationalShippingService
+        .getInternationalRouteForAir(
+          this.internationalShipment.originLocation!,
+          this.internationalShipment.destinationLocation!,
+          this.internationalShipment.trip!
+        )
+        .subscribe(
+          (res: any) => {
+            this.routes = res;
+          },
+          (error: any) => {
+            console.log(error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: error.error.body,
+            });
+          }
+        );
     } else {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'You must have to select origin and destination port' });
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'You must have to select origin and destination port',
+      });
     }
   }
   // getAllLocationPort() {
@@ -231,29 +333,43 @@ export class AddInternationalShipmentByRoadComponent {
   // }
 
   getAllDriver() {
-    this.driverService.getAllDriver().subscribe((res: PaginatedResponse<Driver>) => {
-
-      this.drivers = res.content.filter((el: Driver) => el.status);
-    }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-     })
+    this.driverService.getAllDriver().subscribe(
+      (res: PaginatedResponse<Driver>) => {
+        this.drivers = res.content.filter((el: Driver) => el.status);
+      },
+      (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error.error.body,
+        });
+      }
+    );
   }
   getAllVehicleType() {
-    this.vehicleTypeService.getALLVehicleType().subscribe((res: VehicleType[]) => {
-      this.vehicleTypes = res;
-    }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-    })
+    this.vehicleTypeService.getALLVehicleType().subscribe(
+      (res: VehicleType[]) => {
+        this.vehicleTypes = res;
+      },
+      (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Error',
+          detail: error.error.body,
+        });
+      }
+    );
   }
 
   getAllShipmentCarrier() {
-    return this.shipmentStatusService.getProductFieldByName("Carrier").subscribe(
-      res=>{
-          this.carrier=res;
-      },error=>{
-
-      }
-     );
+    return this.shipmentStatusService
+      .getProductFieldByName('Carrier')
+      .subscribe(
+        (res) => {
+          this.carrier = res;
+        },
+        (error) => {}
+      );
   }
 
   // getAllShipmentStatus() {
@@ -268,61 +384,92 @@ export class AddInternationalShipmentByRoadComponent {
 
   driverData() {
     this.internationalShipment.driverName = this.selectedDriver?.name;
-    this.internationalShipment.driverContact = this.selectedDriver?.contactNumber;
-    this.internationalShipment.referenceNumber = this.selectedDriver?.referenceNumber;
+    this.internationalShipment.driverContact =
+      this.selectedDriver?.contactNumber;
+    this.internationalShipment.referenceNumber =
+      this.selectedDriver?.referenceNumber;
   }
 
-
-  flag=false;
-  dashAfterThree(){
-    let charToAdd="-";
-    if(this.internationalShipment.preAlertNumber!.length===3){
-    this.flag=true;
+  flag = false;
+  dashAfterThree() {
+    let charToAdd = '-';
+    if (this.internationalShipment.preAlertNumber!.length === 3) {
+      this.flag = true;
     }
-    if(this.internationalShipment.preAlertNumber!.length===4&&this.flag){
-      this.internationalShipment.preAlertNumber=this.internationalShipment.preAlertNumber!.slice(0, 3) + charToAdd + this.internationalShipment.preAlertNumber!.slice(3);
-      this.flag=false;
+    if (this.internationalShipment.preAlertNumber!.length === 4 && this.flag) {
+      this.internationalShipment.preAlertNumber =
+        this.internationalShipment.preAlertNumber!.slice(0, 3) +
+        charToAdd +
+        this.internationalShipment.preAlertNumber!.slice(3);
+      this.flag = false;
     }
   }
 
-  onOrgCountryChange(country:string){
-    this.originFacility=[]
-    let orgFacility=this.user.internationalAirOriginLocation!.filter(
-     (location, index, self) =>
-       location?.facility?.country?.name == country &&
-       index ===
-         self.findIndex(
-           (l) =>
-             l.facility!.id === location.facility!.id
-         )
-   );
-   
-    orgFacility?.forEach((el)=>{
-     return this.originFacility.push(el?.facility!);
-    })
-     
-   }
- 
-   onDesCountryChange(country:string){
-     this.destinationFacility=[]
-     let desFacility=this.user.internationalAirDestinationLocation!.filter(
-       (location, index, self) =>
-         location?.facility?.country?.name == country &&
-         index ===
-           self.findIndex(
-             (l) =>
-               l.facility!.id === location.facility!.id
-           )
-     );
-      desFacility?.forEach((el)=>{
-       return this.destinationFacility.push(el?.facility!);
-      })
-   }
+  onOrgCountryChange(country: string) {
 
-  onOrgFacilityChange(facility:string){
-    this.orgLocation= this.user.internationalAirOriginLocation?.filter((obj => obj.facility?.country?.name === this.internationalShipment.originCountry && obj.facility?.name === facility));
+      this.originFacility = [];
+      let orgFacility = this.user.internationalAirOriginLocation!.filter(
+        (location, index, self) =>
+          location?.facility?.country?.name == country &&
+          index ===
+            self.findIndex((l) => l.facility!.id === location.facility!.id)
+      );
+
+      orgFacility?.forEach((el) => {
+        return this.originFacility.push(el?.facility!);
+      });
+
+      this.destinationCountry = [];
+      this.user.internationalAirDestinationLocation?.forEach((el) => {
+        return this.destinationCountry.push(el.facility?.country!);
+      });
+      this.destinationCountry = this.destinationCountry.filter(
+        (obj, index, arr) =>
+          index === arr.findIndex((item: Country) => item.id === obj.id)&&obj.name!=country
+      );
+    
   }
-  onDesFacilityChange(facility:string){
-    this.desLocation= this.user.internationalAirDestinationLocation?.filter((obj => obj.facility?.country?.name === this.internationalShipment.destinationCountry && obj.facility?.name === facility));
+
+  onDesCountryChange(country: string) {
+  
+      this.destinationFacility = [];
+      let desFacility = this.user.internationalAirDestinationLocation!.filter(
+        (location, index, self) =>
+          location?.facility?.country?.name == country &&
+          index ===
+            self.findIndex((l) => l.facility!.id === location.facility!.id)
+      );
+      desFacility?.forEach((el) => {
+        return this.destinationFacility.push(el?.facility!);
+      });
+
+      this.originCountry = [];
+    
+      this.user.internationalAirOriginLocation?.forEach((el) => {
+        return this.originCountry.push(el.facility?.country!);
+      });
+      this.originCountry = this.originCountry.filter(
+        (obj, index, arr) =>
+          index === arr.findIndex((item: Country) => item.id === obj.id)&&obj.name!=country
+      );
+
+    
+  }
+
+  onOrgFacilityChange(facility: string) {
+    this.orgLocation = this.user.internationalAirOriginLocation?.filter(
+      (obj) =>
+        obj.facility?.country?.name ===
+          this.internationalShipment.originCountry &&
+        obj.facility?.name === facility
+    );
+  }
+  onDesFacilityChange(facility: string) {
+    this.desLocation = this.user.internationalAirDestinationLocation?.filter(
+      (obj) =>
+        obj.facility?.country?.name ===
+          this.internationalShipment.destinationCountry &&
+        obj.facility?.name === facility
+    );
   }
 }
