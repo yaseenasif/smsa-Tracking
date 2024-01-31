@@ -32,8 +32,6 @@ public class LocationService {
     @Transactional
     public LocationDto addLocation(LocationDto locationDto) {
 
-
-
         Location location = Location.builder()
                 .locationName(locationDto.getLocationName())
                 .type(locationDto.getType())
@@ -42,7 +40,6 @@ public class LocationService {
                 .destinationEmail(locationDto.getDestinationEmail())
                 .originEscalation(locationDto.getOriginEscalation())
                 .destinationEscalation(locationDto.getDestinationEscalation())
-                .facility(locationDto.getFacility())
                 .build();
 
         return toDto(locationRepository.save(location));
@@ -94,7 +91,6 @@ public class LocationService {
             location.get().setDestinationEmail(locationDto.getDestinationEmail());
             location.get().setOriginEscalation(locationDto.getOriginEscalation());
             location.get().setDestinationEscalation(locationDto.getDestinationEscalation());
-            location.get().setFacility(locationDto.getFacility());
             return toDto(locationRepository.save(location.get()));
         }
 
@@ -113,18 +109,18 @@ public class LocationService {
         throw new RuntimeException(String.format("Location Not Found by this Id => %d" , id));
     }
 
-    public List<LocationDto> getLocationByFacilityName(Long facility, String type) {
-        Optional<Facility> facilityByIdAndStatus = facilityRepository.findByIdAndStatus(facility, Boolean.TRUE);
-        if(!facilityByIdAndStatus.isPresent()){
-            throw  new RecordNotFoundException("Facility do not exist");
-        }
-        List<Location> locations = locationRepository.getAllByFacilityAndType(facilityByIdAndStatus.get(),type);
-        if(!locations.isEmpty()){
-            return toDtoList(locations);
-        }else{
-            throw new RecordNotFoundException(String.format("Location Not Found"));
-        }
-    }
+//    public List<LocationDto> getLocationByFacilityName(Long facility, String type) {
+//        Optional<Facility> facilityByIdAndStatus = facilityRepository.findByIdAndStatus(facility, Boolean.TRUE);
+//        if(!facilityByIdAndStatus.isPresent()){
+//            throw  new RecordNotFoundException("Facility do not exist");
+//        }
+//        List<Location> locations = locationRepository.getAllByFacilityAndType(facilityByIdAndStatus.get(),type);
+//        if(!locations.isEmpty()){
+//            return toDtoList(locations);
+//        }else{
+//            throw new RecordNotFoundException(String.format("Location Not Found"));
+//        }
+//    }
 
     public Location getLocationByName(String locationName,String type){
         return locationRepository.findByLocationNameAndType(locationName,type);

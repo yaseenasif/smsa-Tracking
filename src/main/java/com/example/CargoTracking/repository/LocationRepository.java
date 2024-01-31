@@ -23,8 +23,8 @@ public interface LocationRepository extends JpaRepository<Location , Long> {
 
     @Query("SELECT l FROM Location l WHERE l.locationName = :locationName AND l.type =:type And l.status = true")
     Location findByLocationNameAndType(String locationName, String type);
-    @Query("SELECT l FROM Location l WHERE l.locationName = :locationName AND l.type =:type And l.facility =:facility And l.status =true")
-    Optional<Location> findByLocationNameAndTypeAndFacilityForUser(String locationName, String type, Facility facility);
-    List<Location> getAllByFacilityAndType(Facility facility, String type);
+    @Query("SELECT l FROM Location l WHERE l.locationName = :locationName AND l.type =:type And l.status =true")
+    Optional<Location> findByLocationNameAndTypeAndFacilityForUser(String locationName, String type);
+//    List<Location> getAllByFacilityAndType(Facility facility, String type);
 
 }

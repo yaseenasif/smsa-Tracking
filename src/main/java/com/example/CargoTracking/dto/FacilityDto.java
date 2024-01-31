@@ -5,6 +5,7 @@ import com.example.CargoTracking.model.Location;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Getter
 @Setter
@@ -16,6 +17,5 @@ public class FacilityDto    {
     private Long id;
     private String name;
     private boolean status;
-    @NotBlank(message = "Country is required")
-    private Country country;
+    private List<Location> locations;
 }

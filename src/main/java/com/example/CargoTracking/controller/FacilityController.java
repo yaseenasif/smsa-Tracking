@@ -41,8 +41,8 @@ public class FacilityController {
         return ResponseEntity.ok(facilityService.deleteFacility(id));
     }
 
-    @GetMapping("get-by-country/{country}")
-    public ResponseEntity<List<FacilityDto>> getFacilitiesByCountry(@PathVariable Long country){
-        return ResponseEntity.ok(facilityService.getFacilitiesByCountryName(country));
-    }
+//    @GetMapping("get-by-country/{country}")
+//    public ResponseEntity<List<FacilityDto>> getFacilitiesByCountry(@PathVariable Long country){
+//        return ResponseEntity.ok(facilityService.getFacilitiesByCountryName(country));
+//    }
 }

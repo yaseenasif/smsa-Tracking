@@ -23,7 +23,5 @@ public class LocationDto {
     private String destinationEmail;
     private String originEscalation;
     private String destinationEscalation;
-    @NotBlank(message = "Facility is required")
-    private Facility facility;
 
 }

@@ -5,7 +5,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,13 +25,19 @@ public class Facility {
     private String name;
     private Boolean status;
 
-    @ManyToOne
-    @JoinColumn(name="country_id")
-    private Country country;
+//    @ManyToOne
+//    @JoinColumn(name="country_id")
+//    private Country country;
 
-    @OneToMany(mappedBy = "facility",cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Location> locations = new ArrayList<>();
+//    @OneToMany(mappedBy = "facility",cascade = CascadeType.ALL)
+//    @JsonIgnore
+//    private List<Location> locations = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "facility_location",
+            joinColumns = @JoinColumn(name = "facility_id") ,
+            inverseJoinColumns = @JoinColumn(name = "location_id"))
+    private Set<Location> locations = new HashSet<>();
 
     @Override
     public String toString() {

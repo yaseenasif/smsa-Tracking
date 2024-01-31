@@ -52,7 +52,6 @@ public class FacilityService {
         if(optionalFacility.isPresent()){
             Facility facility = optionalFacility.get();
             facility.setName(facilityDto.getName());
-            facility.setCountry(facilityDto.getCountry());
             facility.setStatus(Boolean.TRUE);
             return toDto(facilityRepository.save(facility));
         } else {
@@ -76,13 +75,13 @@ public class FacilityService {
         }
     }
 
-    public List<FacilityDto> getFacilitiesByCountryName(Long country) {
-        List<Facility> facilities = facilityRepository.getAllByStatusAndCountryId(Boolean.TRUE,country);
-        if(!facilities.isEmpty()){
-            return toDtoList(facilities);
-        }
-        throw new RecordNotFoundException(String.format("There is no facilities present with this country"));
-    }
+//    public List<FacilityDto> getFacilitiesByCountryName(Long country) {
+//        List<Facility> facilities = facilityRepository.getAllByStatusAndCountryId(Boolean.TRUE,country);
+//        if(!facilities.isEmpty()){
+//            return toDtoList(facilities);
+//        }
+//        throw new RecordNotFoundException(String.format("There is no facilities present with this country"));
+//    }
 
     public List<FacilityDto> toDtoList(List<Facility> facilities) {
         return facilities.stream().map(this::toDto).collect(Collectors.toList());

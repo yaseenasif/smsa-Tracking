@@ -66,9 +66,9 @@ public class LocationController {
         return ResponseEntity.ok(locationService.makeLocationActive(id));
     }
 
-    @GetMapping("get-all-by-facility/{facilityId}/{type}")
-    public ResponseEntity<List<LocationDto>> getLocationByFacility(@PathVariable Long facilityId, @PathVariable String type) {
-        return ResponseEntity.ok(locationService.getLocationByFacilityName(facilityId,type));
-    }
+//    @GetMapping("get-all-by-facility/{facilityId}/{type}")
+//    public ResponseEntity<List<LocationDto>> getLocationByFacility(@PathVariable Long facilityId, @PathVariable String type) {
+//        return ResponseEntity.ok(locationService.getLocationByFacilityName(facilityId,type));
+//    }
 
 }
