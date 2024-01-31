@@ -159,7 +159,7 @@ export class UpdateInternationalShippingComponent {
       this.originCountry = this.originCountry.filter((obj, index, arr) =>
       index === arr.findIndex((item:Country) => item.id === obj.id)
       );
-      
+
 
       res.internationalRoadDestinationLocation?.forEach((el)=>{
         return this.destinationCountry.push(el.facility?.country!);
@@ -167,8 +167,8 @@ export class UpdateInternationalShippingComponent {
       this.destinationCountry = this.destinationCountry.filter((obj, index, arr) =>
       index === arr.findIndex((item:Country) => item.id === obj.id)
       );
-      
-      
+
+
     }, error => {
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -176,7 +176,7 @@ export class UpdateInternationalShippingComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
       }
     })
-  } 
+  }
 
   getLocationPortByLocationForOrigin() {
     this.internationalShippingService.getLocationPortByLocation(this.internationalShipment.originCountry!).subscribe((res) => {
@@ -198,7 +198,7 @@ export class UpdateInternationalShippingComponent {
     this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
- 
+
     this.internationalShippingService.updateInternationalShipmentById(this.iSID, this.internationalShipment).subscribe(res => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is updated on id' + res.id });
       setTimeout(() => {
@@ -232,7 +232,7 @@ export class UpdateInternationalShippingComponent {
       this.originCountry = this.originCountry.filter((obj, index, arr) =>
       index === arr.findIndex((item:Country) => item.id === obj.id)
       );
-      
+
 
       this.user.internationalRoadDestinationLocation?.forEach((el)=>{
         return this.destinationCountry.push(el.facility?.country!);
@@ -240,7 +240,7 @@ export class UpdateInternationalShippingComponent {
       this.destinationCountry = this.destinationCountry.filter((obj, index, arr) =>
       index === arr.findIndex((item:Country) => item.id === obj.id)
       );
-      
+
       this.onOrgCountryChange(this.internationalShipment.originCountry!)
       this.onDesCountryChange(this.internationalShipment.destinationCountry!)
       this.onOrgFacilityChange(this.internationalShipment.originFacility!)
@@ -332,7 +332,8 @@ export class UpdateInternationalShippingComponent {
 
   onOrgCountryChange(country:string){
     this.originFacility=[]
-    let orgFacility=this.user.internationalAirOriginLocation!.filter(
+    let orgFacility=this.user.internationalRoadOriginLocation!.filter(
+
      (location, index, self) =>
        location?.facility?.country?.name == country &&
        index ===
@@ -341,16 +342,25 @@ export class UpdateInternationalShippingComponent {
              l.facility!.id === location.facility!.id
          )
    );
-   
+
     orgFacility?.forEach((el)=>{
      return this.originFacility.push(el?.facility!);
     })
-     
+
+    this.destinationCountry = [];
+    this.user.internationalRoadDestinationLocation?.forEach((el) => {
+      return this.destinationCountry.push(el.facility?.country!);
+    });
+    this.destinationCountry = this.destinationCountry.filter(
+      (obj, index, arr) =>
+        index === arr.findIndex((item: Country) => item.id === obj.id)&&obj.name!=country
+    );
+
    }
- 
+
    onDesCountryChange(country:string){
      this.destinationFacility=[]
-     let desFacility=this.user.internationalAirDestinationLocation!.filter(
+     let desFacility=this.user.internationalRoadDestinationLocation!.filter(
        (location, index, self) =>
          location?.facility?.country?.name == country &&
          index ===
@@ -362,13 +372,23 @@ export class UpdateInternationalShippingComponent {
       desFacility?.forEach((el)=>{
        return this.destinationFacility.push(el?.facility!);
       })
+
+      this.originCountry = [];
+
+      this.user.internationalRoadOriginLocation?.forEach((el) => {
+        return this.originCountry.push(el.facility?.country!);
+      });
+      this.originCountry = this.originCountry.filter(
+        (obj, index, arr) =>
+          index === arr.findIndex((item: Country) => item.id === obj.id)&&obj.name!=country
+      );
    }
 
   onOrgFacilityChange(facility:string){
-    this.orgLocation= this.user.internationalAirOriginLocation?.filter((obj => obj.facility?.country?.name === this.internationalShipment.originCountry && obj.facility?.name === facility));
+    this.orgLocation= this.user.internationalRoadOriginLocation?.filter((obj => obj.facility?.country?.name === this.internationalShipment.originCountry && obj.facility?.name === facility));
   }
   onDesFacilityChange(facility:string){
-    this.desLocation= this.user.internationalAirDestinationLocation?.filter((obj => obj.facility?.country?.name === this.internationalShipment.destinationCountry && obj.facility?.name === facility));
+    this.desLocation= this.user.internationalRoadDestinationLocation?.filter((obj => obj.facility?.country?.name === this.internationalShipment.destinationCountry && obj.facility?.name === facility));
   }
 }
 

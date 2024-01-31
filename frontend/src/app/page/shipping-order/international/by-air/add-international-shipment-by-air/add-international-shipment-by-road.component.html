@@ -87,7 +87,7 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                  
+
                     <label htmlFor="name">Origin Location</label>
                     <p-dropdown
                       class="w-full"
@@ -164,8 +164,8 @@
                     <p-dropdown
                       class="w-full"
                       [options]="destinationFacility"
-                      name="originFacility1"
-                      #originFacility1="ngModel"
+                      name="destinationFacility1"
+                      #destinationFacility1="ngModel"
                       [required]="true"
                       (onChange)="onDesFacilityChange(internationalShipment.destinationFacility!)"
                       [(ngModel)]="internationalShipment.destinationFacility"
@@ -322,7 +322,7 @@
                 </div>
 
                 <!-- 2 -->
-               
+
 
 
                 <!-- <div class="col-12 md:col-6 lg:col-4">
@@ -381,7 +381,7 @@
                 </div>
 
                 <!-- 3 -->
-               
+
 
                 <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
@@ -470,13 +470,13 @@
                     <label htmlFor="name">ETD</label>
                     <p-calendar
                       #etd="ngModel"
-                      name="etd"       
+                      name="etd"
                       [(ngModel)]="internationalShipment.etd"
                       [required]="true"
                       [showTime]="true"
                       [showSeconds]="true"
-                      [selectOtherMonths]="true"                    
-                      [minDate]="minDate"  
+                      [selectOtherMonths]="true"
+                      [minDate]="minDate"
                     ></p-calendar>
                     <!-- <small id="name-help"
                         >{{name}}</small
@@ -493,8 +493,8 @@
                       [required]="true"
                       [showTime]="true"
                       [showSeconds]="true"
-                      [selectOtherMonths]="true"                    
-                      [minDate]="minDate"  
+                      [selectOtherMonths]="true"
+                      [minDate]="minDate"
                     ></p-calendar>
                     <!-- <small id="name-help"
                           >{{name}}</small
@@ -510,8 +510,8 @@
                       [(ngModel)]="internationalShipment.atd"
                       [required]="true"
                       [showTime]="true"
-                      [selectOtherMonths]="true"                    
-                     
+                      [selectOtherMonths]="true"
+
                     ></p-calendar>
                     <!-- <small id="name-help"
                           >{{name}}</small
