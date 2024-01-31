@@ -87,8 +87,9 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                  
+
                     <label htmlFor="name">Origin Location</label>
+                    {{internationalShipment.originLocation}}
                     <p-dropdown
                       class="w-full"
                       [options]="orgLocation"
@@ -164,8 +165,8 @@
                     <p-dropdown
                       class="w-full"
                       [options]="destinationFacility"
-                      name="originFacility1"
-                      #originFacility1="ngModel"
+                      name="destinationFacility1"
+                      #destinationFacility1="ngModel"
                       [required]="true"
                       (onChange)="onDesFacilityChange(internationalShipment.destinationFacility!)"
                       [(ngModel)]="internationalShipment.destinationFacility"
@@ -306,7 +307,7 @@
                     </p-dropdown>
                   </div>
                 </div> -->
-<!-- 
+<!--
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Origin Port </label>
