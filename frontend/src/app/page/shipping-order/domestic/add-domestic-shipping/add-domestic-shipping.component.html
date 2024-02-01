@@ -476,7 +476,7 @@
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Reference Number</label>
+                    <label htmlFor="name">Master CONS</label>
                     <input
                       [readOnly]="true"
                       pInputText
@@ -597,10 +597,13 @@
                     > -->
                   </div>
                 </div>
+           
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Tag Number</label>
-                    <input
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Security Tag</label>
+                    <p-chips styleClass="w-full" [(ngModel)]="domesticShipment.tagNumber"></p-chips> -->
+                 
+                     <input
                       pInputText
                       id="name"
                       aria-describedby="name-help"
@@ -614,6 +617,8 @@
                       > -->
                   </div>
                 </div>
+
+
                 <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Seal Number</label>

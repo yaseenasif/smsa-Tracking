@@ -5,7 +5,7 @@ export interface InternationalShipment {
   originFacility: string|null|undefined,
   originLocation: string|null|undefined,
   // originPort: string | null | undefined,
-  refrigeratedTruck: boolean | null | undefined,
+  refrigeratedTruck: boolean | null | undefined,//Vehicle
   type: string | null | undefined,
   shipmentMode: string | null | undefined,
   preAlertNumber: string | null | undefined,
@@ -22,7 +22,7 @@ export interface InternationalShipment {
   actualWeight: number | null | undefined,
   driverName: string | null | undefined,
   driverContact: string | null | undefined,
-  referenceNumber: string | null | undefined,
+  referenceNumber: string | null | undefined,//Master CONS
   vehicleType: string | null | undefined,
   numberOfPallets: number | null | undefined,
   numberOfBags: number | null | undefined,

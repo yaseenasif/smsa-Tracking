@@ -16,7 +16,10 @@
                       <h2 class="h-color">User List</h2>
                     </div>
                     <div class="p-toolbar-group-end">
-                        <p-button class="bg-b-color" routerLink="/add-user">
+                      <p-button class="bg-b-color mr-2" routerLink="/archive-user">
+                        <i class="bi bi-archive" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Archive User
+                      </p-button>
+                        <p-button class="bg-b-color ml-2" routerLink="/add-user">
                           <i class="bi bi-plus-lg" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Add User
                         </p-button>
                     </div>
@@ -47,7 +50,7 @@
                     <p-button [routerLink] = "['/edit-user/',users.id]"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                      
                     </p-button>
-                     <p-button (click)="showDialog(users.id)"  icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"  class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                     <p-button (click)="showDialog(users.id)"  icon="bi bi-archive"  tooltipPosition="top" pTooltip="Archive"  class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                     
                      </p-button>
                   </td>

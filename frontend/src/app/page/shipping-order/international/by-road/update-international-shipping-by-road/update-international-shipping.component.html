@@ -260,7 +260,7 @@
                 </div> -->
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Referigirated Truck</label>
+                    <label htmlFor="name">Vehicle</label>
                     <p-inputSwitch
                       #referigiratedTruck="ngModel"
                       name="referigiratedTruck"
@@ -482,9 +482,7 @@
                       [(ngModel)]="internationalShipment.etd"
                       [required]="true"
                       [showTime]="true"
-                      [showSeconds]="true"
                       [selectOtherMonths]="true"
-                      [minDate]="minDate"
                     ></p-calendar>
                     <!-- <small id="name-help"
                         >{{name}}</small
@@ -500,9 +498,7 @@
                       [(ngModel)]="internationalShipment.eta"
                       [required]="true"
                       [showTime]="true"
-                      [showSeconds]="true"
                       [selectOtherMonths]="true"
-                      [minDate]="minDate"
                     ></p-calendar>
                     <!-- <small id="name-help"
                           >{{name}}</small
@@ -531,7 +527,7 @@
                 <!-- 5 -->
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Actual Weight</label>
+                    <label htmlFor="name">Weight in kg</label>
                     <input
                       #actualWeight="ngModel"
                       name="actualWeight"
@@ -548,7 +544,7 @@
                         actualWeight.invalid &&
                         (actualWeight.dirty || actualWeight.touched)
                       "
-                      >Actual Weight is required.</small
+                      >Weight in kg is required.</small
                     >
                   </div>
                 </div>
@@ -674,7 +670,7 @@
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Reference Number</label>
+                    <label htmlFor="name">Master CONS</label>
                     <input
                       [readOnly]="true"
                       pInputText

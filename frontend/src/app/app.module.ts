@@ -121,6 +121,7 @@ import { CountryUpdateComponent } from './page/country/country-update/country-up
 import { AddFacilityComponent } from './page/facility/add-facility/add-facility.component';
 import { FacilityUpdateComponent } from './page/facility/facility-update/facility-update.component';
 import { FacilityListComponent } from './page/facility/facility-list/facility-list.component';
+import { ArchiveUserComponent } from './page/user/archive-user/archive-user.component';
 
 @NgModule({
   declarations: [
@@ -210,6 +211,7 @@ import { FacilityListComponent } from './page/facility/facility-list/facility-li
     AddFacilityComponent,
     FacilityUpdateComponent,
     FacilityListComponent,
+    ArchiveUserComponent,
     
   ],
   imports: [

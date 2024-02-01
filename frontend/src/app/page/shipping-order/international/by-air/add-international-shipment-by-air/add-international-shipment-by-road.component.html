@@ -474,9 +474,7 @@
                       [(ngModel)]="internationalShipment.etd"
                       [required]="true"
                       [showTime]="true"
-                      [showSeconds]="true"
-                      [selectOtherMonths]="true"
-                      [minDate]="minDate"
+                      [selectOtherMonths]="true"    
                     ></p-calendar>
                     <!-- <small id="name-help"
                         >{{name}}</small
@@ -492,9 +490,7 @@
                       [(ngModel)]="internationalShipment.eta"
                       [required]="true"
                       [showTime]="true"
-                      [showSeconds]="true"
                       [selectOtherMonths]="true"
-                      [minDate]="minDate"
                     ></p-calendar>
                     <!-- <small id="name-help"
                           >{{name}}</small
@@ -511,7 +507,6 @@
                       [required]="true"
                       [showTime]="true"
                       [selectOtherMonths]="true"
-
                     ></p-calendar>
                     <!-- <small id="name-help"
                           >{{name}}</small
@@ -605,7 +600,7 @@
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Actual Weight</label>
+                    <label htmlFor="name">Weight in kg</label>
                     <input
                       #actualWeight="ngModel"
                       name="actualWeight"
@@ -622,14 +617,14 @@
                         actualWeight.invalid &&
                         (actualWeight.dirty || actualWeight.touched)
                       "
-                      >Actual Weight is required.</small
+                      >Weight in kg is required.</small
                     >
                   </div>
                 </div>
                 <!-- 8 -->
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Reference Number</label>
+                    <label htmlFor="name">Master CONS</label>
                     <input
                       pInputText
                       id="name"
@@ -646,7 +641,7 @@
                         referenceNumber.invalid &&
                         (referenceNumber.dirty || referenceNumber.touched)
                       "
-                      >Reference Number is required.</small
+                      >Master CONS is required.</small
                     >
                   </div>
                 </div>

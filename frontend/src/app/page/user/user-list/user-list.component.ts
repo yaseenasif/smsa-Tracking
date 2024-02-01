@@ -38,6 +38,7 @@ export class UserListComponent implements OnInit {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User is deleted on id '+res!.id!.toString()});
       this.getAllUser();
     },error=>{
+      this.visible = false;
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     });
    }

@@ -36,7 +36,7 @@
                     </div>
                     <div class="lg:col-4 md:col-12 col-12">
                       <label for="" class="heading-lable"
-                        >Referigirated Truck :</label
+                        >Vehicle :</label
                       >
                       &nbsp;
                       <label for="">
@@ -84,26 +84,26 @@
                       >
                     </div>
                     <div class="lg:col-4 md:col-12 col-12">
-                      <label for="" class="heading-lable">Weight :</label>
+                      <label for="" class="heading-lable">Weight in kg :</label>
                       &nbsp;
                       <label for=""> {{ domesticShipment.weight }}</label>
                     </div>
-                    <div class="lg:col-4 md:col-12 col-12">
+                    <!-- <div class="lg:col-4 md:col-12 col-12">
                       <label for="" class="heading-lable">ETD :</label> &nbsp;
                       <label for="">
                         {{ domesticShipment.etd | date : "shortDate" }}</label
                       >
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 <div class="lg:col-12 md:col-6 col-12">
                   <div class="grid">
-                    <div class="lg:col-4 md:col-12 col-12">
+                    <!-- <div class="lg:col-4 md:col-12 col-12">
                       <label for="" class="heading-lable">ETA :</label> &nbsp;
                       <label for="">
                         {{ domesticShipment.eta | date : "shortDate" }}</label
                       >
-                    </div>
+                    </div> -->
                     <div class="lg:col-4 md:col-12 col-12">
                       <label for="" class="heading-lable">ATD :</label> &nbsp;
                       <label for="">
@@ -130,7 +130,7 @@
                     </div>
                     <div class="lg:col-4 md:col-12 col-12">
                       <label for="" class="heading-lable"
-                        >Reference Number :</label
+                        >Master CONS :</label
                       >
                       &nbsp;
                       <label for="">
@@ -176,15 +176,15 @@
                 <div class="lg:col-12 md:col-6 col-12">
                   <div class="grid">
                     <div class="lg:col-4 md:col-12 col-12">
-                      <label for="" class="heading-lable">Tag Number :</label>
+                      <label for="" class="heading-lable">Security Tag  :</label>
                       &nbsp;
                       <label for=""> {{ domesticShipment.tagNumber }}</label>
                     </div>
-                    <div class="lg:col-4 md:col-12 col-12">
+                    <!-- <div class="lg:col-4 md:col-12 col-12">
                       <label for="" class="heading-lable">Seal Number :</label>
                       &nbsp;
                       <label for=""> {{ domesticShipment.sealNumber }}</label>
-                    </div>
+                    </div> -->
                     <div class="lg:col-4 md:col-12 col-12"></div>
                   </div>
                 </div>
@@ -257,9 +257,7 @@
                       name="ata"
                       [required]="true"
                       [showTime]="true"
-                      [showSeconds]="true"
                       [selectOtherMonths]="true"                    
-                      [minDate]="minDate" 
                     ></p-calendar>
                     <!-- <small id="name-help"
                         >{{name}}</small

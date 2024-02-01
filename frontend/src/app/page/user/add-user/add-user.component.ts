@@ -35,7 +35,8 @@ export class AddUserComponent implements OnInit {
     internationalAirOriginLocation: [],
     internationalAirDestinationLocation: [],
     internationalRoadOriginLocation: [],
-    internationalRoadDestinationLocation: []
+    internationalRoadDestinationLocation: [],
+    status: undefined
   };
   roles!:Role[];
   locationsList!:Location[];
