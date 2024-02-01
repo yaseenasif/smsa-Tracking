@@ -25,19 +25,9 @@ public class Facility {
     private String name;
     private Boolean status;
 
-//    @ManyToOne
-//    @JoinColumn(name="country_id")
-//    private Country country;
-
-//    @OneToMany(mappedBy = "facility",cascade = CascadeType.ALL)
-//    @JsonIgnore
-//    private List<Location> locations = new ArrayList<>();
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "facility_location",
-            joinColumns = @JoinColumn(name = "facility_id") ,
-            inverseJoinColumns = @JoinColumn(name = "location_id"))
-    private Set<Location> locations = new HashSet<>();
+    @OneToMany(mappedBy = "facility",cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Location> locations = new ArrayList<>();
 
     @Override
     public String toString() {

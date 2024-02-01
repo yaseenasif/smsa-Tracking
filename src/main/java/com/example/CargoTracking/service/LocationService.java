@@ -1,7 +1,9 @@
 package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.dto.LocationDto;
+import com.example.CargoTracking.exception.RecordAlreadyExist;
 import com.example.CargoTracking.exception.RecordNotFoundException;
+import com.example.CargoTracking.model.Country;
 import com.example.CargoTracking.model.Facility;
 import com.example.CargoTracking.model.Location;
 import com.example.CargoTracking.payload.ApiResponse;
@@ -31,18 +33,65 @@ public class LocationService {
 
     @Transactional
     public LocationDto addLocation(LocationDto locationDto) {
+        String countryToInsert = locationDto.getCountry().getName();
 
-        Location location = Location.builder()
-                .locationName(locationDto.getLocationName())
-                .type(locationDto.getType())
-                .status(Boolean.TRUE)
-                .originEmail(locationDto.getOriginEmail())
-                .destinationEmail(locationDto.getDestinationEmail())
-                .originEscalation(locationDto.getOriginEscalation())
-                .destinationEscalation(locationDto.getDestinationEscalation())
-                .build();
+        List<Location> locationsByName = locationRepository.findByLocationName(locationDto.getLocationName());
 
-        return toDto(locationRepository.save(location));
+        if (locationsByName.isEmpty()) {
+            Location location = Location.builder()
+                    .locationName(locationDto.getLocationName().toUpperCase())
+                    .type(locationDto.getType())
+                    .status(Boolean.TRUE)
+                    .originEmail(locationDto.getOriginEmail())
+                    .destinationEmail(locationDto.getDestinationEmail())
+                    .originEscalation(locationDto.getOriginEscalation())
+                    .destinationEscalation(locationDto.getDestinationEscalation())
+                    .country(locationDto.getCountry())
+                    .facility(locationDto.getFacility())
+                    .build();
+
+            return toDto(locationRepository.save(location));
+        } else {
+            boolean isCountryPresent = locationsByName
+                    .stream()
+                    .map(Location::getCountry)
+                    .map(Country::getName)
+                    .allMatch(countryToInsert::equals);
+            if (isCountryPresent) {
+                Location location = Location.builder()
+                        .locationName(locationDto.getLocationName().toUpperCase())
+                        .type(locationDto.getType())
+                        .status(Boolean.TRUE)
+                        .originEmail(locationDto.getOriginEmail())
+                        .destinationEmail(locationDto.getDestinationEmail())
+                        .originEscalation(locationDto.getOriginEscalation())
+                        .destinationEscalation(locationDto.getDestinationEscalation())
+                        .country(locationDto.getCountry())
+                        .facility(locationDto.getFacility())
+                        .build();
+
+                return toDto(locationRepository.save(location));
+            } else {
+               throw new RecordAlreadyExist( "Location with the same name already exists in the specified country");
+            }
+        }
+
+
+//        boolean locationExists = locationRepository.existsByLocationNameAndCountryId(
+//                locationDto.getLocationName().toUpperCase(),
+//                locationDto.getCountry().getId()
+//        );
+//
+//        if (locationExists) {
+//        }
+
+//        List<Location> locations = locationRepository.findByLocationName(locationDto.getLocationName().toUpperCase());
+//        for (Location location: locations){
+//            if(location.getCountry().equals(locationDto.getCountry())){
+//                throw new RecordAlreadyExist( "Location with the same name already exists in the specified country");
+//            }
+//        }
+
     }
 
     public List<LocationDto> getActiveLocations() {

@@ -1,5 +1,6 @@
 package com.example.CargoTracking.dto;
 
+import com.example.CargoTracking.model.Country;
 import com.example.CargoTracking.model.Facility;
 import com.example.CargoTracking.model.Location;
 import lombok.*;
@@ -23,5 +24,7 @@ public class LocationDto {
     private String destinationEmail;
     private String originEscalation;
     private String destinationEscalation;
+    private Country country;
+    private Facility facility;
 
 }

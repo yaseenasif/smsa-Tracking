@@ -17,5 +17,4 @@ public class FacilityDto    {
     private Long id;
     private String name;
     private boolean status;
-    private List<Location> locations;
 }

@@ -5,30 +5,44 @@ import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.model.Country;
 import com.example.CargoTracking.model.DomesticShipment;
+import com.example.CargoTracking.model.Facility;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.repository.CountryRepository;
+import com.example.CargoTracking.repository.FacilityRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import javax.transaction.Transactional;
+import java.util.*;
 import java.util.stream.Collectors;
-
+@Transactional
 @Service
 public class CountryService {
     @Autowired
     ModelMapper modelMapper;
     @Autowired
     CountryRepository countryRepository;
+    @Autowired
+    FacilityRepository facilityRepository;
+
     public CountryDto addCountry(CountryDto countryDto) {
         if (countryRepository.existsByName(countryDto.getName())) {
             throw new RecordNotFoundException("A country with the same name already exists.");
         }
         Country country = toEntity(countryDto);
         country.setStatus(Boolean.TRUE);
+
+//        Set<Facility> facilities = new HashSet<>();
+//        if(country.getFacilities()!=null){
+//            for(Facility facility : countryDto.getFacilities()){
+//                Optional<Facility> actualFacility = facilityRepository.findById(facility.getId());
+//                facilities.add(actualFacility.get());
+//            }
+//        }
+//
+//        country.setFacilities(facilities);
         Country save = countryRepository.save(country);
         return toDto(save);
     }

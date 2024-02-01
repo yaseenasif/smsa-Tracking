@@ -21,4 +21,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorMessage, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(value = RecordAlreadyExist.class)
+    public ResponseEntity<ErrorMessage> recordAlreadyExist(RecordAlreadyExist recordAlreadyExist){
+        ErrorMessage errorMessage = ErrorMessage.builder().body(recordAlreadyExist.getMessage()).build();
+        return new ResponseEntity<>(errorMessage, HttpStatus.CONFLICT);
+    }
+
 }

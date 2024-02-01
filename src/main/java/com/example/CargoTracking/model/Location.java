@@ -27,11 +27,13 @@ public class Location {
     private String originEscalation;
     private String destinationEscalation;
 
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
 
-
-//    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
-//    @JsonIgnore
-//    private List<LocationPort> locationPorts = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "facility_id")
+    private Facility facility;
 
     @Override
     public String toString() {
