@@ -33,10 +33,17 @@ public class UserController {
         return ResponseEntity.ok(userService.getAllUser());
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/inactive-user")
+    public ResponseEntity<List<User>> getInActiveUser(){
+        return ResponseEntity.ok(userService.getInActiveUser());
+    }
+
     @GetMapping("/get-user/{id}")
     public ResponseEntity<User> getUserById(@PathVariable long id){
         return  ResponseEntity.ok(userService.getUserById(id));
     }
+
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/edit-user/{id}")
@@ -46,7 +53,7 @@ public class UserController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/delete-user/{id}")
-    public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id){
+    public ResponseEntity<User> updateUser(@PathVariable Long id){
         return ResponseEntity.ok(userService.deleteUser(id));
     }
 

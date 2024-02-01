@@ -41,8 +41,8 @@ export class AddDomesticShippingComponent {
     routeNumber: null,
     numberOfShipments: null,
     weight: null,
-    etd: null,
-    eta: null,
+    // etd: null,
+    // eta: null,
     atd: null,
     driverName: null,
     driverContact: null,
@@ -52,7 +52,7 @@ export class AddDomesticShippingComponent {
     numberOfBags: null,
     vehicleNumber: null,
     tagNumber: null,
-    sealNumber: null,
+    // sealNumber: null,
     status: "Created",
     remarks: null,
     ata: null,
@@ -130,7 +130,7 @@ export class AddDomesticShippingComponent {
   ngOnInit(): void {
 
 
-    this.items = [{ label: 'Domestic Shipment', routerLink: '/domestic-shipping' }, { label: 'Add Domestic Shipment' }];
+    this.items = [{ label: 'Domestic Outbound', routerLink: '/domestic-shipping' }, { label: 'Add Domestic Outbound' }];
     // this.getAllLocations();
     this.getAllVehicleType();
     // this.getAllShipmentStatus();
@@ -237,7 +237,7 @@ export class AddDomesticShippingComponent {
 
    addDomesticShipment(domesticShipment:DomesticShipment){
       this.domesticShipmentService.addDomesticShipment(domesticShipment).subscribe((res:DomesticShipment)=>{
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Shipment Added Successfully' });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Outbound Added Successfully' });
         setTimeout(() => {
           this.router.navigate(['/domestic-shipping']);
         },800);
@@ -248,8 +248,8 @@ export class AddDomesticShippingComponent {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
         }
 
-        this.domesticShipment.etd = this.domesticShipment.etd ? new Date( this.domesticShipment.etd) : null;
-        this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
+        // this.domesticShipment.etd = this.domesticShipment.etd ? new Date( this.domesticShipment.etd) : null;
+        // this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
         this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
         this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
       })
@@ -271,8 +271,8 @@ export class AddDomesticShippingComponent {
   }
 
   onSubmit() {
-    this.domesticShipment.etd = this.datePipe.transform(this.domesticShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
-    this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
+    // this.domesticShipment.etd = this.datePipe.transform(this.domesticShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
+    // this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.atd = this.datePipe.transform(this.domesticShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.ata = this.datePipe.transform(this.domesticShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
     this.addDomesticShipment(this.domesticShipment);

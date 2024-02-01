@@ -11,7 +11,7 @@
         <div class="body-card">
           <p-toast></p-toast>
           <div class="card">
-            <h1 class="mb-4 h-color">Add Domestic Shipment</h1>
+            <h1 class="mb-4 h-color">Add Domestic Outbound</h1>
             <form #domesticShipmentForm="ngForm" (ngSubmit)="onSubmit()">
               <div class="grid">
                 <!-- 1 -->
@@ -476,7 +476,7 @@
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Reference Number</label>
+                    <label htmlFor="name">Master CONS</label>
                     <input
                       [readOnly]="true"
                       pInputText
@@ -597,10 +597,13 @@
                     > -->
                   </div>
                 </div>
+           
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Tag Number</label>
-                    <input
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Security Tag</label>
+                   
+                 
+                     <input
                       pInputText
                       id="name"
                       aria-describedby="name-help"
@@ -614,6 +617,8 @@
                       > -->
                   </div>
                 </div>
+
+
                 <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Seal Number</label>

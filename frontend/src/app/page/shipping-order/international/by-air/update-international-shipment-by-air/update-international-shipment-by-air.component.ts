@@ -121,9 +121,9 @@ export class UpdateInternationalShipmentByAirComponent {
     this.iSID = +this.route.snapshot.paramMap.get('id')!;
     this.iST = this.route.snapshot.paramMap.get('type')!;
     if(this.iST=="/from-list"){
-      this.items = [{ label: 'International Shipment', routerLink: '/international-tile' }, { label: 'International Shipment By Air', routerLink: '/international-shipment-by-air' }, { label: 'Edit International Shipment By Air' }];
+      this.items = [{ label: 'International Outbound', routerLink: '/international-tile' }, { label: 'International Outbound By Air', routerLink: '/international-shipment-by-air' }, { label: 'Edit International Outbound By Air' }];
     }else{
-     this.items = [{ label: 'International Summary By Air', routerLink: '/international-summary-by-air' }, { label: 'Edit International Shipment By Air' }];
+     this.items = [{ label: 'International Inbound By Air', routerLink: '/international-summary-by-air' }, { label: 'Edit International Inbound By Air' }];
     }
 
     

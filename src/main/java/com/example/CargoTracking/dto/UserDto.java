@@ -31,7 +31,7 @@ public class UserDto {
     private String email;
     @NotBlank(message = "Role is required")
     private Set<Roles> roles;
-
+    private boolean status;
     private Set<Location> locations;
 
     private Set<Location> domesticOriginLocations;

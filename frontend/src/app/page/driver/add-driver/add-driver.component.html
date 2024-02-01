@@ -31,7 +31,7 @@
               </div>
               <div class="col-12 md:col-12 lg:col-6">
                 <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Reference Number</label>
+                    <label htmlFor="name">Master CONS</label>
                     <input
                       pInputText
                       id="referenceNumber"
@@ -40,8 +40,28 @@
                       name="referenceNumber"
                       #referenceNumber="ngModel"
                       required
+                      pattern="[0-9]+"
+                      minlength="12"
+                      maxlength="12"
                     />
-                    <small id="name-help" class="color-red"  *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched)">Reference Number is required.</small>
+                    <small
+                    class="color-red error"
+                    *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched )&&referenceNumber?.errors?.['required']"
+                  >
+                  Master CONS Number is required.
+                  </small>
+                  <small
+                    class="color-red error"
+                    *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched )&&referenceNumber?.errors?.['pattern']"
+                  >
+                    Invalid pattern
+                  </small>
+                  <small
+                  class="color-red error"
+                  *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched )&&referenceNumber?.errors?.['minlength']"
+                   >
+                  Minimum 12 cheater is required
+                  </small>
                   </div>
               </div>
               <div class="col-12 md:col-12 lg:col-12">

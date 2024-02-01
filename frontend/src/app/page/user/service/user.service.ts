@@ -14,6 +14,10 @@ export class UserService {
   getAllUser():Observable<User[]>{
     return this.http.get<User[]>(this.url.concat('/all-user'));
   }
+
+  getInActiveUser():Observable<User[]>{
+    return this.http.get<User[]>(this.url.concat('/inactive-user'));
+  }
   // getUserByID(id:number):Observable<User>{
   //   return this.http.get<User>(this.url.concat('/user/',id.toString()));
   // }
@@ -29,6 +33,9 @@ export class UserService {
   }
   getUserById(id:number):Observable<User>{
     return this.http.get<User>(this.url.concat('/get-user/',id.toString()))
+  }
+  getAnyUserById(id:number):Observable<User>{
+    return this.http.get<User>(this.url.concat('/get-any-user/',id.toString()))
   }
   getLoggedInUser():Observable<User>{
     return this.http.get<User>(this.url.concat('/get-loggedin/user'))

@@ -165,7 +165,7 @@ export class AddInternationalShippingComponent {
   ngOnInit(): void {
 
 
-    this.items = [{ label: 'International Shipment', routerLink: '/international-tile' }, { label: 'International Shipment By Road', routerLink: '/international-shipment-by-road' }, { label: 'Add International Shipment By Road' }];
+    this.items = [{ label: 'International Outbound', routerLink: '/international-tile' }, { label: 'International Outbound By Road', routerLink: '/international-shipment-by-road' }, { label: 'Add International Outbound By Road' }];
     this.getAllLocations();
     // this.getAllLocationPort();
     this.getAllDriver();
@@ -180,7 +180,7 @@ export class AddInternationalShippingComponent {
     this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShippingService.addInternationalShipment(this.internationalShipment).subscribe(res => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is added' });
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Outbound is added' });
       setTimeout(() => {
         this.router.navigate(['/international-shipment-by-road']);
       }, 800);

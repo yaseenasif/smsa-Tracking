@@ -25,7 +25,7 @@ public class InternationalShipment {
     private String originCountry;
     private String originFacility;
     private String originLocation;
-    private Boolean refrigeratedTruck;//new road
+    private Boolean refrigeratedTruck;//vehicle
     private String type;
     private String shipmentMode;
     @Column(unique = true)
@@ -42,7 +42,7 @@ public class InternationalShipment {
     private Double actualWeight;
     private String driverName;
     private String driverContact;
-    private String referenceNumber;
+    private String referenceNumber;//Master CONS
     private String vehicleType;
     private Integer numberOfPallets;
     private Integer numberOfBags;

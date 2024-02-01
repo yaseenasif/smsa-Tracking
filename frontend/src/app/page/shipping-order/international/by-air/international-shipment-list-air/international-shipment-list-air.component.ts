@@ -46,7 +46,7 @@ export class InternationalShipmentListAirComponent {
 
 
   ngOnInit() {
-    this.items = [{ label: 'International Shipment', routerLink: '/international-tile' }, { label: 'International Shipment By Air' }];
+    this.items = [{ label: 'International Outbound', routerLink: '/international-tile' }, { label: 'International Outbound By Air' }];
     this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
     this.getAllShipmentStatus();
   }

@@ -3,6 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Country } from 'src/app/model/Country';
 import { CountryService } from '../service/country.service';
 import { Router } from '@angular/router';
+import { Facility } from 'src/app/model/Facility';
 
 @Component({
   selector: 'app-add-country',
@@ -16,7 +17,22 @@ export class AddCountryComponent {
   country:Country={
     id: null,
     name: null,
+    facilities: null
   };
+
+  facility:Facility[]=[{
+    id: 1,
+    name: "HUB",
+    country: undefined
+  },{
+    id: 2,
+    name: "STATION",
+    country: undefined
+  },{
+    id: 3,
+    name: "GATEWAY",
+    country: undefined
+  }]
 
   constructor(private countryService:CountryService,
               private messageService: MessageService,

@@ -157,6 +157,11 @@ public class UserService {
         return userWithTrueStatus;
     }
 
+    public List<User> getInActiveUser(){
+        List<User> userWithFalseStatus = userRepository.findUserWithFalseStatus();
+        return userWithFalseStatus;
+    }
+
 
     public User updateUser(Long id, UserDto userDto) {
         Optional<User> user = userRepository.findById(id);
@@ -291,14 +296,15 @@ public class UserService {
         return modelMapper.map(user, UserResponseDto.class);
     }
 
-    public UserResponseDto deleteUser(Long id) {
+    public User deleteUser(Long id) {
         Optional<User> user = userRepository.findById(id);
         if(user.isPresent()){
             user.get().setStatus(Boolean.FALSE);
             User save = userRepository.save(user.get());
-            return toDtoForResponse(save);
+            return save;
+        }else {
+            throw new RuntimeException("User not found");
         }
-        throw new RuntimeException("User not found");
     }
 
     public User getUserById(long id) {

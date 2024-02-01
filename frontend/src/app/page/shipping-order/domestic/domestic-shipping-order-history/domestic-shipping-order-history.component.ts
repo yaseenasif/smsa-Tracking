@@ -25,7 +25,7 @@ export class DomesticShippingOrderHistoryComponent {
     this.getDomesticShipmentByID(this.domesticShipmentId);
 
     this.getDomesticShipmentHistoryByDomesticShipmentId(this.domesticShipmentId);
-      this.items = [{ label: 'Domestic Shipment',routerLink:'/domestic-shipping'},{ label: 'Domestic Shipping History'}];
+      this.items = [{ label: 'Domestic Outbound',routerLink:'/domestic-shipping'},{ label: 'Domestic Shipping History'}];
   }
 
   getDomesticShipmentHistoryByDomesticShipmentId(id:number){

@@ -23,8 +23,8 @@ export class ViewDomesticShippingForSummaryComponent {
     routeNumber: null,
     numberOfShipments: null,
     weight: null,
-    etd: null,
-    eta: null,
+    // etd: null,
+    // eta: null,
     atd: null,
     driverName: null,
     driverContact: null,
@@ -34,7 +34,7 @@ export class ViewDomesticShippingForSummaryComponent {
     numberOfBags: null,
     vehicleNumber: null,
     tagNumber: null,
-    sealNumber: null,
+    // sealNumber: null,
     status: null,
     remarks: null,
     ata: null,
@@ -68,7 +68,7 @@ export class ViewDomesticShippingForSummaryComponent {
     this.domesticShipmentId = +this.route.snapshot.paramMap.get('id')!;
     this.domesticShipmentById(this.domesticShipmentId);
     this.getDomesticShipmentHistoryByDomesticShipmentId(this.domesticShipmentId);
-    this.items = [{ label: 'Domestic Summary',routerLink:'/domestic-summary'},{ label: 'View Domestic Shipment'}];
+    this.items = [{ label: 'Domestic Inbound',routerLink:'/domestic-summary'},{ label: 'View Domestic Inbound'}];
   }
 
   getDomesticShipmentHistoryByDomesticShipmentId(id:number){

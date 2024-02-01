@@ -36,8 +36,8 @@ export class UpdateDomesticShipmentForSummaryComponent {
     routeNumber: null,
     numberOfShipments: null,
     weight: null,
-    etd: null,
-    eta: null,
+    // etd: null,
+    // eta: null,
     atd: null,
     driverName: null,
     driverContact: null,
@@ -47,7 +47,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     numberOfBags: null,
     vehicleNumber: null,
     tagNumber: null,
-    sealNumber: null,
+    // sealNumber: null,
     status: null,
     remarks: null,
     ata: null,
@@ -117,7 +117,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     this.domesticShipmentId = +this.route.snapshot.paramMap.get('id')!;
 
 
-    this.items = [{ label: 'Domestic Summary', routerLink: '/domestic-summary' }, { label: 'Edit Domestic Shipment' }];
+    this.items = [{ label: 'Domestic Inbound', routerLink: '/domestic-summary' }, { label: 'Edit Domestic Inbound' }];
 
     const locations$: Observable<Location[]> = this.locationService.getAllLocation();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
@@ -202,8 +202,8 @@ export class UpdateDomesticShipmentForSummaryComponent {
 
   domesticShipmentById(id: number) {
     this.domesticShipmentService.getDomesticShipmentById(id).subscribe((res: DomesticShipment) => {
-      res.etd = res.etd ? new Date(res.etd) : null;
-      res.eta = res.eta ? new Date(res.eta) : null;
+      // res.etd = res.etd ? new Date(res.etd) : null;
+      // res.eta = res.eta ? new Date(res.eta) : null;
       res.atd = res.atd ? new Date(res.atd) : null;
       res.ata = res.ata ? new Date(res.ata) : null;
       this.selectedDriver = this.drivers.find((el: Driver) => { return (el.name == res.driverName) && (el.contactNumber == res.driverContact) && (el.referenceNumber == res.referenceNumber) })
@@ -230,7 +230,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
 
   updateDomesticShipment(domesticShipment: DomesticShipment) {
     this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId, domesticShipment).subscribe((res: DomesticShipment) => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Shipment Updated Successfully' });
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Outbound Updated Successfully' });
 
       setTimeout(() => {
         this.router.navigate(['/domestic-summary']);
@@ -242,16 +242,16 @@ export class UpdateDomesticShipmentForSummaryComponent {
       } else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.error });
       }
-      this.domesticShipment.etd =  this.domesticShipment.etd ? new Date( this.domesticShipment.etd) : null;
-      this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
+      // this.domesticShipment.etd =  this.domesticShipment.etd ? new Date( this.domesticShipment.etd) : null;
+      // this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
       this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
       this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
     })
   }
 
   onSubmit() {
-    this.domesticShipment.etd = this.datePipe.transform(this.domesticShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
-    this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
+    // this.domesticShipment.etd = this.datePipe.transform(this.domesticShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
+    // this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.atd = this.datePipe.transform(this.domesticShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.ata = this.datePipe.transform(this.domesticShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
     

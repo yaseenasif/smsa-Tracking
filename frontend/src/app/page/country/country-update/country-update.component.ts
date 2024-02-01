@@ -17,6 +17,7 @@ export class CountryUpdateComponent {
   country:Country={
     id: null,
     name: null,
+    facilities: null
   }
 
   constructor(private route: ActivatedRoute,

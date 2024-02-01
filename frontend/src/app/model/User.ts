@@ -7,6 +7,7 @@ export interface User{
     name:string|null|undefined,
     password:string|null|undefined,
     roles:Role[]|null|undefined,
+    status:boolean|null|undefined,
     locations:Location[]|null|undefined;
     domesticOriginLocations:Location[]|null|undefined;
     domesticDestinationLocations:Location[]|null|undefined;

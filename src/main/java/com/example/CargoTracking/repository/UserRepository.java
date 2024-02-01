@@ -19,5 +19,9 @@ public interface UserRepository extends JpaRepository <User,Long> {
     @Query("SELECT u FROM User u WHERE u.status = true")
     List<User> findUserWithTrueStatus();
 
+    @Query("SELECT u FROM User u WHERE u.status = false")
+    List<User> findUserWithFalseStatus();
+
     Optional<User> findActiveUserById(long id);
+
 }

@@ -36,6 +36,6 @@ export class InternationalSummaryByAirAttachmentsComponent {
   }
 
   ngOnInit(): void {  
-    this.items = [{ label: 'International Summary By Air',routerLink:'/international-summary-by-air'},{ label: 'Add Attachments'}];
+    this.items = [{ label: 'International Inbound By Air',routerLink:'/international-summary-by-air'},{ label: 'Add Attachments'}];
   }
 }

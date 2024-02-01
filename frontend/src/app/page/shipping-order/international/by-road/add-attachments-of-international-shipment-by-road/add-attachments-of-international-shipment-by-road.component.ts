@@ -37,6 +37,6 @@ export class AddAttachmentsOfInternationalShipmentByRoadComponent {
   }
 
   ngOnInit(): void {  
-    this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Road',routerLink:'/international-shipment-by-road'},{ label: 'Add Attachments'}];
+    this.items = [{ label: 'International Outbound',routerLink:'/international-tile'},{ label: 'International Outbound By Road',routerLink:'/international-shipment-by-road'},{ label: 'Add Attachments'}];
   }
 }

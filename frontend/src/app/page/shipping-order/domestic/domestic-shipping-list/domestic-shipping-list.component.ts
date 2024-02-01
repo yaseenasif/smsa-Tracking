@@ -34,7 +34,7 @@ export class DomesticShippingListComponent implements OnInit {
 
 
   ngOnInit() {
-    this.items = [{ label: 'Domestic Shipment' }];
+    this.items = [{ label: 'Domestic Outbound' }];
     this.getAllShipmentStatus();
     this.getAllDomesticShipments(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
   }

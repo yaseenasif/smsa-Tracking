@@ -83,6 +83,7 @@ import { CountryUpdateComponent } from './page/country/country-update/country-up
 import { FacilityListComponent } from './page/facility/facility-list/facility-list.component';
 import { AddFacilityComponent } from './page/facility/add-facility/add-facility.component';
 import { FacilityUpdateComponent } from './page/facility/facility-update/facility-update.component';
+import { ArchiveUserComponent } from './page/user/archive-user/archive-user.component';
 // import { EmailManagmentComponent } from './page/email-managment/email-managment.component';
 
 
@@ -159,6 +160,11 @@ const routes: Routes = [
   {
     path: 'edit-user/:id',
     component: UpdateUserComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'archive-user',
+    component: ArchiveUserComponent,
     canActivate: [AuthGuard]
   },
   {

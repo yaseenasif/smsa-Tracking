@@ -38,7 +38,7 @@ export class AttachmentsComponent {
   ngOnInit(): void {
 
     
-    this.items = [{ label: 'Domestic Summary',routerLink:'/domestic-summary'},{ label: 'Add Attachments'}];
+    this.items = [{ label: 'Domestic Inbound',routerLink:'/domestic-summary'},{ label: 'Add Attachments'}];
    
 
   }

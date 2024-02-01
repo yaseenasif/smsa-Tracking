@@ -28,23 +28,23 @@ public class DomesticShipment {
     private String destinationCountry;
     private String originFacility;
     private String originLocation;
-    private Boolean refrigeratedTruck;
+    private Boolean refrigeratedTruck;//vehicle
     private String destinationFacility;
     private String destinationLocation;
     private String routeNumber;
     private Integer numberOfShipments;
-    private Double weight;
+    private Double weight;//weight in kg
     private LocalDateTime etd;
     private LocalDateTime eta;
     private LocalDateTime atd;
     private String driverName;
     private String driverContact;
-    private String referenceNumber;
+    private String referenceNumber;//Master CONS
     private String vehicleType;
     private Integer numberOfPallets;
     private Integer numberOfBags;
     private String vehicleNumber;
-    private Long tagNumber;
+    private Long tagNumber;//security tag
     private Long sealNumber;
     private String status;
     private String remarks;

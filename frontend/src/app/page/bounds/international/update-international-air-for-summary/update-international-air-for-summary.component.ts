@@ -114,7 +114,7 @@ export class UpdateInternationalAirForSummaryComponent {
 
   ngOnInit(): void {
     this.iSID = +this.route.snapshot.paramMap.get('id')!;
-    this.items = [{ label: 'International Summary By Air', routerLink: '/international-summary-by-air' }, { label: 'Edit International Shipment By Air' }];
+    this.items = [{ label: 'International Inbound By Air', routerLink: '/international-summary-by-air' }, { label: 'Edit International Inbound By Air' }];
     const locations$: Observable<Location[]> = this.locationService.getAllLocation();
     const locationPort$: Observable<LocationPort[]> = this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
