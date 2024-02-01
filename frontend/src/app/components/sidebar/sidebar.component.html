@@ -12,7 +12,7 @@
     <li class="child" *ngIf="hasPermission('Domestic Shipment')">
       <span class="sidebar-list-hover" routerLink="/domestic-shipping">
         <i class="bi bi-train-freight-front-fill"></i>
-        <span class="nav-text"> Domestic Shipment </span>
+        <span class="nav-text">Domestic Outbound</span>
       </span>
     </li>
     <li
@@ -24,13 +24,13 @@
     >
       <span class="sidebar-list-hover" routerLink="/international-tile">
         <i class="bi bi-airplane-fill"></i>
-        <span class="nav-text"> International Shipment </span>
+        <span class="nav-text"> International Outbound </span>
       </span>
     </li>
     <li class="child" *ngIf="hasPermission('Domestic Summary')">
       <span class="sidebar-list-hover" routerLink="/domestic-summary">
         <i class="bi bi-journal-text"></i>
-        <span class="nav-text"> Domestic Summary </span>
+        <span class="nav-text"> Domestic Inbound </span>
       </span>
     </li>
     <li class="child" *ngIf="hasPermission('International Summary By Air')">
@@ -39,7 +39,7 @@
         routerLink="/international-summary-by-air"
       >
         <i class="bi bi-journal-text"></i>
-        <span class="nav-text"> International Summary By Air </span>
+        <span class="nav-text"> International Inbound By Air </span>
       </span>
     </li>
     <li class="child" *ngIf="hasPermission('International Summary By Road')">
@@ -48,7 +48,7 @@
         routerLink="/international-summary-by-road"
       >
         <i class="bi bi-journal-text"></i>
-        <span class="nav-text"> International Summary By Road </span>
+        <span class="nav-text"> International Inbound By Road </span>
       </span>
     </li>
 
@@ -110,7 +110,7 @@
     <li class="child" *ngIf="configTurner && hasPermission('ShipmentRoutes')">
       <span class="sidebar-list-hover" routerLink="/domestic-routes">
         <i class="bi bi-train-freight-front-fill"></i>
-        <span class="nav-text"> Domestic Shipment Routes </span>
+        <span class="nav-text"> Domestic Outbound Routes </span>
       </span>
     </li>
     <li
@@ -122,7 +122,7 @@
         routerLink="/international-routes-for-air"
       >
       <i class="bi bi-airplane-fill"></i>
-        <span class="nav-text"> International Shipment Routes For Air </span>
+        <span class="nav-text"> International Outbound Routes For Air </span>
       </span>
     </li>
     <li
@@ -134,7 +134,7 @@
         routerLink="/international-routes-for-road"
       >
       <i class="bi bi-train-freight-front-fill"></i>
-        <span class="nav-text"> International Shipment Routes For Road </span>
+        <span class="nav-text"> International Outbound Routes For Road </span>
       </span>
     </li>
     <li class="child" *ngIf="configTurner && hasPermission('Location Port')">

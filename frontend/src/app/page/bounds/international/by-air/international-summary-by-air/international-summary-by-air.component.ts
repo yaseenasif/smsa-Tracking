@@ -57,7 +57,7 @@ export class InternationalSummaryByAirComponent {
   ngOnInit() {
     this.getRole()
 
-    this.items = [{ label: 'International Summary By Air' }];
+    this.items = [{ label: 'International Inbound By Air' }];
     // this.bound = [
     //   {
     //     bound: "In bound"

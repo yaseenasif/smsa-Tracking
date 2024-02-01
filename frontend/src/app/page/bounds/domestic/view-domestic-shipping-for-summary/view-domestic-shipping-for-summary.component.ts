@@ -68,7 +68,7 @@ export class ViewDomesticShippingForSummaryComponent {
     this.domesticShipmentId = +this.route.snapshot.paramMap.get('id')!;
     this.domesticShipmentById(this.domesticShipmentId);
     this.getDomesticShipmentHistoryByDomesticShipmentId(this.domesticShipmentId);
-    this.items = [{ label: 'Domestic Summary',routerLink:'/domestic-summary'},{ label: 'View Domestic Shipment'}];
+    this.items = [{ label: 'Domestic Inbound',routerLink:'/domestic-summary'},{ label: 'View Domestic Inbound'}];
   }
 
   getDomesticShipmentHistoryByDomesticShipmentId(id:number){

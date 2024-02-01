@@ -163,9 +163,9 @@ export class UpdateDomesticShippingComponent {
 
     this.domesticShipmentType = this.route.snapshot.paramMap.get('type')!;
    if(this.domesticShipmentType=="/from-list"){
-    this.items = [{ label: 'Domestic Shipment', routerLink: '/domestic-shipping' }, { label: 'Edit Domestic Shipment' }];
+    this.items = [{ label: 'Domestic Outbound', routerLink: '/domestic-shipping' }, { label: 'Edit Domestic Outbound' }];
    }else{
-    this.items = [{ label: 'Domestic Summary', routerLink: '/domestic-summary' }, { label: 'Edit Domestic Shipment' }];
+    this.items = [{ label: 'Domestic Inbound', routerLink: '/domestic-summary' }, { label: 'Edit Domestic Inbound' }];
    }
     const locations$: Observable<Location[]> = this.locationService.getAllLocationForDomestic();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
@@ -369,7 +369,7 @@ export class UpdateDomesticShippingComponent {
 
   updateDomesticShipment(domesticShipment: DomesticShipment) {
     this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId, domesticShipment).subscribe((res: DomesticShipment) => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Shipment Updated Successfully' });
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Outbound Updated Successfully' });
 
       setTimeout(() => {
         this.router.navigate(['/domestic-shipping']);

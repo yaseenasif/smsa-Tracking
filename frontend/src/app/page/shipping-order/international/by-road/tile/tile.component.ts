@@ -15,7 +15,7 @@ export class TileComponent {
  
 
   ngOnInit() {
-      this.items = [{ label: 'International Shipment'}];
+      this.items = [{ label: 'International Outbound'}];
   }
 
   hasPermission(permission:string):boolean{

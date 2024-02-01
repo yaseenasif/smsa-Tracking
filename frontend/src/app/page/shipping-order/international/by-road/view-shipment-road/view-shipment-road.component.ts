@@ -69,7 +69,7 @@ export class ViewShipmentRoadComponent {
 
   ngOnInit(): void {
     this.iSID = +this.route.snapshot.paramMap.get('id')!;
-    this.items = [{ label: 'International Shipment', routerLink: '/international-tile' }, { label: 'International Shipment By Road', routerLink: '/international-shipment-by-road' }, { label: 'View International Shipment By Road' }];
+    this.items = [{ label: 'International Outbound', routerLink: '/international-tile' }, { label: 'International Outbound By Road', routerLink: '/international-shipment-by-road' }, { label: 'View International Outbound By Road' }];
         // Now that you have the responses, you can proceed with the next steps
         this.getInternationalShipmentById(this.iSID);
         this.getInternationalShipmentHistoryByInternationalShipmentId(this.iSID);

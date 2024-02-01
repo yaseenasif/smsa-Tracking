@@ -120,9 +120,9 @@ export class UpdateInternationalShippingComponent {
     this.iSID = +this.route.snapshot.paramMap.get('id')!;
     this.iST = this.route.snapshot.paramMap.get('type')!;
     if(this.iST=="/from-list"){
-      this.items = [{ label: 'International Shipment', routerLink: '/international-tile' }, { label: 'International Shipment By Road', routerLink: '/international-shipment-by-road' }, { label: 'Edit International Shipment By Road' }];
+      this.items = [{ label: 'International Outbound', routerLink: '/international-tile' }, { label: 'International Outbound By Road', routerLink: '/international-shipment-by-road' }, { label: 'Edit International Outbound By Road' }];
     }else{
-     this.items = [{ label: 'International Summary By Road', routerLink: '/international-summary-by-road' },{ label: 'Edit International Shipment By Road' }];
+     this.items = [{ label: 'International Inbound By Road', routerLink: '/international-summary-by-road' },{ label: 'Edit International Inbound By Road' }];
     }
 
     const locations$: Observable<Location[]> = this.locationService.getAllLocationForInternational();
@@ -200,7 +200,7 @@ export class UpdateInternationalShippingComponent {
     this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
 
     this.internationalShippingService.updateInternationalShipmentById(this.iSID, this.internationalShipment).subscribe(res => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is updated on id' + res.id });
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Outbound is updated on id' + res.id });
       setTimeout(() => {
         this.router.navigate(['/international-shipment-by-road']);
       }, 800);

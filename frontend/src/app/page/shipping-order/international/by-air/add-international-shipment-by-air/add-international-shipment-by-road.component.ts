@@ -197,12 +197,12 @@ export class AddInternationalShipmentByRoadComponent {
 
   ngOnInit(): void {
     this.items = [
-      { label: 'International Shipment', routerLink: '/international-tile' },
+      { label: 'International Outbound', routerLink: '/international-tile' },
       {
-        label: 'International Shipment By Air',
+        label: 'International Outbound By Air',
         routerLink: '/international-shipment-by-air',
       },
-      { label: 'Add International Shipment By Air' },
+      { label: 'Add International Outbound By Air' },
     ];
     this.getAllLocations();
     // this.getAllLocationPort();
@@ -240,7 +240,7 @@ export class AddInternationalShipmentByRoadComponent {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
-            detail: 'International Shipment is added',
+            detail: 'International Outbound is added',
           });
           setTimeout(() => {
             this.router.navigate(['/international-shipment-by-air']);

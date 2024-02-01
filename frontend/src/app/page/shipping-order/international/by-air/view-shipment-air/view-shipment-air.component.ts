@@ -73,7 +73,7 @@ export class ViewShipmentAirComponent {
 
   ngOnInit(): void {
     this.iSID = +this.route.snapshot.paramMap.get('id')!;
-    this.items = [{ label: 'International Shipment', routerLink: '/international-tile' }, { label: 'International Shipment By Air', routerLink: '/international-shipment-by-air' }, { label: 'View International Shipment By Air' }];
+    this.items = [{ label: 'International Outbound', routerLink: '/international-tile' }, { label: 'International Outbound By Air', routerLink: '/international-shipment-by-air' }, { label: 'View International Outbound By Air' }];
   
     this.getInternationalShipmentHistoryByInternationalShipmentId(this.iSID);
         // Now that you have the responses, you can proceed with the next steps

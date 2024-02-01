@@ -69,7 +69,7 @@ export class ViewRoadShippingForSummaryComponent {
 
   ngOnInit(): void {
     this.iSID = +this.route.snapshot.paramMap.get('id')!;
-    this.items = [{ label: 'International Summary By Road', routerLink: '/international-summary-by-road' }, { label: 'View International Shipment By Road' }];
+    this.items = [{ label: 'International Inbound By Road', routerLink: '/international-summary-by-road' }, { label: 'View International Inbound By Road' }];
         // Now that you have the responses, you can proceed with the next steps
         this.getInternationalShipmentById(this.iSID);
         this.getInternationalShipmentHistoryByInternationalShipmentId(this.iSID);

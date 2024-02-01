@@ -56,7 +56,7 @@ export class InternationalSummaryByRoadComponent {
   ngOnInit() {
     this.getRole()
 
-    this.items = [{ label: 'International Summary By Road' }];
+    this.items = [{ label: 'International Inbound By Road' }];
     // this.bound = [
     //   {
     //     bound: "In bound"

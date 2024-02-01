@@ -130,7 +130,7 @@ export class AddDomesticShippingComponent {
   ngOnInit(): void {
 
 
-    this.items = [{ label: 'Domestic Shipment', routerLink: '/domestic-shipping' }, { label: 'Add Domestic Shipment' }];
+    this.items = [{ label: 'Domestic Outbound', routerLink: '/domestic-shipping' }, { label: 'Add Domestic Outbound' }];
     // this.getAllLocations();
     this.getAllVehicleType();
     // this.getAllShipmentStatus();
@@ -237,7 +237,7 @@ export class AddDomesticShippingComponent {
 
    addDomesticShipment(domesticShipment:DomesticShipment){
       this.domesticShipmentService.addDomesticShipment(domesticShipment).subscribe((res:DomesticShipment)=>{
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Shipment Added Successfully' });
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Outbound Added Successfully' });
         setTimeout(() => {
           this.router.navigate(['/domestic-shipping']);
         },800);

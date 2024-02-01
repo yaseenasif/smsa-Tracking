@@ -11,7 +11,7 @@
         <div class="body-card">
           <p-toast></p-toast>
           <div class="card">
-            <h1 class="mb-4 h-color">Add International Shipment By Air</h1>
+            <h1 class="mb-4 h-color">Add International Outbound By Air</h1>
             <form #ISForm="ngForm" (ngSubmit)="onSubmit()">
               <div class="grid">
                 <!-- 1 -->
@@ -632,17 +632,29 @@
                       #referenceNumber="ngModel"
                       name="referenceNumber"
                       [required]="true"
+                      pattern="[0-9]+"
+                      minlength="12"
+                      maxlength="12"
                       [(ngModel)]="this.internationalShipment.referenceNumber"
                     />
                     <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="
-                        referenceNumber.invalid &&
-                        (referenceNumber.dirty || referenceNumber.touched)
-                      "
-                      >Master CONS is required.</small
-                    >
+                    class="color-red error"
+                    *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched )&&referenceNumber?.errors?.['required']"
+                  >
+                  Master CONS Number is required.
+                  </small>
+                  <small
+                    class="color-red error"
+                    *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched )&&referenceNumber?.errors?.['pattern']"
+                  >
+                    Invalid pattern
+                  </small>
+                  <small
+                  class="color-red error"
+                  *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched )&&referenceNumber?.errors?.['minlength']"
+                   >
+                  Minimum 12 cheater is required
+                  </small>
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">

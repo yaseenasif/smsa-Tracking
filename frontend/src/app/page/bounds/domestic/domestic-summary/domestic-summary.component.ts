@@ -82,7 +82,7 @@ export class DomesticSummaryComponent {
     // this.getAllShipmentDomestic(this.search, 0, 10);
     //new
     this.getInboundSummary(this.search, 0, 10);
-    this.items = [{ label: 'Domestic Summary' }];
+    this.items = [{ label: 'Domestic Inbound' }];
     // this.bound = [
     //   {
     //     bound: "All"

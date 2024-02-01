@@ -11,7 +11,7 @@
         <div class="body-card">
           <p-toast></p-toast>
           <div class="card">
-            <h1 class="mb-4 h-color">Add International Shipment By Road</h1>
+            <h1 class="mb-4 h-color">Add International Outbound By Road</h1>
             <form #ISForm="ngForm" (ngSubmit)="onSubmit()">
               <div class="grid">
                 <!-- 1 -->
@@ -764,7 +764,7 @@
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Tag Number</label>
+                    <label htmlFor="name">Security Tag</label>
                     <input
                       pInputText
                       id="name"
@@ -781,7 +781,7 @@
                         tagNumber.invalid &&
                         (tagNumber.dirty || tagNumber.touched)
                       "
-                      >Tag Number is required.</small
+                      >Security Tag is required.</small
                     >
                   </div>
                 </div>

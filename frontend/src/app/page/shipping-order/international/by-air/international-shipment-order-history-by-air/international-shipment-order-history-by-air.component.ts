@@ -25,7 +25,7 @@ export class InternationalShipmentOrderHistoryByAirComponent {
     this.getInternationalShipmentByID(this.internationalShipmentId);
 
     this.getInternationalShipmentHistoryByInternationalShipmentId(this.internationalShipmentId);
-      this.items = [{ label: 'International Shipment',routerLink:'/international-tile'},{ label: 'International Shipment By Air',routerLink:'/international-shipment-by-air'},{ label: 'International Shipment History By Air'}];
+      this.items = [{ label: 'International Outbound',routerLink:'/international-tile'},{ label: 'International Outbound By Air',routerLink:'/international-shipment-by-air'},{ label: 'International Outbound History By Air'}];
   }
 
   getInternationalShipmentHistoryByInternationalShipmentId(id:number){
