@@ -75,23 +75,6 @@ public class LocationService {
                throw new RecordAlreadyExist( "Location with the same name already exists in the specified country");
             }
         }
-
-
-//        boolean locationExists = locationRepository.existsByLocationNameAndCountryId(
-//                locationDto.getLocationName().toUpperCase(),
-//                locationDto.getCountry().getId()
-//        );
-//
-//        if (locationExists) {
-//        }
-
-//        List<Location> locations = locationRepository.findByLocationName(locationDto.getLocationName().toUpperCase());
-//        for (Location location: locations){
-//            if(location.getCountry().equals(locationDto.getCountry())){
-//                throw new RecordAlreadyExist( "Location with the same name already exists in the specified country");
-//            }
-//        }
-
     }
 
     public List<LocationDto> getActiveLocations() {
@@ -132,18 +115,47 @@ public class LocationService {
 
     public LocationDto updateById(Long id, LocationDto locationDto) {
         Optional<Location> location = locationRepository.findById(id);
+        if (location.isPresent()) {
+            String countryToInsert = locationDto.getCountry().getName();
 
-        if(location.isPresent()){
-            location.get().setLocationName(locationDto.getLocationName());
-            location.get().setType(locationDto.getType());
-            location.get().setOriginEmail(locationDto.getOriginEmail());
-            location.get().setDestinationEmail(locationDto.getDestinationEmail());
-            location.get().setOriginEscalation(locationDto.getOriginEscalation());
-            location.get().setDestinationEscalation(locationDto.getDestinationEscalation());
-            return toDto(locationRepository.save(location.get()));
+            List<Location> locationsByName = locationRepository.findByLocationName(locationDto.getLocationName());
+
+            if (locationsByName.isEmpty()) {
+
+                location.get().setLocationName(locationDto.getLocationName());
+                location.get().setType(locationDto.getType());
+                location.get().setOriginEmail(locationDto.getOriginEmail());
+                location.get().setDestinationEmail(locationDto.getDestinationEmail());
+                location.get().setOriginEscalation(locationDto.getOriginEscalation());
+                location.get().setDestinationEscalation(locationDto.getDestinationEscalation());
+                location.get().setStatus(Boolean.TRUE);
+                location.get().setFacility(locationDto.getFacility());
+                location.get().setCountry(locationDto.getCountry());
+                return toDto(locationRepository.save(location.get()));
+
+            } else {
+                boolean isCountryPresent = locationsByName
+                        .stream()
+                        .map(Location::getCountry)
+                        .map(Country::getName)
+                        .allMatch(countryToInsert::equals);
+                if (isCountryPresent) {
+                    location.get().setLocationName(locationDto.getLocationName());
+                    location.get().setType(locationDto.getType());
+                    location.get().setOriginEmail(locationDto.getOriginEmail());
+                    location.get().setDestinationEmail(locationDto.getDestinationEmail());
+                    location.get().setOriginEscalation(locationDto.getOriginEscalation());
+                    location.get().setDestinationEscalation(locationDto.getDestinationEscalation());
+                    location.get().setStatus(Boolean.TRUE);
+                    location.get().setFacility(locationDto.getFacility());
+                    location.get().setCountry(locationDto.getCountry());
+                    return toDto(locationRepository.save(location.get()));
+                } else {
+                    throw new RecordAlreadyExist("Location with the same name already exists in the specified country");
+                }
+            }
         }
-
-        throw new RuntimeException(String.format("Location Not Found by this Id => %d" , id));
+        throw new RuntimeException(String.format("Location Not Found by this Id => %d", id));
     }
 
     public LocationDto makeLocationActive(Long id) {
