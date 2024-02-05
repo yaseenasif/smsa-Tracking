@@ -4,7 +4,7 @@ import { Routes } from '../../../../model/ShipmentRoutes';
 import { InternationalRouteService } from '../../service/international-route.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomesticShipment } from '../../../../model/DomesticShipment';
-import { LocationPort } from '../../../../model/LocationPort';
+// import { LocationPort } from '../../../../model/LocationPort';
 import { Location } from '../../../../model/Location';
 import { LocationService } from '../../../location/service/location.service';
 import { DatePipe } from '@angular/common';
@@ -32,11 +32,11 @@ export class UpdateInternationalAirRoutesComponent {
     route: null,
   }
 
-  location!: LocationPort[];
+  // location!: LocationPort[];
 
   routeNumbers: any;
   minETDDate: Date = new Date();
-  destination!: LocationPort[];
+  // destination!: LocationPort[];
   routeId!:number;
 
   constructor(
@@ -50,7 +50,7 @@ export class UpdateInternationalAirRoutesComponent {
 
   ngOnInit(): void {
     this.routeId = +this.route.snapshot.paramMap.get('id')!;
-    this.getInternationalLocations();
+    // this.getInternationalLocations();
     this.items = [{ label: 'International Route List For Air', routerLink: '/international-routes-for-air' }, { label: 'Add International Route For Air' }];
     this.type=[{
       type:'Air'
@@ -60,17 +60,17 @@ export class UpdateInternationalAirRoutesComponent {
     this.getInternationalRouteById(this.routeId);
   }
 
-  getInternationalLocations() {
-    this.locationPortService.getAllLocationPort().subscribe((res: LocationPort[]) => {
-      this.location = res.filter(el => el.status);
-    }, error => {
-      if (error.error.body) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }
-    })
-  }
+  // getInternationalLocations() {
+  //   this.locationPortService.getAllLocationPort().subscribe((res: LocationPort[]) => {
+  //     this.location = res.filter(el => el.status);
+  //   }, error => {
+  //     if (error.error.body) {
+  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+  //     } else {
+  //       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+  //     }
+  //   })
+  // }
 
   onSubmit() {
     this.internationalRoute.etd = this.datePipe.transform(this.internationalRoute.etd, 'HH:mm:ss')

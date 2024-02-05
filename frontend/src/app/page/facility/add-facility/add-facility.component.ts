@@ -19,7 +19,7 @@ export class AddFacilityComponent {
   facility:Facility={
     id: null,
     name: null,
-    country:null,
+    status: null
   };
 
   constructor(private facilityService:FacilityService,
@@ -30,16 +30,16 @@ export class AddFacilityComponent {
   
   ngOnInit(): void {
     this.items = [{ label: 'Facility',routerLink:'/facility-list'},{ label: 'Add facility'}];
-    this.getAllCountry();
+    // this.getAllCountry();
   }
 
-  getAllCountry(){
-    this.countryService.getAllCountry().subscribe((res:Country[])=>{
-      this.country=res;  
-    },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-    })
-   }
+  // getAllCountry(){
+  //   this.countryService.getAllCountry().subscribe((res:Country[])=>{
+  //     this.country=res;  
+  //   },error=>{
+  //     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+  //   })
+  //  }
 
   onSubmit() {
     this.facilityService.addFacility(this.facility).subscribe(res=>{

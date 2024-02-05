@@ -61,9 +61,12 @@ public class DomesticShipmentService {
     @Autowired
     LocationService locationService;
 
+    @Autowired
+    LocationRepository locationRepository;
+
 
     @Transactional
-    public DomesticShipmentDto addShipment(DomesticShipmentDto domesticShipmentDto) throws IOException {
+    public DomesticShipmentDto addShipment(DomesticShipmentDto domesticShipmentDto,Long orgLocationId,Long desLocationId) throws IOException {
 
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
@@ -112,12 +115,12 @@ public class DomesticShipmentService {
 
             domesticShipmentHistoryRepository.save(domesticShipmentHistory);
 
-            String originEmails = locationService.getLocationByName(domesticShipment.getOriginLocation(), "Domestic")
+            String originEmails = locationRepository.findById(orgLocationId).get()
                     .getOriginEmail();
             String[] resultListOrigin = originEmails.split(",");
             List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOrigin));
 
-            String destinationEmails = locationService.getLocationByName(domesticShipment.getDestinationLocation(), "Domestic")
+            String destinationEmails = locationRepository.findById(orgLocationId).get()
                     .getDestinationEmail();
             String[] resultListDestination = destinationEmails.split(",");
             List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestination));

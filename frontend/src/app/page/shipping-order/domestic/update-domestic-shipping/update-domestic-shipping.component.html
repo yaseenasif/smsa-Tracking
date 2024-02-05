@@ -21,7 +21,6 @@
                     <p-dropdown
                       class="w-full"
                       [options]="originCountry"
-                      (onChange)="onOrgCountryChange(domesticShipment.originCountry!)"
                       name="originCountry1"
                       #originCountry1="ngModel"
                       [required]="true"
@@ -56,7 +55,6 @@
                     <p-dropdown
                       class="w-full"
                       [options]="destinationCountry"
-                      (onChange)="onDesCountryChange(domesticShipment.destinationCountry!)"
                       name="destinationCountry1"
                       #destinationCountry1="ngModel"
                       [required]="true"
@@ -91,7 +89,6 @@
                     <p-dropdown
                       class="w-full"
                       [options]="originFacility"
-                      (onChange)="onOrgFacilityChange(domesticShipment.originFacility!)"
                       name="originFacility1"
                       #originFacility1="ngModel"
                       [required]="true"
@@ -175,7 +172,6 @@
                     <p-dropdown
                       class="w-full"
                       [options]="destinationFacility"
-                      (onChange)="onDesFacilityChange(domesticShipment.destinationFacility!)"
                       name="originFacility1"
                       #originFacility1="ngModel"
                       [required]="true"

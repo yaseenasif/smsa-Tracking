@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { InternationalShipment, Time } from 'src/app/model/InternationalShipment';
-import { LocationPort } from 'src/app/model/LocationPort';
+// import { LocationPort } from 'src/app/model/LocationPort';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -59,9 +59,9 @@ export class InternationalShippingService {
     return this.http.get<any>(`${this.url}/file-meta-data-by-international-shipment/${id}`)
   }
 
-  getLocationPortByLocation(name: string): Observable<LocationPort[]> {
-    return this.http.get<LocationPort[]>(`${this.url}/location/location-port/${name}`)
-  }
+  // getLocationPortByLocation(name: string): Observable<LocationPort[]> {
+  //   return this.http.get<LocationPort[]>(`${this.url}/location/location-port/${name}`)
+  // }
 
   stringToTime(timeString: string | null | any): { hour: string | null | undefined, minute: string | null | undefined, nano: number | null | undefined, second: string | null | undefined } {
     const date = timeString ? new Date(timeString) : null;

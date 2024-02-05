@@ -34,7 +34,6 @@
                   
                   <th class="text-center">Name</th>
                   <th class="text-center">Email</th>
-                  <th class="text-center">Location</th>
                   <th class="text-center">Role</th>
                  
                   <th class="text-center">Actions</th>
@@ -44,7 +43,6 @@
                 <tr>
                   <td class="text-center">{{ users.name }}</td>
                   <td class="text-center">{{ users.email }}</td>
-                  <td class="text-center">{{ users.location!=null?users.location:"Role admin has no location"}}</td>
                   <td class="text-center" *ngFor="let role of users.roles">{{ role.name }}</td>
                   <td class="text-center"> 
                     <p-button [routerLink] = "['/edit-user/',users.id]"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">

@@ -100,7 +100,7 @@
                             <th class="text-center">Location Type</th>
                             <th class="text-center">Facility</th>
                             <th class="text-center">Country</th>
-                            <th class="text-center">Actions</th>
+                            <th class="text-center">Location</th>
                             <th class="text-center">Domestic Origin</th>
                             <th class="text-center">Domestic Destination</th>
                             <th class="text-center">International Air Origin</th>
@@ -114,7 +114,7 @@
                             <td class="text-center">{{ location.locationName }}</td>
                             <td class="text-center">{{ location.type }}</td>
                             <td class="text-center">{{ location.facility.name }}</td>
-                            <td class="text-center">{{ location.facility.country.name }}</td>
+                            <td class="text-center">{{ location.country.name }}</td>
                             <td class="text-center">
                               <div class="card flex justify-content-center">
                                 <p-checkbox  [(ngModel)]="user.locations"    [value]="location" name="binary1" inputId="binary1"></p-checkbox>

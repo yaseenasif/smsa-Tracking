@@ -22,8 +22,8 @@ export class DomesticShippingService {
     return this.http.get<any>(`${this.url}/all-domestic-shipments`, { params: queryParams });
   }
 
-  addDomesticShipment(shipment: DomesticShipment) {
-    return this.http.post<DomesticShipment>(`${this.url}/add-domestic-shipment`, shipment)
+  addDomesticShipment(shipment: DomesticShipment,oId:number,dId:number) {
+    return this.http.post<DomesticShipment>(`${this.url}/add-domestic-shipment/org-id/${oId}/des-id/${dId}`, shipment)
   }
 
   getDomesticShipmentById(id: number) {

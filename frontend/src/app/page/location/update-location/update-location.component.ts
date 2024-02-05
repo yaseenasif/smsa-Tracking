@@ -22,15 +22,16 @@ export class UpdateLocationComponent implements OnInit {
   items: MenuItem[] | undefined;
   lID!:number
   location:Location={
-    id: undefined,
-    locationName: undefined,
-    type: undefined,
+    id: null,
+    locationName: null,
+    type: null,
     originEmail: null,
     destinationEmail: null,
-    status: undefined,
-    originEscalation: null,
-    destinationEscalation: null,
-    facility: undefined
+    originEscalation: [],
+    destinationEscalation: [],
+    status: null,
+    facility: null,
+    country: null
   }
 
   type:ProductField | null | undefined;
@@ -49,6 +50,7 @@ export class UpdateLocationComponent implements OnInit {
     this.lID = +this.route.snapshot.paramMap.get('id')!;
     this.items = [{ label: 'Location List',routerLink:'/location'},{ label: 'Edit Location'}];
     this.getAllCountry();
+    this.getAllFacility();
 
     this.locationService.getLocationByID(this.lID).subscribe((res:Location)=>{
       if (typeof res.originEmail === 'string' && typeof res.destinationEmail === 'string' && typeof res.originEscalation === 'string' && typeof res.destinationEscalation === 'string') {
@@ -57,13 +59,14 @@ export class UpdateLocationComponent implements OnInit {
       res.originEscalation=res.originEscalation!.split(',')
       res.destinationEscalation=res.destinationEscalation!.split(',')
     }
-    this.facilityService.getFacilityByCountryID(res.facility?.country?.id!).subscribe((res2:Facility[])=>{
-      this.facility=res2;
-      this.countryName=res.facility?.country
-      this.location=res;
-    },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-    })
+    this.location=res;
+    // this.facilityService.getFacilityByCountryID(res.facility?.country?.id!).subscribe((res2:Facility[])=>{
+    //   this.facility=res2;
+    //   this.countryName=res.facility?.country
+    //   this.location=res;
+    // },error=>{
+    //   this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    // })
 
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -94,13 +97,21 @@ export class UpdateLocationComponent implements OnInit {
     );
   }
 
-  getCountryBySelectedFacility(){
-    this.getFacilityByCountryId(this.countryName.id);
-  }
+  // getCountryBySelectedFacility(){
+  //   this.getFacilityByCountryId(this.countryName.id);
+  // }
 
   getAllCountry(){
     this.countryService.getAllCountry().subscribe((res:Country[])=>{
       this.country=res;
+    },error=>{
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    })
+   }
+
+   getAllFacility(){
+    this.facilityService.getAllFacility().subscribe((res:Facility[])=>{
+      this.facility=res;
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
@@ -125,8 +136,8 @@ export class UpdateLocationComponent implements OnInit {
       res.destinationEscalation=res.destinationEscalation!.split(',')
     }
 
-    this.countryName=res.facility?.country
-    console.log(this.countryName);
+    // this.countryName=res.facility?.country
+    // console.log(this.countryName);
 
      this.location=res;
     },error=>{

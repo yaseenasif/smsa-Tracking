@@ -17,22 +17,22 @@ export class AddCountryComponent {
   country:Country={
     id: null,
     name: null,
-    facilities: null
+    status: null
   };
 
-  facility:Facility[]=[{
-    id: 1,
-    name: "HUB",
-    country: undefined
-  },{
-    id: 2,
-    name: "STATION",
-    country: undefined
-  },{
-    id: 3,
-    name: "GATEWAY",
-    country: undefined
-  }]
+  // facility:Facility[]=[{
+  //   id: 1,
+  //   name: "HUB",
+  //   country: undefined
+  // },{
+  //   id: 2,
+  //   name: "STATION",
+  //   country: undefined
+  // },{
+  //   id: 3,
+  //   name: "GATEWAY",
+  //   country: undefined
+  // }]
 
   constructor(private countryService:CountryService,
               private messageService: MessageService,

@@ -23,15 +23,16 @@ export class AddLocationComponent implements OnInit {
 
   items: MenuItem[] | undefined;
   location:Location={
-    id: undefined,
-    locationName: undefined,
-    type: undefined,
+    id: null,
+    locationName: null,
+    type: null,
     originEmail: null,
     destinationEmail: null,
-    status: undefined,
     originEscalation: [],
     destinationEscalation: [],
-    facility:undefined
+    status: null,
+    facility: null,
+    country: null
   }
   country!:Country[];
   countryName!:any;
@@ -54,7 +55,8 @@ export class AddLocationComponent implements OnInit {
   ngOnInit(): void {
     this.items = [{ label: 'Location List',routerLink:'/location'},{ label: 'Add Location'}];
     this.getAllCountry();
-    this.getAllLocationType();
+    this.getAllFacility();
+    // this.getAllLocationType();
 
     const locationType$: Observable<ProductField> = this.getAllLocationType();
 
@@ -77,9 +79,9 @@ export class AddLocationComponent implements OnInit {
       })
     );
   }
-  getCountryBySelectedFacility(){
-    this.getFacilityByCountryId(this.countryName.id);
-  }
+  // getCountryBySelectedFacility(){
+  //   this.getFacilityByCountryId(this.countryName.id);
+  // }
 
   getAllCountry(){
     this.countryService.getAllCountry().subscribe((res:Country[])=>{
@@ -89,8 +91,8 @@ export class AddLocationComponent implements OnInit {
     })
    }
 
-   getFacilityByCountryId(id:number){
-    this.facilityService.getFacilityByCountryID(id).subscribe((res:Facility[])=>{
+   getAllFacility(){
+    this.facilityService.getAllFacility().subscribe((res:Facility[])=>{
       this.facility=res;
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });

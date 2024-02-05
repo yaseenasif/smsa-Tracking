@@ -23,6 +23,7 @@ export class CountryListComponent {
   }
 
   getAllCountry(){
+    this.country=[]
     this.countryService.getAllCountry().subscribe((res:Country[])=>{
       this.country=res;  
     },error=>{

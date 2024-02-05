@@ -55,9 +55,7 @@ public class UserService {
                 Set<Location> locationList = new HashSet<>();
 
                 for (Location location:userDto.getLocations()) {
-                    Optional<Location> location1 = Optional.ofNullable(locationRepository
-                            .findByLocationNameAndTypeAndFacilityForUser(location.getLocationName(), location.getType())
-                            .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+                    Optional<Location> location1 =locationRepository.findById(location.getId());
 
 
                     locationList.add(location1.get());
@@ -66,9 +64,7 @@ public class UserService {
                 Set<Location> domesticOriginLocations = new HashSet<>();
 
                 for (Location location:userDto.getDomesticOriginLocations()) {
-                    Optional<Location> location1 = Optional.ofNullable(locationRepository
-                            .findByLocationNameAndTypeAndFacilityForUser(location.getLocationName(), location.getType())
-                            .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+                    Optional<Location> location1 = locationRepository.findById(location.getId());
 
                     domesticOriginLocations.add(location1.get());
                 }
@@ -76,9 +72,7 @@ public class UserService {
                 Set<Location> domesticDestinationLocation = new HashSet<>();
 
                 for (Location location:userDto.getDomesticDestinationLocations()) {
-                    Optional<Location> location1 = Optional.ofNullable(locationRepository
-                            .findByLocationNameAndTypeAndFacilityForUser(location.getLocationName(), location.getType())
-                            .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+                    Optional<Location> location1 = locationRepository.findById(location.getId());
 
                     domesticDestinationLocation.add(location1.get());
                 }
@@ -86,9 +80,7 @@ public class UserService {
                 Set<Location> internationalAirOriginLocation = new HashSet<>();
 
                 for (Location location:userDto.getInternationalAirOriginLocation()) {
-                    Optional<Location> location1 = Optional.ofNullable(locationRepository
-                            .findByLocationNameAndTypeAndFacilityForUser(location.getLocationName(), location.getType())
-                            .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+                    Optional<Location> location1 = locationRepository.findById(location.getId());
 
                     internationalAirOriginLocation.add(location1.get());
                 }
@@ -96,9 +88,7 @@ public class UserService {
                 Set<Location> internationalAirDestinationLocation = new HashSet<>();
 
                 for (Location location:userDto.getInternationalAirDestinationLocation()) {
-                    Optional<Location> location1 = Optional.ofNullable(locationRepository
-                            .findByLocationNameAndTypeAndFacilityForUser(location.getLocationName(), location.getType())
-                            .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+                    Optional<Location> location1 = locationRepository.findById(location.getId());
 
                     internationalAirDestinationLocation.add(location1.get());
                 }
@@ -106,9 +96,7 @@ public class UserService {
                 Set<Location> internationalRoadOriginLocation = new HashSet<>();
 
                 for (Location location:userDto.getInternationalRoadOriginLocation()) {
-                    Optional<Location> location1 = Optional.ofNullable(locationRepository
-                            .findByLocationNameAndTypeAndFacilityForUser(location.getLocationName(), location.getType())
-                            .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+                    Optional<Location> location1 = locationRepository.findById(location.getId());
 
                     internationalRoadOriginLocation.add(location1.get());
                 }
@@ -116,9 +104,7 @@ public class UserService {
                 Set<Location> internationalRoadDestinationLocation = new HashSet<>();
 
                 for (Location location:userDto.getInternationalRoadDestinationLocation()) {
-                    Optional<Location> location1 = Optional.ofNullable(locationRepository
-                            .findByLocationNameAndTypeAndFacilityForUser(location.getLocationName(), location.getType())
-                            .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+                    Optional<Location> location1 = locationRepository.findById(location.getId());
 
                     internationalRoadDestinationLocation.add(location1.get());
                 }
@@ -181,9 +167,7 @@ public class UserService {
                 Set<Location> locationList = new HashSet<>();
                 if(userDto.getLocations()!=null) {
                 for (Location location:userDto.getLocations()) {
-                    Optional<Location> location1 = Optional.ofNullable(locationRepository
-                            .findByLocationNameAndTypeAndFacilityForUser(location.getLocationName(), location.getType())
-                            .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+                    Optional<Location> location1 = locationRepository.findById(location.getId());
 
                     locationList.add(location1.get());
                 }
@@ -192,9 +176,7 @@ public class UserService {
                 Set<Location> domesticOriginLocations = new HashSet<>();
                 if(userDto.getDomesticOriginLocations()!=null) {
                     for (Location location : userDto.getDomesticOriginLocations()) {
-                        Optional<Location> location1 = Optional.ofNullable(locationRepository
-                                .findByLocationNameAndTypeAndFacilityForUser(location.getLocationName(), location.getType())
-                                .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+                        Optional<Location> location1 = locationRepository.findById(location.getId());
 
                         domesticOriginLocations.add(location1.get());
                     }
@@ -203,9 +185,7 @@ public class UserService {
                 Set<Location> domesticDestinationLocation = new HashSet<>();
                 if(userDto.getInternationalAirOriginLocation()!=null){
                 for (Location location:userDto.getDomesticDestinationLocations()) {
-                    Optional<Location> location1 = Optional.ofNullable(locationRepository
-                            .findByLocationNameAndTypeAndFacilityForUser(location.getLocationName(), location.getType())
-                            .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+                    Optional<Location> location1 = locationRepository.findById(location.getId());
 
                     domesticDestinationLocation.add(location1.get());
                 }
@@ -215,9 +195,7 @@ public class UserService {
 
                 if(userDto.getInternationalAirOriginLocation()!=null){
                     for (Location location:userDto.getInternationalAirOriginLocation()) {
-                        Optional<Location> location1 = Optional.ofNullable(locationRepository
-                                .findByLocationNameAndTypeAndFacilityForUser(location.getLocationName(), location.getType())
-                                .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+                        Optional<Location> location1 = locationRepository.findById(location.getId());
 
                         internationalAirOriginLocation.add(location1.get());
                     }
@@ -227,9 +205,7 @@ public class UserService {
                 Set<Location> internationalAirDestinationLocation = new HashSet<>();
                 if(userDto.getInternationalAirDestinationLocation()!=null){
                 for (Location location:userDto.getInternationalAirDestinationLocation()) {
-                    Optional<Location> location1 = Optional.ofNullable(locationRepository
-                            .findByLocationNameAndTypeAndFacilityForUser(location.getLocationName(), location.getType())
-                            .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+                    Optional<Location> location1 = locationRepository.findById(location.getId());
 
                     internationalAirDestinationLocation.add(location1.get());
                 }
@@ -238,9 +214,7 @@ public class UserService {
                 Set<Location> internationalRoadOriginLocation = new HashSet<>();
                 if(userDto.getInternationalRoadOriginLocation()!=null){
                 for (Location location:userDto.getInternationalRoadOriginLocation()) {
-                    Optional<Location> location1 = Optional.ofNullable(locationRepository
-                            .findByLocationNameAndTypeAndFacilityForUser(location.getLocationName(), location.getType())
-                            .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+                    Optional<Location> location1 = locationRepository.findById(location.getId());
 
                     internationalRoadOriginLocation.add(location1.get());
                 }
@@ -249,9 +223,7 @@ public class UserService {
                 Set<Location> internationalRoadDestinationLocation = new HashSet<>();
                 if(userDto.getInternationalRoadDestinationLocation()!=null){
                 for (Location location:userDto.getInternationalRoadDestinationLocation()) {
-                    Optional<Location> location1 = Optional.ofNullable(locationRepository
-                            .findByLocationNameAndTypeAndFacilityForUser(location.getLocationName(), location.getType())
-                            .orElseThrow(() -> new RecordNotFoundException("Location is incorrect")));
+                    Optional<Location> location1 = locationRepository.findById(location.getId());
 
                     internationalRoadDestinationLocation.add(location1.get());
                 }

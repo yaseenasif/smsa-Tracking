@@ -3,7 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { Routes } from '../../../model/ShipmentRoutes';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomesticRoutesService } from '../service/domestic-routes.service';
-import { LocationPort } from 'src/app/model/LocationPort';
+// import { LocationPort } from 'src/app/model/LocationPort';
 import { LocationService } from '../../location/service/location.service';
 import { DatePipe } from '@angular/common';
 import { Location } from '../../../model/Location';
@@ -37,7 +37,7 @@ export class UpdateDomesticRoutesComponent {
 
   routeNumbers: any;
   minETDDate: Date = new Date();
-  destination!: LocationPort[];
+  // destination!: LocationPort[];
 
   constructor(
     private domesticRouteService: DomesticRoutesService,

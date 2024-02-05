@@ -1,4 +1,4 @@
-import { LocationPort } from '../../../model/LocationPort';
+// import { LocationPort } from '../../../model/LocationPort';
 import { LocationPortService } from '../../location-port/service/location-port.service';
 import { LocationService } from '../../../page/location/service/location.service';
 import { MenuItem, MessageService } from 'primeng/api';
@@ -37,7 +37,7 @@ export class AddDomesticRoutesComponent {
 
   routeNumbers: any;
   minETDDate: Date = new Date();
-  destination!: LocationPort[];
+  // destination!: LocationPort[];
 
   constructor(
     private domesticRouteService: DomesticRoutesService,

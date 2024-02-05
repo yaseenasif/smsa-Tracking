@@ -7,7 +7,7 @@ import { LocationPortService } from 'src/app/page/location-port/service/location
 import { DriverService } from 'src/app/page/driver/service/driver.service';
 import { VehicleTypeService } from 'src/app/page/vehicle-type/service/vehicle-type.service';
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
-import { LocationPort } from 'src/app/model/LocationPort';
+// import { LocationPort } from 'src/app/model/LocationPort';
 import { Driver } from 'src/app/model/Driver';
 import { VehicleType } from 'src/app/model/VehicleType';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
@@ -76,7 +76,7 @@ export class UpdateInternationalRoadForSummaryComponent {
   }
   minDate: Date = new Date();
   location!: Location[];
-  locationPort!: LocationPort[]
+  // locationPort!: LocationPort[]
   drivers!: Driver[]
   vehicleTypes!: VehicleType[]
   shipmentStatus!: ProductField;
@@ -117,16 +117,16 @@ export class UpdateInternationalRoadForSummaryComponent {
     this.items = [{ label: 'International Inbound By Road', routerLink: '/international-summary-by-road' }, { label: 'Edit International Inbound By Road' }];
 
     const locations$: Observable<Location[]> = this.locationService.getAllLocation();
-    const locationPort$: Observable<LocationPort[]> = this.locationPortService.getAllLocationPort();
+    // const locationPort$: Observable<LocationPort[]> = this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
     const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
     const shipmentStatus$: Observable<ProductField> = this.getAllShipmentStatus();
 
-    forkJoin([locations$, locationPort$, driver$, vehicleType$, shipmentStatus$]).subscribe(
-      ([locationsResponse, locationPortResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
+    forkJoin([locations$,  driver$, vehicleType$, shipmentStatus$]).subscribe(
+      ([locationsResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
         // Access responses here
         this.location = locationsResponse.filter(el => el.status);
-        this.locationPort = locationPortResponse.filter(el => el.status);
+        // this.locationPort = locationPortResponse.filter(el => el.status);
         this.drivers = driverResponse.content.filter((el: Driver) => el.status);
         this.vehicleTypes = vehicleTypeResponse
         this.shipmentStatus = shipmentStatusResponse
@@ -182,11 +182,11 @@ export class UpdateInternationalRoadForSummaryComponent {
   }
 
   getAllLocationPort() {
-    this.locationPortService.getAllLocationPort().subscribe((res: LocationPort[]) => {
-      this.locationPort = res.filter(el => el.status)
-    }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-    })
+    // this.locationPortService.getAllLocationPort().subscribe((res: LocationPort[]) => {
+    //   this.locationPort = res.filter(el => el.status)
+    // }, error => {
+    //   this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    // })
   }
   getAllDriver() {
     this.driverService.getAllDriver().subscribe((res: PaginatedResponse<Driver>) => {

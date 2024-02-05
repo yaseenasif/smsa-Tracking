@@ -22,6 +22,7 @@ export class FacilityListComponent {
   }
 
   getAllFacility(){
+    this.facility=[]
     this.facilityService.getAllFacility().subscribe((res:Facility[])=>{
       this.facility=res;  
     },error=>{

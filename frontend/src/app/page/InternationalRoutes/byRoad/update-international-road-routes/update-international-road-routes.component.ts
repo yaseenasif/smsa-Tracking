@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { InternationalRoutes } from 'src/app/model/InternationalRoute';
 import { LocationService } from 'src/app/page/location/service/location.service';
 import { DatePipe } from '@angular/common';
-import { LocationPort } from 'src/app/model/LocationPort';
+// import { LocationPort } from 'src/app/model/LocationPort';
 import { Location } from '../../../../model/Location';
 import { LocationPortService } from 'src/app/page/location-port/service/location-port.service';
 
@@ -32,11 +32,11 @@ export class UpdateInternationalRoadRoutesComponent {
     route: null,
   }
 
-  location!: LocationPort[];
+  // location!: LocationPort[];
 
   routeNumbers: any;
   minETDDate: Date = new Date();
-  destination!: LocationPort[];
+  // destination!: LocationPort[];
   routeId!:number;
 
 
@@ -62,15 +62,15 @@ export class UpdateInternationalRoadRoutesComponent {
   }
 
   getInternationalLocations() {
-    this.locationPortService.getAllLocationPort().subscribe((res: LocationPort[]) => {
-      this.location = res.filter(el => el.status);
-    }, error => {
-      if (error.error.body) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }
-    })
+    // this.locationPortService.getAllLocationPort().subscribe((res: LocationPort[]) => {
+    //   this.location = res.filter(el => el.status);
+    // }, error => {
+    //   if (error.error.body) {
+    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    //   } else {
+    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+    //   }
+    // })
   }
 
   onSubmit() {

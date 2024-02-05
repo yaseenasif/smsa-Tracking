@@ -30,9 +30,9 @@ public class DomesticShipmentController {
 
 
 
-    @PostMapping("/add-domestic-shipment")
-    public ResponseEntity<DomesticShipmentDto> addShipment(@RequestBody DomesticShipmentDto domesticShipmentDto) throws IOException {
-        return ResponseEntity.ok(domesticShipmentService.addShipment(domesticShipmentDto));
+    @PostMapping("/add-domestic-shipment/org-id/{oId}/des-id/{dId}")
+    public ResponseEntity<DomesticShipmentDto> addShipment(@RequestBody DomesticShipmentDto domesticShipmentDto,@PathVariable Long oId,@PathVariable Long dId) throws IOException {
+        return ResponseEntity.ok(domesticShipmentService.addShipment(domesticShipmentDto,oId,dId));
     }
 
     @PostMapping("/add-attachments/{id}/{attachmentType}")

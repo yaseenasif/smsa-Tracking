@@ -5,7 +5,7 @@ import { Routes } from '../../../../model/ShipmentRoutes';
 import { InternationalRouteService } from '../../service/international-route.service';
 import { Router } from '@angular/router';
 import { DomesticShipment } from '../../../../model/DomesticShipment';
-import { LocationPort } from '../../../../model/LocationPort';
+// import { LocationPort } from '../../../../model/LocationPort';
 import { Location } from '../../../../model/Location';
 import { LocationService } from '../../../location/service/location.service';
 import { DatePipe } from '@angular/common';
@@ -34,11 +34,11 @@ export class AddInternationalAirRoutesComponent {
     route: null,
   }
 
-  location!: LocationPort[];
+  // location!: LocationPort[];
 
   routeNumbers: any;
   minETDDate: Date = new Date();
-  destination!: LocationPort[];
+  // destination!: LocationPort[];
 
   constructor(
     private internationalRouteService: InternationalRouteService,
@@ -59,15 +59,15 @@ export class AddInternationalAirRoutesComponent {
   }
 
   getInternationalLocations() {
-    this.locationPortService.getAllLocationPort().subscribe((res: LocationPort[]) => {
-      this.location = res.filter(el => el.status);
-    }, error => {
-      if (error.error.body) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }
-    })
+    // this.locationPortService.getAllLocationPort().subscribe((res: LocationPort[]) => {
+    //   this.location = res.filter(el => el.status);
+    // }, error => {
+    //   if (error.error.body) {
+    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+    //   } else {
+    //     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+    //   }
+    // })
   }
 
   onSubmit() {

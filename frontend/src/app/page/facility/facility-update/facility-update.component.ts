@@ -17,9 +17,9 @@ export class FacilityUpdateComponent {
   items: MenuItem[] | undefined;
   country!:Country[];
   facility:Facility={
-    id: null,
-    name: null,
-    country:null,
+    id: undefined,
+    name: undefined,
+    status: undefined
   };
 
   constructor(private facilityService:FacilityService,
@@ -31,21 +31,21 @@ export class FacilityUpdateComponent {
   
   ngOnInit(): void {
     this.vTID = +this.route.snapshot.paramMap.get('id')!;
-    this.getAllCountry();
+    // this.getAllCountry();
     this.items = [{ label: 'Facility',routerLink:'/facility-list'},{ label: 'Add facility'}];
     this.getFacilityById(this.vTID);
 
   }
 
-  getAllCountry(){
-    this.countryService.getAllCountry().subscribe((res:Country[])=>{
-      this.country=res;  
-      console.log(this.country);
+  // getAllCountry(){
+  //   this.countryService.getAllCountry().subscribe((res:Country[])=>{
+  //     this.country=res;  
+  //     console.log(this.country);
       
-    },error=>{
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-    })
-   }
+  //   },error=>{
+  //     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+  //   })
+  //  }
 
    getFacilityById(id:number){
     
