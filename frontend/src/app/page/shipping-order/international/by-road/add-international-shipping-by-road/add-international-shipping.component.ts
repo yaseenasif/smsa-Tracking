@@ -112,30 +112,31 @@ export class AddInternationalShippingComponent {
   user!: User;
   originCountry!: Country[];
   destinationCountry!:Country[];
-  originFacility!: Facility[];
-  destinationFacility!: Facility[];
+  originFacility!: (Facility|null|undefined)[]|undefined;
+  destinationFacility!: (Facility|null|undefined)[]|undefined;
   orgLocation: Location[]|undefined;
   desLocation: Location[]|undefined;
 
   getLoggedInUser(){
     this.userService.getLoggedInUser().subscribe((res: User) => {
       this.user=res;
-      // this.originCountry=[];
-      // this.destinationCountry=[];
-      // res.internationalRoadOriginLocation?.forEach((el)=>{
-      //   return this.originCountry.push(el.facility?.country!);
-      // })
-      // this.originCountry = this.originCountry.filter((obj, index, arr) =>
-      // index === arr.findIndex((item:Country) => item.id === obj.id)
-      // );
+        this.originCountry = [];
+        this.destinationCountry = [];
+        res.internationalRoadOriginLocation?.forEach((el) => {
+          return this.originCountry.push(el.country!);
+        });
+        this.originCountry = this.originCountry.filter(
+          (obj, index, arr) =>
+            index === arr.findIndex((item: Country) => item.id === obj.id)
+        );
 
-
-      // res.internationalRoadDestinationLocation?.forEach((el)=>{
-      //   return this.destinationCountry.push(el.facility?.country!);
-      // })
-      // this.destinationCountry = this.destinationCountry.filter((obj, index, arr) =>
-      // index === arr.findIndex((item:Country) => item.id === obj.id)
-      // );
+        res.internationalRoadDestinationLocation?.forEach((el) => {
+          return this.destinationCountry.push(el.country!);
+        });
+        this.destinationCountry = this.destinationCountry.filter(
+          (obj, index, arr) =>
+            index === arr.findIndex((item: Country) => item.id === obj.id)
+        );
 
 
     }, error => {
@@ -175,11 +176,13 @@ export class AddInternationalShippingComponent {
   }
 
   onSubmit() {
+    let orgLocationId=this.user.internationalRoadOriginLocation?.find((el)=>{return el.country?.name == this.internationalShipment.originCountry && el.facility?.name==this.internationalShipment.originFacility && el.locationName==this.internationalShipment.originLocation})!.id;
+    let desLocationId=this.user.internationalRoadDestinationLocation?.find((el)=>{return el.country?.name == this.internationalShipment.destinationCountry && el.facility?.name==this.internationalShipment.destinationFacility && el.locationName==this.internationalShipment.destinationLocation})!.id;
     this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
-    this.internationalShippingService.addInternationalShipment(this.internationalShipment).subscribe(res => {
+    this.internationalShippingService.addInternationalShipment(this.internationalShipment,orgLocationId!,desLocationId!).subscribe(res => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Outbound is added' });
       setTimeout(() => {
         this.router.navigate(['/international-shipment-by-road']);
@@ -331,6 +334,38 @@ export class AddInternationalShippingComponent {
   // onDesFacilityChange(facility:string){
   //   this.desLocation= this.user.internationalRoadDestinationLocation?.filter((obj => obj.facility?.country?.name === this.internationalShipment.destinationCountry && obj.facility?.name === facility));
   // }
+
+  onOrgCountryChange() {
+
+    this.originFacility = [];
+    this.originFacility = this.user.internationalRoadOriginLocation
+  ?.filter((el) => el.country?.name === this.internationalShipment.originCountry )
+  .map(el => el.facility);
+  this.originFacility=this.originFacility?.filter((obj, index, self) =>
+  index === self.findIndex((o) => o!.id === obj!.id)
+  );
+  this.internationalShipment.originFacility=null; 
+  this.orgLocation=[]; 
+}
+
+onDesCountryChange() {
+    this.destinationFacility = [];
+    this.destinationFacility=this.user.internationalRoadDestinationLocation
+    ?.filter((el) => el.country?.name === this.internationalShipment.destinationCountry )
+    .map(el => el.facility);
+    this.destinationFacility=this.destinationFacility?.filter((obj, index, self) =>
+    index === self.findIndex((o) => o!.id === obj!.id)
+    );    
+    this.internationalShipment.destinationFacility=null; 
+    this.desLocation=[]; 
+}
+
+onOrgFacilityChange() {
+  this.orgLocation=this.user.internationalRoadOriginLocation?.filter((el)=> el.country?.name==this.internationalShipment.originCountry && el.facility?.name==this.internationalShipment.originFacility)
+}
+onDesFacilityChange() {
+  this.desLocation=this.user.internationalRoadDestinationLocation?.filter((el)=> el.country?.name==this.internationalShipment.destinationCountry && el.facility?.name==this.internationalShipment.destinationFacility)
+}
 }
 
 

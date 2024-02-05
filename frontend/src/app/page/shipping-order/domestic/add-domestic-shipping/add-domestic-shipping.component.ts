@@ -145,24 +145,7 @@ export class AddDomesticShippingComponent {
   getLoggedInUser(){
       this.userService.getLoggedInUser().subscribe((res: User) => {
         this.user=res;
-        // this.orgLocation=res.domesticOriginLocations;
-        // this.desLocation=res.domesticDestinationLocations;
-
-        // res.domesticOriginLocations?.forEach((el)=>{
-        //   return this.originCountry.push(el.facility?.country!);
-        // })
-        // this.originCountry = this.originCountry.filter((obj, index, arr) =>
-        // index === arr.findIndex((item:Country) => item.id === obj.id)
-        // );
-        
-
-        // res.domesticDestinationLocations?.forEach((el)=>{
-        //   return this.destinationCountry.push(el.facility?.country!);
-        // })
-        // this.destinationCountry = this.destinationCountry.filter((obj, index, arr) =>
-        // index === arr.findIndex((item:Country) => item.id === obj.id)
-        // );
-        
+      
         
       }, error => {
         if (error.error.body) {

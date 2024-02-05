@@ -53,11 +53,13 @@ public class InternationalShipmentService {
     @Autowired
     LocationService locationService;
     @Autowired
+    LocationRepository locationRepository;
+    @Autowired
     RoleRepository roleRepository;
 
 
     @Transactional
-    public InternationalShipmentDto addShipment(InternationalShipmentDto internationalShipmentDto) {
+    public InternationalShipmentDto addShipment(InternationalShipmentDto internationalShipmentDto,Long orgLocationId,Long desLocationId) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof UserDetails){
             String username = ((UserDetails) principal).getUsername();
@@ -93,13 +95,12 @@ public class InternationalShipmentService {
 
             internationalShipmentHistoryRepository.save(shipmentHistory);
 
-            String originEmails = locationService.getLocationByName(internationalShipment.getOriginLocation(), internationalShipment.getVehicleNumber()!=null ?"International Road":"International Air")
+            String originEmails = locationRepository.findById(orgLocationId).get()
                     .getOriginEmail();
             String[] resultListOrigin = originEmails.split(",");
             List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOrigin));
 
-            String destinationEmails = locationService.getLocationByName(internationalShipment.getDestinationLocation(),internationalShipment.getVehicleNumber()!=null ?"International Road":"International Air")
-                    .getDestinationEmail();
+            String destinationEmails = locationRepository.findById(orgLocationId).get().getDestinationEmail();
             String[] resultListDestination = destinationEmails.split(",");
             List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestination));
 
