@@ -120,7 +120,7 @@ public class DomesticShipmentService {
             String[] resultListOrigin = originEmails.split(",");
             List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOrigin));
 
-            String destinationEmails = locationRepository.findById(orgLocationId).get()
+            String destinationEmails = locationRepository.findById(desLocationId).get()
                     .getDestinationEmail();
             String[] resultListDestination = destinationEmails.split(",");
             List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestination));

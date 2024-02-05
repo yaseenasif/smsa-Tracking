@@ -21,6 +21,7 @@
                     <p-dropdown
                       class="w-full"
                       [options]="originCountry"
+                      (onChange)="onOrgCountryChange()"
                       #originCountry1="ngModel"
                       name="originCountry1"
                       [required]="true"
@@ -55,6 +56,7 @@
                     <p-dropdown
                       class="w-full"
                       [options]="originFacility"
+                      (onChange)="onOrgFacilityChange()"
                       name="originFacility1"
                       #originFacility1="ngModel"
                       [required]="true"
@@ -123,6 +125,7 @@
                     <label htmlFor="name">Destination Country </label>
                     <p-dropdown
                       class="w-full"
+                      (onChange)="onDesCountryChange()"
                       [options]="destinationCountry"
                       #destinationCountry1="ngModel"
                       name="destinationCountry1"
@@ -161,6 +164,7 @@
                     <p-dropdown
                       class="w-full"
                       [options]="destinationFacility"
+                      (onChange)="onDesFacilityChange()"
                       name="destinationFacility1"
                       #destinationFacility1="ngModel"
                       [required]="true"

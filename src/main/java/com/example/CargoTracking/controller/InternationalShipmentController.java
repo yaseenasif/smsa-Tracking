@@ -29,9 +29,9 @@ public class  InternationalShipmentController {
     @Autowired
     StorageService storageService;
 
-    @PostMapping("/add-international-shipment")
-    public ResponseEntity<InternationalShipmentDto> saveInternationalShipment(@RequestBody InternationalShipmentDto internationalShipmentDto){
-        return ResponseEntity.ok(internationalShipmentService.addShipment(internationalShipmentDto));
+    @PostMapping("/add-international-shipment/org-id/{oId}/des-id/{dId}")
+    public ResponseEntity<InternationalShipmentDto> saveInternationalShipment(@RequestBody InternationalShipmentDto internationalShipmentDto,@PathVariable Long oId,@PathVariable Long dId){
+        return ResponseEntity.ok(internationalShipmentService.addShipment(internationalShipmentDto,oId,dId));
     }
 
     @PostMapping("/add-international-attachments/{id}/{attachmentType}")
