@@ -319,7 +319,7 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Vehicle</label>
+                    <label htmlFor="name">Refrigerated Vehicle</label>
                     <p-inputSwitch
                       #referigiratedTruck="ngModel"
                       name="referigiratedTruck"
@@ -379,17 +379,16 @@
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Number of Shipments</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [(ngModel)]="domesticShipment.numberOfShipments"
-                      #numberOfShipments="ngModel"
-                      required
-                      name="numberOfShipments"
-                    />
+                    <p-inputNumber
+                    id="name"
+                    [(ngModel)]="domesticShipment.numberOfShipments"
+                    #numberOfShipments="ngModel"
+                    [required]="true"
+                    name="numberOfShipments"
+                    [useGrouping]="false"
+                  ></p-inputNumber>
                     <!-- <small id="name-help"
                       >{{name}}</small
                     > -->
@@ -397,66 +396,31 @@
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Weight in kg</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [(ngModel)]="domesticShipment.weight"
-                      pattern="[0-9]+"
-                      #weight="ngModel"
-                      required
-                      name="weight"
-                    />
-                    <small
-                    class="color-red error"
-                    *ngIf="weight.invalid && (weight.dirty || weight.touched )&&weight?.errors?.['pattern']"
-                  >
-                    only number is allowed
-                  </small>
+                    <p-inputNumber
+                    id="name"
+                    [(ngModel)]="domesticShipment.weight"
+                    #weight="ngModel"
+                    [required]="true"
+                    name="weight"
+                    [useGrouping]="false"
+                  ></p-inputNumber>
                   </div>
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Pre Alert Number</label>
-                    <input
-                    pInputText
+                    <p-inputNumber
                     id="name"
-                    pattern="[0-9]+"
-                    minlength="12"
-                    maxlength="12"
-                    aria-describedby="name-help"
-                    name="preAlertNumber"
+                    [maxlength]="12"
                     [(ngModel)]="domesticShipment.preAlertNumber"
                     #preAlertNumber="ngModel"
-                    required
-                    [ngClass]="{
-                      error:
-                      preAlertNumber.invalid &&
-                        (preAlertNumber.dirty || preAlertNumber.touched)
-                    }"
-                  />
-
-                  <small
-                    class="color-red error"
-                    *ngIf="preAlertNumber.invalid && (preAlertNumber.dirty || preAlertNumber.touched )&&preAlertNumber?.errors?.['required']"
-                  >
-                  Pre Alert Number is required.
-                  </small>
-                  <small
-                    class="color-red error"
-                    *ngIf="preAlertNumber.invalid && (preAlertNumber.dirty || preAlertNumber.touched )&&preAlertNumber?.errors?.['pattern']"
-                  >
-                    Invalid pattern
-                  </small>
-                  <small
-                  class="color-red error"
-                  *ngIf="preAlertNumber.invalid && (preAlertNumber.dirty || preAlertNumber.touched )&&preAlertNumber?.errors?.['minlength']"
-                   >
-                  Minimum 12 cheater is required
-                  </small>
+                    [required]="true"
+                    name="preAlertNumber"
+                    [useGrouping]="false"
+                  ></p-inputNumber>
                   </div>
                 </div>
 
@@ -571,22 +535,18 @@
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Master CONS</label>
-                    <input
-                      [readOnly]="true"
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      #referenceNumber="ngModel"
-                      name="referenceNumber"
-                      [required]="true"
-                      [(ngModel)]="this.domesticShipment.referenceNumber"
-                    />
-                    <small id="name-help" class="color-warning"
-                      >this field is auto select when we select driver
-                      name</small
-                    >
+                    <p-inputNumber
+                    [maxlength]="12"
+                  
+                    id="name"
+                    [(ngModel)]="domesticShipment.referenceNumber"
+                    #referenceNumber="ngModel"
+                    [required]="true"
+                    name="referenceNumber"
+                    [useGrouping]="false"
+                  ></p-inputNumber>
                   </div>
                 </div>
 

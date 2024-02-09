@@ -72,7 +72,8 @@ export class UpdateInternationalRoadForSummaryComponent {
     originFacility: null,
     originLocation: null,
     destinationFacility: null,
-    destinationLocation: null
+    destinationLocation: null,
+    numberOfBoxes: undefined
   }
   minDate: Date = new Date();
   location!: Location[];

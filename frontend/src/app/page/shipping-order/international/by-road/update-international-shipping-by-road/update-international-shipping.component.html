@@ -260,7 +260,7 @@
                 </div> -->
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Vehicle</label>
+                    <label htmlFor="name">Refrigerated Vehicle</label>
                     <p-inputSwitch
                       #referigiratedTruck="ngModel"
                       name="referigiratedTruck"
@@ -526,49 +526,41 @@
 
                 <!-- 5 -->
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Weight in kg</label>
-                    <input
-                      #actualWeight="ngModel"
-                      name="actualWeight"
-                      [required]="true"
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [(ngModel)]="internationalShipment.actualWeight"
-                    />
-                    <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="
-                        actualWeight.invalid &&
-                        (actualWeight.dirty || actualWeight.touched)
-                      "
-                      >Weight in kg is required.</small
-                    >
+                    <p-inputNumber
+                    id="name"
+                    [(ngModel)]="internationalShipment.actualWeight"
+                    #actualWeight="ngModel"
+                    [required]="true"
+                    name="actualWeight"
+                    [useGrouping]="false"
+                  ></p-inputNumber>
+                  <small
+                  class="color-red error"
+                  *ngIf="actualWeight.invalid && (actualWeight.dirty || actualWeight.touched )&&actualWeight?.errors?.['required']"
+                >
+                Weight in kg is required.
+                </small>
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Number of Shipments</label>
-                    <input
-                      #numberOfShipments="ngModel"
-                      name="numberOfShipments"
-                      [required]="true"
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [(ngModel)]="internationalShipment.numberOfShipments"
-                    />
-                    <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="
-                        numberOfShipments.invalid &&
-                        (numberOfShipments.dirty || numberOfShipments.touched)
-                      "
-                      >Number of Shipments is required.</small
-                    >
+                    <p-inputNumber
+                    id="name"
+                    [(ngModel)]="internationalShipment.numberOfShipments"
+                    #numberOfShipments="ngModel"
+                    [required]="true"
+                    name="numberOfShipments"
+                    [useGrouping]="false"
+                  ></p-inputNumber>
+                  <small
+                  class="color-red error"
+                  *ngIf="numberOfShipments.invalid && (numberOfShipments.dirty || numberOfShipments.touched )&&numberOfShipments?.errors?.['required']"
+                >
+                Number Of Shipments is required.
+                </small>
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
@@ -669,22 +661,23 @@
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Master CONS</label>
-                    <input
-                      [readOnly]="true"
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      #referenceNumber="ngModel"
-                      name="referenceNumber"
-                      [required]="true"
-                      [(ngModel)]="this.internationalShipment.referenceNumber"
-                    />
-                    <small id="name-help" class="color-warning"
-                      >this field is auto select when we select driver
-                      name</small
-                    >
+                    <p-inputNumber
+                    [maxlength]="12"
+                    id="name"
+                    [(ngModel)]="internationalShipment.referenceNumber"
+                    #referenceNumber="ngModel"
+                    [required]="true"
+                    name="referenceNumber"
+                    [useGrouping]="false"
+                  ></p-inputNumber>
+                  <small
+                  class="color-red error"
+                  *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched )&&referenceNumber?.errors?.['required']"
+                >
+                Reference Number is required.
+                </small>
                   </div>
                 </div>
 
@@ -824,7 +817,7 @@
                     >
                   </div>
                 </div>
-                <div class="col-12 md:col-6 lg:col-4">
+                <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Seal Number</label>
                     <input
@@ -846,7 +839,7 @@
                       >Seal Number is required.</small
                     >
                   </div>
-                </div>
+                </div> -->
                 <!-- 9 -->
 
                 <div class="col-12 md:col-6 lg:col-4">

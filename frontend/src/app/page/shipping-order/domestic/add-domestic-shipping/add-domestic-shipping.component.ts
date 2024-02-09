@@ -67,7 +67,8 @@ export class AddDomesticShippingComponent {
     transitTimeTaken: null,
     preAlertType: null,
     originCountry: null,
-    destinationCountry: null
+    destinationCountry: null,
+    numberOfBoxes: undefined
   };
 
   // originCountry!: Country[];
@@ -297,7 +298,6 @@ export class AddDomesticShippingComponent {
   driverData() {
     this.domesticShipment.driverName = this.selectedDriver?.name;
     this.domesticShipment.driverContact = this.selectedDriver?.contactNumber;
-    this.domesticShipment.referenceNumber = this.selectedDriver?.referenceNumber;
   }
 
   onSubmit() {

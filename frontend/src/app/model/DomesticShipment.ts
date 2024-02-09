@@ -5,7 +5,7 @@ export interface DomesticShipment{
     destinationCountry: string|null|undefined,
     originFacility: string|null|undefined,
     originLocation: string|null|undefined,
-    refrigeratedTruck: boolean,//Vehicle
+    refrigeratedTruck: boolean,//Refrigerated Vehicle
     destinationFacility: string|null|undefined,
     destinationLocation: string|null|undefined,
     routeNumber: string|null|undefined,
@@ -30,6 +30,7 @@ export interface DomesticShipment{
     totalShipments: number|null|undefined,
     overages: string|null|undefined,
     overagesAwbs: string|null|undefined,
+    numberOfBoxes:number|null|undefined,
     received: string|null|undefined,
     shortages: string|null|undefined,
     shortagesAwbs: string|null|undefined,

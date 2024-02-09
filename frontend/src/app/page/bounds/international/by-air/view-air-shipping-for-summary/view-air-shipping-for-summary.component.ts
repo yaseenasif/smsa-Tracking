@@ -57,7 +57,8 @@ export class ViewAirShippingForSummaryComponent {
     originFacility: null,
     originLocation: null,
     destinationFacility: null,
-    destinationLocation: null
+    destinationLocation: null,
+    numberOfBoxes: undefined
   }
  
   selectedLocation!: Location;
@@ -73,7 +74,7 @@ export class ViewAirShippingForSummaryComponent {
 
   ngOnInit(): void {
     this.iSID = +this.route.snapshot.paramMap.get('id')!;
-    this.items = [{ label: 'International Inbound By Air', routerLink: '/international-summary-by-air' }, { label: 'View International Shipment By Air' }];
+    this.items = [{ label: 'International Inbound By Air', routerLink: '/international-summary-by-air' }, { label: 'View International Inbound By Air' }];
   
     this.getInternationalShipmentHistoryByInternationalShipmentId(this.iSID);
         // Now that you have the responses, you can proceed with the next steps

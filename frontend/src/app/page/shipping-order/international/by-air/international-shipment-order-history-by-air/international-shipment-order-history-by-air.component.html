@@ -86,7 +86,7 @@
                 <ng-template pTemplate="body" let-InternationalShipmentHistory>
                   <tr>
                     <td class="text-center">{{ InternationalShipmentHistory.status }}</td>
-                    <td class="text-center">{{ InternationalShipmentHistory.processTime }}</td>
+                    <td class="text-center">{{ InternationalShipmentHistory.processTime |date: 'MM/dd/yyyy hh:mm'}}</td>
                     <td class="text-center">{{ InternationalShipmentHistory.locationCode }}</td>
                     <td class="text-center">{{ InternationalShipmentHistory.user }}</td>
                     <td class="text-center">{{ InternationalShipmentHistory.remarks }}</td>

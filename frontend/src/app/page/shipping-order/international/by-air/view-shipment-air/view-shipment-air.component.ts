@@ -56,7 +56,8 @@ export class ViewShipmentAirComponent {
     originFacility: undefined,
     originLocation: undefined,
     destinationFacility: undefined,
-    destinationLocation: undefined
+    destinationLocation: undefined,
+    numberOfBoxes: undefined
   }
  
   selectedLocation!: Location;

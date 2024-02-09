@@ -576,85 +576,62 @@
                 </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Number of Shipments</label>
-                    <input
-                      #numberOfShipments="ngModel"
-                      name="numberOfShipments"
-                      [required]="true"
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [(ngModel)]="internationalShipment.numberOfShipments"
-                    />
-                    <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="
-                        numberOfShipments.invalid &&
-                        (numberOfShipments.dirty || numberOfShipments.touched)
-                      "
-                      >Number of Shipments is required.</small
-                    >
+                    <p-inputNumber
+                    id="name"
+                    [(ngModel)]="internationalShipment.numberOfShipments"
+                    #numberOfShipments="ngModel"
+                    [required]="true"
+                    name="numberOfShipments"
+                    [useGrouping]="false"
+                  ></p-inputNumber>
+                  <small
+                  class="color-red error"
+                  *ngIf="numberOfShipments.invalid && (numberOfShipments.dirty || numberOfShipments.touched )&&numberOfShipments?.errors?.['required']"
+                >
+                Number Of Shipments is required.
+                </small>
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Weight in kg</label>
-                    <input
-                      #actualWeight="ngModel"
-                      name="actualWeight"
-                      [required]="true"
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      [(ngModel)]="internationalShipment.actualWeight"
-                    />
-                    <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="
-                        actualWeight.invalid &&
-                        (actualWeight.dirty || actualWeight.touched)
-                      "
-                      >Weight in kg is required.</small
-                    >
+                    <p-inputNumber
+                    id="name"
+                    [(ngModel)]="internationalShipment.actualWeight"
+                    #actualWeight="ngModel"
+                    [required]="true"
+                    name="actualWeight"
+                    [useGrouping]="false"
+                  ></p-inputNumber>
+                  <small
+                  class="color-red error"
+                  *ngIf="actualWeight.invalid && (actualWeight.dirty || actualWeight.touched )&&actualWeight?.errors?.['required']"
+                >
+                Weight in kg is required.
+                </small>
                   </div>
                 </div>
                 <!-- 8 -->
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Master CONS</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      #referenceNumber="ngModel"
-                      name="referenceNumber"
-                      [required]="true"
-                      pattern="[0-9]+"
-                      minlength="12"
-                      maxlength="12"
-                      [(ngModel)]="this.internationalShipment.referenceNumber"
-                    />
-                    <small
-                    class="color-red error"
-                    *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched )&&referenceNumber?.errors?.['required']"
-                  >
-                  Master CONS Number is required.
-                  </small>
-                  <small
-                    class="color-red error"
-                    *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched )&&referenceNumber?.errors?.['pattern']"
-                  >
-                    Invalid pattern
-                  </small>
+                    <p-inputNumber
+                    [maxlength]="12"
+                    id="name"
+                    [(ngModel)]="internationalShipment.referenceNumber"
+                    #referenceNumber="ngModel"
+                    [required]="true"
+                    name="referenceNumber"
+                    [useGrouping]="false"
+                  ></p-inputNumber>
                   <small
                   class="color-red error"
-                  *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched )&&referenceNumber?.errors?.['minlength']"
-                   >
-                  Minimum 12 cheater is required
-                  </small>
+                  *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched )&&referenceNumber?.errors?.['required']"
+                >
+                Reference Number is required.
+                </small>
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">

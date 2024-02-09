@@ -68,7 +68,8 @@ export class UpdateDomesticShippingComponent {
     transitTimeTaken: null,
     preAlertType: null,
     originCountry: undefined,
-    destinationCountry: undefined
+    destinationCountry: undefined,
+    numberOfBoxes: undefined
   };
 
   domesticCountryList!:(Country | null | undefined)[]
@@ -388,7 +389,6 @@ export class UpdateDomesticShippingComponent {
   driverData() {
     this.domesticShipment.driverName = this.selectedDriver?.name;
     this.domesticShipment.driverContact = this.selectedDriver?.contactNumber;
-    this.domesticShipment.referenceNumber = this.selectedDriver?.referenceNumber;
   }
 
   updateDomesticShipment(domesticShipment: DomesticShipment) {

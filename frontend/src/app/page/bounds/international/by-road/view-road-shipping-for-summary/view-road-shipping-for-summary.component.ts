@@ -55,7 +55,8 @@ export class ViewRoadShippingForSummaryComponent {
     originFacility: null,
     originLocation: null,
     destinationFacility: null,
-    destinationLocation: null
+    destinationLocation: null,
+    numberOfBoxes: undefined
   }
 
 

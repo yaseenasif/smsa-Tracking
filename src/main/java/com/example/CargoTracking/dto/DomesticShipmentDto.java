@@ -46,6 +46,7 @@ public class DomesticShipmentDto {
     private String remarks;
     private LocalDateTime ata;
     private Integer totalShipments;
+    private Integer numberOfBoxes;
     private String overages;
     private String overagesAwbs;
     private String received;

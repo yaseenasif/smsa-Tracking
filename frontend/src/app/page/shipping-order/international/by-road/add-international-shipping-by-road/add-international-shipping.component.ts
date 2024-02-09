@@ -75,7 +75,8 @@ export class AddInternationalShippingComponent {
     originFacility: null,
     originLocation: null,
     destinationFacility: null,
-    destinationLocation: null
+    destinationLocation: null,
+    numberOfBoxes: undefined
   }
 
   routes: any;
@@ -258,7 +259,6 @@ export class AddInternationalShippingComponent {
   driverData() {
     this.internationalShipment.driverName = this.selectedDriver?.name;
     this.internationalShipment.driverContact = this.selectedDriver?.contactNumber;
-    this.internationalShipment.referenceNumber = this.selectedDriver?.referenceNumber;
   }
 
 

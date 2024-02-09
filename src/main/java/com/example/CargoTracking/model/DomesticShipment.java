@@ -46,6 +46,7 @@ public class DomesticShipment {
     private String vehicleNumber;
     private Long tagNumber;//security tag
     private Long sealNumber;
+    private Integer numberOfBoxes;
     private String status;
     private String remarks;
     private LocalDateTime ata;

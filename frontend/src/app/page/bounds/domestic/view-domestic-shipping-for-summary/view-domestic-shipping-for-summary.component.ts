@@ -49,7 +49,8 @@ export class ViewDomesticShippingForSummaryComponent {
     transitTimeTaken: null,
     preAlertType: null,
     originCountry: undefined,
-    destinationCountry: undefined
+    destinationCountry: undefined,
+    numberOfBoxes: undefined
   };
 
   domesticShipmentId!:number;

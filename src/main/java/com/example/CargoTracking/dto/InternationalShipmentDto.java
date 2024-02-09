@@ -49,6 +49,7 @@ public class InternationalShipmentDto {
     private String status;
     private String remarks;
     private String routeNumber;
+    private Integer numberOfBoxes;
     private LocalDateTime ata;// new both
     private Integer totalShipments;// new both
     private String overages;// new both

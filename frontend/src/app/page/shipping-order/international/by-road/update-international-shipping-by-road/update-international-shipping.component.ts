@@ -78,7 +78,8 @@ export class UpdateInternationalShippingComponent {
     originFacility: null,
     originLocation: null,
     destinationFacility: null,
-    destinationLocation: null
+    destinationLocation: null,
+    numberOfBoxes: undefined
   }
   location!: Location[];
   // originPorts!: LocationPort[];
@@ -330,7 +331,6 @@ export class UpdateInternationalShippingComponent {
   driverData() {
     this.internationalShipment.driverName = this.selectedDriver?.name;
     this.internationalShipment.driverContact = this.selectedDriver?.contactNumber;
-    this.internationalShipment.referenceNumber = this.selectedDriver?.referenceNumber;
   }
   flag = false;
   dashAfterThree() {

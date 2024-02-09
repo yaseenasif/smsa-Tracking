@@ -39,6 +39,7 @@ public class InternationalShipment {
     private LocalDateTime atd;
     private String flightNumber;//air
     private Integer numberOfShipments;
+    private Integer numberOfBoxes;
     private Double actualWeight;
     private String driverName;
     private String driverContact;

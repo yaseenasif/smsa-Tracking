@@ -25,7 +25,7 @@
                                             <label for="" class="fr mr-8"> {{internationalShipment.originPort}}</label>
                                         </div> -->
                                         <div class="lg:col-4 md:col-12 col-12"><label for=""
-                                                class="heading-lable">Vehicle :</label> &nbsp;
+                                                class="heading-lable">Refrigerated Vehicle :</label> &nbsp;
                                             <label for="" class="fr mr-8"> {{internationalShipment.refrigeratedTruck}}</label>
                                         </div>
 
@@ -226,7 +226,7 @@
                           <ng-template pTemplate="body" let-InternationalShipmentHistory>
                             <tr>
                               <td class="text-center">{{ InternationalShipmentHistory.status }}</td>
-                              <td class="text-center">{{ InternationalShipmentHistory.processTime }}</td>
+                              <td class="text-center">{{ InternationalShipmentHistory.processTime |date: 'MM/dd/yyyy hh:mm'}}</td>
                               <td class="text-center">{{ InternationalShipmentHistory.locationCode }}</td>
                               <td class="text-center">{{ InternationalShipmentHistory.user }}</td>
                               <td class="text-center">{{ InternationalShipmentHistory.remarks }}</td>

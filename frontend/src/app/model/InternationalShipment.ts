@@ -5,7 +5,7 @@ export interface InternationalShipment {
   originFacility: string|null|undefined,
   originLocation: string|null|undefined,
   // originPort: string | null | undefined,
-  refrigeratedTruck: boolean | null | undefined,//Vehicle
+  refrigeratedTruck: boolean | null | undefined,//Refrigerated Vehicle
   type: string | null | undefined,
   shipmentMode: string | null | undefined,
   preAlertNumber: string | null | undefined,
@@ -19,6 +19,7 @@ export interface InternationalShipment {
   atd: Date | string | null | undefined,
   flightNumber: number | null | undefined,
   numberOfShipments: number | null | undefined,
+  numberOfBoxes:number|null|undefined,
   actualWeight: number | null | undefined,
   driverName: string | null | undefined,
   driverContact: string | null | undefined,

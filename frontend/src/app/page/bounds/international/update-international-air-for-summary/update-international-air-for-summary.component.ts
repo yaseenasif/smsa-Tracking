@@ -73,7 +73,8 @@ export class UpdateInternationalAirForSummaryComponent {
     originFacility: null,
     originLocation: null,
     destinationFacility: null,
-    destinationLocation: null
+    destinationLocation: null,
+    numberOfBoxes: undefined
   }
   location!: Location[];
   // locationPort!: LocationPort[]
