@@ -63,24 +63,16 @@ public class DomesticShipment {
     private String preAlertType;
     private long transitTimeTaken;
     private LocalDateTime createdTime;
+    private LocalDateTime updatedTime;
     private LocalDateTime arrivedTime;
     private Boolean activeStatus;
     private boolean escalationFlagOne;
     private boolean escalationFlagTwo;
     private boolean escalationFlagThree;
-
-
-//    private List<String> urls;
-
-    // attachments dalega
-//    private String createdBy;
     private LocalDate createdAt;
-//    private String updatedBy;
     private LocalDate updatedAt;
-
     @ManyToOne
     private User createdBy;
-
     @ManyToOne
     private User UpdatedBy;
 

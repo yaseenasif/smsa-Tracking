@@ -99,14 +99,15 @@ public class DomesticShipmentService {
             unSaveDomesticShipment.setRedFlag(Boolean.FALSE);
             unSaveDomesticShipment.setActiveStatus(Boolean.TRUE);
             unSaveDomesticShipment.setPreAlertType("Domestic");
-            unSaveDomesticShipment.setCreatedTime(LocalDateTime.now());
-
+            LocalDateTime currentLocalDateTime = LocalDateTime.now();
+            unSaveDomesticShipment.setCreatedTime(currentLocalDateTime);
+            unSaveDomesticShipment.setUpdatedTime(currentLocalDateTime);
             DomesticShipment domesticShipment = domesticShipmentRepository.save(unSaveDomesticShipment);
 
             DomesticShipmentHistory domesticShipmentHistory = DomesticShipmentHistory.builder()
                     .status(domesticShipmentDto.getStatus())
                     .activeStatus(Boolean.TRUE)
-                    .processTime(LocalDateTime.now())
+                    .processTime(currentLocalDateTime)
                     .locationCode(domesticShipmentDto.getOriginLocation())
                     .user(user.getId())
                     .domesticShipment(domesticShipment)
@@ -255,7 +256,7 @@ public class DomesticShipmentService {
     public Page<DomesticShipmentDto> getInboundShipment(SearchCriteriaForSummary searchCriteriaForSummary, int page, int size) {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
-            Pageable pageable = PageRequest.of(page, size);
+            Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedTime"));
             Page<DomesticShipment> domesticShipmentPage;
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
@@ -333,6 +334,7 @@ public class DomesticShipmentService {
                 domesticShipment.get().setShortages(domesticShipmentDto.getShortages());
                 domesticShipment.get().setShortagesAwbs(domesticShipmentDto.getShortagesAwbs());
                 domesticShipment.get().setAttachments(domesticShipmentDto.getAttachments());
+                domesticShipment.get().setUpdatedTime(LocalDateTime.now());
 
 //                  if(!domesticShipment.get().getStatus().equals(domesticShipmentDto.getStatus())){
 //                      List<String> emails = userRepository.findEmailByLocation(domesticShipment.get().getDestinationLocation());

@@ -65,6 +65,7 @@ public class InternationalShipment {
     private String preAlertType;
     private long transitTimeTaken;
     private LocalDateTime createdTime;
+    private LocalDateTime updatedTime;
     private LocalDateTime arrivedTime;
     private boolean escalationFlagOne;
     private boolean escalationFlagTwo;

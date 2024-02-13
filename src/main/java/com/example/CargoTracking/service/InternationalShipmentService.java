@@ -76,7 +76,9 @@ public class InternationalShipmentService {
             unSaveInternationalShipment.setCreatedBy(user);
             unSaveInternationalShipment.setRedFlag(Boolean.FALSE);
             unSaveInternationalShipment.setPreAlertType(unSaveInternationalShipment.getType().equalsIgnoreCase("By Road") ? "International-Road" : "International-Air");
-            unSaveInternationalShipment.setCreatedTime(LocalDateTime.now());
+            LocalDateTime currentTime = LocalDateTime.now();
+            unSaveInternationalShipment.setCreatedTime(currentTime);
+            unSaveInternationalShipment.setUpdatedTime(currentTime);
             unSaveInternationalShipment.setActiveStatus(true);
 
             InternationalShipment internationalShipment = internationalShipmentRepository
@@ -85,7 +87,7 @@ public class InternationalShipmentService {
 
             InternationalShipmentHistory shipmentHistory = InternationalShipmentHistory.builder()
                     .status(internationalShipment.getStatus())
-                    .processTime(LocalDateTime.now())
+                    .processTime(currentTime)
                     .locationCode(internationalShipment.getOriginCountry())
                     .user(user.getId())
                     .type(internationalShipment.getType())
@@ -434,7 +436,7 @@ public class InternationalShipmentService {
                                                                                int page, int size){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof UserDetails){
-            Pageable pageable = PageRequest.of(page, size);
+            Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedTime"));
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
             if(searchCriteriaForInternationalSummary.getDestinations().isEmpty()){
@@ -499,7 +501,7 @@ public class InternationalShipmentService {
                                                                                 int page, int size){
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof UserDetails){
-            Pageable pageable = PageRequest.of(page, size);
+            Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedTime"));
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
           if(searchCriteriaForInternationalSummary.getDestinations().isEmpty()){
@@ -584,6 +586,7 @@ public class InternationalShipmentService {
                 internationalShipment.get().setShortages(internationalShipmentDto.getShortages());
                 internationalShipment.get().setShortageAWBs(internationalShipmentDto.getShortageAWBs());
                 internationalShipment.get().setRouteNumber(internationalShipmentDto.getRouteNumber());
+                internationalShipment.get().setUpdatedTime(LocalDateTime.now());
 //                if(!internationalShipment.get().getStatus().equals(internationalShipmentDto.getStatus())){
 //                    List<String> emails = userRepository.findEmailByLocation(internationalShipment.get().getDestinationCountry());
 //                    emails.add(internationalShipment.get().getCreatedBy().getEmail());
