@@ -199,7 +199,7 @@ export class UpdateInternationalShipmentByAirComponent {
       res.atd = res.atd ? new Date(res.atd) : null;
       res.ata = res.ata ? new Date(res.ata) : null;
 
-      this.selectedDriver = this.drivers.find(el => (el.name == res.driverName) && (el.contactNumber == res.driverContact) && (el.referenceNumber == res.referenceNumber))
+      this.selectedDriver = this.drivers.find(el => (el.name == res.driverName) && (el.contactNumber == res.driverContact))
       this.internationalShipment = res;
 
       this.originCountry = [];

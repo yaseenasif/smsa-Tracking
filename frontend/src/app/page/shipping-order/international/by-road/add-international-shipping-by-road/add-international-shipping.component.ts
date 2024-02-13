@@ -177,6 +177,9 @@ export class AddInternationalShippingComponent {
   }
 
   onSubmit() {
+    if(Array.isArray(this.internationalShipment.tagNumber)){
+      this.internationalShipment.tagNumber=this.internationalShipment.tagNumber!.join(',');
+    }
     let orgLocationId=this.user.internationalRoadOriginLocation?.find((el)=>{return el.country?.name == this.internationalShipment.originCountry && el.facility?.name==this.internationalShipment.originFacility && el.locationName==this.internationalShipment.originLocation})!.id;
     let desLocationId=this.user.internationalRoadDestinationLocation?.find((el)=>{return el.country?.name == this.internationalShipment.destinationCountry && el.facility?.name==this.internationalShipment.destinationFacility && el.locationName==this.internationalShipment.destinationLocation})!.id;
     this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-ddTHH:mm:ss')

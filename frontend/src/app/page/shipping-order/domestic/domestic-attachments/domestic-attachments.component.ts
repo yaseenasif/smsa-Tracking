@@ -6,6 +6,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { FileUploadErrorEvent, FileUploadEvent } from 'primeng/fileupload';
 
 
+
 @Component({
   selector: 'app-domestic-attachments',
   templateUrl: './domestic-attachments.component.html',
