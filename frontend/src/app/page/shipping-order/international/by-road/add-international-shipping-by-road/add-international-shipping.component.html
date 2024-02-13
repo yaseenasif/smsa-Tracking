@@ -524,6 +524,27 @@
                 </small>
                   </div>
                 </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Number Of Boxes</label>
+                    <p-inputNumber
+                      id="name"
+                      [(ngModel)]="internationalShipment.numberOfBoxes"
+                      #numberOfBoxes="ngModel"
+                      [required]="true"
+                      name="numberOfBoxes"
+                      [useGrouping]="false"
+                    ></p-inputNumber>
+                    <small
+                      class="color-red error"
+                      *ngIf="numberOfBoxes.invalid && (numberOfBoxes.dirty || numberOfBoxes.touched )&&numberOfBoxes?.errors?.['required']"
+                    >
+                      Number Of Boxes is required.
+                    </small>
+                  </div>
+                </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Pre Alert Number</label>
@@ -757,26 +778,27 @@
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Security Tag</label>
-                    <input
-                      pInputText
-                      id="name"
-                      aria-describedby="name-help"
-                      #tagNumber="ngModel"
-                      name="tagNumber"
-                      [required]="true"
-                      [(ngModel)]="internationalShipment.tagNumber"
-                    />
+                   
+                 
+                    <p-chips class="chipes-hook" [(ngModel)]="internationalShipment.tagNumber" [required]="true" separator=","  [allowDuplicate]="false"   #tagNumber="ngModel"  name="tagNumber" appIsNumber appTwelveDigitValidator>
+                    </p-chips>
+                 
+                   <small
+                    id="name-help"
+                    class="color-red"
+                    *ngIf="tagNumber.invalid && (tagNumber.dirty || tagNumber.touched)&&tagNumber.errors?.['invalidLength']">Each value must be exactly 7 digits long.</small>
+
                     <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="
-                        tagNumber.invalid &&
-                        (tagNumber.dirty || tagNumber.touched)
-                      "
-                      >Security Tag is required.</small
-                    >
+                    id="name-help"
+                    class="color-red"
+                    *ngIf="tagNumber.invalid && (tagNumber.dirty || tagNumber.touched)&& tagNumber?.errors?.['required']">Security Tag is required.</small>
+                    <small
+                    id="name-help"
+                    class="color-red"
+                    *ngIf="tagNumber.invalid && (tagNumber.dirty || tagNumber.touched)&& tagNumber?.errors?.['invalidValue']">Security Tag is not a Number</small>
+
                   </div>
                 </div>
                 <!-- <div class="col-12 md:col-6 lg:col-4">

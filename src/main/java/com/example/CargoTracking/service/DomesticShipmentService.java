@@ -322,6 +322,7 @@ public class DomesticShipmentService {
                 domesticShipment.get().setVehicleType(domesticShipmentDto.getVehicleType());
                 domesticShipment.get().setNumberOfPallets(domesticShipmentDto.getNumberOfPallets());
                 domesticShipment.get().setNumberOfBags(domesticShipmentDto.getNumberOfBags());
+                domesticShipment.get().setNumberOfBoxes(domesticShipmentDto.getNumberOfBoxes());
                 domesticShipment.get().setVehicleNumber(domesticShipmentDto.getVehicleNumber());
                 domesticShipment.get().setTagNumber(domesticShipmentDto.getTagNumber());
                 domesticShipment.get().setSealNumber(domesticShipmentDto.getSealNumber());

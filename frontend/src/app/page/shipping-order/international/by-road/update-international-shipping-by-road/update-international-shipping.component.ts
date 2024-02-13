@@ -195,6 +195,9 @@ export class UpdateInternationalShippingComponent {
   // }
 
   onSubmit() {
+    if(Array.isArray(this.internationalShipment.tagNumber)){
+      this.internationalShipment.tagNumber=this.internationalShipment.tagNumber!.join(',');
+    }
     this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
@@ -221,7 +224,10 @@ export class UpdateInternationalShippingComponent {
       res.eta = res.eta ? new Date(res.eta) : null;
       res.atd = res.atd ? new Date(res.atd) : null;
       res.ata = res.ata ? new Date(res.ata) : null;
-      this.selectedDriver = this.drivers.find(el => (el.name == res.driverName) && (el.contactNumber == res.driverContact) && (el.referenceNumber == res.referenceNumber))
+      if(typeof res.tagNumber === 'string'){
+        res.tagNumber=res.tagNumber!.split(",");
+      }
+      this.selectedDriver = this.drivers.find(el => (el.name == res.driverName) && (el.contactNumber == res.driverContact))
 
       this.internationalShipment = res;
 

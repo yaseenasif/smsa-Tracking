@@ -48,7 +48,7 @@ public class InternationalShipment {
     private Integer numberOfPallets;
     private Integer numberOfBags;
     private String vehicleNumber;
-    private Long tagNumber;
+    private String tagNumber;
     private Long sealNumber;
     private String attachments;//new both
     private String status;

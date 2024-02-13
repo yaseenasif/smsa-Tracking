@@ -22,7 +22,7 @@ export interface DomesticShipment{
     numberOfPallets: number|null|undefined,
     numberOfBags: number|null|undefined,
     vehicleNumber: string|null|undefined,
-    tagNumber: number|null|undefined,//security tag
+    tagNumber: string[]|string|null;//security tag
     // sealNumber: number|null|undefined,
     status: string|null|undefined,
     remarks: string|null|undefined,

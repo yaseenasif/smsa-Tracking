@@ -28,7 +28,7 @@ export interface InternationalShipment {
   numberOfPallets: number | null | undefined,
   numberOfBags: number | null | undefined,
   vehicleNumber: string | null | undefined,
-  tagNumber: number | null | undefined,//Security Tag
+  tagNumber:string[]|string|null,//Security Tag
   sealNumber: number | null | undefined,
   attachments: string | null | undefined,
   status: string | null | undefined,

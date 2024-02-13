@@ -122,6 +122,8 @@ import { AddFacilityComponent } from './page/facility/add-facility/add-facility.
 import { FacilityUpdateComponent } from './page/facility/facility-update/facility-update.component';
 import { FacilityListComponent } from './page/facility/facility-list/facility-list.component';
 import { ArchiveUserComponent } from './page/user/archive-user/archive-user.component';
+import { TwelveDigitValidatorDirective } from './page/shipping-order/twelve-digit-validator.directive';
+import { IsNumberDirective } from './page/shipping-order/is-number.directive';
 
 @NgModule({
   declarations: [
@@ -212,6 +214,8 @@ import { ArchiveUserComponent } from './page/user/archive-user/archive-user.comp
     FacilityUpdateComponent,
     FacilityListComponent,
     ArchiveUserComponent,
+    TwelveDigitValidatorDirective,
+    IsNumberDirective,
     
   ],
   imports: [

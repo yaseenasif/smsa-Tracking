@@ -301,6 +301,9 @@ export class AddDomesticShippingComponent {
   }
 
   onSubmit() {
+    if(Array.isArray(this.domesticShipment.tagNumber)){
+      this.domesticShipment.tagNumber=this.domesticShipment.tagNumber!.join(',');
+    }
     // this.domesticShipment.etd = this.datePipe.transform(this.domesticShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
     // this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.atd = this.datePipe.transform(this.domesticShipment.atd, 'yyyy-MM-ddTHH:mm:ss')

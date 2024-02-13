@@ -577,6 +577,7 @@ public class InternationalShipmentService {
                 internationalShipment.get().setTagNumber(internationalShipmentDto.getTagNumber());
                 internationalShipment.get().setSealNumber(internationalShipmentDto.getSealNumber());
                 internationalShipment.get().setAttachments(internationalShipmentDto.getAttachments());
+                internationalShipment.get().setNumberOfBoxes(internationalShipmentDto.getNumberOfBoxes());
                 internationalShipment.get().setRemarks(internationalShipmentDto.getRemarks());
                 internationalShipment.get().setAta(internationalShipmentDto.getAta());
                 internationalShipment.get().setTotalShipments(internationalShipmentDto.getTotalShipments());

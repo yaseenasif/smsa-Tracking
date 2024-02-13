@@ -44,7 +44,7 @@ export class UpdateDomesticShippingComponent {
     weight: null,
     // etd: null,
     // eta: null,
-    atd: null,
+    atd:null,
     driverName: null,
     driverContact: null,
     referenceNumber: null,
@@ -52,7 +52,7 @@ export class UpdateDomesticShippingComponent {
     numberOfPallets: null,
     numberOfBags: null,
     vehicleNumber: null,
-    tagNumber: null,
+    tagNumber: [],
     // sealNumber: null,
     status: null,
     remarks: null,
@@ -71,6 +71,7 @@ export class UpdateDomesticShippingComponent {
     destinationCountry: undefined,
     numberOfBoxes: undefined
   };
+
 
   domesticCountryList!:(Country | null | undefined)[]
   selectedCountry!:string;
@@ -282,9 +283,12 @@ export class UpdateDomesticShippingComponent {
       // res.eta = res.eta ? new Date(res.eta) : null;
       res.atd = res.atd ? new Date(res.atd) : null;
       res.ata = res.ata ? new Date(res.ata) : null;
+      if(typeof res.tagNumber === 'string'){
+      res.tagNumber=res.tagNumber!.split(",");
+      }
       this.domesticShipment = res;
 
-      this.selectedDriver = this.drivers.find((el: Driver) => { return (el.name == res.driverName) && (el.contactNumber == res.driverContact) && (el.referenceNumber == res.referenceNumber) })
+      this.selectedDriver = this.drivers.find((el: Driver) => { return (el.name == res.driverName) && (el.contactNumber == res.driverContact)})
       this.originFacility = this.user.domesticOriginLocations
   ?.filter((el) => el.country?.name === this.domesticShipment.originCountry )
   .map(el => el.facility);
@@ -412,6 +416,9 @@ export class UpdateDomesticShippingComponent {
   }
 
   onSubmit() {
+    if(Array.isArray(this.domesticShipment.tagNumber)){
+      this.domesticShipment.tagNumber=this.domesticShipment.tagNumber!.join(',');
+    }
     // this.domesticShipment.etd = this.datePipe.transform(this.domesticShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
     // this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.atd = this.datePipe.transform(this.domesticShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
@@ -557,6 +564,7 @@ onDesFacilityChange(){
 
 
 
+ 
 
 
 }

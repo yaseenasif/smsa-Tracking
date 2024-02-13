@@ -2,6 +2,7 @@ package com.example.CargoTracking.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.sql.Date;
@@ -40,7 +41,7 @@ public class DomesticShipmentDto {
     private Integer numberOfPallets;
     private Integer numberOfBags;
     private String vehicleNumber;
-    private Long tagNumber;
+    private String tagNumber;
     private Long sealNumber;
     private String status;
     private String remarks;

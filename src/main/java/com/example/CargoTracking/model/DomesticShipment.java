@@ -1,6 +1,7 @@
 package com.example.CargoTracking.model;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
@@ -44,7 +45,7 @@ public class DomesticShipment {
     private Integer numberOfPallets;
     private Integer numberOfBags;
     private String vehicleNumber;
-    private Long tagNumber;//security tag
+    private String tagNumber;//security tag
     private Long sealNumber;
     private Integer numberOfBoxes;
     private String status;

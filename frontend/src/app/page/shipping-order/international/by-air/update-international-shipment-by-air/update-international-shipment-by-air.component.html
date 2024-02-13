@@ -505,6 +505,27 @@
                 </small>
                   </div>
                 </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Number Of Boxes</label>
+                    <p-inputNumber
+                      id="name"
+                      [(ngModel)]="internationalShipment.numberOfBoxes"
+                      #numberOfBoxes="ngModel"
+                      [required]="true"
+                      name="numberOfBoxes"
+                      [useGrouping]="false"
+                    ></p-inputNumber>
+                    <small
+                      class="color-red error"
+                      *ngIf="numberOfBoxes.invalid && (numberOfBoxes.dirty || numberOfBoxes.touched )&&numberOfBoxes?.errors?.['required']"
+                    >
+                      Number Of Boxes is required.
+                    </small>
+                  </div>
+                </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Weight in kg</label>
