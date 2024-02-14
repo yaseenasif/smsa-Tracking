@@ -38,7 +38,7 @@ public class UserService {
     @Autowired
     ModelMapper modelMapper;
 
-    public User addUser(UserDto userDto){
+    public UserResponseDto addUser(UserDto userDto){
         User userByEmail = userRepository.findByEmail(userDto.getEmail());
         if(userByEmail == null){
             try {
@@ -124,7 +124,7 @@ public class UserService {
                         .email(userDto.getEmail())
                         .build();
                 User save = userRepository.save(user);
-                return save;
+                return toDtoForResponse(save);
 
             }catch(Exception e){
                 throw new RecordNotFoundException("Some information is incorrect");
@@ -138,18 +138,18 @@ public class UserService {
     }
 
 
-    public List<User> getAllUser() {
+    public List<UserResponseDto> getAllUser() {
         List<User> userWithTrueStatus = userRepository.findUserWithTrueStatus();
-        return userWithTrueStatus;
+        return toDtoListForResponse(userWithTrueStatus);
     }
 
-    public List<User> getInActiveUser(){
+    public List<UserResponseDto> getInActiveUser(){
         List<User> userWithFalseStatus = userRepository.findUserWithFalseStatus();
-        return userWithFalseStatus;
+        return toDtoListForResponse(userWithFalseStatus);
     }
 
 
-    public User updateUser(Long id, UserDto userDto) {
+    public UserResponseDto updateUser(Long id, UserDto userDto) {
         Optional<User> user = userRepository.findById(id);
         if(user.isPresent()){
 
@@ -243,7 +243,7 @@ public class UserService {
                 user.get() .setInternationalRoadDestinationLocation(internationalRoadDestinationLocation);
                 User save = userRepository.save(user.get());
 
-                return save;
+                return toDtoForResponse(save);
 
             }catch(Exception e){
                 throw new RecordNotFoundException("Some information is incorrect");
@@ -268,32 +268,32 @@ public class UserService {
         return modelMapper.map(user, UserResponseDto.class);
     }
 
-    public User deleteUser(Long id) {
+    public UserResponseDto deleteUser(Long id) {
         Optional<User> user = userRepository.findById(id);
         if(user.isPresent()){
             user.get().setStatus(Boolean.FALSE);
             User save = userRepository.save(user.get());
-            return save;
+            return toDtoForResponse(save);
         }else {
             throw new RuntimeException("User not found");
         }
     }
 
-    public User getUserById(long id) {
+    public UserResponseDto getUserById(long id) {
         Optional<User> user = userRepository.findActiveUserById(id);
         if(user.isPresent()){
-            return user.get();
+            return toDtoForResponse(user.get());
         }
         throw new RecordNotFoundException(String.format("User Not Found On Id",id));
     }
 
-    public User getLoggedInUser() {
+    public UserResponseDto getLoggedInUser() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             String username = ((UserDetails) principal).getUsername();
             User user = userRepository.findByEmail(username);
             if(user != null){
-                return user;
+                return toDtoForResponse(user);
             }
         }else{
             throw new RecordNotFoundException("User Not Found");
