@@ -500,6 +500,29 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
+                    {{testDate}}
+                    <label htmlFor="name">ATD</label>
+
+
+                    
+                      <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date"  [(ngModel)]="testDate" 
+                        [min]="null" [max]="null" [disabled]="false" >
+                      <ngx-mat-datepicker-toggle matSuffix [for]="picker"></ngx-mat-datepicker-toggle>
+                      <ngx-mat-datetime-picker #picker [showSpinners]="true" [showSeconds]="false"
+                        [stepHour]="1" [stepMinute]="1" [stepSecond]="1" [touchUi]="false"
+                        color="primary" [enableMeridian]="false" [disableMinute]="false" [hideTime]="false">
+                      </ngx-mat-datetime-picker>
+                   
+
+
+
+
+
+                  </div>
+                </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Driver Name </label>
                     <p-dropdown
                       class="w-full"

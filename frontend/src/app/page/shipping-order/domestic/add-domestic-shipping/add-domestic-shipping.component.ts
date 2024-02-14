@@ -404,6 +404,7 @@ export class AddDomesticShippingComponent {
   //   this.domesticShipment.destinationCountry= this.user.domesticDestinationLocations?.find((element)=>element.locationName==location)?.country?.name
   //   this.domesticShipment.destinationFacility= this.user.domesticDestinationLocations?.find((element)=>element.locationName==location)?.facility?.name
   // }
+  testDate:string|null|undefined
 }
 
 

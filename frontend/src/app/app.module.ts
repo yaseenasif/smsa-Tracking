@@ -124,6 +124,16 @@ import { FacilityListComponent } from './page/facility/facility-list/facility-li
 import { ArchiveUserComponent } from './page/user/archive-user/archive-user.component';
 import { TwelveDigitValidatorDirective } from './page/shipping-order/twelve-digit-validator.directive';
 import { IsNumberDirective } from './page/shipping-order/is-number.directive';
+import {
+  NgxMatDatetimePickerModule, 
+  NgxMatNativeDateModule, 
+  NgxMatTimepickerModule 
+} from '@angular-material-components/datetime-picker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @NgModule({
   declarations: [
@@ -219,6 +229,13 @@ import { IsNumberDirective } from './page/shipping-order/is-number.directive';
     
   ],
   imports: [
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatButtonModule,
+    NgxMatDatetimePickerModule,
+    NgxMatTimepickerModule,
+    NgxMatNativeDateModule,
     ChipsModule,
     CheckboxModule,
     BrowserModule,
