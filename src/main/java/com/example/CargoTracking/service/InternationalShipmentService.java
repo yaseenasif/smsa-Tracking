@@ -75,6 +75,8 @@ public class InternationalShipmentService {
             unSaveInternationalShipment.setCreatedAt(LocalDate.now());
             unSaveInternationalShipment.setCreatedBy(user);
             unSaveInternationalShipment.setRedFlag(Boolean.FALSE);
+            unSaveInternationalShipment.setOriginLocationId(orgLocationId);
+            unSaveInternationalShipment.setDestinationLocationId(desLocationId);
             unSaveInternationalShipment.setPreAlertType(unSaveInternationalShipment.getType().equalsIgnoreCase("By Road") ? "International-Road" : "International-Air");
             LocalDateTime currentTime = LocalDateTime.now();
             unSaveInternationalShipment.setCreatedTime(currentTime);
@@ -97,12 +99,11 @@ public class InternationalShipmentService {
 
             internationalShipmentHistoryRepository.save(shipmentHistory);
 
-            String originEmails = locationRepository.findById(orgLocationId).get()
-                    .getOriginEmail();
+            String originEmails = locationRepository.findById(orgLocationId).get().getOriginEmail();
             String[] resultListOrigin = originEmails.split(",");
             List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOrigin));
 
-            String destinationEmails = locationRepository.findById(orgLocationId).get().getDestinationEmail();
+            String destinationEmails = locationRepository.findById(desLocationId).get().getDestinationEmail();
             String[] resultListDestination = destinationEmails.split(",");
             List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestination));
 
@@ -259,129 +260,138 @@ public class InternationalShipmentService {
         throw new RecordNotFoundException(String.format("International shipment Not Found By This Id %d",id));
     }
 
-//    @Scheduled(fixedRate = 20 * 60 * 1000)
-////    @Scheduled(cron = "0 0 12 * * ?")
-//    public void redFlag() {
-//        LocalDate oneDayOlderDate = LocalDate.now().minusDays(1);
-//
-//        List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findByCreatedAt(oneDayOlderDate);
-//        try {
-//            LocalDateTime currentDate = LocalDateTime.now();
-//
-//            if(!internationalShipmentList.isEmpty()){
-//                for (InternationalShipment entity : internationalShipmentList) {
+    @Scheduled(fixedRate = 20 * 60 * 1000)
+//    @Scheduled(cron = "0 0 12 * * ?")
+    public void redFlag() {
+        LocalDate oneDayOlderDate = LocalDate.now().minusDays(1);
+
+        List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findByCreatedAt(oneDayOlderDate);
+        try {
+            LocalDateTime currentDate = LocalDateTime.now();
+
+            if(!internationalShipmentList.isEmpty()){
+                for (InternationalShipment entity : internationalShipmentList) {
 //                    if (entity.getEta().isBefore(currentDate) && !entity.getRedFlag() && !entity.getStatus().equals("Arrived")) {
 //                        entity.setRedFlag(true);
 //                    }
-//                }
-//                internationalShipmentRepository.saveAll(internationalShipmentList);
-//            }
-//
-//
-//
-//
-//            List<InternationalShipment> internationalShipmentList1 = internationalShipmentRepository.findAll();
-//            if(!internationalShipmentList1.isEmpty()){
-//                for(InternationalShipment shipment: internationalShipmentList1){
-//                    if(shipment.getArrivedTime() != null && shipment.getStatus()!="Cleared"){
-//                        Duration duration = Duration.between(shipment.getArrivedTime(), LocalDateTime.now());
-//                        if(duration.toMinutes() >= 480 && duration.toMinutes() <= 1440){
-//                            if(!shipment.isEscalationFlagOne()){
-//                                String originEmailsEscalation = locationService.getLocationByName(shipment.getOriginCountry(), "International")
-//                                        .getOriginEscalation();
-//                                String[] resultListOriginEscalation = originEmailsEscalation.split(",");
-//
-//                                String destinationEmailsEscalation = locationService.getLocationByName(shipment.getDestinationCountry(), "International")
-//                                        .getDestinationEscalation();
-//                                String[] resultListDestinationEscalation = destinationEmailsEscalation.split(",");
-//
-//                                List<String> emails = new ArrayList<>();
-//                                emails.add(resultListOriginEscalation[0]);
-//                                emails.add(resultListDestinationEscalation[0]);
-//                                String subject;
-//                                if(shipment.getType().equalsIgnoreCase("By Air")){
-//                                    subject = "TSM 1st Escalation (A): "+ shipment.getRouteNumber() +"/"+ shipment.getVehicleType() +"/"+ shipment.getReferenceNumber() +"/"+ shipment.getEtd();
-//                                }else{
-//                                    subject = "TSM 1st Escalation (R): "+ shipment.getRouteNumber() +"/"+ shipment.getVehicleType() +"/"+ shipment.getReferenceNumber() +"/"+ shipment.getEtd();
-//
-//                                }
-//                                Map<String,Object> model = new HashMap<>();
-//                                model.put("field1",shipment.getReferenceNumber());
-//                                model.put("field2",shipment.getDestinationPort());
-//                                for (String to :emails) {
-//                                    emailService.sendHtmlEmail(to,subject,"shipment-delay-email-template.ftl",model);
-//                                }
-//                                shipment.setEscalationFlagOne(true);
-//                            }
-//                        }
-//                        if(duration.toMinutes() >= 1441 && duration.toMinutes() >= 2880){
-//                            if(!shipment.isEscalationFlagTwo()){
-//                                String originEmailsEscalation = locationService.getLocationByName(shipment.getOriginCountry(), "International")
-//                                        .getOriginEscalation();
-//                                String[] resultListOriginEscalation = originEmailsEscalation.split(",");
-//
-//                                String destinationEmailsEscalation = locationService.getLocationByName(shipment.getDestinationCountry(), "International")
-//                                        .getDestinationEscalation();
-//                                String[] resultListDestinationEscalation = destinationEmailsEscalation.split(",");
-//
-//                                List<String> emails = new ArrayList<>();
-//                                emails.add(resultListOriginEscalation[1]);
-//                                emails.add(resultListDestinationEscalation[1]);
-//                                String subject;
-//                                if(shipment.getType().equalsIgnoreCase("By Air")){
-//                                    subject = "TSM 2nd Escalation (A): "+ shipment.getRouteNumber() +"/"+ shipment.getVehicleType() +"/"+ shipment.getReferenceNumber() +"/"+ shipment.getEtd();
-//                                }else{
-//                                    subject = "TSM 2nd Escalation (R): "+ shipment.getRouteNumber() +"/"+ shipment.getVehicleType() +"/"+ shipment.getReferenceNumber() +"/"+ shipment.getEtd();
-//
-//                                }
-//                                Map<String,Object> model = new HashMap<>();
-//                                model.put("field1",shipment.getReferenceNumber());
-//                                model.put("field2",shipment.getDestinationPort());
-//                                for (String to :emails) {
-//                                    emailService.sendHtmlEmail(to,subject,"shipment-delay-email-template.ftl",model);
-//                                }
-//                                shipment.setEscalationFlagTwo(true);
-//                            }
-//                        }
-//                        if(duration.toMinutes() >= 2881){
-//                            if(!shipment.isEscalationFlagThree()){
-//                                String originEmailsEscalation = locationService.getLocationByName(shipment.getOriginCountry(), "International")
-//                                        .getOriginEscalation();
-//                                String[] resultListOriginEscalation = originEmailsEscalation.split(",");
-//
-//                                String destinationEmailsEscalation = locationService.getLocationByName(shipment.getDestinationCountry(), "International")
-//                                        .getDestinationEscalation();
-//                                String[] resultListDestinationEscalation = destinationEmailsEscalation.split(",");
-//
-//                                List<String> emails = new ArrayList<>();
-//                                emails.add(resultListOriginEscalation[2]);
-//                                emails.add(resultListDestinationEscalation[2]);
-//                                String subject;
-//                                if(shipment.getType().equalsIgnoreCase("By Air")){
-//                                    subject = "TSM 3rd Escalation (A): "+ shipment.getRouteNumber() +"/"+ shipment.getVehicleType() +"/"+ shipment.getReferenceNumber() +"/"+ shipment.getEtd();
-//
-//                                }else{
-//                                    subject = "TSM 3rd Escalation (R): "+ shipment.getRouteNumber() +"/"+ shipment.getVehicleType() +"/"+ shipment.getReferenceNumber() +"/"+ shipment.getEtd();
-//
-//                                }
-//                                Map<String,Object> model = new HashMap<>();
-//                                model.put("field1",shipment.getReferenceNumber());
-//                                model.put("field2",shipment.getDestinationPort());
-//                                for (String to :emails) {
-//                                    emailService.sendHtmlEmail(to,subject,"shipment-delay-email-template.ftl",model);
-//                                }
-//                                shipment.setEscalationFlagThree(true);
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            Collections.emptyList();
-//        }
-//    }
+                    if(entity.getArrivedTime()!=null && !entity.getRedFlag() && entity.getClearedTime() == null){
+                        Duration duration = Duration.between(entity.getArrivedTime(), LocalDateTime.now());
+                        if(duration.toHours()>12){
+                            entity.setRedFlag(Boolean.TRUE);
+                        }
+                    }
+                }
+                internationalShipmentRepository.saveAll(internationalShipmentList);
+            }
+
+
+
+
+            List<InternationalShipment> internationalShipmentList1 = internationalShipmentRepository.findAll();
+            if(!internationalShipmentList1.isEmpty()){
+                for(InternationalShipment shipment: internationalShipmentList1){
+                    if(shipment.getArrivedTime() != null && shipment.getClearedTime() == null){
+                        Duration duration = Duration.between(shipment.getArrivedTime(), LocalDateTime.now());
+                        if(duration.toMinutes() >= 720 && duration.toMinutes() <= 1440){
+                            if(!shipment.isEscalationFlagOne()){
+                                String originEmailsEscalation = locationRepository.findById(shipment.getOriginLocationId()).get()
+                                        .getOriginEscalation();
+                                String[] resultListOriginEscalation = originEmailsEscalation.split(",");
+
+                                String destinationEmailsEscalation = locationRepository.findById(shipment.getDestinationLocationId()).get()
+                                        .getDestinationEscalation();
+                                String[] resultListDestinationEscalation = destinationEmailsEscalation.split(",");
+
+                                List<String> emails = new ArrayList<>();
+                                emails.add(resultListOriginEscalation[0]);
+                                emails.add(resultListDestinationEscalation[0]);
+                                String subject;
+                                if(shipment.getType().equalsIgnoreCase("By Air")){
+                                    subject = "TSM 1st Escalation (A): "+ shipment.getRouteNumber() +"/"+ shipment.getVehicleType() +"/"+ shipment.getReferenceNumber() +"/"+ shipment.getEtd();
+                                }else{
+                                    subject = "TSM 1st Escalation (R): "+ shipment.getRouteNumber() +"/"+ shipment.getVehicleType() +"/"+ shipment.getReferenceNumber() +"/"+ shipment.getEtd();
+
+                                }
+                                Map<String,Object> model = new HashMap<>();
+                                model.put("field1",shipment.getReferenceNumber());
+                                model.put("field2",shipment.getDestinationLocation());
+                                for (String to :emails) {
+                                    emailService.sendHtmlEmail(to,subject,"shipment-delay-email-template.ftl",model);
+                                }
+                                shipment.setEscalationFlagOne(true);
+                                internationalShipmentRepository.save(shipment);
+                            }
+                        }
+                        if(duration.toMinutes() >= 1441 && duration.toMinutes() <= 2880){
+                            if(!shipment.isEscalationFlagTwo()){
+                                String originEmailsEscalation = locationRepository.findById(shipment.getOriginLocationId()).get()
+                                        .getOriginEscalation();
+                                String[] resultListOriginEscalation = originEmailsEscalation.split(",");
+
+                                String destinationEmailsEscalation = locationRepository.findById(shipment.getDestinationLocationId()).get()
+                                        .getDestinationEscalation();
+                                String[] resultListDestinationEscalation = destinationEmailsEscalation.split(",");
+
+                                List<String> emails = new ArrayList<>();
+                                emails.add(resultListOriginEscalation[1]);
+                                emails.add(resultListDestinationEscalation[1]);
+                                String subject;
+                                if(shipment.getType().equalsIgnoreCase("By Air")){
+                                    subject = "TSM 2nd Escalation (A): "+ shipment.getRouteNumber() +"/"+ shipment.getVehicleType() +"/"+ shipment.getReferenceNumber() +"/"+ shipment.getEtd();
+                                }else{
+                                    subject = "TSM 2nd Escalation (R): "+ shipment.getRouteNumber() +"/"+ shipment.getVehicleType() +"/"+ shipment.getReferenceNumber() +"/"+ shipment.getEtd();
+
+                                }
+                                Map<String,Object> model = new HashMap<>();
+                                model.put("field1",shipment.getReferenceNumber());
+                                model.put("field2",shipment.getDestinationLocation());
+                                for (String to :emails) {
+                                    emailService.sendHtmlEmail(to,subject,"shipment-delay-email-template.ftl",model);
+                                }
+                                shipment.setEscalationFlagTwo(true);
+                                internationalShipmentRepository.save(shipment);
+                            }
+                        }
+                        if(duration.toMinutes() >= 2881){
+                            if(!shipment.isEscalationFlagThree()){
+                                String originEmailsEscalation = locationRepository.findById(shipment.getOriginLocationId()).get()
+                                        .getOriginEscalation();
+                                String[] resultListOriginEscalation = originEmailsEscalation.split(",");
+
+                                String destinationEmailsEscalation = locationRepository.findById(shipment.getDestinationLocationId()).get()
+                                        .getDestinationEscalation();
+                                String[] resultListDestinationEscalation = destinationEmailsEscalation.split(",");
+
+                                List<String> emails = new ArrayList<>();
+                                emails.add(resultListOriginEscalation[2]);
+                                emails.add(resultListDestinationEscalation[2]);
+                                String subject;
+                                if(shipment.getType().equalsIgnoreCase("By Air")){
+                                    subject = "TSM 3rd Escalation (A): "+ shipment.getRouteNumber() +"/"+ shipment.getVehicleType() +"/"+ shipment.getReferenceNumber() +"/"+ shipment.getEtd();
+
+                                }else{
+                                    subject = "TSM 3rd Escalation (R): "+ shipment.getRouteNumber() +"/"+ shipment.getVehicleType() +"/"+ shipment.getReferenceNumber() +"/"+ shipment.getEtd();
+
+                                }
+                                Map<String,Object> model = new HashMap<>();
+                                model.put("field1",shipment.getReferenceNumber());
+                                model.put("field2",shipment.getDestinationLocation());
+                                for (String to :emails) {
+                                    emailService.sendHtmlEmail(to,subject,"shipment-delay-email-template.ftl",model);
+                                }
+                                shipment.setEscalationFlagThree(true);
+                                internationalShipmentRepository.save(shipment);
+                            }
+                        }
+                    }
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Collections.emptyList();
+        }
+    }
 
     private List<InternationalShipmentDto> toDtoList(List<InternationalShipment> internationalShipmentList){
         return internationalShipmentList.stream().map(this::toDto).collect(Collectors.toList());
@@ -529,7 +539,7 @@ public class InternationalShipmentService {
     }
 
     @Transactional
-    public InternationalShipmentDto updateInternationalShipment(Long id, InternationalShipmentDto internationalShipmentDto) {
+    public InternationalShipmentDto updateInternationalShipment(Long id, InternationalShipmentDto internationalShipmentDto,Long orgLocationId,Long desLocationId) {
         Optional<InternationalShipment> internationalShipment = internationalShipmentRepository.findById(id);
         if(internationalShipment.isPresent()){
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -547,7 +557,8 @@ public class InternationalShipmentService {
 
                 internationalShipment.get().setUpdatedAt(LocalDate.now());
                 internationalShipment.get().setUpdatedBy(user);
-
+                internationalShipment.get().setOriginLocationId(orgLocationId);
+                internationalShipment.get().setDestinationLocationId(desLocationId);
                 internationalShipment.get().setOriginCountry(internationalShipmentDto.getOriginCountry());
                 internationalShipment.get().setOriginFacility(internationalShipmentDto.getOriginFacility());
                 internationalShipment.get().setDestinationFacility(internationalShipmentDto.getDestinationFacility());
@@ -587,21 +598,18 @@ public class InternationalShipmentService {
                 internationalShipment.get().setShortages(internationalShipmentDto.getShortages());
                 internationalShipment.get().setShortageAWBs(internationalShipmentDto.getShortageAWBs());
                 internationalShipment.get().setRouteNumber(internationalShipmentDto.getRouteNumber());
-                internationalShipment.get().setUpdatedTime(LocalDateTime.now());
-//                if(!internationalShipment.get().getStatus().equals(internationalShipmentDto.getStatus())){
-//                    List<String> emails = userRepository.findEmailByLocation(internationalShipment.get().getDestinationCountry());
-//                    emails.add(internationalShipment.get().getCreatedBy().getEmail());
-//                    for (String to :emails) {
-////                        emailService.sendHtmlEmail(to,"Shipment status is changed");
-//                    }
-//
-//                }
+                LocalDateTime currentDateTime = LocalDateTime.now();
+                internationalShipment.get().setUpdatedTime(currentDateTime);
+
                 if(internationalShipmentDto.getStatus().equalsIgnoreCase("Arrived")){
-                    internationalShipment.get().setArrivedTime(LocalDateTime.now());
-                    Duration duration = Duration.between(internationalShipment.get().getCreatedTime(), LocalDateTime.now());
+                    internationalShipment.get().setArrivedTime(currentDateTime);
+                }
+                if(internationalShipmentDto.getAta()!=null){
+                    Duration duration = Duration.between(internationalShipmentDto.getAta(), internationalShipment.get().getAtd());
                     internationalShipment.get().setTransitTimeTaken(duration.toMinutes());
                 }
                 if(internationalShipmentDto.getStatus().equalsIgnoreCase("Cleared")){
+                    internationalShipment.get().setClearedTime(currentDateTime);
                     if(internationalShipment.get().getRedFlag()){
                         internationalShipment.get().setRedFlag(false);
                     }
@@ -613,7 +621,7 @@ public class InternationalShipmentService {
 
                     InternationalShipmentHistory shipmentHistory = InternationalShipmentHistory.builder()
                             .status(save.getStatus())
-                            .processTime(LocalDateTime.now())
+                            .processTime(currentDateTime)
                             .locationCode(save.getOriginCountry())
                             .user(user.getId())
                             .type(save.getType())

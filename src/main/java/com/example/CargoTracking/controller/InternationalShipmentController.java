@@ -117,9 +117,9 @@ public class  InternationalShipmentController {
     }
 
 
-    @PatchMapping("/update-international-shipment/{id}")
-    public ResponseEntity<InternationalShipmentDto> update(@PathVariable Long id, @RequestBody InternationalShipmentDto internationalShipmentDto){
-        return ResponseEntity.ok(internationalShipmentService.updateInternationalShipment(id,internationalShipmentDto));
+    @PatchMapping("/update-international-shipment/{id}/org-id/{oId}/des-id/{dId}")
+    public ResponseEntity<InternationalShipmentDto> update(@PathVariable Long id, @RequestBody InternationalShipmentDto internationalShipmentDto,@PathVariable Long oId,@PathVariable Long dId){
+        return ResponseEntity.ok(internationalShipmentService.updateInternationalShipment(id,internationalShipmentDto,oId,dId));
     }
 
     @DeleteMapping("/delete-international-shipment/{id}")
