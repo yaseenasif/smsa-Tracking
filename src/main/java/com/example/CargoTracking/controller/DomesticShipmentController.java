@@ -40,6 +40,11 @@ public class DomesticShipmentController {
         return ResponseEntity.ok(domesticShipmentService.addAttachment(id,attachmentType,file));
     }
 
+    @DeleteMapping("/delete-attachment/{id}")
+    public ResponseEntity<ApiResponse> deleteAttachment(@PathVariable Long id) {
+        return ResponseEntity.ok(domesticShipmentService.deleteAttachment(id));
+    }
+
     @GetMapping("/download/{fileName}")
     public ResponseEntity<ByteArrayResource> downloadFile(@PathVariable String fileName) {
         byte[] data = storageService.downloadFile(fileName);

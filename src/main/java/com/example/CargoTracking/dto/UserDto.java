@@ -33,7 +33,6 @@ public class UserDto {
     private Set<Roles> roles;
     private boolean status;
     private Set<Location> locations;
-
     private Set<Location> domesticOriginLocations;
     private Set<Location> domesticDestinationLocations;
     private Set<Location> internationalAirOriginLocation;

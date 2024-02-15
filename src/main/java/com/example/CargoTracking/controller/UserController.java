@@ -22,43 +22,43 @@ public class UserController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/user")
-    public ResponseEntity<User> addUser(@Valid @RequestBody UserDto userDto){
+    public ResponseEntity<UserResponseDto> addUser(@Valid @RequestBody UserDto userDto){
 
         return ResponseEntity.ok(userService.addUser(userDto));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/all-user")
-    public ResponseEntity<List<User>> getAllUser(){
+    public ResponseEntity<List<UserResponseDto>> getAllUser(){
         return ResponseEntity.ok(userService.getAllUser());
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/inactive-user")
-    public ResponseEntity<List<User>> getInActiveUser(){
+    public ResponseEntity<List<UserResponseDto>> getInActiveUser(){
         return ResponseEntity.ok(userService.getInActiveUser());
     }
 
     @GetMapping("/get-user/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable long id){
+    public ResponseEntity<UserResponseDto> getUserById(@PathVariable long id){
         return  ResponseEntity.ok(userService.getUserById(id));
     }
 
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/edit-user/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody UserDto user){
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id, @RequestBody UserDto user){
         return ResponseEntity.ok(userService.updateUser(id,user));
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/delete-user/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id){
+    public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id){
         return ResponseEntity.ok(userService.deleteUser(id));
     }
 
     @GetMapping("/get-loggedin/user")
-    public ResponseEntity<User> getLoggedInUser(){
+    public ResponseEntity<UserResponseDto> getLoggedInUser(){
         return ResponseEntity.ok(userService.getLoggedInUser());
     }
 

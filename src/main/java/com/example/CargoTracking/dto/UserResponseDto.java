@@ -28,12 +28,12 @@ public class UserResponseDto {
     private Set<Roles> roles;
 
 
-    private Set<Location> location;
+    private Set<Location> locations;
 
     private Set<Location> domesticOriginLocations;
     private Set<Location> domesticDestinationLocations;
-    private Set<Location> internationalAirOriginLocations;
-    private Set<Location> internationalAirDestinationLocations;
-    private Set<Location> internationalRoadOriginLocations;
-    private Set<Location> internationalRoadDestinationLocations;
+    private Set<Location> internationalAirOriginLocation;
+    private Set<Location> internationalAirDestinationLocation;
+    private Set<Location> internationalRoadOriginLocation;
+    private Set<Location> internationalRoadDestinationLocation;
 }
