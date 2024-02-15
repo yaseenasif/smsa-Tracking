@@ -21,7 +21,16 @@
                                         <div class="flex flex-column gap-2 form-hook">
                                             <h3 for="">Other Attachments</h3>
                                             <p-fileUpload name="file" method="post" [headers]="headers" (onError)="onError($event)" [url]="url.concat('/Other Attachments')" (onUpload)="onUpload($event,'Other Attachments')" accept=".pdf,.png,.jpeg"
-                                                [maxFileSize]="size">                                            
+                                                [maxFileSize]="size">      
+                                                <ng-template pTemplate="content">
+                                                    <div class="w-full">
+                                                        <div class="grid" style="background-color: #f8f9fa; border:1px solid #dee2e6"  *ngFor="let file of otherAttachments">
+                                                            <div class="col-10 flex align-items-center justify-content-center"><h3 class="text-center">{{ file.fileName }}</h3></div>
+                                                            <div class="col-2">   <p-button pTooltip="Delete" (click)="deleteAttachment(file.id)"    tooltipPosition="top" icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                                                            </p-button></div>
+                                                        </div>
+                                                    </div>
+                                                </ng-template>                                           
                                             </p-fileUpload>
                                         </div>
                                     </div> 

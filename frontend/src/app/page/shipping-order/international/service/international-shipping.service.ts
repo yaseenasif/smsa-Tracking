@@ -55,6 +55,10 @@ export class InternationalShippingService {
     return this.http.get<any>(`${this.url}/getRoute-road/${origin}/${destination}/${trip}`)
   }
 
+  deleteAttachment(id:number){
+    return this.http.delete<any>(`${this.url}/delete-attachment/${id}`)
+  }
+
   getFileMetaDataByInternationalShipment(id: number) {
     return this.http.get<any>(`${this.url}/file-meta-data-by-international-shipment/${id}`)
   }

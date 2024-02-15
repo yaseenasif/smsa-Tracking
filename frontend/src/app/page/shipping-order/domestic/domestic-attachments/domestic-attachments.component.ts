@@ -59,7 +59,15 @@ export class DomesticAttachmentsComponent {
       this.messageService.add({severity: 'error', summary: error.error.body});
      })
   }
-  
+  deleteAttachment(id:number){
+    this.internationalShippingService.deleteAttachment(id).subscribe((res)=>{
+      this.fileMetaDataOfDS();
+      this.messageService.add({severity: 'success', summary: 'Success', detail:"File has been deleted successfully."});
+      
+    },(error)=>{
+      this.messageService.add({severity: 'error', summary: 'Error', detail:"File could not be deleted due to some problem."});
+    });
+  }
   ngOnInit(): void {  
     
 
