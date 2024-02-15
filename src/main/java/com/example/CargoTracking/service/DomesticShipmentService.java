@@ -349,8 +349,10 @@ public class DomesticShipmentService {
 
                 if (domesticShipmentDto.getStatus().equalsIgnoreCase("Arrived")) {
                     domesticShipment.get().setArrivedTime(LocalDateTime.now());
-                    Duration duration = Duration.between(domesticShipment.get().getCreatedTime(), LocalDateTime.now());
-                    domesticShipment.get().setTransitTimeTaken(duration.toMinutes());//change
+                }
+                if(domesticShipmentDto.getAta()!=null){
+                    Duration duration = Duration.between(domesticShipmentDto.getAta(), domesticShipment.get().getAtd());
+                    domesticShipment.get().setTransitTimeTaken(duration.toMinutes());
                 }
 
                 if (domesticShipmentDto.getStatus().equalsIgnoreCase("Cleared")) {

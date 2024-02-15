@@ -25,6 +25,7 @@ public class InternationalShipment {
     private String originCountry;
     private String originFacility;
     private String originLocation;
+    private Long originLocationId;
     private Boolean refrigeratedTruck;//vehicle
     private String type;
     private String shipmentMode;
@@ -33,6 +34,7 @@ public class InternationalShipment {
     private String destinationCountry;
     private String destinationFacility;
     private String destinationLocation;
+    private Long destinationLocationId;
     private String carrier;//air
     private LocalDateTime etd;
     private LocalDateTime eta;
@@ -67,6 +69,7 @@ public class InternationalShipment {
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
     private LocalDateTime arrivedTime;
+    private LocalDateTime clearedTime;
     private boolean escalationFlagOne;
     private boolean escalationFlagTwo;
     private boolean escalationFlagThree;
