@@ -35,6 +35,7 @@ import { UserService } from 'src/app/page/user/service/user.service';
 })
 export class UpdateInternationalShippingComponent {
   items: MenuItem[] | undefined;
+  defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
   iSID!: number;
   routes: any;
   internationalShipment: InternationalShipment = {

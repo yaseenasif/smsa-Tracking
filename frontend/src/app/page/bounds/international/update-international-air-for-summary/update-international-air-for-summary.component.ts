@@ -32,6 +32,7 @@ import { ProductFieldServiceService } from 'src/app/page/product-field/service/p
 export class UpdateInternationalAirForSummaryComponent {
   items: MenuItem[] | undefined;
   iSID!: number;
+  defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
   internationalShipment: InternationalShipment = {
     id: null,
     actualWeight: null,

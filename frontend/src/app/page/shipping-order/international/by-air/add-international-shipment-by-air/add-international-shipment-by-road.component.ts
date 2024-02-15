@@ -33,6 +33,7 @@ import { Facility } from 'src/app/model/Facility';
   providers: [MessageService, DatePipe],
 })
 export class AddInternationalShipmentByRoadComponent {
+  defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
   internationalShipment: InternationalShipment = {
     id: null,
     actualWeight: null,

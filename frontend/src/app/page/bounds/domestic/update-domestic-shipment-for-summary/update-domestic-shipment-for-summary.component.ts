@@ -25,6 +25,7 @@ import { ProductFieldServiceService } from 'src/app/page/product-field/service/p
   providers: [MessageService, DatePipe]
 })
 export class UpdateDomesticShipmentForSummaryComponent {
+  defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
   items: MenuItem[] | undefined;
 
   domesticShipment: DomesticShipment = {

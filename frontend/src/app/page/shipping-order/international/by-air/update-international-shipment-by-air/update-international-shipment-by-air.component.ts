@@ -35,6 +35,7 @@ import { Facility } from 'src/app/model/Facility';
 export class UpdateInternationalShipmentByAirComponent {
   items: MenuItem[] | undefined;
   iSID!: number;
+  defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
   routes: any;
   internationalShipment: InternationalShipment = {
     id: null,

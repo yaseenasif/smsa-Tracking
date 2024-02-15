@@ -418,6 +418,8 @@
                     <label htmlFor="name">ETD</label>
                     <p-calendar #etd="ngModel" name="etd" [(ngModel)]="internationalShipment.etd" [required]="true"
                       [showTime]="true"  [selectOtherMonths]="true"
+                      [stepMinute]="5"
+                      [defaultDate]="defaultDate"
                      ></p-calendar>
                     <!-- <small id="name-help"
                         >{{name}}</small
@@ -429,6 +431,8 @@
                     <label htmlFor="name">ETA</label>
                     <p-calendar #eta="ngModel" name="eta" [(ngModel)]="internationalShipment.eta" [required]="true"
                       [showTime]="true"  [selectOtherMonths]="true"
+                      [stepMinute]="5"
+                      [defaultDate]="defaultDate"
                      ></p-calendar>
                     <!-- <small id="name-help"
                           >{{name}}</small
@@ -439,6 +443,8 @@
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">ATD</label>
                     <p-calendar #atd="ngModel" name="atd" [(ngModel)]="internationalShipment.atd" [required]="true"
+                    [stepMinute]="5"
+                    [defaultDate]="defaultDate"
                       [showTime]="true"  [selectOtherMonths]="true"
                      ></p-calendar>
                     <!-- <small id="name-help"

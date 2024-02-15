@@ -487,6 +487,8 @@
                       [(ngModel)]="domesticShipment.atd"
                       #atd="ngModel"
                       [required]="true"
+                      [stepMinute]="5"
+                      [defaultDate]="defaultDate"
                       [showTime]="true"
                       [selectOtherMonths]="true"                    
                       name="atd"
