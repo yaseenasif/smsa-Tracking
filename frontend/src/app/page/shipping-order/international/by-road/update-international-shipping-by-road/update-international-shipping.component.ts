@@ -199,12 +199,14 @@ export class UpdateInternationalShippingComponent {
     if(Array.isArray(this.internationalShipment.tagNumber)){
       this.internationalShipment.tagNumber=this.internationalShipment.tagNumber!.join(',');
     }
+    let orgLocationId=this.user.internationalRoadOriginLocation?.find((el)=>{return el.country?.name == this.internationalShipment.originCountry && el.facility?.name==this.internationalShipment.originFacility && el.locationName==this.internationalShipment.originLocation})!.id;
+    let desLocationId=this.user.internationalRoadDestinationLocation?.find((el)=>{return el.country?.name == this.internationalShipment.destinationCountry && el.facility?.name==this.internationalShipment.destinationFacility && el.locationName==this.internationalShipment.destinationLocation})!.id;
     this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
 
-    this.internationalShippingService.updateInternationalShipmentById(this.iSID, this.internationalShipment).subscribe(res => {
+    this.internationalShippingService.updateInternationalShipmentById(this.iSID, this.internationalShipment,orgLocationId!,desLocationId!).subscribe(res => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Outbound is updated on id' + res.id });
       setTimeout(() => {
         this.router.navigate(['/international-shipment-by-road']);

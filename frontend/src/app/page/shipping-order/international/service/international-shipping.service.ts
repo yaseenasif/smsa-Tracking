@@ -32,8 +32,8 @@ export class InternationalShippingService {
   getInternationalShipmentByID(id: number): Observable<InternationalShipment> {
     return this.http.get<InternationalShipment>(this.url.concat('/international-shipment/', id.toString()));
   }
-  updateInternationalShipmentById(id: number, body: InternationalShipment): Observable<InternationalShipment> {
-    return this.http.patch<InternationalShipment>(this.url.concat('/update-international-shipment/', id.toString()), body);
+  updateInternationalShipmentById(id: number, body: InternationalShipment,oId:number,dId:number): Observable<InternationalShipment> {
+    return this.http.patch<InternationalShipment>(this.url.concat('/update-international-shipment/',id.toString(),'/org-id/',oId.toString(),'/des-id/',dId.toString()), body);
   }
   addInternationalShipment(body: InternationalShipment,oId:number,dId:number): Observable<InternationalShipment> {
     return this.http.post<InternationalShipment>(this.url.concat('/add-international-shipment/org-id/',oId.toString(),'/des-id/',dId.toString()), body);

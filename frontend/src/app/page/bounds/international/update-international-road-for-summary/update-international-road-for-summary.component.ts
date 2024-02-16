@@ -21,6 +21,8 @@ import { DatePipe } from '@angular/common';
 import { InternationalShippingService } from 'src/app/page/shipping-order/international/service/international-shipping.service';
 import { ProductField } from 'src/app/model/ProductField';
 import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
+import { User } from 'src/app/model/User';
+import { UserService } from 'src/app/page/user/service/user.service';
 
 @Component({
   selector: 'app-update-international-road-for-summary',
@@ -88,6 +90,7 @@ export class UpdateInternationalRoadForSummaryComponent {
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
 
   selectedLocation!: Location;
+  user!: User;
 
   constructor(private router: Router,
     private internationalShippingService: InternationalShippingService,
@@ -98,6 +101,7 @@ export class UpdateInternationalRoadForSummaryComponent {
     private route: ActivatedRoute,
     private vehicleTypeService: VehicleTypeService,
     private shipmentStatusService: ProductFieldServiceService,
+    private userService:UserService,
     private datePipe: DatePipe) { }
 
   name!: string;
@@ -115,6 +119,7 @@ export class UpdateInternationalRoadForSummaryComponent {
 
 
   ngOnInit(): void {
+    this.getLoggedInUser();
     this.iSID = +this.route.snapshot.paramMap.get('id')!;
     this.items = [{ label: 'International Inbound By Road', routerLink: '/international-summary-by-road' }, { label: 'Edit International Inbound By Road' }];
 
@@ -140,12 +145,14 @@ export class UpdateInternationalRoadForSummaryComponent {
   }
 
   onSubmit() {
+    let orgLocationId=this.user.internationalRoadOriginLocation?.find((el)=>{return el.country?.name == this.internationalShipment.originCountry && el.facility?.name==this.internationalShipment.originFacility && el.locationName==this.internationalShipment.originLocation})!.id;
+    let desLocationId=this.user.internationalRoadDestinationLocation?.find((el)=>{return el.country?.name == this.internationalShipment.destinationCountry && el.facility?.name==this.internationalShipment.destinationFacility && el.locationName==this.internationalShipment.destinationLocation})!.id;
     this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
     this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
 
-    this.internationalShippingService.updateInternationalShipmentById(this.iSID, this.internationalShipment).subscribe(res => {
+    this.internationalShippingService.updateInternationalShipmentById(this.iSID, this.internationalShipment,orgLocationId!,desLocationId!).subscribe(res => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is updated on id' + res.id });
       setTimeout(() => {
         this.router.navigate(['/international-summary-by-road']);
@@ -154,6 +161,29 @@ export class UpdateInternationalRoadForSummaryComponent {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       this.internationalShipment.ata =  this.internationalShipment.ata ? new Date( this.internationalShipment.ata) : null;
     })
+  }
+
+  getLoggedInUser() {
+    this.userService.getLoggedInUser().subscribe(
+      (res: User) => {
+        this.user = res;
+      },
+      (error) => {
+        if (error.error.body) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error.body,
+          });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error,
+          });
+        }
+      }
+    );
   }
 
   getInternationalShipmentById(id: number) {
