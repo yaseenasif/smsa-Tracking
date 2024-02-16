@@ -1,5 +1,6 @@
 package com.example.CargoTracking.service;
 
+import com.amazonaws.util.CollectionUtils;
 import com.example.CargoTracking.criteria.SearchCriteriaForInternationalShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
 import com.example.CargoTracking.dto.InternationalShipmentDto;
@@ -292,19 +293,22 @@ public class InternationalShipmentService {
                 for(InternationalShipment shipment: internationalShipmentList1){
                     if(shipment.getArrivedTime() != null && shipment.getClearedTime() == null){
                         Duration duration = Duration.between(shipment.getArrivedTime(), LocalDateTime.now());
-                        if(duration.toMinutes() >= 720 && duration.toMinutes() <= 1440){
+                        String originEmailsEscalation = locationRepository.findById(shipment.getOriginLocationId()).get()
+                                .getOriginEscalation();
+
+                        String[] resultListOriginEscalation = originEmailsEscalation.split(",");
+                        String destinationEmailsEscalation = locationRepository.findById(shipment.getDestinationLocationId()).get()
+                                .getDestinationEscalation();
+                        String[] resultListDestinationEscalation = destinationEmailsEscalation.split(",");
+                        if(duration.toMinutes() >= 720 && duration.toMinutes() <= 1440 && (resultListOriginEscalation.length >= 1 || resultListDestinationEscalation.length >= 1 )){
                             if(!shipment.isEscalationFlagOne()){
-                                String originEmailsEscalation = locationRepository.findById(shipment.getOriginLocationId()).get()
-                                        .getOriginEscalation();
-                                String[] resultListOriginEscalation = originEmailsEscalation.split(",");
-
-                                String destinationEmailsEscalation = locationRepository.findById(shipment.getDestinationLocationId()).get()
-                                        .getDestinationEscalation();
-                                String[] resultListDestinationEscalation = destinationEmailsEscalation.split(",");
-
                                 List<String> emails = new ArrayList<>();
-                                emails.add(resultListOriginEscalation[0]);
-                                emails.add(resultListDestinationEscalation[0]);
+                                if(resultListOriginEscalation.length >= 1 ){
+                                    emails.add(resultListOriginEscalation[0]);
+                                }
+                                if(resultListDestinationEscalation.length >= 1 ){
+                                    emails.add(resultListDestinationEscalation[0]);
+                                }
                                 String subject;
                                 if(shipment.getType().equalsIgnoreCase("By Air")){
                                     subject = "TSM 1st Escalation (A): "+ shipment.getRouteNumber() +"/"+ shipment.getVehicleType() +"/"+ shipment.getReferenceNumber() +"/"+ shipment.getEtd();
@@ -322,19 +326,15 @@ public class InternationalShipmentService {
                                 internationalShipmentRepository.save(shipment);
                             }
                         }
-                        if(duration.toMinutes() >= 1441 && duration.toMinutes() <= 2880){
+                        if(duration.toMinutes() >= 1441 && duration.toMinutes() <= 2880 && (resultListOriginEscalation.length >= 2  || resultListDestinationEscalation.length>=2 ) ){
                             if(!shipment.isEscalationFlagTwo()){
-                                String originEmailsEscalation = locationRepository.findById(shipment.getOriginLocationId()).get()
-                                        .getOriginEscalation();
-                                String[] resultListOriginEscalation = originEmailsEscalation.split(",");
-
-                                String destinationEmailsEscalation = locationRepository.findById(shipment.getDestinationLocationId()).get()
-                                        .getDestinationEscalation();
-                                String[] resultListDestinationEscalation = destinationEmailsEscalation.split(",");
-
                                 List<String> emails = new ArrayList<>();
-                                emails.add(resultListOriginEscalation[1]);
-                                emails.add(resultListDestinationEscalation[1]);
+                                if(resultListOriginEscalation.length >= 2 ){
+                                    emails.add(resultListOriginEscalation[1]);
+                                }
+                                if( resultListDestinationEscalation.length>=2){
+                                    emails.add(resultListDestinationEscalation[1]);
+                                }
                                 String subject;
                                 if(shipment.getType().equalsIgnoreCase("By Air")){
                                     subject = "TSM 2nd Escalation (A): "+ shipment.getRouteNumber() +"/"+ shipment.getVehicleType() +"/"+ shipment.getReferenceNumber() +"/"+ shipment.getEtd();
@@ -352,19 +352,15 @@ public class InternationalShipmentService {
                                 internationalShipmentRepository.save(shipment);
                             }
                         }
-                        if(duration.toMinutes() >= 2881){
+                        if(duration.toMinutes() >= 2881 && (resultListOriginEscalation.length>=3 || resultListDestinationEscalation.length>=3 )){
                             if(!shipment.isEscalationFlagThree()){
-                                String originEmailsEscalation = locationRepository.findById(shipment.getOriginLocationId()).get()
-                                        .getOriginEscalation();
-                                String[] resultListOriginEscalation = originEmailsEscalation.split(",");
-
-                                String destinationEmailsEscalation = locationRepository.findById(shipment.getDestinationLocationId()).get()
-                                        .getDestinationEscalation();
-                                String[] resultListDestinationEscalation = destinationEmailsEscalation.split(",");
-
                                 List<String> emails = new ArrayList<>();
-                                emails.add(resultListOriginEscalation[2]);
-                                emails.add(resultListDestinationEscalation[2]);
+                                if(resultListOriginEscalation.length>=3){
+                                    emails.add(resultListOriginEscalation[2]);
+                                }
+                                if(resultListDestinationEscalation.length>=3){
+                                    emails.add(resultListDestinationEscalation[2]);
+                                }
                                 String subject;
                                 if(shipment.getType().equalsIgnoreCase("By Air")){
                                     subject = "TSM 3rd Escalation (A): "+ shipment.getRouteNumber() +"/"+ shipment.getVehicleType() +"/"+ shipment.getReferenceNumber() +"/"+ shipment.getEtd();
