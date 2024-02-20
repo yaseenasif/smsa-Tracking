@@ -18,4 +18,5 @@ public class DomesticRouteDto {
     private String driver;
     private LocalTime etd;
     private LocalTime eta;
+    private int durationLimit;
 }

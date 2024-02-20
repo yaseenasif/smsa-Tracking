@@ -32,7 +32,10 @@ public class DomesticShipment {
     private Boolean refrigeratedTruck;//vehicle
     private String destinationFacility;
     private String destinationLocation;
+    private Long originLocationId;
+    private Long destinationLocationId;
     private String routeNumber;
+    private int duration;
     private Integer numberOfShipments;
     private Double weight;//weight in kg
     private LocalDateTime etd;
@@ -66,6 +69,7 @@ public class DomesticShipment {
     private LocalDateTime createdTime;
     private LocalDateTime updatedTime;
     private LocalDateTime arrivedTime;
+    private LocalDateTime clearedTime;
     private Boolean activeStatus;
     private boolean escalationFlagOne;
     private boolean escalationFlagTwo;

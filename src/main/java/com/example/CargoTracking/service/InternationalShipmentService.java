@@ -268,15 +268,22 @@ public class InternationalShipmentService {
 
         List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findByCreatedAt(oneDayOlderDate);
         try {
-            LocalDateTime currentDate = LocalDateTime.now();
+            LocalDateTime currentDateTime = LocalDateTime.now();
 
             if(!internationalShipmentList.isEmpty()){
                 for (InternationalShipment entity : internationalShipmentList) {
-//                    if (entity.getEta().isBefore(currentDate) && !entity.getRedFlag() && !entity.getStatus().equals("Arrived")) {
-//                        entity.setRedFlag(true);
-//                    }
+                    //field ko light red kerna hai
+
+                    // arrived se 6 hours tak clear nahi hua to red ayee ga
                     if(entity.getArrivedTime()!=null && !entity.getRedFlag() && entity.getClearedTime() == null){
-                        Duration duration = Duration.between(entity.getArrivedTime(), LocalDateTime.now());
+                        Duration duration = Duration.between(entity.getArrivedTime(), currentDateTime);
+                        if(duration.toHours()>6){
+                            entity.setRedFlag(Boolean.TRUE);
+                        }
+                    }
+                    //eta se clear nahi hua hai 12 ganhte tak to red and
+                    if(!entity.getRedFlag() && entity.getClearedTime() == null){
+                        Duration duration = Duration.between(entity.getEta(),currentDateTime);
                         if(duration.toHours()>12){
                             entity.setRedFlag(Boolean.TRUE);
                         }
@@ -284,15 +291,12 @@ public class InternationalShipmentService {
                 }
                 internationalShipmentRepository.saveAll(internationalShipmentList);
             }
-
-
-
-
+            //escalation bhi eta se jaee gi
             List<InternationalShipment> internationalShipmentList1 = internationalShipmentRepository.findAll();
             if(!internationalShipmentList1.isEmpty()){
                 for(InternationalShipment shipment: internationalShipmentList1){
                     if(shipment.getArrivedTime() != null && shipment.getClearedTime() == null){
-                        Duration duration = Duration.between(shipment.getArrivedTime(), LocalDateTime.now());
+                        Duration duration = Duration.between(shipment.getEta(), currentDateTime);
                         String originEmailsEscalation = locationRepository.findById(shipment.getOriginLocationId()).get()
                                 .getOriginEscalation();
 
