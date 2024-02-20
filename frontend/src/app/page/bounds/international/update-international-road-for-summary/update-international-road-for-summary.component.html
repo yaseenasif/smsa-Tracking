@@ -364,24 +364,31 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Overage AWBs</label>
-                    <input
+                    <div class="card p-fluid">
+                      <input
                       pInputText
+                      (input)="onPasteOveragesAwbs()"
                       id="name"
+                      pattern="^\d{12}(?:,\d{12})*$"
                       aria-describedby="name-help"
-                      #overagesAWBs="ngModel"
-                      name="overagesAWBs"
-                      [required]="true"
                       [(ngModel)]="internationalShipment.overageAWBs"
+                      #overageAWBs="ngModel"
+                      required
+                      name="overageAWBs"
                     />
                     <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="
-                        overagesAWBs.invalid &&
-                        (overagesAWBs.dirty || overagesAWBs.touched)
-                      "
-                      >Overages AWBs is required.</small
-                    >
+                    class="color-red error"
+                    *ngIf="overageAWBs.invalid && (overageAWBs.dirty || overageAWBs.touched ) && overageAWBs?.errors?.['required']"
+                  >
+                  Overage AWBs Number is required.
+                  </small>
+                  <small
+                    class="color-red error"
+                    *ngIf="overageAWBs.invalid && (overageAWBs.dirty || overageAWBs.touched ) && overageAWBs?.errors?.['pattern']"
+                  >
+                    Invalid pattern
+                  </small>
+                  </div>
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
@@ -433,25 +440,31 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Shortages AWBs</label>
-                    <input
+                    <div class="card p-fluid">
+                      <input
                       pInputText
+                      (input)="onPasteShortagesAwbs()"
                       id="name"
+                      pattern="^\d{12}(?:,\d{12})*$"
                       aria-describedby="name-help"
-                      [ngModelOptions]="{ standalone: true }"
                       [(ngModel)]="internationalShipment.shortageAWBs"
-                      #shortageAWBs="ngModel"
-                      name="shortageAWBs"
-                      [required]="true"
+                      #shortagesAwbs="ngModel"
+                      required
+                      name="shortagesAwbs"
                     />
                     <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="
-                        shortageAWBs.invalid &&
-                        (shortageAWBs.dirty || shortageAWBs.touched)
-                      "
-                      >Shortage AWBs is required.</small
-                    >
+                    class="color-red error"
+                    *ngIf="shortagesAwbs.invalid && (shortagesAwbs.dirty || shortagesAwbs.touched )&&shortagesAwbs?.errors?.['required']"
+                  >
+                  Shortage AWBs Number is required.
+                  </small>
+                  <small
+                    class="color-red error"
+                    *ngIf="shortagesAwbs.invalid && (shortagesAwbs.dirty || shortagesAwbs.touched )&&shortagesAwbs?.errors?.['pattern']"
+                  >
+                    Invalid pattern
+                  </small>
+                  </div>
                   </div>
                 </div>
               </div>

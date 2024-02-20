@@ -108,9 +108,14 @@ export class UpdateInternationalAirForSummaryComponent {
   checked!: boolean;
   size = 100000
   uploadedFiles: any[] = [];
-  onUpload(event: any) {
 
+  onPasteOveragesAwbs() {  
+    this.internationalShipment.overageAWBs=this.internationalShipment.overageAWBs!.match(/[^ ,]+/g)!.join(',')
   }
+  onPasteShortagesAwbs() {  
+    this.internationalShipment.shortageAWBs=this.internationalShipment.shortageAWBs!.match(/[^ ,]+/g)!.join(',')
+  }
+
   onUpload1(event: any) {
     for (let file of event.files) {
       this.uploadedFiles.push(file);

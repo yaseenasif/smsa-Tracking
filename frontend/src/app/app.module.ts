@@ -124,6 +124,7 @@ import { FacilityListComponent } from './page/facility/facility-list/facility-li
 import { ArchiveUserComponent } from './page/user/archive-user/archive-user.component';
 import { TwelveDigitValidatorDirective } from './page/shipping-order/twelve-digit-validator.directive';
 import { IsNumberDirective } from './page/shipping-order/is-number.directive';
+import { SevenDigitValidatorDirective } from './page/shipping-order/seven-digit-validator.directive';
 
 @NgModule({
   declarations: [
@@ -216,6 +217,7 @@ import { IsNumberDirective } from './page/shipping-order/is-number.directive';
     ArchiveUserComponent,
     TwelveDigitValidatorDirective,
     IsNumberDirective,
+    SevenDigitValidatorDirective,
     
   ],
   imports: [

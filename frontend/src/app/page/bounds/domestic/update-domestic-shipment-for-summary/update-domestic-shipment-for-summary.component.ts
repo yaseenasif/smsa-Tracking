@@ -17,6 +17,7 @@ import { Observable, catchError, forkJoin } from 'rxjs';
 import { DomesticShippingService } from 'src/app/page/shipping-order/domestic/service/domestic-shipping.service';
 import { ProductField } from 'src/app/model/ProductField';
 import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
+import { ChipsAddEvent } from 'primeng/chips';
 
 @Component({
   selector: 'app-update-domestic-shipment-for-summary',
@@ -25,6 +26,10 @@ import { ProductFieldServiceService } from 'src/app/page/product-field/service/p
   providers: [MessageService, DatePipe]
 })
 export class UpdateDomesticShipmentForSummaryComponent {
+
+ 
+
+
   defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
   items: MenuItem[] | undefined;
 
@@ -105,8 +110,11 @@ export class UpdateDomesticShipmentForSummaryComponent {
   uploadedFiles: any[] = [];
   minDate: Date = new Date();
 
-  onUpload(event: any) {
-
+  onPasteOveragesAwbs() {  
+    this.domesticShipment.overagesAwbs=this.domesticShipment.overagesAwbs!.match(/[^ ,]+/g)!.join(',')
+  }
+  onPasteShortagesAwbs() {  
+    this.domesticShipment.shortagesAwbs=this.domesticShipment.shortagesAwbs!.match(/[^ ,]+/g)!.join(',')
   }
 
   onUpload1(event: any) {
