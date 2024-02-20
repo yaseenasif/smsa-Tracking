@@ -26,5 +26,6 @@ public class DomesticRoute {
     private String driver;
     private LocalTime etd;
     private LocalTime eta;
+    private int durationLimit;
     private Boolean activeStatus;
 }
