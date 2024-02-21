@@ -41,13 +41,13 @@ export class UpdateDomesticShipmentForSummaryComponent {
     refrigeratedTruck: false,
     destinationFacility: null,
     destinationLocation: null,
-    routeNumber: null,
+
     numberOfShipments: null,
     weight: null,
     // etd: null,
     // eta: null,
     atd: null,
-    driverName: null,
+
     driverContact: null,
     referenceNumber: null,
     vehicleType: null,
@@ -71,7 +71,9 @@ export class UpdateDomesticShipmentForSummaryComponent {
     preAlertType: null,
     originCountry: undefined,
     destinationCountry: undefined,
-    numberOfBoxes: undefined
+    numberOfBoxes: undefined,
+    route: undefined,
+    driver: undefined
   };
 
   location!: Location[];
@@ -87,7 +89,6 @@ export class UpdateDomesticShipmentForSummaryComponent {
 
   vehicleTypes!: VehicleType[];
   selectedVehicleTypes!: VehicleType;
-  selectedDriver!: Driver | null | undefined;
 
 
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
@@ -221,7 +222,6 @@ export class UpdateDomesticShipmentForSummaryComponent {
       // res.eta = res.eta ? new Date(res.eta) : null;
       res.atd = res.atd ? new Date(res.atd) : null;
       res.ata = res.ata ? new Date(res.ata) : null;
-      this.selectedDriver = this.drivers.find((el: Driver) => { return (el.name == res.driverName) && (el.contactNumber == res.driverContact) && (el.referenceNumber == res.referenceNumber) })
 
 
       this.domesticShipment = res;
@@ -238,16 +238,11 @@ export class UpdateDomesticShipmentForSummaryComponent {
   }
 
   driverData() {
-    this.domesticShipment.driverName = this.selectedDriver?.name;
-    this.domesticShipment.driverContact = this.selectedDriver?.contactNumber;
+    this.domesticShipment.driverContact = this.domesticShipment.driver?.contactNumber;
   }
 
   updateDomesticShipment(domesticShipment: DomesticShipment) {
-
-    let orgLocationId=this.user.domesticOriginLocations?.find((el)=>{return el.country?.name == this.domesticShipment.originCountry && el.facility?.name==this.domesticShipment.originFacility && el.locationName==this.domesticShipment.originLocation})!.id;
-    let desLocationId=this.user.domesticDestinationLocations?.find((el)=>{return el.country?.name == this.domesticShipment.destinationCountry && el.facility?.name==this.domesticShipment.destinationFacility && el.locationName==this.domesticShipment.destinationLocation})!.id;
-
-    this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId,orgLocationId!,desLocationId!,domesticShipment).subscribe((res: DomesticShipment) => {
+    this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId,domesticShipment).subscribe((res: DomesticShipment) => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Outbound Updated Successfully' });
 
       setTimeout(() => {

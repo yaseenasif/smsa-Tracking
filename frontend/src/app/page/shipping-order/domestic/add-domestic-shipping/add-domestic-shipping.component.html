@@ -56,6 +56,7 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Origin Country</label>
+                  
                     <input
                       pInputText
                       [readOnly]="true"
@@ -64,7 +65,7 @@
                       name="originCountry"
                       [required]="true"
                       aria-describedby="name-help"
-                      [(ngModel)]="this.domesticShipment.originCountry"
+                      [ngModel]="this.domesticShipment.originCountry?.name"
                     />
                     <small id="name-help" class="color-warning"
                       >this field is auto select when we select Search Locations By Country</small
@@ -84,7 +85,6 @@
                       [required]="true"
                       [(ngModel)]="domesticShipment.originFacility"
                       optionLabel="name"
-                      optionValue="name"
                       [filter]="true"
                       filterBy="name"
                       [showClear]="true"
@@ -95,7 +95,7 @@
                           class="flex align-items-center gap-2"
                           *ngIf="domesticShipment"
                         >
-                          <div>{{ domesticShipment.originFacility }}</div>
+                          <div>{{ domesticShipment.originFacility?.name }}</div>
                         </div>
                       </ng-template>
                       <ng-template let-originFacility pTemplate="item">
@@ -120,7 +120,6 @@
                       [required]="true"
                       [(ngModel)]="domesticShipment.originLocation"
                       optionLabel="locationName"
-                      optionValue="locationName"
                       [filter]="true"
                       filterBy="locationName"
                       [showClear]="true"
@@ -131,7 +130,7 @@
                           class="flex align-items-center gap-2"
                           *ngIf="domesticShipment"
                         >
-                          <div>{{ domesticShipment.originLocation }}</div>
+                          <div>{{ domesticShipment.originLocation?.locationName }}</div>
                         </div>
                       </ng-template>
                       <ng-template let-location pTemplate="item">
@@ -156,7 +155,7 @@
                       name="destinationCountry"
                       [required]="true"
                       aria-describedby="name-help"
-                      [(ngModel)]="this.domesticShipment.destinationCountry"
+                      [ngModel]="this.domesticShipment.destinationCountry?.name"
                     />
                     <small id="name-help" class="color-warning"
                       >this field is auto select when we select Search Locations By Country</small
@@ -179,7 +178,6 @@
                       [required]="true"
                       [(ngModel)]="domesticShipment.destinationFacility"
                       optionLabel="name"
-                      optionValue="name"
                       [filter]="true"
                       filterBy="name"
                       [showClear]="true"
@@ -190,7 +188,7 @@
                           class="flex align-items-center gap-2"
                           *ngIf="domesticShipment"
                         >
-                          <div>{{ domesticShipment.destinationFacility }}</div>
+                          <div>{{ domesticShipment.destinationFacility?.name }}</div>
                         </div>
                       </ng-template>
                       <ng-template let-destinationFacility pTemplate="item">
@@ -216,7 +214,6 @@
                       [required]="true"
                       [(ngModel)]="domesticShipment.destinationLocation"
                       optionLabel="locationName"
-                      optionValue="locationName"
                       [filter]="true"
                       filterBy="locationName"
                       [showClear]="true"
@@ -227,7 +224,7 @@
                           class="flex align-items-center gap-2"
                           *ngIf="domesticShipment"
                         >
-                          <div>{{ domesticShipment.destinationLocation }}</div>
+                          <div>{{ domesticShipment.destinationLocation?.locationName }}</div>
                         </div>
                       </ng-template>
                       <ng-template let-location pTemplate="item">
@@ -350,8 +347,7 @@
                       #routeNumber="ngModel"
                       name="routeNumber"
                       [required]="true"
-                      [(ngModel)]="domesticShipment.routeNumber"
-                      optionValue="route"
+                      [(ngModel)]="domesticShipment.route"
                       optionLabel="route"
                       [filter]="true"
                       filterBy="route"
@@ -365,13 +361,13 @@
                           *ngIf="domesticShipment"
                         >
                           <div>
-                            {{ domesticShipment.routeNumber }}
+                            {{ domesticShipment.route?.routeNumber }}
                           </div>
                         </div>
                       </ng-template>
                       <ng-template let-routes pTemplate="item">
                         <div class="flex align-items-center gap-2">
-                          <div>{{ routes.route }}</div>
+                          <div>{{ routes.route.routeNumber }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -510,7 +506,7 @@
                       [required]="true"
                       #driverName="ngModel"
                       (onChange)="driverData()"
-                      [(ngModel)]="selectedDriver"
+                      [(ngModel)]="domesticShipment.driver"
                       optionLabel="name"
                       [filter]="true"
                       filterBy="name"
@@ -520,9 +516,9 @@
                       <ng-template pTemplate="selectedItem">
                         <div
                           class="flex align-items-center gap-2"
-                          *ngIf="selectedDriver"
+                          *ngIf="domesticShipment"
                         >
-                          <div>{{ selectedDriver.name }}</div>
+                          <div>{{ domesticShipment.driver}}</div>
                         </div>
                       </ng-template>
                       <ng-template let-drivers pTemplate="item">

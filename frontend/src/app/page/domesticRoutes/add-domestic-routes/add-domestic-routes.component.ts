@@ -26,7 +26,7 @@ export class AddDomesticRoutesComponent {
     eta: null,
     etd: null,
     origin: null,
-    route: null,
+    routeNumber: null,
     durationLimit: undefined
   }
 

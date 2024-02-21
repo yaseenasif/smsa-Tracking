@@ -1,5 +1,6 @@
 package com.example.CargoTracking.repository;
 
+import com.amazonaws.services.ec2.model.Route;
 import com.example.CargoTracking.model.DomesticRoute;
 import com.example.CargoTracking.model.DomesticShipment;
 import com.example.CargoTracking.model.InternationalRoute;
@@ -15,7 +16,7 @@ import java.util.List;
 public interface DomesticRouteRepository extends JpaRepository<DomesticRoute,Long>, JpaSpecificationExecutor<DomesticRoute> {
     List<DomesticRoute> findByOriginAndDestination(String origin, String destination);
 
-    DomesticRoute findByRoute(String routeNumber);
+    DomesticRoute findByRouteNumber(String routeNumber);
 
     @Query("SELECT r FROM DomesticRoute r WHERE r.activeStatus = true")
     List<DomesticRoute> getActiveDomesticRoutes();

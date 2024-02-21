@@ -40,13 +40,11 @@ export class UpdateDomesticShippingComponent {
     refrigeratedTruck: false,
     destinationFacility: undefined,
     destinationLocation: undefined,
-    routeNumber: null,
     numberOfShipments: null,
     weight: null,
     // etd: null,
     // eta: null,
-    atd:null,
-    driverName: null,
+    atd: null,
     driverContact: null,
     referenceNumber: null,
     vehicleType: null,
@@ -70,7 +68,9 @@ export class UpdateDomesticShippingComponent {
     preAlertType: null,
     originCountry: undefined,
     destinationCountry: undefined,
-    numberOfBoxes: undefined
+    numberOfBoxes: undefined,
+    route: undefined,
+    driver: undefined
   };
 
 
@@ -94,8 +94,6 @@ export class UpdateDomesticShippingComponent {
 
   vehicleTypes!: VehicleType[];
   selectedVehicleTypes!: VehicleType;
-  selectedDriver!: Driver | null | undefined;
-
 
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
 
@@ -149,7 +147,7 @@ export class UpdateDomesticShippingComponent {
     this.routes = []
 
     if (this.domesticShipment.originLocation !== null && this.domesticShipment.destinationLocation !== null) {
-      this.domesticShipmentService.getDomesticRoute(this.domesticShipment.originLocation!, this.domesticShipment.destinationLocation!).subscribe((res: any) => {
+      this.domesticShipmentService.getDomesticRoute(this.domesticShipment.originLocation!.locationName!, this.domesticShipment.destinationLocation!.locationName!).subscribe((res: any) => {
         this.routes = res;
 
       }, (error: any) => {
@@ -289,7 +287,7 @@ export class UpdateDomesticShippingComponent {
       }
       this.domesticShipment = res;
 
-      this.selectedDriver = this.drivers.find((el: Driver) => { return (el.name == res.driverName) && (el.contactNumber == res.driverContact)})
+    
       this.originFacility = this.user.domesticOriginLocations
   ?.filter((el) => el.country?.name === this.domesticShipment.originCountry )
   .map(el => el.facility);
@@ -379,7 +377,7 @@ export class UpdateDomesticShippingComponent {
 
       
       // this.getDomesticRoute();
-      this.getRouteByRouteNumber(this.domesticShipment.routeNumber!);
+      this.getRouteByRouteNumber(this.domesticShipment.route!.routeNumber!);
 
 
     }, (error: any) => {
@@ -392,14 +390,11 @@ export class UpdateDomesticShippingComponent {
   }
 
   driverData() {
-    this.domesticShipment.driverName = this.selectedDriver?.name;
-    this.domesticShipment.driverContact = this.selectedDriver?.contactNumber;
+    this.domesticShipment.driverContact = this.domesticShipment.driver?.contactNumber;
   }
 
   updateDomesticShipment(domesticShipment: DomesticShipment) {
-    let orgLocationId=this.user.domesticOriginLocations?.find((el)=>{return el.country?.name == this.domesticShipment.originCountry && el.facility?.name==this.domesticShipment.originFacility && el.locationName==this.domesticShipment.originLocation})!.id;
-    let desLocationId=this.user.domesticDestinationLocations?.find((el)=>{return el.country?.name == this.domesticShipment.destinationCountry && el.facility?.name==this.domesticShipment.destinationFacility && el.locationName==this.domesticShipment.destinationLocation})!.id;
-    this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId,orgLocationId!,desLocationId!, domesticShipment).subscribe((res: DomesticShipment) => {
+    this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId, domesticShipment).subscribe((res: DomesticShipment) => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Outbound Updated Successfully' });
 
       setTimeout(() => {
@@ -537,8 +532,8 @@ searchLocationByCountry(country:string){
   //  this.domesticShipment.originFacility=null;
   //  this.domesticShipment.destinationCountry=null;
   //  this.domesticShipment.destinationFacility=null;
-  this.domesticShipment.originCountry=this.user.domesticOriginLocations?.find((el)=>el.country?.name==country)?.country?.name
-  this.domesticShipment.destinationCountry=this.user.domesticDestinationLocations?.find((el)=>el.country?.name==country)?.country?.name
+  this.domesticShipment.originCountry=this.user.domesticOriginLocations?.find((el)=>el.country?.name==country)?.country
+  this.domesticShipment.destinationCountry=this.user.domesticDestinationLocations?.find((el)=>el.country?.name==country)?.country
 
   this.originFacility = this.user.domesticOriginLocations
   ?.filter((el) => el.country?.name === this.domesticShipment.originCountry )

@@ -55,7 +55,7 @@ public class DomesticRouteService {
 
         for(DomesticRoute route:byOriginAndDestination){
             for(DomesticShipment shipment : domesticShipment){
-                if (route.getRoute().equals(shipment.getRouteNumber())) {
+                if (route.getRouteNumber().equals(shipment.getRoute().getRouteNumber())) {
                     usedRoute.add(route);
                     break;
                 }
@@ -83,7 +83,7 @@ public class DomesticRouteService {
     }
 
     public DomesticRoute findRouteByRouteNumber(String routeNumber) {
-        return domesticRouteRepository.findByRoute(routeNumber);
+        return domesticRouteRepository.findByRouteNumber(routeNumber);
     }
 
     public DomesticRouteDto saveDomesticRoute(DomesticRouteDto domesticRouteDto) {
@@ -124,7 +124,7 @@ public class DomesticRouteService {
 
             domesticRoute.get().setOrigin(domesticRouteDto.getOrigin());
             domesticRoute.get().setOrigin(domesticRouteDto.getDestination());
-            domesticRoute.get().setRoute(domesticRouteDto.getRoute());
+            domesticRoute.get().setRouteNumber(domesticRouteDto.getRoute());
             domesticRoute.get().setEtd(domesticRouteDto.getEtd());
             domesticRoute.get().setEta(domesticRouteDto.getEta());
             domesticRoute.get().setDriver(domesticRouteDto.getDriver());

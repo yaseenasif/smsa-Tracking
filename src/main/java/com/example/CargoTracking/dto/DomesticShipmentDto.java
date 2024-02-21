@@ -1,5 +1,6 @@
 package com.example.CargoTracking.dto;
 
+import com.example.CargoTracking.model.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,24 +22,26 @@ import java.util.List;
 public class DomesticShipmentDto {
 
     private Long id;
-    private String originCountry;
-    private String destinationCountry;
-    private String originFacility;
-    private String originLocation;
+    private Country originCountry;
+    private Country destinationCountry;
+    private Facility originFacility;
+    private Facility destinationFacility;
+    private Location originLocation;
+    private Location destinationLocation;
     private Boolean refrigeratedTruck;
-    private String destinationFacility;
-    private String destinationLocation;
-    private String routeNumber;
+    private DomesticRoute route;
+    //remove
     private int duration;
     private Integer numberOfShipments;
     private Double weight;
     private LocalDateTime etd;
     private LocalDateTime eta;
     private LocalDateTime atd;
-    private String driverName;
+    private Driver driver;
+    //remove
     private String driverContact;
     private String referenceNumber;
-    private String vehicleType;
+    private VehicleType vehicleType;
     private Integer numberOfPallets;
     private Integer numberOfBags;
     private String vehicleNumber;

@@ -22,16 +22,16 @@ export class DomesticShippingService {
     return this.http.get<any>(`${this.url}/all-domestic-shipments`, { params: queryParams });
   }
 
-  addDomesticShipment(shipment: DomesticShipment,oId:number,dId:number) {
-    return this.http.post<DomesticShipment>(`${this.url}/add-domestic-shipment/org-id/${oId}/des-id/${dId}`, shipment)
+  addDomesticShipment(shipment: DomesticShipment) {
+    return this.http.post<DomesticShipment>(`${this.url}/add-domestic-shipment`, shipment)
   }
 
   getDomesticShipmentById(id: number) {
     return this.http.get<DomesticShipment>(`${this.url}/domestic-shipment/${id}`)
   }
 
-  updateDomesticShipment(id: number,oId: number,dId: number, domesticShipment: DomesticShipment) {
-    return this.http.put<DomesticShipment>(`${this.url}/edit-domestic-shipment/${id}/org-id/${oId}/des-id/${dId}`, domesticShipment)
+  updateDomesticShipment(id: number, domesticShipment: DomesticShipment) {
+    return this.http.put<DomesticShipment>(`${this.url}/edit-domestic-shipment/${id}`, domesticShipment)
   }
 
   deleteDomesticShipment(id: number) {

@@ -278,7 +278,7 @@
                       #routeNumber="ngModel"
                       name="routeNumber"
                       [required]="true"
-                      [(ngModel)]="domesticShipment.routeNumber"
+                      [(ngModel)]="domesticShipment.route"
                       optionValue="route"
                       optionLabel="route"
                       [filter]="true"
@@ -293,7 +293,7 @@
                           *ngIf="domesticShipment"
                         >
                           <div>
-                            {{ domesticShipment.routeNumber }}
+                            {{ domesticShipment.route?.routeNumber }}
                           </div>
                         </div>
                       </ng-template>
@@ -436,7 +436,7 @@
                       [required]="true"
                       #driverName="ngModel"
                       (onChange)="driverData()"
-                      [(ngModel)]="selectedDriver"
+                      [(ngModel)]="domesticShipment.driver"
                       optionLabel="name"
                       [filter]="true"
                       filterBy="name"
@@ -446,9 +446,9 @@
                       <ng-template pTemplate="selectedItem">
                         <div
                           class="flex align-items-center gap-2"
-                          *ngIf="selectedDriver"
+                          *ngIf="domesticShipment"
                         >
-                          <div>{{ selectedDriver.name }}</div>
+                          <div>{{ domesticShipment.driver }}</div>
                         </div>
                       </ng-template>
                       <ng-template let-drivers pTemplate="item">

@@ -5,6 +5,6 @@ export interface Routes{
   eta: Date|string|null,
   etd: Date|string|null,
   origin: string|undefined|null,
-  route: string|undefined|null,
+  routeNumber: string|undefined|null,
   durationLimit: number|undefined|null
 }

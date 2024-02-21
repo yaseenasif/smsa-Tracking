@@ -25,26 +25,46 @@ public class DomesticShipment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String originCountry;
-    private String destinationCountry;
-    private String originFacility;
-    private String originLocation;
-    private Boolean refrigeratedTruck;//vehicle
-    private String destinationFacility;
-    private String destinationLocation;
-    private Long originLocationId;
-    private Long destinationLocationId;
-    private String routeNumber;
+    //country
+    @OneToOne
+    private Country originCountry;
+    @OneToOne
+    private Country destinationCountry;
+    //facility
+    @OneToOne
+    private Facility originFacility;
+    @OneToOne
+    private Facility destinationFacility;
+    //location
+    @OneToOne
+    private Location originLocation;
+    @OneToOne
+    private Location destinationLocation;
+    //remove after relation built of location
+//    private Long originLocationId;
+//    private Long destinationLocationId;
+    //route
+    @OneToOne
+    private DomesticRoute route;
+    //remove
     private int duration;
+    //driver
+    @OneToOne
+    private Driver driver;
+    //remove
+    private String driverContact;
+    //vehicle type
+    @OneToOne
+    private VehicleType vehicleType;
+
     private Integer numberOfShipments;
     private Double weight;//weight in kg
     private LocalDateTime etd;
     private LocalDateTime eta;
     private LocalDateTime atd;
-    private String driverName;
-    private String driverContact;
+    private Boolean refrigeratedTruck;//vehicle
     private String referenceNumber;//Master CONS
-    private String vehicleType;
+
     private Integer numberOfPallets;
     private Integer numberOfBags;
     private String vehicleNumber;
@@ -60,7 +80,6 @@ public class DomesticShipment {
     private String received;
     private String shortages;
     private String shortagesAwbs;
-    private String attachments;
     private Boolean redFlag;
     @Column(unique = true)
     private String preAlertNumber;

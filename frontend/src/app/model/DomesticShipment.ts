@@ -1,24 +1,31 @@
 import { InputNumberInputEvent } from "primeng/inputnumber";
+import { Country } from "./Country";
+import { Facility } from "./Facility";
+import { Routes } from "./ShipmentRoutes";
+import { Driver } from "./Driver";
+import { VehicleType } from "./VehicleType";
+import { Location } from "./Location";
+
 
 export interface DomesticShipment{
-    originCountry: string|null|undefined,
-    destinationCountry: string|null|undefined,
-    originFacility: string|null|undefined,
-    originLocation: string|null|undefined,
+    originCountry: Country|null|undefined,
+    destinationCountry: Country|null|undefined,
+    originFacility: Facility|null|undefined,
+    originLocation: Location|null|undefined,
     refrigeratedTruck: boolean,//Refrigerated Vehicle
-    destinationFacility: string|null|undefined,
-    destinationLocation: string|null|undefined,
-    routeNumber: string|null|undefined,
+    destinationFacility: Facility|null|undefined,
+    destinationLocation: Location|null|undefined,
+    route: Routes|null|undefined,
     numberOfShipments: number|null|undefined,
     weight: number|null|undefined,
     preAlertNumber:string|null|undefined,
     // etd: Date|string|null|undefined,
     // eta: Date|string|null|undefined,
     atd: Date|string|null|undefined,
-    driverName: string|null|undefined,
+    driver: Driver|null|undefined,
     driverContact: string|null|undefined,
     referenceNumber: string|null|undefined,//Master CONS
-    vehicleType: string|null|undefined,
+    vehicleType: VehicleType|null|undefined,
     numberOfPallets: number|null|undefined,
     numberOfBags: number|null|undefined,
     vehicleNumber: string|null|undefined,

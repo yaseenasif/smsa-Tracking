@@ -30,9 +30,9 @@ public class DomesticShipmentController {
 
 
 
-    @PostMapping("/add-domestic-shipment/org-id/{oId}/des-id/{dId}")
-    public ResponseEntity<DomesticShipmentDto> addShipment(@RequestBody DomesticShipmentDto domesticShipmentDto,@PathVariable Long oId,@PathVariable Long dId) throws IOException {
-        return ResponseEntity.ok(domesticShipmentService.addShipment(domesticShipmentDto,oId,dId));
+    @PostMapping("/add-domestic-shipment")
+    public ResponseEntity<DomesticShipmentDto> addShipment(@RequestBody DomesticShipmentDto domesticShipmentDto) throws IOException {
+        return ResponseEntity.ok(domesticShipmentService.addShipment(domesticShipmentDto));
     }
 
     @PostMapping("/add-attachments/{id}/{attachmentType}")
@@ -72,10 +72,10 @@ public class DomesticShipmentController {
         return ResponseEntity.ok(domesticShipmentService.getById(id));
     }
 
-    @PutMapping("/edit-domestic-shipment/{id}/org-id/{oId}/des-id/{dId}")
+    @PutMapping("/edit-domestic-shipment/{id}")
     public ResponseEntity<DomesticShipmentDto> updateDomesticShipment(@PathVariable Long id,
-                                                                      @RequestBody DomesticShipmentDto domesticShipmentDto,@PathVariable Long oId,@PathVariable Long dId){
-        return ResponseEntity.ok(domesticShipmentService.updateDomesticShipment(id,domesticShipmentDto,oId,dId));
+                                                                      @RequestBody DomesticShipmentDto domesticShipmentDto){
+        return ResponseEntity.ok(domesticShipmentService.updateDomesticShipment(id,domesticShipmentDto));
     }
 
 //    @GetMapping("/domestic-shipment-summery/all")
@@ -102,8 +102,8 @@ public class DomesticShipmentController {
     }
 
     @PatchMapping("/update-domestic-shipment/{id}")
-    public ResponseEntity<DomesticShipmentDto> update(@PathVariable Long id,@RequestBody DomesticShipmentDto domesticShipmentDto,@PathVariable Long oId,@PathVariable Long dId){
-        return ResponseEntity.ok(domesticShipmentService.updateDomesticShipment(id,domesticShipmentDto,oId,dId));
+    public ResponseEntity<DomesticShipmentDto> update(@PathVariable Long id,@RequestBody DomesticShipmentDto domesticShipmentDto){
+        return ResponseEntity.ok(domesticShipmentService.updateDomesticShipment(id,domesticShipmentDto));
     }
 
     @DeleteMapping("/delete-domestic-shipment/{id}")

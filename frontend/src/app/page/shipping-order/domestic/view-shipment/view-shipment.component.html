@@ -37,7 +37,7 @@
                         <label for="" class="fr mr-8"> {{domesticShipment.destinationLocation}}</label>
                       </div>
                       <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Route Number :</label> &nbsp;
-                        <label for="" class="fr mr-8"> {{domesticShipment.routeNumber}}</label>
+                        <label for="" class="fr mr-8"> {{domesticShipment.route?.routeNumber}}</label>
                       </div>
 
                     </div>
@@ -65,7 +65,7 @@
                         <label for="" class="fr mr-8"> {{domesticShipment.atd| date:"shortDate" }}</label>
                       </div>
                       <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">Driver Name :</label> &nbsp;
-                        <label for="" class="fr mr-8"> {{domesticShipment.driverName}}</label>
+                        <label for="" class="fr mr-8"> {{domesticShipment.driver?.name}}</label>
                       </div>
 
                     </div>

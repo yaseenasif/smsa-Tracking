@@ -20,13 +20,11 @@ export class ViewDomesticShippingForSummaryComponent {
     refrigeratedTruck: false,
     destinationFacility: null,
     destinationLocation: null,
-    routeNumber: null,
     numberOfShipments: null,
     weight: null,
     // etd: null,
     // eta: null,
     atd: null,
-    driverName: null,
     driverContact: null,
     referenceNumber: null,
     vehicleType: null,
@@ -50,7 +48,9 @@ export class ViewDomesticShippingForSummaryComponent {
     preAlertType: null,
     originCountry: undefined,
     destinationCountry: undefined,
-    numberOfBoxes: undefined
+    numberOfBoxes: undefined,
+    route: undefined,
+    driver: undefined
   };
 
   domesticShipmentId!:number;
