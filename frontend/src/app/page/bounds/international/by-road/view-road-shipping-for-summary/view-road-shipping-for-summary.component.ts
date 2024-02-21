@@ -14,6 +14,7 @@ import { InternationalShippingService } from 'src/app/page/shipping-order/intern
 export class ViewRoadShippingForSummaryComponent {
   items: MenuItem[] | undefined;
   iSID!: number;
+  resultArray:{overagesAWBs:string|undefined,shortagesAWBs:string|undefined,securityTag:string|undefined}[]=[]
   internationalShipment: InternationalShipment = {
     id: null,
     actualWeight: null,
@@ -82,6 +83,7 @@ export class ViewRoadShippingForSummaryComponent {
 
     this.internationalShippingService.getInternationalShipmentByID(id).subscribe((res: InternationalShipment) => {
       this.internationalShipment = res;
+      this.makeModelForTable();
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
@@ -98,4 +100,42 @@ export class ViewRoadShippingForSummaryComponent {
       }   
     })
   }
+
+  makeModelForTable() {
+    const overagesAWBsArray = this.internationalShipment.overageAWBs!.split(',');
+    const shortagesAWBsArray = this.internationalShipment.shortageAWBs!.split(',');
+    var securityTagArray!:any;
+    if(typeof this.internationalShipment.tagNumber == "string"){
+     securityTagArray = this.internationalShipment.tagNumber!.split(',');
+    }else{
+       securityTagArray = this.internationalShipment.tagNumber
+    }
+   
+
+    // Determine the maximum length among the three arrays
+    const maxLength = Math.max(
+      overagesAWBsArray.length,
+      shortagesAWBsArray.length,
+      securityTagArray!.length
+    );
+
+    // Create an array to store objects
+   
+
+    // Loop through the arrays to create objects
+    for (let i = 0; i < maxLength; i++) {
+      const obj: any = {};
+      if (i < overagesAWBsArray.length) {
+        obj.overagesAWBs = overagesAWBsArray[i];
+      }
+      if (i < shortagesAWBsArray.length) {
+        obj.shortagesAWBs = shortagesAWBsArray[i];
+      }
+      if (i < securityTagArray!.length) {
+        obj.securityTag = securityTagArray![i];
+      }
+      this.resultArray.push(obj);
+    }
+  }
+
 }

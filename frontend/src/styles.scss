@@ -8,11 +8,20 @@ $hover-bg-color:#4d0fa3;
 $white-color:#ffffff;
 $error-color:#dc2626;
 
+@font-face{
+    font-family:anta;
+    src: url(assets/Anta-Regular.ttf) format('truetype');
+}
+
 *{
     margin: 0;
 }
+.primer-color{
+color: #400099;
+}
 body{
     background-color: $base-bg-color;
+    font-family: anta;
 }
 .body-position{
 padding-left:60px;
@@ -195,3 +204,4 @@ color:#f59e0b;
 .chipes-hook>.p-chips{
     width:100%;
 }
+

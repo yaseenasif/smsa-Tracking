@@ -13,6 +13,7 @@ import { DomesticShippingService } from 'src/app/page/shipping-order/domestic/se
 })
 export class ViewDomesticShippingForSummaryComponent {
   items: MenuItem[] | undefined;
+  resultArray:{overagesAWBs:string|undefined,shortagesAWBs:string|undefined,securityTag:string|undefined}[]=[]
 
   domesticShipment:DomesticShipment={
     originFacility: null,
@@ -90,7 +91,7 @@ export class ViewDomesticShippingForSummaryComponent {
     this.domesticShipmentService.getDomesticShipmentById(id).subscribe((res:DomesticShipment)=>{
 
       this.domesticShipment=res;
-    
+      this.makeModelForTable();
     },(error:any)=>{
       if(error.error.body){
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -99,4 +100,40 @@ export class ViewDomesticShippingForSummaryComponent {
       }         
     })
    }
+   makeModelForTable() {
+    const overagesAWBsArray = this.domesticShipment.overagesAwbs!.split(',');
+    const shortagesAWBsArray = this.domesticShipment.shortagesAwbs!.split(',');
+    var securityTagArray!:any;
+    if(typeof this.domesticShipment.tagNumber == "string"){
+     securityTagArray = this.domesticShipment.tagNumber!.split(',');
+    }else{
+       securityTagArray = this.domesticShipment.tagNumber
+    }
+   
+
+    // Determine the maximum length among the three arrays
+    const maxLength = Math.max(
+      overagesAWBsArray.length,
+      shortagesAWBsArray.length,
+      securityTagArray!.length
+    );
+
+    // Create an array to store objects
+   
+
+    // Loop through the arrays to create objects
+    for (let i = 0; i < maxLength; i++) {
+      const obj: any = {};
+      if (i < overagesAWBsArray.length) {
+        obj.overagesAWBs = overagesAWBsArray[i];
+      }
+      if (i < shortagesAWBsArray.length) {
+        obj.shortagesAWBs = shortagesAWBsArray[i];
+      }
+      if (i < securityTagArray!.length) {
+        obj.securityTag = securityTagArray![i];
+      }
+      this.resultArray.push(obj);
+    }
+  }
 }
