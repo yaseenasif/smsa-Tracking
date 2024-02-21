@@ -520,6 +520,7 @@ public class DomesticShipmentService {
                                     emailService.sendHtmlEmail(to, subject, "shipment-delay-email-template.ftl", model);
                                 }
                                 shipment.setEscalationFlagOne(true);
+                                domesticShipmentRepository.save(shipment);
                             }
                         }
                         if (duration.toHours() >= shipment.getDuration()+4 && duration.toHours() < shipment.getDuration()+6 && (resultListOriginEscalation.length >= 2  || resultListDestinationEscalation.length>=2 )) {
@@ -540,6 +541,7 @@ public class DomesticShipmentService {
                                     emailService.sendHtmlEmail(to, subject, "shipment-delay-email-template.ftl", model);
                                 }
                                 shipment.setEscalationFlagTwo(true);
+                                domesticShipmentRepository.save(shipment);
                             }
                         }
                         if (duration.toHours() >= shipment.getDuration()+6 && (resultListOriginEscalation.length>=3 || resultListDestinationEscalation.length>=3 )) {
@@ -560,6 +562,7 @@ public class DomesticShipmentService {
                                     emailService.sendHtmlEmail(to, subject, "shipment-delay-email-template.ftl", model);
                                 }
                                 shipment.setEscalationFlagThree(true);
+                                domesticShipmentRepository.save(shipment);
                             }
                         }
                     }

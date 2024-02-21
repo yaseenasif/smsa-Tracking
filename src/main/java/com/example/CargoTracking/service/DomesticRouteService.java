@@ -128,6 +128,7 @@ public class DomesticRouteService {
             domesticRoute.get().setEtd(domesticRouteDto.getEtd());
             domesticRoute.get().setEta(domesticRouteDto.getEta());
             domesticRoute.get().setDriver(domesticRouteDto.getDriver());
+            domesticRoute.get().setDurationLimit(domesticRouteDto.getDurationLimit());
 
             DomesticRoute save = domesticRouteRepository.save(domesticRoute.get());
             return toDto(save);
