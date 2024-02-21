@@ -30,8 +30,8 @@ export class DomesticShippingService {
     return this.http.get<DomesticShipment>(`${this.url}/domestic-shipment/${id}`)
   }
 
-  updateDomesticShipment(id: number, domesticShipment: DomesticShipment) {
-    return this.http.put<DomesticShipment>(`${this.url}/edit-domestic-shipment/${id}`, domesticShipment)
+  updateDomesticShipment(id: number,oId: number,dId: number, domesticShipment: DomesticShipment) {
+    return this.http.put<DomesticShipment>(`${this.url}/edit-domestic-shipment/${id}/org-id/${oId}/des-id/${dId}`, domesticShipment)
   }
 
   deleteDomesticShipment(id: number) {

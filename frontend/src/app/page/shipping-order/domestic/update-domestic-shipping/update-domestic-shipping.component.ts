@@ -397,7 +397,9 @@ export class UpdateDomesticShippingComponent {
   }
 
   updateDomesticShipment(domesticShipment: DomesticShipment) {
-    this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId, domesticShipment).subscribe((res: DomesticShipment) => {
+    let orgLocationId=this.user.domesticOriginLocations?.find((el)=>{return el.country?.name == this.domesticShipment.originCountry && el.facility?.name==this.domesticShipment.originFacility && el.locationName==this.domesticShipment.originLocation})!.id;
+    let desLocationId=this.user.domesticDestinationLocations?.find((el)=>{return el.country?.name == this.domesticShipment.destinationCountry && el.facility?.name==this.domesticShipment.destinationFacility && el.locationName==this.domesticShipment.destinationLocation})!.id;
+    this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId,orgLocationId!,desLocationId!, domesticShipment).subscribe((res: DomesticShipment) => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Outbound Updated Successfully' });
 
       setTimeout(() => {

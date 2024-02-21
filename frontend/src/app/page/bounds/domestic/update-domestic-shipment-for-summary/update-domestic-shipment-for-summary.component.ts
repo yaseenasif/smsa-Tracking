@@ -18,6 +18,8 @@ import { DomesticShippingService } from 'src/app/page/shipping-order/domestic/se
 import { ProductField } from 'src/app/model/ProductField';
 import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
 import { ChipsAddEvent } from 'primeng/chips';
+import { UserService } from 'src/app/page/user/service/user.service';
+import { User } from 'src/app/model/User';
 
 @Component({
   selector: 'app-update-domestic-shipment-for-summary',
@@ -94,6 +96,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
   // selectedShipmentStatus!: ProductField;
 
   domesticShipmentId: any;
+  user!: User;
 
   constructor(private locationService: LocationService,
     private vehicleTypeService: VehicleTypeService,
@@ -103,6 +106,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     private router: Router,
     private messageService: MessageService,
     private route: ActivatedRoute,
+    private userService:UserService,
     private datePipe: DatePipe) { }
   name!: string;
   checked!: boolean;
@@ -124,6 +128,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
   }
 
   ngOnInit(): void {
+    this.getLoggedInUser();
     this.domesticShipmentId = +this.route.snapshot.paramMap.get('id')!;
 
 
@@ -238,7 +243,11 @@ export class UpdateDomesticShipmentForSummaryComponent {
   }
 
   updateDomesticShipment(domesticShipment: DomesticShipment) {
-    this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId, domesticShipment).subscribe((res: DomesticShipment) => {
+
+    let orgLocationId=this.user.domesticOriginLocations?.find((el)=>{return el.country?.name == this.domesticShipment.originCountry && el.facility?.name==this.domesticShipment.originFacility && el.locationName==this.domesticShipment.originLocation})!.id;
+    let desLocationId=this.user.domesticDestinationLocations?.find((el)=>{return el.country?.name == this.domesticShipment.destinationCountry && el.facility?.name==this.domesticShipment.destinationFacility && el.locationName==this.domesticShipment.destinationLocation})!.id;
+
+    this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId,orgLocationId!,desLocationId!,domesticShipment).subscribe((res: DomesticShipment) => {
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Outbound Updated Successfully' });
 
       setTimeout(() => {
@@ -256,6 +265,29 @@ export class UpdateDomesticShipmentForSummaryComponent {
       this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
       this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
     })
+  }
+
+  getLoggedInUser() {
+    this.userService.getLoggedInUser().subscribe(
+      (res: User) => {
+        this.user = res;
+      },
+      (error) => {
+        if (error.error.body) {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error.body,
+          });
+        } else {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: error.error,
+          });
+        }
+      }
+    );
   }
 
   onSubmit() {
