@@ -1,5 +1,7 @@
 package com.example.CargoTracking.criteria;
 
+import com.example.CargoTracking.model.DomesticRoute;
+import com.example.CargoTracking.model.Location;
 import com.example.CargoTracking.model.User;
 import lombok.*;
 
@@ -14,9 +16,9 @@ public class SearchCriteriaForDomesticShipment {
     private String fromDate;
     private String toDate;
     private String status;
-    private String origin;
-    private String destination;
-    private String routeNumber;
+    private Location origin;
+    private Location destination;
+    private DomesticRoute route;
     private User user;
     private boolean activeStatus;
 }
