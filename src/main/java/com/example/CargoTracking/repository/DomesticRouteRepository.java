@@ -16,7 +16,7 @@ import java.util.List;
 public interface DomesticRouteRepository extends JpaRepository<DomesticRoute,Long>, JpaSpecificationExecutor<DomesticRoute> {
     List<DomesticRoute> findByOriginAndDestination(String origin, String destination);
 
-    DomesticRoute findByRouteNumber(String routeNumber);
+    DomesticRoute findByRoute(String route);
 
     @Query("SELECT r FROM DomesticRoute r WHERE r.activeStatus = true")
     List<DomesticRoute> getActiveDomesticRoutes();

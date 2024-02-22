@@ -377,7 +377,7 @@ export class UpdateDomesticShippingComponent {
 
       
       // this.getDomesticRoute();
-      this.getRouteByRouteNumber(this.domesticShipment.route!.routeNumber!);
+      this.getRouteByRouteNumber(this.domesticShipment.route!.route!);
 
 
     }, (error: any) => {

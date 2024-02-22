@@ -26,8 +26,8 @@ export class AddDomesticRoutesComponent {
     eta: null,
     etd: null,
     origin: null,
-    routeNumber: null,
-    durationLimit: undefined
+    durationLimit: undefined,
+    route: undefined
   }
 
   location!: Location[];

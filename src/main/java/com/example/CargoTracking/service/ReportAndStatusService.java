@@ -284,7 +284,7 @@ public class ReportAndStatusService {
             domesticPerformance.setReferenceNumber(domesticShipment.getReferenceNumber());
             domesticPerformance.setOrigin(domesticShipment.getOriginLocation().getLocationName());
             domesticPerformance.setDestination(domesticShipment.getDestinationLocation().getLocationName());
-            domesticPerformance.setRoute(domesticShipment.getRoute().getRouteNumber());
+            domesticPerformance.setRoute(domesticShipment.getRoute().getRoute());
             domesticPerformance.setVehicle(domesticShipment.getVehicleNumber());
             domesticPerformance.setShipments(domesticShipment.getTotalShipments());
             domesticPerformance.setPallets(domesticShipment.getNumberOfPallets());

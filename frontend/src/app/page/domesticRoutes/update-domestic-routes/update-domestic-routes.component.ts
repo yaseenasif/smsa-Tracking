@@ -27,7 +27,7 @@ export class UpdateDomesticRoutesComponent {
     etd: null,
     origin: null,
     durationLimit: undefined,
-    routeNumber: undefined
+    route: undefined
   }
 
   location!: Location[];

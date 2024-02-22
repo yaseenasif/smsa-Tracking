@@ -132,7 +132,7 @@ public class DomesticShipmentService {
             emails.addAll(originEmailAddresses);
             emails.addAll(destinationEmailAddresses);
 
-            String subject = "TSM Pre-Alert(D): " + domesticShipment.getRoute().getRouteNumber() + "/" + domesticShipment.getVehicleType() + "/" + domesticShipment.getReferenceNumber();
+            String subject = "TSM Pre-Alert(D): " + domesticShipment.getRoute().getRoute() + "/" + domesticShipment.getVehicleType() + "/" + domesticShipment.getReferenceNumber();
 
             Map<String, Object> model = new HashMap<>();
             model.put("field1", domesticShipment.getCreatedAt().toString());
@@ -145,7 +145,7 @@ public class DomesticShipmentService {
             model.put("field8", domesticShipment.getNumberOfPallets().toString());
             model.put("field9", domesticShipment.getWeight().toString());
             model.put("field10", "Road");
-            model.put("field11", domesticShipment.getRoute().getRouteNumber().toString());
+            model.put("field11", domesticShipment.getRoute().getRoute().toString());
             model.put("field15", domesticShipment.getRemarks());
 
             sendEmailsAsync(emails, subject, "domestic-email-template.ftl", model);

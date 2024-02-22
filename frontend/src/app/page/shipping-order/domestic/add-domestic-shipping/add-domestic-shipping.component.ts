@@ -163,9 +163,9 @@ export class AddDomesticShippingComponent {
     //  this.orgLocation=this.user.domesticOriginLocations?.filter((element)=> element.country?.name==country);
     //  this.desLocation=this.user.domesticDestinationLocations?.filter((element)=> element.country?.name==country);
     //  this.domesticShipment.originCountry=null;
-    //  this.domesticShipment.originFacility=null;
+     this.domesticShipment.originFacility=null;
     //  this.domesticShipment.destinationCountry=null;
-    //  this.domesticShipment.destinationFacility=null;
+     this.domesticShipment.destinationFacility=null; 
     this.domesticShipment.originCountry=this.user.domesticOriginLocations?.find((el)=>el.country?.name==country)?.country
     this.domesticShipment.destinationCountry=this.user.domesticDestinationLocations?.find((el)=>el.country?.name==country)?.country
 

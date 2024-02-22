@@ -361,13 +361,13 @@
                           *ngIf="domesticShipment"
                         >
                           <div>
-                            {{ domesticShipment.route?.routeNumber }}
+                            {{ domesticShipment.route?.route }}
                           </div>
                         </div>
                       </ng-template>
                       <ng-template let-routes pTemplate="item">
                         <div class="flex align-items-center gap-2">
-                          <div>{{ routes.route.routeNumber }}</div>
+                          <div>{{ routes.route }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -518,7 +518,7 @@
                           class="flex align-items-center gap-2"
                           *ngIf="domesticShipment"
                         >
-                          <div>{{ domesticShipment.driver}}</div>
+                          <div>{{ domesticShipment.driver?.name}}</div>
                         </div>
                       </ng-template>
                       <ng-template let-drivers pTemplate="item">
@@ -576,7 +576,6 @@
                       [required]="true"
                       [(ngModel)]="domesticShipment.vehicleType"
                       optionLabel="name"
-                      optionValue="name"
                       [filter]="true"
                       filterBy="name"
                       [showClear]="true"
@@ -587,7 +586,7 @@
                           class="flex align-items-center gap-2"
                           *ngIf="domesticShipment"
                         >
-                          <div>{{ domesticShipment.vehicleType }}</div>
+                          <div>{{ domesticShipment.vehicleType?.name }}</div>
                         </div>
                       </ng-template>
                       <ng-template let-vehicleTypes pTemplate="item">

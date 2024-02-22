@@ -22,7 +22,7 @@ public class DomesticRoute {
     private Long id;
     private String origin;
     private String destination;
-    private String routeNumber;
+    private String route;
     private String driver;
     private LocalTime etd;
     private LocalTime eta;
