@@ -9,6 +9,7 @@ import com.example.CargoTracking.service.LocationService;
 import com.example.CargoTracking.service.StorageService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.data.domain.Page;
@@ -26,6 +27,8 @@ public class DomesticShipmentController {
     DomesticShipmentService domesticShipmentService;
     @Autowired
     StorageService storageService;
+    @Autowired
+    ObjectMapper objectMapper;
 
 
 
@@ -61,8 +64,9 @@ public class DomesticShipmentController {
     public ResponseEntity<Page<DomesticShipmentDto>> getAll(@RequestParam(value = "value",required = false) String value,
                                                             @RequestParam(defaultValue = "0") int page,
                                                             @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        objectMapper.registerModule(new JavaTimeModule());
         SearchCriteriaForDomesticShipment
-                searchCriteriaForDomesticShipment = new ObjectMapper().readValue(value, SearchCriteriaForDomesticShipment.class);
+                searchCriteriaForDomesticShipment = objectMapper.readValue(value, SearchCriteriaForDomesticShipment.class);
         return ResponseEntity.ok(domesticShipmentService.getAll(searchCriteriaForDomesticShipment,page,size));
     }
 
