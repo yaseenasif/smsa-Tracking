@@ -87,7 +87,39 @@
                     </p-dropdown>
                   </div>
                 </div>
+
                 <div class="xl:col-2 lg:col-4 md:col-6 col-12">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Origin</label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="location"
+                      filterBy="locationName"
+                      [filter]="true"
+                      name="origin1"
+                      #origin1="ngModel"
+                      [(ngModel)]="origin"
+                      optionLabel="locationName"
+                      placeholder="Select a Status"
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="origin"
+                        >
+                          <div>{{ origin.locationName }}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-location pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ location.locationName }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+
+                <!-- <div class="xl:col-2 lg:col-4 md:col-6 col-12">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Origin</label>
                     <input
@@ -99,8 +131,40 @@
                       [(ngModel)]="origin"
                     />
                   </div>
-                </div>
+                </div> -->
+
                 <div class="xl:col-2 lg:col-4 md:col-6 col-12">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Destination</label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="location"
+                      name="destination1"
+                      [filter]="true"
+                      #destination1="ngModel"
+                      filterBy="locationName"
+                      [(ngModel)]="destination"
+                      optionLabel="locationName"
+                      placeholder="Select a Status"
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="destination"
+                        >
+                          <div>{{ destination.locationName }}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-location pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ location.locationName }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+
+                <!-- <div class="xl:col-2 lg:col-4 md:col-6 col-12">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Destination</label>
                     <input
@@ -112,8 +176,38 @@
                       [(ngModel)]="destination"
                     />
                   </div>
-                </div>
+                </div> -->
                 <div class="xl:col-2 lg:col-4 md:col-6 col-12">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Route Number</label>
+                    <p-dropdown
+                      class="w-full"
+                      [options]="routes"
+                      name="routeNumber"
+                      [filter]="true"
+                      #routeNumber="ngModel"
+                      filterBy="route"
+                      [(ngModel)]="route"
+                      optionLabel="route"
+                      placeholder="Select a Status"
+                    >
+                      <ng-template pTemplate="selectedItem">
+                        <div
+                          class="flex align-items-center gap-2"
+                          *ngIf="route"
+                        >
+                          <div>{{ route.route }}</div>
+                        </div>
+                      </ng-template>
+                      <ng-template let-routes pTemplate="item">
+                        <div class="flex align-items-center gap-2">
+                          <div>{{ routes.route }}</div>
+                        </div>
+                      </ng-template>
+                    </p-dropdown>
+                  </div>
+                </div>
+                <!-- <div class="xl:col-2 lg:col-4 md:col-6 col-12">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Route Number</label>
                     <input
@@ -122,10 +216,10 @@
                       aria-describedby="name-help"
                       #routeNumber1="ngModel"
                       name="routeNumber1"
-                      [(ngModel)]="routeNumber"
+                      [(ngModel)]="route"
                     />
                   </div>
-                </div>
+                </div> -->
 
                 <div
                   class="xl:col-12 lg:col-12 md:col-12 col-12 flex justify-content-end align-items-end"
@@ -192,22 +286,22 @@
               <ng-template pTemplate="body" let-domesticShipment>
                 <tr>
                   <td class="text-center">
-                    {{ domesticShipment.originFacility }}
+                    {{ domesticShipment.originFacility.name }}
                   </td>
                   <td class="text-center">
-                    {{ domesticShipment.originLocation }}
+                    {{ domesticShipment.originLocation.locationName }}
                   </td>
                   <td class="text-center">
                     {{ domesticShipment.refrigeratedTruck }}
                   </td>
                   <td class="text-center">
-                    {{ domesticShipment.destinationFacility }}
+                    {{ domesticShipment.destinationFacility.name }}
                   </td>
                   <td class="text-center">
-                    {{ domesticShipment.destinationLocation }}
+                    {{ domesticShipment.destinationLocation.locationName }}
                   </td>
                   <td class="text-center">
-                    {{ domesticShipment.routeNumber }}
+                    {{ domesticShipment.route.route }}
                   </td>
                   <td class="text-center">
                     {{ domesticShipment.numberOfShipments }}
@@ -220,7 +314,7 @@
                     {{ domesticShipment.referenceNumber }}
                   </td>
                   <td class="text-center">
-                    {{ domesticShipment.vehicleType }}
+                    {{ domesticShipment.vehicleType.name }}
                   </td>
                   <td class="text-center">
                     {{ domesticShipment.numberOfPallets }}

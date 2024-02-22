@@ -146,4 +146,17 @@ public class DomesticRouteService {
             throw new RecordNotFoundException(String.format("Domestic Route Not Found By This Id %d", id));
         }
     }
+
+    public List<DomesticRouteDto> getAllDomesticRoute() {
+        List<DomesticRoute>  domesticRouteList = domesticRouteRepository.findAll();
+        List<DomesticRouteDto> domesticRouteDtoList=new ArrayList<>();
+        for (DomesticRoute el:domesticRouteList){
+            domesticRouteDtoList.add(toDto(el));
+        }
+        return domesticRouteDtoList;
+//            return toDto(domesticRoute.get());
+//        }else{
+//            throw new RecordNotFoundException(String.format("Domestic Route Not Found By This Id %d", id));
+//        }
+    }
 }

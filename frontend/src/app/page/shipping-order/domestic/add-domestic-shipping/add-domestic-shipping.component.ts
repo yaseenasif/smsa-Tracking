@@ -188,7 +188,6 @@ export class AddDomesticShippingComponent {
   }
 
   onOrgFacilityChange(){
-    debugger
    this.orgLocation=this.user.domesticOriginLocations?.filter((el)=> el.country?.name==this.domesticShipment.originCountry?.name && el.facility?.name==this.domesticShipment.originFacility?.name)
   }
   onDesFacilityChange(){

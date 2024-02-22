@@ -62,5 +62,9 @@ public class DomesticRouteController {
     public ResponseEntity<DomesticRouteDto> update(@PathVariable Long id, @RequestBody DomesticRouteDto domesticRouteDto){
         return ResponseEntity.ok(domesticRouteService.updateDomesticRoute(id,domesticRouteDto));
     }
+    @GetMapping("/all-domestic-route")
+    public ResponseEntity<List<DomesticRouteDto>> getAll(){
+        return ResponseEntity.ok(domesticRouteService.getAllDomesticRoute());
+    }
 
 }

@@ -32,6 +32,11 @@ export class DomesticRoutesService {
     return this.http.get<any>(url, { params: queryParams })
   }
 
+  getAllDomesticRoutesWithoutPagination(): Observable<Routes[]> {
+    return this.http.get<Routes[]>(`${this.url}/all-domestic-route`)
+  }
+
+
   deleteDomesticRoute(id: number): Observable<Error> {
     let url = `${this.url}/delete-domestic-route/${id}`
     return this.http.delete<Error>(url)
