@@ -270,7 +270,7 @@ public class ReportAndStatusService {
         List<DomesticShipment> domesticShipmentList = new ArrayList<>();
         if(searchCriteriaForSummary.getDestinations() == null && searchCriteriaForSummary.getOrigin() == null
                 && searchCriteriaForSummary.getToDate() == null && searchCriteriaForSummary.getFromDate() == null
-                && searchCriteriaForSummary.getStatus() ==null && searchCriteriaForSummary.getRouteNumber() == null){
+                && searchCriteriaForSummary.getStatus() ==null && searchCriteriaForSummary.getRoute() == null){
              domesticShipmentList = domesticShipmentRepository.findAllByActiveStatusMock(true);
 
         }else{

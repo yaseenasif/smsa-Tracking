@@ -1,5 +1,7 @@
 package com.example.CargoTracking.criteria;
 
+import com.example.CargoTracking.model.DomesticRoute;
+import com.example.CargoTracking.model.Location;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -16,7 +18,7 @@ public class SearchCriteriaForSummary {
     private String fromDate;
     private String toDate;
     private String status;
-    private String origin;
-    private Set<String> destinations;
-    private String routeNumber;
+    private Location origin;
+    private Set<Location> destinations;
+    private DomesticRoute route;
 }

@@ -260,9 +260,8 @@ public class DomesticShipmentService {
             if(searchCriteriaForSummary.getDestinations().isEmpty()){
                 Set<Location> userLocations = user.getLocations();
                 if (!userLocations.isEmpty()) {
-                    Set<String> domesticLocationNamePresentInUser = userLocations.stream()
+                    Set<Location> domesticLocationNamePresentInUser = userLocations.stream()
                             .filter(location -> "Domestic".equals(location.getType()))
-                            .map(Location::getLocationName)
                             .collect(Collectors.toSet());
                     searchCriteriaForSummary.setDestinations(domesticLocationNamePresentInUser);
                 }else{

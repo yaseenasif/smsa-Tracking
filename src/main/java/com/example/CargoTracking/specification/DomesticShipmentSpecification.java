@@ -8,68 +8,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class DomesticShipmentSpecification {
-//    public static Specification<DomesticShipment> getSearchSpecification(SearchCriteriaForDomesticShipment searchCriteria){
-//        LocalDate localFromDate;
-//        LocalDate localToDate;
-//        if(!searchCriteria.getFromDate().isEmpty() && !searchCriteria.getToDate().isEmpty() && searchCriteria.getUser() != null ) {
-//            String fromDate = searchCriteria.getFromDate();
-//            String toDate = searchCriteria.getToDate();
-//            DateTimeFormatter targetFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//            localFromDate = LocalDate.parse(fromDate, targetFormatter);
-//            localToDate = LocalDate.parse(toDate, targetFormatter);
-//            return (root, query, criteriaBuilder) ->
-//
-//                    criteriaBuilder.and(
-//                            criteriaBuilder.between(root.get("createdAt"), localFromDate, localToDate ),
-//                            criteriaBuilder.equal(root.get("activeStatus"),searchCriteria.isActiveStatus()),
-//                            criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
-//                            criteriaBuilder.equal(criteriaBuilder.lower(root.get("originLocation")),searchCriteria.getOrigin()),
-//                            criteriaBuilder.equal(criteriaBuilder.lower(root.get("destinationLocation")),searchCriteria.getDestination()),
-//                            criteriaBuilder.equal(criteriaBuilder.lower(root.get("route")),searchCriteria.getRoute()),
-//                            criteriaBuilder.equal(criteriaBuilder.lower(root.get("createdBy")),searchCriteria.getUser()) );
-//
-//        }else if(searchCriteria.getFromDate().isEmpty() && searchCriteria.getToDate().isEmpty() && searchCriteria.getUser() != null){
-//            return (root, query, criteriaBuilder) ->
-//
-//                    criteriaBuilder.and(
-//                            criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
-//                            criteriaBuilder.equal(root.get("activeStatus"),searchCriteria.isActiveStatus()),
-//                            criteriaBuilder.equal(criteriaBuilder.lower(root.get("originLocation")),searchCriteria.getOrigin()),
-//                            criteriaBuilder.equal(criteriaBuilder.lower(root.get("destinationLocation")),searchCriteria.getDestination()),
-//                            criteriaBuilder.equal(criteriaBuilder.lower(root.get("route")),searchCriteria.getRoute()),
-//                            criteriaBuilder.equal(criteriaBuilder.lower(root.get("createdBy")),searchCriteria.getUser()) );
-//
-//        }
-//        else if(!searchCriteria.getFromDate().isEmpty() && !searchCriteria.getToDate().isEmpty() && searchCriteria.getUser() == null){
-//            String fromDate = searchCriteria.getFromDate();
-//            String toDate = searchCriteria.getToDate();
-//            DateTimeFormatter targetFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//            localFromDate = LocalDate.parse(fromDate, targetFormatter);
-//            localToDate = LocalDate.parse(toDate, targetFormatter);
-//            return (root, query, criteriaBuilder) ->
-//
-//                    criteriaBuilder.and(
-//                            criteriaBuilder.between(root.get("createdAt"), localFromDate, localToDate ),
-//                            criteriaBuilder.equal(root.get("activeStatus"),searchCriteria.isActiveStatus()),
-//                            criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
-//                            criteriaBuilder.equal(criteriaBuilder.lower(root.get("originLocation")),searchCriteria.getOrigin()),
-//                            criteriaBuilder.equal(criteriaBuilder.lower(root.get("destinationLocation")),searchCriteria.getDestination()),
-//                            criteriaBuilder.equal(criteriaBuilder.lower(root.get("route")),searchCriteria.getRoute()));
-//        }
-//        else{
-//
-//                return (root, query, criteriaBuilder) ->
-//                        criteriaBuilder.and(
-//                                criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteria.getStatus() + "%"),
-//                                criteriaBuilder.equal(root.get("activeStatus"),searchCriteria.isActiveStatus()),
-//                                criteriaBuilder.equal(criteriaBuilder.lower(root.get("originLocation")),searchCriteria.getOrigin()),
-//                                criteriaBuilder.equal(criteriaBuilder.lower(root.get("destinationLocation")),searchCriteria.getDestination()),
-//                                criteriaBuilder.equal(criteriaBuilder.lower(root.get("route")),searchCriteria.getRoute()));
-//
-//
-//            }
-//    }
-
     public static Specification<DomesticShipment> getSearchSpecification(SearchCriteriaForDomesticShipment searchCriteria) {
         if (searchCriteria == null) {
             return null;
@@ -117,10 +55,4 @@ public class DomesticShipmentSpecification {
             );
         };
     }
-
-
-
-
-
-
 }
