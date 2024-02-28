@@ -123,7 +123,7 @@ public class DomesticRouteService {
         if (domesticRoute.isPresent()) {
 
             domesticRoute.get().setOrigin(domesticRouteDto.getOrigin());
-            domesticRoute.get().setOrigin(domesticRouteDto.getDestination());
+            domesticRoute.get().setDestination(domesticRouteDto.getDestination());
             domesticRoute.get().setRoute(domesticRouteDto.getRoute());
             domesticRoute.get().setEtd(domesticRouteDto.getEtd());
             domesticRoute.get().setEta(domesticRouteDto.getEta());

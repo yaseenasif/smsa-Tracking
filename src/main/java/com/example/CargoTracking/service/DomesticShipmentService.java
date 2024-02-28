@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -161,6 +162,7 @@ public class DomesticShipmentService {
         throw new UserNotFoundException(String.format("User not found while creating domestic shipment"));
     }
 
+    @Async
     private void sendEmailsAsync(List<String> emails, String subject, String template, Map<String, Object> model) {
         CompletableFuture.runAsync(() -> {
             for (String to : emails) {

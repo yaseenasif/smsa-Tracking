@@ -58,7 +58,7 @@ public class DomesticRouteController {
         return ResponseEntity.ok(domesticRouteService.deleteDomesticRoute(id));
     }
 
-    @PatchMapping("/update-domestic-route/{id}")
+    @PutMapping("/update-domestic-route/{id}")
     public ResponseEntity<DomesticRouteDto> update(@PathVariable Long id, @RequestBody DomesticRouteDto domesticRouteDto){
         return ResponseEntity.ok(domesticRouteService.updateDomesticRoute(id,domesticRouteDto));
     }

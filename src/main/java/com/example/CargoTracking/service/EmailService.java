@@ -75,6 +75,7 @@ public class EmailService {
             javaMailSender.send(mimeMessage);
         } catch (MessagingException | IOException | TemplateException e) {
             // Handle exceptions
+            e.printStackTrace();
         }
     }
 

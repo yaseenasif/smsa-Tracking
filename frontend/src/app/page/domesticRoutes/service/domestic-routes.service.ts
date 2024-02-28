@@ -45,6 +45,6 @@ export class DomesticRoutesService {
   updateDomesticRoute(id: number, obj: any): Observable<Routes> {
 
     let url = `${this.url}/update-domestic-route/${id}`
-    return this.http.patch<Routes>(url, obj)
+    return this.http.put<Routes>(url, obj)
   }
 }
