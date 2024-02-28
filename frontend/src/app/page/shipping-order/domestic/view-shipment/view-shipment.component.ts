@@ -129,13 +129,23 @@ export class ViewShipmentComponent {
   }
 
   makeModelForTable() {
-    const overagesAWBsArray = this.domesticShipment.overagesAwbs!.split(',');
-    const shortagesAWBsArray = this.domesticShipment.shortagesAwbs!.split(',');
-    var securityTagArray!:any;
+    let overagesAWBsArray:any;
+    let shortagesAWBsArray:any;
+    let securityTagArray:any;
+    if(this.domesticShipment.overagesAwbs!=null){
+     overagesAWBsArray = this.domesticShipment.overagesAwbs!.split(',');
+    }else{
+       overagesAWBsArray =[]
+    }
+    if(this.domesticShipment.shortagesAwbs!=null){
+     shortagesAWBsArray = this.domesticShipment.shortagesAwbs!.split(',');
+    }else{
+       shortagesAWBsArray =[]
+    }
     if(typeof this.domesticShipment.tagNumber == "string"){
      securityTagArray = this.domesticShipment.tagNumber!.split(',');
     }else{
-       securityTagArray = this.domesticShipment.tagNumber
+       securityTagArray = []
     }
    
 
@@ -164,4 +174,5 @@ export class ViewShipmentComponent {
       this.resultArray.push(obj);
     }
   }
-}
+  }
+

@@ -44,13 +44,13 @@
                   </div>
                   <div class="lg:col-12 md:col-6 col-12">
                     <div class="grid">
-                      <div class="lg:col-4 md:col-12 col-12">
-                        <label for="" class="heading-lable">Number Of Boxes :</label>
-                      
+                      <!-- <div class="lg:col-4 md:col-12 col-12">
+                        <label for="" class="heading-lable">Origin Port :</label>
+                        &nbsp;
                         <label for="" class="fr mr-8">
-                          {{ internationalShipment.numberOfBoxes }}</label
+                          {{ internationalShipment.originPort }}</label
                         >
-                      </div>
+                      </div> -->
                       <div class="lg:col-4 md:col-12 col-12">
                         <label for="" class="heading-lable"
                           >Pre-Alert Number :</label
@@ -69,19 +69,18 @@
                           {{ internationalShipment.destinationCountry }}</label
                         >
                       </div>
+                      <div class="lg:col-4 md:col-12 col-12">
+                        <label for="" class="heading-lable">Number Of Boxes :</label>
+                      
+                        <label for="" class="fr mr-8">
+                          {{ internationalShipment.numberOfBoxes }}</label
+                        >
+                      </div>
                     </div>
                   </div>
                   <div class="lg:col-12 md:col-6 col-12">
                     <div class="grid">
-                      <!-- <div class="lg:col-4 md:col-12 col-12">
-                        <label for="" class="heading-lable"
-                          >Destination Port :</label
-                        >
-                        &nbsp;
-                        <label for="" class="fr mr-8">
-                          {{ internationalShipment.destinationPort }}</label
-                        >
-                      </div> -->
+                     
                       <div class="lg:col-4 md:col-12 col-12">
                         <label for="" class="heading-lable">Route Number :</label>
                         &nbsp;
@@ -97,10 +96,6 @@
                           }}</label
                         >
                       </div>
-                    </div>
-                  </div>
-                  <div class="lg:col-12 md:col-6 col-12">
-                    <div class="grid">
                       <div class="lg:col-4 md:col-12 col-12">
                         <label for="" class="heading-lable">ETA :</label> &nbsp;
                         <label for="" class="fr mr-8">
@@ -109,6 +104,12 @@
                           }}</label
                         >
                       </div>
+  
+                    </div>
+                  </div>
+                  <div class="lg:col-12 md:col-6 col-12">
+                    <div class="grid">
+                    
                       <div class="lg:col-4 md:col-12 col-12">
                         <label for="" class="heading-lable">ATD :</label> &nbsp;
                         <label for="" class="fr mr-8">
@@ -124,19 +125,21 @@
                           {{ internationalShipment.carrier }}</label
                         >
                       </div>
-                    </div>
-                  </div>
-                  <div class="lg:col-12 md:col-6 col-12">
-                    <div class="grid">
                       <div class="lg:col-4 md:col-12 col-12">
                         <label for="" class="heading-lable"
-                          >Weight in kg :</label
+                          >Actual Weight :</label
                         >
                         &nbsp;
                         <label for="" class="fr mr-8">
                           {{ internationalShipment.actualWeight }}</label
                         >
                       </div>
+  
+                    </div>
+                  </div>
+                  <div class="lg:col-12 md:col-6 col-12">
+                    <div class="grid">
+                     
                       <div class="lg:col-4 md:col-12 col-12">
                         <label for="" class="heading-lable"
                           >Master CONS :</label
@@ -155,10 +158,6 @@
                           {{ internationalShipment.numberOfPallets }}</label
                         >
                       </div>
-                    </div>
-                  </div>
-                  <div class="lg:col-12 md:col-6 col-12">
-                    <div class="grid">
                       <div class="lg:col-4 md:col-12 col-12">
                         <label for="" class="heading-lable">Status :</label>
                         &nbsp;
@@ -166,6 +165,12 @@
                           {{ internationalShipment.status }}</label
                         >
                       </div>
+  
+                    </div>
+                  </div>
+                  <div class="lg:col-12 md:col-6 col-12">
+                    <div class="grid">
+                     
                       <div class="lg:col-4 md:col-12 col-12">
                         <label for="" class="heading-lable">Remarks :</label>
                         &nbsp;
@@ -179,10 +184,6 @@
                           {{ internationalShipment.ata }}</label
                         >
                       </div>
-                    </div>
-                  </div>
-                  <div class="lg:col-12 md:col-6 col-12">
-                    <div class="grid">
                       <div class="lg:col-4 md:col-12 col-12">
                         <label for="" class="heading-lable"
                           >Total Shipments :</label
@@ -192,6 +193,12 @@
                           {{ internationalShipment.totalShipments }}</label
                         >
                       </div>
+  
+                    </div>
+                  </div>
+                  <div class="lg:col-12 md:col-6 col-12">
+                    <div class="grid">
+                   
                       <div class="lg:col-4 md:col-12 col-12">
                         <label for="" class="heading-lable">Overages :</label>
                         &nbsp;
@@ -199,19 +206,6 @@
                           {{ internationalShipment.overages }}</label
                         >
                       </div>
-                      <div class="lg:col-4 md:col-12 col-12">
-                        <label for="" class="heading-lable"
-                          >Overages AWBs :</label
-                        >
-                        &nbsp;
-                        <label for="" class="fr mr-8">
-                          {{ internationalShipment.overageAWBs }}</label
-                        >
-                      </div>
-                    </div>
-                  </div>
-                  <div class="lg:col-12 md:col-6 col-12">
-                    <div class="grid">
                       <div class="lg:col-4 md:col-12 col-12">
                         <label for="" class="heading-lable">Received :</label>
                         &nbsp;
@@ -226,17 +220,10 @@
                           {{ internationalShipment.shortages }}</label
                         >
                       </div>
-                      <div class="lg:col-4 md:col-12 col-12">
-                        <label for="" class="heading-lable"
-                          >Shortages AWBs :</label
-                        >
-                        &nbsp;
-                        <label for="" class="fr mr-8">
-                          {{ internationalShipment.shortageAWBs }}</label
-                        >
-                      </div>
+                     
                     </div>
                   </div>
+                 
                   <div class="lg:col-12 md:col-6 col-12">
                     <div class="grid">
                       <div class="lg:col-4 md:col-12 col-12">
@@ -286,13 +273,38 @@
                           {{ internationalShipment.transitTimeTaken }}</label
                         >
                       </div>
+                      
                     </div>
+                  </div>
+                  <div class="lg:col-12 md:col-6 col-12">
+                    <p-table
+                      [value]="resultArray"
+                      styleClass="p-datatable-gridlines"
+                      [tableStyle]="{ 'min-width': '50rem' }"
+                    >
+                      <ng-template pTemplate="header">
+                        <tr>
+                          <th class="text-center primer-color">Overages AWBs</th>
+                          <th class="text-center primer-color">Shortages AWBs</th>
+                        </tr>
+                      </ng-template>
+                      <ng-template pTemplate="body" let-resultArray>
+                        <tr>
+                          <td class="text-center">
+                            {{ resultArray.overageAWBs }}
+                          </td>
+                          <td class="text-center">
+                            {{ resultArray.shortageAWBs }}
+                          </td>
+                        </tr>
+                      </ng-template>
+                    </p-table>
                   </div>
                 </div>
               </p-toolbar>
             </div>
             <div class="table-head">
-              <h2 class="h-color mb-3">International Shipment History By Air</h2>
+              <h2 class="h-color mb-3">International Outbound History By Air</h2>
             </div>
   
             <div class="card">
@@ -319,7 +331,7 @@
                       {{ InternationalShipmentHistory.status }}
                     </td>
                     <td class="text-center">
-                      {{ InternationalShipmentHistory.processTime |date: 'MM/dd/yyyy hh:mm'}}
+                      {{ InternationalShipmentHistory.processTime|date: 'MM/dd/yyyy hh:mm' }}
                     </td>
                     <td class="text-center">
                       {{ InternationalShipmentHistory.locationCode }}
@@ -348,4 +360,5 @@
       </div>
     </div>
   </div>
+  
   

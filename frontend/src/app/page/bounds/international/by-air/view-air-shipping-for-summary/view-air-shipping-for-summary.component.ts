@@ -16,6 +16,7 @@ import { InternationalShippingService } from 'src/app/page/shipping-order/intern
 export class ViewAirShippingForSummaryComponent {
   items: MenuItem[] | undefined;
   iSID!: number;
+  resultArray:{overageAWBs:string|undefined,shortageAWBs:string|undefined}[]=[];
   internationalShipment: InternationalShipment = {
     id: null,
     actualWeight: null,
@@ -99,8 +100,47 @@ export class ViewAirShippingForSummaryComponent {
 
     this.internationalShippingService.getInternationalShipmentByID(id).subscribe((res: InternationalShipment) => {
       this.internationalShipment = res;
+      this.makeModelForTable();
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
+  }
+  makeModelForTable() {
+    let overagesAWBsArray:any;
+    let shortagesAWBsArray:any;
+   
+    if(this.internationalShipment.overageAWBs!=null){
+     overagesAWBsArray = this.internationalShipment.overageAWBs!.split(',');
+    }else{
+       overagesAWBsArray =[]
+    }
+    if(this.internationalShipment.shortageAWBs!=null){
+     shortagesAWBsArray = this.internationalShipment.shortageAWBs!.split(',');
+    }else{
+       shortagesAWBsArray =[]
+    }
+  
+   
+
+    // Determine the maximum length among the three arrays
+    const maxLength = Math.max(
+      overagesAWBsArray.length,
+      shortagesAWBsArray.length,
+    );
+
+    // Create an array to store objects
+   
+
+    // Loop through the arrays to create objects
+    for (let i = 0; i < maxLength; i++) {
+      const obj: any = {};
+      if (i < overagesAWBsArray.length) {
+        obj.overageAWBs = overagesAWBsArray[i];
+      }
+      if (i < shortagesAWBsArray.length) {
+        obj.shortageAWBs = shortagesAWBsArray[i];
+      }
+      this.resultArray.push(obj);
+    }
   }
 }

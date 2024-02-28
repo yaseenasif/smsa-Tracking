@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { DomesticShipment } from 'src/app/model/DomesticShipment';
@@ -34,6 +34,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
 
   defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
   items: MenuItem[] | undefined;
+  required:boolean=false;
 
   domesticShipment: DomesticShipment = {
     originFacility: null,
@@ -99,6 +100,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
   user!: User;
 
   constructor(private locationService: LocationService,
+    private cdr: ChangeDetectorRef,
     private vehicleTypeService: VehicleTypeService,
     private shipmentStatusService: ProductFieldServiceService,
     private domesticShipmentService: DomesticShippingService,
@@ -225,6 +227,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
 
 
       this.domesticShipment = res;
+      this.onTallyStatus(res.status!);
 
 
 
@@ -299,10 +302,16 @@ export class UpdateDomesticShipmentForSummaryComponent {
     this.updateDomesticShipment(this.domesticShipment);
   }
 
+ 
 
-
-
-
+  onTallyStatus(Status:string){ 
+   if(Status == "Tally"){
+   this.required=true;
+   }else if(Status != "Tally"){
+    this.required=false;
+   }
+   this.cdr.detectChanges();
+  }
 
 }
 
