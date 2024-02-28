@@ -51,7 +51,7 @@ export class UpdateInternationalAirRoutesComponent {
   ngOnInit(): void {
     this.routeId = +this.route.snapshot.paramMap.get('id')!;
     // this.getInternationalLocations();
-    this.items = [{ label: 'International Route List For Air', routerLink: '/international-routes-for-air' }, { label: 'Add International Route For Air' }];
+    this.items = [{ label: 'International Route List For Air', routerLink: '/international-routes-for-air' }, { label: 'Edit International Route For Air' }];
     this.type=[{
       type:'Air'
     },{

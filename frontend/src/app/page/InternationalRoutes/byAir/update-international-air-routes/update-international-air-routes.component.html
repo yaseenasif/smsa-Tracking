@@ -11,7 +11,7 @@
         <div class="body-card">
           <p-toast></p-toast>
           <div class="card">
-            <h1 class="mb-4 h-color">Add International Route</h1>
+            <h1 class="mb-4 h-color">Edit International Route</h1>
             <form #permissionForm="ngForm" (ngSubmit)="onSubmit()">
               <div class="grid">
                 <!-- <div class="col-12 md:col-6 lg:col-6">
@@ -83,6 +83,46 @@
                 </div> -->
               </div>
               <div class="grid">
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Origin</label>
+                    <input
+                      pInputText
+                      id="origin"
+                      aria-describedby="name-help"
+                      [(ngModel)]="internationalRoute.origin"
+                      name="origin"
+                      #origin="ngModel"
+                      required
+                    />
+                    <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="origin.invalid && (origin.dirty || origin.touched)"
+                      >Origin is required.</small
+                    >
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Destinition</label>
+                    <input
+                      pInputText
+                      id="destinition"
+                      aria-describedby="name-help"
+                      [(ngModel)]="internationalRoute.destination"
+                      name="destinition"
+                      #destinition="ngModel"
+                      required
+                    />
+                    <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="destinition.invalid && (destinition.dirty || destinition.touched)"
+                      >Origin is required.</small
+                    >
+                  </div>
+                </div>
                 <div class="col-12 md:col-6 lg:col-6">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Route</label>

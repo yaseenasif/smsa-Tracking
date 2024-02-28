@@ -51,7 +51,7 @@ export class UpdateInternationalRoadRoutesComponent {
 
   ngOnInit(): void {
     this.routeId = +this.route.snapshot.paramMap.get('id')!;
-    this.items = [{ label: 'International Route List For Road', routerLink: '/international-routes-for-road' }, { label: 'Add International Route For Road' }];
+    this.items = [{ label: 'International Route List For Road', routerLink: '/international-routes-for-road' }, { label: 'Edit International Route For Road' }];
     this.getInternationalLocations();
     this.getInternationalRouteById(this.routeId);
     this.type=[{
