@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { DomesticShipment } from 'src/app/model/DomesticShipment';
@@ -28,13 +28,20 @@ import { User } from 'src/app/model/User';
   providers: [MessageService, DatePipe]
 })
 export class UpdateDomesticShipmentForSummaryComponent {
+  
+
+  totalShipments2 = 3; // Assuming a default value; you might be fetching this from somewhere
+  received2 = 0;
+  overages2 = 0;
+  shortages2 = 0;
+
+
 
  
 
 
   defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
   items: MenuItem[] | undefined;
-  required:boolean=false;
 
   domesticShipment: DomesticShipment = {
     originFacility: null,
@@ -100,7 +107,6 @@ export class UpdateDomesticShipmentForSummaryComponent {
   user!: User;
 
   constructor(private locationService: LocationService,
-    private cdr: ChangeDetectorRef,
     private vehicleTypeService: VehicleTypeService,
     private shipmentStatusService: ProductFieldServiceService,
     private domesticShipmentService: DomesticShippingService,
@@ -227,7 +233,6 @@ export class UpdateDomesticShipmentForSummaryComponent {
 
 
       this.domesticShipment = res;
-      this.onTallyStatus(res.status!);
 
 
 
@@ -301,21 +306,18 @@ export class UpdateDomesticShipmentForSummaryComponent {
     
     this.updateDomesticShipment(this.domesticShipment);
   }
-
- 
-
-  onTallyStatus(Status:string){ 
-   if(Status == "Tally"){
-   this.required=true;
-   }else if(Status != "Tally"){
-    this.required=false;
-   }
-   this.cdr.detectChanges();
+  
+  updateCalculations() {
+    const difference = this.received2 - this.totalShipments2;
+    if (difference > 0) {
+      this.overages2 = difference;
+      this.shortages2 = 0;
+    } else {
+      this.shortages2 = Math.abs(difference);
+      this.overages2 = 0;
+    }
   }
-
 }
-
-
 interface originFacility {
   originFacility: string
 }

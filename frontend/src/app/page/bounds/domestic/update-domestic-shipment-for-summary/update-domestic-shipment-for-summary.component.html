@@ -200,7 +200,6 @@
                     <p-dropdown
                       class="w-full"
                       [options]="shipmentStatus?.productFieldValuesList"
-                      (onChange)="onTallyStatus(domesticShipment.status!)"
                       name="status"
                       #status="ngModel"
                       [required]="true"
@@ -237,7 +236,7 @@
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.remarks"
                       #remarks="ngModel"
-                      [required]="true"
+                      required
                       name="remarks"
                     />
                     <!-- <small id="name-help"
@@ -258,7 +257,7 @@
                       name="ata"
                       [stepMinute]="5"
                       [defaultDate]="defaultDate"
-                      [required]="required"
+                      [required]="true"
                       [showTime]="true"
                       [selectOtherMonths]="true"                    
                     ></p-calendar>
@@ -274,9 +273,9 @@
                       pInputText
                       id="name"
                       aria-describedby="name-help"
-                      [(ngModel)]="domesticShipment.totalShipments"
+                      [(ngModel)]="totalShipments2"
                       #totalShipments="ngModel"
-                      [required]="required"
+                      required
                       name="totalShipments"
                     />
                     <!-- <small id="name-help"
@@ -291,9 +290,9 @@
                       pInputText
                       id="name"
                       aria-describedby="name-help"
-                      [(ngModel)]="domesticShipment.overages"
+                      [(ngModel)]="overages2"
                       #overages="ngModel"
-                      [required]="required"
+                      required
                       name="overages"
                     />
                    
@@ -316,7 +315,7 @@
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.overagesAwbs"
                       #overageAwbs="ngModel"
-                      
+                      required
                       name="overageAwbs"
                     />
                     <small
@@ -343,9 +342,10 @@
                       pInputText
                       id="name"
                       aria-describedby="name-help"
-                      [(ngModel)]="domesticShipment.received"
+                      [(ngModel)]="received2"
                       #received="ngModel"
-                      [required]="required"
+                      (ngModelChange)="updateCalculations()"
+                      required
                       name="received"
                     />
                     <!-- <small id="name-help"
@@ -360,9 +360,9 @@
                       pInputText
                       id="name"
                       aria-describedby="name-help"
-                      [(ngModel)]="domesticShipment.shortages"
+                      [(ngModel)]="shortages2"
                       #shortages="ngModel"
-                      [required]="required"
+                      required
                       name="shortages"
                     />
                     <!-- <small id="name-help"
@@ -383,6 +383,7 @@
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.shortagesAwbs"
                       #shortagesAwbs="ngModel"
+                      required
                       name="shortagesAwbs"
                     />
                     <small
