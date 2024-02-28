@@ -29,6 +29,7 @@ public class DomesticShipmentDto {
     private String destinationFacility;
     private String destinationLocation;
     private String routeNumber;
+    private Long routeNumberId;
     private int duration;
     private Integer numberOfShipments;
     private Double weight;

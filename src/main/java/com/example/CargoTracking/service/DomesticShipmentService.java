@@ -61,6 +61,8 @@ public class DomesticShipmentService {
     FileMetaDataRepository fileMetaDataRepository;
     @Autowired
     LocationService locationService;
+    @Autowired
+    DomesticRouteRepository domesticRouteRepository;
 
     @Autowired
     LocationRepository locationRepository;
@@ -481,9 +483,10 @@ public class DomesticShipmentService {
 
             if (!domesticShipmentList.isEmpty()) {
                 for (DomesticShipment entity : domesticShipmentList) {
+                    Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(entity.getRouteNumberId());
                     if (!entity.getRedFlag() && entity.getClearedTime() == null) {
                         Duration duration = Duration.between(entity.getAtd(),currentDateTime);
-                        if(duration.toHours()>entity.getDuration()){
+                        if(duration.toHours()>domesticRoute.get().getDurationLimit()){
                             entity.setRedFlag(true);
                         }
                     }
@@ -504,8 +507,9 @@ public class DomesticShipmentService {
                         String destinationEmails = locationRepository.findById(shipment.getDestinationLocationId()).get()
                                 .getDestinationEscalation();
                         String[] resultListDestinationEscalation = destinationEmails.split(",");
+                        Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(shipment.getRouteNumberId());
 
-                        if (duration.toHours() >= shipment.getDuration()+2 && duration.toHours() < shipment.getDuration()+4 && (resultListOriginEscalation.length >= 1 || resultListDestinationEscalation.length >= 1 )) {
+                        if (duration.toHours() >= domesticRoute.get().getDurationLimit()+2 && duration.toHours() < domesticRoute.get().getDurationLimit()+4 && (resultListOriginEscalation.length >= 1 || resultListDestinationEscalation.length >= 1 )) {
                             if (!shipment.isEscalationFlagOne()) {
                                 List<String> emails = new ArrayList<>();
                                 if(resultListOriginEscalation.length >= 1 ){
@@ -525,7 +529,7 @@ public class DomesticShipmentService {
                                 domesticShipmentRepository.save(shipment);
                             }
                         }
-                        if (duration.toHours() >= shipment.getDuration()+4 && duration.toHours() < shipment.getDuration()+6 && (resultListOriginEscalation.length >= 2  || resultListDestinationEscalation.length>=2 )) {
+                        if (duration.toHours() >= domesticRoute.get().getDurationLimit()+4 && duration.toHours() < domesticRoute.get().getDurationLimit()+6 && (resultListOriginEscalation.length >= 2  || resultListDestinationEscalation.length>=2 )) {
                             if (!shipment.isEscalationFlagTwo()) {
 
                                 List<String> emails = new ArrayList<>();
@@ -546,7 +550,7 @@ public class DomesticShipmentService {
                                 domesticShipmentRepository.save(shipment);
                             }
                         }
-                        if (duration.toHours() >= shipment.getDuration()+6 && (resultListOriginEscalation.length>=3 || resultListDestinationEscalation.length>=3 )) {
+                        if (duration.toHours() >= domesticRoute.get().getDurationLimit()+6 && (resultListOriginEscalation.length>=3 || resultListDestinationEscalation.length>=3 )) {
                             if (!shipment.isEscalationFlagThree()) {
 
                                 List<String> emails = new ArrayList<>();

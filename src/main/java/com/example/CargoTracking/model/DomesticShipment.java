@@ -35,7 +35,7 @@ public class DomesticShipment {
     private Long originLocationId;
     private Long destinationLocationId;
     private String routeNumber;
-    private int duration;
+    private Long routeNumberId;
     private Integer numberOfShipments;
     private Double weight;//weight in kg
     private LocalDateTime etd;
