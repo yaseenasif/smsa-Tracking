@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { InternationalShipment } from 'src/app/model/InternationalShipment';
@@ -34,6 +34,7 @@ export class UpdateInternationalRoadForSummaryComponent {
   items: MenuItem[] | undefined;
   defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
   iSID!: number;
+  required:boolean=false;
   internationalShipment: InternationalShipment = {
     id: null,
     actualWeight: null,
@@ -93,6 +94,7 @@ export class UpdateInternationalRoadForSummaryComponent {
   user!: User;
 
   constructor(private router: Router,
+    private cdr: ChangeDetectorRef,
     private internationalShippingService: InternationalShippingService,
     private messageService: MessageService,
     private locationService: LocationService,
@@ -202,7 +204,7 @@ export class UpdateInternationalRoadForSummaryComponent {
       this.selectedDriver = this.drivers.find(el => (el.name == res.driverName) && (el.contactNumber == res.driverContact) && (el.referenceNumber == res.referenceNumber))
 
       this.internationalShipment = res;
-
+      this.onTallyStatus(res.status!)
 
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -256,6 +258,15 @@ export class UpdateInternationalRoadForSummaryComponent {
     this.internationalShipment.driverContact = this.selectedDriver?.contactNumber;
     this.internationalShipment.referenceNumber = this.selectedDriver?.referenceNumber;
   }
+
+  onTallyStatus(Status:string){ 
+    if(Status == "Tally"){
+    this.required=true;
+    }else if(Status != "Tally"){
+     this.required=false;
+    }
+    this.cdr.detectChanges();
+   }
 }
 
 

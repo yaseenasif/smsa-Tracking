@@ -246,6 +246,7 @@
                       class="w-full"
                       [options]="shipmentStatus.productFieldValuesList"
                       #status="ngModel"
+                      (onChange)="onTallyStatus(internationalShipment.status!)"
                       name="status"
                       [required]="true"
                       [(ngModel)]="internationalShipment.status"
@@ -306,7 +307,7 @@
                       [(ngModel)]="internationalShipment.ata"
                       [stepMinute]="5"
                       [defaultDate]="defaultDate"
-                      [required]="true"
+                      [required]="required"
                       [showTime]="true"
                       [selectOtherMonths]="true"                    
                     ></p-calendar>
@@ -325,7 +326,7 @@
                       [(ngModel)]="internationalShipment.totalShipments"
                       #totalShipments="ngModel"
                       name="totalShipments"
-                      [required]="true"
+                      [required]="required"
                     />
                     <small
                       id="name-help"
@@ -348,7 +349,7 @@
                       [(ngModel)]="internationalShipment.overages"
                       #overages="ngModel"
                       name="overages"
-                      [required]="true"
+                      [required]="required"
                     />
                     <small
                       id="name-help"
@@ -373,7 +374,7 @@
                       aria-describedby="name-help"
                       [(ngModel)]="internationalShipment.overageAWBs"
                       #overageAWBs="ngModel"
-                      required
+                    
                       name="overageAWBs"
                     />
                     <small
@@ -400,7 +401,7 @@
                       aria-describedby="name-help"
                       #received="ngModel"
                       name="received"
-                      [required]="true"
+                      [required]="required"
                       [(ngModel)]="internationalShipment.received"
                     />
                     <small
@@ -422,7 +423,7 @@
                       aria-describedby="name-help"
                       #shortages="ngModel"
                       name="shortages"
-                      [required]="true"
+                      [required]="required"
                       [(ngModel)]="internationalShipment.shortages"
                     />
                     <small
@@ -449,7 +450,6 @@
                       aria-describedby="name-help"
                       [(ngModel)]="internationalShipment.shortageAWBs"
                       #shortagesAwbs="ngModel"
-                      required
                       name="shortagesAwbs"
                     />
                     <small

@@ -102,13 +102,23 @@ export class ViewRoadShippingForSummaryComponent {
   }
 
   makeModelForTable() {
-    const overagesAWBsArray = this.internationalShipment.overageAWBs!.split(',');
-    const shortagesAWBsArray = this.internationalShipment.shortageAWBs!.split(',');
-    var securityTagArray!:any;
+    let overagesAWBsArray!:any;
+    let shortagesAWBsArray!:any;
+    let securityTagArray!:any;
+    if( this.internationalShipment.overageAWBs != null){
+     overagesAWBsArray = this.internationalShipment.overageAWBs!.split(',');
+    }else{
+      overagesAWBsArray=[]
+    }
+    if(this.internationalShipment.shortageAWBs !=null){
+     shortagesAWBsArray = this.internationalShipment.shortageAWBs!.split(',');
+    }else{
+      shortagesAWBsArray=[]
+    }
     if(typeof this.internationalShipment.tagNumber == "string"){
      securityTagArray = this.internationalShipment.tagNumber!.split(',');
     }else{
-       securityTagArray = this.internationalShipment.tagNumber
+       securityTagArray = []
     }
    
 
