@@ -61,5 +61,7 @@ public class InternationalShipmentDto {
     private String preAlertType;
     private long transitTimeTaken;
     private int trip;
+    private Double damage;
+    private String damageAwbs;
 
 }

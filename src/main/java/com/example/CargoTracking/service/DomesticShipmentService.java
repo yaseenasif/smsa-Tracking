@@ -343,6 +343,8 @@ public class DomesticShipmentService {
                 domesticShipment.get().setShortages(domesticShipmentDto.getShortages());
                 domesticShipment.get().setShortagesAwbs(domesticShipmentDto.getShortagesAwbs());
                 domesticShipment.get().setAttachments(domesticShipmentDto.getAttachments());
+                domesticShipment.get().setDamage(domesticShipmentDto.getDamage());
+                domesticShipment.get().setDamageAwbs(domesticShipmentDto.getDamageAwbs());
                 domesticShipment.get().setUpdatedTime(LocalDateTime.now());
 
 //                  if(!domesticShipment.get().getStatus().equals(domesticShipmentDto.getStatus())){

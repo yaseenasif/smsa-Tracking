@@ -22,6 +22,7 @@ import { Country } from 'src/app/model/Country';
 import { Facility } from 'src/app/model/Facility';
 import { User } from 'src/app/model/User';
 import { UserService } from 'src/app/page/user/service/user.service';
+import { Routes } from 'src/app/model/ShipmentRoutes';
 
 
 @Component({
@@ -33,7 +34,16 @@ import { UserService } from 'src/app/page/user/service/user.service';
 export class UpdateDomesticShippingComponent {
   items: MenuItem[] | undefined;
   defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
-
+  domesticRoute:Routes={
+    id: null,
+    destination: null,
+    driver: null,
+    eta: null,
+    etd: null,
+    origin: null,
+    route: null,
+    durationLimit: null
+  }
   domesticShipment: DomesticShipment = {
     originFacility: undefined,
     originLocation: undefined,
@@ -45,7 +55,7 @@ export class UpdateDomesticShippingComponent {
     weight: null,
     // etd: null,
     // eta: null,
-    atd:null,
+    atd: null,
     driverName: null,
     driverContact: null,
     referenceNumber: null,
@@ -70,7 +80,10 @@ export class UpdateDomesticShippingComponent {
     preAlertType: null,
     originCountry: undefined,
     destinationCountry: undefined,
-    numberOfBoxes: undefined
+    numberOfBoxes: undefined,
+    routeNumberId: null,
+    damage: null,
+    damageAwbs: null
   };
 
 
@@ -379,6 +392,16 @@ export class UpdateDomesticShippingComponent {
 
       
       // this.getDomesticRoute();
+
+      this.domesticShipmentService.getRouteByRouteNumber(this.domesticShipment.routeNumber!).subscribe((res: any) => {
+      res.find((el:Routes)=>el.id==this.domesticShipment.routeNumberId)
+      }, (error: any) => {
+        if (error.error.body) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+        }
+      })
       this.getRouteByRouteNumber(this.domesticShipment.routeNumber!);
 
 
@@ -564,6 +587,11 @@ onOrgFacilityChange(){
 onDesFacilityChange(){
   this.desLocation=this.user.domesticDestinationLocations?.filter((el)=> el.country?.name==this.domesticShipment.destinationCountry && el.facility?.name==this.domesticShipment.destinationFacility)
 }
+
+onRouteChange(route:Routes){
+  this.domesticShipment.routeNumber=route.route;
+  this.domesticShipment.routeNumberId=route.id;
+ }
 
 
 

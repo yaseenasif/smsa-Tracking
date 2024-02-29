@@ -383,7 +383,6 @@
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.shortagesAwbs"
                       #shortagesAwbs="ngModel"
-                      required
                       name="shortagesAwbs"
                     />
                     <small
@@ -401,7 +400,54 @@
                   </div>
                   </div>
                 </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Damage</label>
+                    <p-inputNumber
+                    id="name"
+                    (onInput)="makePatternOfDamageAWBS(domesticShipment.damage)"
+                    [(ngModel)]="domesticShipment.damage"
+                    #damage="ngModel"
+                    name="damage"
+                    [useGrouping]="false"
+                  ></p-inputNumber>              
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    {{pattern}}
+                    <label htmlFor="name">Damage AWBs</label>
+                    <div class="card p-fluid">
+                      <input
+                      pInputText
+                      (input)="onPasteDamageAwbs()"
+                      id="name"
+                      [disabled]="domesticShipment.damage == 0 || domesticShipment.damage == null"
+                      [pattern]="pattern"
+                      aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.damageAwbs"
+                      #damageAwbs="ngModel"
+                      required
+                      name="damageAwbs"
+                    />
+                    <small
+                    class="color-red error"
+                    *ngIf="damageAwbs.invalid && (damageAwbs.dirty || damageAwbs.touched )&&damageAwbs?.errors?.['required']"
+                  >
+                  Damage AWBs Number is required.
+                  </small>
+                  <small
+                    class="color-red error"
+                    *ngIf="damageAwbs.invalid && (damageAwbs.dirty || damageAwbs.touched )&&damageAwbs?.errors?.['pattern']"
+                  >
+                    Invalid pattern
+                  </small>
+                  </div>
+                  </div>
+                </div>
               </div>
+
+             
 
               <!-- <h2 class="mb-4 mt-4">Attachments</h2>
                 <div class="grid">

@@ -9,7 +9,7 @@ import { ShipmentStatusService } from 'src/app/page/shipment-status/service/ship
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { DomesticShipment } from 'src/app/model/DomesticShipment';
 import { DomesticShippingService } from '../service/domestic-shipping.service';
-import { Router } from '@angular/router';
+import { Routes } from 'src/app/model/ShipmentRoutes';
 import { Driver } from 'src/app/model/Driver';
 import { DriverService } from 'src/app/page/driver/service/driver.service';
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
@@ -22,6 +22,7 @@ import { User } from 'src/app/model/User';
 import { Country } from 'src/app/model/Country';
 import { Facility } from 'src/app/model/Facility';
 import { empty } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-domestic-shipping',
   templateUrl: './add-domestic-shipping.component.html',
@@ -33,6 +34,16 @@ export class AddDomesticShippingComponent {
   defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
  
   routes: any;
+  domesticRoute:Routes={
+    id: null,
+    destination: null,
+    driver: null,
+    eta: null,
+    etd: null,
+    origin: null,
+    route: null,
+    durationLimit: null
+  };
 
   domesticShipment: DomesticShipment = {
     originFacility: null,
@@ -70,7 +81,10 @@ export class AddDomesticShippingComponent {
     preAlertType: null,
     originCountry: null,
     destinationCountry: null,
-    numberOfBoxes: undefined
+    numberOfBoxes: undefined,
+    routeNumberId: null,
+    damage: null,
+    damageAwbs: null
   };
 
   // originCountry!: Country[];
@@ -311,6 +325,11 @@ export class AddDomesticShippingComponent {
     this.domesticShipment.atd = this.datePipe.transform(this.domesticShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.ata = this.datePipe.transform(this.domesticShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
     this.addDomesticShipment(this.domesticShipment);
+  }
+
+  onRouteChange(route:Routes){
+   this.domesticShipment.routeNumber=route.route;
+   this.domesticShipment.routeNumberId=route.id;
   }
 
 

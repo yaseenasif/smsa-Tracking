@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { DomesticShipment } from 'src/app/model/DomesticShipment';
@@ -79,7 +79,10 @@ export class UpdateDomesticShipmentForSummaryComponent {
     preAlertType: null,
     originCountry: undefined,
     destinationCountry: undefined,
-    numberOfBoxes: undefined
+    numberOfBoxes: undefined,
+    routeNumberId: null,
+    damage: null,
+    damageAwbs: null
   };
 
   location!: Location[];
@@ -107,6 +110,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
   user!: User;
 
   constructor(private locationService: LocationService,
+    private cdr: ChangeDetectorRef,
     private vehicleTypeService: VehicleTypeService,
     private shipmentStatusService: ProductFieldServiceService,
     private domesticShipmentService: DomesticShippingService,
@@ -127,6 +131,9 @@ export class UpdateDomesticShipmentForSummaryComponent {
   }
   onPasteShortagesAwbs() {  
     this.domesticShipment.shortagesAwbs=this.domesticShipment.shortagesAwbs!.match(/[^ ,]+/g)!.join(',')
+  }
+  onPasteDamageAwbs() {  
+    this.domesticShipment.damageAwbs=this.domesticShipment.damageAwbs!.match(/[^ ,]+/g)!.join(',')
   }
 
   onUpload1(event: any) {
@@ -315,6 +322,20 @@ export class UpdateDomesticShipmentForSummaryComponent {
     } else {
       this.shortages2 = Math.abs(difference);
       this.overages2 = 0;
+    }
+  }
+  pattern!:string;
+  makePatternOfDamageAWBS(num:number|null){
+    debugger
+    if (num === null || num < 1) {
+      this.pattern='';
+      this.cdr.detectChanges();
+    }else{
+
+  const groupPattern = '\d{12}';
+  const separator = ',';
+  this.pattern = groupPattern.repeat(num).split('').join(separator);
+  this.cdr.detectChanges();
     }
   }
 }
