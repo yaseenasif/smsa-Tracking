@@ -60,6 +60,6 @@ public class DomesticShipmentDto {
     private String preAlertType;
     private long transitTimeTaken;
     private Boolean activeStatus;
-    private Double damage;
+    private Integer damage;
     private String damageAwbs;
 }
