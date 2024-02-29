@@ -42,6 +42,8 @@ public class InternationalShipmentDto {
     private String vehicleType;
     private Integer numberOfPallets;
     private Integer numberOfBags;
+    private Integer numberOfPalletsReceived;
+    private Integer numberOfBagsReceived;
     private String vehicleNumber;
     private String tagNumber;
     private Long sealNumber;

@@ -47,6 +47,8 @@ public class DomesticShipment {
     private String vehicleType;
     private Integer numberOfPallets;
     private Integer numberOfBags;
+    private Integer numberOfPalletsReceived;
+    private Integer numberOfBagsReceived;
     private String vehicleNumber;
     private String tagNumber;//security tag
     private Long sealNumber;

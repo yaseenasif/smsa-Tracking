@@ -396,17 +396,17 @@ public class DomesticShipmentService {
                     Map<String, Object> model = new HashMap<>();
                     model.put("field1", save.getArrivedTime().toLocalDate().toString());
                     model.put("field2", save.getNumberOfBags().toString());
-                    model.put("field3", save.getNumberOfBags().toString());//reveived
+                    model.put("field3", save.getNumberOfBagsReceived().toString());//reveived
                     model.put("field4", save.getTotalShipments().toString());
                     model.put("field5", save.getReceived().toString());
                     model.put("field6", save.getNumberOfPallets().toString());
-                    model.put("field7", save.getNumberOfPallets().toString());//received
+                    model.put("field7", save.getNumberOfPalletsReceived().toString());//received
                     model.put("field8", save.getShortages().toString());
-                    model.put("field9", save.getShortagesAwbs());
+                    model.put("field9", !save.getShortagesAwbs().isEmpty()? "NIL" : save.getShortagesAwbs());
                     model.put("field10", save.getOverages().toString());
-                    model.put("field11", save.getOveragesAwbs());
-                    model.put("field12", save.getOverages().toString());//damage
-                    model.put("field14", save.getOveragesAwbs());//damageAWBS
+                    model.put("field11", !save.getOveragesAwbs().isEmpty()? "NIL" : save.getOveragesAwbs());
+                    model.put("field12", save.getDamage().toString());//damage
+                    model.put("field13", !save.getDamageAwbs().isEmpty() ? "NIL" : save.getDamageAwbs());//damageAWBS
 
 
                     sendEmailsAsync(emails, subject, "overages-and-shortages-template.ftl", model);
