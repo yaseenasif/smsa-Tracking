@@ -326,15 +326,18 @@ export class UpdateDomesticShipmentForSummaryComponent {
   }
   pattern!:string;
   makePatternOfDamageAWBS(num:number|null){
-    debugger
     if (num === null || num < 1) {
       this.pattern='';
       this.cdr.detectChanges();
     }else{
 
-  const groupPattern = '\d{12}';
-  const separator = ',';
-  this.pattern = groupPattern.repeat(num).split('').join(separator);
+      let groupPattern='';
+      let separator = ','; 
+      for (let index = 0; index < num; index++) {
+        groupPattern += separator + '\\d{12}';
+      }
+      this.pattern = groupPattern.substring(1);
+     
   this.cdr.detectChanges();
     }
   }

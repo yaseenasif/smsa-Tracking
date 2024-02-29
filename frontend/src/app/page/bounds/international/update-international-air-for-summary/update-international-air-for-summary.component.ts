@@ -78,7 +78,9 @@ export class UpdateInternationalAirForSummaryComponent {
     originLocation: null,
     destinationFacility: null,
     destinationLocation: null,
-    numberOfBoxes: undefined
+    numberOfBoxes: undefined,
+    damage: null,
+    damageAwbs: null
   }
   location!: Location[];
   // locationPort!: LocationPort[]
@@ -92,6 +94,7 @@ export class UpdateInternationalAirForSummaryComponent {
   minDate: Date = new Date();
   selectedLocation!: Location;
   user!: User;
+  pattern!: string;
 
   constructor(private router: Router,
     private cdr: ChangeDetectorRef,
@@ -116,6 +119,9 @@ export class UpdateInternationalAirForSummaryComponent {
   }
   onPasteShortagesAwbs() {  
     this.internationalShipment.shortageAWBs=this.internationalShipment.shortageAWBs!.match(/[^ ,]+/g)!.join(',')
+  }
+  onPasteDamageAwbs() {  
+    this.internationalShipment.damageAwbs=this.internationalShipment.damageAwbs!.match(/[^ ,]+/g)!.join(',')
   }
 
   onUpload1(event: any) {
@@ -263,5 +269,21 @@ export class UpdateInternationalAirForSummaryComponent {
     }
     this.cdr.detectChanges();
    }
+   makePatternOfDamageAWBS(num:number|null){
+    if (num === null || num < 1) {
+      this.pattern='';
+      this.cdr.detectChanges();
+    }else{
+
+      let groupPattern='';
+      let separator = ','; 
+      for (let index = 0; index < num; index++) {
+        groupPattern += separator + '\\d{12}';
+      }
+      this.pattern = groupPattern.substring(1);
+     
+      this.cdr.detectChanges();
+    }
+  }
 }
 
