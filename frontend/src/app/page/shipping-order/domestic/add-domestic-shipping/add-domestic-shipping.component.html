@@ -350,8 +350,8 @@
                       #routeNumber="ngModel"
                       name="routeNumber"
                       [required]="true"
-                      [(ngModel)]="domesticShipment.routeNumber"
-                      optionValue="route"
+                      (onChange)="onRouteChange(domesticRoute)"
+                      [(ngModel)]="domesticRoute"
                       optionLabel="route"
                       [filter]="true"
                       filterBy="route"
@@ -365,7 +365,7 @@
                           *ngIf="domesticShipment"
                         >
                           <div>
-                            {{ domesticShipment.routeNumber }}
+                            {{ domesticRoute.route }}
                           </div>
                         </div>
                       </ng-template>

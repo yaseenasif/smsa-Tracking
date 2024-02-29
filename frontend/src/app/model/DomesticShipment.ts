@@ -24,6 +24,7 @@ export interface DomesticShipment{
     vehicleNumber: string|null|undefined,
     tagNumber: string[]|string|null;//security tag
     // sealNumber: number|null|undefined,
+    routeNumberId:number|null|undefined
     status: string|null|undefined,
     remarks: string|null|undefined,
     ata: Date|string|null|undefined,
@@ -36,5 +37,7 @@ export interface DomesticShipment{
     shortagesAwbs: string|null|undefined,
     attachments: string|null|undefined,
     transitTimeTaken:number|null,
-    preAlertType:string|null
+    preAlertType:string|null,
+    damage:number|null,
+    damageAwbs:string|null
 }

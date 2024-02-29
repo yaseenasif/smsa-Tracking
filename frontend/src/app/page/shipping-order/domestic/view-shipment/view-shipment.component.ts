@@ -54,6 +54,9 @@ export class ViewShipmentComponent {
     originCountry: undefined,
     destinationCountry: undefined,
     numberOfBoxes: undefined,
+    routeNumberId: null,
+    damage: null,
+    damageAwbs: null
   };
 
   domesticShipmentId!: number;

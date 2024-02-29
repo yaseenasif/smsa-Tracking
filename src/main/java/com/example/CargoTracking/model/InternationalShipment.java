@@ -75,6 +75,8 @@ public class InternationalShipment {
     private boolean escalationFlagThree;
     private boolean activeStatus;
     private int trip;
+    private Integer damage;
+    private String damageAwbs;
 
     @ManyToOne
     private User createdBy;

@@ -25,6 +25,7 @@ import { UserService } from 'src/app/page/user/service/user.service';
 import { User } from 'src/app/model/User';
 import { Country } from 'src/app/model/Country';
 import { Facility } from 'src/app/model/Facility';
+import { InternationalRoutes } from 'src/app/model/InternationalRoute';
 
 @Component({
   selector: 'app-add-international-shipment-by-road',
@@ -76,7 +77,7 @@ export class AddInternationalShipmentByRoadComponent {
     originLocation: null,
     destinationFacility: null,
     destinationLocation: null,
-    numberOfBoxes: undefined
+    numberOfBoxes: undefined,
   };
 
   // route:any;

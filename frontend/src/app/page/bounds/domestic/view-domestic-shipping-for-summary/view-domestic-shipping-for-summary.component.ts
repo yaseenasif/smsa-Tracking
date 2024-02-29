@@ -51,7 +51,10 @@ export class ViewDomesticShippingForSummaryComponent {
     preAlertType: null,
     originCountry: undefined,
     destinationCountry: undefined,
-    numberOfBoxes: undefined
+    numberOfBoxes: undefined,
+    routeNumberId: null,
+    damage: null,
+    damageAwbs: null
   };
 
   domesticShipmentId!:number;

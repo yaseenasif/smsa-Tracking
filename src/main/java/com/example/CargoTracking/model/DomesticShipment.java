@@ -76,6 +76,8 @@ public class DomesticShipment {
     private boolean escalationFlagThree;
     private LocalDate createdAt;
     private LocalDate updatedAt;
+    private Integer damage;
+    private String damageAwbs;
     @ManyToOne
     private User createdBy;
     @ManyToOne

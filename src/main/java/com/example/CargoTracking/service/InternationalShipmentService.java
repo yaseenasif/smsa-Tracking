@@ -598,6 +598,8 @@ public class InternationalShipmentService {
                 internationalShipment.get().setShortages(internationalShipmentDto.getShortages());
                 internationalShipment.get().setShortageAWBs(internationalShipmentDto.getShortageAWBs());
                 internationalShipment.get().setRouteNumber(internationalShipmentDto.getRouteNumber());
+                internationalShipment.get().setDamage(internationalShipmentDto.getDamage());
+                internationalShipment.get().setDamageAwbs(internationalShipmentDto.getDamageAwbs());
                 LocalDateTime currentDateTime = LocalDateTime.now();
                 internationalShipment.get().setUpdatedTime(currentDateTime);
 

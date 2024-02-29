@@ -200,7 +200,6 @@
                     <p-dropdown
                       class="w-full"
                       [options]="shipmentStatus?.productFieldValuesList"
-                      (onChange)="onTallyStatus(domesticShipment.status!)"
                       name="status"
                       #status="ngModel"
                       [required]="true"
@@ -237,7 +236,7 @@
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.remarks"
                       #remarks="ngModel"
-                      [required]="true"
+                      required
                       name="remarks"
                     />
                     <!-- <small id="name-help"
@@ -258,7 +257,7 @@
                       name="ata"
                       [stepMinute]="5"
                       [defaultDate]="defaultDate"
-                      [required]="required"
+                      [required]="true"
                       [showTime]="true"
                       [selectOtherMonths]="true"                    
                     ></p-calendar>
@@ -274,9 +273,9 @@
                       pInputText
                       id="name"
                       aria-describedby="name-help"
-                      [(ngModel)]="domesticShipment.totalShipments"
+                      [(ngModel)]="totalShipments2"
                       #totalShipments="ngModel"
-                      [required]="required"
+                      required
                       name="totalShipments"
                     />
                     <!-- <small id="name-help"
@@ -291,9 +290,9 @@
                       pInputText
                       id="name"
                       aria-describedby="name-help"
-                      [(ngModel)]="domesticShipment.overages"
+                      [(ngModel)]="overages2"
                       #overages="ngModel"
-                      [required]="required"
+                      required
                       name="overages"
                     />
                    
@@ -316,7 +315,7 @@
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.overagesAwbs"
                       #overageAwbs="ngModel"
-                      
+                      required
                       name="overageAwbs"
                     />
                     <small
@@ -343,9 +342,10 @@
                       pInputText
                       id="name"
                       aria-describedby="name-help"
-                      [(ngModel)]="domesticShipment.received"
+                      [(ngModel)]="received2"
                       #received="ngModel"
-                      [required]="required"
+                      (ngModelChange)="updateCalculations()"
+                      required
                       name="received"
                     />
                     <!-- <small id="name-help"
@@ -360,9 +360,9 @@
                       pInputText
                       id="name"
                       aria-describedby="name-help"
-                      [(ngModel)]="domesticShipment.shortages"
+                      [(ngModel)]="shortages2"
                       #shortages="ngModel"
-                      [required]="required"
+                      required
                       name="shortages"
                     />
                     <!-- <small id="name-help"
@@ -400,7 +400,54 @@
                   </div>
                   </div>
                 </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Damage</label>
+                    <p-inputNumber
+                    id="name"
+                    (onInput)="makePatternOfDamageAWBS(domesticShipment.damage)"
+                    [(ngModel)]="domesticShipment.damage"
+                    #damage="ngModel"
+                    name="damage"
+                    [useGrouping]="false"
+                  ></p-inputNumber>              
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    {{pattern}}
+                    <label htmlFor="name">Damage AWBs</label>
+                    <div class="card p-fluid">
+                      <input
+                      pInputText
+                      (input)="onPasteDamageAwbs()"
+                      id="name"
+                      [disabled]="domesticShipment.damage == 0 || domesticShipment.damage == null"
+                      [pattern]="pattern"
+                      aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.damageAwbs"
+                      #damageAwbs="ngModel"
+                      required
+                      name="damageAwbs"
+                    />
+                    <small
+                    class="color-red error"
+                    *ngIf="damageAwbs.invalid && (damageAwbs.dirty || damageAwbs.touched )&&damageAwbs?.errors?.['required']"
+                  >
+                  Damage AWBs Number is required.
+                  </small>
+                  <small
+                    class="color-red error"
+                    *ngIf="damageAwbs.invalid && (damageAwbs.dirty || damageAwbs.touched )&&damageAwbs?.errors?.['pattern']"
+                  >
+                    Invalid pattern
+                  </small>
+                  </div>
+                  </div>
+                </div>
               </div>
+
+             
 
               <!-- <h2 class="mb-4 mt-4">Attachments</h2>
                 <div class="grid">

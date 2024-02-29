@@ -28,13 +28,20 @@ import { User } from 'src/app/model/User';
   providers: [MessageService, DatePipe]
 })
 export class UpdateDomesticShipmentForSummaryComponent {
+  
+
+  totalShipments2 = 3; // Assuming a default value; you might be fetching this from somewhere
+  received2 = 0;
+  overages2 = 0;
+  shortages2 = 0;
+
+
 
  
 
 
   defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
   items: MenuItem[] | undefined;
-  required:boolean=false;
 
   domesticShipment: DomesticShipment = {
     originFacility: null,
@@ -72,7 +79,10 @@ export class UpdateDomesticShipmentForSummaryComponent {
     preAlertType: null,
     originCountry: undefined,
     destinationCountry: undefined,
-    numberOfBoxes: undefined
+    numberOfBoxes: undefined,
+    routeNumberId: null,
+    damage: null,
+    damageAwbs: null
   };
 
   location!: Location[];
@@ -121,6 +131,9 @@ export class UpdateDomesticShipmentForSummaryComponent {
   }
   onPasteShortagesAwbs() {  
     this.domesticShipment.shortagesAwbs=this.domesticShipment.shortagesAwbs!.match(/[^ ,]+/g)!.join(',')
+  }
+  onPasteDamageAwbs() {  
+    this.domesticShipment.damageAwbs=this.domesticShipment.damageAwbs!.match(/[^ ,]+/g)!.join(',')
   }
 
   onUpload1(event: any) {
@@ -227,7 +240,6 @@ export class UpdateDomesticShipmentForSummaryComponent {
 
 
       this.domesticShipment = res;
-      this.onTallyStatus(res.status!);
 
 
 
@@ -301,21 +313,32 @@ export class UpdateDomesticShipmentForSummaryComponent {
     
     this.updateDomesticShipment(this.domesticShipment);
   }
-
- 
-
-  onTallyStatus(Status:string){ 
-   if(Status == "Tally"){
-   this.required=true;
-   }else if(Status != "Tally"){
-    this.required=false;
-   }
-   this.cdr.detectChanges();
+  
+  updateCalculations() {
+    const difference = this.received2 - this.totalShipments2;
+    if (difference > 0) {
+      this.overages2 = difference;
+      this.shortages2 = 0;
+    } else {
+      this.shortages2 = Math.abs(difference);
+      this.overages2 = 0;
+    }
   }
+  pattern!:string;
+  makePatternOfDamageAWBS(num:number|null){
+    debugger
+    if (num === null || num < 1) {
+      this.pattern='';
+      this.cdr.detectChanges();
+    }else{
 
+  const groupPattern = '\d{12}';
+  const separator = ',';
+  this.pattern = groupPattern.repeat(num).split('').join(separator);
+  this.cdr.detectChanges();
+    }
+  }
 }
-
-
 interface originFacility {
   originFacility: string
 }
