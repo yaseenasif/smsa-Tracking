@@ -58,6 +58,8 @@ export class ViewShipmentRoadComponent {
     destinationFacility: null,
     destinationLocation: null,
     numberOfBoxes: undefined,
+    damage: null,
+    damageAwbs: null
   }
 
 

@@ -59,7 +59,9 @@ export class ViewAirShippingForSummaryComponent {
     originLocation: null,
     destinationFacility: null,
     destinationLocation: null,
-    numberOfBoxes: undefined
+    numberOfBoxes: undefined,
+    damage: null,
+    damageAwbs: null
   }
  
   selectedLocation!: Location;

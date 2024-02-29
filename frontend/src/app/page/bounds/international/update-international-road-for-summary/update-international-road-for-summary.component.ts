@@ -78,6 +78,8 @@ export class UpdateInternationalRoadForSummaryComponent {
     destinationFacility: null,
     destinationLocation: null,
     numberOfBoxes: undefined,
+    damage: null,
+    damageAwbs: null
   }
   minDate: Date = new Date();
   location!: Location[];
@@ -92,6 +94,7 @@ export class UpdateInternationalRoadForSummaryComponent {
 
   selectedLocation!: Location;
   user!: User;
+  pattern!: string;
 
   constructor(private router: Router,
     private cdr: ChangeDetectorRef,
@@ -116,6 +119,9 @@ export class UpdateInternationalRoadForSummaryComponent {
   }
   onPasteShortagesAwbs() {  
     this.internationalShipment.shortageAWBs=this.internationalShipment.shortageAWBs!.match(/[^ ,]+/g)!.join(',')
+  }
+  onPasteDamageAwbs() {  
+    this.internationalShipment.damageAwbs=this.internationalShipment.damageAwbs!.match(/[^ ,]+/g)!.join(',')
   }
    
 
@@ -267,6 +273,22 @@ export class UpdateInternationalRoadForSummaryComponent {
     }
     this.cdr.detectChanges();
    }
+   makePatternOfDamageAWBS(num:number|null){
+    if (num === null || num < 1) {
+      this.pattern='';
+      this.cdr.detectChanges();
+    }else{
+
+      let groupPattern='';
+      let separator = ','; 
+      for (let index = 0; index < num; index++) {
+        groupPattern += separator + '\\d{12}';
+      }
+      this.pattern = groupPattern.substring(1);
+     
+      this.cdr.detectChanges();
+    }
+  }
 }
 
 

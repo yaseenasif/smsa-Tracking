@@ -415,7 +415,6 @@
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
-                    {{pattern}}
                     <label htmlFor="name">Damage AWBs</label>
                     <div class="card p-fluid">
                       <input
@@ -427,7 +426,7 @@
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.damageAwbs"
                       #damageAwbs="ngModel"
-                      required
+                      [required]="!(domesticShipment.damage == 0 || domesticShipment.damage == null)"
                       name="damageAwbs"
                     />
                     <small
