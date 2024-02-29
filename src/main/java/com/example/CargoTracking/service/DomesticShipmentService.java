@@ -138,7 +138,6 @@ public class DomesticShipmentService {
 
             String subject = "TSM Pre-Alert(D): " + domesticShipment.getRouteNumber() + "/" + domesticShipment.getVehicleType() + "/" + domesticShipment.getReferenceNumber();
 
-//            String subject = "TSM Pre-Alert(D): " + domesticShipment.getRouteNumber() + "/" + domesticShipment.getVehicleType() + "/" + domesticShipment.getReferenceNumber() + "/" + domesticShipment.getEtd();
             Map<String, Object> model = new HashMap<>();
             model.put("field1", domesticShipment.getCreatedAt().toString());
             model.put("field2", domesticShipment.getReferenceNumber());
@@ -151,10 +150,6 @@ public class DomesticShipmentService {
             model.put("field9", domesticShipment.getWeight().toString());
             model.put("field10", "Road");
             model.put("field11", domesticShipment.getRouteNumber().toString());
-//            model.put("field11", domesticShipment.getEtd().toLocalDate().toString());
-//            model.put("field12", domesticShipment.getEta().toLocalDate().toString());
-//            model.put("field13", domesticShipment.getEtd().toLocalTime().toString());
-//            model.put("field14", domesticShipment.getEta().toLocalTime().toString());
             model.put("field15", domesticShipment.getRemarks());
 
             sendEmailsAsync(emails, subject, "domestic-email-template.ftl", model);
@@ -345,16 +340,6 @@ public class DomesticShipmentService {
                 domesticShipment.get().setAttachments(domesticShipmentDto.getAttachments());
                 domesticShipment.get().setUpdatedTime(LocalDateTime.now());
 
-//                  if(!domesticShipment.get().getStatus().equals(domesticShipmentDto.getStatus())){
-//                      List<String> emails = userRepository.findEmailByLocation(domesticShipment.get().getDestinationLocation());
-//                      emails.add(domesticShipment.get().getCreatedBy().getEmail());
-//
-//                      for (String to :emails) {
-////                          emailService.sendHtmlEmail(to,"Shipment status is changed");
-//                      }
-//
-//                  }
-
                 if (domesticShipmentDto.getStatus().equalsIgnoreCase("Arrived")) {
                     domesticShipment.get().setArrivedTime(LocalDateTime.now());
                 }
@@ -368,6 +353,7 @@ public class DomesticShipmentService {
                         domesticShipment.get().setRedFlag(false);
                     }
                 }
+
                 DomesticShipmentHistory domesticShipmentHistory;
                 DomesticShipment save;
                 if (domesticShipment.get().getStatus() != domesticShipmentDto.getStatus()) {
@@ -386,6 +372,42 @@ public class DomesticShipmentService {
                     domesticShipmentHistoryRepository.save(domesticShipmentHistory);
                 } else {
                     save = domesticShipmentRepository.save(domesticShipment.get());
+                }
+                if(save.getOverages()>0 || save.getShortages()>0){
+                    String originEmails = locationRepository.findById(save.getOriginLocationId()).get()
+                            .getOriginEmail();
+                    String[] resultListOrigin = originEmails.split(",");
+                    List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOrigin));
+
+                    String destinationEmails = locationRepository.findById(save.getDestinationLocationId()).get()
+                            .getDestinationEmail();
+                    String[] resultListDestination = destinationEmails.split(",");
+                    List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestination));
+
+
+                    List<String> emails = new ArrayList<>();
+                    emails.addAll(originEmailAddresses);
+                    emails.addAll(destinationEmailAddresses);
+
+                    String subject = "TSM Pre-Alert(D): " + save.getRouteNumber() + "/" + save.getVehicleType() + "/" + save.getReferenceNumber() + "/Report" ;
+
+                    Map<String, Object> model = new HashMap<>();
+                    model.put("field1", save.getArrivedTime().toLocalDate().toString());
+                    model.put("field2", save.getNumberOfBags().toString());
+                    model.put("field3", save.getNumberOfBags().toString());//reveived
+                    model.put("field4", save.getTotalShipments().toString());
+                    model.put("field5", save.getReceived().toString());
+                    model.put("field6", save.getNumberOfPallets().toString());
+                    model.put("field7", save.getNumberOfPallets().toString());//received
+                    model.put("field8", save.getShortages().toString());
+                    model.put("field9", save.getShortagesAwbs());
+                    model.put("field10", save.getOverages().toString());
+                    model.put("field11", save.getOveragesAwbs());
+                    model.put("field12", save.getOverages().toString());//damage
+                    model.put("field14", save.getOveragesAwbs());//damageAWBS
+
+
+                    sendEmailsAsync(emails, subject, "overages-and-shortages-template.ftl", model);
                 }
 
                 return toDto(save);

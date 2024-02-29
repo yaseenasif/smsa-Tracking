@@ -49,10 +49,10 @@ public class DomesticShipmentDto {
     private LocalDateTime ata;
     private Integer totalShipments;
     private Integer numberOfBoxes;
-    private String overages;
+    private Integer overages;
     private String overagesAwbs;
-    private String received;
-    private String shortages;
+    private Integer received;
+    private Integer shortages;
     private String shortagesAwbs;
     private String attachments;
     private Boolean redFlag;

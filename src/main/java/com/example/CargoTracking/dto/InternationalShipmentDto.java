@@ -52,10 +52,10 @@ public class InternationalShipmentDto {
     private Integer numberOfBoxes;
     private LocalDateTime ata;// new both
     private Integer totalShipments;// new both
-    private String overages;// new both
+    private Integer overages;// new both
     private String overageAWBs;// new both
-    private String received;// new both
-    private String shortages;// new both
+    private Integer received;// new both
+    private Integer shortages;// new both
     private String shortageAWBs;// new both
     private Boolean redFlag;
     private String preAlertType;

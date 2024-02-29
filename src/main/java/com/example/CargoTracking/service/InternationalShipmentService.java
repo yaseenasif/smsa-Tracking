@@ -635,7 +635,48 @@ public class InternationalShipmentService {
                     save = internationalShipmentRepository.save(internationalShipment.get());
                 }
 
+                if(save.getOverages()>0 || save.getShortages()>0){
+                    String originEmails = locationRepository.findById(save.getOriginLocationId()).get()
+                            .getOriginEmail();
+                    String[] resultListOrigin = originEmails.split(",");
+                    List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOrigin));
 
+                    String destinationEmails = locationRepository.findById(save.getDestinationLocationId()).get()
+                            .getDestinationEmail();
+                    String[] resultListDestination = destinationEmails.split(",");
+                    List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestination));
+
+
+                    List<String> emails = new ArrayList<>();
+                    emails.addAll(originEmailAddresses);
+                    emails.addAll(destinationEmailAddresses);
+
+                    String subject;
+
+                    if(save.getType().equalsIgnoreCase("By Air") ){
+                        subject = "TSM Pre-Alert(A): "+save.getRouteNumber()+"/"+save.getFlightNumber().toString()+"/"+save.getReferenceNumber()+"/"+save.getEtd()+"/Report";
+                    }else{
+                        subject = "TSM Pre_Alert(R): "+save.getRouteNumber()+"/"+save.getVehicleType()+"/"+save.getReferenceNumber()+"/"+save.getEtd()+"/Report";
+                    }
+
+                    Map<String, Object> model = new HashMap<>();
+                    model.put("field1", save.getArrivedTime().toLocalDate().toString());
+                    model.put("field2", save.getNumberOfBags().toString());
+                    model.put("field3", save.getNumberOfBags().toString());//reveived
+                    model.put("field4", save.getTotalShipments().toString());
+                    model.put("field5", save.getReceived().toString());
+                    model.put("field6", save.getNumberOfPallets().toString());
+                    model.put("field7", save.getNumberOfPallets().toString());//received
+                    model.put("field8", save.getShortages().toString());
+                    model.put("field9", save.getShortageAWBs());
+                    model.put("field10", save.getOverages().toString());
+                    model.put("field11", save.getOverageAWBs());
+                    model.put("field12", save.getOverages().toString());//damage
+                    model.put("field14", save.getOverageAWBs());//damageAWBS
+
+
+                    sendEmailsAsync(emails, subject, "overages-and-shortages-template.ftl", model);
+                }
                 return toDto(save);
             }else{
                 throw new UserNotFoundException(String.format("User not found"));
