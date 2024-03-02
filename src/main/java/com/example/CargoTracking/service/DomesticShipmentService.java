@@ -404,11 +404,11 @@ public class DomesticShipmentService {
                     model.put("field6", save.getNumberOfPallets().toString());
                     model.put("field7", save.getNumberOfPalletsReceived().toString());//received
                     model.put("field8", save.getShortages().toString());
-                    model.put("field9", !save.getShortagesAwbs().isEmpty()? "NIL" : save.getShortagesAwbs());
+                    model.put("field9", ((save.getShortagesAwbs() == null) && (save.getShortagesAwbs().isEmpty()))? "NIL" : save.getShortagesAwbs());
                     model.put("field10", save.getOverages().toString());
-                    model.put("field11", !save.getOveragesAwbs().isEmpty()? "NIL" : save.getOveragesAwbs());
+                    model.put("field11", (save.getOveragesAwbs() == null || save.getOveragesAwbs().isEmpty()) ? "NIL" : save.getOveragesAwbs());
                     model.put("field12", save.getDamage().toString());//damage
-                    model.put("field13", !save.getDamageAwbs().isEmpty() ? "NIL" : save.getDamageAwbs());//damageAWBS
+                    model.put("field13", (save.getDamageAwbs() == null || save.getDamageAwbs().isEmpty()) ? "NIL" : save.getDamageAwbs());//damageAWBS
 
 
                     sendEmailsAsync(emails, subject, "overages-and-shortages-template.ftl", model);

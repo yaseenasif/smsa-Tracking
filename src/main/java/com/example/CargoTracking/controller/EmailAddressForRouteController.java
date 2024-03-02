@@ -27,4 +27,9 @@ public class EmailAddressForRouteController {
   public ResponseEntity<EmailAddressForRoutesDto> getEmailsByType(@PathVariable(value = "type") String type){
     return ResponseEntity.ok(emailAddressForRouteService.getEmailByType(type));
   }
+
+  @GetMapping("get/emails/{id}}")
+  public ResponseEntity<EmailAddressForRoutesDto> getEmailsByType(@PathVariable(value = "id") Long id){
+    return ResponseEntity.ok(emailAddressForRouteService.getEmailById(id));
+  }
 }

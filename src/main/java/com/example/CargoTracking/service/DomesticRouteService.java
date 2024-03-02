@@ -7,6 +7,7 @@ import com.example.CargoTracking.model.*;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.repository.DomesticRouteRepository;
 import com.example.CargoTracking.repository.DomesticShipmentRepository;
+import com.example.CargoTracking.repository.EmailAddressForRouteRepository;
 import com.example.CargoTracking.repository.UserRepository;
 import com.example.CargoTracking.specification.DomesticRouteSpecification;
 import com.example.CargoTracking.specification.DomesticShipmentSpecification;
@@ -18,10 +19,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,6 +36,10 @@ public class DomesticRouteService {
     UserRepository userRepository;
     @Autowired
     ModelMapper modelMapper;
+    @Autowired
+    EmailAddressForRouteRepository emailAddressForRouteRepository;
+    @Autowired
+    EmailService emailService;
 
     @Autowired
     DomesticShipmentRepository domesticShipmentRepository;
@@ -118,10 +126,11 @@ public class DomesticRouteService {
         throw new RecordNotFoundException(String.format("Domestic Route not found by this id => %d", id));
     }
 
+    @Transactional
     public DomesticRouteDto updateDomesticRoute(Long id, DomesticRouteDto domesticRouteDto) {
         Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(id);
         if (domesticRoute.isPresent()) {
-
+            DomesticRoute oldDomesticRoute = domesticRoute.get();
             domesticRoute.get().setOrigin(domesticRouteDto.getOrigin());
             domesticRoute.get().setDestination(domesticRouteDto.getDestination());
             domesticRoute.get().setRoute(domesticRouteDto.getRoute());
@@ -129,8 +138,44 @@ public class DomesticRouteService {
             domesticRoute.get().setEta(domesticRouteDto.getEta());
             domesticRoute.get().setDriver(domesticRouteDto.getDriver());
             domesticRoute.get().setDurationLimit(domesticRouteDto.getDurationLimit());
+            domesticRoute.get().setRemarks(domesticRouteDto.getRemarks());
 
             DomesticRoute save = domesticRouteRepository.save(domesticRoute.get());
+
+            EmailAddressForRoutes domesticRouteEmailAddress = emailAddressForRouteRepository.findByType("domestic");
+            if(domesticRouteEmailAddress!=null){
+                if(domesticRouteEmailAddress.getEmails()!=null || !domesticRouteEmailAddress.getEmails().isEmpty()){
+                    String[] resultList = domesticRouteEmailAddress.getEmails().split(",");
+                    List<String> EmailAddresses = new ArrayList<>(Arrays.asList(resultList));
+
+                    List<String> emails = new ArrayList<>();
+                    emails.addAll(EmailAddresses);
+
+                    String subject = "Domestic Route Updated By Id: " + save.getId();
+
+                    Map<String, Object> model = new HashMap<>();
+                    model.put("field1", save.getId().toString());
+                    model.put("field2", oldDomesticRoute.getOrigin());
+                    model.put("field3", oldDomesticRoute.getDestination());
+                    model.put("field4", oldDomesticRoute.getRoute());
+                    model.put("field5", oldDomesticRoute.getDriver());
+                    model.put("field6", oldDomesticRoute.getEtd().toString());
+                    model.put("field7", oldDomesticRoute.getEta().toString());
+                    model.put("field8", oldDomesticRoute.getDurationLimit().toString());
+                    model.put("field9", oldDomesticRoute.getRemarks());
+                    model.put("field10", save.getOrigin());
+                    model.put("field11", save.getDestination());
+                    model.put("field12", save.getRoute());
+                    model.put("field13", save.getDriver());
+                    model.put("field14", save.getEtd().toString());
+                    model.put("field15", save.getEta().toString());
+                    model.put("field16", save.getDurationLimit().toString());
+                    model.put("field17", save.getRemarks());
+
+                    sendEmailsAsync(emails, subject, "domestic-route-update-template.ftl", model);
+
+                }
+            }
             return toDto(save);
 
         } else {
@@ -138,6 +183,14 @@ public class DomesticRouteService {
         }
     }
 
+    @Async
+    private void sendEmailsAsync(List<String> emails, String subject, String template, Map<String, Object> model) {
+        CompletableFuture.runAsync(() -> {
+            for (String to : emails) {
+                emailService.sendHtmlEmail(to, subject, template, model);
+            }
+        });
+    }
     public DomesticRouteDto getDomesticRouteById(Long id) {
         Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(id);
         if(domesticRoute.isPresent()){

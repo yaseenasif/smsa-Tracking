@@ -674,11 +674,11 @@ public class InternationalShipmentService {
                     model.put("field6", save.getNumberOfPallets().toString());
                     model.put("field7", save.getNumberOfPalletsReceived().toString());//received
                     model.put("field8", save.getShortages().toString());
-                    model.put("field9", !save.getShortageAWBs().isEmpty() ? "NIL" : save.getShortageAWBs());
+                    model.put("field9", (save.getShortageAWBs() == null || save.getShortageAWBs().isEmpty()) ? "NIL" : save.getShortageAWBs());
                     model.put("field10", save.getOverages().toString());
-                    model.put("field11", !save.getOverageAWBs().isEmpty() ? "NIL" : save.getOverageAWBs());
+                    model.put("field11", (save.getOverageAWBs() == null || save.getOverageAWBs().isEmpty()) ? "NIL" : save.getOverageAWBs());
                     model.put("field12", save.getDamage().toString());//damage
-                    model.put("field13", !save.getDamageAwbs().isEmpty() ? "NIL" : save.getDamageAwbs());//damageAWBS
+                    model.put("field13", (save.getDamageAwbs() == null || save.getDamageAwbs().isEmpty()) ? "NIL" : save.getDamageAwbs());//damageAWBS
 
 
                     sendEmailsAsync(emails, subject, "overages-and-shortages-template.ftl", model);

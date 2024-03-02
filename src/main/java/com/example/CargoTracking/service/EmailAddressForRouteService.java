@@ -36,7 +36,12 @@ public class EmailAddressForRouteService {
       EmailAddressForRoutes save = emailAddressForRouteRepository.save(unSave);
       return toDto(save);
     }else{
-      throw new RecordNotFoundException("Record didn't exist");
+      EmailAddressForRoutes emailAddressForRoutes1 = new EmailAddressForRoutes();
+      emailAddressForRoutes1.setId(id);
+      emailAddressForRoutes1.setEmails(emailAddressForRoutesDto.getEmails());
+      emailAddressForRoutes1.setType(emailAddressForRoutesDto.getType());
+      EmailAddressForRoutes save = emailAddressForRouteRepository.save(emailAddressForRoutes1);
+      return toDto(save);
     }
   }
 
@@ -54,5 +59,15 @@ public class EmailAddressForRouteService {
       throw new RecordNotFoundException("No Record found");
     }
     return toDto(byType);
+  }
+
+  public EmailAddressForRoutesDto getEmailById(Long id) {
+    Optional<EmailAddressForRoutes> byType = emailAddressForRouteRepository.findById(id);
+    if(byType.isPresent()) {
+      return toDto(byType.get());
+    }else{
+      throw new RecordNotFoundException("No Record found");
+
+    }
   }
 }
