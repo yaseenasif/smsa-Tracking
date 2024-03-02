@@ -82,7 +82,9 @@ export class UpdateInternationalShippingComponent {
     destinationLocation: null,
     numberOfBoxes: undefined,
     damage: null,
-    damageAwbs: null
+    damageAwbs: null,
+    numberOfPalletsReceived: null,
+    numberOfBagsReceived: null
   }
   location!: Location[];
   // originPorts!: LocationPort[];

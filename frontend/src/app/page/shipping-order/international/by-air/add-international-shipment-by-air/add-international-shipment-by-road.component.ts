@@ -79,7 +79,9 @@ export class AddInternationalShipmentByRoadComponent {
     destinationLocation: null,
     numberOfBoxes: undefined,
     damage: null,
-    damageAwbs: null
+    damageAwbs: null,
+    numberOfPalletsReceived: null,
+    numberOfBagsReceived: null
   };
 
   // route:any;

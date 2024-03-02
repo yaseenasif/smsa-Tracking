@@ -560,6 +560,10 @@ public class InternationalShipmentService {
                 internationalShipment.get().setOriginLocationId(orgLocationId);
                 internationalShipment.get().setDestinationLocationId(desLocationId);
                 internationalShipment.get().setOriginCountry(internationalShipmentDto.getOriginCountry());
+
+                internationalShipment.get().setNumberOfBagsReceived(internationalShipmentDto.getNumberOfBagsReceived());
+                internationalShipment.get().setNumberOfPalletsReceived(internationalShipmentDto.getNumberOfPalletsReceived());
+
                 internationalShipment.get().setOriginFacility(internationalShipmentDto.getOriginFacility());
                 internationalShipment.get().setDestinationFacility(internationalShipmentDto.getDestinationFacility());
                 internationalShipment.get().setOriginLocation(internationalShipmentDto.getOriginLocation());

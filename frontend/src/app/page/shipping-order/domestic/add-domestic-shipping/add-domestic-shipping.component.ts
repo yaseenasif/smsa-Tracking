@@ -84,7 +84,9 @@ export class AddDomesticShippingComponent {
     numberOfBoxes: undefined,
     routeNumberId: null,
     damage: null,
-    damageAwbs: null
+    damageAwbs: null,
+    numberOfPalletsReceived: null,
+    numberOfBagsReceived: null
   };
 
   // originCountry!: Country[];
