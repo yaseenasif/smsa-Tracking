@@ -641,7 +641,8 @@ public class InternationalShipmentService {
                     save = internationalShipmentRepository.save(internationalShipment.get());
                 }
 
-                if(save.getOverages()>0 || save.getShortages()>0){
+                if (save.getOverages() != null && save.getShortages() != null &&
+                        (save.getOverages() > 0 || save.getShortages() > 0)) {
                     String originEmails = locationRepository.findById(save.getOriginLocationId()).get()
                             .getOriginEmail();
                     String[] resultListOrigin = originEmails.split(",");

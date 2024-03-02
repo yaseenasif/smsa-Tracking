@@ -377,7 +377,8 @@ public class DomesticShipmentService {
                 } else {
                     save = domesticShipmentRepository.save(domesticShipment.get());
                 }
-                if(save.getOverages()>0 || save.getShortages()>0){
+                if (save.getOverages() != null && save.getShortages() != null &&
+                        (save.getOverages() > 0 || save.getShortages() > 0)) {
                     String originEmails = locationRepository.findById(save.getOriginLocationId()).get()
                             .getOriginEmail();
                     String[] resultListOrigin = originEmails.split(",");
