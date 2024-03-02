@@ -130,7 +130,16 @@ public class DomesticRouteService {
     public DomesticRouteDto updateDomesticRoute(Long id, DomesticRouteDto domesticRouteDto) {
         Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(id);
         if (domesticRoute.isPresent()) {
-            DomesticRoute oldDomesticRoute = domesticRoute.get();
+            DomesticRoute oldDomesticRoute = new DomesticRoute();
+            oldDomesticRoute.setOrigin(domesticRoute.get().getOrigin());
+            oldDomesticRoute.setDestination(domesticRoute.get().getDestination());
+            oldDomesticRoute.setRoute(domesticRoute.get().getRoute());
+            oldDomesticRoute.setEtd(domesticRoute.get().getEtd());
+            oldDomesticRoute.setEta(domesticRoute.get().getEta());
+            oldDomesticRoute.setDriver(domesticRoute.get().getDriver());
+            oldDomesticRoute.setDurationLimit(domesticRoute.get().getDurationLimit());
+            oldDomesticRoute.setRemarks(domesticRoute.get().getRemarks());
+
             domesticRoute.get().setOrigin(domesticRouteDto.getOrigin());
             domesticRoute.get().setDestination(domesticRouteDto.getDestination());
             domesticRoute.get().setRoute(domesticRouteDto.getRoute());
@@ -142,40 +151,44 @@ public class DomesticRouteService {
 
             DomesticRoute save = domesticRouteRepository.save(domesticRoute.get());
 
-            EmailAddressForRoutes domesticRouteEmailAddress = emailAddressForRouteRepository.findByType("domestic");
-            if(domesticRouteEmailAddress!=null){
-                if(domesticRouteEmailAddress.getEmails()!=null || !domesticRouteEmailAddress.getEmails().isEmpty()){
-                    String[] resultList = domesticRouteEmailAddress.getEmails().split(",");
-                    List<String> EmailAddresses = new ArrayList<>(Arrays.asList(resultList));
+            Optional<EmailAddressForRoutes> domesticRouteEmailAddress1 = emailAddressForRouteRepository.findById(1L);
+            if(domesticRouteEmailAddress1.isPresent()){
+                EmailAddressForRoutes domesticRouteEmailAddress = domesticRouteEmailAddress1.get();
+                if(domesticRouteEmailAddress!=null){
+                    if(domesticRouteEmailAddress.getEmails()!=null || !domesticRouteEmailAddress.getEmails().isEmpty()){
+                        String[] resultList = domesticRouteEmailAddress.getEmails().split(",");
+                        List<String> EmailAddresses = new ArrayList<>(Arrays.asList(resultList));
 
-                    List<String> emails = new ArrayList<>();
-                    emails.addAll(EmailAddresses);
+                        List<String> emails = new ArrayList<>();
+                        emails.addAll(EmailAddresses);
 
-                    String subject = "Domestic Route Updated By Id: " + save.getId();
+                        String subject = "Domestic Route Updated By Id: " + save.getId();
 
-                    Map<String, Object> model = new HashMap<>();
-                    model.put("field1", save.getId().toString());
-                    model.put("field2", oldDomesticRoute.getOrigin());
-                    model.put("field3", oldDomesticRoute.getDestination());
-                    model.put("field4", oldDomesticRoute.getRoute());
-                    model.put("field5", oldDomesticRoute.getDriver());
-                    model.put("field6", oldDomesticRoute.getEtd().toString());
-                    model.put("field7", oldDomesticRoute.getEta().toString());
-                    model.put("field8", oldDomesticRoute.getDurationLimit().toString());
-                    model.put("field9", oldDomesticRoute.getRemarks());
-                    model.put("field10", save.getOrigin());
-                    model.put("field11", save.getDestination());
-                    model.put("field12", save.getRoute());
-                    model.put("field13", save.getDriver());
-                    model.put("field14", save.getEtd().toString());
-                    model.put("field15", save.getEta().toString());
-                    model.put("field16", save.getDurationLimit().toString());
-                    model.put("field17", save.getRemarks());
+                        Map<String, Object> model = new HashMap<>();
+                        model.put("field1", save.getId() != null ? save.getId().toString() : "NIL");
+                        model.put("field2", oldDomesticRoute.getOrigin() != null ? oldDomesticRoute.getOrigin() : "NIL");
+                        model.put("field3", oldDomesticRoute.getDestination() != null ? oldDomesticRoute.getDestination() : "NIL");
+                        model.put("field4", oldDomesticRoute.getRoute() != null ? oldDomesticRoute.getRoute() : "NIL");
+                        model.put("field5", oldDomesticRoute.getDriver() != null ? oldDomesticRoute.getDriver() : "NIL");
+                        model.put("field6", oldDomesticRoute.getEtd() != null ? oldDomesticRoute.getEtd().toString() : "NIL");
+                        model.put("field7", oldDomesticRoute.getEta() != null ? oldDomesticRoute.getEta().toString() : "NIL");
+                        model.put("field8", oldDomesticRoute.getDurationLimit() != null ? oldDomesticRoute.getDurationLimit().toString() : "NIL");
+                        model.put("field9", oldDomesticRoute.getRemarks() != null ? oldDomesticRoute.getRemarks() : "NIL");
+                        model.put("field10", save.getOrigin() != null ? save.getOrigin() : "NIL");
+                        model.put("field11", save.getDestination() != null ? save.getDestination() : "NIL");
+                        model.put("field12", save.getRoute() != null ? save.getRoute() : "NIL");
+                        model.put("field13", save.getDriver() != null ? save.getDriver() : "NIL");
+                        model.put("field14", save.getEtd() != null ? save.getEtd().toString() : "NIL");
+                        model.put("field15", save.getEta() != null ? save.getEta().toString() : "NIL");
+                        model.put("field16", save.getDurationLimit() != null ? save.getDurationLimit().toString() : "NIL");
+                        model.put("field17", save.getRemarks() != null ? save.getRemarks() : "NIL");
 
-                    sendEmailsAsync(emails, subject, "domestic-route-update-template.ftl", model);
+                        sendEmailsAsync(emails, subject, "domestic-route-update-template.ftl", model);
 
+                    }
                 }
             }
+
             return toDto(save);
 
         } else {

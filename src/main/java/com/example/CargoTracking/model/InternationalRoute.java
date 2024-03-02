@@ -28,6 +28,7 @@ public class InternationalRoute {
     private LocalTime etd;
     private LocalTime eta;
     private String type;
+    private String remarks;
     private Boolean status;
 
 

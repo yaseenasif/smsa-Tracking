@@ -32,6 +32,7 @@ export class AddInternationalAirRoutesComponent {
     etd: null,
     origin: null,
     route: null,
+    remarks: undefined
   }
 
   // location!: LocationPort[];

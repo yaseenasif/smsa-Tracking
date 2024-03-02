@@ -194,6 +194,27 @@
                   </div>
                 </div>
 
+                <div class="col-12 md:col-6 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Remarks</label>
+                    <input
+                      pInputText
+                      id="remarks"
+                      aria-describedby="name-help"
+                      [(ngModel)]="internationalRoute.remarks"
+                      name="remarks1"
+                      #remarks1="ngModel"
+                      required
+                    />
+                    <small
+                      id="name-help"
+                      class="color-red"
+                      *ngIf="route.invalid && (route.dirty || route.touched)"
+                      >Route is required.</small
+                    >
+                  </div>
+                </div>
+
                 
               </div>
               <div class="flex align-items-center justify-content-end mt-4">
