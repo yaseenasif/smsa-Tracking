@@ -125,6 +125,9 @@ import { ArchiveUserComponent } from './page/user/archive-user/archive-user.comp
 import { TwelveDigitValidatorDirective } from './page/shipping-order/twelve-digit-validator.directive';
 import { IsNumberDirective } from './page/shipping-order/is-number.directive';
 import { SevenDigitValidatorDirective } from './page/shipping-order/seven-digit-validator.directive';
+import { AddDomesticEmailListComponent } from './page/domesticRoutes/add-domestic-email-list/add-domestic-email-list.component';
+import { AddInternationalByAirEmailListComponent } from './page/InternationalRoutes/byAir/add-international-by-air-email-list/add-international-by-air-email-list.component';
+import { AddInternationalByRoadEmailListComponent } from './page/InternationalRoutes/byRoad/add-international-by-road-email-list/add-international-by-road-email-list.component';
 
 @NgModule({
   declarations: [
@@ -218,6 +221,9 @@ import { SevenDigitValidatorDirective } from './page/shipping-order/seven-digit-
     TwelveDigitValidatorDirective,
     IsNumberDirective,
     SevenDigitValidatorDirective,
+    AddDomesticEmailListComponent,
+    AddInternationalByAirEmailListComponent,
+    AddInternationalByRoadEmailListComponent,
     
   ],
   imports: [

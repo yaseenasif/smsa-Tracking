@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Routes } from '../../../model/ShipmentRoutes'
 import { DomesticShipment } from '../../../model/DomesticShipment';
+import { Email } from 'src/app/model/EmailAddressForRoutes';
 @Injectable({
   providedIn: 'root'
 })
@@ -47,4 +48,14 @@ export class DomesticRoutesService {
     let url = `${this.url}/update-domestic-route/${id}`
     return this.http.put<Routes>(url, obj)
   }
+
+  updateEmail(id: number, obj: Email){
+    let url = `${this.url}/update/emails/${id}`
+    return this.http.put<Email>(url, obj)
+  }
+  getEmail(type:string){
+    let url = `${this.url}/get/emails/type/${type}`
+    return this.http.get<Email>(url)
+  }
+
 }

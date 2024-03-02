@@ -10,18 +10,19 @@ $error-color:#dc2626;
 
 @font-face{
     font-family:anta;
-    src: url(assets/Anta-Regular.ttf) format('truetype');
+    src: url(assets/icomoon.ttf) format('truetype');
 }
 
 *{
     margin: 0;
+    font-weight: bold;
 }
 .primer-color{
 color: #400099;
 }
 body{
     background-color: $base-bg-color;
-    font-family: anta;
+    font-family: "Montserrat", sans-serif;
 }
 .body-position{
 padding-left:60px;

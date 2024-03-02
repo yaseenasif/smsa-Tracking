@@ -84,6 +84,9 @@ import { FacilityListComponent } from './page/facility/facility-list/facility-li
 import { AddFacilityComponent } from './page/facility/add-facility/add-facility.component';
 import { FacilityUpdateComponent } from './page/facility/facility-update/facility-update.component';
 import { ArchiveUserComponent } from './page/user/archive-user/archive-user.component';
+import { AddDomesticEmailListComponent } from './page/domesticRoutes/add-domestic-email-list/add-domestic-email-list.component';
+import { AddInternationalByRoadEmailListComponent } from './page/InternationalRoutes/byRoad/add-international-by-road-email-list/add-international-by-road-email-list.component';
+import { AddInternationalByAirEmailListComponent } from './page/InternationalRoutes/byAir/add-international-by-air-email-list/add-international-by-air-email-list.component';
 // import { EmailManagmentComponent } from './page/email-managment/email-managment.component';
 
 
@@ -425,8 +428,18 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'add-domestic-email-list',
+    component: AddDomesticEmailListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'international-routes-for-air',
     component: GetInternationalAirRoutesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'add-international-by-air-email-list',
+    component: AddInternationalByAirEmailListComponent,
     canActivate: [AuthGuard]
   },
   {
@@ -442,6 +455,11 @@ const routes: Routes = [
   {
     path: 'international-routes-for-road',
     component: GetInternationalRoadRoutesComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'add-international-by-road-email-list',
+    component: AddInternationalByRoadEmailListComponent,
     canActivate: [AuthGuard]
   },
   {

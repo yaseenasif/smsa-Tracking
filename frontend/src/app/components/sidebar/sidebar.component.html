@@ -15,9 +15,9 @@
         <span class="nav-text">Domestic Outbound</span>
       </span>
     </li> -->
-    <li (click)="turner2()">
+    <li (click)="turner2()" *ngIf="hasPermission('Domestic Shipment') || hasPermission('International Shipment By Road') || hasPermission('International Shipment By Air')">
       <span class="sidebar-list-hover">
-        <i class="bi bi-gear-fill"></i>
+        <i class="bi bi-box-arrow-up-right"></i>
         <span class="nav-text">
           Outbound
           <i
@@ -36,19 +36,19 @@
 
     <li class="child" *ngIf="configTurner2 && hasPermission('Domestic Shipment')">
       <span class="sidebar-list-hover" routerLink="/domestic-shipping">
-        <i class="bi bi-car-front"></i>
+        <i class="bi bi-truck-front-fill"></i>
         <span class="nav-text"> Domestic Outbound </span>
       </span>
     </li>
-    <li class="child" *ngIf="configTurner2 && hasPermission('Domestic Shipment')">
+    <li class="child" *ngIf="configTurner2 && hasPermission('International Shipment By Road')">
       <span class="sidebar-list-hover" routerLink="/international-shipment-by-road">
-        <i class="bi bi-car-front"></i>
+        <i class="bi bi-truck-front-fill"></i>
         <span class="nav-text"> International Outbound By Road</span>
       </span>
     </li>
-    <li class="child" *ngIf="configTurner2 && hasPermission('Domestic Shipment')">
+    <li class="child" *ngIf="configTurner2 && hasPermission('International Shipment By Air')">
       <span class="sidebar-list-hover" routerLink="/international-shipment-by-air">
-        <i class="bi bi-car-front"></i>
+        <i class="bi bi-airplane-fill"></i>
         <span class="nav-text"> International Outbound By Air</span>
       </span>
     </li>
@@ -64,9 +64,9 @@
         <span class="nav-text"> International Outbound </span>
       </span>
     </li> -->
-    <li (click)="turner3()">
+    <li (click)="turner3()" *ngIf="hasPermission('Domestic Summary') || hasPermission('International Summary By Air') || hasPermission('International Summary By Road')">
       <span class="sidebar-list-hover">
-        <i class="bi bi-gear-fill"></i>
+        <i class="bi bi-box-arrow-in-down-left"></i>
         <span class="nav-text">
           Intbound
           <i
@@ -164,7 +164,7 @@
     </li>
     <li class="child" *ngIf="configTurner && hasPermission('ShipmentRoutes')">
       <span class="sidebar-list-hover" routerLink="/domestic-routes">
-        <i class="bi bi-train-freight-front-fill"></i>
+        <i class="bi bi-truck-front-fill"></i>
         <span class="nav-text"> Domestic Outbound Routes </span>
       </span>
     </li>
@@ -188,7 +188,7 @@
         class="sidebar-list-hover"
         routerLink="/international-routes-for-road"
       >
-      <i class="bi bi-train-freight-front-fill"></i>
+      <i class="bi bi-truck-front-fill"></i>
         <span class="nav-text"> International Outbound Routes For Road </span>
       </span>
     </li>
