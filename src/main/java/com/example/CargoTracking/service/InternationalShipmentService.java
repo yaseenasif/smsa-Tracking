@@ -666,20 +666,19 @@ public class InternationalShipmentService {
                     }
 
                     Map<String, Object> model = new HashMap<>();
-                    model.put("field1", save.getArrivedTime().toLocalDate().toString());
-                    model.put("field2", save.getNumberOfBags().toString());
-                    model.put("field3", save.getNumberOfBagsReceived().toString());//reveived
-                    model.put("field4", save.getTotalShipments().toString());
-                    model.put("field5", save.getReceived().toString());
-                    model.put("field6", save.getNumberOfPallets().toString());
-                    model.put("field7", save.getNumberOfPalletsReceived().toString());//received
-                    model.put("field8", save.getShortages().toString());
-                    model.put("field9", (save.getShortageAWBs() == null || save.getShortageAWBs().isEmpty()) ? "NIL" : save.getShortageAWBs());
-                    model.put("field10", save.getOverages().toString());
-                    model.put("field11", (save.getOverageAWBs() == null || save.getOverageAWBs().isEmpty()) ? "NIL" : save.getOverageAWBs());
-                    model.put("field12", save.getDamage().toString());//damage
-                    model.put("field13", (save.getDamageAwbs() == null || save.getDamageAwbs().isEmpty()) ? "NIL" : save.getDamageAwbs());//damageAWBS
-
+                    model.put("field1", save.getArrivedTime() != null ? save.getArrivedTime().toLocalDate().toString() : "NIL");
+                    model.put("field2", save.getNumberOfBags() != null ? save.getNumberOfBags().toString() : "NIL");
+                    model.put("field3", save.getNumberOfBagsReceived() != null ? save.getNumberOfBagsReceived().toString() : "NIL");
+                    model.put("field4", save.getTotalShipments() != null ? save.getTotalShipments().toString() : "NIL");
+                    model.put("field5", save.getReceived() != null ? save.getReceived().toString() : "NIL");
+                    model.put("field6", save.getNumberOfPallets() != null ? save.getNumberOfPallets().toString() : "NIL");
+                    model.put("field7", save.getNumberOfPalletsReceived() != null ? save.getNumberOfPalletsReceived().toString() : "NIL");
+                    model.put("field8", save.getShortages() != null ? save.getShortages().toString() : "NIL");
+                    model.put("field9", (save.getShortageAWBs() != null && !save.getShortageAWBs().isEmpty()) ? save.getShortageAWBs() : "NIL");
+                    model.put("field10", save.getOverages() != null ? save.getOverages().toString() : "NIL");
+                    model.put("field11", (save.getOverageAWBs() != null && !save.getOverageAWBs().isEmpty()) ? save.getOverageAWBs() : "NIL");
+                    model.put("field12", save.getDamage() != null ? save.getDamage().toString() : "NIL");
+                    model.put("field13", (save.getDamageAwbs() != null && !save.getDamageAwbs().isEmpty()) ? save.getDamageAwbs() : "NIL");
 
                     sendEmailsAsync(emails, subject, "overages-and-shortages-template.ftl", model);
                 }

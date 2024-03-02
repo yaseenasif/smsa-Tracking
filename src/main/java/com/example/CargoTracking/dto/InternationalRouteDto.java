@@ -19,5 +19,6 @@ public class InternationalRouteDto {
     private String driverId;
     private LocalTime etd;
     private LocalTime eta;
+    private String remarks;
     private String type;
 }

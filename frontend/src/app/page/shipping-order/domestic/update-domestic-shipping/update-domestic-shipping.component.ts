@@ -42,7 +42,8 @@ export class UpdateDomesticShippingComponent {
     etd: null,
     origin: null,
     route: null,
-    durationLimit: null
+    durationLimit: null,
+    remarks: undefined
   }
   domesticShipment: DomesticShipment = {
     originFacility: undefined,

@@ -7,6 +7,7 @@ export interface InternationalRoutes{
     eta: Date|string|null,
     etd: Date|string|null,
     origin: string|undefined|null,
+    remarks: string|undefined|null,
     route: string|undefined|null,
   }
   

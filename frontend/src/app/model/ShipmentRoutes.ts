@@ -6,5 +6,6 @@ export interface Routes{
   etd: Date|string|null,
   origin: string|undefined|null,
   route: string|undefined|null,
+  remarks: string|undefined|null,
   durationLimit: number|undefined|null
 }
