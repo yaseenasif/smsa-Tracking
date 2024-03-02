@@ -36,16 +36,18 @@ export interface InternationalShipment {
   routeNumber: string | null | undefined,
   ata: Date | string | null | undefined,
   totalShipments: number | null | undefined,
-  overages: string | null | undefined,
+  overages: number | null | undefined,
   overageAWBs: string | null | undefined,
-  received: string | null | undefined,
-  shortages: string | null | undefined,
+  received: number | null | undefined,
+  shortages: number | null | undefined,
   shortageAWBs: string | null | undefined,
   trip: number | null | undefined,
   preAlertType:string|null,
   transitTimeTaken:number|null,
   damage:number|null,
-  damageAwbs:string|null
+  damageAwbs:string|null,
+  numberOfPalletsReceived:number|null,
+  numberOfBagsReceived:number|null
 }
 
 export interface Time {

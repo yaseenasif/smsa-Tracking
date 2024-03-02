@@ -341,6 +341,8 @@ public class DomesticShipmentService {
                 domesticShipment.get().setDamage(domesticShipmentDto.getDamage());
                 domesticShipment.get().setDamageAwbs(domesticShipmentDto.getDamageAwbs());
                 domesticShipment.get().setUpdatedTime(LocalDateTime.now());
+                domesticShipment.get().setNumberOfBagsReceived(domesticShipmentDto.getNumberOfBagsReceived());
+                domesticShipment.get().setNumberOfPalletsReceived(domesticShipmentDto.getNumberOfPalletsReceived());
 
                 if (domesticShipmentDto.getStatus().equalsIgnoreCase("Arrived")) {
                     domesticShipment.get().setArrivedTime(LocalDateTime.now());
@@ -394,7 +396,7 @@ public class DomesticShipmentService {
                     String subject = "TSM Pre-Alert(D): " + save.getRouteNumber() + "/" + save.getVehicleType() + "/" + save.getReferenceNumber() + "/Report" ;
 
                     Map<String, Object> model = new HashMap<>();
-                    model.put("field1", save.getArrivedTime().toLocalDate().toString());
+                    model.put("field1", save.getArrivedTime()==null?"NIL":save.getArrivedTime().toLocalDate().toString());
                     model.put("field2", save.getNumberOfBags().toString());
                     model.put("field3", save.getNumberOfBagsReceived().toString());//reveived
                     model.put("field4", save.getTotalShipments().toString());

@@ -59,7 +59,9 @@ export class ViewShipmentRoadComponent {
     destinationLocation: null,
     numberOfBoxes: undefined,
     damage: null,
-    damageAwbs: null
+    damageAwbs: null,
+    numberOfPalletsReceived: null,
+    numberOfBagsReceived: null
   }
 
 

@@ -30,16 +30,6 @@ import { User } from 'src/app/model/User';
 export class UpdateDomesticShipmentForSummaryComponent {
   
 
-  totalShipments2 = 3; // Assuming a default value; you might be fetching this from somewhere
-  received2 = 0;
-  overages2 = 0;
-  shortages2 = 0;
-
-
-
- 
-
-
   defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
   items: MenuItem[] | undefined;
 
@@ -82,7 +72,9 @@ export class UpdateDomesticShipmentForSummaryComponent {
     numberOfBoxes: undefined,
     routeNumberId: null,
     damage: null,
-    damageAwbs: null
+    damageAwbs: null,
+    numberOfPalletsReceived: null,
+    numberOfBagsReceived: null
   };
 
   location!: Location[];
@@ -108,6 +100,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
 
   domesticShipmentId: any;
   user!: User;
+  required!: boolean;
 
   constructor(private locationService: LocationService,
     private cdr: ChangeDetectorRef,
@@ -240,8 +233,12 @@ export class UpdateDomesticShipmentForSummaryComponent {
 
 
       this.domesticShipment = res;
+        
+      if(this.domesticShipment.totalShipments!=this.domesticShipment.numberOfShipments){
+        this.domesticShipment.totalShipments=this.domesticShipment.numberOfShipments;
+      }
 
-
+      this.onTallyStatus(res.status!)
 
     }, (error: any) => {
       if (error.error.body) {
@@ -250,6 +247,28 @@ export class UpdateDomesticShipmentForSummaryComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
       }
     })
+  }
+  calculateOveragesAndShortages() {
+    if(this.domesticShipment.received==null||this.domesticShipment.received==undefined){}
+    else if(this.domesticShipment.received!=null||this.domesticShipment.received!=undefined){
+    if(this.domesticShipment.received!>this.domesticShipment.totalShipments!){
+      this.domesticShipment.overages=this.domesticShipment.received!-this.domesticShipment.totalShipments!
+      this.domesticShipment.shortages=0
+      this.makePatternOfOverageAWBS(this.domesticShipment.overages!);
+      this.makePatternOfShortageAWBS(this.domesticShipment.shortages!);
+    }
+    else if(this.domesticShipment.received!<this.domesticShipment.totalShipments!){
+    this.domesticShipment.overages=0
+    this.domesticShipment.shortages=this.domesticShipment.totalShipments!-this.domesticShipment.received!;
+    this.makePatternOfOverageAWBS(this.domesticShipment.overages!);
+    this.makePatternOfShortageAWBS(this.domesticShipment.shortages!);
+    }
+    else if(this.domesticShipment.received! === this.domesticShipment.totalShipments!){
+      this.domesticShipment.overages=0
+      this.domesticShipment.shortages=0
+    }
+
+    }
   }
 
   driverData() {
@@ -314,20 +333,11 @@ export class UpdateDomesticShipmentForSummaryComponent {
     this.updateDomesticShipment(this.domesticShipment);
   }
   
-  updateCalculations() {
-    const difference = this.received2 - this.totalShipments2;
-    if (difference > 0) {
-      this.overages2 = difference;
-      this.shortages2 = 0;
-    } else {
-      this.shortages2 = Math.abs(difference);
-      this.overages2 = 0;
-    }
-  }
-  pattern!:string;
+
+  pattern1!:string;
   makePatternOfDamageAWBS(num:number|null){
     if (num === null || num < 1) {
-      this.pattern='';
+      this.pattern1='';
       this.cdr.detectChanges();
     }else{
 
@@ -336,11 +346,58 @@ export class UpdateDomesticShipmentForSummaryComponent {
       for (let index = 0; index < num; index++) {
         groupPattern += separator + '\\d{12}';
       }
-      this.pattern = groupPattern.substring(1);
+      this.pattern1 = groupPattern.substring(1);
      
   this.cdr.detectChanges();
     }
   }
+
+  pattern2!:string;
+  makePatternOfOverageAWBS(num:number|null){
+    debugger
+    if (num === null || num < 1) {
+      this.pattern2='';
+      this.cdr.detectChanges();
+    }else{
+
+      let groupPattern='';
+      let separator = ','; 
+      for (let index = 0; index < num; index++) {
+        groupPattern += separator + '\\d{12}';
+      }
+      this.pattern2 = groupPattern.substring(1);
+     
+  this.cdr.detectChanges();
+    }
+  }
+
+  pattern3!:string;
+  makePatternOfShortageAWBS(num:number|null){
+    debugger
+    if (num === null || num < 1) {
+      this.pattern3='';
+      this.cdr.detectChanges();
+    }else{
+
+      let groupPattern='';
+      let separator = ','; 
+      for (let index = 0; index < num; index++) {
+        groupPattern += separator + '\\d{12}';
+      }
+      this.pattern3 = groupPattern.substring(1);
+     
+  this.cdr.detectChanges();
+    }
+  }
+
+  onTallyStatus(Status:string){ 
+    if(Status == "Tally"){
+    this.required=true;
+    }else if(Status != "Tally"){
+     this.required=false;
+    }
+    this.cdr.detectChanges();
+   }
 }
 interface originFacility {
   originFacility: string

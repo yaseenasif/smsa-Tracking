@@ -244,14 +244,14 @@
                     <label htmlFor="name">Status</label>
                     <p-dropdown
                       class="w-full"
-                      [options]="shipmentStatus.productFieldValuesList"
+                      [options]="shipmentStatus?.productFieldValuesList"
+                      name="status"
                       #status="ngModel"
                       (onChange)="onTallyStatus(internationalShipment.status!)"
-                      name="status"
                       [required]="true"
                       [(ngModel)]="internationalShipment.status"
-                      optionValue="name"
                       optionLabel="name"
+                      optionValue="name"
                       [filter]="true"
                       filterBy="name"
                       [showClear]="true"
@@ -282,29 +282,28 @@
                       aria-describedby="name-help"
                       [(ngModel)]="internationalShipment.remarks"
                       #remarks="ngModel"
-                      name="remarks"
                       [required]="true"
+                      name="remarks"
                     />
                     <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="
-                        remarks.invalid && (remarks.dirty || remarks.touched)
-                      "
-                      >Remarks is required.</small
-                    >
+                    class="color-red error"
+                    *ngIf="remarks.invalid && (remarks.dirty || remarks.touched )&&remarks?.errors?.['required']"
+                  >
+                  Remarks AWBs Number is required.
+                  </small>
                   </div>
                 </div>
-
-                <!-- 10 -->
+                <!-- 9 -->
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">ATA</label>
+                    <!-- <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="domesticShipment.ata"
+                        #ata="ngModel" required name="ata" /> -->
                     <p-calendar
+                      [(ngModel)]="internationalShipment.ata"
                       #ata="ngModel"
                       name="ata"
-                      [(ngModel)]="internationalShipment.ata"
                       [stepMinute]="5"
                       [defaultDate]="defaultDate"
                       [required]="required"
@@ -312,56 +311,59 @@
                       [selectOtherMonths]="true"                    
                     ></p-calendar>
                     <!-- <small id="name-help"
-                          >{{name}}</small
-                        > -->
+                        >{{name}}</small
+                      > -->
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Total Shipments</label>
-                    <input
-                      pInputText
+                    <p-inputNumber
+                    
                       id="name"
                       aria-describedby="name-help"
+                      [readonly]="true"
                       [(ngModel)]="internationalShipment.totalShipments"
                       #totalShipments="ngModel"
-                      name="totalShipments"
                       [required]="required"
-                    />
+                      name="totalShipments"
+                      [useGrouping]="false"
+                    ></p-inputNumber>
                     <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="
-                        totalShipments.invalid &&
-                        (totalShipments.dirty || totalShipments.touched)
-                      "
-                      >Total Shipments is required.</small
-                    >
+                    class="color-red error"
+                    *ngIf="totalShipments.invalid && (totalShipments.dirty || totalShipments.touched )&&totalShipments?.errors?.['required']"
+                  >
+                  Total Shipments AWBs Number is required.
+                  </small>
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Overages</label>
-                    <input
-                      pInputText
+                    <p-inputNumber
+                     
                       id="name"
                       aria-describedby="name-help"
+                      (ngModelChange)="makePatternOfOverageAWBS(internationalShipment.overages!)"
                       [(ngModel)]="internationalShipment.overages"
                       #overages="ngModel"
-                      name="overages"
                       [required]="required"
-                    />
+                      name="overages"
+                      [useGrouping]="false"
+                    ></p-inputNumber>
                     <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="
-                        overages.invalid && (overages.dirty || overages.touched)
-                      "
-                      >Overages is required.</small
-                    >
+                    class="color-red error"
+                    *ngIf="overages.invalid && (overages.dirty || overages.touched )&&overages?.errors?.['required']"
+                  >
+                  overages is required.
+                  </small>
+                 
+
                   </div>
                 </div>
-                <!-- 11 -->
+
+                <!-- 10 -->
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
                     <label htmlFor="name">Overage AWBs</label>
@@ -369,94 +371,99 @@
                       <input
                       pInputText
                       (input)="onPasteOveragesAwbs()"
+                      [disabled]="internationalShipment.overages == 0 || internationalShipment.overages == null"
+                      [required]="!(internationalShipment.overages == 0 || internationalShipment.overages == null)"
                       id="name"
-                      pattern="^\d{12}(?:,\d{12})*$"
+                      [pattern]="pattern2"
                       aria-describedby="name-help"
                       [(ngModel)]="internationalShipment.overageAWBs"
-                      #overageAWBs="ngModel"
-                    
-                      name="overageAWBs"
+                      #overageAwbs="ngModel"
+                      name="overageAwbs"
                     />
                     <small
                     class="color-red error"
-                    *ngIf="overageAWBs.invalid && (overageAWBs.dirty || overageAWBs.touched ) && overageAWBs?.errors?.['required']"
+                    *ngIf="overageAwbs.invalid && (overageAwbs.dirty || overageAwbs.touched )&&overageAwbs?.errors?.['required']"
                   >
                   Overage AWBs Number is required.
                   </small>
                   <small
                     class="color-red error"
-                    *ngIf="overageAWBs.invalid && (overageAWBs.dirty || overageAWBs.touched ) && overageAWBs?.errors?.['pattern']"
+                    *ngIf="overageAwbs.invalid && (overageAwbs.dirty || overageAwbs.touched )&&overageAwbs?.errors?.['pattern']"
                   >
                     Invalid pattern
                   </small>
                   </div>
                   </div>
                 </div>
+
+
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Received</label>
-                    <input
-                      pInputText
+                    <p-inputNumber
                       id="name"
                       aria-describedby="name-help"
-                      #received="ngModel"
-                      name="received"
-                      [required]="required"
                       [(ngModel)]="internationalShipment.received"
-                    />
+                      [required]="required"
+                      #received="ngModel"
+                      (onInput)="calculateOveragesAndShortages()" 
+                      [useGrouping]="false"
+                      name="received"
+                      autocomplete="off" 
+                    ></p-inputNumber>
                     <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="
-                        received.invalid && (received.dirty || received.touched)
-                      "
-                      >Received is required.</small
-                    >
+                    class="color-red error"
+                    *ngIf="received.invalid && (received.dirty || received.touched )&&received?.errors?.['required']"
+                  >
+                  received is required.
+                  </small>
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2">
+                  <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Shortages</label>
-                    <input
-                      pInputText
+                    <p-inputNumber
                       id="name"
                       aria-describedby="name-help"
-                      #shortages="ngModel"
-                      name="shortages"
-                      [required]="required"
+                      (ngModelChange)="makePatternOfShortageAWBS(internationalShipment.shortages!)"
                       [(ngModel)]="internationalShipment.shortages"
-                    />
+                      #shortages="ngModel"
+                      [required]="required"
+                      name="shortages"
+                      [useGrouping]="false"
+                    ></p-inputNumber>
                     <small
-                      id="name-help"
-                      class="color-red"
-                      *ngIf="
-                        shortages.invalid &&
-                        (shortages.dirty || shortages.touched)
-                      "
-                      >Shortages is required.</small
-                    >
+                    class="color-red error"
+                    *ngIf="shortages.invalid && (shortages.dirty || shortages.touched )&&shortages?.errors?.['required']"
+                  >
+                  shortages is required.
+                  </small>
                   </div>
                 </div>
+                <!-- 11 -->
+               
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Shortages AWBs</label>
+                    <label htmlFor="name">Shortage AWBs</label>
                     <div class="card p-fluid">
                       <input
                       pInputText
                       (input)="onPasteShortagesAwbs()"
                       id="name"
-                      pattern="^\d{12}(?:,\d{12})*$"
+                      [disabled]="internationalShipment.shortages == 0 || internationalShipment.shortages == null"
+                      [pattern]="pattern3"
                       aria-describedby="name-help"
                       [(ngModel)]="internationalShipment.shortageAWBs"
                       #shortagesAwbs="ngModel"
+                      [required]="!(internationalShipment.shortages == 0 || internationalShipment.shortages == null)"
                       name="shortagesAwbs"
                     />
                     <small
                     class="color-red error"
                     *ngIf="shortagesAwbs.invalid && (shortagesAwbs.dirty || shortagesAwbs.touched )&&shortagesAwbs?.errors?.['required']"
                   >
-                  Shortage AWBs Number is required.
+                  Shortages Awbs Number is required.
                   </small>
                   <small
                     class="color-red error"
@@ -467,17 +474,26 @@
                   </div>
                   </div>
                 </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Damage</label>
                     <p-inputNumber
                     id="name"
-                    (onInput)="makePatternOfDamageAWBS(internationalShipment.damage)"
                     [(ngModel)]="internationalShipment.damage"
+                    (onInput)="makePatternOfDamageAWBS(internationalShipment.damage)"
+                    [required]="required"
                     #damage="ngModel"
                     name="damage"
                     [useGrouping]="false"
-                  ></p-inputNumber>              
+                    autocomplete="off" 
+                  ></p-inputNumber>    
+                  <small
+                  class="color-red error"
+                  *ngIf="damage.invalid && (damage.dirty || damage.touched )&&damage?.errors?.['required']"
+                >
+                Damage is required.
+                </small>          
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
@@ -486,10 +502,10 @@
                     <div class="card p-fluid">
                       <input
                       pInputText
-                      (input)="onPasteDamageAwbs()"
+
                       id="name"
                       [disabled]="internationalShipment.damage == 0 || internationalShipment.damage == null"
-                      [pattern]="pattern"
+                      [pattern]="pattern1"
                       aria-describedby="name-help"
                       [(ngModel)]="internationalShipment.damageAwbs"
                       #damageAwbs="ngModel"
@@ -509,6 +525,48 @@
                     Invalid pattern
                   </small>
                   </div>
+                  </div>
+                </div>
+
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Number Of Pallets Received</label>
+                    <p-inputNumber
+                    id="name"
+                    [(ngModel)]="internationalShipment.numberOfPalletsReceived"
+                    [required]="required"
+                    #numberOfPalletsReceived="ngModel"
+                    name="numberOfPalletsReceived"
+                    [useGrouping]="false"
+                    autocomplete="off" 
+                  ></p-inputNumber>     
+                  <small
+                  class="color-red error"
+                  *ngIf="numberOfPalletsReceived.invalid && (numberOfPalletsReceived.dirty || numberOfPalletsReceived.touched ) && numberOfPalletsReceived?.errors?.['required']"
+                >
+                Number Of Pallets Received is required.
+                </small>         
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">number Of Bags Received</label>
+                    <p-inputNumber
+                    id="name"
+                    [required]="required"
+                    [(ngModel)]="internationalShipment.numberOfBagsReceived"
+                    #numberOfBagsReceived="ngModel"
+                    name="numberOfBagsReceived"
+                    [useGrouping]="false"
+                    autocomplete="off" 
+                  ></p-inputNumber>  
+                  <small
+                  class="color-red error"
+                  *ngIf="numberOfBagsReceived.invalid && (numberOfBagsReceived.dirty || numberOfBagsReceived.touched ) && numberOfBagsReceived?.errors?.['required']"
+                >
+                Number Of Bags Received is required.
+                </small>               
                   </div>
                 </div>
               </div>

@@ -29,15 +29,17 @@ export interface DomesticShipment{
     remarks: string|null|undefined,
     ata: Date|string|null|undefined,
     totalShipments: number|null|undefined,
-    overages: string|null|undefined,
+    overages: number|null|undefined,
     overagesAwbs: string|null|undefined,
     numberOfBoxes:number|null|undefined,
-    received: string|null|undefined,
-    shortages: string|null|undefined,
+    received: number|null|undefined,
+    shortages: number|null|undefined,
     shortagesAwbs: string|null|undefined,
     attachments: string|null|undefined,
     transitTimeTaken:number|null,
     preAlertType:string|null,
     damage:number|null,
-    damageAwbs:string|null
+    damageAwbs:string|null,
+    numberOfPalletsReceived:number|null,
+    numberOfBagsReceived:number|null;
 }
