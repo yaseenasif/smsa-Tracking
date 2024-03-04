@@ -249,6 +249,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     })
   }
   calculateOveragesAndShortages() {
+    if(this.domesticShipment.status== "Tally" || this.domesticShipment.status=="Arrived"){
     if(this.domesticShipment.received==null||this.domesticShipment.received==undefined){}
     else if(this.domesticShipment.received!=null||this.domesticShipment.received!=undefined){
     if(this.domesticShipment.received!>this.domesticShipment.totalShipments!){
@@ -269,6 +270,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     }
 
     }
+  }
   }
 
   driverData() {

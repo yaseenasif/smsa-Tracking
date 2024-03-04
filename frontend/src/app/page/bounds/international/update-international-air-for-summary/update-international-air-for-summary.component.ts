@@ -270,6 +270,7 @@ export class UpdateInternationalAirForSummaryComponent {
 
 
   calculateOveragesAndShortages() {
+    if(this.internationalShipment.status== "Tally" || this.internationalShipment.status=="Cleared"){
     if(this.internationalShipment.received==null||this.internationalShipment.received==undefined){}
     else if(this.internationalShipment.received!=null||this.internationalShipment.received!=undefined){
     if(this.internationalShipment.received!>this.internationalShipment.totalShipments!){
@@ -290,6 +291,7 @@ export class UpdateInternationalAirForSummaryComponent {
     }
 
     }
+  }
   }
 
   onTallyStatus(Status:string){ 

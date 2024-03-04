@@ -309,6 +309,7 @@
                       [(ngModel)]="internationalShipment.overages"
                       #overages="ngModel"
                       [required]="required"
+                      [disabled]='!(this.internationalShipment.status== "Tally" || this.internationalShipment.status=="Cleared")'
                       name="overages"
                       [useGrouping]="false"
                     ></p-inputNumber>
@@ -388,6 +389,7 @@
                       aria-describedby="name-help"
                       (ngModelChange)="makePatternOfShortageAWBS(internationalShipment.shortages!)"
                       [(ngModel)]="internationalShipment.shortages"
+                      [disabled]='!(this.internationalShipment.status== "Tally" || this.internationalShipment.status=="Cleared")'
                       #shortages="ngModel"
                       [required]="required"
                       name="shortages"
@@ -444,6 +446,7 @@
                     [(ngModel)]="internationalShipment.damage"
                     (onInput)="makePatternOfDamageAWBS(internationalShipment.damage)"
                     [required]="required"
+                    [disabled]='!(this.internationalShipment.status== "Tally" || this.internationalShipment.status=="Cleared")'
                     #damage="ngModel"
                     name="damage"
                     [useGrouping]="false"
