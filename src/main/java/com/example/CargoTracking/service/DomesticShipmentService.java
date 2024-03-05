@@ -397,19 +397,19 @@ public class DomesticShipmentService {
                     String subject = "TSM Pre-Alert(D): " + save.getRouteNumber() + "/" + save.getVehicleType() + "/" + save.getReferenceNumber() + "/Report" ;
 
                     Map<String, Object> model = new HashMap<>();
-                    model.put("field1", save.getArrivedTime() == null ? "NIL" : save.getArrivedTime().toLocalDate().toString());
-                    model.put("field2", save.getNumberOfBags() == null ? "NIL" : save.getNumberOfBags().toString());
-                    model.put("field3", save.getNumberOfBagsReceived() == null ? "NIL" : save.getNumberOfBagsReceived().toString());
-                    model.put("field4", save.getTotalShipments() == null ? "NIL" : save.getTotalShipments().toString());
-                    model.put("field5", save.getReceived() == null ? "NIL" : save.getReceived().toString());
-                    model.put("field6", save.getNumberOfPallets() == null ? "NIL" : save.getNumberOfPallets().toString());
-                    model.put("field7", save.getNumberOfPalletsReceived() == null ? "NIL" : save.getNumberOfPalletsReceived().toString());
-                    model.put("field8", save.getShortages() == null ? "NIL" : save.getShortages().toString());
-                    model.put("field9", (save.getShortagesAwbs() == null || save.getShortagesAwbs().isEmpty()) ? "NIL" : save.getShortagesAwbs());
-                    model.put("field10", save.getOverages() == null ? "NIL" : save.getOverages().toString());
-                    model.put("field11", (save.getOveragesAwbs() == null || save.getOveragesAwbs().isEmpty()) ? "NIL" : save.getOveragesAwbs());
-                    model.put("field12", save.getDamage() == null ? "NIL" : save.getDamage().toString());
-                    model.put("field13", (save.getDamageAwbs() == null || save.getDamageAwbs().isEmpty()) ? "NIL" : save.getDamageAwbs());
+                    model.put("field1", save.getArrivedTime() != null ? save.getArrivedTime().toLocalDate().toString() : "NIL");
+                    model.put("field2", save.getNumberOfBags() != null && save.getNumberOfBags() != 0 ? save.getNumberOfBags().toString() : "NIL");
+                    model.put("field3", save.getNumberOfBagsReceived() != null && save.getNumberOfBagsReceived() != 0 ? save.getNumberOfBagsReceived().toString() : "NIL");
+                    model.put("field4", save.getTotalShipments() != null && save.getTotalShipments() != 0 ? save.getTotalShipments().toString() : "NIL");
+                    model.put("field5", save.getReceived() != null && save.getReceived() != 0 ? save.getReceived().toString() : "NIL");
+                    model.put("field6", save.getNumberOfPallets() != null && save.getNumberOfPallets() != 0 ? save.getNumberOfPallets().toString() : "NIL");
+                    model.put("field7", save.getNumberOfPalletsReceived() != null && save.getNumberOfPalletsReceived() != 0 ? save.getNumberOfPalletsReceived().toString() : "NIL");
+                    model.put("field8", save.getShortages() != null && save.getShortages() != 0 ? save.getShortages().toString() : "NIL");
+                    model.put("field9", (save.getShortagesAwbs() != null && !save.getShortagesAwbs().isEmpty()) ? save.getShortagesAwbs() : "NIL");
+                    model.put("field10", save.getOverages() != null && save.getOverages() != 0 ? save.getOverages().toString() : "NIL");
+                    model.put("field11", (save.getOveragesAwbs() != null && !save.getOveragesAwbs().isEmpty()) ? save.getOveragesAwbs() : "NIL");
+                    model.put("field12", save.getDamage() != null && save.getDamage() != 0 ? save.getDamage().toString() : "NIL");
+                    model.put("field13", (save.getDamageAwbs() != null && !save.getDamageAwbs().isEmpty()) ? save.getDamageAwbs() : "NIL");
 
                     sendEmailsAsync(emails, subject, "overages-and-shortages-template.ftl", model);
                 }

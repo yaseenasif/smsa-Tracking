@@ -668,17 +668,17 @@ public class InternationalShipmentService {
 
                     Map<String, Object> model = new HashMap<>();
                     model.put("field1", save.getArrivedTime() != null ? save.getArrivedTime().toLocalDate().toString() : "NIL");
-                    model.put("field2", save.getNumberOfBags() != null ? save.getNumberOfBags().toString() : "NIL");
-                    model.put("field3", save.getNumberOfBagsReceived() != null ? save.getNumberOfBagsReceived().toString() : "NIL");
-                    model.put("field4", save.getTotalShipments() != null ? save.getTotalShipments().toString() : "NIL");
-                    model.put("field5", save.getReceived() != null ? save.getReceived().toString() : "NIL");
-                    model.put("field6", save.getNumberOfPallets() != null ? save.getNumberOfPallets().toString() : "NIL");
-                    model.put("field7", save.getNumberOfPalletsReceived() != null ? save.getNumberOfPalletsReceived().toString() : "NIL");
-                    model.put("field8", save.getShortages() != null ? save.getShortages().toString() : "NIL");
+                    model.put("field2", save.getNumberOfBags() != null && save.getNumberOfBags() != 0 ? save.getNumberOfBags().toString() : "NIL");
+                    model.put("field3", save.getNumberOfBagsReceived() != null && save.getNumberOfBagsReceived() != 0 ? save.getNumberOfBagsReceived().toString() : "NIL");
+                    model.put("field4", save.getTotalShipments() != null && save.getTotalShipments() != 0 ? save.getTotalShipments().toString() : "NIL");
+                    model.put("field5", save.getReceived() != null && save.getReceived() != 0 ? save.getReceived().toString() : "NIL");
+                    model.put("field6", save.getNumberOfPallets() != null && save.getNumberOfPallets() != 0 ? save.getNumberOfPallets().toString() : "NIL");
+                    model.put("field7", save.getNumberOfPalletsReceived() != null && save.getNumberOfPalletsReceived() != 0 ? save.getNumberOfPalletsReceived().toString() : "NIL");
+                    model.put("field8", save.getShortages() != null && save.getShortages() != 0 ? save.getShortages().toString() : "NIL");
                     model.put("field9", (save.getShortageAWBs() != null && !save.getShortageAWBs().isEmpty()) ? save.getShortageAWBs() : "NIL");
-                    model.put("field10", save.getOverages() != null ? save.getOverages().toString() : "NIL");
+                    model.put("field10", save.getOverages() != null && save.getOverages() != 0 ? save.getOverages().toString() : "NIL");
                     model.put("field11", (save.getOverageAWBs() != null && !save.getOverageAWBs().isEmpty()) ? save.getOverageAWBs() : "NIL");
-                    model.put("field12", save.getDamage() != null ? save.getDamage().toString() : "NIL");
+                    model.put("field12", save.getDamage() != null && save.getDamage() != 0 ? save.getDamage().toString() : "NIL");
                     model.put("field13", (save.getDamageAwbs() != null && !save.getDamageAwbs().isEmpty()) ? save.getDamageAwbs() : "NIL");
 
                     sendEmailsAsync(emails, subject, "overages-and-shortages-template.ftl", model);
