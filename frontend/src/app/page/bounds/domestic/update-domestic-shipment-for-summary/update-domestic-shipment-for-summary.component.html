@@ -460,7 +460,7 @@
                     <div class="card p-fluid">
                       <input
                       pInputText
-
+                      (input)=" onPasteDamageAwbs()"
                       id="name"
                       [disabled]="domesticShipment.damage == 0 || domesticShipment.damage == null"
                       [pattern]="pattern1"

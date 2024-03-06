@@ -7,6 +7,7 @@ import { DatePipe } from '@angular/common';
 
 import { DomesticShippingService } from 'src/app/page/shipping-order/domestic/service/domestic-shipping.service';
 import { STRING_TYPE } from '@angular/compiler';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-view-shipment',
@@ -63,12 +64,16 @@ export class ViewShipmentComponent {
 
   domesticShipmentId!: number;
   domesticShipmentHistory: any;
+  copyOveragesAWBs!: string;
+  copySecurityTag!: string;
+  copyShortagesAWBs!: string;
 
   constructor(
     private domesticShipmentService: DomesticShippingService,
     private router: Router,
     private messageService: MessageService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private _clipboardService: ClipboardService,
   ) {}
 
   ngOnInit(): void {
@@ -139,16 +144,19 @@ export class ViewShipmentComponent {
     let securityTagArray:any;
     if(this.domesticShipment.overagesAwbs!=null){
      overagesAWBsArray = this.domesticShipment.overagesAwbs!.split(',');
+     this.copyOveragesAWBs=overagesAWBsArray.join('\n');
     }else{
        overagesAWBsArray =[]
     }
     if(this.domesticShipment.shortagesAwbs!=null){
      shortagesAWBsArray = this.domesticShipment.shortagesAwbs!.split(',');
+     this.copyShortagesAWBs=shortagesAWBsArray.join('\n');
     }else{
        shortagesAWBsArray =[]
     }
     if(typeof this.domesticShipment.tagNumber == "string"){
      securityTagArray = this.domesticShipment.tagNumber!.split(',');
+     this.copySecurityTag=securityTagArray.join('\n')
     }else{
        securityTagArray = []
     }
@@ -179,5 +187,31 @@ export class ViewShipmentComponent {
       this.resultArray.push(obj);
     }
   }
+  AnimationOveragesAWBs:boolean=false;
+  AnimationSecurityTag:boolean=false;
+  AnimationShortagesAWBs:boolean=false;
+ 
+  onCopiedAnimationOveragesAWBs(){
+  this.AnimationOveragesAWBs=true;
+  this._clipboardService.copy(this.copyOveragesAWBs)
+  setTimeout(() => {
+  this.AnimationOveragesAWBs=false;
+   }, 2000);
+  }
+  onCopiedAnimationSecurityTags(){
+    this.AnimationSecurityTag=true;
+    this._clipboardService.copy(this.copySecurityTag)
+  setTimeout(() => {
+    this.AnimationSecurityTag=false;
+  }, 2000);
+    }
+    onCopiedAnimationShortagesAWBs(){
+      this.AnimationShortagesAWBs=true;
+      this._clipboardService.copy(this.copyShortagesAWBs)
+    setTimeout(() => {
+      this.AnimationShortagesAWBs=false;
+    }, 2000);
+    }
+
   }
 
