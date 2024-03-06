@@ -524,7 +524,7 @@ public class DomesticShipmentService {
             List<DomesticShipment> domesticShipmentList1 = domesticShipmentRepository.findAll();
             if (!domesticShipmentList1.isEmpty()) {
                 for (DomesticShipment shipment : domesticShipmentList1) {
-                    if (shipment.getArrivedTime() != null && shipment.getStatus() != "Cleared") {
+                    if (shipment.getArrivedTime() != null && shipment.getClearedTime() == null) {
                         Duration duration = Duration.between(shipment.getAtd(),currentDateTime);
                         String originEmails = locationRepository.findById(shipment.getOriginLocationId()).get()
                                 .getOriginEscalation();

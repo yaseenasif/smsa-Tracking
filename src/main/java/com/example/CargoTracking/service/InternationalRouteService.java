@@ -171,7 +171,7 @@ public class InternationalRouteService {
 
             Optional<EmailAddressForRoutes> emailAddress1;
             EmailAddressForRoutes emailAddress = null;
-            if(save.getType().equals("internationalAir")){
+            if(save.getType().equals("Air")){
                 emailAddress1 = emailAddressForRouteRepository.findById(2L);
 
             }else{
