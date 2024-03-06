@@ -5,6 +5,7 @@ import { InternationalShipment } from 'src/app/model/InternationalShipment';
 import { Location } from 'src/app/model/Location'
 import { DatePipe } from '@angular/common';
 import { InternationalShippingService } from 'src/app/page/shipping-order/international/service/international-shipping.service';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
   selector: 'app-view-shipment-air',
@@ -67,8 +68,13 @@ export class ViewShipmentAirComponent {
  
   selectedLocation!: Location;
   InternationalShipmentHistory:any;
+  AnimationOveragesAWBs!: boolean;
+  AnimationShortagesAWBs!: boolean;
+  copyShortagesAWBs!: string;
+  copyOveragesAWBs!: string;
 
   constructor(private router: Router,
+    private _clipboardService: ClipboardService,
     private internationalShippingService: InternationalShippingService,
     private messageService: MessageService,
     private route: ActivatedRoute,
@@ -116,11 +122,13 @@ export class ViewShipmentAirComponent {
    
     if(this.internationalShipment.overageAWBs!=null){
      overagesAWBsArray = this.internationalShipment.overageAWBs!.split(',');
+     this.copyOveragesAWBs=overagesAWBsArray.join('\n')
     }else{
        overagesAWBsArray =[]
     }
     if(this.internationalShipment.shortageAWBs!=null){
      shortagesAWBsArray = this.internationalShipment.shortageAWBs!.split(',');
+     this.copyShortagesAWBs=shortagesAWBsArray.join('\n')
     }else{
        shortagesAWBsArray =[]
     }
@@ -148,6 +156,21 @@ export class ViewShipmentAirComponent {
       this.resultArray.push(obj);
     }
   }
+  onCopiedAnimationOveragesAWBs(){
+    this.AnimationOveragesAWBs=true;
+    this._clipboardService.copy(this.copyOveragesAWBs)
+    setTimeout(() => {
+    this.AnimationOveragesAWBs=false;
+     }, 2000);
+    }
+    
+      onCopiedAnimationShortagesAWBs(){
+        this.AnimationShortagesAWBs=true;
+        this._clipboardService.copy(this.copyShortagesAWBs)
+      setTimeout(() => {
+        this.AnimationShortagesAWBs=false;
+      }, 2000);
+        }
 }
 
 

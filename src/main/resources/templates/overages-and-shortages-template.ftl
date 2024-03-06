@@ -37,10 +37,10 @@
                 <td style="font-weight: bolder;">
                     Total bags
                 </td>
-                <td style="text-align: center;" ">
+                <td style="text-align: center;">
                     ${field2}
                 </td>
-                <td style="text-align: center;" >
+                <td style="text-align: center;">
                     ${field3}
                 </td>
             </tr>
@@ -81,7 +81,7 @@
                 <td style="font-weight: bolder;">
                     Shortages
                 </td>
-                <td style="text-align: center;" ">
+                <td style="text-align: center;">
                     ${field8}
                 </td>
                 <td style="text-align: center;" >
