@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ClipboardService } from 'ngx-clipboard';
 import { MenuItem, MessageService } from 'primeng/api';
 import { InternationalShipment } from 'src/app/model/InternationalShipment';
 import { InternationalShippingService } from 'src/app/page/shipping-order/international/service/international-shipping.service';
@@ -63,9 +64,13 @@ export class ViewRoadShippingForSummaryComponent {
     numberOfPalletsReceived: null,
     numberOfBagsReceived: null
   }
+  copySecurityTag!: string;
+  copyShortagesAWBs!: string;
+  copyOveragesAWBs!: string;
 
 
   constructor(private router: Router,
+    private _clipboardService: ClipboardService,
     private internationalShippingService: InternationalShippingService,
     private messageService: MessageService,
     private route: ActivatedRoute) { }
@@ -111,16 +116,19 @@ export class ViewRoadShippingForSummaryComponent {
     let securityTagArray!:any;
     if( this.internationalShipment.overageAWBs != null){
      overagesAWBsArray = this.internationalShipment.overageAWBs!.split(',');
+     this.copyOveragesAWBs=overagesAWBsArray.join("\n")
     }else{
       overagesAWBsArray=[]
     }
     if(this.internationalShipment.shortageAWBs !=null){
      shortagesAWBsArray = this.internationalShipment.shortageAWBs!.split(',');
+     this.copyShortagesAWBs=shortagesAWBsArray.join("\n")
     }else{
       shortagesAWBsArray=[]
     }
     if(typeof this.internationalShipment.tagNumber == "string"){
      securityTagArray = this.internationalShipment.tagNumber!.split(',');
+     this.copySecurityTag=securityTagArray.join("\n")
     }else{
        securityTagArray = []
     }
@@ -151,5 +159,31 @@ export class ViewRoadShippingForSummaryComponent {
       this.resultArray.push(obj);
     }
   }
+
+  AnimationOveragesAWBs:boolean=false;
+  AnimationSecurityTag:boolean=false;
+  AnimationShortagesAWBs:boolean=false;
+ 
+  onCopiedAnimationOveragesAWBs(){
+  this.AnimationOveragesAWBs=true;
+  this._clipboardService.copy(this.copyOveragesAWBs)
+  setTimeout(() => {
+  this.AnimationOveragesAWBs=false;
+   }, 2000);
+  }
+  onCopiedAnimationSecurityTags(){
+    this.AnimationSecurityTag=true;
+    this._clipboardService.copy(this.copySecurityTag)
+  setTimeout(() => {
+    this.AnimationSecurityTag=false;
+  }, 2000);
+    }
+    onCopiedAnimationShortagesAWBs(){
+      this.AnimationShortagesAWBs=true;
+      this._clipboardService.copy(this.copyShortagesAWBs)
+    setTimeout(() => {
+      this.AnimationShortagesAWBs=false;
+    }, 2000);
+      }
 
 }

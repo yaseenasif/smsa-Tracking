@@ -128,6 +128,8 @@ import { SevenDigitValidatorDirective } from './page/shipping-order/seven-digit-
 import { AddDomesticEmailListComponent } from './page/domesticRoutes/add-domestic-email-list/add-domestic-email-list.component';
 import { AddInternationalByAirEmailListComponent } from './page/InternationalRoutes/byAir/add-international-by-air-email-list/add-international-by-air-email-list.component';
 import { AddInternationalByRoadEmailListComponent } from './page/InternationalRoutes/byRoad/add-international-by-road-email-list/add-international-by-road-email-list.component';
+import { ChipModule } from 'primeng/chip';
+import { ClipboardModule } from 'ngx-clipboard';
 
 @NgModule({
   declarations: [
@@ -227,6 +229,8 @@ import { AddInternationalByRoadEmailListComponent } from './page/InternationalRo
     
   ],
   imports: [
+    ClipboardModule,
+    ChipModule,
     ChipsModule,
     CheckboxModule,
     BrowserModule,

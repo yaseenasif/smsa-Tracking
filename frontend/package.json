@@ -24,6 +24,7 @@
     "file-saver": "^2.0.5",
     "json-server": "^0.17.3",
     "jwt-decode": "^4.0.0",
+    "ngx-clipboard": "^16.0.0",
     "ngx-ui-loader": "^13.0.0",
     "primeng": "^16.1.0",
     "rxjs": "~7.8.0",

@@ -400,6 +400,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     }
     this.cdr.detectChanges();
    }
+ 
 }
 interface originFacility {
   originFacility: string
