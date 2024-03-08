@@ -253,20 +253,26 @@ export class UpdateDomesticShipmentForSummaryComponent {
     if(this.domesticShipment.received==null||this.domesticShipment.received==undefined){}
     else if(this.domesticShipment.received!=null||this.domesticShipment.received!=undefined){
     if(this.domesticShipment.received!>this.domesticShipment.totalShipments!){
+      debugger
       this.domesticShipment.overages=this.domesticShipment.received!-this.domesticShipment.totalShipments!
       this.domesticShipment.shortages=0
+      this.domesticShipment.shortagesAwbs='';
       this.makePatternOfOverageAWBS(this.domesticShipment.overages!);
       this.makePatternOfShortageAWBS(this.domesticShipment.shortages!);
     }
     else if(this.domesticShipment.received!<this.domesticShipment.totalShipments!){
     this.domesticShipment.overages=0
+    this.domesticShipment.overagesAwbs='';
     this.domesticShipment.shortages=this.domesticShipment.totalShipments!-this.domesticShipment.received!;
     this.makePatternOfOverageAWBS(this.domesticShipment.overages!);
     this.makePatternOfShortageAWBS(this.domesticShipment.shortages!);
     }
     else if(this.domesticShipment.received! === this.domesticShipment.totalShipments!){
+      debugger
       this.domesticShipment.overages=0
       this.domesticShipment.shortages=0
+      this.domesticShipment.overagesAwbs='';
+      this.domesticShipment.shortagesAwbs='';
     }
 
     }

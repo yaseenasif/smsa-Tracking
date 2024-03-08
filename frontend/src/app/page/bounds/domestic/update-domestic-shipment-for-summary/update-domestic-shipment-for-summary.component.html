@@ -303,6 +303,7 @@
                       [(ngModel)]="domesticShipment.overages"
                       [disabled]='!(this.domesticShipment.status== "Tally" || this.domesticShipment.status=="Arrived")'
                       #overages="ngModel"
+                      [readonly]="true"
                       [required]="required"
                       name="overages"
                       [useGrouping]="false"
@@ -381,6 +382,7 @@
                     <p-inputNumber
                       id="name"
                       aria-describedby="name-help"
+                      [readonly]="true"
                       (ngModelChange)="makePatternOfShortageAWBS(domesticShipment.shortages!)"
                       [(ngModel)]="domesticShipment.shortages"
                       #shortages="ngModel"
