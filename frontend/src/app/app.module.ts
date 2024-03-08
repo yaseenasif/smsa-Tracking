@@ -131,6 +131,11 @@ import { AddInternationalByRoadEmailListComponent } from './page/InternationalRo
 import { ChipModule } from 'primeng/chip';
 import { ClipboardModule } from 'ngx-clipboard';
 
+//Dashboard
+import { MenuModule } from 'primeng/menu';
+import { StyleClassModule } from 'primeng/styleclass';
+import { PanelMenuModule } from 'primeng/panelmenu';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -229,6 +234,9 @@ import { ClipboardModule } from 'ngx-clipboard';
     
   ],
   imports: [
+    PanelMenuModule,
+    StyleClassModule,
+    MenuModule,
     ClipboardModule,
     ChipModule,
     ChipsModule,
