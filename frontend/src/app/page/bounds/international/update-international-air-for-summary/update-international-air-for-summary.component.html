@@ -304,6 +304,7 @@
                     <p-inputNumber
                      
                       id="name"
+                      [readonly]="true"
                       aria-describedby="name-help"
                       (ngModelChange)="makePatternOfOverageAWBS(internationalShipment.overages!)"
                       [(ngModel)]="internationalShipment.overages"
@@ -386,6 +387,7 @@
                     <label htmlFor="name">Shortages</label>
                     <p-inputNumber
                       id="name"
+                      [readonly]="true"
                       aria-describedby="name-help"
                       (ngModelChange)="makePatternOfShortageAWBS(internationalShipment.shortages!)"
                       [(ngModel)]="internationalShipment.shortages"

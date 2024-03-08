@@ -278,11 +278,13 @@ export class UpdateInternationalRoadForSummaryComponent {
     if(this.internationalShipment.received!>this.internationalShipment.totalShipments!){
       this.internationalShipment.overages=this.internationalShipment.received!-this.internationalShipment.totalShipments!
       this.internationalShipment.shortages=0
+      this.internationalShipment.shortageAWBs='';
       this.makePatternOfOverageAWBS(this.internationalShipment.overages!);
       this.makePatternOfShortageAWBS(this.internationalShipment.shortages!);
     }
     else if(this.internationalShipment.received!<this.internationalShipment.totalShipments!){
     this.internationalShipment.overages=0
+    this.internationalShipment.overageAWBs='';
     this.internationalShipment.shortages=this.internationalShipment.totalShipments!-this.internationalShipment.received!;
     this.makePatternOfOverageAWBS(this.internationalShipment.overages!);
     this.makePatternOfShortageAWBS(this.internationalShipment.shortages!);
@@ -290,6 +292,8 @@ export class UpdateInternationalRoadForSummaryComponent {
     else if(this.internationalShipment.received! === this.internationalShipment.totalShipments!){
       this.internationalShipment.overages=0
       this.internationalShipment.shortages=0
+      this.internationalShipment.shortageAWBs=''
+      this.internationalShipment.overageAWBs=''
     }
 
     }

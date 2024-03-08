@@ -348,6 +348,7 @@
                       [(ngModel)]="internationalShipment.overages"
                       [disabled]='!(this.internationalShipment.status== "Tally" || this.internationalShipment.status=="Cleared")'
                       #overages="ngModel"
+                      [readonly]="true"
                       [required]="required"
                       name="overages"
                       [useGrouping]="false"
@@ -430,6 +431,7 @@
                       [(ngModel)]="internationalShipment.shortages"
                       [disabled]='!(this.internationalShipment.status== "Tally" || this.internationalShipment.status=="Cleared")'
                       #shortages="ngModel"
+                      [readonly]="true"
                       [required]="required"
                       name="shortages"
                       [useGrouping]="false"
