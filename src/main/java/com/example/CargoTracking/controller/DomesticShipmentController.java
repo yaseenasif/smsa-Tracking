@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -109,6 +110,11 @@ public class DomesticShipmentController {
     @DeleteMapping("/delete-domestic-shipment/{id}")
     public ResponseEntity<ApiResponse> deleteDomesticShipment(@PathVariable Long id){
         return ResponseEntity.ok(domesticShipmentService.deleteDomesticShipment(id));
+    }
+
+    @GetMapping("/dashboard-domestic")
+    public ResponseEntity<Map<String,Integer>> getDashboardData(@RequestParam Integer year){
+        return ResponseEntity.ok(domesticShipmentService.getAllDashboardData(year));
     }
 
 }

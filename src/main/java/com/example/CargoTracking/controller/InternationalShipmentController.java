@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -125,5 +126,10 @@ public class  InternationalShipmentController {
     @DeleteMapping("/delete-international-shipment/{id}")
     public ResponseEntity<ApiResponse> deleteDomesticShipment(@PathVariable Long id){
         return ResponseEntity.ok(internationalShipmentService.deleteInternationalShipment(id));
+    }
+
+    @GetMapping("/dashboard-international")
+    public ResponseEntity<Map<String,Integer>> getDashboardData(@RequestParam Integer year){
+        return ResponseEntity.ok(internationalShipmentService.getAllDashboardData(year));
     }
 }

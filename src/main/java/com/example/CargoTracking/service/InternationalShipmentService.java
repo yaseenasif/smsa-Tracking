@@ -10,6 +10,7 @@ import com.example.CargoTracking.model.*;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.repository.*;
 
+import com.example.CargoTracking.specification.DomesticShipmentSpecification;
 import com.example.CargoTracking.specification.InternationalShipmentSpecification;
 import com.example.CargoTracking.specification.InternationalSummarySpecification;
 import org.modelmapper.ModelMapper;
@@ -732,5 +733,50 @@ public class InternationalShipmentService {
                     .build();
         }
         throw new RecordNotFoundException(String.format("Domestic Shipment not found by this id => %d",id));
+    }
+
+    public Map<String, Integer> getAllDashboardData(Integer year) {
+        Map<String, Integer> dashboardData = new HashMap<>();
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmail(userDetails.getUsername());
+
+        String role = user.getRoles().stream()
+                .map(Roles::getName)
+                .findFirst()
+                .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+
+        Specification<InternationalShipment> specification;
+        if (role.equals("ROLE_ADMIN")) {
+            specification = InternationalShipmentSpecification.withCreatedYearAndUser(year, null);
+        } else {
+            specification = InternationalShipmentSpecification.withCreatedYearAndUser(year, user);
+        }
+
+        List<InternationalShipment> shipments = internationalShipmentRepository.findAll(specification);
+
+        int outboundCount = shipments.size();
+        int totalShipments = shipments.stream()
+                .mapToInt(InternationalShipment::getNumberOfShipments)
+                .sum();
+
+        dashboardData.put("Outbounds", outboundCount);
+        dashboardData.put("TotalShipments", totalShipments);
+
+        Set<String> userLocations = user.getLocations().stream()
+                .filter(location -> !"Domestic".equals(location.getType()))
+                .map(Location::getLocationName)
+                .collect(Collectors.toSet());
+
+        if (!userLocations.isEmpty()) {
+            Specification<InternationalShipment> inboundSpecification =
+                    InternationalShipmentSpecification.withDestinationLocationsAndActive(year, userLocations);
+            int inboundCount = (int) internationalShipmentRepository.count(inboundSpecification);
+            dashboardData.put("Inbounds", inboundCount);
+        } else {
+            dashboardData.put("Inbounds", 0);
+        }
+
+        return dashboardData;
     }
 }

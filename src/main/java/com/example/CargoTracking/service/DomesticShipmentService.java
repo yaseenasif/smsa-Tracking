@@ -660,4 +660,49 @@ public class DomesticShipmentService {
     private DomesticShipment toEntity(DomesticShipmentDto domesticShipmentDto) {
         return modelMapper.map(domesticShipmentDto, DomesticShipment.class);
     }
+
+    public Map<String, Integer> getAllDashboardData(Integer year) {
+        Map<String, Integer> dashboardData = new HashMap<>();
+
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmail(userDetails.getUsername());
+
+        String role = user.getRoles().stream()
+                .map(Roles::getName)
+                .findFirst()
+                .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+
+        Specification<DomesticShipment> specification;
+        if (role.equals("ROLE_ADMIN")) {
+            specification = DomesticShipmentSpecification.withCreatedYearAndUser(year, null);
+        } else {
+            specification = DomesticShipmentSpecification.withCreatedYearAndUser(year, user);
+        }
+
+        List<DomesticShipment> shipments = domesticShipmentRepository.findAll(specification);
+
+        int outboundCount = shipments.size();
+        int totalShipments = shipments.stream()
+                .mapToInt(DomesticShipment::getNumberOfShipments)
+                .sum();
+
+        dashboardData.put("Outbounds", outboundCount);
+        dashboardData.put("TotalShipments", totalShipments);
+
+        Set<String> userLocations = user.getLocations().stream()
+                .filter(location -> "Domestic".equals(location.getType()))
+                .map(Location::getLocationName)
+                .collect(Collectors.toSet());
+
+        if (!userLocations.isEmpty()) {
+            Specification<DomesticShipment> inboundSpecification =
+                    DomesticShipmentSpecification.withDestinationLocationsAndActive(year, userLocations);
+            int inboundCount = (int) domesticShipmentRepository.count(inboundSpecification);
+            dashboardData.put("Inbounds", inboundCount);
+        } else {
+            dashboardData.put("Inbounds", 0);
+        }
+
+        return dashboardData;
+    }
 }
