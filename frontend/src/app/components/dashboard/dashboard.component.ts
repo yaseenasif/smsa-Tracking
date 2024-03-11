@@ -7,198 +7,89 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+    chartData: any;
+    chartOptions: any;
 
-//   constructor() { }
-//   items: MenuItem[] | undefined;
-//   data: any;
-//   options: any;
-//   data1: any;
-//   options1: any;
-
-//   ngOnInit(): void {
-//     this.items = [{ label: 'Dash Board'}];
-//     const documentStyle = getComputedStyle(document.documentElement);
-//     const textColor = documentStyle.getPropertyValue('--text-color');
-
-//     this.data = {
-//         labels: ['A', 'B', 'C'],
-//         datasets: [
-//             {
-//                 data: [300, 50, 100],
-//                 backgroundColor: ["#4099ff","#2ed8b6", "#FFB64D"],
-//                 hoverBackgroundColor: ["#73b4ff","#59e0c5","#ffcb80"]
-//             }
-//         ]
-//     };
+    basicData: any;
+    basicOptions: any;
 
 
-//     this.options = {
-//         cutout: '60%',
-//         plugins: {
-//             legend: {
-//                 labels: {
-//                     color: textColor,
-//                     usePointStyle: true,
-                
-//                 },
-//                 position:'bottom'
-//             }
-//         }
-//     };
+    ngOnInit(): void {
+      const documentStyle = getComputedStyle(document.documentElement);
+        const textColor = documentStyle.getPropertyValue('--text-color');
 
-//     const documentStyle1= getComputedStyle(document.documentElement);
-//     const textColor1 = documentStyle.getPropertyValue('--text-color');
-//     const textColorSecondary1= documentStyle.getPropertyValue('--text-color-secondary');
-//     const surfaceBorder1= documentStyle.getPropertyValue('--surface-border');
-    
-//     this.data1= {
-//         labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-//         datasets: [
-//             {
-//                 label: 'My First dataset',
-//                 backgroundColor:'#4099ff',
-//                 borderColor:'#4099ff',
-//                 data: [65, 59, 80, 81, 56, 55, 40]
-//             },
-//             {
-//                 label: 'My Second dataset',
-//                 backgroundColor:'#FF5370',
-//                 borderColor:'#FF5370',
-//                 data: [28, 48, 40, 19, 86, 27, 90]
-//             }
-//         ]
-//     };
+        this.chartData = {
+            labels: ['A', 'B', 'C'],
+            datasets: [
+                {
+                    data: [540, 325, 702],
+                    backgroundColor: [documentStyle.getPropertyValue('--blue-500'), documentStyle.getPropertyValue('--yellow-500'), documentStyle.getPropertyValue('--green-500')],
+                    hoverBackgroundColor: [documentStyle.getPropertyValue('--blue-400'), documentStyle.getPropertyValue('--yellow-400'), documentStyle.getPropertyValue('--green-400')]
+                }
+            ]
+        };
 
-//     this.options1= {
-//         maintainAspectRatio: false,
-//         aspectRatio: 0.8,
-//         plugins: {
-//             legend: {
-//                 labels: {
-//                     color: textColor1,
-//                     usePointStyle: true,
-//                 },
-//                 position:'bottom'
-//             }
-//         },
-//         scales: {
-//             x: {
-//                 ticks: {
-//                     color: textColorSecondary1,
-//                     font: {
-//                         weight: 500
-//                     }
-//                 },
-//                 grid: {
-//                     color: surfaceBorder1,
-//                     drawBorder: false
-//                 }
-//             },
-//             y: {
-//                 ticks: {
-//                     color: textColorSecondary1
-//                 },
-//                 grid: {
-//                     color: surfaceBorder1,
-//                     drawBorder: false
-//                 }
-//             }
-
-//         }
-//     };
-//   }
-
-
-items!: MenuItem[];
-
-// products!: Product[];
-
-chartData: any;
-
-chartOptions: any;
-
-// subscription!: Subscription;
-
-// constructor(private productService: ProductService, public layoutService: LayoutService) {
-//     this.subscription = this.layoutService.configUpdate$
-//     .pipe(debounceTime(25))
-//     .subscribe((config) => {
-//         this.initChart();
-//     });
-// }
-
-ngOnInit() {
-    this.initChart();
-    // this.productService.getProductsSmall().then(data => this.products = data);
-
-    this.items = [
-        { label: 'Add New', icon: 'pi pi-fw pi-plus' },
-        { label: 'Remove', icon: 'pi pi-fw pi-minus' }
-    ];
-}
-
-initChart() {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
-    this.chartData = {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-        datasets: [
-            {
-                label: 'First Dataset',
-                data: [65, 59, 80, 81, 56, 55, 40],
-                fill: false,
-                backgroundColor: documentStyle.getPropertyValue('--bluegray-700'),
-                borderColor: documentStyle.getPropertyValue('--bluegray-700'),
-                tension: .4
-            },
-            {
-                label: 'Second Dataset',
-                data: [28, 48, 40, 19, 86, 27, 90],
-                fill: false,
-                backgroundColor: documentStyle.getPropertyValue('--green-600'),
-                borderColor: documentStyle.getPropertyValue('--green-600'),
-                tension: .4
-            }
-        ]
-    };
-
-    this.chartOptions = {
-        plugins: {
-            legend: {
-                labels: {
-                    color: textColor
+        this.chartOptions = {
+            plugins: {
+                legend: {
+                    labels: {
+                        usePointStyle: true,
+                        color: textColor
+                    }
                 }
             }
-        },
-        scales: {
-            x: {
-                ticks: {
-                    color: textColorSecondary
-                },
-                grid: {
-                    color: surfaceBorder,
-                    drawBorder: false
+        };
+
+        const documentStyleBar = getComputedStyle(document.documentElement);
+        const textColorBar = documentStyleBar.getPropertyValue('--text-color');
+        const textColorSecondaryBar = documentStyle.getPropertyValue('--text-color-secondary');
+        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+        this.basicData = {
+            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+            datasets: [
+                {
+                    label: 'Sales',
+                    data: [540, 325, 702, 620],
+                    backgroundColor: ['rgba(255, 159, 64, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)'],
+                    borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)'],
+                    borderWidth: 1
+                }
+            ]
+        };
+
+        this.basicOptions = {
+            plugins: {
+                legend: {
+                    labels: {
+                        color: textColorBar
+                    }
                 }
             },
-            y: {
-                ticks: {
-                    color: textColorSecondary
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: textColorSecondaryBar
+                    },
+                    grid: {
+                        color: surfaceBorder,
+                        drawBorder: false
+                    }
                 },
-                grid: {
-                    color: surfaceBorder,
-                    drawBorder: false
+                x: {
+                    ticks: {
+                        color: textColorSecondaryBar
+                    },
+                    grid: {
+                        color: surfaceBorder,
+                        drawBorder: false
+                    }
                 }
             }
-        }
-    };
-}
+        };
+    }
 
-// ngOnDestroy() {
-//     if (this.subscription) {
-//         this.subscription.unsubscribe();
-//     }
-// }
+
+
 }
