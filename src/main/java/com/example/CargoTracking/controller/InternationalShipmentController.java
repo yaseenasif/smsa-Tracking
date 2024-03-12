@@ -128,8 +128,13 @@ public class  InternationalShipmentController {
         return ResponseEntity.ok(internationalShipmentService.deleteInternationalShipment(id));
     }
 
-    @GetMapping("/dashboard-international")
-    public ResponseEntity<Map<String,Integer>> getDashboardData(@RequestParam Integer year){
-        return ResponseEntity.ok(internationalShipmentService.getAllDashboardData(year));
+    @GetMapping("/dashboard-international-count-air")
+    public ResponseEntity<Map<String,Integer>> getDashboardDataCountForAir(@RequestParam Integer year){
+        return ResponseEntity.ok(internationalShipmentService.getAllDashboardDataCountForAir(year));
+    }
+
+    @GetMapping("/dashboard-international-count-road")
+    public ResponseEntity<Map<String,Integer>> getDashboardDataCountForRoad(@RequestParam Integer year){
+        return ResponseEntity.ok(internationalShipmentService.getAllDashboardDataCountForRoad(year));
     }
 }

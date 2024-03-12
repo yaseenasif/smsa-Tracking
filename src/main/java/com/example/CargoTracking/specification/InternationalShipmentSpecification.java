@@ -97,7 +97,7 @@ public class InternationalShipmentSpecification {
     }
 
 
-    public static Specification<InternationalShipment> withCreatedYearAndUser(Integer year, User user) {
+    public static Specification<InternationalShipment> withCreatedYearUserAndType(Integer year, User user, String type) {
         return (Root<InternationalShipment> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.conjunction();
 
@@ -109,6 +109,10 @@ public class InternationalShipmentSpecification {
                 predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("createdBy"), user));
             }
 
+            if (type != null && !type.isEmpty()) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("type"), type));
+            }
+
             predicate = criteriaBuilder.and(predicate, criteriaBuilder.isTrue(root.get("activeStatus")));
 
             return predicate;
@@ -116,13 +120,8 @@ public class InternationalShipmentSpecification {
     }
 
 
-    public static Specification<InternationalShipment> withDestinationLocationsAndActive(Integer year, Set<String> destinations) {
+    public static Specification<InternationalShipment> withDestinationLocationsAndActive(Integer year, Set<String> destinations, String type) {
         return (Root<InternationalShipment> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
-            // If destinations are not provided, return a predicate that always evaluates to false
-            if (destinations == null || destinations.isEmpty()) {
-                return criteriaBuilder.and((Predicate) criteriaBuilder.literal(false));
-            }
-
             Predicate predicate = criteriaBuilder.conjunction();
 
             // Filter by created year
@@ -133,8 +132,13 @@ public class InternationalShipmentSpecification {
             }
 
             // Filter by destination locations
-            if (!destinations.isEmpty()) {
+            if (destinations != null && !destinations.isEmpty()) {
                 predicate = criteriaBuilder.and(predicate, root.get("destinationLocation").in(destinations));
+            }
+
+            // Filter by type
+            if (type != null && !type.isEmpty()) {
+                predicate = criteriaBuilder.and(predicate, criteriaBuilder.equal(root.get("type"), type));
             }
 
             // Filter by active status
