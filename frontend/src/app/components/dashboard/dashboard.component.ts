@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { DashboardService } from './dashboard.service';
+import { CardsData } from 'src/app/model/CardData';
+import { UserService } from 'src/app/page/user/service/user.service';
+import { User } from 'src/app/model/User';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,12 +12,33 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+
     chartData: any;
     chartOptions: any;
-
     basicData: any;
     basicOptions: any;
+    DomesticCardsData:CardsData={
+        TotalShipments: 0,
+        Outbounds: 0,
+        Inbounds: 0
+    };
+    IntAirCardsData:CardsData={
+        TotalShipments: 0,
+        Outbounds: 0,
+        Inbounds: 0
+    };
+    IntRoadCardsData:CardsData={
+        TotalShipments: 0,
+        Outbounds: 0,
+        Inbounds: 0
+    };
+    date!:Date;
+    currentYear:Date=new Date();
+    typesWithOutDuplicate!:(string | null | undefined)[]
 
+
+    constructor(private dashboardService:DashboardService,
+                private userService:UserService){}
 
     ngOnInit(): void {
       const documentStyle = getComputedStyle(document.documentElement);
@@ -88,8 +114,36 @@ export class DashboardComponent implements OnInit {
                 }
             }
         };
+     
+     
+        this.userService.getLoggedInUser().subscribe((res:User)=>{        
+                let types=res.locations?.map((el)=>{return el.type})
+               this.typesWithOutDuplicate= types!.filter((item, index) => types!.indexOf(item) === index); 
+                 this.getCardsData(this.currentYear)
+                  
+        },(_error)=>{})
     }
 
+    getCardsData(year:Date){
+        // this.dashboardService.DomesticCardsData(year.getFullYear()).subscribe((res)=>{
+        //    this.cardsData=res;
+        // },(error)=>{})
+        forkJoin([this.dashboardService.DomesticCardsData(year.getFullYear()),this.dashboardService.InternationalAirCardsData(year.getFullYear()),this.dashboardService.InternationalRoadCardsData(year.getFullYear())]).subscribe({next:([DomRes,IntAirRes,IntRoadRes])=>{
+        this.DomesticCardsData=DomRes;
+        this.IntAirCardsData=IntAirRes;
+        this.IntRoadCardsData=IntRoadRes;
+        },error:(error)=>{}})
+    }
+
+    ifDomesticExist():boolean{
+        return this.typesWithOutDuplicate.includes("Domestic")
+    }
+    ifInternationalAirExist():boolean{
+        return this.typesWithOutDuplicate.includes("International Air")
+    }
+    ifInternationalRoadExist():boolean{
+        return this.typesWithOutDuplicate.includes("International Road")
+    }
 
 
 }

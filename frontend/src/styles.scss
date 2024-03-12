@@ -15,14 +15,14 @@ $error-color:#dc2626;
 
 *{
     margin: 0;
-    font-weight: bold;
+      font-family:sans-serif;
 }
 .primer-color{
 color: #400099;
 }
 body{
     background-color: $base-bg-color;
-    font-family: "Montserrat", sans-serif;
+  
 }
 .body-position{
 padding-left:60px;
