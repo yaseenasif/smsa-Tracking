@@ -14,10 +14,11 @@ import { ClipboardService } from 'ngx-clipboard';
 })
 export class ViewDomesticShippingForSummaryComponent {
   items: MenuItem[] | undefined;
-  resultArray:{overagesAWBs:string|undefined,shortagesAWBs:string|undefined,securityTag:string|undefined}[]=[]
+  resultArray:{overagesAWBs:string|undefined,shortagesAWBs:string|undefined,securityTag:string|undefined,damageAWBs:string|undefined}[]=[]
   copyOveragesAWBs!:string
   copyShortagesAWBs!:string
   copySecurityTag!:string
+  copyDamageAWBs! : string;
 
   domesticShipment:DomesticShipment={
     originFacility: null,
@@ -114,6 +115,7 @@ export class ViewDomesticShippingForSummaryComponent {
     let overagesAWBsArray:any;
     let shortagesAWBsArray:any;
     let securityTagArray:any;
+    let DamageAWBsArray:any;
     if(this.domesticShipment.overagesAwbs!=null){
      overagesAWBsArray = this.domesticShipment.overagesAwbs!.split(',');
      this.copyOveragesAWBs=overagesAWBsArray.join('\n');
@@ -132,13 +134,20 @@ export class ViewDomesticShippingForSummaryComponent {
     }else{
        securityTagArray = []
     }
+    if(this.domesticShipment.damageAwbs!=null){
+      DamageAWBsArray = this.domesticShipment.damageAwbs!.split(',');
+      this.copyDamageAWBs=DamageAWBsArray.join('\n');
+     }else{
+      DamageAWBsArray =[]
+     }
    
 
     // Determine the maximum length among the three arrays
     const maxLength = Math.max(
       overagesAWBsArray.length,
       shortagesAWBsArray.length,
-      securityTagArray!.length
+      securityTagArray!.length,
+      DamageAWBsArray!.length
     );
 
     // Create an array to store objects
@@ -156,6 +165,9 @@ export class ViewDomesticShippingForSummaryComponent {
       if (i < securityTagArray!.length) {
         obj.securityTag = securityTagArray![i];
       }
+      if (i < DamageAWBsArray!.length) {
+        obj.damageAWBs = DamageAWBsArray![i];
+      }
       this.resultArray.push(obj);
     }
   }
@@ -163,7 +175,8 @@ export class ViewDomesticShippingForSummaryComponent {
   AnimationOveragesAWBs:boolean=false;
   AnimationSecurityTag:boolean=false;
   AnimationShortagesAWBs:boolean=false;
- 
+  AnimationDamageAWBs:boolean=false;
+
   onCopiedAnimationOveragesAWBs(){
   this.AnimationOveragesAWBs=true;
   this._clipboardService.copy(this.copyOveragesAWBs)
@@ -181,6 +194,15 @@ export class ViewDomesticShippingForSummaryComponent {
     onCopiedAnimationShortagesAWBs(){
       this.AnimationShortagesAWBs=true;
       this._clipboardService.copy(this.copyShortagesAWBs)
+    setTimeout(() => {
+      this.AnimationShortagesAWBs=false;
+    }, 2000);
+    }
+
+
+    onCopiedAnimationDamageAWBs(){
+      this.AnimationDamageAWBs=true;
+      this._clipboardService.copy(this.copyDamageAWBs)
     setTimeout(() => {
       this.AnimationShortagesAWBs=false;
     }, 2000);
