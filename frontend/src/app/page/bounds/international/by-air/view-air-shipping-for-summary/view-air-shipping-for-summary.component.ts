@@ -15,9 +15,10 @@ import { InternationalShippingService } from 'src/app/page/shipping-order/intern
   providers: [MessageService]
 })
 export class ViewAirShippingForSummaryComponent {
+
   items: MenuItem[] | undefined;
   iSID!: number;
-  resultArray:{overageAWBs:string|undefined,shortageAWBs:string|undefined}[]=[];
+  resultArray:{overageAWBs:string|undefined,shortageAWBs:string|undefined,damageAWBs:string|undefined}[]=[];
   internationalShipment: InternationalShipment = {
     id: null,
     actualWeight: null,
@@ -70,6 +71,8 @@ export class ViewAirShippingForSummaryComponent {
   selectedLocation!: Location;
   InternationalShipmentHistory:any;
   copyOveragesAWBs!: string;
+  copyDamageAWBs!: string;
+  AnimationDamageAWBs!: boolean;
   AnimationOveragesAWBs!: boolean;
   AnimationShortagesAWBs!: boolean;
   copyShortagesAWBs!: string;
@@ -118,6 +121,7 @@ export class ViewAirShippingForSummaryComponent {
   makeModelForTable() {
     let overagesAWBsArray:any;
     let shortagesAWBsArray:any;
+    let damageAWBsArray:any;
    
     if(this.internationalShipment.overageAWBs!=null){
      overagesAWBsArray = this.internationalShipment.overageAWBs!.split(',');
@@ -132,6 +136,12 @@ export class ViewAirShippingForSummaryComponent {
     }else{
        shortagesAWBsArray =[]
     }
+    if(this.internationalShipment.damageAwbs!=null){
+      damageAWBsArray = this.internationalShipment.damageAwbs!.split(',');
+      this.copyDamageAWBs=damageAWBsArray.join('\n');
+     }else{
+      damageAWBsArray =[]
+     }
   
    
 
@@ -139,6 +149,7 @@ export class ViewAirShippingForSummaryComponent {
     const maxLength = Math.max(
       overagesAWBsArray.length,
       shortagesAWBsArray.length,
+      damageAWBsArray.length
     );
 
     // Create an array to store objects
@@ -153,6 +164,9 @@ export class ViewAirShippingForSummaryComponent {
       if (i < shortagesAWBsArray.length) {
         obj.shortageAWBs = shortagesAWBsArray[i];
       }
+      if (i < damageAWBsArray.length) {
+        obj.damageAWBs = damageAWBsArray[i];
+      }
       this.resultArray.push(obj);
     }
   }
@@ -163,6 +177,14 @@ export class ViewAirShippingForSummaryComponent {
     this.AnimationOveragesAWBs=false;
      }, 2000);
     }
+
+    onCopiedAnimationDamageAWBs() {
+      this.AnimationDamageAWBs=true;
+      this._clipboardService.copy(this.copyDamageAWBs)
+      setTimeout(() => {
+      this.AnimationDamageAWBs=false;
+       }, 2000);
+      }
     
       onCopiedAnimationShortagesAWBs(){
         this.AnimationShortagesAWBs=true;

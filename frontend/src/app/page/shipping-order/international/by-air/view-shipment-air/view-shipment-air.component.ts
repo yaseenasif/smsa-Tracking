@@ -16,7 +16,7 @@ import { ClipboardService } from 'ngx-clipboard';
 export class ViewShipmentAirComponent {
   items: MenuItem[] | undefined;
   iSID!: number;
-  resultArray:{overageAWBs:string|undefined,shortageAWBs:string|undefined}[]=[];
+  resultArray:{overageAWBs:string|undefined,shortageAWBs:string|undefined,damageAWBs:string|undefined}[]=[];
   internationalShipment: InternationalShipment = {
     id: null,
     actualWeight: null,
@@ -72,6 +72,8 @@ export class ViewShipmentAirComponent {
   AnimationShortagesAWBs!: boolean;
   copyShortagesAWBs!: string;
   copyOveragesAWBs!: string;
+  copyDamageAWBs!: string;
+  AnimationDamageAWBs!: boolean;
 
   constructor(private router: Router,
     private _clipboardService: ClipboardService,
@@ -119,6 +121,7 @@ export class ViewShipmentAirComponent {
   makeModelForTable() {
     let overagesAWBsArray:any;
     let shortagesAWBsArray:any;
+    let damageAWBsArray:any;
    
     if(this.internationalShipment.overageAWBs!=null){
      overagesAWBsArray = this.internationalShipment.overageAWBs!.split(',');
@@ -132,6 +135,12 @@ export class ViewShipmentAirComponent {
     }else{
        shortagesAWBsArray =[]
     }
+    if(this.internationalShipment.damageAwbs!=null){
+      damageAWBsArray = this.internationalShipment.damageAwbs!.split(',');
+      this.copyDamageAWBs=damageAWBsArray.join('\n')
+     }else{
+      damageAWBsArray =[]
+     }
   
    
 
@@ -139,6 +148,7 @@ export class ViewShipmentAirComponent {
     const maxLength = Math.max(
       overagesAWBsArray.length,
       shortagesAWBsArray.length,
+      damageAWBsArray.length
     );
 
     // Create an array to store objects
@@ -153,6 +163,9 @@ export class ViewShipmentAirComponent {
       if (i < shortagesAWBsArray.length) {
         obj.shortageAWBs = shortagesAWBsArray[i];
       }
+      if (i < damageAWBsArray.length) {
+        obj.damageAWBs = damageAWBsArray[i];
+      }
       this.resultArray.push(obj);
     }
   }
@@ -163,6 +176,13 @@ export class ViewShipmentAirComponent {
     this.AnimationOveragesAWBs=false;
      }, 2000);
     }
+    onCopiedAnimationDamageAWBs(){
+      this.AnimationDamageAWBs=true;
+      this._clipboardService.copy(this.copyDamageAWBs)
+      setTimeout(() => {
+      this.AnimationDamageAWBs=false;
+       }, 2000);
+      }
     
       onCopiedAnimationShortagesAWBs(){
         this.AnimationShortagesAWBs=true;
