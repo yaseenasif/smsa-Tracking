@@ -230,7 +230,7 @@ export class ViewShipmentComponent {
       this.AnimationDamageAWBs=true;
       this._clipboardService.copy(this.copyDamageAWBs)
     setTimeout(() => {
-      this.AnimationShortagesAWBs=false;
+      this.AnimationDamageAWBs=false;
     }, 2000);
     }
 
