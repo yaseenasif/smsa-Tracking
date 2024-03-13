@@ -705,4 +705,20 @@ public class DomesticShipmentService {
 
         return dashboardData;
     }
+
+    public Map<String, Integer> lowAndHighVolumeWithLocationForDomestic(Integer year) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmail(userDetails.getUsername());
+        Set<String> userLocations = user.getLocations().stream()
+                .filter(location -> "Domestic".equals(location.getType()))
+                .map(Location::getLocationName)
+                .collect(Collectors.toSet());
+        Map<String,Integer> outboundMap = new HashMap<>();
+        for(String location : userLocations){
+//            shipment ke origin se location se get kri hai
+            List<DomesticShipment> byOriginLocationWithOutPageable = domesticShipmentRepository.findByOriginLocationWithOutPageable(location);
+            outboundMap.put(location,byOriginLocationWithOutPageable.size());
+        }
+        return outboundMap;
+    }
 }

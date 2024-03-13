@@ -18,6 +18,9 @@ import java.util.List;
 @Repository
 public interface DomesticShipmentRepository extends JpaRepository<DomesticShipment, Long>, JpaSpecificationExecutor<DomesticShipment> {
     Page<DomesticShipment> findByOriginLocation(String origin, Pageable pageable);
+    @Query("SELECT d FROM DomesticShipment d WHERE d.originLocation = :origin")
+    List<DomesticShipment> findByOriginLocationWithOutPageable(String origin);
+
     Page<DomesticShipment> findAll( Specification<DomesticShipment> specification, Pageable pageable);
 
     Page<DomesticShipment> findByDestinationLocation(String destination, Pageable pageable);
