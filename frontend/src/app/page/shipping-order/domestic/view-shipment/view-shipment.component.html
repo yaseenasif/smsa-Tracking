@@ -351,6 +351,23 @@
                             <span class="ml-2 font-medium">copied!</span>
                           </p-chip>
                         </th>
+                        <th class="text-center primer-color">
+                          Damage AWBs
+                          <p-chip  (click)="onCopiedAnimationDamageAWBs()" *ngIf="!AnimationDamageAWBs" styleClass="pl-0 pr-3" class="f-right">
+                            <span
+                              class="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center"
+                              ><i class="bi bi-copy"></i></span
+                            >
+                            <span class="ml-2 font-medium">copy</span>
+                          </p-chip>
+                          <p-chip *ngIf="AnimationDamageAWBs" styleClass="pl-0 pr-3" class="f-right">
+                            <span
+                              class="bg-primary border-circle w-2rem h-2rem flex align-items-center justify-content-center"
+                              ><i class="bi bi-check2"></i></span
+                            >
+                            <span class="ml-2 font-medium">copied!</span>
+                          </p-chip>
+                        </th>
                       </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-resultArray>
@@ -363,6 +380,9 @@
                         </td>
                         <td class="text-center">
                           {{ resultArray.securityTag }}
+                        </td>
+                        <td class="text-center">
+                          {{ resultArray.damageAWBs }}
                         </td>
                       </tr>
                     </ng-template>
