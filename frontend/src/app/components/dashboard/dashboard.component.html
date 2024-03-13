@@ -7,55 +7,148 @@
         <div class="main">
           <div class="body-card">
             <div class="table-head">
-              <h2 class="h-color mb-3">Dash Board</h2>
+                <div class="grid">
+                     <div class="col-6">
+                        <h2 class="h-color mb-5">Dash Board</h2>
+                      </div>
+                      <div class="col-6">
+                      
+                        <div class="float-right">
+                                <label  for="">Year : </label>
+                                <p-calendar (onSelect)="getCardsData(date)"  [(ngModel)]="date" view="year" dateFormat="yy" inputId="yearpicker"></p-calendar>
+                        </div>
+                      
+                     </div>
+                </div>  
+             
             </div>
             <div class="grid">
-                <div class="col-12 lg:col-6 xl:col-4">
-                    <div class="card mb-0">
+                <div *ngIf="ifDomesticExist()" class="col-12 lg:col-6 xl:col-4">
+                    <div routerLink="/domestic-shipping" class="card mb-0">
                         <div class="flex justify-content-between mb-3">
                             <div>
-                                <span class="block text-500 font-medium mb-3">Orders</span>
-                                <div class="text-900 font-medium text-xl">152</div>
+                                <span class="block text-500 font-medium mb-3">Total Domestic Shipments</span>
+                                <div class="text-900 font-medium text-xl">{{DomesticCardsData.TotalShipments}}</div>
                             </div>
                             <div class="flex align-items-center justify-content-center bg-blue-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                                <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
+                                <i style="color:#ffffff" class="bi bi-plus-square"></i>
                             </div>
                         </div>
-                        <span class="text-green-500 font-medium">24 new </span>
-                        <span class="text-500">since last visit</span>
+                    
                     </div>
                 </div>
-                <div class="col-12 lg:col-6 xl:col-4">
-                    <div class="card mb-0">
+                <div *ngIf="ifDomesticExist()" class="col-12 lg:col-6 xl:col-4">
+                    <div routerLink="/domestic-shipping" class="card mb-0">
                         <div class="flex justify-content-between mb-3">
                             <div>
-                                <span class="block text-500 font-medium mb-3">Revenue</span>
-                                <div class="text-900 font-medium text-xl">$2.100</div>
+                                <span class="block text-500 font-medium mb-3">Domestic Outbounds</span>
+                                <div class="text-900 font-medium text-xl">{{DomesticCardsData.Outbounds}}</div>
                             </div>
                             <div class="flex align-items-center justify-content-center bg-orange-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                                <i class="pi pi-map-marker text-orange-500 text-xl"></i>
+                                <i style="color:#ffffff" class="bi bi-box-arrow-up-right"></i>
                             </div>
                         </div>
-                        <span class="text-green-500 font-medium">%52+ </span>
-                        <span class="text-500">since last week</span>
+                       
                     </div>
                 </div>
-                <div class="col-12 lg:col-6 xl:col-4">
-                    <div class="card mb-0">
+                <div *ngIf="ifDomesticExist()" class="col-12 lg:col-6 xl:col-4">
+                    <div routerLink="/domestic-summary" class="card mb-0">
                         <div class="flex justify-content-between mb-3">
                             <div>
-                                <span class="block text-500 font-medium mb-3">Customers</span>
-                                <div class="text-900 font-medium text-xl">28441</div>
+                                <span class="block text-500 font-medium mb-3">Domestic Inbounds</span>
+                                <div class="text-900 font-medium text-xl">{{DomesticCardsData.Inbounds}}</div>
                             </div>
                             <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
-                                <i class="pi pi-inbox text-cyan-500 text-xl"></i>
+                                <i style="font-size:larger ;color:#ffffff" class="bi bi-box-arrow-in-down-left"></i>
                             </div>
                         </div>
-                        <span class="text-green-500 font-medium">520  </span>
-                        <span class="text-500">newly registered</span>
+                       
                     </div>
                 </div>
-               
+                <div *ngIf="ifInternationalAirExist()" class="col-12 lg:col-6 xl:col-4">
+                    <div routerLink="/domestic-shipping" class="card mb-0">
+                        <div class="flex justify-content-between mb-3">
+                            <div>
+                                <span class="block text-500 font-medium mb-3">Total International Air Shipments</span>
+                                <div class="text-900 font-medium text-xl">{{IntAirCardsData.TotalShipments}}</div>
+                            </div>
+                            <div class="flex align-items-center justify-content-center bg-blue-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                                <i style="color:#ffffff" class="bi bi-plus-square"></i>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+                <div *ngIf="ifInternationalAirExist()" class="col-12 lg:col-6 xl:col-4">
+                    <div routerLink="/domestic-shipping" class="card mb-0">
+                        <div class="flex justify-content-between mb-3">
+                            <div>
+                                <span class="block text-500 font-medium mb-3">International Air Outbounds</span>
+                                <div class="text-900 font-medium text-xl">{{IntAirCardsData.Outbounds}}</div>
+                            </div>
+                            <div class="flex align-items-center justify-content-center bg-orange-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                                <i style="color:#ffffff" class="bi bi-box-arrow-up-right"></i>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div *ngIf="ifInternationalAirExist()" class="col-12 lg:col-6 xl:col-4">
+                    <div routerLink="/domestic-summary" class="card mb-0">
+                        <div class="flex justify-content-between mb-3">
+                            <div>
+                                <span class="block text-500 font-medium mb-3">International Air Inbounds</span>
+                                <div class="text-900 font-medium text-xl">{{IntAirCardsData.Inbounds}}</div>
+                            </div>
+                            <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                                <i style="font-size:larger ;color:#ffffff" class="bi bi-box-arrow-in-down-left"></i>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div *ngIf="ifInternationalRoadExist()" class="col-12 lg:col-6 xl:col-4">
+                    <div routerLink="/domestic-shipping" class="card mb-0">
+                        <div class="flex justify-content-between mb-3">
+                            <div>
+                                <span class="block text-500 font-medium mb-3">Total International Road Shipments</span>
+                                <div class="text-900 font-medium text-xl">{{IntRoadCardsData.TotalShipments}}</div>
+                            </div>
+                            <div class="flex align-items-center justify-content-center bg-blue-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                                <i style="color:#ffffff" class="bi bi-plus-square"></i>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+                <div *ngIf="ifInternationalRoadExist()" class="col-12 lg:col-6 xl:col-4">
+                    <div routerLink="/domestic-shipping" class="card mb-0">
+                        <div class="flex justify-content-between mb-3">
+                            <div>
+                                <span class="block text-500 font-medium mb-3">International Road Outbounds</span>
+                                <div class="text-900 font-medium text-xl">{{IntRoadCardsData.Outbounds}}</div>
+                            </div>
+                            <div class="flex align-items-center justify-content-center bg-orange-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                                <i style="color:#ffffff" class="bi bi-box-arrow-up-right"></i>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div *ngIf="ifInternationalRoadExist()" class="col-12 lg:col-6 xl:col-4">
+                    <div routerLink="/domestic-summary" class="card mb-0">
+                        <div class="flex justify-content-between mb-3">
+                            <div>
+                                <span class="block text-500 font-medium mb-3">International Road Inbounds</span>
+                                <div class="text-900 font-medium text-xl">{{IntRoadCardsData.Inbounds}}</div>
+                            </div>
+                            <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" [ngStyle]="{width: '2.5rem', height: '2.5rem'}">
+                                <i style="font-size:larger ;color:#ffffff" class="bi bi-box-arrow-in-down-left"></i>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
         
                 <div class="col-12 xl:col-6">
                     <div class="card">
