@@ -824,4 +824,114 @@ public class InternationalShipmentService {
 
         return dashboardData;
     }
+
+    public Map<String, Integer> lowAndHighVolumeWithLocationForInboundForInternationalAir(Integer year) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmail(userDetails.getUsername());
+        Set<String> userLocations = user.getLocations().stream()
+                .filter(location -> "International Air".equals(location.getType()))
+                .map(Location::getLocationName)
+                .collect(Collectors.toSet());
+        Map<String, Integer> inboundMap = new HashMap<>();
+        if (!userLocations.isEmpty()) {
+            Specification<InternationalShipment> inboundSpecification =
+                    InternationalShipmentSpecification.withDestinationLocationsAndActive(year, userLocations,"By Air");
+            List<InternationalShipment> all = internationalShipmentRepository.findAll(inboundSpecification);
+            for (InternationalShipment internationalShipment : all) {
+                String destinationLocation = internationalShipment.getDestinationLocation();
+                if (inboundMap.containsKey(destinationLocation)) {
+                    inboundMap.put(destinationLocation, inboundMap.get(destinationLocation) + 1);
+                } else {
+                    inboundMap.put(destinationLocation, 1);
+                }
+            }
+        }
+        return inboundMap;
+    }
+
+    public Map<String, Integer> lowAndHighVolumeWithLocationForInboundForInternationalRoad(Integer year) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmail(userDetails.getUsername());
+        Set<String> userLocations = user.getLocations().stream()
+                .filter(location -> "International Road".equals(location.getType()))
+                .map(Location::getLocationName)
+                .collect(Collectors.toSet());
+        Map<String, Integer> inboundMap = new HashMap<>();
+        if (!userLocations.isEmpty()) {
+            Specification<InternationalShipment> inboundSpecification =
+                    InternationalShipmentSpecification.withDestinationLocationsAndActive(year, userLocations,"By Road");
+            List<InternationalShipment> all = internationalShipmentRepository.findAll(inboundSpecification);
+            for (InternationalShipment internationalShipment : all) {
+                String destinationLocation = internationalShipment.getDestinationLocation();
+                if (inboundMap.containsKey(destinationLocation)) {
+                    inboundMap.put(destinationLocation, inboundMap.get(destinationLocation) + 1);
+                } else {
+                    inboundMap.put(destinationLocation, 1);
+                }
+            }
+        }
+        return inboundMap;
+    }
+
+    public Map<String, Integer> lowAndHighVolumeWithLocationForOutboundForInternationalAir(Integer year) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmail(userDetails.getUsername());
+
+        String role = user.getRoles().stream()
+                .map(Roles::getName)
+                .findFirst()
+                .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+
+        Specification<InternationalShipment> specification;
+        if (role.equals("ROLE_ADMIN")) {
+            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, null,"By Air");
+        } else {
+            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, user,"By Air");
+        }
+
+        List<InternationalShipment> shipments = internationalShipmentRepository.findAll(specification);
+
+        Map<String, Integer> outboundMap = new HashMap<>();
+
+        for (InternationalShipment internationalShipment : shipments) {
+            String originLocation = internationalShipment.getOriginLocation();
+            if (outboundMap.containsKey(originLocation)) {
+                outboundMap.put(originLocation, outboundMap.get(originLocation) + 1);
+            } else {
+                outboundMap.put(originLocation, 1);
+            }
+        }
+        return outboundMap;
+    }
+
+    public Map<String, Integer> lowAndHighVolumeWithLocationForOutboundForInternationalRoad(Integer year) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmail(userDetails.getUsername());
+
+        String role = user.getRoles().stream()
+                .map(Roles::getName)
+                .findFirst()
+                .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+
+        Specification<InternationalShipment> specification;
+        if (role.equals("ROLE_ADMIN")) {
+            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, null,"By Road");
+        } else {
+            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, user,"By Road");
+        }
+
+        List<InternationalShipment> shipments = internationalShipmentRepository.findAll(specification);
+
+        Map<String, Integer> outboundMap = new HashMap<>();
+
+        for (InternationalShipment internationalShipment : shipments) {
+            String originLocation = internationalShipment.getOriginLocation();
+            if (outboundMap.containsKey(originLocation)) {
+                outboundMap.put(originLocation, outboundMap.get(originLocation) + 1);
+            } else {
+                outboundMap.put(originLocation, 1);
+            }
+        }
+        return outboundMap;
+    }
 }

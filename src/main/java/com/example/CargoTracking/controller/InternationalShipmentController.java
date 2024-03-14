@@ -137,4 +137,25 @@ public class  InternationalShipmentController {
     public ResponseEntity<Map<String,Integer>> getDashboardDataCountForRoad(@RequestParam Integer year){
         return ResponseEntity.ok(internationalShipmentService.getAllDashboardDataCountForRoad(year));
     }
+
+    @GetMapping("/low-and-high-volume-by-location-inbound-international-air")
+    public ResponseEntity<Map<String,Integer>> lowAndHighVolumeWithLocationForInboundForInternationalAir(@RequestParam Integer year){
+        return ResponseEntity.ok(internationalShipmentService.lowAndHighVolumeWithLocationForInboundForInternationalAir(year));
+    }
+
+    @GetMapping("/low-and-high-volume-by-location-inbound-international-road")
+    public ResponseEntity<Map<String,Integer>> lowAndHighVolumeWithLocationForInboundForInternationalRoad(@RequestParam Integer year){
+        return ResponseEntity.ok(internationalShipmentService.lowAndHighVolumeWithLocationForInboundForInternationalRoad(year));
+    }
+
+    @GetMapping("/low-and-high-volume-by-location-outbound-international-air")
+    public ResponseEntity<Map<String,Integer>> lowAndHighVolumeWithLocationForOutboundForInternationalAir(@RequestParam Integer year){
+        return ResponseEntity.ok(internationalShipmentService.lowAndHighVolumeWithLocationForOutboundForInternationalAir(year));
+    }
+
+    @GetMapping("/low-and-high-volume-by-location-outbound-international-road")
+    public ResponseEntity<Map<String,Integer>> lowAndHighVolumeWithLocationForOutboundForInternationalRoad(@RequestParam Integer year){
+        return ResponseEntity.ok(internationalShipmentService.lowAndHighVolumeWithLocationForOutboundForInternationalRoad(year));
+    }
+
 }

@@ -706,18 +706,58 @@ public class DomesticShipmentService {
         return dashboardData;
     }
 
-    public Map<String, Integer> lowAndHighVolumeWithLocationForDomestic(Integer year) {
+    //inbound
+    public Map<String, Integer> lowAndHighVolumeWithLocationForInboundForDomestic(Integer year) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userRepository.findByEmail(userDetails.getUsername());
         Set<String> userLocations = user.getLocations().stream()
                 .filter(location -> "Domestic".equals(location.getType()))
                 .map(Location::getLocationName)
                 .collect(Collectors.toSet());
-        Map<String,Integer> outboundMap = new HashMap<>();
-        for(String location : userLocations){
-//            shipment ke origin se location se get kri hai
-            List<DomesticShipment> byOriginLocationWithOutPageable = domesticShipmentRepository.findByOriginLocationWithOutPageable(location);
-            outboundMap.put(location,byOriginLocationWithOutPageable.size());
+        Map<String, Integer> inboundMap = new HashMap<>();
+        if (!userLocations.isEmpty()) {
+            Specification<DomesticShipment> inboundSpecification =
+                    DomesticShipmentSpecification.withDestinationLocationsAndActive(year, userLocations);
+            List<DomesticShipment> all = domesticShipmentRepository.findAll(inboundSpecification);
+            for (DomesticShipment domesticShipment : all) {
+                String destinationLocation = domesticShipment.getDestinationLocation();
+                if (inboundMap.containsKey(destinationLocation)) {
+                    inboundMap.put(destinationLocation, inboundMap.get(destinationLocation) + 1);
+                } else {
+                    inboundMap.put(destinationLocation, 1);
+                }
+            }
+        }
+        return inboundMap;
+    }
+
+    public Map<String, Integer> lowAndHighVolumeWithLocationForOutboundForDomestic(Integer year) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmail(userDetails.getUsername());
+
+        String role = user.getRoles().stream()
+                .map(Roles::getName)
+                .findFirst()
+                .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+
+        Specification<DomesticShipment> specification;
+        if (role.equals("ROLE_ADMIN")) {
+            specification = DomesticShipmentSpecification.withCreatedYearAndUser(year, null);
+        } else {
+            specification = DomesticShipmentSpecification.withCreatedYearAndUser(year, user);
+        }
+
+        List<DomesticShipment> shipments = domesticShipmentRepository.findAll(specification);
+
+        Map<String, Integer> outboundMap = new HashMap<>();
+
+        for (DomesticShipment domesticShipment : shipments) {
+            String originLocation = domesticShipment.getOriginLocation();
+            if (outboundMap.containsKey(originLocation)) {
+                outboundMap.put(originLocation, outboundMap.get(originLocation) + 1);
+            } else {
+                outboundMap.put(originLocation, 1);
+            }
         }
         return outboundMap;
     }
