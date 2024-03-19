@@ -26,4 +26,36 @@ export class DashboardService {
     queryParams = queryParams.append("year", year);
   return this.http.get<CardsData>(`${this.url}/dashboard-international-count-road`,{ params: queryParams });
   }
+
+  lowAndHighVolumeByLocationOutboundDomestic(year:number){
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("year", year);
+  return this.http.get<any>(`${this.url}/low-and-high-volume-by-location-outbound-domestic`,{ params: queryParams });
+  }
+  lowAndHighVolumeByLocationInboundDomestic(year:number){
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("year", year);
+  return this.http.get<any>(`${this.url}/low-and-high-volume-by-location-inbound-domestic`,{ params: queryParams });
+  }
+
+  lowAndHighVolumeByLocationOutboundInternationalAir(year:number){
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("year", year);
+  return this.http.get<any>(`${this.url}/low-and-high-volume-by-location-outbound-international-air`,{ params: queryParams });
+  }
+  lowAndHighVolumeByLocationOutboundInternationalRoad(year:number){
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("year", year);
+  return this.http.get<any>(`${this.url}/low-and-high-volume-by-location-outbound-international-road`,{ params: queryParams });
+  }
+  lowAndHighVolumeByLocationInboundInternationalAir(year:number){
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("year", year);
+  return this.http.get<any>(`${this.url}/low-and-high-volume-by-location-inbound-international-air`,{ params: queryParams });
+  }
+  lowAndHighVolumeByLocationInboundInternationalRoad(year:number){
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("year", year);
+  return this.http.get<any>(`${this.url}/low-and-high-volume-by-location-inbound-international-road`,{ params: queryParams });
+  }
 }
