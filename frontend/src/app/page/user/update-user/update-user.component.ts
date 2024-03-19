@@ -32,7 +32,8 @@ export class UpdateUserComponent implements OnInit {
     internationalAirDestinationLocation: [],
     internationalRoadOriginLocation: [],
     internationalRoadDestinationLocation: [],
-    status: undefined
+    status: undefined,
+    employeeId: undefined
   };
   selectedRole!:Role;
   roles:Role[]=[];

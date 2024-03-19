@@ -38,7 +38,7 @@
         <p-toast [life]="8000"></p-toast>
           <h2 class="text-center">Login</h2>
           <div class="flex flex-column gap-2 mt-4">
-              <label htmlFor="name">Username</label>
+              <label htmlFor="name">Employee Id</label>
               <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="email"  [ngModelOptions]="{standalone:true}" />
               <small id="username-help" class="r-color" *ngIf="error">Invalid Username.</small>
           </div>
@@ -48,7 +48,7 @@
               <small id="username-help" class="r-color" *ngIf="error">Invalid password.</small>
           </div>
           <div class="flex justify-content-center mt-4 ">
-              <p-button (click)="login({email:email,password:password})" label="Confirm" class="bg-b-color ml" >
+              <p-button (click)="login({employeeId:email,password:password})" label="Confirm" class="bg-b-color ml" >
               </p-button>
           </div>
   </div>

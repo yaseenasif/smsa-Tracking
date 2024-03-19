@@ -1,27 +1,26 @@
 package com.example.CargoTracking.service;
 
-import com.example.CargoTracking.dto.DriverDto;
+import com.example.CargoTracking.dto.ResetPassword;
 import com.example.CargoTracking.dto.UserDto;
 import com.example.CargoTracking.dto.UserResponseDto;
+import com.example.CargoTracking.exception.RecordAlreadyExist;
 import com.example.CargoTracking.exception.RecordNotFoundException;
-import com.example.CargoTracking.model.Driver;
 import com.example.CargoTracking.model.Location;
 import com.example.CargoTracking.model.Roles;
 import com.example.CargoTracking.model.User;
+import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.repository.LocationRepository;
 import com.example.CargoTracking.repository.RoleRepository;
 import com.example.CargoTracking.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,8 +38,12 @@ public class UserService {
     ModelMapper modelMapper;
 
     public UserResponseDto addUser(UserDto userDto){
-        User userByEmail = userRepository.findByEmail(userDto.getEmail());
+        User userByEmail = userRepository.findByEmployeeId(userDto.getEmail());
         if(userByEmail == null){
+            if (userRepository.findByEmployeeId(userDto.getEmployeeId())!= null) {
+                throw new RecordAlreadyExist("Employee Id is Already exist");
+            }
+
             try {
                 Set<Roles> rolesList = new HashSet<>();
 
@@ -114,6 +117,7 @@ public class UserService {
                         .password(bCryptPasswordEncoder.encode(userDto.getPassword()))
                         .roles(rolesList)
                         .status(Boolean.TRUE)
+                        .employeeId(userDto.getEmployeeId())
                         .locations(locationList)
                         .domesticOriginLocations(domesticOriginLocations)
                         .domesticDestinationLocations(domesticDestinationLocation)
@@ -132,9 +136,6 @@ public class UserService {
         }else{
             throw new RecordNotFoundException("Email is Already exist");
         }
-
-
-
     }
 
 
@@ -233,6 +234,7 @@ public class UserService {
                 user.get().setEmail(userDto.getEmail());
                 user.get().setPassword(userDto.getPassword() != null ? bCryptPasswordEncoder.encode(userDto.getPassword()) : user.get().getPassword());
                 user.get().setRoles(rolesList);
+                user.get().setEmployeeId(userDto.getEmployeeId());
                 user.get().setStatus(Boolean.TRUE);
                 user.get().setLocations(locationList);
                 user.get().setDomesticOriginLocations(domesticOriginLocations);
@@ -291,7 +293,7 @@ public class UserService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             String username = ((UserDetails) principal).getUsername();
-            User user = userRepository.findByEmail(username);
+            User user = userRepository.findByEmployeeId(username);
             if(user != null){
                 return toDtoForResponse(user);
             }
@@ -299,5 +301,25 @@ public class UserService {
             throw new RecordNotFoundException("User Not Found");
         }
         return null;
+    }
+
+    public ApiResponse resetPassword(ResetPassword resetPassword) {
+        Optional<User> activeUserById = userRepository.findActiveUserById(resetPassword.getId());
+        if(activeUserById.isPresent()) {
+            User user = activeUserById.get();
+            if (bCryptPasswordEncoder.matches(resetPassword.getOldPassword(), user.getPassword())) {
+                user.setPassword(bCryptPasswordEncoder.encode(resetPassword.getNewPassword()));
+                User save = userRepository.save(user);
+                return ApiResponse.builder()
+                        .message("Password updated successfully")
+                        .statusCode(HttpStatus.OK.value())
+                        .result(Collections.emptyList())
+                        .build();
+            } else {
+                throw new RecordNotFoundException("Incorrect old password");
+            }
+        } else {
+            throw new RecordNotFoundException("User Not Found");
+        }
     }
 }

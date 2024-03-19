@@ -25,7 +25,7 @@ export class AuthguardService {
     { permission: 'Domestic Summary', route: ['/domestic-summary','/view-domestic-shipping-for-summary/:id', '/add-attachments/:id', '/update-domestic-shipping-for-summary/:id'] },
     { permission: 'International Summary By Air', route: ['/view-air-shipping-for-summary/:id','/international-summary-by-air', '/update-international-air-shipping-for-summary/:id'] },
     { permission: 'International Summary By Road', route: ['/view-road-shipping-for-summary/:id','/international-summary-by-road', '/update-international-road-shipping-for-summary/:id'] },
-    { permission: 'User', route: ['/user', '/add-user', '/edit-user/:id','/archive-user'] },
+    { permission: 'User', route: ['/user', '/add-user', '/edit-user/:id','/archive-user','/reset-password'] },
     { permission: 'Driver', route: ['/driver', '/add-driver', '/edit-driver/:id'] },
     { permission: 'Location', route: ['/location', '/add-location', '/edit-location/:id'] },
     { permission: 'Location Port', route: ['/location-port', '/add-location-port', '/edit-location-port/:id'] },

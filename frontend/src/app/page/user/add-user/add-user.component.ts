@@ -27,7 +27,7 @@ export class AddUserComponent implements OnInit {
     email: null,
     id: null,
     name: null,
-    password: null,
+    password: "smsa1234",
     roles: [],
     locations: [],
     domesticOriginLocations: [],
@@ -36,7 +36,8 @@ export class AddUserComponent implements OnInit {
     internationalAirDestinationLocation: [],
     internationalRoadOriginLocation: [],
     internationalRoadDestinationLocation: [],
-    status: undefined
+    status: undefined,
+    employeeId: undefined
   };
   roles!:Role[];
   locationsList!:Location[];
