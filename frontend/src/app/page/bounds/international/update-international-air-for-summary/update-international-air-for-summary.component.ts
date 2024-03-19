@@ -310,6 +310,11 @@ export class UpdateInternationalAirForSummaryComponent {
 
    pattern1!:string;
    makePatternOfDamageAWBS(num:number|null){
+
+    if(num==0 || num==null){
+      this.internationalShipment.damageAwbs=''
+     }
+
      if (num === null || num < 1) {
        this.pattern1='';
        this.cdr.detectChanges();

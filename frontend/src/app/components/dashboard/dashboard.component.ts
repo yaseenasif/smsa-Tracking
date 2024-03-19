@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { DashboardService } from './dashboard.service';
 import { CardsData } from 'src/app/model/CardData';
@@ -16,6 +16,15 @@ export class DashboardComponent implements OnInit {
     chartData: any;
     chartOptions: any;
     basicData: any;
+
+    locationDomOutData: any;
+    locationDomInData: any;
+    locationIntAirOutData: any;
+    locationIntAirInData: any;
+    locationIntRoadOutData: any;
+    locationIntRoadInData: any;
+ 
+
     basicOptions: any;
     DomesticCardsData:CardsData={
         TotalShipments: 0,
@@ -35,12 +44,16 @@ export class DashboardComponent implements OnInit {
     date!:Date;
     currentYear:Date=new Date();
     typesWithOutDuplicate!:(string | null | undefined)[]
+   
 
 
     constructor(private dashboardService:DashboardService,
-                private userService:UserService){}
+                private userService:UserService,
+        ){}
 
     ngOnInit(): void {
+        
+     
       const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
 
@@ -60,8 +73,9 @@ export class DashboardComponent implements OnInit {
                 legend: {
                     labels: {
                         usePointStyle: true,
-                        color: textColor
-                    }
+                        color: textColor,
+                    },
+                    position:'bottom'
                 }
             }
         };
@@ -71,15 +85,131 @@ export class DashboardComponent implements OnInit {
         const textColorSecondaryBar = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
-        this.basicData = {
-            labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+    
+        this.userService.getLoggedInUser().subscribe((res:User)=>{        
+            let types=res.locations?.map((el)=>{return el.type})
+           this.typesWithOutDuplicate= types!.filter((item, index) => types!.indexOf(item) === index); 
+             this.getCardsData(this.currentYear)
+              
+        },(_error)=>{})
+     
+    }
+
+    getCardsData(year:Date){
+        // this.dashboardService.DomesticCardsData(year.getFullYear()).subscribe((res)=>{
+        //    this.cardsData=res;
+        // },(error)=>{})
+        forkJoin([this.dashboardService.DomesticCardsData(year.getFullYear()),
+            this.dashboardService.InternationalAirCardsData(year.getFullYear()),
+            this.dashboardService.InternationalRoadCardsData(year.getFullYear()),
+            this.dashboardService.lowAndHighVolumeByLocationOutboundDomestic(year.getFullYear()),
+            this.dashboardService.lowAndHighVolumeByLocationInboundDomestic(year.getFullYear()),
+            this.dashboardService.lowAndHighVolumeByLocationOutboundInternationalAir(year.getFullYear()),
+            this.dashboardService.lowAndHighVolumeByLocationOutboundInternationalRoad(year.getFullYear()),
+            this.dashboardService.lowAndHighVolumeByLocationInboundInternationalAir(year.getFullYear()),
+            this.dashboardService.lowAndHighVolumeByLocationInboundInternationalRoad(year.getFullYear()),
+        ])
+            .subscribe({next:([DomRes,IntAirRes,IntRoadRes,locationDomOutbound,locationDomInbound,locationIntAirOutbound,locationInRoadOutbound,locationIntAirInbound,locationInRoadInbound])=>{
+        this.DomesticCardsData=DomRes;
+        this.IntAirCardsData=IntAirRes;
+        this.IntRoadCardsData=IntRoadRes;
+
+
+        const documentStyle = getComputedStyle(document.documentElement);
+        const textColor = documentStyle.getPropertyValue('--text-color');
+        const documentStyleBar = getComputedStyle(document.documentElement);
+        const textColorBar = documentStyleBar.getPropertyValue('--text-color');
+        const textColorSecondaryBar = documentStyle.getPropertyValue('--text-color-secondary');
+        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+
+      
+        this.locationDomOutData = {
+            labels: Object.keys(locationDomOutbound) ,
             datasets: [
                 {
-                    label: 'Sales',
-                    data: [540, 325, 702, 620],
-                    backgroundColor: ['rgba(255, 159, 64, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(153, 102, 255, 0.2)'],
-                    borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)', 'rgb(153, 102, 255)'],
-                    borderWidth: 1
+                    label: 'Inbound',
+                    data: Object.values(locationDomOutbound),
+                    backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+                    borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+                    borderWidth: 1,
+                    pointStyle:'circle',
+                    barPercentage: 10,
+                    barThickness: 20,
+                }
+            ]
+        };
+        this.locationDomInData = {
+            labels: Object.keys(locationDomInbound) ,
+            datasets: [
+                {
+                    label: 'Inbound',
+                    data: Object.values(locationDomInbound),
+                    backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+                    borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+                    borderWidth: 1,
+                    pointStyle:'circle',
+                    barPercentage: 10,
+                    barThickness: 20,
+                }
+            ]
+        };
+        this.locationIntAirOutData = {
+            labels: Object.keys(locationIntAirOutbound) ,
+            datasets: [
+                {
+                    label: 'Inbound',
+                    data: Object.values(locationIntAirOutbound),
+                    backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+                    borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+                    borderWidth: 1,
+                    pointStyle:'circle',
+                    barPercentage: 10,
+                    barThickness: 20,
+                }
+            ]
+        };
+        this.locationIntAirInData = {
+            labels: Object.keys(locationInRoadOutbound) ,
+            datasets: [
+                {
+                    label: 'Inbound',
+                    data: Object.values(locationInRoadOutbound),
+                    backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+                    borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+                    borderWidth: 1,
+                    pointStyle:'circle',
+                    barPercentage: 10,
+                    barThickness: 20,
+                }
+            ]
+        };
+        this.locationIntRoadOutData = {
+            labels: Object.keys(locationIntAirInbound) ,
+            datasets: [
+                {
+                    label: 'Inbound',
+                    data: Object.values(locationIntAirInbound),
+                    backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+                    borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+                    borderWidth: 1,
+                    pointStyle:'circle',
+                    barPercentage: 10,
+                    barThickness: 20,
+                }
+            ]
+        };
+        this.locationIntRoadInData = {
+            labels: Object.keys(locationInRoadInbound) ,
+            datasets: [
+                {
+                    label: 'Inbound',
+                    data: Object.values( locationInRoadInbound ),
+                    backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+                    borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+                    borderWidth: 1,
+                    pointStyle:'circle',
+                    barPercentage: 10,
+                    barThickness: 20,
                 }
             ]
         };
@@ -88,11 +218,15 @@ export class DashboardComponent implements OnInit {
             plugins: {
                 legend: {
                     labels: {
-                        color: textColorBar
-                    }
+                        color: textColorBar,
+                        usePointStyle: true,
+                       
+                    },
+                    position:'bottom'
                 }
             },
             scales: {
+            
                 y: {
                     beginAtZero: true,
                     ticks: {
@@ -104,6 +238,7 @@ export class DashboardComponent implements OnInit {
                     }
                 },
                 x: {
+                  
                     ticks: {
                         color: textColorSecondaryBar
                     },
@@ -114,24 +249,11 @@ export class DashboardComponent implements OnInit {
                 }
             }
         };
-     
-     
-        this.userService.getLoggedInUser().subscribe((res:User)=>{        
-                let types=res.locations?.map((el)=>{return el.type})
-               this.typesWithOutDuplicate= types!.filter((item, index) => types!.indexOf(item) === index); 
-                 this.getCardsData(this.currentYear)
-                  
-        },(_error)=>{})
-    }
+   
+      
+    
+        
 
-    getCardsData(year:Date){
-        // this.dashboardService.DomesticCardsData(year.getFullYear()).subscribe((res)=>{
-        //    this.cardsData=res;
-        // },(error)=>{})
-        forkJoin([this.dashboardService.DomesticCardsData(year.getFullYear()),this.dashboardService.InternationalAirCardsData(year.getFullYear()),this.dashboardService.InternationalRoadCardsData(year.getFullYear())]).subscribe({next:([DomRes,IntAirRes,IntRoadRes])=>{
-        this.DomesticCardsData=DomRes;
-        this.IntAirCardsData=IntAirRes;
-        this.IntRoadCardsData=IntRoadRes;
         },error:(error)=>{}})
     }
 

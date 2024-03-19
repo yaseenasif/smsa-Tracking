@@ -17,6 +17,14 @@ $error-color:#dc2626;
     margin: 0;
       font-family:sans-serif;
 }
+
+.disabled {
+    background-color: #dad8e1;
+}
+.numinp>.p-inputnumber>.p-inputtext{
+    background-color: #dad8e1;
+}
+
 .primer-color{
 color: #400099;
 }

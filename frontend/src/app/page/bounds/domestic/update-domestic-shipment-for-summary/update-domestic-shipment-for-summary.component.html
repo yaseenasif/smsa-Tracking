@@ -302,6 +302,7 @@
                       (ngModelChange)="makePatternOfOverageAWBS(domesticShipment.overages!)"
                       [(ngModel)]="domesticShipment.overages"
                       [disabled]='!(this.domesticShipment.status== "Tally" || this.domesticShipment.status=="Arrived")'
+                      [ngClass]='{ "numinp":!(this.domesticShipment.status== "Tally" || this.domesticShipment.status=="Arrived")}'
                       #overages="ngModel"
                       [readonly]="true"
                       [required]="required"
@@ -329,6 +330,7 @@
                       pInputText
                       (input)="onPasteOveragesAwbs()"
                       [disabled]="domesticShipment.overages == 0 || domesticShipment.overages == null"
+                      [ngClass]="{ 'disabled':domesticShipment.overages == 0 || domesticShipment.overages == null}"
                       [required]="!(domesticShipment.overages == 0 || domesticShipment.overages == null)"
                       id="name"
                       [pattern]="pattern2"
@@ -388,6 +390,7 @@
                       #shortages="ngModel"
                       [required]="required"
                       [disabled]='!(this.domesticShipment.status== "Tally" || this.domesticShipment.status=="Arrived")'
+                      [ngClass]="{ 'numinp':!(this.domesticShipment.status == 'Tally' || this.domesticShipment.status == 'Arrived')}"
                       name="shortages"
                       [useGrouping]="false"
                     ></p-inputNumber>
@@ -411,6 +414,7 @@
                       (input)="onPasteShortagesAwbs()"
                       id="name"
                       [disabled]="domesticShipment.shortages == 0 || domesticShipment.shortages == null"
+                      [ngClass]="{ 'disabled':domesticShipment.shortages == 0 || domesticShipment.shortages == null}"
                       [pattern]="pattern3"
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.shortagesAwbs"
@@ -444,6 +448,7 @@
                     [required]="required"
                     #damage="ngModel"
                     [disabled]='!(this.domesticShipment.status== "Tally" || this.domesticShipment.status=="Arrived")'
+                    [ngClass]='{ "numinp":!(this.domesticShipment.status== "Tally" || this.domesticShipment.status=="Arrived")}'
                     name="damage"
                     [useGrouping]="false"
                     autocomplete="off" 
@@ -465,6 +470,7 @@
                       (input)=" onPasteDamageAwbs()"
                       id="name"
                       [disabled]="domesticShipment.damage == 0 || domesticShipment.damage == null"
+                      [ngClass]='{ "disabled":domesticShipment.damage == 0 || domesticShipment.damage == null}'
                       [pattern]="pattern1"
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.damageAwbs"

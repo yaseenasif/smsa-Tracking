@@ -150,19 +150,53 @@
                     </div>
                 </div>
         
-                <div class="col-12 xl:col-6">
+                <!-- <div class="col-12 xl:col-12">
                     <div class="card">
                         <div class="flex justify-content-center">
                             <p-chart type="pie" [data]="chartData" [options]="chartOptions"></p-chart>
                         </div>
                     </div>
+                </div> -->
+                <div class="col-12">
+                    <h2 class="h-color mt-2 mb-2">High And Low Volume Of Locations</h2>
                 </div>
-        
+                
                 <div class="col-12 xl:col-6">
                     <div class="card">
-                        <p-chart type="bar" [data]="basicData" [options]="basicOptions"></p-chart>
+                        <h2 class="h-color mb-5">Domestic Outbound</h2>
+                        <p-chart type="bar" [data]="locationDomOutData" [options]="basicOptions"></p-chart>
                     </div>
-            </div>
+                </div>
+                <div class="col-12 xl:col-6">
+                    <div class="card">
+                        <h2 class="h-color mb-5">Domestic Inbound</h2>
+                        <p-chart type="bar" [data]="locationDomInData" [options]="basicOptions"></p-chart>
+                    </div>
+                </div>
+                <div class="col-12 xl:col-6">
+                    <div class="card">
+                        <h2 class="h-color mb-5">International Air Outbound</h2>
+                        <p-chart type="bar" [data]="locationIntAirOutData" [options]="basicOptions"></p-chart>
+                    </div>
+                </div>
+                <div class="col-12 xl:col-6">
+                    <div class="card">
+                        <h2 class="h-color mb-5">International Air Inbound</h2>
+                        <p-chart type="bar" [data]="locationIntAirInData" [options]="basicOptions"></p-chart>
+                    </div>
+                </div>
+                <div class="col-12 xl:col-6">
+                    <div class="card">
+                        <h2 class="h-color mb-5">International Road Outbound</h2>
+                        <p-chart type="bar" [data]="locationIntRoadOutData" [options]="basicOptions"></p-chart>
+                    </div>
+                </div>
+                <div class="col-12 xl:col-6">
+                    <div class="card">
+                        <h2 class="h-color mb-5">International Road Inbound</h2>
+                        <p-chart type="bar" [data]="locationIntRoadInData" [options]="basicOptions"></p-chart>
+                    </div>
+                </div>
         </div>
           </div>
         </div>

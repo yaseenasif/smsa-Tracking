@@ -347,6 +347,7 @@
                       (ngModelChange)="makePatternOfOverageAWBS(internationalShipment.overages!)"
                       [(ngModel)]="internationalShipment.overages"
                       [disabled]='!(this.internationalShipment.status== "Tally" || this.internationalShipment.status=="Cleared")'
+                      [ngClass]='{ "numinp":!(this.internationalShipment.status== "Tally" || this.internationalShipment.status=="Cleared")}'
                       #overages="ngModel"
                       [readonly]="true"
                       [required]="required"
@@ -374,6 +375,7 @@
                       pInputText
                       (input)="onPasteOveragesAwbs()"
                       [disabled]="internationalShipment.overages == 0 || internationalShipment.overages == null"
+                      [ngClass]='{ "disabled":internationalShipment.overages == 0 || internationalShipment.overages == null}'
                       [required]="!(internationalShipment.overages == 0 || internationalShipment.overages == null)"
                       id="name"
                       [pattern]="pattern2"
@@ -430,6 +432,7 @@
                       (ngModelChange)="makePatternOfShortageAWBS(internationalShipment.shortages!)"
                       [(ngModel)]="internationalShipment.shortages"
                       [disabled]='!(this.internationalShipment.status== "Tally" || this.internationalShipment.status=="Cleared")'
+                      [ngClass]='{ "numinp":!(this.internationalShipment.status== "Tally" || this.internationalShipment.status=="Cleared")}'
                       #shortages="ngModel"
                       [readonly]="true"
                       [required]="required"
@@ -456,6 +459,7 @@
                       (input)="onPasteShortagesAwbs()"
                       id="name"
                       [disabled]="internationalShipment.shortages == 0 || internationalShipment.shortages == null"
+                      [ngClass]='{ "disabled":internationalShipment.shortages == 0 || internationalShipment.shortages == null}'
                       [pattern]="pattern3"
                       aria-describedby="name-help"
                       [(ngModel)]="internationalShipment.shortageAWBs"
@@ -487,6 +491,7 @@
                     [(ngModel)]="internationalShipment.damage"
                     (onInput)="makePatternOfDamageAWBS(internationalShipment.damage)"
                     [disabled]='!(this.internationalShipment.status== "Tally" || this.internationalShipment.status=="Cleared")'
+                    [ngClass]='{ "numinp":!(this.internationalShipment.status== "Tally" || this.internationalShipment.status=="Cleared")}'
                     [required]="required"
                     #damage="ngModel"
                     name="damage"
@@ -510,6 +515,7 @@
                       (input)=" onPasteDamageAwbs()"
                       id="name"
                       [disabled]="internationalShipment.damage == 0 || internationalShipment.damage == null"
+                      [ngClass]='{ "disabled":internationalShipment.damage == 0 || internationalShipment.damage == null}'
                       [pattern]="pattern1"
                       aria-describedby="name-help"
                       [(ngModel)]="internationalShipment.damageAwbs"
