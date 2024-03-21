@@ -6,9 +6,34 @@
             <img height="60px" width="180px" src="../../../assets/smsa-logo-removebg.png" alt="" class="sidebar-img" />
         </div>
         <div class="p-toolbar-group-end">
-            <p-button (click)="logout()" class="bg-color">
-                Logout&nbsp;<i class="bi bi-box-arrow-right"></i>
-            </p-button>
+            <div class="pr-5 logout-btn">
+                <p-splitButton  label="Account Management" icon="pi pi-plus" [model]="items"></p-splitButton>
+            </div>
+            
+            <!-- <div class="dropdown">
+                <div class="dropbtn">
+                    logout
+                </div>
+                <div class="dropdown-content">
+                <div href="#">
+                    <div class="grid m-0 p-0">
+                        <div class="col-4  m-0 p-0">
+                            <div style="background-color: black; width: 50px;height: 50px;border-radius: 50%;"></div>
+                        </div>
+                        <div class="col-8  m-0 p-0">
+                            <div class="grid  m-0 p-0">
+                                <div class="col-12  m-0 p-0">Ali Azlan</div>
+                            </div>
+                            <div class="grid m-0 p-0">
+                                <div class="col-12  m-0 p-0">132433</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+                </div>
+              </div> -->
         </div>
     </p-toolbar>
 </div>

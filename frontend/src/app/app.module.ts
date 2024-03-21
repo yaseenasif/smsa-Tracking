@@ -45,6 +45,7 @@ import { InputNumberModule } from 'primeng/inputnumber';
 import { PaginatorModule } from 'primeng/paginator';
 import { BadgeModule } from 'primeng/badge';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 //primeng imports
 import { CheckboxModule } from 'primeng/checkbox';
@@ -130,6 +131,7 @@ import { AddInternationalByAirEmailListComponent } from './page/InternationalRou
 import { AddInternationalByRoadEmailListComponent } from './page/InternationalRoutes/byRoad/add-international-by-road-email-list/add-international-by-road-email-list.component';
 import { ChipModule } from 'primeng/chip';
 import { ClipboardModule } from 'ngx-clipboard';
+import { MegaMenuModule } from 'primeng/megamenu';
 
 //Dashboard
 import { MenuModule } from 'primeng/menu';
@@ -234,6 +236,8 @@ import { PanelMenuModule } from 'primeng/panelmenu';
     
   ],
   imports: [
+    MegaMenuModule,
+    SplitButtonModule,
     PanelMenuModule,
     StyleClassModule,
     MenuModule,

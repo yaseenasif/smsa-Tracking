@@ -217,3 +217,21 @@ color:#f59e0b;
 .hook>.p-element>.p-toolbar{
     padding:8px;
 }
+
+
+.logout-btn>.p-element>.p-splitbutton>.p-element>.p-tieredmenu{
+    z-index: 1002 !important;
+    transform-origin: center bottom !important;
+    top: 46px !important;
+    left: 55px !important;
+
+}
+
+.logout-btn>.p-element>.p-splitbutton>.p-element>.p-tieredmenu>.p-element>.p-tieredmenu-root-list>.p-element>.p-menuitem-content>.p-ripple>.p-menuitem-icon{
+    margin-right:6px !important;
+   font-size: larger;
+}
+
+.logout-btn>.p-element>.p-splitbutton>.p-button{
+    background-color: $primary-color;
+}
