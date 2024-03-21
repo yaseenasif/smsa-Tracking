@@ -1,6 +1,5 @@
 package com.example.CargoTracking.service;
 
-import com.amazonaws.util.CollectionUtils;
 import com.example.CargoTracking.criteria.SearchCriteriaForInternationalShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
 import com.example.CargoTracking.dto.InternationalShipmentDto;
@@ -10,7 +9,6 @@ import com.example.CargoTracking.model.*;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.repository.*;
 
-import com.example.CargoTracking.specification.DomesticShipmentSpecification;
 import com.example.CargoTracking.specification.InternationalShipmentSpecification;
 import com.example.CargoTracking.specification.InternationalSummarySpecification;
 import org.modelmapper.ModelMapper;
@@ -65,7 +63,7 @@ public class InternationalShipmentService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if(principal instanceof UserDetails){
             String username = ((UserDetails) principal).getUsername();
-            User user = userRepository.findByEmail(username);
+            User user = userRepository.findByEmployeeId(username);
 
             List<InternationalShipment> all = internationalShipmentRepository.findAll();
             for (InternationalShipment internationalShipment: all) {
@@ -187,7 +185,7 @@ public class InternationalShipmentService {
             Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
 
             String username = ((UserDetails) principal).getUsername();
-            User user = userRepository.findByEmail(username);
+            User user = userRepository.findByEmployeeId(username);
             String role ="";
             for (Roles roleList:user.getRoles()) {
               Optional<Roles> roles = Optional.ofNullable(roleRepository
@@ -224,7 +222,7 @@ public class InternationalShipmentService {
         if(principal instanceof UserDetails) {
             Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
             String username = ((UserDetails) principal).getUsername();
-            User user = userRepository.findByEmail(username);
+            User user = userRepository.findByEmployeeId(username);
           String role ="";
           for (Roles roleList:user.getRoles()) {
             Optional<Roles> roles = Optional.ofNullable(roleRepository
@@ -265,9 +263,9 @@ public class InternationalShipmentService {
     @Scheduled(fixedRate = 20 * 60 * 1000)
 //    @Scheduled(cron = "0 0 12 * * ?")
     public void redFlag() {
-        LocalDate oneDayOlderDate = LocalDate.now().minusDays(1);
+//        LocalDate oneDayOlderDate = LocalDate.now().minusDays(1);
 
-        List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findByCreatedAt(oneDayOlderDate);
+        List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findAll();
         try {
             LocalDateTime currentDateTime = LocalDateTime.now();
 
@@ -449,7 +447,7 @@ public class InternationalShipmentService {
         if(principal instanceof UserDetails){
             Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedTime"));
             String username = ((UserDetails) principal).getUsername();
-            User user = userRepository.findByEmail(username);
+            User user = userRepository.findByEmployeeId(username);
             if(searchCriteriaForInternationalSummary.getDestinations().isEmpty()){
               Set<Location> userLocations = user.getLocations();
               if (!userLocations.isEmpty()) {
@@ -514,7 +512,7 @@ public class InternationalShipmentService {
         if(principal instanceof UserDetails){
             Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedTime"));
             String username = ((UserDetails) principal).getUsername();
-            User user = userRepository.findByEmail(username);
+            User user = userRepository.findByEmployeeId(username);
           if(searchCriteriaForInternationalSummary.getDestinations().isEmpty()){
             Set<Location> userLocations = user.getLocations();
             if (!userLocations.isEmpty()) {
@@ -546,7 +544,7 @@ public class InternationalShipmentService {
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if(principal instanceof UserDetails){
                 String username = ((UserDetails) principal).getUsername();
-                User user = userRepository.findByEmail(username);
+                User user = userRepository.findByEmployeeId(username);
                 List<InternationalShipment> all = internationalShipmentRepository.findAll();
                 for (InternationalShipment internationalShipmentForPreAlertNumber: all) {
                     if(internationalShipmentForPreAlertNumber.getPreAlertNumber().equals(internationalShipmentDto.getPreAlertNumber())){
@@ -739,7 +737,7 @@ public class InternationalShipmentService {
         Map<String, Integer> dashboardData = new HashMap<>();
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmail(userDetails.getUsername());
+        User user = userRepository.findByEmployeeId(userDetails.getUsername());
 
         String role = user.getRoles().stream()
                 .map(Roles::getName)
@@ -784,7 +782,7 @@ public class InternationalShipmentService {
         Map<String, Integer> dashboardData = new HashMap<>();
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmail(userDetails.getUsername());
+        User user = userRepository.findByEmployeeId(userDetails.getUsername());
 
         String role = user.getRoles().stream()
                 .map(Roles::getName)
@@ -827,7 +825,7 @@ public class InternationalShipmentService {
 
     public Map<String, Integer> lowAndHighVolumeWithLocationForInboundForInternationalAir(Integer year) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmail(userDetails.getUsername());
+        User user = userRepository.findByEmployeeId(userDetails.getUsername());
         Set<String> userLocations = user.getLocations().stream()
                 .filter(location -> "International Air".equals(location.getType()))
                 .map(Location::getLocationName)
@@ -851,7 +849,7 @@ public class InternationalShipmentService {
 
     public Map<String, Integer> lowAndHighVolumeWithLocationForInboundForInternationalRoad(Integer year) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmail(userDetails.getUsername());
+        User user = userRepository.findByEmployeeId(userDetails.getUsername());
         Set<String> userLocations = user.getLocations().stream()
                 .filter(location -> "International Road".equals(location.getType()))
                 .map(Location::getLocationName)
@@ -875,7 +873,7 @@ public class InternationalShipmentService {
 
     public Map<String, Integer> lowAndHighVolumeWithLocationForOutboundForInternationalAir(Integer year) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmail(userDetails.getUsername());
+        User user = userRepository.findByEmployeeId(userDetails.getUsername());
 
         String role = user.getRoles().stream()
                 .map(Roles::getName)
@@ -906,7 +904,7 @@ public class InternationalShipmentService {
 
     public Map<String, Integer> lowAndHighVolumeWithLocationForOutboundForInternationalRoad(Integer year) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmail(userDetails.getUsername());
+        User user = userRepository.findByEmployeeId(userDetails.getUsername());
 
         String role = user.getRoles().stream()
                 .map(Roles::getName)

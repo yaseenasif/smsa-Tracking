@@ -1,8 +1,10 @@
 package com.example.CargoTracking.controller;
 
+import com.example.CargoTracking.dto.ResetPassword;
 import com.example.CargoTracking.dto.UserDto;
 import com.example.CargoTracking.dto.UserResponseDto;
 import com.example.CargoTracking.model.User;
+import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -62,5 +64,9 @@ public class UserController {
         return ResponseEntity.ok(userService.getLoggedInUser());
     }
 
+    @PutMapping("/reset-password")
+    public ResponseEntity<ApiResponse> resetPassword(@RequestBody ResetPassword resetPassword){
+        return ResponseEntity.ok(userService.resetPassword(resetPassword));
+    }
 
 }

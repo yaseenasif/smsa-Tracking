@@ -8,9 +8,8 @@ import lombok.*;
 @Setter
 @ToString
 @Builder
-public class LoginCredentials {
-
-    private String employeeId;
-    private String password;
-
+public class ResetPassword {
+  private Long id;
+  private String oldPassword;
+  private String newPassword;
 }

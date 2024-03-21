@@ -6,6 +6,7 @@ export interface User{
     email:string|null|undefined,
     name:string|null|undefined,
     password:string|null|undefined,
+    employeeId:string|null|undefined,
     roles:Role[]|null|undefined,
     status:boolean|null|undefined,
     locations:Location[]|null|undefined;

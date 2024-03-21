@@ -3,7 +3,6 @@ package com.example.CargoTracking.service;
 import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
-import com.example.CargoTracking.dto.LocationDto;
 import com.example.CargoTracking.model.*;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.exception.RecordNotFoundException;
@@ -30,15 +29,12 @@ import java.util.concurrent.CompletableFuture;
 
 
 import javax.transaction.Transactional;
-import java.rmi.server.ExportException;
 import java.time.Duration;
 import java.util.*;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class DomesticShipmentService {
@@ -74,7 +70,7 @@ public class DomesticShipmentService {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             String username = ((UserDetails) principal).getUsername();
-            User user = userRepository.findByEmail(username);
+            User user = userRepository.findByEmployeeId(username);
 
             LocalDate todaysDate = LocalDate.now();
 
@@ -174,7 +170,7 @@ public class DomesticShipmentService {
             Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
 
             String username = ((UserDetails) principal).getUsername();
-            User user = userRepository.findByEmail(username);
+            User user = userRepository.findByEmployeeId(username);
             String role ="";
             for (Roles roleList:user.getRoles()) {
                 Optional<Roles> roles = Optional.ofNullable(roleRepository
@@ -260,7 +256,7 @@ public class DomesticShipmentService {
             Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedTime"));
             Page<DomesticShipment> domesticShipmentPage;
             String username = ((UserDetails) principal).getUsername();
-            User user = userRepository.findByEmail(username);
+            User user = userRepository.findByEmployeeId(username);
 
             if(searchCriteriaForSummary.getDestinations().isEmpty()){
                 Set<Location> userLocations = user.getLocations();
@@ -294,7 +290,7 @@ public class DomesticShipmentService {
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if (principal instanceof UserDetails) {
                 String username = ((UserDetails) principal).getUsername();
-                User user = userRepository.findByEmail(username);
+                User user = userRepository.findByEmployeeId(username);
                 domesticShipment.get().setUpdatedBy(user);
                 List<DomesticShipment> all = domesticShipmentRepository.findAll();
                 for (DomesticShipment domesticShipmentForPreAlertNumber : all) {
@@ -500,9 +496,9 @@ public class DomesticShipmentService {
 //    faliure tab hoga jab atd se duration se between ziyada gap a jaee ga to red show kra deen ge
 //    2gap se escalation send hogi
 
-        LocalDate oneDayOlderDate = LocalDate.now().minusDays(1);
+//        LocalDate oneDayOlderDate = LocalDate.now().minusDays(1);
 
-        List<DomesticShipment> domesticShipmentList = domesticShipmentRepository.findByCreatedAt(oneDayOlderDate);
+        List<DomesticShipment> domesticShipmentList = domesticShipmentRepository.findAll();
 
         try {
             LocalDateTime currentDateTime = LocalDateTime.now();
@@ -524,7 +520,6 @@ public class DomesticShipmentService {
             List<DomesticShipment> domesticShipmentList1 = domesticShipmentRepository.findAll();
             if (!domesticShipmentList1.isEmpty()) {
                 for (DomesticShipment shipment : domesticShipmentList1) {
-                    if (shipment.getArrivedTime() != null && shipment.getClearedTime() == null) {
                         Duration duration = Duration.between(shipment.getAtd(),currentDateTime);
                         String originEmails = locationRepository.findById(shipment.getOriginLocationId()).get()
                                 .getOriginEscalation();
@@ -598,9 +593,7 @@ public class DomesticShipmentService {
                             }
                         }
                     }
-                }
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             Collections.emptyList();
@@ -665,7 +658,7 @@ public class DomesticShipmentService {
         Map<String, Integer> dashboardData = new HashMap<>();
 
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmail(userDetails.getUsername());
+        User user = userRepository.findByEmployeeId(userDetails.getUsername());
 
         String role = user.getRoles().stream()
                 .map(Roles::getName)
@@ -709,7 +702,7 @@ public class DomesticShipmentService {
     //inbound
     public Map<String, Integer> lowAndHighVolumeWithLocationForInboundForDomestic(Integer year) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmail(userDetails.getUsername());
+        User user = userRepository.findByEmployeeId(userDetails.getUsername());
         Set<String> userLocations = user.getLocations().stream()
                 .filter(location -> "Domestic".equals(location.getType()))
                 .map(Location::getLocationName)
@@ -733,7 +726,7 @@ public class DomesticShipmentService {
 
     public Map<String, Integer> lowAndHighVolumeWithLocationForOutboundForDomestic(Integer year) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmail(userDetails.getUsername());
+        User user = userRepository.findByEmployeeId(userDetails.getUsername());
 
         String role = user.getRoles().stream()
                 .map(Roles::getName)

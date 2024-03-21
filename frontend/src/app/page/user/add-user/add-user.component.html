@@ -33,6 +33,15 @@
                   </div>
                 </div>
                 <div class="col-12 md:col-12 lg:col-6">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">EmployeeId</label>
+                    <input pInputText id="name" aria-describedby="name-help" [(ngModel)]="user.employeeId" name="employeeId"
+                      #name="ngModel" required />
+                    <small id="name-help" class="color-red" *ngIf="name.invalid && (name.dirty || name.touched)">employeeId is
+                      required.</small>
+                  </div>
+                </div>
+                <div class="col-12 md:col-12 lg:col-6">
                   <div class="flex flex-column gap-2 form-hook1">
                     <label htmlFor="password">Password</label>
 

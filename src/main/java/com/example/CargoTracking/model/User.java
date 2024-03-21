@@ -23,6 +23,7 @@ public class User {
     private boolean status;
     @Column(unique = true)
     private String email;
+    private String employeeId;
 
 
     @ManyToMany(fetch = FetchType.EAGER)

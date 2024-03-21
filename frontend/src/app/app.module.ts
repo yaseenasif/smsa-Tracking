@@ -137,6 +137,7 @@ import { MegaMenuModule } from 'primeng/megamenu';
 import { MenuModule } from 'primeng/menu';
 import { StyleClassModule } from 'primeng/styleclass';
 import { PanelMenuModule } from 'primeng/panelmenu';
+import { ResetPasswordComponent } from './page/user/reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -233,6 +234,7 @@ import { PanelMenuModule } from 'primeng/panelmenu';
     AddDomesticEmailListComponent,
     AddInternationalByAirEmailListComponent,
     AddInternationalByRoadEmailListComponent,
+    ResetPasswordComponent,
     
   ],
   imports: [

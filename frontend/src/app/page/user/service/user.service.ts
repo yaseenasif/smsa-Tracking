@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ResetPassword } from 'src/app/model/ResetPassword';
 import { User } from 'src/app/model/User';
 import { environment } from 'src/environments/environment';
 
@@ -39,6 +40,8 @@ export class UserService {
   }
   getLoggedInUser():Observable<User>{
     return this.http.get<User>(this.url.concat('/get-loggedin/user'))
-
+  }
+  resetPassword(body:ResetPassword):Observable<ResetPassword>{
+    return this.http.put<ResetPassword>(this.url.concat('/reset-password'),body);
   }
 }

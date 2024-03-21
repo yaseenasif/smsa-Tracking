@@ -29,6 +29,7 @@ public class UserDto {
     @Email(message = "Invalid email address")
     @NotBlank(message = "Email is required")
     private String email;
+    private String employeeId;
     @NotBlank(message = "Role is required")
     private Set<Roles> roles;
     private boolean status;

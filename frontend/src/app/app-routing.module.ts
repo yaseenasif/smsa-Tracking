@@ -87,6 +87,7 @@ import { ArchiveUserComponent } from './page/user/archive-user/archive-user.comp
 import { AddDomesticEmailListComponent } from './page/domesticRoutes/add-domestic-email-list/add-domestic-email-list.component';
 import { AddInternationalByRoadEmailListComponent } from './page/InternationalRoutes/byRoad/add-international-by-road-email-list/add-international-by-road-email-list.component';
 import { AddInternationalByAirEmailListComponent } from './page/InternationalRoutes/byAir/add-international-by-air-email-list/add-international-by-air-email-list.component';
+import { ResetPasswordComponent } from './page/user/reset-password/reset-password.component';
 // import { EmailManagmentComponent } from './page/email-managment/email-managment.component';
 
 
@@ -198,6 +199,11 @@ const routes: Routes = [
   {
     path: 'edit-vehicle-type/:id',
     component: UpdateVehicleTypeComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordComponent,
     canActivate: [AuthGuard]
   },
   {
