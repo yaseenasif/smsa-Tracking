@@ -23,4 +23,9 @@ export class RoleService {
    return this.http.post<Role>(this.url.concat('/assign-permission-to-role'),body);
   }
 
+  addRole(body:Role):Observable<Role>{
+    return this.http.post<Role>(this.url.concat('/role'),body);
+   }
+  
+
 }

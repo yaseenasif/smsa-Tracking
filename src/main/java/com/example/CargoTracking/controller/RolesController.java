@@ -19,6 +19,11 @@ public class RolesController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/assign-permission-to-role")
     public ResponseEntity<RolesDto> assignPermissionToRole(@RequestBody RolesDto rolesDto){
+        return ResponseEntity.ok(rolesService.addPermissionInRoles(rolesDto));
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PostMapping("/role")
+    public ResponseEntity<RolesDto> addRoles(@RequestBody RolesDto rolesDto){
         return ResponseEntity.ok(rolesService.addRoles(rolesDto));
     }
 

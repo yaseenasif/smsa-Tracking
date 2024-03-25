@@ -31,7 +31,7 @@ export class AuthguardService {
     { permission: 'Location Port', route: ['/location-port', '/add-location-port', '/edit-location-port/:id'] },
     { permission: 'Shipment Status', route: ['/shipment-status', '/add-shipment-status', '/edit-shipment-status/:id'] },
     { permission: 'Vehicle Type', route: ['/vehicle-type', '/add-vehicle-type', '/edit-vehicle-type/:id'] },
-    { permission: 'Role', route: ['/role', '/edit-role/:id'] },
+    { permission: 'Role', route: ['/add-role','/role', '/edit-role/:id'] },
     { permission: 'View Attachments', route: ['/view-attachments/:name/:through/:id'] },
     { permission: 'ShipmentRoutes', route: ['/domestic-routes', '/add-domestic-routes', '/update-domestic-routes/:id','/add-domestic-email-list'] },
     { permission: 'ShipmentRoutesForAir', route: ['/international-routes-for-air', '/add-international-routes-for-air', '/update-international-routes-for-air/:id','/add-international-by-air-email-list'] },

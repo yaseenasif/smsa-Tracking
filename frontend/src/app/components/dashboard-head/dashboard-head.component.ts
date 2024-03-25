@@ -27,7 +27,7 @@ export class DashboardHeadComponent implements OnInit {
           {
               label: 'Change Password',
               icon: 'bi bi-person-lock',
-              routerLink: ['/'] 
+              routerLink: ['/reset-password'] 
           },
       ];
   }

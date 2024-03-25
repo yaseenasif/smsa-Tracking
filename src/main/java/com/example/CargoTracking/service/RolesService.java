@@ -23,9 +23,10 @@ public class RolesService {
     @Autowired
     ModelMapper modelMapper;
 
-    public RolesDto addRoles(RolesDto rolesDto) {
+    public RolesDto addPermissionInRoles(RolesDto rolesDto) {
 
-        Optional<Roles> existingRole = roleRepository.findById(rolesDto.getId());
+            Optional<Roles> existingRole = roleRepository.findById(rolesDto.getId());
+
         Set<Permission> truePermissions = new HashSet<>();
         if (existingRole.isPresent() && rolesDto!= null) {
             for(Permission permission: rolesDto.getPermissions()){
@@ -37,6 +38,18 @@ public class RolesService {
         }
 
         return toDto(roleRepository.save(existingRole.get()));
+    }
+
+    public RolesDto addRoles(RolesDto rolesDto) {
+        Roles roles = toEntity(rolesDto);
+        Optional<Roles> existingRole = roleRepository.findByName(rolesDto.getName());
+
+        if (existingRole.isPresent()) {
+            throw new RuntimeException("This role " + rolesDto.getName() + " already exist ");
+        } else {
+            existingRole = Optional.of(roleRepository.save(roles));
+        }
+        return toDto(existingRole.get());
     }
 
     public List<RolesDto> getAll() {
@@ -65,5 +78,9 @@ public class RolesService {
 
     public RolesDto toDto(Roles roles){
         return modelMapper.map(roles, RolesDto.class);
+    }
+
+    public Roles toEntity(RolesDto rolesdto){
+        return  modelMapper.map(rolesdto, Roles.class);
     }
 }
