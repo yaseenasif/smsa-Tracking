@@ -223,7 +223,6 @@ const routes: Routes = [
   {
     path: 'edit-permission/:id',
     component: EditPermissionComponent,
-    canActivate: [AuthGuard]
   },
   {
     path: 'role',
