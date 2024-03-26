@@ -932,4 +932,90 @@ public class InternationalShipmentService {
         }
         return outboundMap;
     }
+
+    public Map<String, Map<String, Integer>> getOutBoundForInternationalAirDashboardTest(Integer year) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmployeeId(userDetails.getUsername());
+
+        String role = user.getRoles().stream()
+                .map(Roles::getName)
+                .findFirst()
+                .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+
+        Specification<InternationalShipment> specification;
+        if (role.equals("ROLE_ADMIN")) {
+            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, null,"By Air");
+        } else {
+            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, user,"By Air");
+        }
+
+        List<InternationalShipment> shipments = internationalShipmentRepository.findAll(specification);
+        Map<String, Map<String, Integer>> map = new HashMap<>();
+
+        for(InternationalShipment internationalShipment:shipments){
+            Map<String,Integer> innerMap = new HashMap<>();
+
+            if(map.containsKey(internationalShipment.getOriginLocation())){
+
+            } else{
+                List<InternationalShipment> collect = shipments.stream().filter(shipment -> shipment.getOriginLocation().equals(internationalShipment.getOriginLocation())).collect(Collectors.toList());
+                for(InternationalShipment collectInternationalShipment: collect){
+                    String destinationLocation = collectInternationalShipment.getDestinationLocation();
+
+                    if (innerMap.containsKey(destinationLocation)) {
+                        int count = innerMap.get(destinationLocation);
+                        innerMap.put(destinationLocation, count + 1);
+                    } else {
+                        innerMap.put(destinationLocation, 1);
+                    }
+                }
+                map.put(internationalShipment.getOriginLocation(),innerMap);
+
+            }
+        }
+        return map;
+    }
+
+    public Map<String, Map<String, Integer>> getOutBoundForInternationalRoadDashboardTest(Integer year) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmployeeId(userDetails.getUsername());
+
+        String role = user.getRoles().stream()
+                .map(Roles::getName)
+                .findFirst()
+                .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+
+        Specification<InternationalShipment> specification;
+        if (role.equals("ROLE_ADMIN")) {
+            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, null,"By Road");
+        } else {
+            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, user,"By Road");
+        }
+
+        List<InternationalShipment> shipments = internationalShipmentRepository.findAll(specification);
+        Map<String, Map<String, Integer>> map = new HashMap<>();
+
+        for(InternationalShipment internationalShipment:shipments){
+            Map<String,Integer> innerMap = new HashMap<>();
+
+            if(map.containsKey(internationalShipment.getOriginLocation())){
+
+            } else{
+                List<InternationalShipment> collect = shipments.stream().filter(shipment -> shipment.getOriginLocation().equals(internationalShipment.getOriginLocation())).collect(Collectors.toList());
+                for(InternationalShipment collectInternationalShipment: collect){
+                    String destinationLocation = collectInternationalShipment.getDestinationLocation();
+
+                    if (innerMap.containsKey(destinationLocation)) {
+                        int count = innerMap.get(destinationLocation);
+                        innerMap.put(destinationLocation, count + 1);
+                    } else {
+                        innerMap.put(destinationLocation, 1);
+                    }
+                }
+                map.put(internationalShipment.getOriginLocation(),innerMap);
+
+            }
+        }
+        return map;
+    }
 }

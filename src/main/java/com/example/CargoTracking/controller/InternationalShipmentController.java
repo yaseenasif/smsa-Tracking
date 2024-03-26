@@ -158,4 +158,14 @@ public class  InternationalShipmentController {
         return ResponseEntity.ok(internationalShipmentService.lowAndHighVolumeWithLocationForOutboundForInternationalRoad(year));
     }
 
+    @GetMapping("low-to-high-international-air-outbound-test")
+    public ResponseEntity<Map<String,Map<String,Integer>>> getOutBoundForInternationalAirDashboardTest(@RequestParam Integer year){
+        return ResponseEntity.ok(internationalShipmentService.getOutBoundForInternationalAirDashboardTest(year));
+    }
+
+    @GetMapping("low-to-high-international-road-outbound-test")
+    public ResponseEntity<Map<String,Map<String,Integer>>> getOutBoundForInternationalRoadDashboardTest(@RequestParam Integer year){
+        return ResponseEntity.ok(internationalShipmentService.getOutBoundForInternationalRoadDashboardTest(year));
+    }
+
 }

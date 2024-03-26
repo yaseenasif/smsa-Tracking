@@ -21,7 +21,7 @@ public class DriverController {
     @Autowired
     DriverService driverService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('add_driver')")
     @PostMapping("/driver")
     public ResponseEntity<DriverDto> addDriver(@RequestBody DriverDto driverDto){
         return ResponseEntity.ok(driverService.addDriver(driverDto));

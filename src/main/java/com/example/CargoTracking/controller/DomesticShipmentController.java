@@ -127,4 +127,9 @@ public class DomesticShipmentController {
         return ResponseEntity.ok(domesticShipmentService.lowAndHighVolumeWithLocationForOutboundForDomestic(year));
     }
 
+    @GetMapping("low-to-high-domestic-outbound-test")
+    public ResponseEntity<Map<String,Map<String,Integer>>> getOutBoundForDomesticDashboardTest(@RequestParam Integer year){
+        return ResponseEntity.ok(domesticShipmentService.getOutBoundForDashboardTest(year));
+    }
+
 }

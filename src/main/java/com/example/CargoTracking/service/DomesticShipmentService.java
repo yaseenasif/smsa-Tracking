@@ -754,4 +754,47 @@ public class DomesticShipmentService {
         }
         return outboundMap;
     }
+
+    public Map<String, Map<String, Integer>> getOutBoundForDashboardTest(Integer year) {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userRepository.findByEmployeeId(userDetails.getUsername());
+
+        String role = user.getRoles().stream()
+                .map(Roles::getName)
+                .findFirst()
+                .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+
+        Specification<DomesticShipment> specification;
+        if (role.equals("ROLE_ADMIN")) {
+            specification = DomesticShipmentSpecification.withCreatedYearAndUser(year, null);
+        } else {
+            specification = DomesticShipmentSpecification.withCreatedYearAndUser(year, user);
+        }
+
+        List<DomesticShipment> shipments = domesticShipmentRepository.findAll(specification);
+        Map<String, Map<String, Integer>> map = new HashMap<>();
+
+            for(DomesticShipment domesticShipment:shipments){
+                Map<String,Integer> innerMap = new HashMap<>();
+
+                if(map.containsKey(domesticShipment.getOriginLocation())){
+
+                } else{
+                    List<DomesticShipment> collect = shipments.stream().filter(shipment -> shipment.getOriginLocation().equals(domesticShipment.getOriginLocation())).collect(Collectors.toList());
+                    for(DomesticShipment collectDomesticShipment: collect){
+                        String destinationLocation = collectDomesticShipment.getDestinationLocation();
+
+                        if (innerMap.containsKey(destinationLocation)) {
+                            int count = innerMap.get(destinationLocation);
+                            innerMap.put(destinationLocation, count + 1);
+                        } else {
+                            innerMap.put(destinationLocation, 1);
+                        }
+                    }
+                    map.put(domesticShipment.getOriginLocation(),innerMap);
+
+                }
+            }
+        return map;
+    }
 }
