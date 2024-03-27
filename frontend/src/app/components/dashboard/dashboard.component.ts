@@ -105,17 +105,17 @@ export class DashboardComponent implements OnInit {
         forkJoin([this.dashboardService.DomesticCardsData(year.getFullYear()),
             this.dashboardService.InternationalAirCardsData(year.getFullYear()),
             this.dashboardService.InternationalRoadCardsData(year.getFullYear()),
-            this.dashboardService.lowAndHighVolumeByLocationOutboundDomestic(year.getFullYear()),
-            this.dashboardService.lowAndHighVolumeByLocationInboundDomestic(year.getFullYear()),
-            this.dashboardService.lowAndHighVolumeByLocationOutboundInternationalAir(year.getFullYear()),
-            this.dashboardService.lowAndHighVolumeByLocationOutboundInternationalRoad(year.getFullYear()),
-            this.dashboardService.lowAndHighVolumeByLocationInboundInternationalAir(year.getFullYear()),
-            this.dashboardService.lowAndHighVolumeByLocationInboundInternationalRoad(year.getFullYear()),
+            // this.dashboardService.lowAndHighVolumeByLocationOutboundDomestic(year.getFullYear()),
+            // this.dashboardService.lowAndHighVolumeByLocationInboundDomestic(year.getFullYear()),
+            // this.dashboardService.lowAndHighVolumeByLocationOutboundInternationalAir(year.getFullYear()),
+            // this.dashboardService.lowAndHighVolumeByLocationOutboundInternationalRoad(year.getFullYear()),
+            // this.dashboardService.lowAndHighVolumeByLocationInboundInternationalAir(year.getFullYear()),
+            // this.dashboardService.lowAndHighVolumeByLocationInboundInternationalRoad(year.getFullYear()),
             this.dashboardService.lowToHighDomesticOutboundTest(year.getFullYear()),
             this.dashboardService.lowToHighInternationalAirOutboundTest(year.getFullYear()),
             this.dashboardService.lowToHighInternationalRoadOutboundTest(year.getFullYear())
         ])
-            .subscribe({next:([DomRes,IntAirRes,IntRoadRes,locationDomOutbound,locationDomInbound,locationIntAirOutbound,locationInRoadOutbound,locationIntAirInbound,locationInRoadInbound,DomesticOutboundLocationtoLocationData,IntAirOutboundLocationtoLocationData,IntRoadOutboundLocationtoLocationData])=>{
+            .subscribe({next:([DomRes,IntAirRes,IntRoadRes,DomesticOutboundLocationtoLocationData,IntAirOutboundLocationtoLocationData,IntRoadOutboundLocationtoLocationData])=>{
         this.DomesticCardsData=DomRes;
         this.IntAirCardsData=IntAirRes;
         this.IntRoadCardsData=IntRoadRes;
@@ -181,96 +181,96 @@ export class DashboardComponent implements OnInit {
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
       
-        this.locationDomOutData = {
-            labels: Object.keys(locationDomOutbound) ,
-            datasets: [
-                {
-                    label: 'Outbound',
-                    data: Object.values(locationDomOutbound),
-                    backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
-                    borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
-                    borderWidth: 1,
-                    pointStyle:'circle',
-                    barPercentage: 10,
-                    barThickness: 20,
-                }
-            ]
-        };
-        this.locationDomInData = {
-            labels: Object.keys(locationDomInbound) ,
-            datasets: [
-                {
-                    label: 'Inbound',
-                    data: Object.values(locationDomInbound),
-                    backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
-                    borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
-                    borderWidth: 1,
-                    pointStyle:'circle',
-                    barPercentage: 10,
-                    barThickness: 20,
-                }
-            ]
-        };
-        this.locationIntAirOutData = {
-            labels: Object.keys(locationIntAirOutbound) ,
-            datasets: [
-                {
-                    label: 'Outbound',
-                    data: Object.values(locationIntAirOutbound),
-                    backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
-                    borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
-                    borderWidth: 1,
-                    pointStyle:'circle',
-                    barPercentage: 10,
-                    barThickness: 20,
-                }
-            ]
-        };
-        this.locationIntAirInData = {
-            labels: Object.keys(locationIntAirInbound),
-            datasets: [
-                {
-                    label: 'Inbound',
-                    data: Object.values(locationInRoadOutbound),
-                    backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
-                    borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
-                    borderWidth: 1,
-                    pointStyle:'circle',
-                    barPercentage: 10,
-                    barThickness: 20,
-                }
-            ]
-        };
-        this.locationIntRoadOutData = {
-            labels: Object.keys(locationInRoadOutbound) ,
-            datasets: [
-                {
-                    label: 'Outbound',
-                    data: Object.values(locationInRoadOutbound),
-                    backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
-                    borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
-                    borderWidth: 1,
-                    pointStyle:'circle',
-                    barPercentage: 10,
-                    barThickness: 20,
-                }
-            ]
-        };
-        this.locationIntRoadInData = {
-            labels: Object.keys(locationInRoadInbound) ,
-            datasets: [
-                {
-                    label: 'Inbound',
-                    data: Object.values( locationInRoadInbound ),
-                    backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
-                    borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
-                    borderWidth: 1,
-                    pointStyle:'circle',
-                    barPercentage: 10,
-                    barThickness: 20,
-                }
-            ]
-        };
+        // this.locationDomOutData = {
+        //     labels: Object.keys(locationDomOutbound) ,
+        //     datasets: [
+        //         {
+        //             label: 'Outbound',
+        //             data: Object.values(locationDomOutbound),
+        //             backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+        //             borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+        //             borderWidth: 1,
+        //             pointStyle:'circle',
+        //             barPercentage: 10,
+        //             barThickness: 20,
+        //         }
+        //     ]
+        // };
+        // this.locationDomInData = {
+        //     labels: Object.keys(locationDomInbound) ,
+        //     datasets: [
+        //         {
+        //             label: 'Inbound',
+        //             data: Object.values(locationDomInbound),
+        //             backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+        //             borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+        //             borderWidth: 1,
+        //             pointStyle:'circle',
+        //             barPercentage: 10,
+        //             barThickness: 20,
+        //         }
+        //     ]
+        // };
+        // this.locationIntAirOutData = {
+        //     labels: Object.keys(locationIntAirOutbound) ,
+        //     datasets: [
+        //         {
+        //             label: 'Outbound',
+        //             data: Object.values(locationIntAirOutbound),
+        //             backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+        //             borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+        //             borderWidth: 1,
+        //             pointStyle:'circle',
+        //             barPercentage: 10,
+        //             barThickness: 20,
+        //         }
+        //     ]
+        // };
+        // this.locationIntAirInData = {
+        //     labels: Object.keys(locationIntAirInbound),
+        //     datasets: [
+        //         {
+        //             label: 'Inbound',
+        //             data: Object.values(locationInRoadOutbound),
+        //             backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+        //             borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+        //             borderWidth: 1,
+        //             pointStyle:'circle',
+        //             barPercentage: 10,
+        //             barThickness: 20,
+        //         }
+        //     ]
+        // };
+        // this.locationIntRoadOutData = {
+        //     labels: Object.keys(locationInRoadOutbound) ,
+        //     datasets: [
+        //         {
+        //             label: 'Outbound',
+        //             data: Object.values(locationInRoadOutbound),
+        //             backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+        //             borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+        //             borderWidth: 1,
+        //             pointStyle:'circle',
+        //             barPercentage: 10,
+        //             barThickness: 20,
+        //         }
+        //     ]
+        // };
+        // this.locationIntRoadInData = {
+        //     labels: Object.keys(locationInRoadInbound) ,
+        //     datasets: [
+        //         {
+        //             label: 'Inbound',
+        //             data: Object.values( locationInRoadInbound ),
+        //             backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+        //             borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+        //             borderWidth: 1,
+        //             pointStyle:'circle',
+        //             barPercentage: 10,
+        //             barThickness: 20,
+        //         }
+        //     ]
+        // };
 
         this.basicOptions = {
             plugins: {
