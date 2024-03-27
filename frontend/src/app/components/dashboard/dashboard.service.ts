@@ -58,4 +58,24 @@ export class DashboardService {
     queryParams = queryParams.append("year", year);
   return this.http.get<any>(`${this.url}/low-and-high-volume-by-location-inbound-international-road`,{ params: queryParams });
   }
+
+  lowToHighDomesticOutboundTest(year:number){
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("year", year);
+  return this.http.get<any>(`${this.url}/low-to-high-domestic-outbound-test`,{ params: queryParams });
+  }
+
+  lowToHighInternationalAirOutboundTest(year:number){
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("year", year);
+  return this.http.get<any>(`${this.url}/low-to-high-international-air-outbound-test`,{ params: queryParams });
+  }
+
+  lowToHighInternationalRoadOutboundTest(year:number){
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("year", year);
+  return this.http.get<any>(`${this.url}/low-to-high-international-road-outbound-test`,{ params: queryParams });
+  }
+
+  
 }

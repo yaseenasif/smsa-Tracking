@@ -197,6 +197,37 @@
                         <p-chart type="bar" [data]="locationIntRoadInData" [options]="basicOptions"></p-chart>
                     </div>
                 </div>
+
+                <div class="col-12">
+                    <h2 class="h-color mt-2 mb-2">High To Low Volume Of Outbound Domestic Shipments</h2>
+                </div>
+
+                <div class="col-12 xl:col-6" *ngFor="let domOutLocationToLocation of DomOutLocationToLocation">
+                    <div class="card">
+                        <h2 class="h-color mb-5">{{getFirstKey(domOutLocationToLocation)}}</h2>
+                        <p-chart type="bar" [data]="domOutLocationToLocation[getFirstKey(domOutLocationToLocation)]" [options]="basicOptions"></p-chart>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <h2 class="h-color mt-2 mb-2">High To Low Volume Of Outbound International Air Shipments</h2>
+                </div>
+
+                <div class="col-12 xl:col-6" *ngFor="let intAirOutLocationToLocation of IntAirOutLocationToLocation">
+                    <div class="card">
+                        <h2 class="h-color mb-5">{{getFirstKey(intAirOutLocationToLocation)}}</h2>
+                        <p-chart type="bar" [data]="intAirOutLocationToLocation[getFirstKey(intAirOutLocationToLocation)]" [options]="basicOptions"></p-chart>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <h2 class="h-color mt-2 mb-2">High To Low Volume Of Outbound International Road Shipments</h2>
+                </div>
+
+                <div class="col-12 xl:col-6" *ngFor="let intRoadOutLocationToLocation of IntRoadOutLocationToLocation">
+                    <div class="card">
+                        <h2 class="h-color mb-5">{{getFirstKey(intRoadOutLocationToLocation)}}</h2>
+                        <p-chart type="bar" [data]="intRoadOutLocationToLocation[getFirstKey(intRoadOutLocationToLocation)]" [options]="basicOptions"></p-chart>
+                    </div>
+                </div>
         </div>
           </div>
         </div>

@@ -23,6 +23,9 @@ export class DashboardComponent implements OnInit {
     locationIntAirInData: any;
     locationIntRoadOutData: any;
     locationIntRoadInData: any;
+    DomOutLocationToLocation: any;
+    IntAirOutLocationToLocation: any;
+    IntRoadOutLocationToLocation: any;
  
 
     basicOptions: any;
@@ -108,13 +111,68 @@ export class DashboardComponent implements OnInit {
             this.dashboardService.lowAndHighVolumeByLocationOutboundInternationalRoad(year.getFullYear()),
             this.dashboardService.lowAndHighVolumeByLocationInboundInternationalAir(year.getFullYear()),
             this.dashboardService.lowAndHighVolumeByLocationInboundInternationalRoad(year.getFullYear()),
+            this.dashboardService.lowToHighDomesticOutboundTest(year.getFullYear()),
+            this.dashboardService.lowToHighInternationalAirOutboundTest(year.getFullYear()),
+            this.dashboardService.lowToHighInternationalRoadOutboundTest(year.getFullYear())
         ])
-            .subscribe({next:([DomRes,IntAirRes,IntRoadRes,locationDomOutbound,locationDomInbound,locationIntAirOutbound,locationInRoadOutbound,locationIntAirInbound,locationInRoadInbound])=>{
+            .subscribe({next:([DomRes,IntAirRes,IntRoadRes,locationDomOutbound,locationDomInbound,locationIntAirOutbound,locationInRoadOutbound,locationIntAirInbound,locationInRoadInbound,DomesticOutboundLocationtoLocationData,IntAirOutboundLocationtoLocationData,IntRoadOutboundLocationtoLocationData])=>{
         this.DomesticCardsData=DomRes;
         this.IntAirCardsData=IntAirRes;
         this.IntRoadCardsData=IntRoadRes;
-
-
+        this.DomOutLocationToLocation=Object.keys(DomesticOutboundLocationtoLocationData).map(el=>{
+            return {[el]:{
+                labels: Object.keys( DomesticOutboundLocationtoLocationData[el]) ,
+                datasets: [
+                    {
+                        label: 'Outbound',
+                        data: Object.values( DomesticOutboundLocationtoLocationData[el]),
+                        backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+                        borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+                        borderWidth: 1,
+                        pointStyle:'circle',
+                        barPercentage: 10,
+                        barThickness: 20,
+                    }
+                ]
+            }  }
+        })
+        this.IntAirOutLocationToLocation=Object.keys(IntAirOutboundLocationtoLocationData).map(el=>{
+            return {[el]:{
+                labels: Object.keys( IntAirOutboundLocationtoLocationData[el]) ,
+                datasets: [
+                    {
+                        label: 'Outbound',
+                        data: Object.values( IntAirOutboundLocationtoLocationData[el]),
+                        backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+                        borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+                        borderWidth: 1,
+                        pointStyle:'circle',
+                        barPercentage: 10,
+                        barThickness: 20,
+                    }
+                ]
+            }  }
+        })
+        this.IntRoadOutLocationToLocation=Object.keys(IntRoadOutboundLocationtoLocationData).map(el=>{
+            return {[el]:{
+                labels: Object.keys( IntRoadOutboundLocationtoLocationData[el]) ,
+                datasets: [
+                    {
+                        label: 'Outbound',
+                        data: Object.values( IntRoadOutboundLocationtoLocationData[el]),
+                        backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+                        borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+                        borderWidth: 1,
+                        pointStyle:'circle',
+                        barPercentage: 10,
+                        barThickness: 20,
+                    }
+                ]
+            }  }
+        })
+        console.log(this.DomOutLocationToLocation);
+        
+               
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
         const documentStyleBar = getComputedStyle(document.documentElement);
@@ -127,7 +185,7 @@ export class DashboardComponent implements OnInit {
             labels: Object.keys(locationDomOutbound) ,
             datasets: [
                 {
-                    label: 'Inbound',
+                    label: 'Outbound',
                     data: Object.values(locationDomOutbound),
                     backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
                     borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
@@ -157,7 +215,7 @@ export class DashboardComponent implements OnInit {
             labels: Object.keys(locationIntAirOutbound) ,
             datasets: [
                 {
-                    label: 'Inbound',
+                    label: 'Outbound',
                     data: Object.values(locationIntAirOutbound),
                     backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
                     borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
@@ -169,7 +227,7 @@ export class DashboardComponent implements OnInit {
             ]
         };
         this.locationIntAirInData = {
-            labels: Object.keys(locationInRoadOutbound) ,
+            labels: Object.keys(locationIntAirInbound),
             datasets: [
                 {
                     label: 'Inbound',
@@ -184,11 +242,11 @@ export class DashboardComponent implements OnInit {
             ]
         };
         this.locationIntRoadOutData = {
-            labels: Object.keys(locationIntAirInbound) ,
+            labels: Object.keys(locationInRoadOutbound) ,
             datasets: [
                 {
-                    label: 'Inbound',
-                    data: Object.values(locationIntAirInbound),
+                    label: 'Outbound',
+                    data: Object.values(locationInRoadOutbound),
                     backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
                     borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
                     borderWidth: 1,
@@ -267,5 +325,10 @@ export class DashboardComponent implements OnInit {
         return this.typesWithOutDuplicate.includes("International Road")
     }
 
+    getFirstKey(obj: any): string {
+        return Object.keys(obj)[0];
+    }
+ 
 
 }
+
