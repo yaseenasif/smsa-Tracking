@@ -22,48 +22,51 @@ public class UserController {
     UserService userService;
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('add-user')")
     @PostMapping("/user")
     public ResponseEntity<UserResponseDto> addUser(@Valid @RequestBody UserDto userDto){
 
         return ResponseEntity.ok(userService.addUser(userDto));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('getAll-user')")
     @GetMapping("/all-user")
     public ResponseEntity<List<UserResponseDto>> getAllUser(){
         return ResponseEntity.ok(userService.getAllUser());
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('getInactive-user')")
     @GetMapping("/inactive-user")
     public ResponseEntity<List<UserResponseDto>> getInActiveUser(){
         return ResponseEntity.ok(userService.getInActiveUser());
     }
 
+    @PreAuthorize("hasAuthority('getById-user')")
     @GetMapping("/get-user/{id}")
     public ResponseEntity<UserResponseDto> getUserById(@PathVariable long id){
         return  ResponseEntity.ok(userService.getUserById(id));
     }
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('update-user')")
     @PutMapping("/edit-user/{id}")
     public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id, @RequestBody UserDto user){
         return ResponseEntity.ok(userService.updateUser(id,user));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('delete-user')")
     @DeleteMapping("/delete-user/{id}")
     public ResponseEntity<UserResponseDto> updateUser(@PathVariable Long id){
         return ResponseEntity.ok(userService.deleteUser(id));
     }
 
+    @PreAuthorize("hasAuthority('getLoggedIn-user')")
     @GetMapping("/get-loggedin/user")
     public ResponseEntity<UserResponseDto> getLoggedInUser(){
         return ResponseEntity.ok(userService.getLoggedInUser());
     }
 
+    @PreAuthorize("hasAuthority('resetPassword-user')")
     @PutMapping("/reset-password")
     public ResponseEntity<ApiResponse> resetPassword(@RequestBody ResetPassword resetPassword){
         return ResponseEntity.ok(userService.resetPassword(resetPassword));

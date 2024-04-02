@@ -16,36 +16,37 @@ public class VehicleTypeController {
     @Autowired
     VehicleTypeService vehicleTypeService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('add-vehicleType')")
     @PostMapping("/vehicle-type")
     public ResponseEntity<VehicleTypeDto> addType(@RequestBody VehicleTypeDto vehicleTypeDto){
         return ResponseEntity.ok(vehicleTypeService.addType(vehicleTypeDto));
     }
 
+    @PreAuthorize("hasAuthority('getAll-vehicleType')")
     @GetMapping("/vehicle-type")
     public ResponseEntity<List<VehicleTypeDto>> getAll(){
         return ResponseEntity.ok(vehicleTypeService.getActiveVehicles());
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('getById-vehicleType')")
     @GetMapping("/vehicle-type/{id}")
     public ResponseEntity<VehicleTypeDto> getById(@PathVariable Long id){
         return ResponseEntity.ok(vehicleTypeService.getById(id));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('delete-vehicleType')")
     @DeleteMapping("/vehicle-type/{id}")
     public ResponseEntity<VehicleTypeDto> deleteById(@PathVariable Long id){
         return ResponseEntity.ok(vehicleTypeService.deleteById(id));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('update-vehicleType')")
     @PatchMapping("/vehicle-type/{id}")
     public ResponseEntity<VehicleTypeDto> updateById(@PathVariable Long id, @RequestBody VehicleTypeDto vehicleTypeDto){
         return  ResponseEntity.ok(vehicleTypeService.updateById(id, vehicleTypeDto));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('activate-vehicleType')")
     @PatchMapping("/vehicle-type/active/{id}")
     public ResponseEntity<VehicleTypeDto> makeVehicleTypeActive(@PathVariable Long id){
         return ResponseEntity.ok(vehicleTypeService.makeVehicleTypeActive(id));

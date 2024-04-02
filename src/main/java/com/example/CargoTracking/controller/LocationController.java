@@ -21,46 +21,49 @@ public class LocationController {
     @Autowired
     LocationService locationService;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('add-location')")
     @PostMapping("/location")
     public ResponseEntity<LocationDto> addLocation(@RequestBody LocationDto locationDto){
         return ResponseEntity.ok(locationService.addLocation(locationDto));
     }
 
+    @PreAuthorize("hasAuthority('getAll-location')")
     @GetMapping("/location")
     public ResponseEntity<List<LocationDto>> getAll(){
         return ResponseEntity.ok(locationService.getActiveLocations());
     }
 
+    @PreAuthorize("hasAuthority('getAll-domesticActive')")
     @GetMapping("/location-domestic")
     public ResponseEntity<List<LocationDto>> getAllForDomestic(){
         return ResponseEntity.ok(locationService.getActiveLocationsForDomestic());
     }
 
+    @PreAuthorize("hasAuthority('getAll-internationalActive')")
     @GetMapping("/location-international")
     public ResponseEntity<List<LocationDto>> getAllForInternational(){
         return ResponseEntity.ok(locationService.getActiveLocationsForInternational());
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('getById-location')")
     @GetMapping("/location/{id}")
     public ResponseEntity<LocationDto> getById(@PathVariable Long id){
         return ResponseEntity.ok(locationService.getById(id));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('delete-location')")
     @DeleteMapping("/location/{id}")
     public ResponseEntity<ApiResponse> deleteLocationById(@PathVariable Long id){
         return ResponseEntity.ok(locationService.deleteLocationById(id));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('update-location')")
     @PatchMapping("/location/{id}")
     public ResponseEntity<LocationDto> updateLocationById(@PathVariable Long id, @RequestBody LocationDto locationDto){
         return  ResponseEntity.ok(locationService.updateById(id, locationDto));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAuthority('activate-location')")
     @PatchMapping("/location/active/{id}")
     public ResponseEntity<LocationDto> makeLocationActive(@PathVariable Long id){
         return ResponseEntity.ok(locationService.makeLocationActive(id));

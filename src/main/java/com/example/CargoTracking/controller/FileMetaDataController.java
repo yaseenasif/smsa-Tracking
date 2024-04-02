@@ -5,6 +5,7 @@ import com.example.CargoTracking.model.FileMetaData;
 import com.example.CargoTracking.service.FileMetaDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,12 +20,14 @@ public class FileMetaDataController {
     @Autowired
     FileMetaDataService metaDataService;
 
+    @PreAuthorize("hasAuthority('getAttachmentsHistory-domestic')")
     @GetMapping("/file-meta-data-by-domestic-shipment/{id}")
     public ResponseEntity<List<FileMetaDataDto>> getFileMataDataByDomesticShipment(@PathVariable Long id){
         return ResponseEntity.ok(metaDataService.getFileMataDataByDomesticShipment(id));
 
     }
 
+    @PreAuthorize("hasAuthority('getAttachmentsHistory-international')")
     @GetMapping("/file-meta-data-by-international-shipment/{id}")
     public ResponseEntity<List<FileMetaDataDto>> getFileMataDataByInternationalShipment(@PathVariable Long id){
         return ResponseEntity.ok(metaDataService.getFileMataDataByInternationalShipment(id));

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class DomesticShipmentHistoryController {
 
     @Autowired
     DomesticShipmentHistoryService domesticShipmentHistoryService;
+    @PreAuthorize("hasAuthority('getById-domesticShipmentHistory')")
     @GetMapping("/all-domestic-shipments-history/{id}")
     public ResponseEntity<List<DomesticShipmentHistoryDto>> getById(@PathVariable Long id){
         return ResponseEntity.ok(domesticShipmentHistoryService.getDomesticShipmentHistoryByDomesticShipmentId(id));

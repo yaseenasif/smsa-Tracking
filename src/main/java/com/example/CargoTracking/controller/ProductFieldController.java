@@ -18,29 +18,34 @@ public class ProductFieldController {
         this.productFieldService = productFieldService;
     }
 
+    @PreAuthorize("hasAuthority('add-productField')")
     @PostMapping("/add-product-field")
     public ResponseEntity<ProductFieldDto> createProductField(@RequestBody ProductFieldDto productFieldDto) {
         return ResponseEntity.ok(productFieldService.save(productFieldDto));
     }
 
+    @PreAuthorize("hasAuthority('getAll-productField')")
     @GetMapping("/product-field-all")
     public ResponseEntity<List<ProductFieldDto>> getAllProductField() {
         List<ProductFieldDto> productFieldDtoList = productFieldService.getAll();
         return ResponseEntity.ok(productFieldDtoList);
     }
 
+    @PreAuthorize("hasAuthority('getById-productField')")
     @GetMapping("/product-field/{id}")
     public ResponseEntity<ProductFieldDto> getProductFieldById(@PathVariable Long id) {
         ProductFieldDto productFieldDto = productFieldService.findById(id);
         return ResponseEntity.ok(productFieldDto);
     }
 
+    @PreAuthorize("hasAuthority('getByName-productField')")
     @GetMapping("/name/{name}")
     public ResponseEntity<ProductFieldDto> getProductFieldByName(@PathVariable String name) {
         ProductFieldDto productFieldDto = productFieldService.findByName(name);
         return ResponseEntity.ok(productFieldDto);
     }
 
+    @PreAuthorize("hasAuthority('getByName-productField')")
     @GetMapping("/names/{name}")
     public ResponseEntity<List<ProductFieldDto>> getAllProductFieldsByName(@PathVariable String name) {
         List<ProductFieldDto> productProcessDtoList = productFieldService.searchByName(name);
@@ -54,18 +59,21 @@ public class ProductFieldController {
     }
 
 
+    @PreAuthorize("hasAuthority('delete-productField')")
     @DeleteMapping("/delete-product-field/{id}")
     public ResponseEntity<String> deleteProductField(@PathVariable Long id) {
         productFieldService.deleteById(id);
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasAuthority('delete-productFieldValues')")
     @DeleteMapping("/delete-product-field-value/{id}/{pfvId}")
     public ResponseEntity<String> deleteProductionFieldValues(@PathVariable Long id, @PathVariable Long pfvId) {
         productFieldService.deleteProductFieldValuesById(id, pfvId);
         return ResponseEntity.ok().build();
     }
 
+    @PreAuthorize("hasAuthority('update-productField')")
     @PutMapping("/update-product-field/{id}")
     public ResponseEntity<ProductFieldDto> updateProductField(@PathVariable Long id, @RequestBody ProductField productField) {
         ProductFieldDto updatedPfDto = productFieldService.updatedProductField(id, productField);

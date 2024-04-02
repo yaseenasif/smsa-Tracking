@@ -6,6 +6,7 @@ import com.example.CargoTracking.service.ExcelService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +24,7 @@ public class ExcelController {
     @Autowired
     ExcelService excelService;
 
+    @PreAuthorize("hasAuthority('international-air-report-performance')")
     @GetMapping("/int-air-rep-per")
     public ResponseEntity<Resource> internationalAirReportPerformanceExcelDownload(@RequestParam(value = "value",required = false) String value) throws IOException {
         SearchCriteriaForInternationalSummary
@@ -35,6 +37,7 @@ public class ExcelController {
                 .body(file);
     }
 
+    @PreAuthorize("hasAuthority('international-road-report-performance')")
     @GetMapping("/int-road-rep-per")
     public ResponseEntity<Resource> internationalRoadReportPerformanceExcelDownload(@RequestParam(value = "value",required = false) String value) throws IOException {
         SearchCriteriaForInternationalSummary
@@ -47,6 +50,7 @@ public class ExcelController {
                 .body(file);
     }
 
+    @PreAuthorize("hasAuthority('international-air-report-status')")
     @GetMapping("/int-air-rep-status")
     public ResponseEntity<Resource> internationalAirReportStatusExcelDownload(@RequestParam(value = "value",required = false) String value) throws IOException {
         SearchCriteriaForInternationalSummary
@@ -59,6 +63,7 @@ public class ExcelController {
                 .body(file);
     }
 
+    @PreAuthorize("hasAuthority('international-road-report-status')")
     @GetMapping("/int-road-rep-status")
     public ResponseEntity<Resource> internationalRoadReportStatusExcelDownload(@RequestParam(value = "value",required = false) String value) throws IOException {
         SearchCriteriaForInternationalSummary
@@ -71,6 +76,7 @@ public class ExcelController {
                 .body(file);
     }
 
+    @PreAuthorize("hasAuthority('domestic-report-performance')")
     @GetMapping("/dom-per")
     public ResponseEntity<Resource> domesticPerformancePerformanceExcelDownload(@RequestParam(value = "value",required = false) String value) throws IOException {
         SearchCriteriaForSummary searchCriteriaForSummary = new ObjectMapper().readValue(value, SearchCriteriaForSummary.class);

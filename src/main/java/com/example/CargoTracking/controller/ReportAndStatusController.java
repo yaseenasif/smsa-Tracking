@@ -8,6 +8,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +22,7 @@ public class ReportAndStatusController {
     @Autowired
     ReportAndStatusService reportAndStatusService;
 
+    @PreAuthorize("hasAuthority('international-air-report-status')")
     @GetMapping("/int-air-report-status")
     public ResponseEntity<List<InternationalAirReportStatusDto>> findInternationalAirReportStatus(@RequestParam(value = "value",required = false) String value) throws JsonProcessingException {
         SearchCriteriaForInternationalSummary
@@ -28,6 +30,7 @@ public class ReportAndStatusController {
         return ResponseEntity.ok(reportAndStatusService.findInternationalAirReportStatus(searchCriteriaForInternationalSummary));
     }
 
+    @PreAuthorize("hasAuthority('international-road-report-status')")
     @GetMapping("/int-road-report-status")
     public ResponseEntity<List<InternationalRoadReportStatusDto>> findInternationalRoadReportStatus(@RequestParam(value = "value",required = false) String value) throws JsonProcessingException {
         SearchCriteriaForInternationalSummary
@@ -35,6 +38,7 @@ public class ReportAndStatusController {
         return ResponseEntity.ok(reportAndStatusService.findInternationalRoadReportStatus(searchCriteriaForInternationalSummary));
     }
 
+    @PreAuthorize("hasAuthority('international-air-report-performance')")
     @GetMapping("/int-air-report-performance")
     public ResponseEntity<List<InternationalAirReportPerformance>> findInternationalAirReportPerformance(@RequestParam(value = "value",required = false) String value) throws JsonProcessingException {
         SearchCriteriaForInternationalSummary
@@ -42,6 +46,7 @@ public class ReportAndStatusController {
         return ResponseEntity.ok(reportAndStatusService.findInternationalAirReportPerformance(searchCriteriaForInternationalSummary));
     }
 
+    @PreAuthorize("hasAuthority('international-road-report-performance')")
     @GetMapping("/int-road-report-performance")
     public ResponseEntity<List<InternationalRoadReportPerformance>> findInternationalRoadReportPerformance(@RequestParam(value = "value",required = false) String value) throws JsonProcessingException {
         SearchCriteriaForInternationalSummary
@@ -49,6 +54,7 @@ public class ReportAndStatusController {
         return ResponseEntity.ok(reportAndStatusService.findInternationalRoadReportPerformance(searchCriteriaForInternationalSummary));
     }
 
+    @PreAuthorize("hasAuthority('domestic-report-performance')")
     @GetMapping("/domestic-performance")
     public ResponseEntity<List<DomesticPerformance>> findDomesticPerformance(@RequestParam(value = "value",required = false) String value
                                                                            ) throws JsonProcessingException {
