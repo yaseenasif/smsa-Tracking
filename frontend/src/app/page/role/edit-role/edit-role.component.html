@@ -15,7 +15,7 @@
               <form #roleForm="ngForm" (ngSubmit)="onSubmit()">
               <div class="grid">
                 <div class="col-12 md:col-12 lg:col-12">
-                  <div class="flex flex-column gap-2 form-hook">
+                  <!-- <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Permissions</label>
                     <p-multiSelect
                       [options]="permissions"
@@ -25,7 +25,16 @@
                       #selectedPermissions="ngModel"
                       required
                     ></p-multiSelect>
-                  </div>  
+                  </div>   -->
+                  
+  <div class="flex flex-column gap-2">
+    <div class="grid">  
+        <div *ngFor="let permission of permissions" class="col-3 field-checkbox">
+          <p-checkbox [label]="permission.name!" name="group" [value]="permission" [(ngModel)]="role!.permissions"></p-checkbox>
+        </div>
+    </div>
+  </div>
+
                 </div>
               </div>
               <div class="flex align-items-center justify-content-end mt-4">
