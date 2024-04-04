@@ -297,6 +297,7 @@
                     class="text-center flex flex-row"
                   >
                   <p-button
+                  *ngIf="hasPermission('Domestic Inbound View')"
                   [routerLink]="[
                     '/view-domestic-shipping-for-summary/',
                     domesticShipment.id
@@ -307,6 +308,7 @@
                 >
                 </p-button>
                     <p-button
+                    *ngIf="hasPermission('Domestic Inbound View Attachment')"
                       [routerLink]="[
                         '/view-attachments/',
                         'domesticShipment',
@@ -319,6 +321,7 @@
                     >
                     </p-button>
                     <p-button
+                     *ngIf="hasPermission('Domestic Inbound Add Attachment')"
                       [routerLink]="['/add-attachments/', domesticShipment.id]"
                         icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment" 
                       class="ml mr"
@@ -326,6 +329,7 @@
                     >
                     </p-button>
                     <p-button
+                    *ngIf="hasPermission('Domestic Inbound Update')"
                       [routerLink]="[
                         '/update-domestic-shipping-for-summary/',
                         domesticShipment.id

@@ -8,6 +8,7 @@ import { ShipmentStatusService } from 'src/app/page/shipment-status/service/ship
 import { DatePipe } from '@angular/common';
 import { ProductField } from 'src/app/model/ProductField';
 import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({
   selector: 'app-international-shipment-list-air',
@@ -40,6 +41,7 @@ export class InternationalShipmentListAirComponent {
     private datePipe:DatePipe,
     // private shipmentStatusService: ShipmentStatusService,
     private shipmentStatusService: ProductFieldServiceService,
+    private authguardService:AuthguardService
     ) { }
   items: MenuItem[] | undefined;
   searchedValue: string = '';
@@ -49,6 +51,10 @@ export class InternationalShipmentListAirComponent {
     this.items = [{ label: 'International Outbound', routerLink: '/international-tile' }, { label: 'International Outbound By Air' }];
     this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
     this.getAllShipmentStatus();
+  }
+
+  hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
   }
 
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FacilityService } from '../service/facility.service';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Facility } from 'src/app/model/Facility';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({
   selector: 'app-facility-list',
@@ -12,13 +13,17 @@ import { Facility } from 'src/app/model/Facility';
 export class FacilityListComponent {
   vTID!: number;
   visible: boolean=false;
-  constructor(private facilityService:FacilityService,private messageService:MessageService) { }
+  constructor(private facilityService:FacilityService,private messageService:MessageService,private authguardService:AuthguardService) { }
   facility!:Facility[];
   items: MenuItem[] | undefined;
 
   ngOnInit() {
       this.items = [{ label: 'Facility'}];
       this.getAllFacility();
+  }
+
+  hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
   }
 
   getAllFacility(){

@@ -3,6 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { CountryService } from '../service/country.service';
 import { Country } from 'src/app/model/Country';
 import { VehicleType } from 'src/app/model/VehicleType';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({
   selector: 'app-country-list',
@@ -13,7 +14,7 @@ import { VehicleType } from 'src/app/model/VehicleType';
 export class CountryListComponent {
   vTID!: number;
   visible: boolean=false;
-  constructor(private countryService:CountryService,private messageService:MessageService) { }
+  constructor(private countryService:CountryService,private messageService:MessageService,private authguardService:AuthguardService) { }
   country!:Country[];
   items: MenuItem[] | undefined;
 
@@ -45,5 +46,10 @@ export class CountryListComponent {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     });
    }
+
+   hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
+  }
+
 
 }

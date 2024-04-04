@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { User } from 'src/app/model/User';
 import { UserService } from '../service/user.service';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({
   selector: 'app-user-list',
@@ -17,11 +18,15 @@ export class UserListComponent implements OnInit {
   visible: boolean = false;
   uID!:number
 
-  constructor(private userService:UserService,private messageService:MessageService) { }
+  constructor(private userService:UserService,private messageService:MessageService,private authguardService:AuthguardService) { }
   
   ngOnInit() {
       this.items = [{ label: 'User List'}];
       this.getAllUser();
+  }
+
+  hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
   }
 
   getAllUser(){

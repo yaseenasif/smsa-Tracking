@@ -16,14 +16,14 @@
                 <h2 class="h-color">International Route List For Road</h2>
               </div>
               <div class="p-toolbar-group-end">
-                <p-button class="bg-b-color mr" routerLink="/add-international-by-road-email-list">
+                <p-button *ngIf="hasPermission('International Road Update Emails')" class="bg-b-color mr" routerLink="/add-international-by-road-email-list">
                   <i
                     class="bi bi-pen"
                     style="font-size: 20px; font-weight: bold"
                   ></i
                   >&nbsp;Update Emails
                 </p-button>
-                <p-button class="bg-b-color" routerLink="/add-international-routes-for-road">
+                <p-button *ngIf="hasPermission('International Route For Road Add')" class="bg-b-color" routerLink="/add-international-routes-for-road">
                   <i
                     class="bi bi-plus-lg"
                     style="font-size: 20px; font-weight: bold"
@@ -92,6 +92,7 @@
                   <td class="text-center">{{ route.route }}</td>
                   <td class="text-center">
                     <p-button
+                    *ngIf="hasPermission('International Route For Road Update')"
                       [routerLink]="['/update-international-routes-for-road/', route.id]"
                        icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit" 
                       class="ml mr"
@@ -99,6 +100,7 @@
                     >
                     </p-button>
                     <p-button
+                    *ngIf="hasPermission('International Route For Road Delete')"
                       (click)="showDialog(route.id)"
                        icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete" 
                       class="ml"

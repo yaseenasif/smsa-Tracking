@@ -53,6 +53,10 @@ export class InternationalSummaryByRoadComponent {
   internationalShipmentByRoad: any = [];
   items: MenuItem[] | undefined;
 
+  hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
+  }
+
   ngOnInit() {
     this.getRole()
 

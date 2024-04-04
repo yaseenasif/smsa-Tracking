@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { DomesticRoutesService } from '../service/domestic-routes.service';
 import { MenuItem, MessageService } from 'primeng/api';
 import { Routes } from '../../../model/ShipmentRoutes';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({
   selector: 'app-get-domestic-routes',
@@ -11,7 +12,7 @@ import { Routes } from '../../../model/ShipmentRoutes';
 })
 export class GetDomesticRoutesComponent {
 
-  constructor(private domesticRouteService: DomesticRoutesService, private messageService: MessageService) { }
+  constructor(private domesticRouteService: DomesticRoutesService, private messageService: MessageService,private authguardService:AuthguardService) { }
 
   items: MenuItem[] | undefined;
   domesticRoutes!: Routes[];
@@ -71,6 +72,10 @@ export class GetDomesticRoutesComponent {
   showDialog(id: number) {
     this.rID = id;
     this.visible = true;
+  }
+
+  hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
   }
 
 }

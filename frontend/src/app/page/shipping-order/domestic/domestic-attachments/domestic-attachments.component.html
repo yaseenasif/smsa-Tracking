@@ -66,7 +66,7 @@
                                                     <div class="w-full">
                                                         <div class="grid" style="background-color: #f8f9fa; border:1px solid #dee2e6"  *ngFor="let file of vehicleManifest">
                                                             <div class="col-10 flex align-items-center justify-content-center"><h3 class="text-center">{{ file.fileName }}</h3></div>
-                                                            <div class="col-2">   <p-button pTooltip="Delete" (click)="deleteAttachment(file.id)"    tooltipPosition="top" icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                                                            <div class="col-2">   <p-button *ngIf="hasPermission('delete-attachment')" pTooltip="Delete" (click)="deleteAttachment(file.id)"    tooltipPosition="top" icon="bi bi-trash" class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                                                             </p-button></div>
                                                         </div>
                                                     </div>

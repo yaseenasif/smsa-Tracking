@@ -3,6 +3,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { DriverService } from '../service/driver.service';
 import { Driver } from 'src/app/model/Driver';
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({
   selector: 'app-driver-list',
@@ -16,7 +17,7 @@ export class DriverListComponent implements OnInit {
   items: MenuItem[] | undefined;
   drivers!:Driver[]
 
-  constructor(private driverService:DriverService,private messageService:MessageService) { }
+  constructor(private driverService:DriverService,private messageService:MessageService,private authguardService:AuthguardService) { }
   
  
 
@@ -49,6 +50,10 @@ export class DriverListComponent implements OnInit {
   showDialog(id:number) {
     this.dId=id;
     this.visible = true;
+  }
+
+  hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
   }
 
 }

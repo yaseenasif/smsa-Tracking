@@ -3,6 +3,7 @@ import { InternationalRouteService } from '../../service/international-route.ser
 import { Component } from '@angular/core';
 import { Routes } from '../../../../model/ShipmentRoutes';
 import { InternationalRoutes } from 'src/app/model/InternationalRoute';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({
   selector: 'app-get-international-air-routes',
@@ -12,7 +13,7 @@ import { InternationalRoutes } from 'src/app/model/InternationalRoute';
 })
 export class GetInternationalAirRoutesComponent {
 
-  constructor(private internationalRouteService: InternationalRouteService, private messageService: MessageService) { }
+  constructor(private internationalRouteService: InternationalRouteService, private messageService: MessageService,private authguardService:AuthguardService) { }
 
   items: MenuItem[] | undefined;
   internationalRoutes!: InternationalRoutes[];
@@ -31,6 +32,10 @@ export class GetInternationalAirRoutesComponent {
   ngOnInit() {
     this.items = [{ label: 'International Route List For Air' }];
     this.getAllInternationalRoutes(this.value.trim(),this.status,this.page,this.size);
+  }
+
+  hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
   }
 
   searchByFilter(){

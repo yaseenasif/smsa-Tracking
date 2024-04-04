@@ -48,11 +48,15 @@ export class InternationalSummaryByAirComponent {
     private datePipe: DatePipe,
     private authguardService: AuthguardService,
     private shipmentStatusService: ProductFieldServiceService,
-    private internationalShippingService:InternationalShippingService
+    private internationalShippingService:InternationalShippingService,
   ) { }
 
   internationalShipmentByAir: any = [];
   items: MenuItem[] | undefined;
+
+  hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
+  }
 
   ngOnInit() {
     this.getRole()

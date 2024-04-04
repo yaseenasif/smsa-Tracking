@@ -16,7 +16,7 @@
                         <h2 class="h-color">Facility</h2>
                       </div>
                       <div class="p-toolbar-group-end">
-                          <p-button class="bg-b-color" routerLink="/add-facility">
+                          <p-button *ngIf="hasPermission('add-facility')" class="bg-b-color" routerLink="/add-facility">
                             <i class="bi bi-plus-lg" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Add Facility
                           </p-button>
                       </div>
@@ -38,10 +38,10 @@
                   <tr>
                     <td class="text-center">{{ facility!.name }}</td>
                     <td class="text-center"> 
-                      <p-button [routerLink]="['/update-facility',facility.id]"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                      <p-button *ngIf="hasPermission('update-facility')" [routerLink]="['/update-facility',facility.id]"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                        
                       </p-button>
-                       <p-button (click)="showDialog(facility!.id)"  icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"  class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                       <p-button *ngIf="hasPermission('delete-facility')" (click)="showDialog(facility!.id)"  icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"  class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                       
                        </p-button>
                     </td>

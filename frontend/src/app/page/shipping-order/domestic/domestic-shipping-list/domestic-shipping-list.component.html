@@ -17,6 +17,7 @@
               </div>
               <div class="p-toolbar-group-end">
                 <p-button
+                *ngIf="hasPermission('add-domesticShipment')"
                   class="bg-b-color"
                   routerLink="/add-domestic-shipping"
                 >
@@ -242,6 +243,7 @@
 
                   <td class="text-center flex flex-row">
                     <p-button
+                      *ngIf="hasPermission('domestic-outbound-view')"
                       [routerLink]="[
                         '/view-domestic-shipment/',
                         domesticShipment.id
@@ -254,6 +256,7 @@
                     >
                     </p-button>
                     <p-button
+                      *ngIf="hasPermission('domestic-outbound-view-attachment')"
                       [routerLink]="[
                         '/view-attachments/',
                         'domesticShipment',
@@ -276,6 +279,7 @@
                     >
                     </p-button> -->
                     <p-button
+                     *ngIf="hasPermission('add-domesticAttachment')"
                       [routerLink]="[
                         '/add-domestic-attachments/',
                         domesticShipment.id
@@ -286,6 +290,7 @@
                     >
                     </p-button>
                     <p-button
+                      *ngIf="hasPermission('update-domesticShipment')"
                       [routerLink]="[
                         '/update-domestic-shipping/',
                         domesticShipment.id,'/from-list'
@@ -296,6 +301,7 @@
                     >
                     </p-button>
                     <p-button
+                    *ngIf="hasPermission('delete-domesticShipment')"
                       (click)="showModal(domesticShipment.id)"
                        icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"
                       class="ml"

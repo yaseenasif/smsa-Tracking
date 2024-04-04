@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductFieldServiceService } from '../service/product-field-service.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({
   selector: 'app-product-field-list',
@@ -18,10 +19,15 @@ export class ProductFieldListComponent implements OnInit {
   constructor(
     private productFieldServiceService: ProductFieldServiceService,
     private router: Router,
+    private authguardService:AuthguardService,
     private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.getAllProductField();
+  }
+
+  hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
   }
 
   getAllProductField() {

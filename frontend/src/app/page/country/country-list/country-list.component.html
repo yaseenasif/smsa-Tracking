@@ -16,7 +16,7 @@
                         <h2 class="h-color">Country</h2>
                       </div>
                       <div class="p-toolbar-group-end">
-                          <p-button class="bg-b-color" routerLink="/add-country">
+                          <p-button *ngIf="hasPermission('add-country')" class="bg-b-color" routerLink="/add-country">
                             <i class="bi bi-plus-lg" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Add Country
                           </p-button>
                       </div>
@@ -39,10 +39,10 @@
                   <tr>
                     <td class="text-center">{{ country!.name }}</td>
                     <td class="text-center"> 
-                      <p-button [routerLink]="['/update-country',country.id]"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                      <p-button *ngIf="hasPermission('update-country')" [routerLink]="['/update-country',country.id]"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                        
                       </p-button>
-                       <p-button (click)="showDialog(country!.id)"  icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"  class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                       <p-button *ngIf="hasPermission('delete-country')" (click)="showDialog(country!.id)"  icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"  class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                       
                        </p-button>
                     </td>

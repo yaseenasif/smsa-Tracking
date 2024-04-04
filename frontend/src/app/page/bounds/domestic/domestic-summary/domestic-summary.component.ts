@@ -37,7 +37,7 @@ export class DomesticSummaryComponent {
     private authguardService: AuthguardService,
     // private shipmentStatusService: ShipmentStatusService,
     private shipmentStatusService: ProductFieldServiceService,
-    private domesticShippingService:DomesticShippingService
+    private domesticShippingService:DomesticShippingService,
   ) { }
   domesticShipment: any = [];
   items: MenuItem[] | undefined;
@@ -207,6 +207,10 @@ export class DomesticSummaryComponent {
     // else{
     //   this.getAllShipmentDomestic(this.search,this.page, this.size)
     // }
+  }
+
+  hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
   }
 }
 

@@ -16,7 +16,7 @@
                       <h2 class="h-color">Vehicle Type</h2>
                     </div>
                     <div class="p-toolbar-group-end">
-                        <p-button class="bg-b-color" routerLink="/add-vehicle-type">
+                        <p-button *ngIf="hasPermission('add-vehicleType')" class="bg-b-color" routerLink="/add-vehicle-type">
                           <i class="bi bi-plus-lg" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Add Vehicle Type
                         </p-button>
                     </div>
@@ -40,10 +40,10 @@
                   <td class="text-center">{{ vehicleTypes!.name }}</td>
                   <td class="text-center">{{ vehicleTypes!.occupancy }}</td>
                   <td class="text-center"> 
-                    <p-button [routerLink]="['/edit-vehicle-type',vehicleTypes.id]"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                    <p-button *ngIf="hasPermission('update-vehicleType')" [routerLink]="['/edit-vehicle-type',vehicleTypes.id]"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                      
                     </p-button>
-                     <p-button (click)="showDialog(vehicleTypes!.id)"  icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"  class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                     <p-button  *ngIf="hasPermission('delete-vehicleType')" (click)="showDialog(vehicleTypes!.id)"  icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"  class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                     
                      </p-button>
                   </td>

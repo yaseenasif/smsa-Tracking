@@ -7,6 +7,7 @@ import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { DatePipe } from '@angular/common';
 import { ProductField } from 'src/app/model/ProductField';
 import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 
 @Component({
@@ -27,7 +28,8 @@ export class DomesticShippingListComponent implements OnInit {
     private messageService: MessageService,
     // private shipmentStatusService: ShipmentStatusService,
     private shipmentStatusService: ProductFieldServiceService,
-    private datePipe:DatePipe
+    private datePipe:DatePipe,
+    private authguardService:AuthguardService
   ) { }
   domesticShipment: DomesticShipment[] = []
   items: MenuItem[] | undefined;
@@ -118,5 +120,10 @@ export class DomesticShippingListComponent implements OnInit {
   showModal(id:number){
    this.visible=true
    this.DSid=id
+  }
+
+  hasPermission(permission:string):boolean{
+    debugger
+    return this.authguardService.hasPermission(permission)
   }
 }

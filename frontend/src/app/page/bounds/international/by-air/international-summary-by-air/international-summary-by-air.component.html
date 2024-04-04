@@ -287,6 +287,7 @@
                     class="text-center flex flex-row"
                   >
                     <p-button
+                    *ngIf="hasPermission('International Inbound By Air View')"
                       [routerLink]="[
                         '/view-air-shipping-for-summary/',
                         internationalShipmentByAir.id
@@ -299,6 +300,7 @@
                     >
                     </p-button>
                     <p-button
+                    *ngIf="hasPermission('International Inbound By Air View')"
                       [routerLink]="[
                         '/view-attachments/',
                         'internationalShipment',
@@ -313,6 +315,7 @@
                     >
                     </p-button>
                     <p-button
+                    *ngIf="hasPermission('International Inbound By Air View Attachment')"
                       [routerLink]="[
                         '/international-summary-by-road-attachment/',
                         internationalShipmentByAir.id
@@ -325,6 +328,7 @@
                     >
                     </p-button>
                     <p-button
+                    *ngIf="hasPermission('International Inbound By Air Update')"
                       [routerLink]="[
                         '/update-international-air-shipping-for-summary/',
                         internationalShipmentByAir.id

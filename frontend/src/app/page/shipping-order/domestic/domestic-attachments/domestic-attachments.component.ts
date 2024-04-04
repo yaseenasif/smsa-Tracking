@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { HttpHeaders } from '@angular/common/http';
 import { FileUploadErrorEvent, FileUploadEvent } from 'primeng/fileupload';
 import { InternationalShippingService } from '../../international/service/international-shipping.service';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 
 
@@ -20,7 +21,8 @@ export class DomesticAttachmentsComponent {
   constructor(
     private messageService: MessageService,
     private route:ActivatedRoute,
-    private internationalShippingService: InternationalShippingService
+    private internationalShippingService: InternationalShippingService,
+    private authguardService:AuthguardService
   ) { }
   
   size=environment.fileSize;
@@ -75,6 +77,9 @@ export class DomesticAttachmentsComponent {
     this.fileMetaDataOfDS();
   }
 
+  hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
+  }
  
 }
 

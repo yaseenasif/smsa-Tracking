@@ -17,6 +17,7 @@
               </div>
               <div class="p-toolbar-group-end">
                 <p-button
+                *ngIf="hasPermission('International Outbound By Road Add')"
                   class="bg-b-color"
                   routerLink="/add-international-shipment-by-road"
                 >
@@ -239,6 +240,7 @@
                   </td>
                   <td class="text-center flex flex-row">
                     <p-button
+                      *ngIf="hasPermission('International Outbound By Road View')"
                       [routerLink]="[
                         '/view-international-road/',
                         internationalShipmentByRoad.id
@@ -261,6 +263,7 @@
                     >
                     </p-button> -->
                     <p-button
+                    *ngIf="hasPermission('International Outbound By Road View Attachment')"
                       [routerLink]="[
                         '/view-attachments/',
                         'internationalShipment',
@@ -273,6 +276,7 @@
                     >
                     </p-button>
                     <p-button
+                    *ngIf="hasPermission('International Outbound By Road Add Attachment')"
                       [routerLink]="[
                         '/add-international-by-road-attachments/',
                         internationalShipmentByRoad.id
@@ -283,6 +287,7 @@
                     >
                     </p-button>
                     <p-button
+                      *ngIf="hasPermission('International Outbound By Road Update')"
                       [routerLink]="[
                         '/update-international-shipment-by-road',
                         internationalShipmentByRoad.id,
@@ -294,6 +299,7 @@
                     >
                     </p-button>
                     <p-button
+                    *ngIf="hasPermission('International Outbound By Road Delete')"
                        icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"
                       class="ml"
                       styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"

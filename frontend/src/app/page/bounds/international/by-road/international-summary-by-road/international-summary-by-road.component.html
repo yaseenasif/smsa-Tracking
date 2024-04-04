@@ -298,6 +298,7 @@
                     class="text-center flex flex-row"
                   >
                     <p-button
+                    *ngIf="hasPermission('International Inbound By Road View')"
                       [routerLink]="[
                         '/view-road-shipping-for-summary/',
                         internationalShipmentByRoad.id
@@ -310,6 +311,7 @@
                     >
                     </p-button>
                     <p-button
+                    *ngIf="hasPermission('International Inbound By Road View Attachment')"
                       [routerLink]="[
                         '/view-attachments/',
                         'internationalShipment',
@@ -324,6 +326,7 @@
                     >
                     </p-button>
                     <p-button
+                    *ngIf="hasPermission('International Inbound By Road Add Attachment')"
                       [routerLink]="[
                         '/international-summary-by-road-attachment/',
                         internationalShipmentByRoad.id
@@ -336,6 +339,7 @@
                     >
                     </p-button>
                     <p-button
+                    *ngIf="hasPermission('International Inbound By Road Update')"
                       [routerLink]="[
                         '/update-international-road-shipping-for-summary/',
                         internationalShipmentByRoad.id

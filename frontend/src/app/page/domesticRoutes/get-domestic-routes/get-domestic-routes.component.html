@@ -16,14 +16,14 @@
                 <h2 class="h-color">Domestic Route List</h2>
               </div>
               <div class="p-toolbar-group-end">
-                <p-button class="bg-b-color mr" routerLink="/add-domestic-email-list">
+                <p-button *ngIf="hasPermission('Domestic Update Emails')" class="bg-b-color mr" routerLink="/add-domestic-email-list">
                   <i
                     class="bi bi-pen"
                     style="font-size: 20px; font-weight: bold"
                   ></i
                   >&nbsp;Update Emails
                 </p-button>
-                <p-button class="bg-b-color ml" routerLink="/add-domestic-routes">
+                <p-button *ngIf="hasPermission('add-domesticRoute')" class="bg-b-color ml" routerLink="/add-domestic-routes">
                   <i
                     class="bi bi-plus-lg"
                     style="font-size: 20px; font-weight: bold"
@@ -99,6 +99,7 @@
                   <td class="text-center">{{ route.route }}</td>
                   <td class="text-center">
                     <p-button
+                    *ngIf="hasPermission('delete-domesticRoute')"
                       [routerLink]="['/update-domestic-routes/', route.id]"
                        icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit" 
                       class="ml mr"
@@ -106,6 +107,7 @@
                     >
                     </p-button>
                     <p-button
+                    *ngIf="hasPermission('add-domesticRoute')"
                       (click)="showDialog(route.id)"
                        icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete" 
                       class="ml"

@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { ProductField } from 'src/app/model/ProductField';
 import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({
   selector: 'app-international-shipping-list',
@@ -39,7 +40,8 @@ export class InternationalShippingListComponent {
     private datePipe:DatePipe,
     private messageService:MessageService,
     // private shipmentStatusService: ShipmentStatusService
-    private shipmentStatusService: ProductFieldServiceService
+    private shipmentStatusService: ProductFieldServiceService,
+    private authguardService:AuthguardService
     ) { }
   items: MenuItem[] | undefined;
 
@@ -50,6 +52,9 @@ export class InternationalShippingListComponent {
     this.getAllShipmentStatus();
   }
 
+  hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
+  }
 
   getAllInternationalShipmentByRoad(fromDate?: string,toDate?: string,status?: string,origin?: string,destination?: string,routeNumber?: string, page?: number, size?: number) {
     this.internationalShippingService.getAllInternationalShipmentByRoad({ fromDate:this.fromDate?this.datePipe.transform(new Date(this.fromDate),'yyyy-MM-dd'):'',toDate:this.toDate?this.datePipe.transform(new Date(this.toDate),'yyyy-MM-dd'):'',status: status,origin: origin,destination: destination,routeNumber: routeNumber, user: {} ,type:"",activeStatus:true}, this.page , this.size).subscribe((res: any) => {

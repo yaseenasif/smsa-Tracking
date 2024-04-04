@@ -16,10 +16,10 @@
                       <h2 class="h-color">User List</h2>
                     </div>
                     <div class="p-toolbar-group-end">
-                      <p-button class="bg-b-color mr-2" routerLink="/archive-user">
+                      <p-button *ngIf="hasPermission('getInactive-user')"  class="bg-b-color mr-2" routerLink="/archive-user">
                         <i class="bi bi-archive" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Archive User
                       </p-button>
-                        <p-button class="bg-b-color ml-2" routerLink="/add-user">
+                        <p-button *ngIf="hasPermission('add-user')" class="bg-b-color ml-2" routerLink="/add-user">
                           <i class="bi bi-plus-lg" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Add User
                         </p-button>
                     </div>
@@ -45,10 +45,10 @@
                   <td class="text-center">{{ users.email }}</td>
                   <td class="text-center" *ngFor="let role of users.roles">{{ role.name }}</td>
                   <td class="text-center"> 
-                    <p-button [routerLink] = "['/edit-user/',users.id]"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+                    <p-button *ngIf="hasPermission('update-user')" [routerLink] = "['/edit-user/',users.id]"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
                      
                     </p-button>
-                     <p-button (click)="showDialog(users.id)"  icon="bi bi-archive"  tooltipPosition="top" pTooltip="Archive"  class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+                     <p-button  *ngIf="hasPermission('delete-user')" (click)="showDialog(users.id)"  icon="bi bi-archive"  tooltipPosition="top" pTooltip="Archive"  class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
                     
                      </p-button>
                   </td>

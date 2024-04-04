@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { LocationService } from '../service/location.service';
 import { Location } from '../../../model/Location'
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({
   selector: 'app-location-list',
@@ -12,7 +13,7 @@ import { Location } from '../../../model/Location'
 export class LocationListComponent implements OnInit {
 
 
-  constructor(private locationService:LocationService,private messageService:MessageService) { }
+  constructor(private locationService:LocationService,private messageService:MessageService,private authguardService:AuthguardService) { }
  
   items: MenuItem[] | undefined;
   location!:Location[];
@@ -45,6 +46,10 @@ export class LocationListComponent implements OnInit {
   showDialog(id:number) {
     this.lID=id;
     this.visible = true;
+  }
+
+  hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
   }
 
 }

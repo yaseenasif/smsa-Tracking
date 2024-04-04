@@ -3,6 +3,7 @@ import { InternationalRouteService } from '../../service/international-route.ser
 import { MenuItem, MessageService } from 'primeng/api';
 import { Routes } from '../../../../model/ShipmentRoutes';
 import { InternationalRoutes } from 'src/app/model/InternationalRoute';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({
   selector: 'app-get-international-road-routes',
@@ -12,7 +13,7 @@ import { InternationalRoutes } from 'src/app/model/InternationalRoute';
 })
 export class GetInternationalRoadRoutesComponent {
 
-  constructor(private internationalRouteService: InternationalRouteService, private messageService: MessageService) { }
+  constructor(private internationalRouteService: InternationalRouteService, private messageService: MessageService,private authguardService:AuthguardService) { }
 
   items: MenuItem[] | undefined;
   internationalRoutes!: InternationalRoutes[];
@@ -30,6 +31,10 @@ export class GetInternationalRoadRoutesComponent {
   ngOnInit() {
     this.items = [{ label: 'International Route List For Road' }];
     this.getAllInternationalRoutes(this.value.trim(),this.status,0,this.size);
+  }
+
+  hasPermission(permission:string):boolean{
+    return this.authguardService.hasPermission(permission)
   }
 
   searchByFilter(){
