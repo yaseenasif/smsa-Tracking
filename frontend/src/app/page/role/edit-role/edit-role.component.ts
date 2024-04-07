@@ -39,10 +39,7 @@ export class EditRoleComponent {
   }
 
   getAllPermissions(){
-    this.permissionService.getALLPermission().subscribe((res:Permission[])=>{  
-      this.permissions=res.filter(el=>el.status && el.name!='Dash Board' && el.name!='Role');
-    
-      
+    this.permissionService.getALLPermission().subscribe((res:Permission[])=>{      
       this.fullPermissions=res.filter(el=>el.status);
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -58,12 +55,6 @@ export class EditRoleComponent {
     })
   }
   onSubmit() {
-    if(this.role.name=='ROLE_ADMIN'){
-      this.role.permissions?.push(this.fullPermissions!.find(el=>el.name=='Role')!)
-      this.role.permissions?.push(this.fullPermissions!.find(el=>el.name=='Dash Board')!)
-    }else if(this.role.name=='ROLE_USER'){
-      this.role.permissions?.push(this.fullPermissions!.find(el=>el.name=='Dash Board')!)
-    }
     this.roleService.assignPermissionToRole(this.role).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'role is updated on id'+res.id});
       setTimeout(() => {
