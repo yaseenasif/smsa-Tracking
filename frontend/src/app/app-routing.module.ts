@@ -203,8 +203,7 @@ const routes: Routes = [
   },
   {
     path: 'reset-password',
-    component: ResetPasswordComponent,
-    canActivate: [AuthGuard]
+    component: ResetPasswordComponent
   },
   {
     path: 'unauthorized',
