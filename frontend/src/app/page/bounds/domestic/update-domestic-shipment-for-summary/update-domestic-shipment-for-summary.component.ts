@@ -155,7 +155,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
         this.drivers = driverResponse.content.filter((el: Driver) => el.status);
         this.vehicleTypes = vehicleTypeResponse
         this.shipmentStatus = shipmentStatusResponse
-        debugger
+        
 
         this.domesticShipmentById(this.domesticShipmentId);
       }
@@ -253,7 +253,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     if(this.domesticShipment.received==null||this.domesticShipment.received==undefined){}
     else if(this.domesticShipment.received!=null||this.domesticShipment.received!=undefined){
     if(this.domesticShipment.received!>this.domesticShipment.totalShipments!){
-      debugger
+      
       this.domesticShipment.overages=this.domesticShipment.received!-this.domesticShipment.totalShipments!
       this.domesticShipment.shortages=0
       this.domesticShipment.shortagesAwbs='';
@@ -268,7 +268,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     this.makePatternOfShortageAWBS(this.domesticShipment.shortages!);
     }
     else if(this.domesticShipment.received! === this.domesticShipment.totalShipments!){
-      debugger
+      
       this.domesticShipment.overages=0
       this.domesticShipment.shortages=0
       this.domesticShipment.overagesAwbs='';

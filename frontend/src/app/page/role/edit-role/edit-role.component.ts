@@ -16,7 +16,7 @@ export class EditRoleComponent {
   items: MenuItem[] | undefined;
 
   permissions!: Permission[];
-  fullPermissions!: Permission[];
+
   rId!: number;
   role:Role={
     id:null,
@@ -40,7 +40,8 @@ export class EditRoleComponent {
 
   getAllPermissions(){
     this.permissionService.getALLPermission().subscribe((res:Permission[])=>{      
-      this.fullPermissions=res.filter(el=>el.status);
+    debugger
+      this.permissions=res.filter(el=>el.status);
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
