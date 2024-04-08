@@ -213,16 +213,19 @@ const routes: Routes = [
   {
     path: 'permission',
     component: PermissionListComponent,
+    canActivate: [AuthGuard]
 
   },
   {
     path: 'add-permission',
     component: AddPermissionComponent,
+    canActivate: [AuthGuard]
 
   },
   {
     path: 'edit-permission/:id',
     component: EditPermissionComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'role',

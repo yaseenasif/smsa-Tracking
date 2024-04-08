@@ -40,6 +40,7 @@ export class AuthguardService {
     { permission: 'ProductField', route: ['/productFields', '/add-ProductField','/add-ProductField/:id'] },
     { permission: 'Country', route: ['/country-list','/add-country','/update-country/:id'] },
     { permission: 'Facility', route: ['/facility-list','/add-facility','/update-facility/:id'] },
+    { permission: 'Permission', route: ['/permission','/add-permission','/edit-permission/:id'] },
   ]
 
   isAuthenticated(state: RouterStateSnapshot): boolean {
