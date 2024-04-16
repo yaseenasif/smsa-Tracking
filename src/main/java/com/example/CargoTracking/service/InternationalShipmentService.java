@@ -3,6 +3,8 @@ package com.example.CargoTracking.service;
 import com.example.CargoTracking.criteria.SearchCriteriaForInternationalShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
 import com.example.CargoTracking.dto.InternationalShipmentDto;
+import com.example.CargoTracking.dto.ProductFieldDto;
+import com.example.CargoTracking.dto.ProductFieldValuesDto;
 import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.exception.UserNotFoundException;
 import com.example.CargoTracking.model.*;
@@ -56,6 +58,8 @@ public class InternationalShipmentService {
     LocationRepository locationRepository;
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    ProductFieldService productFieldService;
 
 
     @Transactional
@@ -699,12 +703,34 @@ public class InternationalShipmentService {
             String fileUrl = storageService.uploadFile(file.getBytes(), file.getOriginalFilename());
             String originalFileName = file.getOriginalFilename();
             String fileExtension = originalFileName.substring(originalFileName.lastIndexOf(".") + 1);
+            InternationalShipment internationalShipment_ = internationalShipment.get();
             FileMetaData fileMetaData = new FileMetaData();
             fileMetaData.setFileUrl(fileUrl);
             fileMetaData.setFileExtension(fileExtension);
             fileMetaData.setFileName(file.getOriginalFilename());
             fileMetaData.setAttachmentType(attachementType);
             fileMetaData.setInternationalShipment(internationalShipment.get());
+            if("Import Bayan HV".equals(attachementType)){
+                if("By Air".equals(internationalShipment_.getType())){
+                    ProductFieldDto productFieldDto = productFieldService.findByName("International_Air_Inbound_Email_Address_For_Attachments");
+                    String subject = "Payment TSM Pre-Alert(A): "+internationalShipment_.getRouteNumber()+"/"+internationalShipment_.getFlightNumber().toString()+"/"+internationalShipment_.getReferenceNumber()+"/"+internationalShipment_.getEtd();
+                    Map<String, Object> model = new HashMap<>();
+                    List<String> emailsAddress = new ArrayList<>();
+                    for(ProductFieldValuesDto productFieldValuesDto:productFieldDto.getProductFieldValuesList()){
+                        emailsAddress.add(productFieldValuesDto.getName());
+                    }
+                    sendEmailsAsync(emailsAddress, subject, "international-upload-attachment-template.ftl", model);
+                }else{
+                    ProductFieldDto productFieldDto = productFieldService.findByName("International_Road_Inbound_Email_Address_For_Attachments");
+                    String subject = "TSM Pre_Alert(R): "+internationalShipment_.getRouteNumber()+"/"+internationalShipment_.getVehicleType()+"/"+internationalShipment_.getReferenceNumber()+"/"+internationalShipment_.getEtd();
+                    Map<String, Object> model = new HashMap<>();
+                    List<String> emailsAddress = new ArrayList<>();
+                    for(ProductFieldValuesDto productFieldValuesDto:productFieldDto.getProductFieldValuesList()){
+                        emailsAddress.add(productFieldValuesDto.getName());
+                    }
+                    sendEmailsAsync(emailsAddress, subject, "international-upload-attachment-template.ftl", model);
+                }
+            }
             fileMetaDataRepository.save(fileMetaData);
             return ApiResponse.builder()
                     .message("File uploaded to the server successfully")
