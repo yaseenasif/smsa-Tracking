@@ -222,7 +222,7 @@
         <span class="nav-text"> Facility </span>
       </span>
     </li>
-    <li class="child" *ngIf="configTurner">
+    <li class="child" *ngIf="configTurner  && hasPermission('Permission')">
       <span class="sidebar-list-hover" routerLink="/permission">
         <i class="bi bi-key"></i>
         <span class="nav-text"> Permission </span>
