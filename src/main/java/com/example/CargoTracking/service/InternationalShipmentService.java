@@ -5,6 +5,7 @@ import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
 import com.example.CargoTracking.dto.InternationalShipmentDto;
 import com.example.CargoTracking.dto.ProductFieldDto;
 import com.example.CargoTracking.dto.ProductFieldValuesDto;
+import com.example.CargoTracking.dto.SendEmailAddressForOutlookManual;
 import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.exception.UserNotFoundException;
 import com.example.CargoTracking.model.*;
@@ -260,6 +261,20 @@ public class InternationalShipmentService {
         Optional<InternationalShipment> internationalShipment = internationalShipmentRepository.findById(id);
         if(internationalShipment.isPresent()){
             return toDto(internationalShipment.get());
+        }
+        throw new RecordNotFoundException(String.format("International shipment Not Found By This Id %d",id));
+    }
+
+    public SendEmailAddressForOutlookManual getInternationalShipmentEmailAddressById(Long id) {
+        Optional<InternationalShipment> internationalShipmentOptional = internationalShipmentRepository.findById(id);
+        if(internationalShipmentOptional.isPresent()){
+            InternationalShipment internationalShipment = internationalShipmentOptional.get();
+            SendEmailAddressForOutlookManual sendEmailAddressForOutlookManual = new SendEmailAddressForOutlookManual();
+            Optional<Location> originLocation = locationRepository.findById(internationalShipment.getOriginLocationId());
+            Optional<Location> destinationLocation = locationRepository.findById(internationalShipment.getDestinationLocationId());
+            sendEmailAddressForOutlookManual.setTo(originLocation.get().getOriginEmail());
+            sendEmailAddressForOutlookManual.setCc(destinationLocation.get().getDestinationEmail());
+            return sendEmailAddressForOutlookManual;
         }
         throw new RecordNotFoundException(String.format("International shipment Not Found By This Id %d",id));
     }
