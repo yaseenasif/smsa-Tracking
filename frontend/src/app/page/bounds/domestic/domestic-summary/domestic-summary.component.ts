@@ -210,6 +210,7 @@ export class DomesticSummaryComponent {
   }
 
   hasPermission(permission:string):boolean{
+    debugger
     return this.authguardService.hasPermission(permission)
   }
 }

@@ -170,7 +170,9 @@
 
                   <th class="text-center">Shortages</th>
                  
-                  <th class="text-center">Action</th>
+                  <th
+                  *ngIf="hasPermission('International Outbound By Air View') || hasPermission('International Outbound By Air View Attachment') || hasPermission('International Outbound By Air Add Attachment') || hasPermission('International Outbound By Air Update') || hasPermission('International Outbound By Air Delete')"
+                  class="text-center">Action</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-internationalShipmentByAir>
@@ -237,7 +239,9 @@
                   <td class="text-center">
                     {{ internationalShipmentByAir.shortages }}
                   </td>
-                  <td class="text-center flex flex-row">
+                  <td
+                  *ngIf="hasPermission('International Outbound By Air View') || hasPermission('International Outbound By Air View Attachment') || hasPermission('International Outbound By Air Add Attachment') || hasPermission('International Outbound By Air Update') || hasPermission('International Outbound By Air Delete')"
+                   class="text-center flex flex-row">
                     <p-button
                       *ngIf="hasPermission('International Outbound By Air View')"
                       [routerLink]="[

@@ -170,7 +170,7 @@
                   <th class="text-center">Total Shipments</th>
                   <th class="text-center">Overages</th>
                   <th class="text-center">Shortages</th>
-                  <th class="text-center">Actions</th>
+                  <th *ngIf="hasPermission('International Outbound By Road View') || hasPermission('International Outbound By Road View Attachment') || hasPermission('International Outbound By Road Add Attachment') || hasPermission('International Outbound By Road Update') || hasPermission('International Outbound By Road Delete')" class="text-center">Actions</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-internationalShipmentByRoad>
@@ -238,7 +238,7 @@
                   <td class="text-center">
                     {{ internationalShipmentByRoad.shortages }}
                   </td>
-                  <td class="text-center flex flex-row">
+                  <td *ngIf="hasPermission('International Outbound By Road View') || hasPermission('International Outbound By Road View Attachment') || hasPermission('International Outbound By Road Add Attachment') || hasPermission('International Outbound By Road Update') || hasPermission('International Outbound By Road Delete')"  class="text-center flex flex-row">
                     <p-button
                       *ngIf="hasPermission('International Outbound By Road View')"
                       [routerLink]="[

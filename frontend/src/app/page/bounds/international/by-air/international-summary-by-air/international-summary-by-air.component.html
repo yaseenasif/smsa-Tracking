@@ -181,7 +181,9 @@
                   <th class="text-center">Bags</th>
                   <th class="text-center">ATA</th>
                   <th class="text-center">Status</th>
-                  <th class="text-center">Actions</th>
+                  <th
+                  *ngIf="hasPermission('International Inbound By Air View')|| hasPermission('International Inbound By Air View Attachment')|| hasPermission('International Inbound By Air Add Attachment') || hasPermission('International Inbound By Air Update')"
+                  class="text-center">Actions</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-internationalShipmentByAir>
@@ -284,7 +286,10 @@
                   </td>
 
                   <td
-                    class="text-center flex flex-row"
+                  [classList]="
+                  internationalShipmentByAir.redFlag ? 'red text-center flex flex-row' : 'text-center flex flex-row'
+                  "
+                   *ngIf="hasPermission('International Inbound By Air View')|| hasPermission('International Inbound By Air View Attachment')|| hasPermission('International Inbound By Air Add Attachment') || hasPermission('International Inbound By Air Update')"
                   >
                     <p-button
                     *ngIf="hasPermission('International Inbound By Air View')"
@@ -300,7 +305,7 @@
                     >
                     </p-button>
                     <p-button
-                    *ngIf="hasPermission('International Inbound By Air View')"
+                    *ngIf="hasPermission('International Inbound By Air View Attachment')"
                       [routerLink]="[
                         '/view-attachments/',
                         'internationalShipment',
@@ -315,7 +320,7 @@
                     >
                     </p-button>
                     <p-button
-                    *ngIf="hasPermission('International Inbound By Air View Attachment')"
+                    *ngIf="hasPermission('International Inbound By Air Add Attachment')"
                       [routerLink]="[
                         '/international-summary-by-road-attachment/',
                         internationalShipmentByAir.id
