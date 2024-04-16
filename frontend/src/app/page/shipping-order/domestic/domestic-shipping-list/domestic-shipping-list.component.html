@@ -187,7 +187,9 @@
 
                   <th class="text-center">Shortages</th>
 
-                  <th class="text-center">Actions</th>
+                  <th
+                  *ngIf="hasPermission('domestic-outbound-view') || hasPermission('domestic-outbound-view-attachment') || hasPermission('add-domesticAttachment') || hasPermission('delete-domesticShipment')" 
+                  class="text-center">Actions</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-domesticShipment>
@@ -241,7 +243,7 @@
 
                   <td class="text-center">{{ domesticShipment.shortages }}</td>
 
-                  <td class="text-center flex flex-row">
+                  <td  *ngIf="hasPermission('domestic-outbound-view') || hasPermission('domestic-outbound-view-attachment') || hasPermission('add-domesticAttachment') || hasPermission('delete-domesticShipment')" class="text-center flex flex-row">
                     <p-button
                       *ngIf="hasPermission('domestic-outbound-view')"
                       [routerLink]="[

@@ -131,7 +131,7 @@
         <span class="nav-text"> User </span>
       </span>
     </li>
-    <li (click)="turner()">
+    <li  *ngIf="hasPermission('Driver')|| hasPermission('Location')||hasPermission('ShipmentRoutes')||hasPermission('ShipmentRoutesForAir')||hasPermission('ShipmentRoutesForRoad')||hasPermission('Location Port')||hasPermission('Vehicle Type')||hasPermission('Country')|| hasPermission('Facility')|| hasPermission('Permission')||hasPermission('ProductField')||hasPermission('Role')"   (click)="turner()">
       <span class="sidebar-list-hover">
         <i class="bi bi-gear-fill"></i>
         <span class="nav-text">
@@ -222,7 +222,7 @@
         <span class="nav-text"> Facility </span>
       </span>
     </li>
-    <li class="child" *ngIf="configTurner">
+    <li class="child" *ngIf="configTurner  && hasPermission('Permission')">
       <span class="sidebar-list-hover" routerLink="/permission">
         <i class="bi bi-key"></i>
         <span class="nav-text"> Permission </span>

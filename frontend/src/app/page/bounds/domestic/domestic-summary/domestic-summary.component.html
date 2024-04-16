@@ -178,6 +178,7 @@
 
                   <th
                     class="text-center"
+                    *ngIf="hasPermission('Domestic Inbound View')|| hasPermission('Domestic Inbound View Attachment') || hasPermission('Domestic Inbound Add Attachment') || hasPermission('Domestic Inbound Update')"
                   >
                     Actions
                   </th>
@@ -292,9 +293,11 @@
                     {{ domesticShipment.status }}
                   </td>
                   <!-- *ngIf="selectedBound.bound == 'In bound'" -->
-                  <td
-                 
-                    class="text-center flex flex-row"
+                  <td    
+                  *ngIf="hasPermission('Domestic Inbound View') || hasPermission('Domestic Inbound View Attachment') || hasPermission('Domestic Inbound Add Attachment') || hasPermission('Domestic Inbound Update')"    
+                    [classList]="
+                    domesticShipment.redFlag ? 'red text-center flex flex-row' : 'text-center flex flex-row'
+                  "
                   >
                   <p-button
                   *ngIf="hasPermission('Domestic Inbound View')"

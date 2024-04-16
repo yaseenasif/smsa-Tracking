@@ -182,7 +182,9 @@
                   <th class="text-center">Bags</th>
                   <th class="text-center">ATA</th>
                   <th class="text-center">Status</th>
-                  <th class="text-center">Actions</th>
+                  <th
+                  *ngIf="hasPermission('International Inbound By Road View') || hasPermission('International Inbound By Road View Attachment') || hasPermission('International Inbound By Road Add Attachment') || hasPermission('International Inbound By Road Update')"
+                  class="text-center">Actions</th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-internationalShipmentByRoad>
@@ -294,8 +296,10 @@
                   </td>
                   <!-- *ngIf="selectedBound.bound == 'In bound'" -->
                   <td
-                   
-                    class="text-center flex flex-row"
+                  [classList]="
+                  internationalShipmentByRoad.redFlag ? 'red text-center flex flex-row' : 'text-center flex flex-row'
+                "
+                 *ngIf="hasPermission('International Inbound By Road View') || hasPermission('International Inbound By Road View Attachment') || hasPermission('International Inbound By Road Add Attachment') || hasPermission('International Inbound By Road Update')"
                   >
                     <p-button
                     *ngIf="hasPermission('International Inbound By Road View')"
