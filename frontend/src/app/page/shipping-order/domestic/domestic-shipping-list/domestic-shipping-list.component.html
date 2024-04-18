@@ -15,10 +15,10 @@
               <div class="p-toolbar-group-start">
                 <h2 class="h-color">Domestic Outbound</h2>
               </div>
-              <div class="p-toolbar-group-end">
+              <div class="p-toolbar-group-end ">
                 <p-button
                 *ngIf="hasPermission('add-domesticShipment')"
-                  class="bg-b-color"
+                  class="bg-b-color mr-2"
                   routerLink="/add-domestic-shipping"
                 >
                   <i
@@ -27,6 +27,18 @@
                   ></i
                   >&nbsp;Add Shipment
                 </p-button>
+               
+                <a href="mailto:abc@something.com,lmn@something.com,xyz@something.com,fgh@something.com ?Cc=abc@something.com,lmn@something.com,xyz@something.com,fgh@something.com">
+                  <p-button         
+                  class="bg-b-color"
+                >
+                  <i
+                    class="bi bi-send"
+                    style="font-size: 20px; font-weight: bold"
+                  ></i
+                  >&nbsp;Send Mail
+                </p-button>
+                </a>
               </div>
             </p-toolbar>
           </div>
