@@ -6,6 +6,7 @@ import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.dto.InternationalShipmentDto;
+import com.example.CargoTracking.dto.SendEmailAddressForOutlookManual;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.InternationalShipmentService;
 import com.example.CargoTracking.service.StorageService;
@@ -86,6 +87,11 @@ public class  InternationalShipmentController {
     @GetMapping("/international-shipment/{id}")
     public ResponseEntity<InternationalShipmentDto> getById(@PathVariable Long id){
         return ResponseEntity.ok(internationalShipmentService.getById(id));
+    }
+
+    @GetMapping("/international-shipment-email-address/{id}")
+    public ResponseEntity<SendEmailAddressForOutlookManual> getInternationalShipmentEmailAddressById(@PathVariable Long id){
+        return ResponseEntity.ok(internationalShipmentService.getInternationalShipmentEmailAddressById(id));
     }
 
     @PreAuthorize("hasAuthority('get-internationalInboundSummaryAir')")

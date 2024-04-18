@@ -3,6 +3,7 @@ package com.example.CargoTracking.service;
 import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
+import com.example.CargoTracking.dto.SendEmailAddressForOutlookManual;
 import com.example.CargoTracking.model.*;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.exception.RecordNotFoundException;
@@ -206,6 +207,21 @@ public class DomesticShipmentService {
         Optional<DomesticShipment> domesticShipment = domesticShipmentRepository.findById(id);
         if (domesticShipment.isPresent()) {
             return toDto(domesticShipment.get());
+        }
+        throw new RecordNotFoundException(String.format("Domestic shipment Not Found By This Id %d", id));
+    }
+
+    public SendEmailAddressForOutlookManual getDomesticShipmentEmailAddressesById(Long id) {
+        Optional<DomesticShipment> domesticShipmentOptional = domesticShipmentRepository.findById(id);
+        if (domesticShipmentOptional.isPresent()) {
+            DomesticShipment domesticShipment = domesticShipmentOptional.get();
+            Optional<Location> originLocation =  locationRepository.findById(domesticShipment.getOriginLocationId());
+            Optional<Location> destinationLocation =  locationRepository.findById(domesticShipment.getDestinationLocationId());
+            SendEmailAddressForOutlookManual sendEmailAddressForOutlookManual = new SendEmailAddressForOutlookManual();
+            sendEmailAddressForOutlookManual.setTo(originLocation.get().getOriginEmail());
+            sendEmailAddressForOutlookManual.setCc(destinationLocation.get().getDestinationEmail());
+
+            return sendEmailAddressForOutlookManual;
         }
         throw new RecordNotFoundException(String.format("Domestic shipment Not Found By This Id %d", id));
     }

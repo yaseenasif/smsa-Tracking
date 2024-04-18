@@ -3,6 +3,7 @@ package com.example.CargoTracking.controller;
 import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
+import com.example.CargoTracking.dto.SendEmailAddressForOutlookManual;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.DomesticShipmentService;
 import com.example.CargoTracking.service.LocationService;
@@ -76,6 +77,11 @@ public class DomesticShipmentController {
     @GetMapping("/domestic-shipment/{id}")
     public ResponseEntity<DomesticShipmentDto> getById(@PathVariable Long id){
         return ResponseEntity.ok(domesticShipmentService.getById(id));
+    }
+
+    @GetMapping("/domestic-shipment-email-address/{id}")
+    public ResponseEntity<SendEmailAddressForOutlookManual> getDomesticShipmentEmailAddressesById(@PathVariable Long id){
+        return ResponseEntity.ok(domesticShipmentService.getDomesticShipmentEmailAddressesById(id));
     }
 
     @PreAuthorize("hasAuthority('update-domesticShipment')")
