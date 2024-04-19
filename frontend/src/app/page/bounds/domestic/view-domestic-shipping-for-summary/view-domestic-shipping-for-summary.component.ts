@@ -5,6 +5,7 @@ import { DomesticShipment } from 'src/app/model/DomesticShipment';
 import { DatePipe } from '@angular/common';
 import { DomesticShippingService } from 'src/app/page/shipping-order/domestic/service/domestic-shipping.service';
 import { ClipboardService } from 'ngx-clipboard';
+import { SummaryService } from '../../service/summary.service';
 
 @Component({
   selector: 'app-view-domestic-shipping-for-summary',
@@ -66,13 +67,15 @@ export class ViewDomesticShippingForSummaryComponent {
 
   domesticShipmentId!:number;
   domesticShipmentHistory:any;
+  emailAttribute!: string;
 
   constructor(
     private _clipboardService: ClipboardService,
     private domesticShipmentService:DomesticShippingService,
     private router:Router,
     private messageService: MessageService,
-    private route:ActivatedRoute) { }
+    private route:ActivatedRoute,
+    private summaryService:SummaryService) { }
   
 
 
@@ -82,6 +85,7 @@ export class ViewDomesticShippingForSummaryComponent {
     this.domesticShipmentById(this.domesticShipmentId);
     this.getDomesticShipmentHistoryByDomesticShipmentId(this.domesticShipmentId);
     this.items = [{ label: 'Domestic Inbound',routerLink:'/domestic-summary'},{ label: 'View Domestic Inbound'}];
+    this.getDomesticEmail(this.domesticShipmentId);
   }
 
   getDomesticShipmentHistoryByDomesticShipmentId(id:number){
@@ -206,6 +210,14 @@ export class ViewDomesticShippingForSummaryComponent {
     setTimeout(() => {
       this.AnimationDamageAWBs=false;
     }, 2000);
+    }
+
+    getDomesticEmail(id:number){
+      this.summaryService.getDomesticEmail(id).subscribe((res)=>{
+        this.emailAttribute='mailto:'.concat(res.to,'?cc=',res.cc)
+      },(error)=>{
+        console.log(error);
+      })
     }
   
 }

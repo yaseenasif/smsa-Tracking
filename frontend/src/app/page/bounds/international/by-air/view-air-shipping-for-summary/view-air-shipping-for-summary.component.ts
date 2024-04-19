@@ -5,6 +5,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { InternationalShipment } from 'src/app/model/InternationalShipment';
 import { Location } from 'src/app/model/Location'
 import { InternationalShippingService } from 'src/app/page/shipping-order/international/service/international-shipping.service';
+import { SummaryService } from '../../../service/summary.service';
 
 
 
@@ -17,6 +18,7 @@ import { InternationalShippingService } from 'src/app/page/shipping-order/intern
 export class ViewAirShippingForSummaryComponent {
 
   items: MenuItem[] | undefined;
+  emailAttribute!:string;
   iSID!: number;
   resultArray:{overageAWBs:string|undefined,shortageAWBs:string|undefined,damageAWBs:string|undefined}[]=[];
   internationalShipment: InternationalShipment = {
@@ -81,7 +83,8 @@ export class ViewAirShippingForSummaryComponent {
     private _clipboardService: ClipboardService,
     private internationalShippingService: InternationalShippingService,
     private messageService: MessageService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private summaryService:SummaryService) { }
 
   
 
@@ -93,6 +96,7 @@ export class ViewAirShippingForSummaryComponent {
     this.getInternationalShipmentHistoryByInternationalShipmentId(this.iSID);
         // Now that you have the responses, you can proceed with the next steps
     this.getInternationalShipmentById(this.iSID);
+    this.getInternationalEmail(this.iSID);
    
   }
 
@@ -192,5 +196,15 @@ export class ViewAirShippingForSummaryComponent {
       setTimeout(() => {
         this.AnimationShortagesAWBs=false;
       }, 2000);
+        }
+
+        getInternationalEmail(id:number){
+          this.summaryService.getInternationalEmail(id).subscribe((res)=>{
+            
+            this.emailAttribute='mailto:'.concat(res.to,'?cc=',res.cc)
+          
+          },(error)=>{
+            console.log(error);
+          })
         }
 }

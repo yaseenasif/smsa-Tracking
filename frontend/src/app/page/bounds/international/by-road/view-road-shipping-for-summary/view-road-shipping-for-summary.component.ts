@@ -4,6 +4,7 @@ import { ClipboardService } from 'ngx-clipboard';
 import { MenuItem, MessageService } from 'primeng/api';
 import { InternationalShipment } from 'src/app/model/InternationalShipment';
 import { InternationalShippingService } from 'src/app/page/shipping-order/international/service/international-shipping.service';
+import { SummaryService } from '../../../service/summary.service';
 
 
 @Component({
@@ -69,13 +70,15 @@ export class ViewRoadShippingForSummaryComponent {
   copyOveragesAWBs!: string;
   AnimationDamageAWBs!: boolean;
   copyDamageAWBs!: string;
+  emailAttribute!: string;
 
 
   constructor(private router: Router,
     private _clipboardService: ClipboardService,
     private internationalShippingService: InternationalShippingService,
     private messageService: MessageService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private summaryService:SummaryService) { }
 
   InternationalShipmentHistory: any
 
@@ -86,6 +89,7 @@ export class ViewRoadShippingForSummaryComponent {
     // Now that you have the responses, you can proceed with the next steps
     this.getInternationalShipmentById(this.iSID);
     this.getInternationalShipmentHistoryByInternationalShipmentId(this.iSID);
+    this.getInternationalEmail(this.iSID);
   }
 
 
@@ -204,5 +208,15 @@ export class ViewRoadShippingForSummaryComponent {
     setTimeout(() => {
       this.AnimationDamageAWBs = false;
     }, 2000);
+  }
+
+  getInternationalEmail(id:number){
+    this.summaryService.getInternationalEmail(id).subscribe((res)=>{
+      
+      this.emailAttribute='mailto:'.concat(res.to,'?cc=',res.cc)
+    
+    },(error)=>{
+      console.log(error);
+    })
   }
 }

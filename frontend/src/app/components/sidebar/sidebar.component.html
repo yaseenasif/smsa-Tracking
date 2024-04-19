@@ -3,7 +3,7 @@
     <img  src="../../../assets/smca-logo.png" alt="" class="sidebar-img" />
   </div>
   <ul>
-    <li>
+    <li *ngIf="hasPermission('Dash Board')">
       <span class="sidebar-list-hover" routerLink="/home">
         <i class="bi bi-bar-chart-line-fill"></i>
         <span class="nav-text"> Dashboard </span>

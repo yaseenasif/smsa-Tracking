@@ -5,6 +5,7 @@ import { InternationalShipment } from 'src/app/model/InternationalShipment';
 import { DatePipe } from '@angular/common';
 import { InternationalShippingService } from 'src/app/page/shipping-order/international/service/international-shipping.service';
 import { ClipboardService } from 'ngx-clipboard';
+import { SummaryService } from 'src/app/page/bounds/service/summary.service';
 
 @Component({
   selector: 'app-view-shipment-road',
@@ -72,12 +73,14 @@ export class ViewShipmentRoadComponent {
   copySecurityTag!: string;
   copyOveragesAWBs!: string;
   copyDamageAWBs!: string;
+  emailAttribute!: string;
 
 
   constructor(private router: Router,
     private _clipboardService: ClipboardService,
     private internationalShippingService: InternationalShippingService,
     private messageService: MessageService,
+    private summaryService:SummaryService,
     private route: ActivatedRoute) { }
 
   InternationalShipmentHistory: any
@@ -85,6 +88,7 @@ export class ViewShipmentRoadComponent {
 
   ngOnInit(): void {
     this.iSID = +this.route.snapshot.paramMap.get('id')!;
+    this.getInternationalEmail(this.iSID);
     this.items = [{ label: 'International Outbound', routerLink: '/international-tile' }, { label: 'International Outbound By Road', routerLink: '/international-shipment-by-road' }, { label: 'View International Outbound By Road' }];
     // Now that you have the responses, you can proceed with the next steps
     this.getInternationalShipmentById(this.iSID);
@@ -204,6 +208,14 @@ export class ViewShipmentRoadComponent {
     setTimeout(() => {
       this.AnimationDamageAWBs = false;
     }, 2000);
+  }
+
+  getInternationalEmail(id:number){
+    this.summaryService.getInternationalEmail(id).subscribe((res)=>{
+      this.emailAttribute='mailto:'.concat(res.to,'?cc=',res.cc)
+    },(error)=>{
+      console.log(error);
+    })
   }
 }
 

@@ -6,6 +6,7 @@ import { Location } from 'src/app/model/Location'
 import { DatePipe } from '@angular/common';
 import { InternationalShippingService } from 'src/app/page/shipping-order/international/service/international-shipping.service';
 import { ClipboardService } from 'ngx-clipboard';
+import { SummaryService } from 'src/app/page/bounds/service/summary.service';
 
 @Component({
   selector: 'app-view-shipment-air',
@@ -74,19 +75,23 @@ export class ViewShipmentAirComponent {
   copyOveragesAWBs!: string;
   copyDamageAWBs!: string;
   AnimationDamageAWBs!: boolean;
+  emailAttribute!: string;
 
   constructor(private router: Router,
     private _clipboardService: ClipboardService,
     private internationalShippingService: InternationalShippingService,
     private messageService: MessageService,
     private route: ActivatedRoute,
-    private datePipe: DatePipe) { }
+    private datePipe: DatePipe,
+    private summaryService:SummaryService
+  ) { }
 
   
 
 
   ngOnInit(): void {
     this.iSID = +this.route.snapshot.paramMap.get('id')!;
+    this.getInternationalEmail(this.iSID);
     this.items = [{ label: 'International Outbound', routerLink: '/international-tile' }, { label: 'International Outbound By Air', routerLink: '/international-shipment-by-air' }, { label: 'View International Outbound By Air' }];
   
     this.getInternationalShipmentHistoryByInternationalShipmentId(this.iSID);
@@ -190,6 +195,14 @@ export class ViewShipmentAirComponent {
       setTimeout(() => {
         this.AnimationShortagesAWBs=false;
       }, 2000);
+        }
+
+        getInternationalEmail(id:number){
+          this.summaryService.getInternationalEmail(id).subscribe((res)=>{
+            this.emailAttribute='mailto:'.concat(res.to,'?cc=',res.cc)
+          },(error)=>{
+            console.log(error);
+          })
         }
 }
 

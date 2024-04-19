@@ -5,6 +5,7 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/auth-service/auth.service';
 import { jwtDecode } from 'jwt-decode';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({
   selector: 'app-login-form',
@@ -25,6 +26,7 @@ export class LoginFormComponent implements AfterViewInit {
 
   constructor(
     private authService: AuthService,
+    private authguardService:AuthguardService,
     private router: Router,
     private messageService: MessageService
   ) {}
@@ -53,8 +55,28 @@ export class LoginFormComponent implements AfterViewInit {
     this.authService.login(credentials).subscribe(
       (res: any) => {
         localStorage.setItem('accessToken', res.accessToken);
-
+        debugger
+        if(this.authguardService.hasPermission('Dash Board')){
         this.router.navigate(['/home']);
+        }
+        else if(this.authguardService.hasPermission('Domestic Shipment')){
+          this.router.navigate(['/domestic-shipping']);
+        }
+        else if(this.authguardService.hasPermission('International Shipment By Air')){
+          this.router.navigate(['/international-shipment-by-air']);
+        }
+        else if(this.authguardService.hasPermission('International Shipment By Road')){
+          this.router.navigate(['/international-shipment-by-road']);
+        }
+        else if(this.authguardService.hasPermission('Domestic Summary')){
+          this.router.navigate(['/domestic-summary']);
+        }
+        else if(this.authguardService.hasPermission('International Summary By Air')){
+          this.router.navigate(['/international-summary-by-air']);
+        } 
+        else if(this.authguardService.hasPermission('International Summary By Road')){
+          this.router.navigate(['/international-summary-by-road']);
+        }
       },
       (error: any) => {
         console.log(error);

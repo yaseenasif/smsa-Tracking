@@ -72,4 +72,13 @@ export class SummaryService {
 
     return this.http.get<any>(`${this.url}/international-outbound-summery-road`, { params: queryParams });
   }
+
+  getInternationalEmail(id?: number): Observable<any> {  
+    return this.http.get<any>(`${this.url}/international-shipment-email-address/${id}`);
+  }
+  getDomesticEmail(id?: number): Observable<any> {  
+    return this.http.get<any>(`${this.url}/domestic-shipment-email-address/${id}`);
+  }
+ 
+
 }

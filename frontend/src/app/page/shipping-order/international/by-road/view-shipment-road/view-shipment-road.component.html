@@ -11,7 +11,29 @@
         <div class="body-card">
           <p-toast></p-toast>
           <div class="table-head mb-4">
-            <h1 class="mb-4 h-color">View International Outbound By Road</h1>
+           
+            <div class="sm:col-6 lg:col-12 md:col-12">
+              <div class="grid">
+                <div class="col-6">
+                  <h1 class="mb-4 h-color">View International Outbound By Road</h1>
+                </div>
+                <div class="col-6">
+                  <a style="float: right;" [href]="emailAttribute">
+                    <p-button         
+                    class="bg-b-color"
+                  >
+                    <i
+                      class="bi bi-send"
+                      style="font-size: 20px; font-weight: bold"
+                    ></i
+                    >&nbsp;Send Mail
+                  </p-button>
+                  </a>
+                
+                </div>
+              </div>
+          
+            </div>
             <p-toolbar>
               <div class="grid w-full">
                 <div class="lg:col-12 md:col-6 col-12">

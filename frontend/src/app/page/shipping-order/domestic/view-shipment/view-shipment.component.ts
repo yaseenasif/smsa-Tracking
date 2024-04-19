@@ -8,6 +8,7 @@ import { DatePipe } from '@angular/common';
 import { DomesticShippingService } from 'src/app/page/shipping-order/domestic/service/domestic-shipping.service';
 import { STRING_TYPE } from '@angular/compiler';
 import { ClipboardService } from 'ngx-clipboard';
+import { SummaryService } from 'src/app/page/bounds/service/summary.service';
 
 @Component({
   selector: 'app-view-shipment',
@@ -68,6 +69,7 @@ export class ViewShipmentComponent {
   copySecurityTag!: string;
   copyShortagesAWBs!: string;
   copyDamageAWBs! : string;
+  emailAttribute!: string;
 
   constructor(
     private domesticShipmentService: DomesticShippingService,
@@ -75,10 +77,12 @@ export class ViewShipmentComponent {
     private messageService: MessageService,
     private route: ActivatedRoute,
     private _clipboardService: ClipboardService,
+    private summaryService:SummaryService,
   ) {}
 
   ngOnInit(): void {
     this.domesticShipmentId = +this.route.snapshot.paramMap.get('id')!;
+    this.getDomesticEmail(this.domesticShipmentId);
     this.domesticShipmentById(this.domesticShipmentId);
     this.getDomesticShipmentHistoryByDomesticShipmentId(
       this.domesticShipmentId
@@ -232,6 +236,14 @@ export class ViewShipmentComponent {
     setTimeout(() => {
       this.AnimationDamageAWBs=false;
     }, 2000);
+    }
+
+    getDomesticEmail(id:number){
+      this.summaryService.getDomesticEmail(id).subscribe((res)=>{
+        this.emailAttribute='mailto:'.concat(res.to,'?cc=',res.cc)
+      },(error)=>{
+        console.log(error);
+      })
     }
 
   }
