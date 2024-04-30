@@ -163,7 +163,8 @@ public class InternationalShipmentService {
                 model.put("field17",internationalShipment.getRemarks());
             }
 
-            sendEmailsAsync(emails, subject, template, model);
+            emailService.sendHtmlEmail(resultListOrigin,resultListDestination,subject,template,model);
+//            sendEmailsAsync(emails, subject, template, model);
 
 
             return  toDto(internationalShipment);

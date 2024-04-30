@@ -148,8 +148,8 @@ public class DomesticShipmentService {
             model.put("field10", "Road");
             model.put("field11", domesticShipment.getRouteNumber().toString());
             model.put("field15", domesticShipment.getRemarks());
-
-            sendEmailsAsync(emails, subject, "domestic-email-template.ftl", model);
+            emailService.sendHtmlEmail(resultListOrigin,resultListDestination,subject,"domestic-email-template.ftl",model);
+//            sendEmailsAsync(emails, subject, "domestic-email-template.ftl", model);
             return toDto(domesticShipment);
         }
 
