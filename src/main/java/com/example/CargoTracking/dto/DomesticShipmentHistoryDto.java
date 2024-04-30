@@ -14,6 +14,6 @@ public class DomesticShipmentHistoryDto {
     private String status;
     private LocalDateTime processTime;
     private String locationCode;
-    private Long user;
+    private String user;
     private String remarks;
 }

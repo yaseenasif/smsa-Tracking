@@ -104,6 +104,7 @@ public class DomesticShipmentService {
             unSaveDomesticShipment.setUpdatedTime(currentLocalDateTime);
             unSaveDomesticShipment.setOriginLocationId(orgLocationId);
             unSaveDomesticShipment.setDestinationLocationId(desLocationId);
+            unSaveDomesticShipment.setPreAlertNumber(unSaveDomesticShipment.getRouteNumber().concat(LocalDateTime.now().toString()));
             DomesticShipment domesticShipment = domesticShipmentRepository.save(unSaveDomesticShipment);
 
             DomesticShipmentHistory domesticShipmentHistory = DomesticShipmentHistory.builder()
@@ -111,7 +112,7 @@ public class DomesticShipmentService {
                     .activeStatus(Boolean.TRUE)
                     .processTime(currentLocalDateTime)
                     .locationCode(domesticShipmentDto.getOriginLocation())
-                    .user(user.getId())
+                    .user(user.getEmployeeId())
                     .domesticShipment(domesticShipment)
                     .remarks(domesticShipment.getRemarks())
                     .build();
@@ -380,7 +381,7 @@ public class DomesticShipmentService {
                             .status(save.getStatus())
                             .processTime(LocalDateTime.now())
                             .locationCode(save.getOriginLocation())
-                            .user(user.getId())
+                            .user(user.getEmployeeId())
                             .domesticShipment(save)
                             .remarks(save.getRemarks())
                             .build();
