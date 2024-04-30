@@ -217,10 +217,12 @@ public class DomesticShipmentService {
             DomesticShipment domesticShipment = domesticShipmentOptional.get();
             Optional<Location> originLocation =  locationRepository.findById(domesticShipment.getOriginLocationId());
             Optional<Location> destinationLocation =  locationRepository.findById(domesticShipment.getDestinationLocationId());
+            String subject = "TSM Pre-Alert(D): " + domesticShipment.getRouteNumber() + "/" + domesticShipment.getVehicleType() + "/" + domesticShipment.getReferenceNumber();
+
             SendEmailAddressForOutlookManual sendEmailAddressForOutlookManual = new SendEmailAddressForOutlookManual();
             sendEmailAddressForOutlookManual.setTo(originLocation.get().getOriginEmail());
             sendEmailAddressForOutlookManual.setCc(destinationLocation.get().getDestinationEmail());
-
+            sendEmailAddressForOutlookManual.setSubject(subject);
             return sendEmailAddressForOutlookManual;
         }
         throw new RecordNotFoundException(String.format("Domestic shipment Not Found By This Id %d", id));

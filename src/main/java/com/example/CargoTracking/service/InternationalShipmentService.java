@@ -272,8 +272,16 @@ public class InternationalShipmentService {
             SendEmailAddressForOutlookManual sendEmailAddressForOutlookManual = new SendEmailAddressForOutlookManual();
             Optional<Location> originLocation = locationRepository.findById(internationalShipment.getOriginLocationId());
             Optional<Location> destinationLocation = locationRepository.findById(internationalShipment.getDestinationLocationId());
+            String subject;
+            if(internationalShipment.getType().equalsIgnoreCase("By Air") ){
+                subject = "TSM Pre-Alert(A): "+internationalShipment.getRouteNumber()+"/"+internationalShipment.getFlightNumber().toString()+"/"+internationalShipment.getReferenceNumber()+"/"+internationalShipment.getEtd();
+            }else{
+                subject = "TSM Pre_Alert(R): "+internationalShipment.getRouteNumber()+"/"+internationalShipment.getVehicleType()+"/"+internationalShipment.getReferenceNumber()+"/"+internationalShipment.getEtd();
+            }
+
             sendEmailAddressForOutlookManual.setTo(originLocation.get().getOriginEmail());
             sendEmailAddressForOutlookManual.setCc(destinationLocation.get().getDestinationEmail());
+            sendEmailAddressForOutlookManual.setSubject(subject);
             return sendEmailAddressForOutlookManual;
         }
         throw new RecordNotFoundException(String.format("International shipment Not Found By This Id %d",id));
