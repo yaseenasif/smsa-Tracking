@@ -104,7 +104,6 @@ public class DomesticShipmentService {
             unSaveDomesticShipment.setUpdatedTime(currentLocalDateTime);
             unSaveDomesticShipment.setOriginLocationId(orgLocationId);
             unSaveDomesticShipment.setDestinationLocationId(desLocationId);
-            unSaveDomesticShipment.setPreAlertNumber(unSaveDomesticShipment.getRouteNumber().concat(LocalDateTime.now().toString()));
             DomesticShipment domesticShipment = domesticShipmentRepository.save(unSaveDomesticShipment);
 
             DomesticShipmentHistory domesticShipmentHistory = DomesticShipmentHistory.builder()
