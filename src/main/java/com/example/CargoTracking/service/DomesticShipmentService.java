@@ -535,6 +535,8 @@ public class DomesticShipmentService {
                     Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(entity.getRouteNumberId());
                     if (!entity.getRedFlag() && entity.getClearedTime() == null) {
                         logger.info("goes in if statement");
+                        logger.info("Atd time "+entity.getAtd());
+                        logger.info("current date time "+currentDateTime );
                         Duration duration = Duration.between(entity.getAtd(),currentDateTime);
                         logger.info("Duration between atd and current time "+duration.toHours());
                         logger.info("Duration limit set in route "+domesticRoute.get().getDurationLimit());
