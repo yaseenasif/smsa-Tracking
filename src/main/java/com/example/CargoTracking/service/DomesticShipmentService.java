@@ -551,8 +551,11 @@ public class DomesticShipmentService {
             List<DomesticShipment> domesticShipmentList1 = domesticShipmentRepository.findAll();
             if (!domesticShipmentList1.isEmpty()) {
                 for (DomesticShipment shipment : domesticShipmentList1) {
+                    logger.info("enter the area that send emails");
                         Duration duration = Duration.between(shipment.getAtd(),currentDateTime);
-                        String originEmails = locationRepository.findById(shipment.getOriginLocationId()).get()
+                    logger.info("duration between atd and current time in hours "+duration.toHours());
+
+                    String originEmails = locationRepository.findById(shipment.getOriginLocationId()).get()
                                 .getOriginEscalation();
                         String[] resultListOriginEscalation = originEmails.split(",");
 
@@ -560,8 +563,12 @@ public class DomesticShipmentService {
                                 .getDestinationEscalation();
                         String[] resultListDestinationEscalation = destinationEmails.split(",");
                         Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(shipment.getRouteNumberId());
+                        logger.info("origin"+resultListOriginEscalation.toString());
+                        logger.info("destination"+resultListDestinationEscalation.toString());
 
                         if (duration.toHours() >= domesticRoute.get().getDurationLimit()+2 && duration.toHours() < domesticRoute.get().getDurationLimit()+4 && (resultListOriginEscalation.length >= 1 || resultListDestinationEscalation.length >= 1 )) {
+                            logger.info("enter first escalation");
+                            logger.info("checking sended or not before"+shipment.isEscalationFlagOne());
                             if (!shipment.isEscalationFlagOne()) {
                                 List<String> emails = new ArrayList<>();
                                 if(resultListOriginEscalation.length >= 1 ){
@@ -570,6 +577,7 @@ public class DomesticShipmentService {
                                 if(resultListDestinationEscalation.length >= 1 ){
                                     emails.add(resultListDestinationEscalation[0]);
                                 }
+                                logger.info("finding 0 level address"+emails.toString());
                                 String subject = "TSM 1st Escalation (D): " + shipment.getRouteNumber() + "/" + shipment.getVehicleType() + "/" + shipment.getReferenceNumber() + "/" + shipment.getEtd();
                                 Map<String, Object> model = new HashMap<>();
                                 model.put("field1", shipment.getReferenceNumber());
@@ -577,11 +585,15 @@ public class DomesticShipmentService {
                                 for (String to : emails) {
                                     emailService.sendHtmlEmail(to, subject, "shipment-delay-email-template.ftl", model);
                                 }
+                                logger.info("first escalation send");
                                 shipment.setEscalationFlagOne(true);
                                 domesticShipmentRepository.save(shipment);
                             }
                         }
                         if (duration.toHours() >= domesticRoute.get().getDurationLimit()+4 && duration.toHours() < domesticRoute.get().getDurationLimit()+6 && (resultListOriginEscalation.length >= 2  || resultListDestinationEscalation.length>=2 )) {
+                            logger.info("enter second escalation");
+                            logger.info("checking sended or not before"+shipment.isEscalationFlagTwo());
+
                             if (!shipment.isEscalationFlagTwo()) {
 
                                 List<String> emails = new ArrayList<>();
@@ -591,6 +603,8 @@ public class DomesticShipmentService {
                                 if( resultListDestinationEscalation.length>=2){
                                     emails.add(resultListDestinationEscalation[1]);
                                 }
+                                logger.info("finding 1 level address"+emails.toString());
+
                                 String subject = "TSM 2nd Escalation (D): " + shipment.getRouteNumber() + "/" + shipment.getVehicleType() + "/" + shipment.getReferenceNumber() + "/" + shipment.getEtd();
                                 Map<String, Object> model = new HashMap<>();
                                 model.put("field1", shipment.getReferenceNumber());
@@ -598,11 +612,14 @@ public class DomesticShipmentService {
                                 for (String to : emails) {
                                     emailService.sendHtmlEmail(to, subject, "shipment-delay-email-template.ftl", model);
                                 }
+                                logger.info("first escalation send");
                                 shipment.setEscalationFlagTwo(true);
                                 domesticShipmentRepository.save(shipment);
                             }
                         }
                         if (duration.toHours() >= domesticRoute.get().getDurationLimit()+6 && (resultListOriginEscalation.length>=3 || resultListDestinationEscalation.length>=3 )) {
+                            logger.info("enter 3rd escalation");
+                            logger.info("checking sended or not before"+shipment.isEscalationFlagThree());
                             if (!shipment.isEscalationFlagThree()) {
 
                                 List<String> emails = new ArrayList<>();
@@ -612,6 +629,8 @@ public class DomesticShipmentService {
                                 if(resultListDestinationEscalation.length>=3){
                                     emails.add(resultListDestinationEscalation[2]);
                                 }
+                                logger.info("finding 2 level address"+emails.toString());
+
                                 String subject = "TSM 3rd Escalation (D): " + shipment.getRouteNumber() + "/" + shipment.getVehicleType() + "/" + shipment.getReferenceNumber() + "/" + shipment.getEtd();
                                 Map<String, Object> model = new HashMap<>();
                                 model.put("field1", shipment.getReferenceNumber());
@@ -619,6 +638,7 @@ public class DomesticShipmentService {
                                 for (String to : emails) {
                                     emailService.sendHtmlEmail(to, subject, "shipment-delay-email-template.ftl", model);
                                 }
+                                logger.info("first escalation send");
                                 shipment.setEscalationFlagThree(true);
                                 domesticShipmentRepository.save(shipment);
                             }
