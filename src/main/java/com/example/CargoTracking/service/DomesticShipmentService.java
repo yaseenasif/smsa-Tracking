@@ -11,7 +11,10 @@ import com.example.CargoTracking.exception.UserNotFoundException;
 import com.example.CargoTracking.repository.*;
 import com.example.CargoTracking.specification.DomesticShipmentSpecification;
 import com.example.CargoTracking.specification.DomesticSummarySpecification;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,6 +41,7 @@ import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class DomesticShipmentService {
 
     @Autowired
@@ -60,9 +64,11 @@ public class DomesticShipmentService {
     LocationService locationService;
     @Autowired
     DomesticRouteRepository domesticRouteRepository;
-
     @Autowired
     LocationRepository locationRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(StorageService.class);
+
 
 
     @Transactional
@@ -111,7 +117,7 @@ public class DomesticShipmentService {
                     .activeStatus(Boolean.TRUE)
                     .processTime(currentLocalDateTime)
                     .locationCode(domesticShipmentDto.getOriginLocation())
-                    .user(user.getId())
+                    .user(user.getEmployeeId())
                     .domesticShipment(domesticShipment)
                     .remarks(domesticShipment.getRemarks())
                     .build();
@@ -148,8 +154,8 @@ public class DomesticShipmentService {
             model.put("field10", "Road");
             model.put("field11", domesticShipment.getRouteNumber().toString());
             model.put("field15", domesticShipment.getRemarks());
-
-            sendEmailsAsync(emails, subject, "domestic-email-template.ftl", model);
+            emailService.sendHtmlEmail(resultListOrigin,resultListDestination,subject,"domestic-email-template.ftl",model);
+//            sendEmailsAsync(emails, subject, "domestic-email-template.ftl", model);
             return toDto(domesticShipment);
         }
 
@@ -217,10 +223,12 @@ public class DomesticShipmentService {
             DomesticShipment domesticShipment = domesticShipmentOptional.get();
             Optional<Location> originLocation =  locationRepository.findById(domesticShipment.getOriginLocationId());
             Optional<Location> destinationLocation =  locationRepository.findById(domesticShipment.getDestinationLocationId());
+            String subject = "TSM Pre-Alert(D): " + domesticShipment.getRouteNumber() + "/" + domesticShipment.getVehicleType() + "/" + domesticShipment.getReferenceNumber();
+
             SendEmailAddressForOutlookManual sendEmailAddressForOutlookManual = new SendEmailAddressForOutlookManual();
             sendEmailAddressForOutlookManual.setTo(originLocation.get().getOriginEmail());
             sendEmailAddressForOutlookManual.setCc(destinationLocation.get().getDestinationEmail());
-
+            sendEmailAddressForOutlookManual.setSubject(subject);
             return sendEmailAddressForOutlookManual;
         }
         throw new RecordNotFoundException(String.format("Domestic shipment Not Found By This Id %d", id));
@@ -380,7 +388,7 @@ public class DomesticShipmentService {
                             .status(save.getStatus())
                             .processTime(LocalDateTime.now())
                             .locationCode(save.getOriginLocation())
-                            .user(user.getId())
+                            .user(user.getEmployeeId())
                             .domesticShipment(save)
                             .remarks(save.getRemarks())
                             .build();
@@ -513,7 +521,7 @@ public class DomesticShipmentService {
 //    2gap se escalation send hogi
 
 //        LocalDate oneDayOlderDate = LocalDate.now().minusDays(1);
-
+        logger.info("Domestic Schedular start");
         List<DomesticShipment> domesticShipmentList = domesticShipmentRepository.findAll();
 
         try {
@@ -521,23 +529,33 @@ public class DomesticShipmentService {
 
             if (!domesticShipmentList.isEmpty()) {
                 for (DomesticShipment entity : domesticShipmentList) {
+                    logger.info("shipment id : "+entity.getId());
+                    logger.info("shipment cleared time"+entity.getClearedTime());
+                    logger.info("redflag "+entity.getRedFlag());
                     Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(entity.getRouteNumberId());
                     if (!entity.getRedFlag() && entity.getClearedTime() == null) {
+                        logger.info("goes in if statement");
                         Duration duration = Duration.between(entity.getAtd(),currentDateTime);
+                        logger.info("Duration between atd and current time "+duration.toHours());
+                        logger.info("Duration limit set in route "+domesticRoute.get().getDurationLimit());
                         if(duration.toHours()>domesticRoute.get().getDurationLimit()){
+                            logger.info("set red flag true");
                             entity.setRedFlag(true);
                         }
                     }
                 }
-
+                logger.info("saving all");
                 domesticShipmentRepository.saveAll(domesticShipmentList);
             }
 
             List<DomesticShipment> domesticShipmentList1 = domesticShipmentRepository.findAll();
             if (!domesticShipmentList1.isEmpty()) {
                 for (DomesticShipment shipment : domesticShipmentList1) {
+                    logger.info("enter the area that send emails");
                         Duration duration = Duration.between(shipment.getAtd(),currentDateTime);
-                        String originEmails = locationRepository.findById(shipment.getOriginLocationId()).get()
+                    logger.info("duration between atd and current time in hours "+duration.toHours());
+
+                    String originEmails = locationRepository.findById(shipment.getOriginLocationId()).get()
                                 .getOriginEscalation();
                         String[] resultListOriginEscalation = originEmails.split(",");
 
@@ -545,8 +563,12 @@ public class DomesticShipmentService {
                                 .getDestinationEscalation();
                         String[] resultListDestinationEscalation = destinationEmails.split(",");
                         Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(shipment.getRouteNumberId());
+                        logger.info("origin"+resultListOriginEscalation.toString());
+                        logger.info("destination"+resultListDestinationEscalation.toString());
 
                         if (duration.toHours() >= domesticRoute.get().getDurationLimit()+2 && duration.toHours() < domesticRoute.get().getDurationLimit()+4 && (resultListOriginEscalation.length >= 1 || resultListDestinationEscalation.length >= 1 )) {
+                            logger.info("enter first escalation");
+                            logger.info("checking sended or not before"+shipment.isEscalationFlagOne());
                             if (!shipment.isEscalationFlagOne()) {
                                 List<String> emails = new ArrayList<>();
                                 if(resultListOriginEscalation.length >= 1 ){
@@ -555,6 +577,7 @@ public class DomesticShipmentService {
                                 if(resultListDestinationEscalation.length >= 1 ){
                                     emails.add(resultListDestinationEscalation[0]);
                                 }
+                                logger.info("finding 0 level address"+emails.toString());
                                 String subject = "TSM 1st Escalation (D): " + shipment.getRouteNumber() + "/" + shipment.getVehicleType() + "/" + shipment.getReferenceNumber() + "/" + shipment.getEtd();
                                 Map<String, Object> model = new HashMap<>();
                                 model.put("field1", shipment.getReferenceNumber());
@@ -562,11 +585,15 @@ public class DomesticShipmentService {
                                 for (String to : emails) {
                                     emailService.sendHtmlEmail(to, subject, "shipment-delay-email-template.ftl", model);
                                 }
+                                logger.info("first escalation send");
                                 shipment.setEscalationFlagOne(true);
                                 domesticShipmentRepository.save(shipment);
                             }
                         }
                         if (duration.toHours() >= domesticRoute.get().getDurationLimit()+4 && duration.toHours() < domesticRoute.get().getDurationLimit()+6 && (resultListOriginEscalation.length >= 2  || resultListDestinationEscalation.length>=2 )) {
+                            logger.info("enter second escalation");
+                            logger.info("checking sended or not before"+shipment.isEscalationFlagTwo());
+
                             if (!shipment.isEscalationFlagTwo()) {
 
                                 List<String> emails = new ArrayList<>();
@@ -576,6 +603,8 @@ public class DomesticShipmentService {
                                 if( resultListDestinationEscalation.length>=2){
                                     emails.add(resultListDestinationEscalation[1]);
                                 }
+                                logger.info("finding 1 level address"+emails.toString());
+
                                 String subject = "TSM 2nd Escalation (D): " + shipment.getRouteNumber() + "/" + shipment.getVehicleType() + "/" + shipment.getReferenceNumber() + "/" + shipment.getEtd();
                                 Map<String, Object> model = new HashMap<>();
                                 model.put("field1", shipment.getReferenceNumber());
@@ -583,11 +612,14 @@ public class DomesticShipmentService {
                                 for (String to : emails) {
                                     emailService.sendHtmlEmail(to, subject, "shipment-delay-email-template.ftl", model);
                                 }
+                                logger.info("first escalation send");
                                 shipment.setEscalationFlagTwo(true);
                                 domesticShipmentRepository.save(shipment);
                             }
                         }
                         if (duration.toHours() >= domesticRoute.get().getDurationLimit()+6 && (resultListOriginEscalation.length>=3 || resultListDestinationEscalation.length>=3 )) {
+                            logger.info("enter 3rd escalation");
+                            logger.info("checking sended or not before"+shipment.isEscalationFlagThree());
                             if (!shipment.isEscalationFlagThree()) {
 
                                 List<String> emails = new ArrayList<>();
@@ -597,6 +629,8 @@ public class DomesticShipmentService {
                                 if(resultListDestinationEscalation.length>=3){
                                     emails.add(resultListDestinationEscalation[2]);
                                 }
+                                logger.info("finding 2 level address"+emails.toString());
+
                                 String subject = "TSM 3rd Escalation (D): " + shipment.getRouteNumber() + "/" + shipment.getVehicleType() + "/" + shipment.getReferenceNumber() + "/" + shipment.getEtd();
                                 Map<String, Object> model = new HashMap<>();
                                 model.put("field1", shipment.getReferenceNumber());
@@ -604,6 +638,7 @@ public class DomesticShipmentService {
                                 for (String to : emails) {
                                     emailService.sendHtmlEmail(to, subject, "shipment-delay-email-template.ftl", model);
                                 }
+                                logger.info("first escalation send");
                                 shipment.setEscalationFlagThree(true);
                                 domesticShipmentRepository.save(shipment);
                             }

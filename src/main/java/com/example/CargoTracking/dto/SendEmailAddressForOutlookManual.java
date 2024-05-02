@@ -11,4 +11,5 @@ import lombok.*;
 public class SendEmailAddressForOutlookManual {
   private String to;
   private String cc;
+  private String subject;
 }

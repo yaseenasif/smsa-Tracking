@@ -946,7 +946,7 @@
                 </p-button>
                 <p-button
                   type="submit"
-                
+                  [disabled]="!domesticShipmentForm.form.valid"
                   label="Save"
                   class="bg-b-color ml"
                 >

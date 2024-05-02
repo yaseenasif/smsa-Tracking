@@ -82,6 +82,40 @@ public class EmailService {
         }
     }
 
+    public void sendHtmlEmail(String[] to, String[] cc, String subject, String emailTemplate, Map<String, Object> model) {
+        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+        MimeMessageHelper helper;
+
+        try {
+            helper = new MimeMessageHelper(mimeMessage, true);
+            helper.setSubject(subject);
+            helper.setFrom(sender);
+
+            // Set recipients
+            if (to != null && to.length > 0) {
+                helper.setTo(to);
+            } else {
+                throw new IllegalArgumentException("Recipient list is empty");
+            }
+
+            // Set CC
+            if (cc != null && cc.length > 0) {
+                helper.setCc(cc);
+            }
+
+            Template t = config.getTemplate(emailTemplate);
+            String html = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
+
+            helper.setText(html, true);
+
+            javaMailSender.send(mimeMessage);
+        } catch (Exception e) {
+            // Handle exceptions
+            e.printStackTrace();
+            log.error(e.getMessage());
+        }
+    }
+
 
 
 }
