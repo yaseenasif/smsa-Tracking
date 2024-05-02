@@ -201,7 +201,7 @@ export class ViewAirShippingForSummaryComponent {
         getInternationalEmail(id:number){
           this.summaryService.getInternationalEmail(id).subscribe((res)=>{
             
-            this.emailAttribute='mailto:'.concat(res.to,'?cc=',res.cc)
+            this.emailAttribute='mailto:'.concat(res.to,'?cc=',res.cc,'?subject=',res.subject)
           
           },(error)=>{
             console.log(error);
