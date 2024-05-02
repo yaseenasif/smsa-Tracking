@@ -551,6 +551,7 @@ public class DomesticShipmentService {
             List<DomesticShipment> domesticShipmentList1 = domesticShipmentRepository.findAll();
             if (!domesticShipmentList1.isEmpty()) {
                 for (DomesticShipment shipment : domesticShipmentList1) {
+                    logger.info("shipment id"+shipment.getId());
                     logger.info("enter the area that send emails");
                         Duration duration = Duration.between(shipment.getAtd(),currentDateTime);
                     logger.info("duration between atd and current time in hours "+duration.toHours());
