@@ -11,7 +11,10 @@ import com.example.CargoTracking.exception.UserNotFoundException;
 import com.example.CargoTracking.repository.*;
 import com.example.CargoTracking.specification.DomesticShipmentSpecification;
 import com.example.CargoTracking.specification.DomesticSummarySpecification;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,6 +41,7 @@ import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class DomesticShipmentService {
 
     @Autowired
@@ -60,9 +64,11 @@ public class DomesticShipmentService {
     LocationService locationService;
     @Autowired
     DomesticRouteRepository domesticRouteRepository;
-
     @Autowired
     LocationRepository locationRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(StorageService.class);
+
 
 
     @Transactional
@@ -515,7 +521,7 @@ public class DomesticShipmentService {
 //    2gap se escalation send hogi
 
 //        LocalDate oneDayOlderDate = LocalDate.now().minusDays(1);
-
+        logger.info("Domestic Schedular start");
         List<DomesticShipment> domesticShipmentList = domesticShipmentRepository.findAll();
 
         try {
@@ -523,15 +529,22 @@ public class DomesticShipmentService {
 
             if (!domesticShipmentList.isEmpty()) {
                 for (DomesticShipment entity : domesticShipmentList) {
+                    logger.info("shipment id : "+entity.getId());
+                    logger.info("shipment cleared time"+entity.getClearedTime());
+                    logger.info("redflag "+entity.getRedFlag());
                     Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(entity.getRouteNumberId());
                     if (!entity.getRedFlag() && entity.getClearedTime() == null) {
+                        logger.info("goes in if statement");
                         Duration duration = Duration.between(entity.getAtd(),currentDateTime);
+                        logger.info("Duration between atd and current time "+duration.toHours());
+                        logger.info("Duration limit set in route "+domesticRoute.get().getDurationLimit());
                         if(duration.toHours()>domesticRoute.get().getDurationLimit()){
+                            logger.info("set red flag true");
                             entity.setRedFlag(true);
                         }
                     }
                 }
-
+                logger.info("saving all");
                 domesticShipmentRepository.saveAll(domesticShipmentList);
             }
 
