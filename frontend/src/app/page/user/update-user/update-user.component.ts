@@ -67,8 +67,10 @@ export class UpdateUserComponent implements OnInit {
 
   getAllLRole(){
     this.roleService.getALLRole().subscribe((res:Role[])=>{
-      res[0].permissions= res[0].permissions!.sort((a,b)=> a.id!-b.id!)
-      res[1].permissions= res[1].permissions!.sort((a,b)=> a.id!-b.id!)
+      // res[0].permissions= res[0].permissions!.sort((a,b)=> a.id!-b.id!)
+      res.map((el)=>{
+        return el.permissions?.sort((a,b)=>a.id!-b.id!)
+      })
       this.roles=res;
     },error=>{ 
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body }); 
