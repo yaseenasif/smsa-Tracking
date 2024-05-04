@@ -63,6 +63,9 @@ public class DomesticRouteService {
 
         for(DomesticRoute route:byOriginAndDestination){
             for(DomesticShipment shipment : domesticShipment){
+                if(route.getRoute().contains("Adhoc") || route.getRoute().contains("adhoc")){
+                    break;
+                }
                 if (route.getRoute().equals(shipment.getRouteNumber())) {
                     usedRoute.add(route);
                     break;
