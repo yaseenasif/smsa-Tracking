@@ -101,6 +101,11 @@ public class DomesticShipmentService {
             }
             DomesticShipment unSaveDomesticShipment = toEntity(domesticShipmentDto);
             unSaveDomesticShipment.setCreatedAt(LocalDate.now());
+            if(domesticShipmentDto.getTrip() != 0 && (domesticShipmentDto.getRouteNumber().contains("Adhoc") || domesticShipmentDto.getRouteNumber().contains("adhoc"))){
+                unSaveDomesticShipment.setPreAlertNumber(domesticShipmentDto.getRouteNumber()+" "+domesticShipmentDto.getTrip()+" "+LocalDate.now());
+            }else{
+                unSaveDomesticShipment.setPreAlertNumber(domesticShipmentDto.getRouteNumber()+" "+LocalDate.now());
+            }
             unSaveDomesticShipment.setCreatedBy(user);
             unSaveDomesticShipment.setRedFlag(Boolean.FALSE);
             unSaveDomesticShipment.setActiveStatus(Boolean.TRUE);

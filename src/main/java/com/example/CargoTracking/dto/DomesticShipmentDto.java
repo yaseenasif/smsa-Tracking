@@ -21,6 +21,7 @@ import java.util.List;
 public class DomesticShipmentDto {
 
     private Long id;
+    private int trip;
     private String originCountry;
     private String destinationCountry;
     private String originFacility;
