@@ -25,6 +25,7 @@ public class DomesticShipment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private int trip;
     private String originCountry;
     private String destinationCountry;
     private String originFacility;
