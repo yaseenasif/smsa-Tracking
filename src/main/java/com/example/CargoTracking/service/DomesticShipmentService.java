@@ -376,17 +376,18 @@ public class DomesticShipmentService {
         }
         if (domesticShipmentDto.getStatus().equalsIgnoreCase("Arrived")) {
           domesticShipment.get().setArrivedTime(LocalDateTime.now());
+          domesticShipment.get().setRedFlag(false);
         }
         if (domesticShipmentDto.getAta() != null) {
           Duration duration = Duration.between(domesticShipmentDto.getAta(), domesticShipment.get().getAtd());
           domesticShipment.get().setTransitTimeTaken(duration.toMinutes());
         }
 
-        if (domesticShipmentDto.getStatus().equalsIgnoreCase("Cleared")) {
-          if (domesticShipment.get().getRedFlag()) {
-            domesticShipment.get().setRedFlag(false);
-          }
-        }
+//        if (domesticShipmentDto.getStatus().equalsIgnoreCase("Cleared")) {
+//          if (domesticShipment.get().getRedFlag()) {
+//            domesticShipment.get().setRedFlag(false);
+//          }
+//        }
 
         DomesticShipmentHistory domesticShipmentHistory;
         DomesticShipment save;
