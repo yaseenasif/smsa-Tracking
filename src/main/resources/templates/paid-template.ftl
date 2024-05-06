@@ -10,7 +10,7 @@
 
 
 <p>
-    All the bills has been paid.
+    Custom Duty invoices created, please release the load.
 </p>
 
 <h3 style="margin-bottom: 0;">Regards,</h3>

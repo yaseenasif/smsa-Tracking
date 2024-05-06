@@ -683,7 +683,7 @@ public class InternationalShipmentService {
                 emails.addAll(destinationEmailAddresses);
                 if (save.getStatus().equalsIgnoreCase("Paid")) {
                     Map<String, Object> model = new HashMap<>();
-                    String subject = "All Bills Paid";
+                    String subject = "CD Invoice Creation";
                     sendEmailsAsync(emails, subject, "paid-template.ftl", model);
                 }
 
