@@ -87,7 +87,8 @@ export class AddDomesticShippingComponent {
     damage: null,
     damageAwbs: null,
     numberOfPalletsReceived: null,
-    numberOfBagsReceived: null
+    numberOfBagsReceived: null,
+    trip: null
   };
 
   // originCountry!: Country[];
@@ -101,6 +102,7 @@ export class AddDomesticShippingComponent {
   selectedLocation!: Location;
   selectedOriginLocation!: Location;
   selectedDestinationLocation!: Location;
+  tripSwitch=false;
 
 
   originFacility: (Facility|null|undefined)[]|undefined;
@@ -331,6 +333,13 @@ export class AddDomesticShippingComponent {
   }
 
   onRouteChange(route:Routes){
+debugger
+    if(route.route?.toLowerCase().includes("adhoc")){
+     this.tripSwitch=true;
+    }else{
+     this.tripSwitch=false;
+    }
+
    this.domesticShipment.routeNumber=route.route;
    this.domesticShipment.routeNumberId=route.id;
   }

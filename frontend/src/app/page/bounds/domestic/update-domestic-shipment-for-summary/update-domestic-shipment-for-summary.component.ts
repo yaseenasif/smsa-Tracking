@@ -74,7 +74,8 @@ export class UpdateDomesticShipmentForSummaryComponent {
     damage: null,
     damageAwbs: null,
     numberOfPalletsReceived: null,
-    numberOfBagsReceived: null
+    numberOfBagsReceived: null,
+    trip: null
   };
 
   location!: Location[];

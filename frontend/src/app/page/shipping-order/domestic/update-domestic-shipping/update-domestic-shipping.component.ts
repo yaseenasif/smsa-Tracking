@@ -86,7 +86,8 @@ export class UpdateDomesticShippingComponent {
     damage: null,
     damageAwbs: null,
     numberOfPalletsReceived: null,
-    numberOfBagsReceived: null
+    numberOfBagsReceived: null,
+    trip: null
   };
 
 
@@ -121,6 +122,7 @@ export class UpdateDomesticShippingComponent {
   domesticShipmentId: any;
   showDropDown: boolean = false;
   domesticShipmentType!: string;
+  tripSwitch=false;
 
   constructor(private locationService: LocationService,
     private vehicleTypeService: VehicleTypeService,
@@ -206,7 +208,7 @@ export class UpdateDomesticShippingComponent {
      
         this.domesticShipmentById(this.domesticShipmentId);
        
-      
+        
       }
     );
 
@@ -246,7 +248,10 @@ export class UpdateDomesticShippingComponent {
 
   getRouteByRouteNumber(routeNumber: string) {
     this.domesticShipmentService.getRouteByRouteNumber(routeNumber).subscribe((res: any) => {
+      
       this.routes.push(res);
+      this.getRouteLabel();
+
     }, (error: any) => {
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -580,7 +585,7 @@ searchLocationByCountry(country:string){
   );
 
  this.orgLocation=[];
-this.desLocation=[];
+ this.desLocation=[];
 
 }
 
@@ -592,8 +597,25 @@ onDesFacilityChange(){
 }
 
 onRouteChange(route:Routes){
+
+  if(route.route?.toLowerCase().includes("adhoc")){
+    this.tripSwitch=true;
+   }else{
+    this.tripSwitch=false;
+    this.domesticShipment.trip=null;
+   }
+
   this.domesticShipment.routeNumber=route.route;
   this.domesticShipment.routeNumberId=route.id;
+ }
+
+ getRouteLabel(){
+  this.domesticRoute=this.routes.find((el:Routes)=> el.route==this.domesticShipment.routeNumber);
+  if(this.domesticRoute.route?.toLowerCase().includes("adhoc")){
+    this.tripSwitch=true;
+   }else{
+    this.tripSwitch=false;
+   }
  }
 
 

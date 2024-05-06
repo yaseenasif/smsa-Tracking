@@ -42,4 +42,5 @@ export interface DomesticShipment{
     damageAwbs:string|null,
     numberOfPalletsReceived:number|null,
     numberOfBagsReceived:number|null;
+    trip:number|null
 }
