@@ -422,7 +422,7 @@ public class DomesticShipmentService {
         emails.addAll(originEmailAddresses);
         emails.addAll(destinationEmailAddresses);
 
-        if (save.getStatus().equalsIgnoreCase("Paid")) {
+        if (save.getStatus().equalsIgnoreCase("Invoicing Completed")) {
           Map<String, Object> model = new HashMap<>();
           String subject = "CD Invoice Creation";
           sendEmailsAsync(emails, subject, "paid-template.ftl", model);
