@@ -667,23 +667,29 @@ public class InternationalShipmentService {
                 }else{
                     save = internationalShipmentRepository.save(internationalShipment.get());
                 }
+                String originEmails = locationRepository.findById(save.getOriginLocationId()).get()
+                        .getOriginEmail();
+                String[] resultListOrigin = originEmails.split(",");
+                List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOrigin));
+
+                String destinationEmails = locationRepository.findById(save.getDestinationLocationId()).get()
+                        .getDestinationEmail();
+                String[] resultListDestination = destinationEmails.split(",");
+                List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestination));
+
+
+                List<String> emails = new ArrayList<>();
+                emails.addAll(originEmailAddresses);
+                emails.addAll(destinationEmailAddresses);
+                if (save.getStatus().equalsIgnoreCase("Paid")) {
+                    Map<String, Object> model = new HashMap<>();
+                    String subject = "All Bills Paid";
+                    sendEmailsAsync(emails, subject, "paid-template.ftl", model);
+                }
 
                 if (save.getOverages() != null && save.getShortages() != null &&
                         (save.getOverages() > 0 || save.getShortages() > 0)) {
-                    String originEmails = locationRepository.findById(save.getOriginLocationId()).get()
-                            .getOriginEmail();
-                    String[] resultListOrigin = originEmails.split(",");
-                    List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOrigin));
 
-                    String destinationEmails = locationRepository.findById(save.getDestinationLocationId()).get()
-                            .getDestinationEmail();
-                    String[] resultListDestination = destinationEmails.split(",");
-                    List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestination));
-
-
-                    List<String> emails = new ArrayList<>();
-                    emails.addAll(originEmailAddresses);
-                    emails.addAll(destinationEmailAddresses);
 
                     String subject;
 
