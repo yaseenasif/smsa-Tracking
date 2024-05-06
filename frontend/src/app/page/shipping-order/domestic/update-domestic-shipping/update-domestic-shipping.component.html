@@ -306,6 +306,26 @@
                   </div>
                 </div>
 
+                <div *ngIf="tripSwitch" class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Trip</label>
+                    <input
+                      pInputText
+                      id="trip"
+                      type="number"
+                      pattern="^[1-9]+[0-9]*$"
+                      aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.trip"
+                      #trip="ngModel"
+                      required
+                      name="trip"
+                    />
+                    <!-- <small id="name-help"
+                        >{{name}}</small
+                      > -->
+                  </div>
+                </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Number of Shipments</label>
@@ -351,7 +371,7 @@
                   </div>
                 </div>
 
-                <div class="col-12 md:col-6 lg:col-4">
+                <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Pre Alert Number</label>
                     <p-inputNumber
@@ -364,7 +384,7 @@
                     [useGrouping]="false"
                   ></p-inputNumber>
                   </div>
-                </div>
+                </div> -->
 
                 <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">

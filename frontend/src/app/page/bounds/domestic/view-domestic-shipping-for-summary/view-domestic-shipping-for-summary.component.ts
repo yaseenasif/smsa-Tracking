@@ -62,7 +62,8 @@ export class ViewDomesticShippingForSummaryComponent {
     damage: null,
     damageAwbs: null,
     numberOfPalletsReceived: null,
-    numberOfBagsReceived: null
+    numberOfBagsReceived: null,
+    trip: null
   };
 
   domesticShipmentId!:number;
