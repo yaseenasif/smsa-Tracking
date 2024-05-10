@@ -118,50 +118,26 @@
            <div class="col-12 md:col-6 lg:col-6">
                 <div class="flex flex-column gap-2">
                   <label htmlFor="name">Level 1</label>
-                  <input
-                  [required]="true"
-                    pInputText
-                    id="name"
-                    aria-describedby="name-help"
-                    [(ngModel)]="location.originEscalation![0]"
-                    name="destinationEscalationLevel1"
-                    #destinationEscalationLevel1="ngModel"
-                    required
-                  />
-                  <small id="name-help" class="color-red"  *ngIf="destinationEscalationLevel1.invalid && (destinationEscalationLevel1.dirty || destinationEscalationLevel1.touched)">Level 1 is required.</small>
+                  <div class="card p-fluid">
+                    <p-chips #originEscalationLevel1="ngModel" [allowDuplicate]="false" required="true" name="originEscalationLevel1"  [(ngModel)]="location.originEscalationLevel1" ></p-chips>
+                  </div>
                 </div>
             </div>
 
             <div class="col-12 md:col-6 lg:col-6">
               <div class="flex flex-column gap-2">
                 <label htmlFor="name">Level 2</label>
-                <input
-                [required]="true"
-                  pInputText
-                  id="name"
-                  aria-describedby="name-help"
-                  [(ngModel)]="location.originEscalation![1]"
-                  name="destinationEscalationLevel2"
-                  #destinationEscalationLevel2="ngModel"
-                  required
-                />
-                <small id="name-help" class="color-red"  *ngIf="destinationEscalationLevel2.invalid && (destinationEscalationLevel2.dirty || destinationEscalationLevel2.touched)">Level 2 is required.</small>
+                <div class="card p-fluid">
+                  <p-chips #originEscalationLevel2="ngModel" [allowDuplicate]="false" required="true" name="originEscalationLevel2"  [(ngModel)]="location.originEscalationLevel2" ></p-chips>
+                </div>
               </div>
             </div>
             <div class="col-12 md:col-6 lg:col-6">
               <div class="flex flex-column gap-2">
                 <label htmlFor="name">Level 3</label>
-                <input
-                  pInputText
-                  [required]="true"
-                  id="name"
-                  aria-describedby="name-help"
-                  [(ngModel)]="location.originEscalation![2]"
-                  name="destinationEscalationLevel3"
-                  #destinationEscalationLevel3="ngModel"
-                  required
-                />
-                <small id="name-help" class="color-red"  *ngIf="destinationEscalationLevel3.invalid && (destinationEscalationLevel3.dirty || destinationEscalationLevel3.touched)">Name is required.</small>
+                <div class="card p-fluid">
+                  <p-chips #originEscalationLevel3="ngModel" [allowDuplicate]="false" required="true" name="originEscalationLevel3"  [(ngModel)]="location.originEscalationLevel3" ></p-chips>
+                </div>
               </div>
             </div>
               <div class="col-12 md:col-12 lg:col-12">
@@ -170,49 +146,25 @@
               <div class="col-12 md:col-6 lg:col-6">
                 <div class="flex flex-column gap-2">
                   <label htmlFor="name">Level 1</label>
-                  <input
-                  [required]="true"
-                    pInputText
-                    id="name"
-                    aria-describedby="name-help"
-                    [(ngModel)]="location.destinationEscalation[0]"
-                    name="originEscalationLevel1"
-                    #originEscalationLevel1="ngModel"
-                    required
-                  />
-                  <small id="name-help" class="color-red"  *ngIf="originEscalationLevel1.invalid && (originEscalationLevel1.dirty || originEscalationLevel1.touched)">Level 1 is required.</small>
+                  <div class="card p-fluid">
+                    <p-chips #destinationEscalationLevel1="ngModel" [allowDuplicate]="false" required="true" name="destinationEscalationLevel1"  [(ngModel)]="location.destinationEscalationLevel1" ></p-chips>
+                  </div>
                 </div>
               </div>
               <div class="col-12 md:col-6 lg:col-6">
                 <div class="flex flex-column gap-2">
                   <label htmlFor="name">Level 2</label>
-                  <input
-                  [required]="true"
-                    pInputText
-                    id="name"
-                    aria-describedby="name-help"
-                    [(ngModel)]="location.destinationEscalation[1]"
-                    name="originEscalationLevel2"
-                    #originEscalationLevel2="ngModel"
-                    required
-                  />
-                  <small id="name-help" class="color-red"  *ngIf="originEscalationLevel2.invalid && (originEscalationLevel2.dirty || originEscalationLevel2.touched)">Name is required.</small>
+                  <div class="card p-fluid">
+                    <p-chips #destinationEscalationLevel2="ngModel" [allowDuplicate]="false" required="true" name="destinationEscalationLevel2"  [(ngModel)]="location.destinationEscalationLevel2" ></p-chips>
+                  </div>
                 </div>
               </div>
               <div class="col-12 md:col-6 lg:col-6">
                 <div class="flex flex-column gap-2">
                   <label htmlFor="name">Level 3</label>
-                  <input
-                  [required]="true"
-                    pInputText
-                    id="name"
-                    aria-describedby="name-help"
-                    [(ngModel)]="location.destinationEscalation[2]"
-                    name="originEscalationLevel3"
-                    #originEscalationLevel3="ngModel"
-                    required
-                  />
-                  <small id="name-help" class="color-red"  *ngIf="originEscalationLevel3.invalid && (originEscalationLevel3.dirty || originEscalationLevel3.touched)">Name is required.</small>
+                  <div class="card p-fluid">
+                    <p-chips #destinationEscalationLevel3="ngModel" [allowDuplicate]="false" required="true" name="destinationEscalationLevel3"  [(ngModel)]="location.destinationEscalationLevel3" ></p-chips>
+                  </div>
                 </div>
               </div>
 

@@ -27,11 +27,15 @@ export class UpdateLocationComponent implements OnInit {
     type: null,
     originEmail: null,
     destinationEmail: null,
-    originEscalation: [],
-    destinationEscalation: [],
     status: null,
     facility: null,
-    country: null
+    country: null,
+    originEscalationLevel1: null,
+    originEscalationLevel2: null,
+    originEscalationLevel3: null,
+    destinationEscalationLevel1: null,
+    destinationEscalationLevel2: null,
+    destinationEscalationLevel3: null
   }
 
   type:ProductField | null | undefined;
@@ -51,13 +55,20 @@ export class UpdateLocationComponent implements OnInit {
     this.items = [{ label: 'Location List',routerLink:'/location'},{ label: 'Edit Location'}];
     this.getAllCountry();
     this.getAllFacility();
+    debugger
 
     this.locationService.getLocationByID(this.lID).subscribe((res:Location)=>{
-      if (typeof res.originEmail === 'string' && typeof res.destinationEmail === 'string' && typeof res.originEscalation === 'string' && typeof res.destinationEscalation === 'string') {
+      if (typeof res.originEmail === 'string' && typeof res.destinationEmail === 'string' && typeof res.originEscalationLevel1 === 'string' && typeof res.originEscalationLevel2 === 'string' && typeof res.originEscalationLevel3 === 'string' && typeof res.destinationEscalationLevel1 === 'string' && typeof res.destinationEscalationLevel2 === 'string' && typeof res.destinationEscalationLevel3 === 'string') {
       res.originEmail=res.originEmail!.split(',')
       res.destinationEmail=res.destinationEmail!.split(',')
-      res.originEscalation=res.originEscalation!.split(',')
-      res.destinationEscalation=res.destinationEscalation!.split(',')
+      res.originEscalationLevel1=res.originEscalationLevel1!.split(',')
+      res.originEscalationLevel2=res.originEscalationLevel2!.split(',')
+      res.originEscalationLevel3=res.originEscalationLevel3!.split(',')
+
+      res.destinationEscalationLevel1=res.destinationEscalationLevel1!.split(',')
+      res.destinationEscalationLevel2=res.destinationEscalationLevel2!.split(',')
+      res.destinationEscalationLevel3=res.destinationEscalationLevel3!.split(',')
+
     }
     this.location=res;
     // this.facilityService.getFacilityByCountryID(res.facility?.country?.id!).subscribe((res2:Facility[])=>{
@@ -129,11 +140,16 @@ export class UpdateLocationComponent implements OnInit {
 
    getLocationByID(){
     this.locationService.getLocationByID(this.lID).subscribe((res:Location)=>{
-      if (typeof res.originEmail === 'string' && typeof res.destinationEmail === 'string' && typeof res.originEscalation === 'string' && typeof res.destinationEscalation === 'string') {
+      if (typeof res.originEmail === 'string' && typeof res.destinationEmail === 'string' && typeof res.originEscalationLevel1 === 'string' && typeof res.originEscalationLevel2 === 'string' && typeof res.originEscalationLevel3 === 'string' && typeof res.destinationEscalationLevel1 === 'string' && typeof res.destinationEscalationLevel2 === 'string' && typeof res.destinationEscalationLevel3 === 'string') {
       res.originEmail=res.originEmail!.split(',')
       res.destinationEmail=res.destinationEmail!.split(',')
-      res.originEscalation=res.originEscalation!.split(',')
-      res.destinationEscalation=res.destinationEscalation!.split(',')
+      res.originEscalationLevel1=res.originEscalationLevel1!.split(',')
+      res.originEscalationLevel2=res.originEscalationLevel2!.split(',')
+      res.originEscalationLevel3=res.originEscalationLevel3!.split(',')
+
+      res.destinationEscalationLevel1=res.destinationEscalationLevel1!.split(',')
+      res.destinationEscalationLevel2=res.destinationEscalationLevel2!.split(',')
+      res.destinationEscalationLevel3=res.destinationEscalationLevel3!.split(',')
     }
 
     // this.countryName=res.facility?.country
@@ -146,11 +162,17 @@ export class UpdateLocationComponent implements OnInit {
    }
 
    onSubmit() {
-    if(Array.isArray(this.location.originEmail) && Array.isArray(this.location.originEscalation)&& Array.isArray(this.location.destinationEmail)&& Array.isArray(this.location.destinationEscalation)){
+    if(Array.isArray(this.location.originEmail) && Array.isArray(this.location.originEscalationLevel1) && Array.isArray(this.location.originEscalationLevel2) && Array.isArray(this.location.originEscalationLevel3)&& Array.isArray(this.location.destinationEmail)&& Array.isArray(this.location.destinationEscalationLevel1) && Array.isArray(this.location.destinationEscalationLevel2) && Array.isArray(this.location.destinationEscalationLevel3) ){
       this.location.originEmail=this.location.originEmail!.join(',');
       this.location.destinationEmail=this.location.destinationEmail!.join(',');
-      this.location.originEscalation=this.location.originEscalation!.join(',');
-      this.location.destinationEscalation=this.location.destinationEscalation!.join(',');
+      this.location.originEscalationLevel1=this.location.originEscalationLevel1!.join(',');
+      this.location.originEscalationLevel2=this.location.originEscalationLevel2!.join(',');
+      this.location.originEscalationLevel3=this.location.originEscalationLevel3!.join(',');
+
+      this.location.destinationEscalationLevel1=this.location.destinationEscalationLevel1!.join(',');
+      this.location.destinationEscalationLevel2=this.location.destinationEscalationLevel2!.join(',');
+      this.location.destinationEscalationLevel3=this.location.destinationEscalationLevel3!.join(',');
+
     }
     this.locationService.updateLocationById(this.lID,this.location).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Location is updated on id'+res.id});

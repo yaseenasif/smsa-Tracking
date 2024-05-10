@@ -44,8 +44,12 @@ public class LocationService {
                     .status(Boolean.TRUE)
                     .originEmail(locationDto.getOriginEmail())
                     .destinationEmail(locationDto.getDestinationEmail())
-                    .originEscalation(locationDto.getOriginEscalation())
-                    .destinationEscalation(locationDto.getDestinationEscalation())
+                    .originEscalationLevel1(locationDto.getOriginEscalationLevel1())
+                    .originEscalationLevel2(locationDto.getOriginEscalationLevel2())
+                    .originEscalationLevel3(locationDto.getOriginEscalationLevel3())
+                    .destinationEscalationLevel1(locationDto.getDestinationEscalationLevel1())
+                    .destinationEscalationLevel2(locationDto.getDestinationEscalationLevel2())
+                    .destinationEscalationLevel3(locationDto.getDestinationEscalationLevel3())
                     .country(locationDto.getCountry())
                     .facility(locationDto.getFacility())
                     .build();
@@ -64,8 +68,12 @@ public class LocationService {
                         .status(Boolean.TRUE)
                         .originEmail(locationDto.getOriginEmail())
                         .destinationEmail(locationDto.getDestinationEmail())
-                        .originEscalation(locationDto.getOriginEscalation())
-                        .destinationEscalation(locationDto.getDestinationEscalation())
+                        .originEscalationLevel1(locationDto.getOriginEscalationLevel1())
+                        .originEscalationLevel2(locationDto.getOriginEscalationLevel2())
+                        .originEscalationLevel3(locationDto.getOriginEscalationLevel3())
+                        .destinationEscalationLevel1(locationDto.getDestinationEscalationLevel1())
+                        .destinationEscalationLevel2(locationDto.getDestinationEscalationLevel2())
+                        .destinationEscalationLevel3(locationDto.getDestinationEscalationLevel3())
                         .country(locationDto.getCountry())
                         .facility(locationDto.getFacility())
                         .build();
@@ -126,8 +134,12 @@ public class LocationService {
                 location.get().setType(locationDto.getType());
                 location.get().setOriginEmail(locationDto.getOriginEmail());
                 location.get().setDestinationEmail(locationDto.getDestinationEmail());
-                location.get().setOriginEscalation(locationDto.getOriginEscalation());
-                location.get().setDestinationEscalation(locationDto.getDestinationEscalation());
+                location.get().setOriginEscalationLevel1(locationDto.getOriginEscalationLevel1());
+                location.get().setOriginEscalationLevel2(locationDto.getOriginEscalationLevel2());
+                location.get().setOriginEscalationLevel3(locationDto.getOriginEscalationLevel3());
+                location.get().setDestinationEscalationLevel1(locationDto.getDestinationEscalationLevel1());
+                location.get().setDestinationEscalationLevel2(locationDto.getDestinationEscalationLevel2());
+                location.get().setDestinationEscalationLevel3(locationDto.getDestinationEscalationLevel3());
                 location.get().setStatus(Boolean.TRUE);
                 location.get().setFacility(locationDto.getFacility());
                 location.get().setCountry(locationDto.getCountry());
@@ -144,8 +156,12 @@ public class LocationService {
                     location.get().setType(locationDto.getType());
                     location.get().setOriginEmail(locationDto.getOriginEmail());
                     location.get().setDestinationEmail(locationDto.getDestinationEmail());
-                    location.get().setOriginEscalation(locationDto.getOriginEscalation());
-                    location.get().setDestinationEscalation(locationDto.getDestinationEscalation());
+                    location.get().setOriginEscalationLevel1(locationDto.getOriginEscalationLevel1());
+                    location.get().setOriginEscalationLevel2(locationDto.getOriginEscalationLevel2());
+                    location.get().setOriginEscalationLevel3(locationDto.getOriginEscalationLevel3());
+                    location.get().setDestinationEscalationLevel1(locationDto.getDestinationEscalationLevel1());
+                    location.get().setDestinationEscalationLevel2(locationDto.getDestinationEscalationLevel2());
+                    location.get().setDestinationEscalationLevel3(locationDto.getDestinationEscalationLevel3());
                     location.get().setStatus(Boolean.TRUE);
                     location.get().setFacility(locationDto.getFacility());
                     location.get().setCountry(locationDto.getCountry());

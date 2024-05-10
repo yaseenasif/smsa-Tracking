@@ -22,8 +22,14 @@ public class LocationDto {
     private boolean status;
     private String originEmail;
     private String destinationEmail;
-    private String originEscalation;
-    private String destinationEscalation;
+//    private String originEscalation;
+    private String originEscalationLevel1;
+    private String originEscalationLevel2;
+    private String originEscalationLevel3;
+//    private String destinationEscalation;
+    private String destinationEscalationLevel1;
+    private String destinationEscalationLevel2;
+    private String destinationEscalationLevel3;
     private Country country;
     private Facility facility;
 
