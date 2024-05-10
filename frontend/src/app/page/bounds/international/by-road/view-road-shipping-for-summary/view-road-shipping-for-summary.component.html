@@ -122,7 +122,7 @@
                                       <label for="" class="heading-lable">ETD :</label> &nbsp;
                                       <label for="" class="fr mr-8">
                                         {{
-                                          internationalShipment.etd | date : "shortDate"
+                                          internationalShipment.etd | date : "M/d/yy, h:mm "
                                         }}</label
                                       >
                                     </div>
@@ -136,7 +136,7 @@
                                     <label for="" class="heading-lable">ETA :</label> &nbsp;
                                     <label for="" class="fr mr-8">
                                       {{
-                                        internationalShipment.eta | date : "shortDate"
+                                        internationalShipment.eta | date : "M/d/yy, h:mm "
                                       }}</label
                                     >
                                   </div>
@@ -144,7 +144,7 @@
                                     <label for="" class="heading-lable">ATD :</label> &nbsp;
                                     <label for="" class="fr mr-8">
                                       {{
-                                        internationalShipment.atd | date : "shortDate"
+                                        internationalShipment.atd | date : "M/d/yy, h:mm "
                                       }}</label
                                     >
                                   </div>
@@ -262,13 +262,13 @@
                                     <label for="" class="heading-lable">ATA :</label> &nbsp;
                                     <label for="" class="fr mr-8">
                                       {{
-                                        internationalShipment.ata | date : "shortDate"
+                                        internationalShipment.ata | date : "M/d/yy, h:mm "
                                       }}</label
                                     >
                                   </div>
                                   <div class="lg:col-4 md:col-12 col-12">
                                     <label for="" class="heading-lable"
-                                      >Total Shipments :</label
+                                      >Manifested Shipments     :</label
                                     >
                                     &nbsp;
                                     <label for="" class="fr mr-8">
@@ -333,7 +333,7 @@
                                       >
                                       &nbsp;
                                       <label for="" class="fr mr-8">
-                                        {{ internationalShipment.transitTimeTaken }}</label
+                                        {{mintoHourMin(internationalShipment!.transitTimeTaken!)}}</label
                                       >
                                     </div>
               

@@ -40,7 +40,7 @@ export class EditRoleComponent {
 
   getAllPermissions(){
     this.permissionService.getALLPermission().subscribe((res:Permission[])=>{      
-    debugger
+    
       this.permissions=res.filter(el=>el.status);
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });

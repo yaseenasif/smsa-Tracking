@@ -65,7 +65,7 @@ export class ProductFieldAddComponent implements OnInit {
       if (Number.isNaN(this.idFromQueryParam)) {
         this.pfvaluesArray.length == 0 ? this.pfvaluesArray.push({ name: null, status: 'Active' }) : null;
       }
-      debugger
+      
       this.pfvalueFlag = true
     }
   }

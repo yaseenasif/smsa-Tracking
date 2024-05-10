@@ -333,7 +333,7 @@ export class AddDomesticShippingComponent {
   }
 
   onRouteChange(route:Routes){
-debugger
+
     if(route.route?.toLowerCase().includes("adhoc")){
      this.tripSwitch=true;
     }else{

@@ -107,7 +107,7 @@
                     <div class="lg:col-4 md:col-12 col-12">
                       <label for="" class="heading-lable">ATD :</label> &nbsp;
                       <label for="">
-                        {{ domesticShipment.atd | date : "shortDate" }}</label
+                        {{ domesticShipment.atd | date : "M/d/yy, h:mm " }}</label
                       >
                     </div>
                     <div class="lg:col-4 md:col-12 col-12">
@@ -263,7 +263,8 @@
                       [defaultDate]="defaultDate"
                       [required]="required"
                       [showTime]="true"
-                      [selectOtherMonths]="true"                    
+                      [selectOtherMonths]="true"   
+                      [minDate]="minDate!"                 
                     ></p-calendar>
                     <!-- <small id="name-help"
                         >{{name}}</small
@@ -272,7 +273,7 @@
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Total Shipments</label>
+                    <label htmlFor="name">Manifested Shipments    </label>
                     <p-inputNumber
                     
                       id="name"
@@ -288,10 +289,74 @@
                     class="color-red error"
                     *ngIf="totalShipments.invalid && (totalShipments.dirty || totalShipments.touched )&&totalShipments?.errors?.['required']"
                   >
-                  Total Shipments AWBs Number is required.
+                  Manifested Shipments     AWBs Number is required.
                   </small>
                   </div>
                 </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Received</label>
+                    <p-inputNumber
+                      id="name"
+                      aria-describedby="name-help"
+                      [(ngModel)]="domesticShipment.received"
+                      [required]="required"
+                      #received="ngModel"
+                      (onInput)="calculateOveragesAndShortages()" 
+                      [useGrouping]="false"
+                      name="received"
+                      autocomplete="off" 
+                    ></p-inputNumber>
+                    <small
+                    class="color-red error"
+                    *ngIf="received.invalid && (received.dirty || received.touched )&&received?.errors?.['required']"
+                  >
+                  received is required.
+                  </small>
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Number Of Bags Received</label>
+                    <p-inputNumber
+                    id="name"
+                    [required]="required"
+                    [(ngModel)]="domesticShipment.numberOfBagsReceived"
+                    #numberOfBagsReceived="ngModel"
+                    name="numberOfBagsReceived"
+                    [useGrouping]="false"
+                    autocomplete="off" 
+                  ></p-inputNumber>  
+                  <small
+                  class="color-red error"
+                  *ngIf="numberOfBagsReceived.invalid && (numberOfBagsReceived.dirty || numberOfBagsReceived.touched ) && numberOfBagsReceived?.errors?.['required']"
+                >
+                Number Of Bags Received is required.
+                </small>               
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Number Of Pallets Received</label>
+                    <p-inputNumber
+                    id="name"
+                    [(ngModel)]="domesticShipment.numberOfPalletsReceived"
+                    [required]="required"
+                    #numberOfPalletsReceived="ngModel"
+                    name="numberOfPalletsReceived"
+                    [useGrouping]="false"
+                    autocomplete="off" 
+                  ></p-inputNumber>     
+                  <small
+                  class="color-red error"
+                  *ngIf="numberOfPalletsReceived.invalid && (numberOfPalletsReceived.dirty || numberOfPalletsReceived.touched ) && numberOfPalletsReceived?.errors?.['required']"
+                >
+                Number Of Pallets Received is required.
+                </small>         
+                  </div>
+                </div>
+
+                
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Overages</label>
@@ -356,28 +421,7 @@
                 </div>
 
 
-                <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Received</label>
-                    <p-inputNumber
-                      id="name"
-                      aria-describedby="name-help"
-                      [(ngModel)]="domesticShipment.received"
-                      [required]="required"
-                      #received="ngModel"
-                      (onInput)="calculateOveragesAndShortages()" 
-                      [useGrouping]="false"
-                      name="received"
-                      autocomplete="off" 
-                    ></p-inputNumber>
-                    <small
-                    class="color-red error"
-                    *ngIf="received.invalid && (received.dirty || received.touched )&&received?.errors?.['required']"
-                  >
-                  received is required.
-                  </small>
-                  </div>
-                </div>
+              
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Shortages</label>
@@ -495,46 +539,8 @@
                 </div>
 
 
-                <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Number Of Pallets Received</label>
-                    <p-inputNumber
-                    id="name"
-                    [(ngModel)]="domesticShipment.numberOfPalletsReceived"
-                    [required]="required"
-                    #numberOfPalletsReceived="ngModel"
-                    name="numberOfPalletsReceived"
-                    [useGrouping]="false"
-                    autocomplete="off" 
-                  ></p-inputNumber>     
-                  <small
-                  class="color-red error"
-                  *ngIf="numberOfPalletsReceived.invalid && (numberOfPalletsReceived.dirty || numberOfPalletsReceived.touched ) && numberOfPalletsReceived?.errors?.['required']"
-                >
-                Number Of Pallets Received is required.
-                </small>         
-                  </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Number Of Bags Received</label>
-                    <p-inputNumber
-                    id="name"
-                    [required]="required"
-                    [(ngModel)]="domesticShipment.numberOfBagsReceived"
-                    #numberOfBagsReceived="ngModel"
-                    name="numberOfBagsReceived"
-                    [useGrouping]="false"
-                    autocomplete="off" 
-                  ></p-inputNumber>  
-                  <small
-                  class="color-red error"
-                  *ngIf="numberOfBagsReceived.invalid && (numberOfBagsReceived.dirty || numberOfBagsReceived.touched ) && numberOfBagsReceived?.errors?.['required']"
-                >
-                Number Of Bags Received is required.
-                </small>               
-                  </div>
-                </div>
+               
+             
               </div>
 
              

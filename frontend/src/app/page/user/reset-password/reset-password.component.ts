@@ -39,7 +39,7 @@ export class ResetPasswordComponent {
 
   onSubmit(){ 
     this.userService.resetPassword(this.resetPassword).subscribe(res=>{
-      debugger
+      
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Password reset successfully' });
       setTimeout(() => {
         this.router.navigate(['/home']);

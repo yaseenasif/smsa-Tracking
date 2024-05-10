@@ -32,6 +32,7 @@ import { UserService } from 'src/app/page/user/service/user.service';
   providers: [MessageService, DatePipe]
 })
 export class UpdateInternationalAirForSummaryComponent {
+  minDate!: Date|null;
   items: MenuItem[] | undefined;
   iSID!: number;
   required:boolean=false;
@@ -93,7 +94,6 @@ export class UpdateInternationalAirForSummaryComponent {
   modeOptions: { options: string }[] = Object.values(Mode).map(el => ({ options: el }));
   shipmentMode: { options: string }[] = Object.values(ShipmentMode).map(el => ({ options: el }));
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
-  minDate: Date = new Date();
   selectedLocation!: Location;
   user!: User;
 
@@ -150,7 +150,17 @@ export class UpdateInternationalAirForSummaryComponent {
         // this.locationPort = locationPortResponse.filter(el => el.status);
         this.drivers = driverResponse.content.filter((el: Driver) => el.status);
         this.vehicleTypes = vehicleTypeResponse
+        
         this.shipmentStatus = shipmentStatusResponse
+        let PF=shipmentStatusResponse.productFieldValuesList
+        if(this.user!.roles![0].name == "ROLE_ACCOUNTANT"){
+          this.shipmentStatus.productFieldValuesList = []
+         
+          this.shipmentStatus.productFieldValuesList = PF.filter(el=>el.name == "Invoicing Completed")
+        }else{
+          this.shipmentStatus.productFieldValuesList = []
+          this.shipmentStatus.productFieldValuesList = PF.filter(el=>el.name != "Invoicing Completed")
+        }
 
         // Now that you have the responses, you can proceed with the next steps
         this.getInternationalShipmentById(this.iSID);
@@ -208,6 +218,8 @@ export class UpdateInternationalAirForSummaryComponent {
       res.eta = res.eta ? new Date(res.eta) : null;
       res.atd = res.atd ? new Date(res.atd) : null;
       res.ata = res.ata ? new Date(res.ata) : null;
+
+      this.minDate=res.atd;
 
       this.selectedDriver = this.drivers.find(el => (el.name == res.driverName) && (el.contactNumber == res.driverContact) && (el.referenceNumber == res.referenceNumber))
       this.internationalShipment = res;
@@ -334,7 +346,6 @@ export class UpdateInternationalAirForSummaryComponent {
  
    pattern2!:string;
    makePatternOfOverageAWBS(num:number|null){
-     debugger
      if (num === null || num < 1) {
        this.pattern2='';
        this.cdr.detectChanges();
@@ -353,7 +364,7 @@ export class UpdateInternationalAirForSummaryComponent {
  
    pattern3!:string;
    makePatternOfShortageAWBS(num:number|null){
-     debugger
+
      if (num === null || num < 1) {
        this.pattern3='';
        this.cdr.detectChanges();

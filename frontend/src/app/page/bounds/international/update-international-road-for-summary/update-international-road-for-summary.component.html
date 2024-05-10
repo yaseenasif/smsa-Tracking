@@ -104,7 +104,7 @@
                       <label for="" class="heading-lable">ETD :</label> &nbsp;
                       <label for="">
                         {{
-                          internationalShipment.etd | date : "shortDate"
+                          internationalShipment.etd | date : "M/d/yy, h:mm "
                         }}</label
                       >
                     </div>
@@ -112,7 +112,7 @@
                       <label for="" class="heading-lable">ETA :</label> &nbsp;
                       <label for="">
                         {{
-                          internationalShipment.eta | date : "shortDate"
+                          internationalShipment.eta | date : "M/d/yy, h:mm "
                         }}</label
                       >
                     </div>
@@ -120,7 +120,7 @@
                       <label for="" class="heading-lable">ATD :</label> &nbsp;
                       <label for="">
                         {{
-                          internationalShipment.atd | date : "shortDate"
+                          internationalShipment.atd | date : "M/d/yy, h:mm "
                         }}</label
                       >
                     </div>
@@ -308,7 +308,8 @@
                       [defaultDate]="defaultDate"
                       [required]="required"
                       [showTime]="true"
-                      [selectOtherMonths]="true"                    
+                      [selectOtherMonths]="true"     
+                      [minDate]="minDate!"               
                     ></p-calendar>
                     <!-- <small id="name-help"
                         >{{name}}</small
@@ -317,7 +318,7 @@
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Total Shipments</label>
+                    <label htmlFor="name">Manifested Shipments    </label>
                     <p-inputNumber
                     
                       id="name"
@@ -333,10 +334,75 @@
                     class="color-red error"
                     *ngIf="totalShipments.invalid && (totalShipments.dirty || totalShipments.touched )&&totalShipments?.errors?.['required']"
                   >
-                  Total Shipments AWBs Number is required.
+                  Manifested Shipments AWBs Number is required.
                   </small>
                   </div>
                 </div>
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Received</label>
+                    <p-inputNumber
+                      id="name"
+                      aria-describedby="name-help"
+                      [(ngModel)]="internationalShipment.received"
+                      [required]="required"
+                      #received="ngModel"
+                      (onInput)="calculateOveragesAndShortages()" 
+                      [useGrouping]="false"
+                      name="received"
+                      autocomplete="off" 
+                    ></p-inputNumber>
+                    <small
+                    class="color-red error"
+                    *ngIf="received.invalid && (received.dirty || received.touched )&&received?.errors?.['required']"
+                  >
+                  received is required.
+                  </small>
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Number Of Bags Received</label>
+                    <p-inputNumber
+                    id="name"
+                    [required]="required"
+                    [(ngModel)]="internationalShipment.numberOfBagsReceived"
+                    #numberOfBagsReceived="ngModel"
+                    name="numberOfBagsReceived"
+                    [useGrouping]="false"
+                    autocomplete="off" 
+                  ></p-inputNumber>  
+                  <small
+                  class="color-red error"
+                  *ngIf="numberOfBagsReceived.invalid && (numberOfBagsReceived.dirty || numberOfBagsReceived.touched ) && numberOfBagsReceived?.errors?.['required']"
+                >
+                Number Of Bags Received is required.
+                </small>               
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Number Of Pallets Received</label>
+                    <p-inputNumber
+                    id="name"
+                    [(ngModel)]="internationalShipment.numberOfPalletsReceived"
+                    [required]="required"
+                    #numberOfPalletsReceived="ngModel"
+                    name="numberOfPalletsReceived"
+                    [useGrouping]="false"
+                    autocomplete="off" 
+                  ></p-inputNumber>     
+                  <small
+                  class="color-red error"
+                  *ngIf="numberOfPalletsReceived.invalid && (numberOfPalletsReceived.dirty || numberOfPalletsReceived.touched ) && numberOfPalletsReceived?.errors?.['required']"
+                >
+                Number Of Pallets Received is required.
+                </small>         
+                  </div>
+                </div>
+
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Overages</label>
@@ -401,28 +467,8 @@
                 </div>
 
 
-                <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Received</label>
-                    <p-inputNumber
-                      id="name"
-                      aria-describedby="name-help"
-                      [(ngModel)]="internationalShipment.received"
-                      [required]="required"
-                      #received="ngModel"
-                      (onInput)="calculateOveragesAndShortages()" 
-                      [useGrouping]="false"
-                      name="received"
-                      autocomplete="off" 
-                    ></p-inputNumber>
-                    <small
-                    class="color-red error"
-                    *ngIf="received.invalid && (received.dirty || received.touched )&&received?.errors?.['required']"
-                  >
-                  received is required.
-                  </small>
-                  </div>
-                </div>
+                
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Shortages</label>
@@ -540,46 +586,8 @@
                 </div>
 
 
-                <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Number Of Pallets Received</label>
-                    <p-inputNumber
-                    id="name"
-                    [(ngModel)]="internationalShipment.numberOfPalletsReceived"
-                    [required]="required"
-                    #numberOfPalletsReceived="ngModel"
-                    name="numberOfPalletsReceived"
-                    [useGrouping]="false"
-                    autocomplete="off" 
-                  ></p-inputNumber>     
-                  <small
-                  class="color-red error"
-                  *ngIf="numberOfPalletsReceived.invalid && (numberOfPalletsReceived.dirty || numberOfPalletsReceived.touched ) && numberOfPalletsReceived?.errors?.['required']"
-                >
-                Number Of Pallets Received is required.
-                </small>         
-                  </div>
-                </div>
-                <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Number Of Bags Received</label>
-                    <p-inputNumber
-                    id="name"
-                    [required]="required"
-                    [(ngModel)]="internationalShipment.numberOfBagsReceived"
-                    #numberOfBagsReceived="ngModel"
-                    name="numberOfBagsReceived"
-                    [useGrouping]="false"
-                    autocomplete="off" 
-                  ></p-inputNumber>  
-                  <small
-                  class="color-red error"
-                  *ngIf="numberOfBagsReceived.invalid && (numberOfBagsReceived.dirty || numberOfBagsReceived.touched ) && numberOfBagsReceived?.errors?.['required']"
-                >
-                Number Of Bags Received is required.
-                </small>               
-                  </div>
-                </div>
+                
+             
               </div>
 
               <div class="flex align-items-center justify-content-end mt-4">
