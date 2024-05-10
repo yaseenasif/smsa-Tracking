@@ -32,7 +32,7 @@ export class LoginFormComponent implements AfterViewInit {
   ) {}
   ngAfterViewInit(): void {
     const token = localStorage.getItem('accessToken');
-    debugger;
+    
     if (token != null) {
       if (this.isTokenExpired(token)) {
         this.messageService.add({
@@ -55,7 +55,7 @@ export class LoginFormComponent implements AfterViewInit {
     this.authService.login(credentials).subscribe(
       (res: any) => {
         localStorage.setItem('accessToken', res.accessToken);
-        debugger
+        
         if(this.authguardService.hasPermission('Dash Board')){
         this.router.navigate(['/home']);
         }

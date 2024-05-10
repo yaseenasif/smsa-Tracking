@@ -552,7 +552,7 @@
                   </div>
                 </div>
                 <!-- 8 -->
-                <div class="col-12 md:col-6 lg:col-4">
+                <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Master CONS</label>
                     <p-inputNumber
@@ -571,7 +571,30 @@
                 Reference Number is required.
                 </small>
                   </div>
+                </div> -->
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Master CONS</label>
+                    <input
+                      pInputText
+                      id="referenceNumber"
+                      aria-describedby="name-help"
+                      pattern="3\d{11}"
+                      [(ngModel)]="internationalShipment.referenceNumber"
+                      #referenceNumber="ngModel"
+                      required
+                      name="referenceNumber"
+                    />
+                    <small
+                    class="color-red error"
+                    *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched ) && referenceNumber?.errors?.['pattern']"
+                  >
+                   Invalid pattern ex. 3XXXXXXXXXXX
+                  </small>
+                  </div>
                 </div>
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Number of Pallets</label>

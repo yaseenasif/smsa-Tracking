@@ -123,7 +123,7 @@ export class DomesticShippingListComponent implements OnInit {
   }
 
   hasPermission(permission:string):boolean{
-    debugger
+    
     return this.authguardService.hasPermission(permission)
   }
 }

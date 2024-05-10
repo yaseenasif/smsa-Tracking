@@ -17,6 +17,7 @@ import { SummaryService } from 'src/app/page/bounds/service/summary.service';
   providers: [MessageService, DatePipe],
 })
 export class ViewShipmentComponent {
+
   items: MenuItem[] | undefined;
   resultArray:{overagesAWBs:string|undefined,shortagesAWBs:string|undefined,securityTag:string|undefined,damageAWBs:string|undefined}[]=[]
   domesticShipment: DomesticShipment = {
@@ -245,6 +246,9 @@ export class ViewShipmentComponent {
       },(error)=>{
         console.log(error);
       })
+    }
+    mintoHourMin(arg0: number) {
+     return Math.trunc(arg0/60)+":"+ Math.trunc(arg0%60)
     }
 
   }

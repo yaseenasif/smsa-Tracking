@@ -62,7 +62,7 @@ export class AddUserComponent implements OnInit {
   getAllLRole(){
     this.roleService.getALLRole().subscribe((res:Role[])=>{
       this.roles=res;
-      debugger
+      
     },error=>{ 
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body }); 
     })
@@ -70,7 +70,7 @@ export class AddUserComponent implements OnInit {
 
   onSubmit(){ 
     this.userService.addUser(this.user).subscribe(res=>{
-      debugger
+      
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User is added' });
       setTimeout(() => {
         this.router.navigate(['/user']);
