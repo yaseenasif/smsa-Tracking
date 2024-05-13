@@ -117,7 +117,7 @@
                     <div class="lg:col-4 md:col-12 col-12">
                       <label for="" class="heading-lable">ATD :</label> &nbsp;
                       <label for="" class="fr mr-8">
-                        {{ domesticShipment.atd | date : "shortDate" }}</label
+                        {{ domesticShipment.atd | date : "M/d/yy, h:mm " }}</label
                       >
                     </div>
                     <!-- <div class="lg:col-4 md:col-12 col-12"><label for="" class="heading-lable">ETD :</label> &nbsp;
@@ -226,12 +226,12 @@
                     <div class="lg:col-4 md:col-12 col-12">
                       <label for="" class="heading-lable">ATA :</label> &nbsp;
                       <label for="" class="fr mr-8">
-                        {{ domesticShipment.ata | date : "shortDate" }}</label
+                        {{ domesticShipment.ata | date : "M/d/yy, h:mm " }}</label
                       >
                     </div>
                     <div class="lg:col-4 md:col-12 col-12">
                       <label for="" class="heading-lable"
-                        >Total Shipments:</label
+                        >Manifested Shipments    :</label
                       >
                       &nbsp;
                       <label for="" class="fr mr-8">
@@ -309,7 +309,7 @@
                       >
                       &nbsp;
                       <label for="" class="fr mr-8">
-                        {{ domesticShipment.transitTimeTaken }}</label
+                        {{mintoHourMin(domesticShipment!.transitTimeTaken!)}}</label
                       >
                     </div>
                   </div>
