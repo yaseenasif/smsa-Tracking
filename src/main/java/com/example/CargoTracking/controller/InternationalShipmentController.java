@@ -40,7 +40,7 @@ public class  InternationalShipmentController {
 
     @PreAuthorize("hasAuthority('add-internationalAttachment')")
     @PostMapping("/add-international-attachments/{id}/{attachmentType}")
-    public ResponseEntity<ApiResponse> addAttachments(@PathVariable Long id,@PathVariable String attachmentType, @RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<ApiResponse> addAttachments(@PathVariable Long id,@PathVariable String attachmentType, @RequestParam("file") List<MultipartFile> file) throws IOException {
         return ResponseEntity.ok(internationalShipmentService.addAttachment(id,attachmentType,file));
     }
 

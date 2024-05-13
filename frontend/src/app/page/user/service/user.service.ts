@@ -23,7 +23,7 @@ export class UserService {
   //   return this.http.get<User>(this.url.concat('/user/',id.toString()));
   // }
   updateUserById(id:number,body:User):Observable<User>{
-    debugger
+    
     return this.http.put<User>(this.url.concat('/edit-user/',id.toString()),body);
   }
   addUser(body:User):Observable<User>{

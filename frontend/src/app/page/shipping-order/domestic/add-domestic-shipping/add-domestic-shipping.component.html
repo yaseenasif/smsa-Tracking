@@ -573,7 +573,7 @@
                     >
                   </div>
                 </div>
-                <div class="col-12 md:col-6 lg:col-4">
+                <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Master CONS</label>
                     <p-inputNumber
@@ -587,7 +587,30 @@
                     [useGrouping]="false"
                   ></p-inputNumber>
                   </div>
+                </div> -->
+
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">Master CONS</label>
+                    <input
+                      pInputText
+                      id="referenceNumber"
+                      aria-describedby="name-help"
+                      pattern="3\d{11}"
+                      [(ngModel)]="domesticShipment.referenceNumber"
+                      #referenceNumber="ngModel"
+                      required
+                      name="referenceNumber"
+                    />
+                    <small
+                    class="color-red error"
+                    *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched ) && referenceNumber?.errors?.['pattern']"
+                  >
+                   Invalid pattern ex. 3XXXXXXXXXXX
+                  </small>
+                  </div>
                 </div>
+
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
@@ -683,13 +706,17 @@
                       id="name"
                       aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.vehicleNumber"
+                      pattern="\d{4}[A-Z]{3}"
                       #vehicleNumber="ngModel"
                       required
                       name="vehicleNumber"
                     />
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
+                    <small
+                    class="color-red error"
+                    *ngIf="vehicleNumber.invalid && (vehicleNumber.dirty || vehicleNumber.touched )&&vehicleNumber?.errors?.['pattern']"
+                  >
+                    Invalid pattern ex. 0000ABC
+                  </small>
                   </div>
                 </div>
            
@@ -781,7 +808,7 @@
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
-                    <label htmlFor="name">Total Shipments</label>
+                    <label htmlFor="name">Manifested Shipments    </label>
                     <input pInputText id="name" aria-describedby="name-help"
                       [(ngModel)]="domesticShipment.totalShipments" #totalShipments="ngModel" required
                       name="totalShipments" />

@@ -104,7 +104,6 @@ export class AuthguardService {
     }
   }
   hasPermission(requiredPermission: string): boolean {
-    debugger
     const token = localStorage.getItem('accessToken');
     const decodeToken = this.getDecodedAccessToken(token!)
     const userPermissions: string[] = decodeToken.PERMISSIONS;

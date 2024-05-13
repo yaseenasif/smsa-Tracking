@@ -10,8 +10,12 @@ export interface Location{
     type: string|undefined|null;
     originEmail:string[]|string|null;
     destinationEmail:string[]|string|null;
-    originEscalation:any;
-    destinationEscalation:any;
+    originEscalationLevel1:string[]|string|null;
+    originEscalationLevel2:string[]|string|null;
+    originEscalationLevel3:string[]|string|null;
+    destinationEscalationLevel1:string[]|string|null;
+    destinationEscalationLevel2:string[]|string|null;
+    destinationEscalationLevel3:string[]|string|null;
     status: boolean|undefined|null;
     facility: Facility|undefined|null;
     country: Country|undefined|null;

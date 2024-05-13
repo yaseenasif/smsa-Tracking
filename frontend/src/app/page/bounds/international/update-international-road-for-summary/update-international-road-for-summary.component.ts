@@ -83,7 +83,7 @@ export class UpdateInternationalRoadForSummaryComponent {
     numberOfPalletsReceived: null,
     numberOfBagsReceived: null
   }
-  minDate: Date = new Date();
+  minDate!: Date|null;
   location!: Location[];
   // locationPort!: LocationPort[]
   drivers!: Driver[]
@@ -152,7 +152,16 @@ export class UpdateInternationalRoadForSummaryComponent {
         // this.locationPort = locationPortResponse.filter(el => el.status);
         this.drivers = driverResponse.content.filter((el: Driver) => el.status);
         this.vehicleTypes = vehicleTypeResponse
+      
         this.shipmentStatus = shipmentStatusResponse
+        let PF=shipmentStatusResponse.productFieldValuesList
+        if(this.user!.roles![0].name == "ROLE_ACCOUNTANT"){
+          this.shipmentStatus.productFieldValuesList = []
+          this.shipmentStatus.productFieldValuesList = PF.filter(el=>el.name == "Invoicing Completed")
+        }else{
+          this.shipmentStatus.productFieldValuesList = []
+          this.shipmentStatus.productFieldValuesList = PF.filter(el=>el.name != "Invoicing Completed")
+        }
 
         // Now that you have the responses, you can proceed with the next steps
         this.getInternationalShipmentById(this.iSID);
@@ -210,6 +219,7 @@ export class UpdateInternationalRoadForSummaryComponent {
       res.atd = res.atd ? new Date(res.atd) : null;
       res.ata = res.ata ? new Date(res.ata) : null;
       this.selectedDriver = this.drivers.find(el => (el.name == res.driverName) && (el.contactNumber == res.driverContact) && (el.referenceNumber == res.referenceNumber))
+      this.minDate=res.atd
 
       this.internationalShipment = res;
       if(this.internationalShipment.totalShipments!=this.internationalShipment.numberOfShipments){
@@ -334,7 +344,7 @@ export class UpdateInternationalRoadForSummaryComponent {
  
    pattern2!:string;
    makePatternOfOverageAWBS(num:number|null){
-     debugger
+     
      if (num === null || num < 1) {
        this.pattern2='';
        this.cdr.detectChanges();
@@ -353,7 +363,7 @@ export class UpdateInternationalRoadForSummaryComponent {
  
    pattern3!:string;
    makePatternOfShortageAWBS(num:number|null){
-     debugger
+     
      if (num === null || num < 1) {
        this.pattern3='';
        this.cdr.detectChanges();

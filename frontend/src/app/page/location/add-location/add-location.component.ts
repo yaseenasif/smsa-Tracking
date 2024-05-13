@@ -28,11 +28,15 @@ export class AddLocationComponent implements OnInit {
     type: null,
     originEmail: null,
     destinationEmail: null,
-    originEscalation: [],
-    destinationEscalation: [],
     status: null,
     facility: null,
-    country: null
+    country: null,
+    originEscalationLevel1: null,
+    originEscalationLevel2: null,
+    originEscalationLevel3: null,
+    destinationEscalationLevel1: null,
+    destinationEscalationLevel2: null,
+    destinationEscalationLevel3: null
   }
   country!:Country[];
   countryName!:any;
@@ -100,11 +104,15 @@ export class AddLocationComponent implements OnInit {
    }
 
   onSubmit() {
-    if(Array.isArray(this.location.originEmail) && Array.isArray(this.location.originEscalation)&& Array.isArray(this.location.destinationEmail)&& Array.isArray(this.location.destinationEscalation)){
+    if(Array.isArray(this.location.originEmail) && Array.isArray(this.location.originEscalationLevel1)&& Array.isArray(this.location.originEscalationLevel2)&& Array.isArray(this.location.originEscalationLevel3)&& Array.isArray(this.location.destinationEmail)&& Array.isArray(this.location.destinationEscalationLevel1)&& Array.isArray(this.location.destinationEscalationLevel2)&& Array.isArray(this.location.destinationEscalationLevel3)){
       this.location.originEmail=this.location.originEmail!.join(',');
       this.location.destinationEmail=this.location.destinationEmail!.join(',');
-      this.location.originEscalation=this.location.originEscalation!.join(',');
-      this.location.destinationEscalation=this.location.destinationEscalation!.join(',');
+      this.location.originEscalationLevel1=this.location.originEscalationLevel1!.join(',');
+      this.location.originEscalationLevel2=this.location.originEscalationLevel2!.join(',');
+      this.location.originEscalationLevel3=this.location.originEscalationLevel3!.join(',');
+      this.location.destinationEscalationLevel1=this.location.destinationEscalationLevel1!.join(',');
+      this.location.destinationEscalationLevel2=this.location.destinationEscalationLevel2!.join(',');
+      this.location.destinationEscalationLevel3=this.location.destinationEscalationLevel3!.join(',');
     }
 
     this.LocationService.addLocation(this.location).subscribe(res=>{

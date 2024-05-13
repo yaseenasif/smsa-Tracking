@@ -220,5 +220,7 @@ export class ViewDomesticShippingForSummaryComponent {
         console.log(error);
       })
     }
-  
+    mintoHourMin(arg0: number) {
+      return Math.trunc(arg0/60)+":"+ Math.trunc(arg0%60)
+    }
 }

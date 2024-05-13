@@ -29,7 +29,7 @@ export class AddVehicleTypeComponent implements OnInit {
   }
 
   onSubmit() {
-    debugger
+    
     this.vehicleTypeService.addVehicleType(this.vehicleType).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Vehicle Type is added' });
       setTimeout(() => {

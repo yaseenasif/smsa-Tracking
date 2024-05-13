@@ -32,7 +32,6 @@ export class UpdateDomesticShipmentForSummaryComponent {
 
   defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
   items: MenuItem[] | undefined;
-
   domesticShipment: DomesticShipment = {
     originFacility: null,
     originLocation: null,
@@ -102,6 +101,8 @@ export class UpdateDomesticShipmentForSummaryComponent {
   domesticShipmentId: any;
   user!: User;
   required!: boolean;
+  minDate!: Date|null;
+ 
 
   constructor(private locationService: LocationService,
     private cdr: ChangeDetectorRef,
@@ -118,7 +119,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
   checked!: boolean;
   size = 100000
   uploadedFiles: any[] = [];
-  minDate: Date = new Date();
+
 
   onPasteOveragesAwbs() {  
     this.domesticShipment.overagesAwbs=this.domesticShipment.overagesAwbs!.match(/[^ ,]+/g)!.join(',')
@@ -156,7 +157,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
         this.drivers = driverResponse.content.filter((el: Driver) => el.status);
         this.vehicleTypes = vehicleTypeResponse
         this.shipmentStatus = shipmentStatusResponse
-        
+  
 
         this.domesticShipmentById(this.domesticShipmentId);
       }
@@ -228,10 +229,12 @@ export class UpdateDomesticShipmentForSummaryComponent {
     this.domesticShipmentService.getDomesticShipmentById(id).subscribe((res: DomesticShipment) => {
       // res.etd = res.etd ? new Date(res.etd) : null;
       // res.eta = res.eta ? new Date(res.eta) : null;
+     
+
       res.atd = res.atd ? new Date(res.atd) : null;
       res.ata = res.ata ? new Date(res.ata) : null;
       this.selectedDriver = this.drivers.find((el: Driver) => { return (el.name == res.driverName) && (el.contactNumber == res.driverContact) && (el.referenceNumber == res.referenceNumber) })
-
+      this.minDate=res.atd;
 
       this.domesticShipment = res;
         
@@ -298,7 +301,6 @@ export class UpdateDomesticShipmentForSummaryComponent {
         this.router.navigate(['/domestic-summary']);
       }, 800);
     }, (error: any) => {
-      debugger
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       } else {
@@ -369,7 +371,6 @@ export class UpdateDomesticShipmentForSummaryComponent {
 
   pattern2!:string;
   makePatternOfOverageAWBS(num:number|null){
-    debugger
     if (num === null || num < 1) {
       this.pattern2='';
       this.cdr.detectChanges();
@@ -388,7 +389,6 @@ export class UpdateDomesticShipmentForSummaryComponent {
 
   pattern3!:string;
   makePatternOfShortageAWBS(num:number|null){
-    debugger
     if (num === null || num < 1) {
       this.pattern3='';
       this.cdr.detectChanges();
