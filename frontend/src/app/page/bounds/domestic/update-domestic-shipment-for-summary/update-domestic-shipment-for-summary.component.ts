@@ -40,7 +40,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     destinationLocation: null,
     routeNumber: null,
     numberOfShipments: null,
-    weight: null,
+    // weight: null,
     // etd: null,
     // eta: null,
     atd: null,
@@ -291,26 +291,41 @@ export class UpdateDomesticShipmentForSummaryComponent {
   updateDomesticShipment(domesticShipment: DomesticShipment) {
   
 
-    let orgLocationId= this.location ?.find((el)=>{return el.country?.name == this.domesticShipment.originCountry && el.facility?.name==this.domesticShipment.originFacility && el.locationName==this.domesticShipment.originLocation && el.type == "Domestic"})!.id;
-    let desLocationId= this.location ?.find((el)=>{return el.country?.name == this.domesticShipment.destinationCountry && el.facility?.name==this.domesticShipment.destinationFacility && el.locationName==this.domesticShipment.destinationLocation && el.type == "Domestic"})!.id;
+    let orgLocation= this.location ?.find((el)=>{return el.country?.name == this.domesticShipment.originCountry && el.facility?.name==this.domesticShipment.originFacility && el.locationName==this.domesticShipment.originLocation && el.type == "Domestic"});
+    let desLocation= this.location ?.find((el)=>{return el.country?.name == this.domesticShipment.destinationCountry && el.facility?.name==this.domesticShipment.destinationFacility && el.locationName==this.domesticShipment.destinationLocation && el.type == "Domestic"});
 
-    this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId,orgLocationId!,desLocationId!,domesticShipment).subscribe((res: DomesticShipment) => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Outbound Updated Successfully' });
-
-      setTimeout(() => {
-        this.router.navigate(['/domestic-summary']);
-      }, 800);
-    }, (error: any) => {
-      if (error.error.body) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.error });
+    let orgLocationId= orgLocation ? orgLocation.id : null;
+    let desLocationId= desLocation ? desLocation.id : null;
+    if(orgLocationId && desLocationId){
+      this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId,orgLocationId!,desLocationId!,domesticShipment).subscribe((res: DomesticShipment) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Outbound Updated Successfully' });
+  
+        setTimeout(() => {
+          this.router.navigate(['/domestic-summary']);
+        }, 800);
+      }, (error: any) => {
+        if (error.error.body) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.error });
+        }
+        // this.domesticShipment.etd =  this.domesticShipment.etd ? new Date( this.domesticShipment.etd) : null;
+        // this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
+        this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
+        this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
+      })
+    }else{
+      if (!orgLocationId) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Origin location not found.' });
       }
-      // this.domesticShipment.etd =  this.domesticShipment.etd ? new Date( this.domesticShipment.etd) : null;
-      // this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
+      if (!desLocationId) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Destination location not found.' });
+      }
       this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
       this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
-    })
+    }
+
+   
   }
 
   getLoggedInUser() {

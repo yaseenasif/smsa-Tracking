@@ -170,22 +170,35 @@ export class UpdateInternationalRoadForSummaryComponent {
   }
 
   onSubmit() {
-    let orgLocationId=this.location?.find((el)=>{return el.country?.name == this.internationalShipment.originCountry && el.facility?.name==this.internationalShipment.originFacility && el.locationName==this.internationalShipment.originLocation && el.type=="International Road"})!.id;
-    let desLocationId=this.location?.find((el)=>{return el.country?.name == this.internationalShipment.destinationCountry && el.facility?.name==this.internationalShipment.destinationFacility && el.locationName==this.internationalShipment.destinationLocation && el.type=="International Road"})!.id;
-    this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
-    this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
-    this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
-    this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
+    let orgLocation=this.location?.find((el)=>{return el.country?.name == this.internationalShipment.originCountry && el.facility?.name==this.internationalShipment.originFacility && el.locationName==this.internationalShipment.originLocation && el.type=="International Road"});
+    let desLocation=this.location?.find((el)=>{return el.country?.name == this.internationalShipment.destinationCountry && el.facility?.name==this.internationalShipment.destinationFacility && el.locationName==this.internationalShipment.destinationLocation && el.type=="International Road"});
 
-    this.internationalShippingService.updateInternationalShipmentById(this.iSID, this.internationalShipment,orgLocationId!,desLocationId!).subscribe(res => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is updated on id' + res.id });
-      setTimeout(() => {
-        this.router.navigate(['/international-summary-by-road']);
-      }, 800);
-    }, error => {
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      this.internationalShipment.ata =  this.internationalShipment.ata ? new Date( this.internationalShipment.ata) : null;
-    })
+    let orgLocationId= orgLocation ? orgLocation.id : null;
+    let desLocationId= desLocation ? desLocation.id : null;
+    if(orgLocationId && desLocationId){
+      this.internationalShipment.etd = this.datePipe.transform(this.internationalShipment.etd, 'yyyy-MM-ddTHH:mm:ss')
+      this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
+      this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
+      this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
+  
+      this.internationalShippingService.updateInternationalShipmentById(this.iSID, this.internationalShipment,orgLocationId!,desLocationId!).subscribe(res => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is updated on id' + res.id });
+        setTimeout(() => {
+          this.router.navigate(['/international-summary-by-road']);
+        }, 800);
+      }, error => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+        this.internationalShipment.ata =  this.internationalShipment.ata ? new Date( this.internationalShipment.ata) : null;
+      })
+    }else{
+      if (!orgLocationId) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Origin location not found.' });
+      }
+      if (!desLocationId) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Destination location not found.' });
+      }
+    }
+   
   }
 
   getLoggedInUser() {

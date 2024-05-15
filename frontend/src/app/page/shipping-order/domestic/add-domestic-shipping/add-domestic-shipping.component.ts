@@ -54,7 +54,7 @@ export class AddDomesticShippingComponent {
     destinationLocation: null,
     routeNumber: null,
     numberOfShipments: null,
-    weight: null,
+    // weight: null,
     // etd: null,
     // eta: null,
     atd: null,
@@ -286,14 +286,22 @@ export class AddDomesticShippingComponent {
 
 
    addDomesticShipment(domesticShipment:DomesticShipment){
-    let orgLocationId=this.user.domesticOriginLocations?.find((el)=>{return el.country?.name == this.domesticShipment.originCountry && el.facility?.name==this.domesticShipment.originFacility && el.locationName==this.domesticShipment.originLocation})!.id;
-    let desLocationId=this.user.domesticDestinationLocations?.find((el)=>{return el.country?.name == this.domesticShipment.destinationCountry && el.facility?.name==this.domesticShipment.destinationFacility && el.locationName==this.domesticShipment.destinationLocation})!.id;
+    let orgLocation=this.user.domesticOriginLocations?.find((el)=>{return el.country?.name == this.domesticShipment.originCountry && el.facility?.name==this.domesticShipment.originFacility && el.locationName==this.domesticShipment.originLocation});
+    let desLocation=this.user.domesticDestinationLocations?.find((el)=>{return el.country?.name == this.domesticShipment.destinationCountry && el.facility?.name==this.domesticShipment.destinationFacility && el.locationName==this.domesticShipment.destinationLocation});
+    let orgLocationId= orgLocation ? orgLocation.id : null;
+    let desLocationId= desLocation ? desLocation.id : null;
+    if(orgLocationId && desLocationId){
       this.domesticShipmentService.addDomesticShipment(domesticShipment,orgLocationId!,desLocationId!).subscribe((res:DomesticShipment)=>{
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Outbound Added Successfully' });
         setTimeout(() => {
           this.router.navigate(['/domestic-shipping']);
         },800);
       },(error:any)=>{
+        this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
+        this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
+        if(typeof domesticShipment.tagNumber === 'string'){
+          domesticShipment.tagNumber=domesticShipment.tagNumber!.split(",");
+        }
         if(error.error.body){
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
         }else{
@@ -302,9 +310,22 @@ export class AddDomesticShippingComponent {
 
         // this.domesticShipment.etd = this.domesticShipment.etd ? new Date( this.domesticShipment.etd) : null;
         // this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
-        this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
-        this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
+  
       })
+    }else{
+      if(typeof domesticShipment.tagNumber === 'string'){
+        domesticShipment.tagNumber=domesticShipment.tagNumber!.split(",");
+      }
+      this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
+      this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
+      if (!orgLocationId) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Origin location not found.' });
+      }
+      if (!desLocationId) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Destination location not found.' });
+      }
+    }
+     
    }
 
   getAllDriver() {

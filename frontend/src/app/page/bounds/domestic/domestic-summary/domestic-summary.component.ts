@@ -9,6 +9,7 @@ import { AuthguardService } from 'src/app/auth-service/authguard/authguard.servi
 import { ProductField } from 'src/app/model/ProductField';
 import { ProductFieldServiceService } from 'src/app/page/product-field/service/product-field-service.service';
 import { DomesticShippingService } from 'src/app/page/shipping-order/domestic/service/domestic-shipping.service';
+import { DomesticShipment } from 'src/app/model/DomesticShipment';
 
 @Component({
   selector: 'app-domestic-summary',
@@ -211,6 +212,19 @@ export class DomesticSummaryComponent {
 
   hasPermission(permission:string):boolean{
     return this.authguardService.hasPermission(permission)
+  }
+
+  getColor(domesticShipment:any) {
+    if(domesticShipment.redFlag && domesticShipment.refrigeratedTruck){
+      return 'red';
+    }
+    else if (domesticShipment.redFlag) {
+      return 'red';
+    } else if (domesticShipment.refrigeratedTruck) {
+      return 'blue';
+    } else {
+      return 'withoutRed';
+    }
   }
 }
 

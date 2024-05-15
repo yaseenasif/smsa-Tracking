@@ -169,7 +169,7 @@
                   <th class="text-center">Origin</th>
                   <th class="text-center">Origin Location</th>
                   <th class="text-center">Destination Location</th>
-                  <th class="text-center">Weight in kg</th>
+                  <!-- <th class="text-center">Weight in kg</th> -->
                   <th class="text-center">Manifested Shipments    </th>
                   <th class="text-center">Pallets</th>
                   <th class="text-center">Bags</th>
@@ -188,88 +188,88 @@
                 <tr>
                   <td
                     class="text-center"
-                    [classList]="
-                      domesticShipment.redFlag ? 'red' : 'withoutRed'
+                  [classList]="
+                      getColor(domesticShipment)
                     "
                   >
                     {{ domesticShipment.preAlertNumber }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      domesticShipment.redFlag ? 'red' : 'withoutRed'
+                 [classList]="
+                      getColor(domesticShipment)
                     "
                   >
                     {{ domesticShipment.vehicleNumber }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      domesticShipment.redFlag ? 'red' : 'withoutRed'
+                 [classList]="
+                      getColor(domesticShipment)
                     "
                   >
                     {{ domesticShipment.vehicleType }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      domesticShipment.redFlag ? 'red' : 'withoutRed'
+                 [classList]="
+                      getColor(domesticShipment)
                     "
                   >
                     {{ domesticShipment.mode }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      domesticShipment.redFlag ? 'red' : 'withoutRed'
+                 [classList]="
+                      getColor(domesticShipment)
                     "
                   >
                     {{ domesticShipment.origin }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      domesticShipment.redFlag ? 'red' : 'withoutRed'
+                 [classList]="
+                      getColor(domesticShipment)
                     "
                   >
                     {{ domesticShipment.originLocation }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      domesticShipment.redFlag ? 'red' : 'withoutRed'
+                 [classList]="
+                      getColor(domesticShipment)
                     "
                   >
                     {{ domesticShipment.destinationLocation }}
                   </td>
-                  <td
+                  <!-- <td
                     class="text-center"
-                    [classList]="
-                      domesticShipment.redFlag ? 'red' : 'withoutRed'
+                 [classList]="
+                      getColor(domesticShipment)
                     "
                   >
                     {{ domesticShipment.weight }}
-                  </td>
+                  </td> -->
                   <td
                     class="text-center"
-                    [classList]="
-                      domesticShipment.redFlag ? 'red' : 'withoutRed'
+                 [classList]="
+                      getColor(domesticShipment)
                     "
                   >
                     {{ domesticShipment.totalShipments }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      domesticShipment.redFlag ? 'red' : 'withoutRed'
+                 [classList]="
+                      getColor(domesticShipment)
                     "
                   >
                     {{ domesticShipment.numberOfPallets }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      domesticShipment.redFlag ? 'red' : 'withoutRed'
+                 [classList]="
+                      getColor(domesticShipment)
                     "
                   >
                     {{ domesticShipment.numberOfBags }}
@@ -277,8 +277,8 @@
               
                   <td
                     class="text-center"
-                    [classList]="
-                      domesticShipment.redFlag ? 'red' : 'withoutRed'
+                 [classList]="
+                      getColor(domesticShipment)
                     "
                   >
                     {{ domesticShipment.ata }}
@@ -287,17 +287,17 @@
                   <td
                     class="text-center"
                     [classList]="
-                      domesticShipment.redFlag ? 'red' : 'withoutRed'
-                    "
+                    getColor(domesticShipment)
+                  "
                   >
                     {{ domesticShipment.status }}
                   </td>
                   <!-- *ngIf="selectedBound.bound == 'In bound'" -->
                   <td    
                   *ngIf="hasPermission('Domestic Inbound View') || hasPermission('Domestic Inbound View Attachment') || hasPermission('Domestic Inbound Add Attachment') || hasPermission('Domestic Inbound Update')"    
-                    [classList]="
-                    domesticShipment.redFlag ? 'red text-center flex flex-row' : 'text-center flex flex-row'
-                  "
+                   [classList]="
+                      getColor(domesticShipment).concat(' text-center flex flex-row')
+                    "
                   >
                   <p-button
                   *ngIf="hasPermission('Domestic Inbound View')"

@@ -32,7 +32,7 @@ public class DomesticShipmentDto {
     private String routeNumber;
     private Long routeNumberId;
     private Integer numberOfShipments;
-    private Double weight;
+//    private Double weight;
     private LocalDateTime etd;
     private LocalDateTime eta;
     private LocalDateTime atd;

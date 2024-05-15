@@ -221,67 +221,81 @@ export class AddInternationalShipmentByRoadComponent {
   }
 
   onSubmit() {
-    let orgLocationId=this.user.internationalAirOriginLocation?.find((el)=>{return el.country?.name == this.internationalShipment.originCountry && el.facility?.name==this.internationalShipment.originFacility && el.locationName==this.internationalShipment.originLocation})!.id;
-    let desLocationId=this.user.internationalAirDestinationLocation?.find((el)=>{return el.country?.name == this.internationalShipment.destinationCountry && el.facility?.name==this.internationalShipment.destinationFacility && el.locationName==this.internationalShipment.destinationLocation})!.id;
+    let orgLocation=this.user.internationalAirOriginLocation?.find((el)=>{return el.country?.name == this.internationalShipment.originCountry && el.facility?.name==this.internationalShipment.originFacility && el.locationName==this.internationalShipment.originLocation});
+    let desLocation=this.user.internationalAirDestinationLocation?.find((el)=>{return el.country?.name == this.internationalShipment.destinationCountry && el.facility?.name==this.internationalShipment.destinationFacility && el.locationName==this.internationalShipment.destinationLocation});
 
-    this.internationalShipment.etd = this.datePipe.transform(
-      this.internationalShipment.etd,
-      'yyyy-MM-ddTHH:mm:ss'
-    );
-    this.internationalShipment.eta = this.datePipe.transform(
-      this.internationalShipment.eta,
-      'yyyy-MM-ddTHH:mm:ss'
-    );
-    this.internationalShipment.atd = this.datePipe.transform(
-      this.internationalShipment.atd,
-      'yyyy-MM-ddTHH:mm:ss'
-    );
-    this.internationalShipment.ata = this.datePipe.transform(
-      this.internationalShipment.ata,
-      'yyyy-MM-ddTHH:mm:ss'
-    );
-
-    this.internationalShippingService
-      .addInternationalShipment(this.internationalShipment,orgLocationId!,desLocationId!)
-      .subscribe(
-        (res) => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'International Outbound is added',
-          });
-          setTimeout(() => {
-            this.router.navigate(['/international-shipment-by-air']);
-          }, 800);
-        },
-        (error) => {
-          if (error.error.body) {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: error.error.body,
-            });
-          } else {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Error',
-              detail: error.error,
-            });
-          }
-          this.internationalShipment.etd = this.internationalShipment.etd
-            ? new Date(this.internationalShipment.etd)
-            : null;
-          this.internationalShipment.eta = this.internationalShipment.eta
-            ? new Date(this.internationalShipment.eta)
-            : null;
-          this.internationalShipment.atd = this.internationalShipment.atd
-            ? new Date(this.internationalShipment.atd)
-            : null;
-          this.internationalShipment.ata = this.internationalShipment.ata
-            ? new Date(this.internationalShipment.ata)
-            : null;
-        }
+    let orgLocationId= orgLocation ? orgLocation.id : null;
+    let desLocationId= desLocation ? desLocation.id : null;
+    if(orgLocationId && desLocationId){
+      this.internationalShipment.etd = this.datePipe.transform(
+        this.internationalShipment.etd,
+        'yyyy-MM-ddTHH:mm:ss'
       );
+      this.internationalShipment.eta = this.datePipe.transform(
+        this.internationalShipment.eta,
+        'yyyy-MM-ddTHH:mm:ss'
+      );
+      this.internationalShipment.atd = this.datePipe.transform(
+        this.internationalShipment.atd,
+        'yyyy-MM-ddTHH:mm:ss'
+      );
+      this.internationalShipment.ata = this.datePipe.transform(
+        this.internationalShipment.ata,
+        'yyyy-MM-ddTHH:mm:ss'
+      );
+  
+      this.internationalShippingService
+        .addInternationalShipment(this.internationalShipment,orgLocationId!,desLocationId!)
+        .subscribe(
+          (res) => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'International Outbound is added',
+            });
+            setTimeout(() => {
+              this.router.navigate(['/international-shipment-by-air']);
+            }, 800);
+          },
+          (error) => {
+            if (error.error.body) {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: error.error.body,
+              });
+            } else {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Error',
+                detail: error.error,
+              });
+            }
+            this.internationalShipment.etd = this.internationalShipment.etd
+              ? new Date(this.internationalShipment.etd)
+              : null;
+            this.internationalShipment.eta = this.internationalShipment.eta
+              ? new Date(this.internationalShipment.eta)
+              : null;
+            this.internationalShipment.atd = this.internationalShipment.atd
+              ? new Date(this.internationalShipment.atd)
+              : null;
+            this.internationalShipment.ata = this.internationalShipment.ata
+              ? new Date(this.internationalShipment.ata)
+              : null;
+          }
+        );
+    }
+    else{
+      if (!orgLocationId) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Origin location not found.' });
+      }
+      if (!desLocationId) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Destination location not found.' });
+      }
+    }
+
+   
   }
 
   getAllLocations() {

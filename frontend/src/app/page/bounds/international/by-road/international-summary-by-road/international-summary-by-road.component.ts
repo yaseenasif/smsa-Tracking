@@ -200,6 +200,18 @@ export class InternationalSummaryByRoadComponent {
     //   this.getAllInternationalShipmentByRoad(this.search, this.page, this.size);
     // }
   }
+  getColor(InternationalRoadShipment:any) {
+    if(InternationalRoadShipment.redFlag && InternationalRoadShipment.refrigeratedTruck){
+      return 'red';
+    }
+    else if (InternationalRoadShipment.redFlag) {
+      return 'red';
+    } else if (InternationalRoadShipment.refrigeratedTruck) {
+      return 'blue';
+    } else {
+      return 'withoutRed';
+    }
+  }
 }
 
 interface Bound {

@@ -126,4 +126,12 @@ export class DomesticShippingListComponent implements OnInit {
     
     return this.authguardService.hasPermission(permission)
   }
+
+  getColor(domesticShipment:any) {
+    if (domesticShipment.refrigeratedTruck) {
+      return 'blue';
+    } else {
+      return 'withoutRed';
+    }
+  }
 }

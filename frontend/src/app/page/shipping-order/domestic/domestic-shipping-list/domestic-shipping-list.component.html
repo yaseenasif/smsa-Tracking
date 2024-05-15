@@ -173,7 +173,7 @@
                   <th class="text-center">Destination Location</th>
                   <th class="text-center">Route Number</th>
                   <th class="text-center">Number of Shipments</th>
-                  <th class="text-center">Weight in kg</th>
+                  <!-- <th class="text-center">Weight in kg</th> -->
                   <th class="text-center">Pre Alert Number</th>
                   <th class="text-center">Master CONS</th>
                   <th class="text-center">Vehicle Type</th>
@@ -194,56 +194,96 @@
               </ng-template>
               <ng-template pTemplate="body" let-domesticShipment>
                 <tr>
-                  <td class="text-center">
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">
                     {{ domesticShipment.originFacility }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">
                     {{ domesticShipment.originLocation }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">
                     {{ domesticShipment.refrigeratedTruck }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">
                     {{ domesticShipment.destinationFacility }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">
                     {{ domesticShipment.destinationLocation }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">
                     {{ domesticShipment.routeNumber }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">
                     {{ domesticShipment.numberOfShipments }}
                   </td>
-                  <td class="text-center">{{ domesticShipment.weight }}</td>
-                  <td class="text-center">
+                  <!-- <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">{{ domesticShipment.weight }}</td> -->
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">
                     {{ domesticShipment.preAlertNumber }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">
                     {{ domesticShipment.referenceNumber }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">
                     {{ domesticShipment.vehicleType }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">
                     {{ domesticShipment.numberOfPallets }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">
                     {{ domesticShipment.numberOfBags }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">
                     {{ domesticShipment.vehicleNumber }}
                   </td>
-                  <td class="text-center">{{ domesticShipment.status }}</td>
-                  <td class="text-center">{{ domesticShipment.ata }}</td>
-                  <td class="text-center">
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">{{ domesticShipment.status }}</td>
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">{{ domesticShipment.ata }}</td>
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">
                     {{ domesticShipment.totalShipments }}
                   </td>
-                  <td class="text-center">{{ domesticShipment.overages }}</td>
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">{{ domesticShipment.overages }}</td>
 
-                  <td class="text-center">{{ domesticShipment.shortages }}</td>
+                  <td class="text-center"  [classList]="
+                      getColor(domesticShipment)
+                    ">{{ domesticShipment.shortages }}</td>
 
-                  <td  *ngIf="hasPermission('domestic-outbound-view') || hasPermission('domestic-outbound-view-attachment') || hasPermission('add-domesticAttachment') || hasPermission('delete-domesticShipment')" class="text-center flex flex-row">
+                  <td  *ngIf="hasPermission('domestic-outbound-view') || hasPermission('domestic-outbound-view-attachment') || hasPermission('add-domesticAttachment') || hasPermission('delete-domesticShipment')"  [classList]="
+                  getColor(domesticShipment).concat(' text-center flex flex-row')
+                ">
                     <p-button
                       *ngIf="hasPermission('domestic-outbound-view')"
                       [routerLink]="[

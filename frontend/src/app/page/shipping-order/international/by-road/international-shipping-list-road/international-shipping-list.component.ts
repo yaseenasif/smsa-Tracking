@@ -109,4 +109,12 @@ export class InternationalShippingListComponent {
      this.visible=true
      this.ISid=id
     }
+
+    getColor(internationalShipmentByRoad:any) {
+      if (internationalShipmentByRoad.refrigeratedTruck) {
+        return 'blue';
+      } else {
+        return 'withoutRed';
+      }
+    }
 }

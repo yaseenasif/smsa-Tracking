@@ -35,7 +35,7 @@
           <p-toolbar>
             <form
               class="w-full"
-              #domesticShipmentForm="ngForm"
+              #internationalShipmentByRoadForm="ngForm"
               (ngSubmit)="searchByFilter()"
             >
               <div class="grid w-full">
@@ -176,70 +176,114 @@
               </ng-template>
               <ng-template pTemplate="body" let-internationalShipmentByRoad>
                 <tr>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.originCountry }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.originLocation }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.refrigeratedTruck }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.type }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.shipmentMode }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.preAlertNumber }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.destinationCountry }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.destinationLocation }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.routeNumber }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.actualWeight }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.numberOfShipments }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.referenceNumber }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.vehicleType }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.numberOfPallets }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.numberOfBags }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.vehicleNumber }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.status }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.ata }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.totalShipments }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.overages }}
                   </td>
-                  <td class="text-center">
+                  <td class="text-center" [classList]="
+                      getColor(internationalShipmentByRoad)
+                    " >
                     {{ internationalShipmentByRoad.shortages }}
                   </td>
-                  <td *ngIf="hasPermission('International Outbound By Road View') || hasPermission('International Outbound By Road View Attachment') || hasPermission('International Outbound By Road Add Attachment') || hasPermission('International Outbound By Road Update') || hasPermission('International Outbound By Road Delete')"  class="text-center flex flex-row">
+                  <td *ngIf="hasPermission('International Outbound By Road View') || hasPermission('International Outbound By Road View Attachment') || hasPermission('International Outbound By Road Add Attachment') || hasPermission('International Outbound By Road Update') || hasPermission('International Outbound By Road Delete')" [classList]="
+                  getColor(internationalShipmentByRoad).concat(' text-center flex flex-row')
+                " >
                     <p-button
                       *ngIf="hasPermission('International Outbound By Road View')"
                       [routerLink]="[
