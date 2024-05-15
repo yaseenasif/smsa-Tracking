@@ -428,30 +428,49 @@ export class UpdateDomesticShippingComponent {
   }
 
   updateDomesticShipment(domesticShipment: DomesticShipment) {
-    let orgLocationId=this.user.domesticOriginLocations?.find((el)=>{return el.country?.name == this.domesticShipment.originCountry && el.facility?.name==this.domesticShipment.originFacility && el.locationName==this.domesticShipment.originLocation})!.id;
-    let desLocationId=this.user.domesticDestinationLocations?.find((el)=>{return el.country?.name == this.domesticShipment.destinationCountry && el.facility?.name==this.domesticShipment.destinationFacility && el.locationName==this.domesticShipment.destinationLocation})!.id;
-    this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId,orgLocationId!,desLocationId!, domesticShipment).subscribe((res: DomesticShipment) => {
-      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Outbound Updated Successfully' });
+    let orgLocation=this.user.domesticOriginLocations?.find((el)=>{return el.country?.name == this.domesticShipment.originCountry && el.facility?.name==this.domesticShipment.originFacility && el.locationName==this.domesticShipment.originLocation});
+    let desLocation=this.user.domesticDestinationLocations?.find((el)=>{return el.country?.name == this.domesticShipment.destinationCountry && el.facility?.name==this.domesticShipment.destinationFacility && el.locationName==this.domesticShipment.destinationLocation});
+    let orgLocationId= orgLocation ? orgLocation.id : null;
+    let desLocationId= desLocation ? desLocation.id : null;
 
-      setTimeout(() => {
-        this.router.navigate(['/domestic-shipping']);
-      }, 800);
-    }, (error: any) => {
+    if(orgLocationId && desLocationId){
+      this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId,orgLocationId!,desLocationId!, domesticShipment).subscribe((res: DomesticShipment) => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Outbound Updated Successfully' });
+  
+        setTimeout(() => {
+          this.router.navigate(['/domestic-shipping']);
+        }, 800);
+      }, (error: any) => {
+        if(typeof domesticShipment.tagNumber === 'string'){
+          domesticShipment.tagNumber=domesticShipment.tagNumber!.split(",");
+        }
+  
+        this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
+        this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
+        if (error.error.body) {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+        }
+        // this.domesticShipment.etd = this.domesticShipment.etd ? new Date( this.domesticShipment.etd) : null;
+        // this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
+       
+      })
+    }else{
       if(typeof domesticShipment.tagNumber === 'string'){
         domesticShipment.tagNumber=domesticShipment.tagNumber!.split(",");
       }
 
       this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
       this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
-      if (error.error.body) {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-      } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
+      if (!orgLocationId) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Origin location not found.' });
       }
-      // this.domesticShipment.etd = this.domesticShipment.etd ? new Date( this.domesticShipment.etd) : null;
-      // this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
-     
-    })
+      if (!desLocationId) {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Destination location not found.' });
+      }
+    }
+   
   }
 
   onSubmit() {

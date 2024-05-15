@@ -191,96 +191,96 @@
                 <tr>
                   <td
                     class="text-center"
-                    [classList]="
-                      internationalShipmentByRoad.redFlag ? 'red' : 'withoutRed'
+                   [classList]="
+                      getColor(internationalShipmentByRoad)
                     "
                   >
                     {{ internationalShipmentByRoad.preAlertNumber }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      internationalShipmentByRoad.redFlag ? 'red' : 'withoutRed'
+                   [classList]="
+                      getColor(internationalShipmentByRoad)
                     "
                   >
                     {{ internationalShipmentByRoad.vehicleNumber }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      internationalShipmentByRoad.redFlag ? 'red' : 'withoutRed'
+                   [classList]="
+                      getColor(internationalShipmentByRoad)
                     "
                   >
                     {{ internationalShipmentByRoad.vehicleType }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      internationalShipmentByRoad.redFlag ? 'red' : 'withoutRed'
+                   [classList]="
+                      getColor(internationalShipmentByRoad)
                     "
                   >
                     {{ internationalShipmentByRoad.type }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      internationalShipmentByRoad.redFlag ? 'red' : 'withoutRed'
+                   [classList]="
+                      getColor(internationalShipmentByRoad)
                     "
                   >
                     {{ internationalShipmentByRoad.originCountry }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      internationalShipmentByRoad.redFlag ? 'red' : 'withoutRed'
+                   [classList]="
+                      getColor(internationalShipmentByRoad)
                     "
                   >
                     {{ internationalShipmentByRoad.originLocation }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      internationalShipmentByRoad.redFlag ? 'red' : 'withoutRed'
+                   [classList]="
+                      getColor(internationalShipmentByRoad)
                     "
                   >
                     {{ internationalShipmentByRoad.destinationLocation }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      internationalShipmentByRoad.redFlag ? 'red' : 'withoutRed'
+                   [classList]="
+                      getColor(internationalShipmentByRoad)
                     "
                   >
                     {{ internationalShipmentByRoad.actualWeight }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      internationalShipmentByRoad.redFlag ? 'red' : 'withoutRed'
+                   [classList]="
+                      getColor(internationalShipmentByRoad)
                     "
                   >
                     {{ internationalShipmentByRoad.totalShipments }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      internationalShipmentByRoad.redFlag ? 'red' : 'withoutRed'
+                   [classList]="
+                      getColor(internationalShipmentByRoad)
                     "
                   >
                     {{ internationalShipmentByRoad.numberOfPallets }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      internationalShipmentByRoad.redFlag ? 'red' : 'withoutRed'
+                   [classList]="
+                      getColor(internationalShipmentByRoad)
                     "
                   >
                     {{ internationalShipmentByRoad.numberOfBags }}
                   </td>
                   <td
                     class="text-center"
-                    [classList]="
-                      internationalShipmentByRoad.redFlag ? 'red' : 'withoutRed'
+                   [classList]="
+                      getColor(internationalShipmentByRoad)
                     "
                   >
                     {{ internationalShipmentByRoad.ata }}
@@ -288,17 +288,18 @@
 
                   <td
                     class="text-center"
-                    [classList]="
-                      internationalShipmentByRoad.redFlag ? 'red' : 'withoutRed'
+                   [classList]="
+                      getColor(internationalShipmentByRoad)
                     "
                   >
                     {{ internationalShipmentByRoad.status }}
                   </td>
                   <!-- *ngIf="selectedBound.bound == 'In bound'" -->
                   <td
-                  [classList]="
-                  internationalShipmentByRoad.redFlag ? 'red text-center flex flex-row' : 'text-center flex flex-row'
-                "
+                
+                 [classList]="
+                 getColor(internationalShipmentByRoad).concat(' text-center flex flex-row')
+               "
                  *ngIf="hasPermission('International Inbound By Road View') || hasPermission('International Inbound By Road View Attachment') || hasPermission('International Inbound By Road Add Attachment') || hasPermission('International Inbound By Road Update')"
                   >
                     <p-button
