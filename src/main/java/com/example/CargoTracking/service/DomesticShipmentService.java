@@ -156,7 +156,7 @@ public class DomesticShipmentService {
       model.put("field6", domesticShipment.getVehicleType());
       model.put("field7", domesticShipment.getNumberOfBags().toString());
       model.put("field8", domesticShipment.getNumberOfPallets().toString());
-      model.put("field9", domesticShipment.getWeight().toString());
+//      model.put("field9", domesticShipment.getWeight().toString());
       model.put("field10", "Road");
       model.put("field11", domesticShipment.getRouteNumber().toString());
       model.put("field15", domesticShipment.getRemarks());
@@ -335,7 +335,7 @@ public class DomesticShipmentService {
         domesticShipment.get().setDestinationLocation(domesticShipmentDto.getDestinationLocation());
         domesticShipment.get().setRouteNumber(domesticShipmentDto.getRouteNumber());
         domesticShipment.get().setNumberOfShipments(domesticShipmentDto.getNumberOfShipments());
-        domesticShipment.get().setWeight(domesticShipmentDto.getWeight());
+//        domesticShipment.get().setWeight(domesticShipmentDto.getWeight());
         domesticShipment.get().setEtd(domesticShipmentDto.getEtd());
         domesticShipment.get().setEta(domesticShipmentDto.getEta());
         domesticShipment.get().setAtd(domesticShipmentDto.getAtd());

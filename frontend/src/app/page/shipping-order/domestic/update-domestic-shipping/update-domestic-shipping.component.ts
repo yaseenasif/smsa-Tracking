@@ -53,7 +53,7 @@ export class UpdateDomesticShippingComponent {
     destinationLocation: undefined,
     routeNumber: null,
     numberOfShipments: null,
-    weight: null,
+    // weight: null,
     // etd: null,
     // eta: null,
     atd: null,
@@ -437,6 +437,12 @@ export class UpdateDomesticShippingComponent {
         this.router.navigate(['/domestic-shipping']);
       }, 800);
     }, (error: any) => {
+      if(typeof domesticShipment.tagNumber === 'string'){
+        domesticShipment.tagNumber=domesticShipment.tagNumber!.split(",");
+      }
+
+      this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
+      this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       } else {
@@ -444,8 +450,7 @@ export class UpdateDomesticShippingComponent {
       }
       // this.domesticShipment.etd = this.domesticShipment.etd ? new Date( this.domesticShipment.etd) : null;
       // this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
-      this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
-      this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
+     
     })
   }
 

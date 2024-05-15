@@ -28,7 +28,7 @@ export class ViewShipmentComponent {
     destinationLocation: null,
     routeNumber: null,
     numberOfShipments: null,
-    weight: null,
+    // weight: null,
     // etd: null,
     // eta: null,
     atd: null,

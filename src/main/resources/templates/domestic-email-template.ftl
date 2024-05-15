@@ -89,12 +89,6 @@
             </tr>
             <tr>
                 <td style="background-color:#420097;color:white;font-weight: bolder;">
-                    Weight (kg)
-                </td>
-                <td style="text-align: center;" >
-                    ${field9}
-                </td>
-                <td style="background-color:#420097;color:white;font-weight: bolder;">
                     Mode
                 </td>
                 <td style="text-align: center;" >
