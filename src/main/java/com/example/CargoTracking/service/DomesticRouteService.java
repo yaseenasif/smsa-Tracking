@@ -11,7 +11,10 @@ import com.example.CargoTracking.repository.EmailAddressForRouteRepository;
 import com.example.CargoTracking.repository.UserRepository;
 import com.example.CargoTracking.specification.DomesticRouteSpecification;
 import com.example.CargoTracking.specification.DomesticShipmentSpecification;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,6 +32,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class DomesticRouteService {
     @Autowired
     DomesticRouteRepository domesticRouteRepository;
@@ -43,6 +47,9 @@ public class DomesticRouteService {
 
     @Autowired
     DomesticShipmentRepository domesticShipmentRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(StorageService.class);
+
 
     public List<DomesticRouteDto> findDomesticRoute(String origin, String destination) {
         List<DomesticRoute> byOriginAndDestination =
@@ -72,7 +79,7 @@ public class DomesticRouteService {
                 }
             }
         }
-
+        logger.info("Used route "+usedRoute);
         byOriginAndDestination.removeAll(usedRoute);
 
         if (byOriginAndDestination.isEmpty()) {
