@@ -109,7 +109,7 @@ public class DomesticShipmentService {
       unSaveDomesticShipment.setUpdatedTime(currentLocalDateTime);
       unSaveDomesticShipment.setOriginLocationId(orgLocationId);
       unSaveDomesticShipment.setDestinationLocationId(desLocationId);
-      List<DomesticShipment> all = domesticShipmentRepository.findAll();
+      List<DomesticShipment> all = domesticShipmentRepository.findByCreatedAt(LocalDate.now());
       for (DomesticShipment domesticShipment : all) {
         if (domesticShipment.getPreAlertNumber().equals(unSaveDomesticShipment.getPreAlertNumber())) {
           throw new RecordNotFoundException(String.format("Shipment with the given pre alert number is already exist"));
@@ -364,7 +364,7 @@ public class DomesticShipmentService {
         domesticShipment.get().setNumberOfBagsReceived(domesticShipmentDto.getNumberOfBagsReceived());
         domesticShipment.get().setNumberOfPalletsReceived(domesticShipmentDto.getNumberOfPalletsReceived());
 
-        List<DomesticShipment> all = domesticShipmentRepository.findAll();
+        List<DomesticShipment> all = domesticShipmentRepository.findByCreatedAt(LocalDate.now());
         for (DomesticShipment domesticShipmentForPreAlertNumber : all) {
           if (domesticShipmentForPreAlertNumber.getPreAlertNumber().equals(domesticShipment.get().getPreAlertNumber())) {
             if (domesticShipment.get().getId() != domesticShipmentDto.getId()) {
