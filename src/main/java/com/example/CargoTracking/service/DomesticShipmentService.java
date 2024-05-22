@@ -800,6 +800,7 @@ public class DomesticShipmentService {
   }
 
   public Map<String, Map<String, Integer>> getOutBoundForDashboardTest(Integer year) {
+    logger.info("in method------------------------------------------------------------------------------------------------------------------------");
     UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     User user = userRepository.findByEmployeeId(userDetails.getUsername());
 
