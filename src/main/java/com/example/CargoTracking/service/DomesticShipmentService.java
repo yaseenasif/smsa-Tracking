@@ -814,8 +814,9 @@ public class DomesticShipmentService {
     } else {
       specification = DomesticShipmentSpecification.withCreatedYearAndUser(year, user);
     }
-
+    logger.info("Before Find All");
     List<DomesticShipment> shipments = domesticShipmentRepository.findAll(specification);
+    logger.info("After Find All Call");
     Map<String, Map<String, Integer>> map = new HashMap<>();
 
     for (DomesticShipment domesticShipment : shipments) {
