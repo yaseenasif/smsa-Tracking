@@ -370,7 +370,7 @@ public class DomesticShipmentService {
         List<DomesticShipment> all = domesticShipmentRepository.findAll();
         for (DomesticShipment domesticShipmentForPreAlertNumber : all) {
           if (domesticShipmentForPreAlertNumber.getPreAlertNumber().equals(domesticShipment.get().getPreAlertNumber())) {
-            if (domesticShipment.get().getId() != domesticShipmentDto.getId()) {
+            if (!Objects.equals(domesticShipmentForPreAlertNumber.getId(), domesticShipment.get().getId())) {
               logger.info("-------------------------------------------------------------------------------------------------------------------------");
               logger.info(domesticShipmentForPreAlertNumber.getPreAlertNumber());
               logger.info(domesticShipment.get().getPreAlertNumber());
