@@ -109,7 +109,7 @@ public class DomesticShipmentService {
       unSaveDomesticShipment.setUpdatedTime(currentLocalDateTime);
       unSaveDomesticShipment.setOriginLocationId(orgLocationId);
       unSaveDomesticShipment.setDestinationLocationId(desLocationId);
-      List<DomesticShipment> all = domesticShipmentRepository.findByCreatedAt(LocalDate.now());
+      List<DomesticShipment> all = domesticShipmentRepository.findAll();
       for (DomesticShipment domesticShipment : all) {
         logger.info("domestic shipment "+domesticShipment.getPreAlertNumber());
         logger.info("domestic shipment New"+unSaveDomesticShipment.getPreAlertNumber());
@@ -325,9 +325,9 @@ public class DomesticShipmentService {
         User user = userRepository.findByEmployeeId(username);
         domesticShipment.get().setUpdatedBy(user);
         if (domesticShipmentDto.getTrip() != 0 && (domesticShipmentDto.getRouteNumber().contains("Adhoc") || domesticShipmentDto.getRouteNumber().contains("adhoc"))) {
-          domesticShipment.get().setPreAlertNumber(domesticShipmentDto.getRouteNumber() + " " + domesticShipmentDto.getTrip() + " " + LocalDate.now());
+          domesticShipment.get().setPreAlertNumber(domesticShipmentDto.getRouteNumber() + " " + domesticShipmentDto.getTrip() + " " + domesticShipment.get().getCreatedAt());
         } else {
-          domesticShipment.get().setPreAlertNumber(domesticShipmentDto.getRouteNumber() + " " + LocalDate.now());
+          domesticShipment.get().setPreAlertNumber(domesticShipmentDto.getRouteNumber() + " " + domesticShipment.get().getCreatedAt());
         }
         domesticShipment.get().setOriginLocationId(orgLocationId);
         domesticShipment.get().setDestinationLocationId(desLocationId);
@@ -367,7 +367,7 @@ public class DomesticShipmentService {
         domesticShipment.get().setNumberOfBagsReceived(domesticShipmentDto.getNumberOfBagsReceived());
         domesticShipment.get().setNumberOfPalletsReceived(domesticShipmentDto.getNumberOfPalletsReceived());
 
-        List<DomesticShipment> all = domesticShipmentRepository.findByCreatedAt(LocalDate.now());
+        List<DomesticShipment> all = domesticShipmentRepository.findAll();
         for (DomesticShipment domesticShipmentForPreAlertNumber : all) {
           if (domesticShipmentForPreAlertNumber.getPreAlertNumber().equals(domesticShipment.get().getPreAlertNumber())) {
             if (domesticShipment.get().getId() != domesticShipmentDto.getId()) {
