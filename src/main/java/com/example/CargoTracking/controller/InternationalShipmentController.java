@@ -112,7 +112,7 @@ public class  InternationalShipmentController {
     }
 
     @PreAuthorize("hasAuthority('get-internationalInboundSummaryAir')")
-    @GetMapping("/international-inbound-summery-air")
+    @GetMapping("/international-outbound-summery-air")
     public ResponseEntity<Page<InternationalShipmentDto>> getInternationalOutBoundSummeryForAir(@RequestParam(value = "value",required = false) String value,
                                                                                                @RequestParam(defaultValue = "0") int page,
                                                                                                @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
@@ -122,7 +122,7 @@ public class  InternationalShipmentController {
     }
 
     @PreAuthorize("hasAuthority('get-internationalInboundSummaryRoad')")
-    @GetMapping("/international-inbound-summery-road")
+    @GetMapping("/international-outbound-summery-road")
     public ResponseEntity<Page<InternationalShipmentDto>> getInternationalOutBoundSummeryForRoad(@RequestParam(value = "value",required = false) String value,
                                                                                                 @RequestParam(defaultValue = "0") int page,
                                                                                                 @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {

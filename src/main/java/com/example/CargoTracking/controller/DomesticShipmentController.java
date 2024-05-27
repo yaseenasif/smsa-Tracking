@@ -103,7 +103,7 @@ public class DomesticShipmentController {
     }
 
     @PreAuthorize("hasAuthority('outbound-domesticShipment')")
-    @GetMapping("/domestic-shipment/inbound")
+    @GetMapping("/domestic-shipment/outbound")
     public ResponseEntity<Page<DomesticShipmentDto>> getOutboundShipment(@RequestParam(value = "value",required = false) String value,
                                                                         @RequestParam(defaultValue = "0") int page,
                                                                         @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
