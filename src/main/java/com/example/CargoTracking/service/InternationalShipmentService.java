@@ -2,6 +2,7 @@ package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.criteria.SearchCriteriaForInternationalShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
+import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummaryOutbound;
 import com.example.CargoTracking.dto.InternationalShipmentDto;
 import com.example.CargoTracking.dto.ProductFieldDto;
 import com.example.CargoTracking.dto.ProductFieldValuesDto;
@@ -14,6 +15,7 @@ import com.example.CargoTracking.repository.*;
 
 import com.example.CargoTracking.specification.InternationalShipmentSpecification;
 import com.example.CargoTracking.specification.InternationalSummarySpecification;
+import com.example.CargoTracking.specification.InternationalSummarySpecificationForOutbound;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -455,42 +457,35 @@ public class InternationalShipmentService {
         return modelMapper.map(internationalShipment,InternationalShipmentDto.class);
     }
 
-//    public Page<InternationalShipmentDto> getInternationalOutBoundSummeryForAir(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary,
-//                                                                                int page, int size) {
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        if(principal instanceof UserDetails){
-//            Pageable pageable = PageRequest.of(page, size);
-//            String username = ((UserDetails) principal).getUsername();
-//            User user = userRepository.findByEmail(username);
-//            if((user.getLocation() == null) && ((searchCriteriaForInternationalSummary.getDestination() == null || searchCriteriaForInternationalSummary.getDestination() == "") && (searchCriteriaForInternationalSummary.getOrigin() == null || searchCriteriaForInternationalSummary.getOrigin() == "")
-//                    && (searchCriteriaForInternationalSummary.getToDate() == null || searchCriteriaForInternationalSummary.getToDate() == "") && (searchCriteriaForInternationalSummary.getFromDate() == null || searchCriteriaForInternationalSummary.getFromDate() == "")
-//                    && (searchCriteriaForInternationalSummary.getStatus() ==null || searchCriteriaForInternationalSummary.getStatus() == ""))){
-//                throw new RecordNotFoundException(String.format("International shipment Not Found because user haven't an origin"));
-//            }
-//            if((searchCriteriaForInternationalSummary.getDestination() == null || searchCriteriaForInternationalSummary.getDestination() == "") && (searchCriteriaForInternationalSummary.getOrigin() == null || searchCriteriaForInternationalSummary.getOrigin() == "")
-//                    && (searchCriteriaForInternationalSummary.getToDate() == null || searchCriteriaForInternationalSummary.getToDate() == "") && (searchCriteriaForInternationalSummary.getFromDate() == null || searchCriteriaForInternationalSummary.getFromDate() == "")
-//                    && (searchCriteriaForInternationalSummary.getStatus() ==null || searchCriteriaForInternationalSummary.getStatus() == "")){
-//                Page<InternationalShipment> pageInternationalShipment =
-//                        internationalShipmentRepository.findByOriginCountryByAir(user.getLocation().getLocationName(),
-//                                pageable);
-//                Page<InternationalShipmentDto> internationalShipmentDtoPage =pageInternationalShipment.map(entity->toDto(entity));
-//                return internationalShipmentDtoPage;
-//            }else{
-//                if(user.getLocation() != null){
-//                    if(searchCriteriaForInternationalSummary.getOrigin() == null || searchCriteriaForInternationalSummary.getOrigin().isEmpty()) {
-//                        searchCriteriaForInternationalSummary.setOrigin(user.getLocation().getLocationName());
-//                    }
-//                }
-//                searchCriteriaForInternationalSummary.setType("By Air");
-//                Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
-//                Page<InternationalShipment> internationalShipmentPage =
-//                        internationalShipmentRepository.findAll(internationalShipmentSpecification, pageable);
-//                Page<InternationalShipmentDto> internationalShipmentPageDto = internationalShipmentPage.map(entity -> toDto(entity) );
-//                return internationalShipmentPageDto;
-//            }
-//        }
-//        throw new UserNotFoundException(String.format("User not found"));
-//    }
+    public Page<InternationalShipmentDto> getInternationalOutBoundSummeryForAir(SearchCriteriaForInternationalSummaryOutbound searchCriteriaForInternationalSummary,
+                                                                                int page, int size){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof UserDetails){
+            Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedTime"));
+            String username = ((UserDetails) principal).getUsername();
+            User user = userRepository.findByEmployeeId(username);
+            if(searchCriteriaForInternationalSummary.getOrigin().isEmpty()){
+                Set<Location> userLocations = user.getLocations();
+                if (!userLocations.isEmpty()) {
+                    Set<String> internatoionalAirLocationsNamePresentInUser = userLocations.stream()
+                            .filter(location -> "International Air".equals(location.getType()))
+                            .map(Location::getLocationName)
+                            .collect(Collectors.toSet());
+                    searchCriteriaForInternationalSummary.setOrigin(internatoionalAirLocationsNamePresentInUser);
+                }else{
+                    searchCriteriaForInternationalSummary.setOrigin(Collections.emptySet());
+                }
+            }
+            searchCriteriaForInternationalSummary.setType("By Air");
+            Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecificationForOutbound.getSearchSpecification(searchCriteriaForInternationalSummary);
+            Page<InternationalShipment> internationalShipmentPage =
+                    internationalShipmentRepository.findAll(internationalShipmentSpecification, pageable);
+            Page<InternationalShipmentDto> internationalShipmentPageDto = internationalShipmentPage.map(entity -> toDto(entity) );
+
+            return internationalShipmentPageDto;
+        }
+        throw new UserNotFoundException(String.format("User not found"));
+    }
 
     public Page<InternationalShipmentDto> getInternationalInBoundSummeryForAir(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary,
                                                                                int page, int size){
@@ -522,40 +517,36 @@ public class InternationalShipmentService {
         throw new UserNotFoundException(String.format("User not found"));
     }
 
-//    public Page<InternationalShipmentDto> getInternationalOutBoundSummeryForRoad(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary,
-//                                                                                 int page, int size) {
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        if(principal instanceof UserDetails){
-//            Pageable pageable = PageRequest.of(page, size);
-//            String username = ((UserDetails) principal).getUsername();
-//            User user = userRepository.findByEmail(username);
-//            if((user.getLocation() == null) && ((searchCriteriaForInternationalSummary.getDestination() == null || searchCriteriaForInternationalSummary.getDestination() == "") && (searchCriteriaForInternationalSummary.getOrigin() == null || searchCriteriaForInternationalSummary.getOrigin() == "")
-//                    && (searchCriteriaForInternationalSummary.getToDate() == null || searchCriteriaForInternationalSummary.getToDate()=="" ) && (searchCriteriaForInternationalSummary.getFromDate() == null|| searchCriteriaForInternationalSummary.getFromDate() =="")
-//                    && (searchCriteriaForInternationalSummary.getStatus() ==null || searchCriteriaForInternationalSummary.getStatus() == ""))){
-//                throw new RecordNotFoundException(String.format("International shipment Not Found because user haven't an origin"));
-//            }
-//            if((searchCriteriaForInternationalSummary.getDestination() == null || searchCriteriaForInternationalSummary.getDestination() == "") && (searchCriteriaForInternationalSummary.getOrigin() == null || searchCriteriaForInternationalSummary.getOrigin() == "")
-//                    && (searchCriteriaForInternationalSummary.getToDate() == null || searchCriteriaForInternationalSummary.getToDate() == "") && (searchCriteriaForInternationalSummary.getFromDate() == null || searchCriteriaForInternationalSummary.getFromDate() == "")
-//                    && (searchCriteriaForInternationalSummary.getStatus() ==null || searchCriteriaForInternationalSummary.getStatus()=="")){
-//                Page<InternationalShipment> pageInternationalShipment =
-//                        internationalShipmentRepository.findByOriginCountryByRoad(user.getLocation().getLocationName(),
-//                                pageable);
-//                Page<InternationalShipmentDto> internationalShipmentDtoPage =pageInternationalShipment.map(entity->toDto(entity));
-//                return internationalShipmentDtoPage;
-//            }else{
-//                if(user.getLocation() != null){
-//                    searchCriteriaForInternationalSummary.setOrigin(user.getLocation().getLocationName());
-//                }
-//                searchCriteriaForInternationalSummary.setType("By Road");
-//                Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
-//                Page<InternationalShipment> internationalShipmentPage =
-//                        internationalShipmentRepository.findAll(internationalShipmentSpecification, pageable);
-//                Page<InternationalShipmentDto> internationalShipmentPageDto = internationalShipmentPage.map(entity -> toDto(entity) );
-//                return internationalShipmentPageDto;
-//            }
-//        }
-//        throw new UserNotFoundException(String.format("User not found"));
-//    }
+    public Page<InternationalShipmentDto> getInternationalOutBoundSummeryForRoad(SearchCriteriaForInternationalSummaryOutbound searchCriteriaForInternationalSummary,
+                                                                                int page, int size){
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if(principal instanceof UserDetails){
+            Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedTime"));
+            String username = ((UserDetails) principal).getUsername();
+            User user = userRepository.findByEmployeeId(username);
+            if(searchCriteriaForInternationalSummary.getOrigin().isEmpty()){
+                Set<Location> userLocations = user.getLocations();
+                if (!userLocations.isEmpty()) {
+                    Set<String> internatoionalRoadLocationsNamePresentInUser = userLocations.stream()
+                            .filter(location -> "International Road".equals(location.getType()))
+                            .map(Location::getLocationName)
+                            .collect(Collectors.toSet());
+                    searchCriteriaForInternationalSummary.setOrigin(internatoionalRoadLocationsNamePresentInUser);
+                }else{
+                    searchCriteriaForInternationalSummary.setOrigin(Collections.emptySet());
+                }
+            }
+            searchCriteriaForInternationalSummary.setType("By Road");
+
+            Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecificationForOutbound.getSearchSpecification(searchCriteriaForInternationalSummary);
+            Page<InternationalShipment> internationalShipmentPage =
+                    internationalShipmentRepository.findAll(internationalShipmentSpecification, pageable);
+            Page<InternationalShipmentDto> internationalShipmentPageDto = internationalShipmentPage.map(entity -> toDto(entity) );
+
+            return internationalShipmentPageDto;
+        }
+        throw new UserNotFoundException(String.format("User not found"));
+    }
 
     public Page<InternationalShipmentDto> getInternationalInBoundSummeryForRoad(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary,
                                                                                 int page, int size){
