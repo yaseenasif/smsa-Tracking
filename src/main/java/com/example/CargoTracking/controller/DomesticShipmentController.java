@@ -2,6 +2,7 @@ package com.example.CargoTracking.controller;
 
 import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
+import com.example.CargoTracking.criteria.SearchCriteriaForSummaryForOutbound;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.dto.SendEmailAddressForOutlookManual;
 import com.example.CargoTracking.payload.ApiResponse;
@@ -99,6 +100,15 @@ public class DomesticShipmentController {
                                                                         @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
         SearchCriteriaForSummary searchCriteriaForSummary = new ObjectMapper().readValue(value, SearchCriteriaForSummary.class);
         return ResponseEntity.ok(domesticShipmentService.getInboundShipment(searchCriteriaForSummary,page,size));
+    }
+
+    @PreAuthorize("hasAuthority('outbound-domesticShipment')")
+    @GetMapping("/domestic-shipment/inbound")
+    public ResponseEntity<Page<DomesticShipmentDto>> getOutboundShipment(@RequestParam(value = "value",required = false) String value,
+                                                                        @RequestParam(defaultValue = "0") int page,
+                                                                        @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForSummaryForOutbound searchCriteriaForSummary = new ObjectMapper().readValue(value, SearchCriteriaForSummaryForOutbound.class);
+        return ResponseEntity.ok(domesticShipmentService.getOutboundShipment(searchCriteriaForSummary,page,size));
     }
 
     @PreAuthorize("hasAuthority('update-domesticShipment')")
