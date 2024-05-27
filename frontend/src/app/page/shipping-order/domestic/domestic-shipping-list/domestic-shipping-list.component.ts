@@ -47,7 +47,7 @@ export class DomesticShippingListComponent implements OnInit {
   fromDate: string = '';
   toDate: string = '';
   status: string = '';
-  origin: string = '';
+  origin: string[] = [];
   destination: string = '';
   routeNumber: string = '';
 
@@ -55,8 +55,8 @@ export class DomesticShippingListComponent implements OnInit {
 
   totalRecords: number = 0;
 
-  getAllDomesticShipments(fromDate?: string,toDate?: string,status?: string,origin?: string,destination?: string,routeNumber?: string, page?: number, size?: number) {
-    this.domesticShipmentService.getALLShipments({ fromDate:this.fromDate?this.datePipe.transform(new Date(this.fromDate),'yyyy-MM-dd'):'',toDate:this.toDate?this.datePipe.transform(new Date(this.toDate),'yyyy-MM-dd'):'',status: status,origin: origin,destination: destination,routeNumber: routeNumber, user: {},activeStatus:true }, page, size).subscribe((res: any) => {
+  getAllDomesticShipments(fromDate?: string,toDate?: string,status?: string,origin?: string[],destination?: string,routeNumber?: string, page?: number, size?: number) {
+    this.domesticShipmentService.getALLShipmentsOutBound({ fromDate:this.fromDate?this.datePipe.transform(new Date(this.fromDate),'yyyy-MM-dd'):'',toDate:this.toDate?this.datePipe.transform(new Date(this.toDate),'yyyy-MM-dd'):'',status: status,origin: origin,destinations: destination,routeNumber: routeNumber}, page, size).subscribe((res: any) => {
       this.myApiResponse = res;
       this.page=res.pageable.pageNumber;
       this.size=res.size;
@@ -97,7 +97,7 @@ export class DomesticShippingListComponent implements OnInit {
   this.fromDate = '';
   this.toDate = '';
   this.status = '';
-  this.origin = '';
+  this.origin = [];
   this.destination = '';
   this.routeNumber = '';
   this.getAllDomesticShipments(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);

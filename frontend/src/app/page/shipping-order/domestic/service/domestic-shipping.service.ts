@@ -22,6 +22,15 @@ export class DomesticShippingService {
     return this.http.get<any>(`${this.url}/all-domestic-shipments`, { params: queryParams });
   }
 
+  getALLShipmentsOutBound(obj?: any, page?: number, size?: number): Observable<any> {
+    let queryParams = new HttpParams();
+    
+    queryParams = queryParams.append("value", obj ? JSON.stringify(obj) : '');
+    queryParams = queryParams.append("page", page ? page : 0);
+    queryParams = queryParams.append("size", size ? size : 10);
+
+    return this.http.get<any>(`${this.url}/domestic-shipment/outbound`, { params: queryParams });
+  }
   addDomesticShipment(shipment: DomesticShipment,oId:number,dId:number) {
     return this.http.post<DomesticShipment>(`${this.url}/add-domestic-shipment/org-id/${oId}/des-id/${dId}`, shipment)
   }
