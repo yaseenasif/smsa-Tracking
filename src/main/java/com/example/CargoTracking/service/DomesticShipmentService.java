@@ -2,6 +2,7 @@ package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
+import com.example.CargoTracking.criteria.SearchCriteriaForSummaryForOutbound;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.dto.SendEmailAddressForOutlookManual;
 import com.example.CargoTracking.model.*;
@@ -11,6 +12,7 @@ import com.example.CargoTracking.exception.UserNotFoundException;
 import com.example.CargoTracking.repository.*;
 import com.example.CargoTracking.specification.DomesticShipmentSpecification;
 import com.example.CargoTracking.specification.DomesticSummarySpecification;
+import com.example.CargoTracking.specification.DomesticSummarySpecificationForOutbound;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -242,45 +244,37 @@ public class DomesticShipmentService {
     throw new RecordNotFoundException(String.format("Domestic shipment Not Found By This Id %d", id));
   }
 
-//    public Page<DomesticShipmentDto> getOutboundShipment(SearchCriteriaForSummary searchCriteriaForSummary, int page, int size) {
-//        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        if (principal instanceof UserDetails) {
-//            Pageable pageable = PageRequest.of(page, size);
-//            Page<DomesticShipment> domesticShipmentPage;
-//            String username = ((UserDetails) principal).getUsername();
-//            User user = userRepository.findByEmail(username);
-//            if ((user.getLocation() == null ) && ((searchCriteriaForSummary.getDestination() == null || searchCriteriaForSummary.getDestination()=="") && (searchCriteriaForSummary.getOrigin() == null || searchCriteriaForSummary.getOrigin()=="")
-//                    && (searchCriteriaForSummary.getToDate() == null || searchCriteriaForSummary.getToDate()=="") && (searchCriteriaForSummary.getFromDate() == null || searchCriteriaForSummary.getFromDate()=="")
-//                    && (searchCriteriaForSummary.getStatus() == null || searchCriteriaForSummary.getStatus()==""))) {
-//
-//                throw new RecordNotFoundException(String.format("Domestic shipment Not Found because user haven't an origin"));
-//            }
-//            if ( (searchCriteriaForSummary.getDestination() == null || searchCriteriaForSummary.getDestination()=="")  && (searchCriteriaForSummary.getOrigin() == null || searchCriteriaForSummary.getOrigin()=="")
-//                    && (searchCriteriaForSummary.getToDate() == null || searchCriteriaForSummary.getToDate()=="") && (searchCriteriaForSummary.getFromDate() == null || searchCriteriaForSummary.getFromDate()=="")
-//                    && (searchCriteriaForSummary.getStatus() == null || searchCriteriaForSummary.getStatus()=="")) {
-//                Page<DomesticShipment> pageDomesticShipment =
-//                        domesticShipmentRepository.findByOriginLocation(user.getLocation().getLocationName(), pageable);
-//                Page<DomesticShipmentDto> pageDomesticShipmentDto = pageDomesticShipment.map(entity -> toDto(entity));
-//                return pageDomesticShipmentDto;
-//            } else {
-//                if (user.getLocation() != null) {
-//                    if (searchCriteriaForSummary.getOrigin() == null || searchCriteriaForSummary.getOrigin().isEmpty()) {
-//                        searchCriteriaForSummary.setOrigin(user.getLocation().getLocationName());
-//                    }
-//                }
-//
-//                Specification<DomesticShipment> domesticSummarySpecification = DomesticSummarySpecification.getSearchSpecification(searchCriteriaForSummary);
-//                Page<DomesticShipment> pageDomesticShipmentDto = domesticShipmentRepository.
-//                        findAll(domesticSummarySpecification, pageable);
-//                Page<DomesticShipmentDto> pageDomesticShipmentDtoWithSpec = pageDomesticShipmentDto.map(entity -> toDto(entity));
-//
-//                return pageDomesticShipmentDtoWithSpec;
-//            }
-//
-//        }
-//
-//        throw new UserNotFoundException("User not found");
-//    }
+  public Page<DomesticShipmentDto> getOutboundShipment(SearchCriteriaForSummaryForOutbound searchCriteriaForSummary, int page, int size) {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    if (principal instanceof UserDetails) {
+      Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "updatedTime"));
+      Page<DomesticShipment> domesticShipmentPage;
+      String username = ((UserDetails) principal).getUsername();
+      User user = userRepository.findByEmployeeId(username);
+
+      if (searchCriteriaForSummary.getOrigin().isEmpty()) {
+        Set<Location> userLocations = user.getLocations();
+        if (!userLocations.isEmpty()) {
+          Set<String> domesticLocationNamePresentInUser = userLocations.stream()
+                  .filter(location -> "Domestic".equals(location.getType()))
+                  .map(Location::getLocationName)
+                  .collect(Collectors.toSet());
+          searchCriteriaForSummary.setOrigin(domesticLocationNamePresentInUser);
+        } else {
+          searchCriteriaForSummary.setOrigin(Collections.emptySet());
+        }
+      }
+
+      Specification<DomesticShipment> domesticSummarySpecification = DomesticSummarySpecificationForOutbound.getSearchSpecification(searchCriteriaForSummary);
+      Page<DomesticShipment> pageDomesticShipmentDto = domesticShipmentRepository.
+              findAll(domesticSummarySpecification, pageable);
+      Page<DomesticShipmentDto> pageDomesticShipmentDtoWithSpec = pageDomesticShipmentDto.map(entity -> toDto(entity));
+
+      return pageDomesticShipmentDtoWithSpec;
+    }
+
+    throw new UserNotFoundException("User not found");
+  }
 
   public Page<DomesticShipmentDto> getInboundShipment(SearchCriteriaForSummary searchCriteriaForSummary, int page, int size) {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -554,135 +548,135 @@ public class DomesticShipmentService {
 //    faliure tab hoga jab atd se duration se between ziyada gap a jaee ga to red show kra deen ge
 //    2gap se escalation send hogi
 //    LocalDate oneDayOlderDate = LocalDate.now().minusDays(1);
-//  @Scheduled(fixedRate = 20 * 60 * 1000)
-//  public void redFlag() {
-//
-//    List<DomesticShipment> domesticShipmentList = domesticShipmentRepository.findAll();
-//
-//    try {
-//      LocalDateTime currentDateTime = LocalDateTime.now();
-//
-//      if (!domesticShipmentList.isEmpty()) {
-//        for (DomesticShipment entity : domesticShipmentList) {
-//          Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(entity.getRouteNumberId());
-//          if (!entity.getRedFlag() && entity.getArrivedTime() == null) {
-//            Duration duration = Duration.between(entity.getAtd(), currentDateTime);
-//            if (duration.toHours() > domesticRoute.get().getDurationLimit()) {
-//              entity.setRedFlag(true);
-//            }
-//          }
-//        }
-//        domesticShipmentRepository.saveAll(domesticShipmentList);
-//      }
-//
-//      List<DomesticShipment> domesticShipmentList1 = domesticShipmentRepository.findAll();
-//      if (!domesticShipmentList1.isEmpty()) {
-//        for (DomesticShipment shipment : domesticShipmentList1) {
-//          if(shipment.getArrivedTime()==null){
-//            Duration duration = Duration.between(shipment.getAtd(), currentDateTime);
-//
-//            Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(shipment.getRouteNumberId());
-//
-//            if (duration.toHours() >= domesticRoute.get().getDurationLimit() + 2 && duration.toHours() < domesticRoute.get().getDurationLimit() + 4) {
-//              if (!shipment.isEscalationFlagOne()) {
-//                List<String> emails = new ArrayList<>();
-//                String originEmails = locationRepository.findById(shipment.getOriginLocationId()).get()
-//                        .getOriginEscalationLevel1();
-//                String[] resultListOriginEscalation = originEmails.split(",");
-//                List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOriginEscalation));
-//
-//                String destinationEmails = locationRepository.findById(shipment.getDestinationLocationId()).get()
-//                        .getDestinationEscalationLevel1();
-//                String[] resultListDestinationEscalation = destinationEmails.split(",");
-//                List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestinationEscalation));
-//
-//                if(originEmailAddresses.size()>1){
-//                  emails.addAll(originEmailAddresses);
-//                }
-//                if(destinationEmailAddresses.size()>1){
-//                  emails.addAll(destinationEmailAddresses);
-//                }
-//
-//                String subject = "TSM 1st Escalation (D): " + shipment.getPreAlertNumber() + "/" + shipment.getVehicleType() + "/" + shipment.getReferenceNumber() + "/" + shipment.getEtd();
-//                Map<String, Object> model = new HashMap<>();
-//                model.put("field1", shipment.getReferenceNumber());
-//                model.put("field2", shipment.getDestinationLocation());
-//
-//                sendEmailsAsync(emails, subject, "shipment-delay-email-template.ftl", model);
-//
-//                shipment.setEscalationFlagOne(true);
-//                domesticShipmentRepository.save(shipment);
-//              }
-//            }
-//            if (duration.toHours() >= domesticRoute.get().getDurationLimit() + 4 && duration.toHours() < domesticRoute.get().getDurationLimit() + 6) {
-//              if (!shipment.isEscalationFlagTwo()) {
-//                List<String> emails = new ArrayList<>();
-//                String originEmails = locationRepository.findById(shipment.getOriginLocationId()).get()
-//                        .getOriginEscalationLevel2();
-//                String[] resultListOriginEscalation = originEmails.split(",");
-//                List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOriginEscalation));
-//
-//                String destinationEmails = locationRepository.findById(shipment.getDestinationLocationId()).get()
-//                        .getDestinationEscalationLevel2();
-//                String[] resultListDestinationEscalation = destinationEmails.split(",");
-//                List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestinationEscalation));
-//
-//                if(originEmailAddresses.size()>1){
-//                  emails.addAll(originEmailAddresses);
-//                }
-//                if(destinationEmailAddresses.size()>1){
-//                  emails.addAll(destinationEmailAddresses);
-//                }
-//
-//                String subject = "TSM 2nd Escalation (D): " + shipment.getPreAlertNumber() + "/" + shipment.getVehicleType() + "/" + shipment.getReferenceNumber() + "/" + shipment.getEtd();
-//                Map<String, Object> model = new HashMap<>();
-//                model.put("field1", shipment.getReferenceNumber());
-//                model.put("field2", shipment.getDestinationLocation());
-//
-//                sendEmailsAsync(emails, subject, "shipment-delay-email-template.ftl", model);
-//
-//                shipment.setEscalationFlagTwo(true);
-//                domesticShipmentRepository.save(shipment);
-//              }
-//            }
-//            if (duration.toHours() >= domesticRoute.get().getDurationLimit() + 6) {
-//              if (!shipment.isEscalationFlagThree()) {
-//
-//                List<String> emails = new ArrayList<>();
-//                String originEmails = locationRepository.findById(shipment.getOriginLocationId()).get()
-//                        .getOriginEscalationLevel3();
-//                String[] resultListOriginEscalation = originEmails.split(",");
-//                List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOriginEscalation));
-//
-//                String destinationEmails = locationRepository.findById(shipment.getDestinationLocationId()).get()
-//                        .getDestinationEscalationLevel3();
-//                String[] resultListDestinationEscalation = destinationEmails.split(",");
-//                List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestinationEscalation));
-//                if(originEmailAddresses.size()>1){
-//                  emails.addAll(originEmailAddresses);
-//                }
-//                if(destinationEmailAddresses.size()>1){
-//                  emails.addAll(destinationEmailAddresses);
-//                }
-//
-//                String subject = "TSM 3rd Escalation (D): " + shipment.getPreAlertNumber() + "/" + shipment.getVehicleType() + "/" + shipment.getReferenceNumber() + "/" + shipment.getEtd();
-//                Map<String, Object> model = new HashMap<>();
-//                model.put("field1", shipment.getReferenceNumber());
-//                model.put("field2", shipment.getDestinationLocation());
-//                sendEmailsAsync(emails, subject, "shipment-delay-email-template.ftl", model);
-//
-//                shipment.setEscalationFlagThree(true);
-//                domesticShipmentRepository.save(shipment);
-//              }
-//            }
-//          }
-//        }
-//      }
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//      Collections.emptyList();
-//    }
-//  }
+  @Scheduled(fixedRate = 20 * 60 * 1000)
+  public void redFlag() {
+
+    List<DomesticShipment> domesticShipmentList = domesticShipmentRepository.findAll();
+
+    try {
+      LocalDateTime currentDateTime = LocalDateTime.now();
+
+      if (!domesticShipmentList.isEmpty()) {
+        for (DomesticShipment entity : domesticShipmentList) {
+          Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(entity.getRouteNumberId());
+          if (!entity.getRedFlag() && entity.getArrivedTime() == null) {
+            Duration duration = Duration.between(entity.getAtd(), currentDateTime);
+            if (duration.toHours() > domesticRoute.get().getDurationLimit()) {
+              entity.setRedFlag(true);
+            }
+          }
+        }
+        domesticShipmentRepository.saveAll(domesticShipmentList);
+      }
+
+      List<DomesticShipment> domesticShipmentList1 = domesticShipmentRepository.findAll();
+      if (!domesticShipmentList1.isEmpty()) {
+        for (DomesticShipment shipment : domesticShipmentList1) {
+          if(shipment.getArrivedTime()==null){
+            Duration duration = Duration.between(shipment.getAtd(), currentDateTime);
+
+            Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(shipment.getRouteNumberId());
+
+            if (duration.toHours() >= domesticRoute.get().getDurationLimit() + 2 && duration.toHours() < domesticRoute.get().getDurationLimit() + 4) {
+              if (!shipment.isEscalationFlagOne()) {
+                List<String> emails = new ArrayList<>();
+                String originEmails = locationRepository.findById(shipment.getOriginLocationId()).get()
+                        .getOriginEscalationLevel1();
+                String[] resultListOriginEscalation = originEmails.split(",");
+                List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOriginEscalation));
+
+                String destinationEmails = locationRepository.findById(shipment.getDestinationLocationId()).get()
+                        .getDestinationEscalationLevel1();
+                String[] resultListDestinationEscalation = destinationEmails.split(",");
+                List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestinationEscalation));
+
+                if(originEmailAddresses.size()>1){
+                  emails.addAll(originEmailAddresses);
+                }
+                if(destinationEmailAddresses.size()>1){
+                  emails.addAll(destinationEmailAddresses);
+                }
+
+                String subject = "TSM 1st Escalation (D): " + shipment.getPreAlertNumber() + "/" + shipment.getVehicleType() + "/" + shipment.getReferenceNumber() + "/" + shipment.getEtd();
+                Map<String, Object> model = new HashMap<>();
+                model.put("field1", shipment.getReferenceNumber());
+                model.put("field2", shipment.getDestinationLocation());
+
+                sendEmailsAsync(emails, subject, "shipment-delay-email-template.ftl", model);
+
+                shipment.setEscalationFlagOne(true);
+                domesticShipmentRepository.save(shipment);
+              }
+            }
+            if (duration.toHours() >= domesticRoute.get().getDurationLimit() + 4 && duration.toHours() < domesticRoute.get().getDurationLimit() + 6) {
+              if (!shipment.isEscalationFlagTwo()) {
+                List<String> emails = new ArrayList<>();
+                String originEmails = locationRepository.findById(shipment.getOriginLocationId()).get()
+                        .getOriginEscalationLevel2();
+                String[] resultListOriginEscalation = originEmails.split(",");
+                List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOriginEscalation));
+
+                String destinationEmails = locationRepository.findById(shipment.getDestinationLocationId()).get()
+                        .getDestinationEscalationLevel2();
+                String[] resultListDestinationEscalation = destinationEmails.split(",");
+                List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestinationEscalation));
+
+                if(originEmailAddresses.size()>1){
+                  emails.addAll(originEmailAddresses);
+                }
+                if(destinationEmailAddresses.size()>1){
+                  emails.addAll(destinationEmailAddresses);
+                }
+
+                String subject = "TSM 2nd Escalation (D): " + shipment.getPreAlertNumber() + "/" + shipment.getVehicleType() + "/" + shipment.getReferenceNumber() + "/" + shipment.getEtd();
+                Map<String, Object> model = new HashMap<>();
+                model.put("field1", shipment.getReferenceNumber());
+                model.put("field2", shipment.getDestinationLocation());
+
+                sendEmailsAsync(emails, subject, "shipment-delay-email-template.ftl", model);
+
+                shipment.setEscalationFlagTwo(true);
+                domesticShipmentRepository.save(shipment);
+              }
+            }
+            if (duration.toHours() >= domesticRoute.get().getDurationLimit() + 6) {
+              if (!shipment.isEscalationFlagThree()) {
+
+                List<String> emails = new ArrayList<>();
+                String originEmails = locationRepository.findById(shipment.getOriginLocationId()).get()
+                        .getOriginEscalationLevel3();
+                String[] resultListOriginEscalation = originEmails.split(",");
+                List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOriginEscalation));
+
+                String destinationEmails = locationRepository.findById(shipment.getDestinationLocationId()).get()
+                        .getDestinationEscalationLevel3();
+                String[] resultListDestinationEscalation = destinationEmails.split(",");
+                List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestinationEscalation));
+                if(originEmailAddresses.size()>1){
+                  emails.addAll(originEmailAddresses);
+                }
+                if(destinationEmailAddresses.size()>1){
+                  emails.addAll(destinationEmailAddresses);
+                }
+
+                String subject = "TSM 3rd Escalation (D): " + shipment.getPreAlertNumber() + "/" + shipment.getVehicleType() + "/" + shipment.getReferenceNumber() + "/" + shipment.getEtd();
+                Map<String, Object> model = new HashMap<>();
+                model.put("field1", shipment.getReferenceNumber());
+                model.put("field2", shipment.getDestinationLocation());
+                sendEmailsAsync(emails, subject, "shipment-delay-email-template.ftl", model);
+
+                shipment.setEscalationFlagThree(true);
+                domesticShipmentRepository.save(shipment);
+              }
+            }
+          }
+        }
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+      Collections.emptyList();
+    }
+  }
 
   public List<DomesticShipmentDto> toDtoList(List<DomesticShipment> domesticShipmentList) {
     return domesticShipmentList.stream().map(this::toDto).collect(Collectors.toList());

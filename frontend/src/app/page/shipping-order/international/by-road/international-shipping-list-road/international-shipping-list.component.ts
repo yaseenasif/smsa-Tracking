@@ -29,7 +29,7 @@ export class InternationalShippingListComponent {
   fromDate: string = '';
   toDate: string = '';
   status: string = '';
-  origin: string = '';
+  origin: string []= [];
   destination: string = '';
   routeNumber: string = '';
   ISid!: number;
@@ -56,8 +56,8 @@ export class InternationalShippingListComponent {
     return this.authguardService.hasPermission(permission)
   }
 
-  getAllInternationalShipmentByRoad(fromDate?: string,toDate?: string,status?: string,origin?: string,destination?: string,routeNumber?: string, page?: number, size?: number) {
-    this.internationalShippingService.getAllInternationalShipmentByRoad({ fromDate:this.fromDate?this.datePipe.transform(new Date(this.fromDate),'yyyy-MM-dd'):'',toDate:this.toDate?this.datePipe.transform(new Date(this.toDate),'yyyy-MM-dd'):'',status: status,origin: origin,destination: destination,routeNumber: routeNumber, user: {} ,type:"",activeStatus:true}, this.page , this.size).subscribe((res: any) => {
+  getAllInternationalShipmentByRoad(fromDate?: string,toDate?: string,status?: string,origin?: string[],destination?: string,routeNumber?: string, page?: number, size?: number) {
+    this.internationalShippingService.getAllInternationalShipmentByRoadForOutBound({ fromDate:this.fromDate?this.datePipe.transform(new Date(this.fromDate),'yyyy-MM-dd'):'',toDate:this.toDate?this.datePipe.transform(new Date(this.toDate),'yyyy-MM-dd'):'',status: status,origin: origin,destinations: destination,routeNumber: routeNumber}, this.page , this.size).subscribe((res: any) => {
 
       this.internationalShipmentByRoad = res.content;
       this.paginatedRes = res;
@@ -87,7 +87,7 @@ export class InternationalShippingListComponent {
     this.fromDate = '';
     this.toDate = '';
     this.status = '';
-    this.origin = '';
+    this.origin = [];
     this.destination = '';
     this.routeNumber = '';
     this.getAllInternationalShipmentByRoad(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);

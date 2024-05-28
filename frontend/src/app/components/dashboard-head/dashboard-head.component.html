@@ -6,9 +6,29 @@
             <img height="60px" width="180px" src="../../../assets/smsa-logo-removebg.png" alt="" class="sidebar-img" />
         </div>
         <div class="p-toolbar-group-end">
-            <div class="pr-5 logout-btn">
+            <!-- <div class="pr-5 logout-btn">
                 <p-splitButton  label="Account Management" icon="pi pi-plus" [model]="items"></p-splitButton>
-            </div>
+            </div> -->
+            <p-menu
+            #menu
+            [model]="items"
+            [popup]="true"
+            (onShow)="isMenuOpen = true"
+            (onHide)="isMenuOpen = false"
+          ></p-menu>
+
+            <div (click)="toggleMenu($event)" class="user-info">
+                <img src="../../../assets/images/profile.jpg" 
+                alt="avatar" />
+                <div class="user-details" *ngIf="user">
+                  <label class="role-style"> {{ user.employeeId }}</label>
+                  <h5 class="role-style role-split">
+                    {{user.roles[0]}}
+                  </h5>                    
+                  
+                          </div>
+                <i class="role-style" [ngClass]="isMenuOpen ? 'pi pi-angle-up' : 'pi pi-angle-down'"></i>
+              </div>
             
             <!-- <div class="dropdown">
                 <div class="dropbtn">

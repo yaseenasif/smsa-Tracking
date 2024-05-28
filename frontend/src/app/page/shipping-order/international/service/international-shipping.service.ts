@@ -29,6 +29,25 @@ export class InternationalShippingService {
     
     return this.http.get<InternationalShipment[]>(this.url.concat('/international-shipments-by-user-air'), { params: queryParams });
   }
+
+  getAllInternationalShipmentByRoadForOutBound(obj?: any, page?: number, size?: number): Observable<InternationalShipment[]> {
+    let queryParams = new HttpParams();
+    
+    queryParams = queryParams.append("value", JSON.stringify(obj));
+    queryParams = queryParams.append("page", page ? page : 0);
+    queryParams = queryParams.append("size", size ? size : 10);
+    return this.http.get<InternationalShipment[]>(this.url.concat('/international-outbound-summery-road'), { params: queryParams });
+  }
+  getAllInternationalShipmentByAirForOutBound(obj?: any, page?: number, size?: number): Observable<InternationalShipment[]> {
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("value", JSON.stringify(obj));
+    queryParams = queryParams.append("page", page ? page : 0);
+    queryParams = queryParams.append("size", size ? size : 10);
+    
+    return this.http.get<InternationalShipment[]>(this.url.concat('/international-outbound-summery-air'), { params: queryParams });
+  }
+
+
   getInternationalShipmentByID(id: number): Observable<InternationalShipment> {
     return this.http.get<InternationalShipment>(this.url.concat('/international-shipment/', id.toString()));
   }

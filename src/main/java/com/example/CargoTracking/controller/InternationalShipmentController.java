@@ -1,9 +1,6 @@
 package com.example.CargoTracking.controller;
 
-import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
-import com.example.CargoTracking.criteria.SearchCriteriaForInternationalShipment;
-import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
-import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
+import com.example.CargoTracking.criteria.*;
 import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.dto.InternationalShipmentDto;
 import com.example.CargoTracking.dto.SendEmailAddressForOutlookManual;
@@ -112,6 +109,26 @@ public class  InternationalShipmentController {
         SearchCriteriaForInternationalSummary
                 searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
         return ResponseEntity.ok(internationalShipmentService.getInternationalInBoundSummeryForRoad(searchCriteriaForInternationalSummary,page,size));
+    }
+
+    @PreAuthorize("hasAuthority('get-internationalInboundSummaryAir')")
+    @GetMapping("/international-outbound-summery-air")
+    public ResponseEntity<Page<InternationalShipmentDto>> getInternationalOutBoundSummeryForAir(@RequestParam(value = "value",required = false) String value,
+                                                                                               @RequestParam(defaultValue = "0") int page,
+                                                                                               @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForInternationalSummaryOutbound
+                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummaryOutbound.class);
+        return ResponseEntity.ok(internationalShipmentService.getInternationalOutBoundSummeryForAir(searchCriteriaForInternationalSummary,page,size));
+    }
+
+    @PreAuthorize("hasAuthority('get-internationalInboundSummaryRoad')")
+    @GetMapping("/international-outbound-summery-road")
+    public ResponseEntity<Page<InternationalShipmentDto>> getInternationalOutBoundSummeryForRoad(@RequestParam(value = "value",required = false) String value,
+                                                                                                @RequestParam(defaultValue = "0") int page,
+                                                                                                @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+        SearchCriteriaForInternationalSummaryOutbound
+                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummaryOutbound.class);
+        return ResponseEntity.ok(internationalShipmentService.getInternationalOutBoundSummeryForRoad(searchCriteriaForInternationalSummary,page,size));
     }
 
     @PreAuthorize("hasAuthority('update-internationalShipment')")

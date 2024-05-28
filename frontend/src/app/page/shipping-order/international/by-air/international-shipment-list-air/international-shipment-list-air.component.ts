@@ -31,7 +31,7 @@ export class InternationalShipmentListAirComponent {
   fromDate: string = '';
   toDate: string = '';
   status: string = '';
-  origin: string = '';
+  origin: string[] = [];
   destination: string = '';
   routeNumber: string = '';
 
@@ -58,8 +58,8 @@ export class InternationalShipmentListAirComponent {
   }
 
 
-  getAllInternationalShipmentByAir(fromDate?: string,toDate?: string,status?: string,origin?: string,destination?: string,routeNumber?: string, page?: number, size?: number) {
-    this.internationalShippingService.getAllInternationalShipmentByAir({ fromDate:this.fromDate?this.datePipe.transform(new Date(this.fromDate),'yyyy-MM-dd'):'',toDate:this.toDate?this.datePipe.transform(new Date(this.toDate),'yyyy-MM-dd'):'',status: status,origin: origin,destination: destination,routeNumber: routeNumber, user: {} ,type:"",activeStatus:true}, this.page , this.size).subscribe((res: any) => {
+  getAllInternationalShipmentByAir(fromDate?: string,toDate?: string,status?: string,origin?: string[],destination?: string,routeNumber?: string, page?: number, size?: number) {
+    this.internationalShippingService.getAllInternationalShipmentByAirForOutBound({ fromDate:this.fromDate?this.datePipe.transform(new Date(this.fromDate),'yyyy-MM-dd'):'',toDate:this.toDate?this.datePipe.transform(new Date(this.toDate),'yyyy-MM-dd'):'',status: status,origin: origin,destinations: destination,routeNumber: routeNumber}, this.page , this.size).subscribe((res: any) => {
       this.internationalShipmentByAir = res.content;
       this.paginationRes = res;
     }, error => {
@@ -90,7 +90,7 @@ export class InternationalShipmentListAirComponent {
     this.fromDate = '';
     this.toDate = '';
     this.status = '';
-    this.origin = '';
+    this.origin = [];
     this.destination = '';
     this.routeNumber = '';
     this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
