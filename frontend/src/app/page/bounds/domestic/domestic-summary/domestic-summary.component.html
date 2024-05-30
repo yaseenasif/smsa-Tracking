@@ -102,9 +102,9 @@
                       </p-dropdown>
                     </div>
                   </div>
-                
+
                   <div
-                 
+
                     class="lg:col-2 md:col-6 col-12"
                   >
                     <div class="flex flex-column gap-2">
@@ -119,10 +119,10 @@
                       />
                     </div>
                   </div>
-               
+
 
                   <div
-                   
+
                     class="lg:col-2 md:col-6 col-12"
                   >
                     <div class="flex flex-column gap-2">
@@ -172,7 +172,7 @@
                   <!-- <th class="text-center">Weight in kg</th> -->
                   <th class="text-center">Manifested Shipments    </th>
                   <th class="text-center">Pallets</th>
-                  <th class="text-center">Bags</th>
+                  <th class="text-center">Number of bags non document</th>
                   <th class="text-center">ATA</th>
                   <th class="text-center">Status</th>
 
@@ -274,7 +274,7 @@
                   >
                     {{ domesticShipment.numberOfBags }}
                   </td>
-              
+
                   <td
                     class="text-center"
                  [classList]="
@@ -283,7 +283,7 @@
                   >
                     {{ domesticShipment.ata }}
                   </td>
-                 
+
                   <td
                     class="text-center"
                     [classList]="
@@ -293,8 +293,8 @@
                     {{ domesticShipment.status }}
                   </td>
                   <!-- *ngIf="selectedBound.bound == 'In bound'" -->
-                  <td    
-                  *ngIf="hasPermission('Domestic Inbound View') || hasPermission('Domestic Inbound View Attachment') || hasPermission('Domestic Inbound Add Attachment') || hasPermission('Domestic Inbound Update')"    
+                  <td
+                  *ngIf="hasPermission('Domestic Inbound View') || hasPermission('Domestic Inbound View Attachment') || hasPermission('Domestic Inbound Add Attachment') || hasPermission('Domestic Inbound Update')"
                    [classList]="
                       getColor(domesticShipment).concat(' text-center flex flex-row')
                     "
@@ -318,7 +318,7 @@
                         'by-domestic-summary',
                         domesticShipment.id
                       ]"
-                        icon="bi bi-download"  tooltipPosition="top" pTooltip="Download" 
+                        icon="bi bi-download"  tooltipPosition="top" pTooltip="Download"
                       class="ml mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
@@ -326,7 +326,7 @@
                     <p-button
                      *ngIf="hasPermission('Domestic Inbound Add Attachment')"
                       [routerLink]="['/add-attachments/', domesticShipment.id]"
-                        icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment" 
+                        icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment"
                       class="ml mr"
                       styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
                     >
@@ -337,7 +337,7 @@
                         '/update-domestic-shipping-for-summary/',
                         domesticShipment.id
                       ]"
-                       icon="bi bi-arrow-clockwise"  tooltipPosition="top" pTooltip="Process" 
+                       icon="bi bi-arrow-clockwise"  tooltipPosition="top" pTooltip="Process"
                       class="ml mr"
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
@@ -353,7 +353,7 @@
                       domesticShipment.id,
                       '/from-summery'
                     ]"
-                     icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit" 
+                     icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"
                     class="ml mr"
                     styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                   >

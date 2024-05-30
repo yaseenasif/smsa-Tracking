@@ -50,7 +50,7 @@
                     </div>
                   </div>
                   </div>
-  
+
                   <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2">
                       <label htmlFor="name">Origin Country</label>
@@ -69,7 +69,7 @@
                       >
                     </div>
                   </div>
-  
+
                   <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2 form-hook">
                       <label htmlFor="name">Origin Facility </label>
@@ -104,9 +104,9 @@
                       </p-dropdown>
                     </div>
                   </div>
-  
-  
-  
+
+
+
                   <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2 form-hook">
                       <label htmlFor="name">Origin Location</label>
@@ -140,9 +140,9 @@
                       </p-dropdown>
                     </div>
                   </div>
-  
-                 
-  
+
+
+
                   <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2">
                       <label htmlFor="name">Destination Country</label>
@@ -161,10 +161,10 @@
                       >
                     </div>
                   </div>
-  
-  
-              
-                  
+
+
+
+
                    <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2 form-hook">
                       <label htmlFor="name">Destination Facility </label>
@@ -198,11 +198,11 @@
                         </ng-template>
                       </p-dropdown>
                     </div>
-                  </div> 
-  
-  
-                 
-  
+                  </div>
+
+
+
+
                   <div class="col-12 md:col-6 lg:col-4">
                     <div class="flex flex-column gap-2 form-hook">
                       <label htmlFor="name">Destination Location</label>
@@ -236,10 +236,10 @@
                       </p-dropdown>
                     </div>
                   </div>
-  
+
                 <!-- 1 -->
-             
-             
+
+
 
 
 
@@ -257,7 +257,7 @@
                   </div>
                 </div>
 
-               
+
 
 
                 <div class="col-12 md:col-6 lg:col-4">
@@ -342,7 +342,7 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Number Of Boxes</label>
+                    <label htmlFor="name">Number of bags document</label>
                     <p-inputNumber
                     id="name"
                     [(ngModel)]="domesticShipment.numberOfBoxes"
@@ -389,7 +389,7 @@
                 <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">ETD</label>
-                   
+
                     <p-calendar
                       [(ngModel)]="domesticShipment.etd"
                       #etd="ngModel"
@@ -400,14 +400,14 @@
                       [selectOtherMonths]="true"
                       [minDate]="minDate"
                     ></p-calendar>
-                 
+
                   </div>
                 </div> -->
 
                 <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">ETA</label>
-                    
+
                     <p-calendar
                       [(ngModel)]="domesticShipment.eta"
                       #eta="ngModel"
@@ -419,7 +419,7 @@
                       [minDate]="minDate"
                     ></p-calendar>
 
-                    
+
                   </div>
                 </div> -->
 
@@ -531,7 +531,7 @@
                     class="color-red error"
                     *ngIf="referenceNumber.invalid && (referenceNumber.dirty || referenceNumber.touched ) && referenceNumber?.errors?.['pattern']"
                   >
-                   Invalid pattern 
+                   Invalid pattern
                   </small>
                   </div>
                 </div>
@@ -606,7 +606,7 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Number of Bags</label>
+                    <label htmlFor="name">Number of bags non document </label>
                     <p-inputNumber
                       [maxlength]="3"
                       id="numberOfBags"
@@ -646,11 +646,11 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Security Tag</label>
-                   
-                 
+
+
                     <p-chips class="chipes-hook" [(ngModel)]="domesticShipment.tagNumber" [required]="true" separator=","  [allowDuplicate]="false"   #tagNumber="ngModel"  name="tagNumber" appIsNumber appSevenDigitValidator>
                     </p-chips>
-                 
+
                    <small
                     id="name-help"
                     class="color-red"
@@ -686,7 +686,7 @@
                   <!-- </div>
                 </div> -->
                 <!-- 8 -->
-              
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Status</label>
