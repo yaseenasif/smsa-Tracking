@@ -286,11 +286,12 @@
                   </td>
 
                   <td
+                  *ngIf="hasPermission('International Inbound By Air View')|| hasPermission('International Inbound By Air View Attachment')|| hasPermission('International Inbound By Air Add Attachment') || hasPermission('International Inbound By Air Update')"
                   [classList]="
-                  internationalShipmentByAir.redFlag ? 'red text-center flex flex-row' : 'text-center flex flex-row'
+                  internationalShipmentByAir.redFlag ? 'red' : 'withoutRed'
                   "
-                   *ngIf="hasPermission('International Inbound By Air View')|| hasPermission('International Inbound By Air View Attachment')|| hasPermission('International Inbound By Air Add Attachment') || hasPermission('International Inbound By Air Update')"
                   >
+                  <div class="flex flex-row">
                     <p-button
                     *ngIf="hasPermission('International Inbound By Air View')"
                       [routerLink]="[
@@ -345,6 +346,8 @@
                       styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                     >
                     </p-button>
+                  </div>
+               
                   </td>
                   <!-- *ngIf="
                   selectedBound.bound == 'Out bound' ||

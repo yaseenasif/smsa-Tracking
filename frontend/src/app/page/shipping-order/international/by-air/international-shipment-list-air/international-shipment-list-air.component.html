@@ -242,73 +242,76 @@
                   </td>
                   <td
                   *ngIf="hasPermission('International Outbound By Air View') || hasPermission('International Outbound By Air View Attachment') || hasPermission('International Outbound By Air Add Attachment') || hasPermission('International Outbound By Air Update') || hasPermission('International Outbound By Air Delete')"
-                   class="text-center flex flex-row">
+                   class="text-center">
+                   <div class="flex flex-row">
                     <p-button
-                      *ngIf="hasPermission('International Outbound By Air View')"
-                      [routerLink]="[
-                        '/view-international-air/',
-                        internationalShipmentByAir.id
-                      ]"
-                      pTooltip="View"  icon="bi bi-eye"  tooltipPosition="top"
+                    *ngIf="hasPermission('International Outbound By Air View')"
+                    [routerLink]="[
+                      '/view-international-air/',
+                      internationalShipmentByAir.id
+                    ]"
+                    pTooltip="View"  icon="bi bi-eye"  tooltipPosition="top"
 
 
-                      class="mr"
-                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <!-- <p-button
-                      icon="bi bi-clock-history"
-                      [routerLink]="[
-                        '/international-shipment-history-by-air/',
-                        internationalShipmentByAir.id
-                      ]"
-                      class="mr"
-                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
-                    >
-                    </p-button> -->
-                    <p-button
-                    *ngIf="hasPermission('International Outbound By Air View Attachment')"
-                      [routerLink]="[
-                        '/view-attachments/',
-                        'internationalShipment',
-                        'by-international-air-list',
-                        internationalShipmentByAir.id
-                      ]"
-                        icon="bi bi-download"  tooltipPosition="top" pTooltip="Download" 
-                      class="mr"
-                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <p-button
-                     *ngIf="hasPermission('International Outbound By Air Add Attachment')"
-                      [routerLink]="[
-                        '/add-international-by-air-attachments/',
-                        internationalShipmentByAir.id
-                      ]"
-                        icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment" 
-                      class="ml mr"
-                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <p-button
-                      *ngIf="hasPermission('International Outbound By Air Update')"
-                      [routerLink]="[
-                        '/update-international-shipment-by-air',
-                        internationalShipmentByAir.id,
-                        '/from-list'
-                      ]"
-                       icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit" 
-                      class="ml mr"
-                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <p-button
-                    *ngIf="hasPermission('International Outbound By Air Delete')"
-                       icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete" 
-                      class="ml"
-                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
-                    >
-                    </p-button>
+                    class="mr"
+                    styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                  >
+                  </p-button>
+                  <!-- <p-button
+                    icon="bi bi-clock-history"
+                    [routerLink]="[
+                      '/international-shipment-history-by-air/',
+                      internationalShipmentByAir.id
+                    ]"
+                    class="mr"
+                    styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                  >
+                  </p-button> -->
+                  <p-button
+                  *ngIf="hasPermission('International Outbound By Air View Attachment')"
+                    [routerLink]="[
+                      '/view-attachments/',
+                      'internationalShipment',
+                      'by-international-air-list',
+                      internationalShipmentByAir.id
+                    ]"
+                      icon="bi bi-download"  tooltipPosition="top" pTooltip="Download" 
+                    class="mr"
+                    styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                  >
+                  </p-button>
+                  <p-button
+                   *ngIf="hasPermission('International Outbound By Air Add Attachment')"
+                    [routerLink]="[
+                      '/add-international-by-air-attachments/',
+                      internationalShipmentByAir.id
+                    ]"
+                      icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment" 
+                    class="ml mr"
+                    styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                  >
+                  </p-button>
+                  <p-button
+                    *ngIf="hasPermission('International Outbound By Air Update')"
+                    [routerLink]="[
+                      '/update-international-shipment-by-air',
+                      internationalShipmentByAir.id,
+                      '/from-list'
+                    ]"
+                     icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit" 
+                    class="ml mr"
+                    styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                  >
+                  </p-button>
+                  <p-button
+                  *ngIf="hasPermission('International Outbound By Air Delete')"
+                     icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete" 
+                    class="ml"
+                    styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                  >
+                  </p-button>
+                   </div>
+                   
                   </td>
                 </tr>
               </ng-template>

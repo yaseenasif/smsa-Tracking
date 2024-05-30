@@ -268,10 +268,14 @@ public class ReportAndStatusService {
     public List<DomesticPerformance> findDomesticPerformance(SearchCriteriaForSummary searchCriteriaForSummary) {
         List<DomesticPerformance> domesticPerformanceList = new ArrayList<>();
         List<DomesticShipment> domesticShipmentList = new ArrayList<>();
-        if(searchCriteriaForSummary.getDestinations() == null && searchCriteriaForSummary.getOrigin() == null
-                && searchCriteriaForSummary.getToDate() == null && searchCriteriaForSummary.getFromDate() == null
-                && searchCriteriaForSummary.getStatus() ==null && searchCriteriaForSummary.getRouteNumber() == null){
-             domesticShipmentList = domesticShipmentRepository.findAllByActiveStatusMock(true);
+        if ((searchCriteriaForSummary.getDestinations() == null || searchCriteriaForSummary.getDestinations().isEmpty())
+                && (searchCriteriaForSummary.getOrigin() == null || searchCriteriaForSummary.getOrigin().isEmpty())
+                && (searchCriteriaForSummary.getToDate() == null || searchCriteriaForSummary.getToDate().isEmpty())
+                && (searchCriteriaForSummary.getFromDate() == null || searchCriteriaForSummary.getFromDate().isEmpty())
+                && (searchCriteriaForSummary.getStatus() == null || searchCriteriaForSummary.getStatus().isEmpty())
+                && (searchCriteriaForSummary.getRouteNumber() == null || searchCriteriaForSummary.getRouteNumber().isEmpty())) {
+
+            domesticShipmentList = domesticShipmentRepository.findAllByActiveStatusMock(true);
 
         }else{
             Specification<DomesticShipment> domesticSummarySpecification = DomesticSummarySpecification.getSearchSpecification(searchCriteriaForSummary);
@@ -311,6 +315,7 @@ public class ReportAndStatusService {
         }
         return domesticPerformanceList;
     }
+
 
     private String getOccupancyByVehicleType(String name){
         return vehicleTypeService.getVehicleTypeByVehicleTypeName(name).getOccupancy();

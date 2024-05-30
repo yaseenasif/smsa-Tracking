@@ -18,7 +18,7 @@
                 <div class="col-12 md:col-12 lg:col-12 m-0 p-0 ">
                 <div class="col-12 md:col-6 lg:col-4 ">
                   <div class="flex flex-column gap-2 form-hook">
-                  
+
                     <label htmlFor="name">Search Locations By Country</label>
                     <p-dropdown
                       class="w-full"
@@ -143,7 +143,7 @@
                   </div>
                 </div>
 
-               
+
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
@@ -165,8 +165,8 @@
                 </div>
 
 
-            
-                
+
+
                  <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Destination Facility </label>
@@ -200,10 +200,10 @@
                       </ng-template>
                     </p-dropdown>
                   </div>
-                </div> 
+                </div>
 
 
-               
+
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
@@ -240,8 +240,8 @@
                 </div>
 
 
-               
-              
+
+
 
 
                 <!-- <div class="col-12 md:col-6 lg:col-4">
@@ -312,10 +312,10 @@
                 </div>
               -->
 
-                
-               
 
-             
+
+
+
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
@@ -415,22 +415,7 @@
                   </div>
                 </div>
 
-                <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Number Of Boxes</label>
-                    <p-inputNumber
-                    id="name"
-                    [(ngModel)]="domesticShipment.numberOfBoxes"
-                    #numberOfBoxes="ngModel"
-                    [required]="true"
-                    name="numberOfBoxes"
-                    [useGrouping]="false"
-                  ></p-inputNumber>
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
-                  </div>
-                </div>
+             
 
                 <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
@@ -464,7 +449,7 @@
                 <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">ETD</label>
-                  
+
                     <p-calendar
                       [(ngModel)]="domesticShipment.etd"
                       #etd="ngModel"
@@ -472,29 +457,29 @@
                       [required]="true"
                       [showTime]="true"
                       [showSeconds]="true"
-                      [selectOtherMonths]="true"                    
-                      [minDate]="minDate"                    
+                      [selectOtherMonths]="true"
+                      [minDate]="minDate"
                     ></p-calendar>
-                   
+
                   </div>
                 </div> -->
 
                 <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">ETA</label>
-               
+
                     <p-calendar
                       [(ngModel)]="domesticShipment.eta"
-                      #eta="ngModel"              
-                      name="eta"                  
+                      #eta="ngModel"
+                      name="eta"
                       [required]="true"
                       [showTime]="true"
                       [showSeconds]="true"
-                      [selectOtherMonths]="true"                    
-                      [minDate]="minDate"  
+                      [selectOtherMonths]="true"
+                      [minDate]="minDate"
                     ></p-calendar>
 
-               
+
                   </div>
                 </div> -->
 
@@ -510,7 +495,7 @@
                       [stepMinute]="5"
                       [defaultDate]="defaultDate"
                       [showTime]="true"
-                      [selectOtherMonths]="true"                    
+                      [selectOtherMonths]="true"
                       name="atd"
                     ></p-calendar>
 
@@ -578,7 +563,7 @@
                     <label htmlFor="name">Master CONS</label>
                     <p-inputNumber
                     [maxlength]="12"
-                  
+
                     id="name"
                     [(ngModel)]="domesticShipment.referenceNumber"
                     #referenceNumber="ngModel"
@@ -679,10 +664,26 @@
                     </p-dropdown>
                   </div>
                 </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Number of bags document</label>
+                    <p-inputNumber
+                    id="name"
+                    [(ngModel)]="domesticShipment.numberOfBoxes"
+                    #numberOfBoxes="ngModel"
+                    [required]="true"
+                    name="numberOfBoxes"
+                    [useGrouping]="false"
+                  ></p-inputNumber>
+                    <!-- <small id="name-help"
+                      >{{name}}</small
+                    > -->
+                  </div>
+                </div>
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Number of Bags</label>
+                    <label htmlFor="name">Number of bags non document </label>
                     <p-inputNumber
                       [maxlength]="3"
                       id="name"
@@ -719,15 +720,15 @@
                   </small>
                   </div>
                 </div>
-           
+
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Security Tag</label>
-                   
-                 
+
+
                     <p-chips class="chipes-hook" [(ngModel)]="domesticShipment.tagNumber" [required]="true" separator=","  [allowDuplicate]="false"   #tagNumber="ngModel"  name="tagNumber" appIsNumber appSevenDigitValidator>
                     </p-chips>
-                 
+
                    <small
                     id="name-help"
                     class="color-red"
