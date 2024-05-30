@@ -20,13 +20,13 @@ items: MenuItem[] | undefined;
 
 constructor(private messageService:MessageService,private reportService:ReportService,private datePipe:DatePipe,private productFieldServiceService: ProductFieldServiceService){}
 domesticPerformance!:DomesticPerformance[]
-searchBy:SearchBy={
-  fromDate: '',
-  toDate: '',
-  status: '',
-  origin: '',
-  destination: '',
-  routeNumber: ''
+searchBy: any = {
+  fromDate: "",
+  toDate: "",
+  status: "",
+  origin: "",
+  destinations: [],
+  routeNumber:""
 }
 shipmentStatus!:ProductField|null;
 
@@ -74,7 +74,7 @@ clearFilter(){
     toDate: '',
     status: '',
     origin: '',
-    destination: '',
+    destination: [],
     routeNumber: ''
   }
 }
