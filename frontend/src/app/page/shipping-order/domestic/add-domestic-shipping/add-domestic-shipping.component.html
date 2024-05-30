@@ -415,22 +415,7 @@
                   </div>
                 </div>
 
-                <div class="col-12 md:col-6 lg:col-4">
-                  <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Number of bags document</label>
-                    <p-inputNumber
-                    id="name"
-                    [(ngModel)]="domesticShipment.numberOfBoxes"
-                    #numberOfBoxes="ngModel"
-                    [required]="true"
-                    name="numberOfBoxes"
-                    [useGrouping]="false"
-                  ></p-inputNumber>
-                    <!-- <small id="name-help"
-                      >{{name}}</small
-                    > -->
-                  </div>
-                </div>
+             
 
                 <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
@@ -677,6 +662,22 @@
                         </div>
                       </ng-template>
                     </p-dropdown>
+                  </div>
+                </div>
+                <div class="col-12 md:col-6 lg:col-4">
+                  <div class="flex flex-column gap-2 form-hook">
+                    <label htmlFor="name">Number of bags document</label>
+                    <p-inputNumber
+                    id="name"
+                    [(ngModel)]="domesticShipment.numberOfBoxes"
+                    #numberOfBoxes="ngModel"
+                    [required]="true"
+                    name="numberOfBoxes"
+                    [useGrouping]="false"
+                  ></p-inputNumber>
+                    <!-- <small id="name-help"
+                      >{{name}}</small
+                    > -->
                   </div>
                 </div>
 
