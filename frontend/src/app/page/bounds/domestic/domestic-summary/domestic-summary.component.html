@@ -296,52 +296,54 @@
                   <td
                   *ngIf="hasPermission('Domestic Inbound View') || hasPermission('Domestic Inbound View Attachment') || hasPermission('Domestic Inbound Add Attachment') || hasPermission('Domestic Inbound Update')"
                    [classList]="
-                      getColor(domesticShipment).concat(' text-center flex flex-row')
+                      getColor(domesticShipment)
                     "
                   >
-                  <p-button
-                  *ngIf="hasPermission('Domestic Inbound View')"
-                  [routerLink]="[
-                    '/view-domestic-shipping-for-summary/',
-                    domesticShipment.id
-                  ]"
-                  pTooltip="View"  icon="bi bi-eye"  tooltipPosition="top"
-                  class="mr"
-                  styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                >
-                </p-button>
+                  <div class="flex flex-row">
                     <p-button
-                    *ngIf="hasPermission('Domestic Inbound View Attachment')"
-                      [routerLink]="[
-                        '/view-attachments/',
-                        'domesticShipment',
-                        'by-domestic-summary',
-                        domesticShipment.id
-                      ]"
-                        icon="bi bi-download"  tooltipPosition="top" pTooltip="Download"
-                      class="ml mr"
-                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <p-button
-                     *ngIf="hasPermission('Domestic Inbound Add Attachment')"
-                      [routerLink]="['/add-attachments/', domesticShipment.id]"
-                        icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment"
-                      class="ml mr"
-                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <p-button
-                    *ngIf="hasPermission('Domestic Inbound Update')"
-                      [routerLink]="[
-                        '/update-domestic-shipping-for-summary/',
-                        domesticShipment.id
-                      ]"
-                       icon="bi bi-arrow-clockwise"  tooltipPosition="top" pTooltip="Process"
-                      class="ml mr"
-                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                    >
-                    </p-button>
+                    *ngIf="hasPermission('Domestic Inbound View')"
+                    [routerLink]="[
+                      '/view-domestic-shipping-for-summary/',
+                      domesticShipment.id
+                    ]"
+                    pTooltip="View"  icon="bi bi-eye"  tooltipPosition="top"
+                    class="mr"
+                    styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                  >
+                  </p-button>
+                      <p-button
+                      *ngIf="hasPermission('Domestic Inbound View Attachment')"
+                        [routerLink]="[
+                          '/view-attachments/',
+                          'domesticShipment',
+                          'by-domestic-summary',
+                          domesticShipment.id
+                        ]"
+                          icon="bi bi-download"  tooltipPosition="top" pTooltip="Download"
+                        class="ml mr"
+                        styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                      >
+                      </p-button>
+                      <p-button
+                       *ngIf="hasPermission('Domestic Inbound Add Attachment')"
+                        [routerLink]="['/add-attachments/', domesticShipment.id]"
+                          icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment"
+                        class="ml mr"
+                        styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                      >
+                      </p-button>
+                      <p-button
+                      *ngIf="hasPermission('Domestic Inbound Update')"
+                        [routerLink]="[
+                          '/update-domestic-shipping-for-summary/',
+                          domesticShipment.id
+                        ]"
+                         icon="bi bi-arrow-clockwise"  tooltipPosition="top" pTooltip="Process"
+                        class="ml mr"
+                        styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                      >
+                      </p-button>
+                  </div>
                   </td>
                   <!-- <td
                   *ngIf="selectedBound.bound == 'Out bound' || selectedBound.bound == 'All'"

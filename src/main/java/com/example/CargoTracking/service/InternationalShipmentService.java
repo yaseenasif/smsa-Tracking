@@ -658,7 +658,7 @@ public class InternationalShipmentService {
                     }
                 }
                 InternationalShipment save;
-                if(!internationalShipment.get().getStatus().equals(internationalShipmentDto.getStatus())){
+                if(!internationalShipment.get().getStatus().equalsIgnoreCase(internationalShipmentDto.getStatus())){
                     internationalShipment.get().setStatus(internationalShipmentDto.getStatus());
                     if(!internationalShipment.get().getRemarks().equalsIgnoreCase(internationalShipmentDto.getRemarks())){
                         internationalShipment.get().setRemarks(internationalShipmentDto.getRemarks());
@@ -681,6 +681,7 @@ public class InternationalShipmentService {
                     internationalShipmentHistoryRepository.save(shipmentHistory);
 
                 }else{
+                    internationalShipment.get().setRemarks(internationalShipmentDto.getRemarks());
                     save = internationalShipmentRepository.save(internationalShipment.get());
                 }
                 String originEmails = locationRepository.findById(save.getOriginLocationId()).get()
