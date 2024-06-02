@@ -17,12 +17,12 @@ export class InternationalRoadReportPerformanceComponent {
 
   items: MenuItem[] | undefined;
 
-  searchBy:SearchBy={
+  searchBy:any={
     fromDate: '',
     toDate: '',
     status: '',
     origin: '',
-    destination: '',
+    destination: [],
     type: '',
     routeNumber: ''
   }
@@ -71,7 +71,7 @@ export class InternationalRoadReportPerformanceComponent {
       toDate: '',
       status: '',
       origin: '',
-      destination: '',
+      destination: [],
       type: '',
       routeNumber: ''
     }
