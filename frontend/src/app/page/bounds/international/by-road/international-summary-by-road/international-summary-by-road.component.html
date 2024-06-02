@@ -298,64 +298,66 @@
                   <td
                 
                  [classList]="
-                 getColor(internationalShipmentByRoad).concat(' text-center flex flex-row')
+                 getColor(internationalShipmentByRoad)
                "
                  *ngIf="hasPermission('International Inbound By Road View') || hasPermission('International Inbound By Road View Attachment') || hasPermission('International Inbound By Road Add Attachment') || hasPermission('International Inbound By Road Update')"
                   >
-                    <p-button
-                    *ngIf="hasPermission('International Inbound By Road View')"
-                      [routerLink]="[
-                        '/view-road-shipping-for-summary/',
-                        internationalShipmentByRoad.id
-                      ]"
-                      pTooltip="View"
-                      icon="bi bi-eye"
-                      tooltipPosition="top"
-                      class="mr"
-                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <p-button
-                    *ngIf="hasPermission('International Inbound By Road View Attachment')"
-                      [routerLink]="[
-                        '/view-attachments/',
-                        'internationalShipment',
-                        'by-international-road-summary',
-                        internationalShipmentByRoad.id
-                      ]"
-                      icon="bi bi-download"
-                      tooltipPosition="top"
-                      pTooltip="Download"
-                      class="mr"
-                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <p-button
-                    *ngIf="hasPermission('International Inbound By Road Add Attachment')"
-                      [routerLink]="[
-                        '/international-summary-by-road-attachment/',
-                        internationalShipmentByRoad.id
-                      ]"
-                      icon="bi bi-paperclip"
-                      tooltipPosition="top"
-                      pTooltip="Add Attachment"
-                      class="ml mr"
-                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <p-button
-                    *ngIf="hasPermission('International Inbound By Road Update')"
-                      [routerLink]="[
-                        '/update-international-road-shipping-for-summary/',
-                        internationalShipmentByRoad.id
-                      ]"
-                      icon="bi bi-arrow-clockwise"
-                      tooltipPosition="top"
-                      pTooltip="Process"
-                      class="ml mr"
-                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                    >
-                    </p-button>
+                 <div class="flex flex-row">
+                  <p-button
+                  *ngIf="hasPermission('International Inbound By Road View')"
+                    [routerLink]="[
+                      '/view-road-shipping-for-summary/',
+                      internationalShipmentByRoad.id
+                    ]"
+                    pTooltip="View"
+                    icon="bi bi-eye"
+                    tooltipPosition="top"
+                    class="mr"
+                    styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                  >
+                  </p-button>
+                  <p-button
+                  *ngIf="hasPermission('International Inbound By Road View Attachment')"
+                    [routerLink]="[
+                      '/view-attachments/',
+                      'internationalShipment',
+                      'by-international-road-summary',
+                      internationalShipmentByRoad.id
+                    ]"
+                    icon="bi bi-download"
+                    tooltipPosition="top"
+                    pTooltip="Download"
+                    class="mr"
+                    styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                  >
+                  </p-button>
+                  <p-button
+                  *ngIf="hasPermission('International Inbound By Road Add Attachment')"
+                    [routerLink]="[
+                      '/international-summary-by-road-attachment/',
+                      internationalShipmentByRoad.id
+                    ]"
+                    icon="bi bi-paperclip"
+                    tooltipPosition="top"
+                    pTooltip="Add Attachment"
+                    class="ml mr"
+                    styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                  >
+                  </p-button>
+                  <p-button
+                  *ngIf="hasPermission('International Inbound By Road Update')"
+                    [routerLink]="[
+                      '/update-international-road-shipping-for-summary/',
+                      internationalShipmentByRoad.id
+                    ]"
+                    icon="bi bi-arrow-clockwise"
+                    tooltipPosition="top"
+                    pTooltip="Process"
+                    class="ml mr"
+                    styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                  >
+                  </p-button>
+                 </div>
                   </td>
                   <!-- <td
                     *ngIf="

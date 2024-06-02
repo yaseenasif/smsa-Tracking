@@ -282,75 +282,77 @@
                     {{ internationalShipmentByRoad.shortages }}
                   </td>
                   <td *ngIf="hasPermission('International Outbound By Road View') || hasPermission('International Outbound By Road View Attachment') || hasPermission('International Outbound By Road Add Attachment') || hasPermission('International Outbound By Road Update') || hasPermission('International Outbound By Road Delete')" [classList]="
-                  getColor(internationalShipmentByRoad).concat(' text-center flex flex-row')
+                  getColor(internationalShipmentByRoad)
                 " >
-                    <p-button
-                      *ngIf="hasPermission('International Outbound By Road View')"
-                      [routerLink]="[
-                        '/view-international-road/',
-                        internationalShipmentByRoad.id
-                      ]"
-                      pTooltip="View"  icon="bi bi-eye"  tooltipPosition="top"
+                <div class="flex flex-row">   
+                   <p-button
+                  *ngIf="hasPermission('International Outbound By Road View')"
+                  [routerLink]="[
+                    '/view-international-road/',
+                    internationalShipmentByRoad.id
+                  ]"
+                  pTooltip="View"  icon="bi bi-eye"  tooltipPosition="top"
 
 
-                      class="mr"
-                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <!-- <p-button
-                      icon="bi bi-clock-history"
-                      [routerLink]="[
-                        '/international-shipment-history-by-road/',
-                        internationalShipmentByRoad.id
-                      ]"
-                      class="mr"
-                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
-                    >
-                    </p-button> -->
-                    <p-button
-                    *ngIf="hasPermission('International Outbound By Road View Attachment')"
-                      [routerLink]="[
-                        '/view-attachments/',
-                        'internationalShipment',
-                        'by-international-road-list',
-                        internationalShipmentByRoad.id
-                      ]"
-                        icon="bi bi-download"  tooltipPosition="top" pTooltip="Download"
-                      class="mr"
-                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <p-button
-                    *ngIf="hasPermission('International Outbound By Road Add Attachment')"
-                      [routerLink]="[
-                        '/add-international-by-road-attachments/',
-                        internationalShipmentByRoad.id
-                      ]"
-                        icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment"
-                      class="ml mr"
-                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <p-button
-                      *ngIf="hasPermission('International Outbound By Road Update')"
-                      [routerLink]="[
-                        '/update-international-shipment-by-road',
-                        internationalShipmentByRoad.id,
-                        '/from-list'
-                      ]"
-                       icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"
-                      class="ml mr"
-                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <p-button
-                    *ngIf="hasPermission('International Outbound By Road Delete')"
-                       icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"
-                      class="ml"
-                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
-                      (click)="showModal(internationalShipmentByRoad.id)"
-                    >
-                    </p-button>
+                  class="mr"
+                  styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                >
+                </p-button>
+                <!-- <p-button
+                  icon="bi bi-clock-history"
+                  [routerLink]="[
+                    '/international-shipment-history-by-road/',
+                    internationalShipmentByRoad.id
+                  ]"
+                  class="mr"
+                  styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                >
+                </p-button> -->
+                <p-button
+                *ngIf="hasPermission('International Outbound By Road View Attachment')"
+                  [routerLink]="[
+                    '/view-attachments/',
+                    'internationalShipment',
+                    'by-international-road-list',
+                    internationalShipmentByRoad.id
+                  ]"
+                    icon="bi bi-download"  tooltipPosition="top" pTooltip="Download"
+                  class="mr"
+                  styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                >
+                </p-button>
+                <p-button
+                *ngIf="hasPermission('International Outbound By Road Add Attachment')"
+                  [routerLink]="[
+                    '/add-international-by-road-attachments/',
+                    internationalShipmentByRoad.id
+                  ]"
+                    icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment"
+                  class="ml mr"
+                  styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                >
+                </p-button>
+                <p-button
+                  *ngIf="hasPermission('International Outbound By Road Update')"
+                  [routerLink]="[
+                    '/update-international-shipment-by-road',
+                    internationalShipmentByRoad.id,
+                    '/from-list'
+                  ]"
+                   icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"
+                  class="ml mr"
+                  styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                >
+                </p-button>
+                <p-button
+                *ngIf="hasPermission('International Outbound By Road Delete')"
+                   icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"
+                  class="ml"
+                  styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                  (click)="showModal(internationalShipmentByRoad.id)"
+                >
+                </p-button>
+              </div>
                   </td>
                 </tr>
               </ng-template>

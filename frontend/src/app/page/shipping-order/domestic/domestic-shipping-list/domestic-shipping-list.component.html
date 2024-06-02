@@ -282,74 +282,76 @@
                     ">{{ domesticShipment.shortages }}</td>
 
                   <td  *ngIf="hasPermission('domestic-outbound-view') || hasPermission('domestic-outbound-view-attachment') || hasPermission('add-domesticAttachment') || hasPermission('delete-domesticShipment')"  [classList]="
-                  getColor(domesticShipment).concat(' text-center flex flex-row')
+                  getColor(domesticShipment)
                 ">
-                    <p-button
-                      *ngIf="hasPermission('domestic-outbound-view')"
-                      [routerLink]="[
-                        '/view-domestic-shipment/',
-                        domesticShipment.id
-                      ]"
-                      pTooltip="View"  icon="bi bi-eye"  tooltipPosition="top"
+                <div class="flex flex-row" >
+                  <p-button
+                  *ngIf="hasPermission('domestic-outbound-view')"
+                  [routerLink]="[
+                    '/view-domestic-shipment/',
+                    domesticShipment.id
+                  ]"
+                  pTooltip="View"  icon="bi bi-eye"  tooltipPosition="top"
 
 
-                      class="mr"
-                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <p-button
-                      *ngIf="hasPermission('domestic-outbound-view-attachment')"
-                      [routerLink]="[
-                        '/view-attachments/',
-                        'domesticShipment',
-                        'by-domestic-list',
-                        domesticShipment.id
-                      ]"
-                        icon="bi bi-download"  tooltipPosition="top" pTooltip="Download"
-                      class="mr"
-                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <!-- <p-button
-                      icon="bi bi-clock-history"
-                      [routerLink]="[
-                        '/domestic-shipping-history/',
-                        domesticShipment.id
-                      ]"
-                      class="ml mr"
-                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
-                    >
-                    </p-button> -->
-                    <p-button
-                     *ngIf="hasPermission('add-domesticAttachment')"
-                      [routerLink]="[
-                        '/add-domestic-attachments/',
-                        domesticShipment.id
-                      ]"
-                        icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment"
-                      class="ml mr"
-                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <p-button
-                      *ngIf="hasPermission('update-domesticShipment')"
-                      [routerLink]="[
-                        '/update-domestic-shipping/',
-                        domesticShipment.id,'/from-list'
-                      ]"
-                       icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"
-                      class="ml mr"
-                      styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
-                    >
-                    </p-button>
-                    <p-button
-                    *ngIf="hasPermission('delete-domesticShipment')"
-                      (click)="showModal(domesticShipment.id)"
-                       icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"
-                      class="ml"
-                      styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
-                    >
-                    </p-button>
+                  class="mr"
+                  styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                >
+                </p-button>
+                <p-button
+                  *ngIf="hasPermission('domestic-outbound-view-attachment')"
+                  [routerLink]="[
+                    '/view-attachments/',
+                    'domesticShipment',
+                    'by-domestic-list',
+                    domesticShipment.id
+                  ]"
+                    icon="bi bi-download"  tooltipPosition="top" pTooltip="Download"
+                  class="mr"
+                  styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                >
+                </p-button>
+                <!-- <p-button
+                  icon="bi bi-clock-history"
+                  [routerLink]="[
+                    '/domestic-shipping-history/',
+                    domesticShipment.id
+                  ]"
+                  class="ml mr"
+                  styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                >
+                </p-button> -->
+                <p-button
+                 *ngIf="hasPermission('add-domesticAttachment')"
+                  [routerLink]="[
+                    '/add-domestic-attachments/',
+                    domesticShipment.id
+                  ]"
+                    icon="bi bi-paperclip" tooltipPosition="top" pTooltip="Add Attachment"
+                  class="ml mr"
+                  styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                >
+                </p-button>
+                <p-button
+                  *ngIf="hasPermission('update-domesticShipment')"
+                  [routerLink]="[
+                    '/update-domestic-shipping/',
+                    domesticShipment.id,'/from-list'
+                  ]"
+                   icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"
+                  class="ml mr"
+                  styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
+                >
+                </p-button>
+                <p-button
+                *ngIf="hasPermission('delete-domesticShipment')"
+                  (click)="showModal(domesticShipment.id)"
+                   icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"
+                  class="ml"
+                  styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
+                >
+                </p-button>
+                </div>
                   </td>
                 </tr>
               </ng-template>
