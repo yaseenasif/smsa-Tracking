@@ -19,12 +19,12 @@ export class InternationalAirReportPerformanceComponent {
 
   items: MenuItem[] | undefined;
 
-  searchBy:SearchBy={
+  searchBy:any={
     fromDate: '',
     toDate: '',
     status: '',
     origin: '',
-    destination: '',
+    destinations: [],
     type: '',
     routeNumber: ''
   }
@@ -77,7 +77,7 @@ export class InternationalAirReportPerformanceComponent {
         toDate: '',
         status: '',
         origin: '',
-        destination: '',
+        destinations: [],
         type: '',
         routeNumber: ''
       }
