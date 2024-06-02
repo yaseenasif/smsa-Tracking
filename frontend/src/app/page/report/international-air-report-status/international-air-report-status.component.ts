@@ -22,7 +22,7 @@ export class InternationalAirReportStatusComponent {
     toDate: '',
     status: '',
     origin: '',
-    destination: [],
+    destinations: [],
     type: '',
     routeNumber: ''
   }
@@ -74,7 +74,7 @@ export class InternationalAirReportStatusComponent {
       status: '',
       origin: '',
       type: '',
-      destination: [],
+      destinations: [],
       routeNumber: ''
     }
   }

@@ -24,7 +24,7 @@ export class InternationalAirReportPerformanceComponent {
     toDate: '',
     status: '',
     origin: '',
-    destination: [],
+    destinations: [],
     type: '',
     routeNumber: ''
   }
@@ -77,7 +77,7 @@ export class InternationalAirReportPerformanceComponent {
         toDate: '',
         status: '',
         origin: '',
-        destination: [],
+        destinations: [],
         type: '',
         routeNumber: ''
       }

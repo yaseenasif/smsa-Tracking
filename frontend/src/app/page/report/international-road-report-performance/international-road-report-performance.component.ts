@@ -22,7 +22,7 @@ export class InternationalRoadReportPerformanceComponent {
     toDate: '',
     status: '',
     origin: '',
-    destination: [],
+    destinations: [],
     type: '',
     routeNumber: ''
   }
@@ -71,7 +71,7 @@ export class InternationalRoadReportPerformanceComponent {
       toDate: '',
       status: '',
       origin: '',
-      destination: [],
+      destinations: [],
       type: '',
       routeNumber: ''
     }
