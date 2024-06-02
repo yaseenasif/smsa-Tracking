@@ -386,9 +386,9 @@ public class DomesticShipmentService {
 
         DomesticShipmentHistory domesticShipmentHistory;
         DomesticShipment save;
-        if (domesticShipment.get().getStatus() != domesticShipmentDto.getStatus()) {
+        if (!domesticShipment.get().getStatus().equalsIgnoreCase(domesticShipmentDto.getStatus())) {
           domesticShipment.get().setStatus(domesticShipmentDto.getStatus());
-          if(domesticShipment.get().getRemarks() != domesticShipmentDto.getRemarks()){
+          if(!domesticShipment.get().getRemarks().equalsIgnoreCase(domesticShipmentDto.getRemarks())){
             domesticShipment.get().setRemarks(domesticShipmentDto.getRemarks());
           }else{
             domesticShipment.get().setRemarks("");
@@ -407,6 +407,7 @@ public class DomesticShipmentService {
 
           domesticShipmentHistoryRepository.save(domesticShipmentHistory);
         } else {
+          domesticShipment.get().setRemarks(domesticShipmentDto.getRemarks());
           save = domesticShipmentRepository.save(domesticShipment.get());
         }
         String originEmails = locationRepository.findById(save.getOriginLocationId()).get()
