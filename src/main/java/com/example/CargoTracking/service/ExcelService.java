@@ -5,6 +5,10 @@ import com.example.CargoTracking.criteria.SearchCriteriaForInternationalSummary;
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.*;
 import com.example.CargoTracking.exception.RecordNotFoundException;
+import com.example.CargoTracking.model.DomesticRoute;
+import com.example.CargoTracking.model.DomesticShipment;
+import com.example.CargoTracking.repository.DomesticRouteRepository;
+import com.example.CargoTracking.repository.DomesticShipmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -15,6 +19,8 @@ import java.io.*;
 import org.apache.poi.ss.usermodel.*;
 
 
+import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.apache.poi.ss.util.CellUtil.createCell;
@@ -24,6 +30,12 @@ public class ExcelService {
 
     @Autowired
     ReportAndStatusService reportAndStatusService;
+    @Autowired
+    DomesticShipmentRepository domesticShipmentRepository;
+    @Autowired
+    VehicleTypeService vehicleTypeService;
+    @Autowired
+    DomesticRouteRepository domesticRouteRepository;
     @Value("${excel.file.location}")
     private String sampleFileLocalLocation;
     public Resource internationalAirReportPerformanceExcelDownload(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
@@ -249,10 +261,42 @@ public class ExcelService {
         }
     }
 
-    public Resource domesticPerformanceExcelDownload(SearchCriteriaForSummary searchCriteriaForDomesticSummary) {
+    public Resource domesticPerformanceExcelDownload() {
         try{
-//            SearchCriteriaForSummary searchCriteriaForDomesticSummary = new SearchCriteriaForSummary();
-            List<DomesticPerformance> domesticPerformanceList = this.reportAndStatusService.findDomesticPerformance(searchCriteriaForDomesticSummary);
+            List<DomesticShipment> domesticShipmentList = domesticShipmentRepository.findAllByActiveStatusMock(true);
+            List<DomesticPerformance> domesticPerformanceList = new ArrayList<>();
+            for(DomesticShipment domesticShipment: domesticShipmentList){
+                DomesticPerformance domesticPerformance = new DomesticPerformance();
+                domesticPerformance.setId(domesticShipment.getId());
+                domesticPerformance.setPreAlertNumber(domesticShipment.getPreAlertNumber());
+                domesticPerformance.setReferenceNumber(domesticShipment.getReferenceNumber());
+                domesticPerformance.setOrigin(domesticShipment.getOriginLocation());
+                domesticPerformance.setDestination(domesticShipment.getDestinationLocation());
+                domesticPerformance.setRoute(domesticShipment.getRouteNumber());
+                domesticPerformance.setVehicle(domesticShipment.getVehicleNumber());
+                domesticPerformance.setShipments(domesticShipment.getTotalShipments());
+                domesticPerformance.setPallets(domesticShipment.getNumberOfPallets());
+                domesticPerformance.setOccupancy(getOccupancyByVehicleType(domesticShipment.getVehicleType()));
+                domesticPerformance.setBags(domesticShipment.getNumberOfShipments());
+                DomesticRoute domesticRoute = domesticRouteRepository.findByRoute(domesticShipment.getRouteNumber());
+                domesticPerformance.setPlanedEta(domesticRoute.getEta());
+                domesticPerformance.setPlanedEtd(domesticRoute.getEtd());
+                domesticPerformance.setAta(domesticShipment.getAta());
+                domesticPerformance.setAtd(domesticShipment.getAtd());
+                if(domesticRoute.getEta()!=null && domesticShipment.getAta()!=null){
+                    Duration durationForEtaAndAta = Duration.between(domesticRoute.getEta(), domesticShipment.getAta());
+                    domesticPerformance.setPlanedEtaVsAta(durationForEtaAndAta.toHours());
+                }
+                if(domesticRoute.getEtd()!=null && domesticShipment.getAtd()!=null){
+                    Duration durationForEtdAndAtd = Duration.between(domesticRoute.getEtd(), domesticShipment.getAtd());
+                    domesticPerformance.setPlanedEtdVsAtd(durationForEtdAndAtd.toHours());
+                }
+                if(domesticShipment.getAtd()!=null && domesticShipment.getAta()!=null){
+                    Duration durationForTransitTime = Duration.between(domesticShipment.getAta(), domesticShipment.getAtd());
+                    domesticPerformance.setTransitTime(durationForTransitTime.toHours());
+                }
+                domesticPerformanceList.add(domesticPerformance);
+            }
             FileInputStream fileInputStream = new FileInputStream(sampleFileLocalLocation + "/domesticPerformance.xlsx");
             Workbook  newWorkBook = WorkbookFactory.create(fileInputStream);
             Sheet summarySheet= newWorkBook.getSheetAt(0);
@@ -302,5 +346,8 @@ public class ExcelService {
             e.printStackTrace();
             throw new RecordNotFoundException(e.getMessage());
         }
+    }
+    private String getOccupancyByVehicleType(String name){
+        return vehicleTypeService.getVehicleTypeByVehicleTypeName(name).getOccupancy();
     }
 }
