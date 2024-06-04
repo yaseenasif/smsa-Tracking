@@ -78,10 +78,9 @@ public class ExcelController {
 
     @PreAuthorize("hasAuthority('domestic-report-performance')")
     @GetMapping("/dom-per")
-    public ResponseEntity<Resource> domesticPerformancePerformanceExcelDownload(@RequestParam(value = "value",required = false) String value) throws IOException {
-        SearchCriteriaForSummary searchCriteriaForSummary = new ObjectMapper().readValue(value, SearchCriteriaForSummary.class);
+    public ResponseEntity<Resource> domesticPerformancePerformanceExcelDownload() throws IOException {
 
-        Resource file = excelService.domesticPerformanceExcelDownload(searchCriteriaForSummary);
+        Resource file = excelService.domesticPerformanceExcelDownload();
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, "application/octet-stream")

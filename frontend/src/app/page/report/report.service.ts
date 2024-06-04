@@ -49,9 +49,10 @@ export class ReportService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     let queryParams = new HttpParams();
 
-    queryParams = queryParams.append("value", searchBy ? JSON.stringify(searchBy) : '' );
+    // queryParams = queryParams.append("value", searchBy ? JSON.stringify(searchBy) : '' );
+    debugger
     this.http
-      .get(`${this.url}${address}`,{ params: queryParams ,
+      .get(`${this.url}${address}`,{
         responseType: 'blob',
         headers,
       })
