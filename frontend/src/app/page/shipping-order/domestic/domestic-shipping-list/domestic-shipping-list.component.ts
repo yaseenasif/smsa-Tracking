@@ -75,7 +75,6 @@ export class DomesticShippingListComponent implements OnInit {
 
 
   onPageChange(event: any) {
-
     this.page = event.page;
     this.rows = event.rows;
     this.getAllDomesticShipments(this.fromDate ,this.toDate,this.status,this.origin,this.destination,this.routeNumber, this.page, this.rows);

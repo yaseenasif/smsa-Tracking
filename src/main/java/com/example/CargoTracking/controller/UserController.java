@@ -1,18 +1,26 @@
 package com.example.CargoTracking.controller;
 
-import com.example.CargoTracking.dto.ResetPassword;
-import com.example.CargoTracking.dto.UserDto;
-import com.example.CargoTracking.dto.UserResponseDto;
+import com.example.CargoTracking.criteria.SearchCriteriaForDomesticShipment;
+import com.example.CargoTracking.dto.*;
+import com.example.CargoTracking.model.Location;
 import com.example.CargoTracking.model.User;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -33,6 +41,16 @@ public class UserController {
     @GetMapping("/all-user")
     public ResponseEntity<List<UserResponseDto>> getAllUser(){
         return ResponseEntity.ok(userService.getAllUser());
+    }
+
+    @GetMapping("/filter-user")
+    public ResponseEntity<Page<UserResponseDto>> getFilterUsers(@RequestParam(defaultValue = "value",required = false) String value,
+                                                                     @RequestParam(defaultValue = "0") int page,
+                                                                     @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+
+        SearchCriteriaForUser searchCriteriaForUser =  new ObjectMapper().readValue(value, SearchCriteriaForUser.class);
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(userService.getUsersByLocations(searchCriteriaForUser,pageable));
     }
 
     @PreAuthorize("hasAuthority('getInactive-user')")

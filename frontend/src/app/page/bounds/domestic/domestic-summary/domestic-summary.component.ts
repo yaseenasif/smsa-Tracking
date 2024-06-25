@@ -49,7 +49,9 @@ export class DomesticSummaryComponent {
     status: "",
     origin: "",
     destinations: [],
-    routeNumber:""
+    routeNumber:"",
+    preAlertNumber:"",
+    masterCONS:""
   }
 
   onBoundChange() {
@@ -72,8 +74,11 @@ export class DomesticSummaryComponent {
       status: "",
       origin: "",
       destinations: [],
-      routeNumber:""
+      routeNumber:"",
+      preAlertNumber:"",
+      masterCONS:""
     }
+    this.getInboundSummary(this.search, 0, 10);
    }
 
 
@@ -114,11 +119,11 @@ export class DomesticSummaryComponent {
 
       this.domesticShipment = res.content;
       this.paginationRes = res;
-      this.search.fromDate= this.search.fromDate ? new Date( this.search.fromDate) : "";
-      this.search.toDate= this.search.toDate ? new Date( this.search.toDate) : "";
+      this.search.fromDate= this.search.fromDate ? new Date(this.search.fromDate) : "";
+      this.search.toDate= this.search.toDate ? new Date(this.search.toDate) : "";
     }, (error: any) => {
-      this.search.fromDate= this.search.fromDate ? new Date( this.search.fromDate) : "";
-      this.search.toDate= this.search.toDate ? new Date( this.search.toDate) : "";
+      this.search.fromDate= this.search.fromDate ? new Date(this.search.fromDate) : "";
+      this.search.toDate= this.search.toDate ? new Date(this.search.toDate) : "";
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       } else {

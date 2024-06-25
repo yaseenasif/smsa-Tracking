@@ -135,7 +135,45 @@ public class DomesticShipmentService {
 
       domesticShipmentHistoryRepository.save(domesticShipmentHistory);
 
-      String originEmails = locationRepository.findById(orgLocationId).get()
+//      String originEmails = locationRepository.findById(orgLocationId).get()
+//              .getOriginEmail();
+//      String[] resultListOrigin = originEmails.split(",");
+//      List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOrigin));
+//
+//      String destinationEmails = locationRepository.findById(desLocationId).get()
+//              .getDestinationEmail();
+//      String[] resultListDestination = destinationEmails.split(",");
+//      List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestination));
+//
+//
+//      List<String> emails = new ArrayList<>();
+//      emails.addAll(originEmailAddresses);
+//      emails.addAll(destinationEmailAddresses);
+//
+//      String subject = "TSM Pre-Alert(D): " + domesticShipment.getPreAlertNumber() + "/" + domesticShipment.getVehicleType() + "/" + domesticShipment.getReferenceNumber();
+//
+//      Map<String, Object> model = new HashMap<>();
+//      model.put("field1", domesticShipment.getCreatedAt().toString());
+//      model.put("field2", domesticShipment.getReferenceNumber());
+//      model.put("field3", domesticShipment.getOriginLocation());
+//      model.put("field4", domesticShipment.getDestinationLocation());
+//      model.put("field5", domesticShipment.getNumberOfShipments() != null ? domesticShipment.getNumberOfShipments().toString() : "0");
+//      model.put("field6", domesticShipment.getVehicleType());
+//      model.put("field7", domesticShipment.getNumberOfBags().toString());
+//      model.put("field8", domesticShipment.getNumberOfPallets().toString());
+////      model.put("field9", domesticShipment.getWeight().toString());
+//      model.put("field10", "Road");
+//      model.put("field11", domesticShipment.getRouteNumber().toString());
+//      model.put("field15", domesticShipment.getRemarks());
+//      emailService.sendHtmlEmail( resultListDestination, resultListOrigin, subject, "domestic-email-template.ftl", model);
+      return toDto(domesticShipment);
+    }
+
+    throw new UserNotFoundException(String.format("User not found while creating domestic shipment"));
+  }
+
+  private void sendEmail(DomesticShipment domesticShipment, Long orgLocationId, Long desLocationId){
+     String originEmails = locationRepository.findById(orgLocationId).get()
               .getOriginEmail();
       String[] resultListOrigin = originEmails.split(",");
       List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOrigin));
@@ -166,10 +204,6 @@ public class DomesticShipmentService {
       model.put("field11", domesticShipment.getRouteNumber().toString());
       model.put("field15", domesticShipment.getRemarks());
       emailService.sendHtmlEmail( resultListDestination, resultListOrigin, subject, "domestic-email-template.ftl", model);
-      return toDto(domesticShipment);
-    }
-
-    throw new UserNotFoundException(String.format("User not found while creating domestic shipment"));
   }
 
   @Async
@@ -296,6 +330,20 @@ public class DomesticShipmentService {
           searchCriteriaForSummary.setDestinations(Collections.emptySet());
         }
       }
+      searchCriteriaForSummary.getDestinations().stream().forEach(el->{
+        if(el.toLowerCase().trim().isEmpty()){
+          Set<Location> userLocations = user.getLocations();
+          if (!userLocations.isEmpty()) {
+            Set<String> domesticLocationNamePresentInUser = userLocations.stream()
+                    .filter(location -> "Domestic".equals(location.getType()))
+                    .map(Location::getLocationName)
+                    .collect(Collectors.toSet());
+            searchCriteriaForSummary.setDestinations(domesticLocationNamePresentInUser);
+          } else {
+            searchCriteriaForSummary.setDestinations(Collections.emptySet());
+          }
+        }
+      });
 
       Specification<DomesticShipment> domesticSummarySpecification = DomesticSummarySpecification.getSearchSpecification(searchCriteriaForSummary);
       Page<DomesticShipment> pageDomesticShipmentDto = domesticShipmentRepository.
@@ -379,6 +427,9 @@ public class DomesticShipmentService {
           domesticShipment.get().setArrivedTime(LocalDateTime.now());
           domesticShipment.get().setRedFlag(false);
         }
+
+
+
         if (domesticShipmentDto.getAta() != null) {
           Duration duration = Duration.between(domesticShipment.get().getAtd() ,domesticShipmentDto.getAta());
           domesticShipment.get().setTransitTimeTaken(duration.toMinutes());
@@ -452,6 +503,10 @@ public class DomesticShipmentService {
           model.put("field13", (save.getDamageAwbs() != null && !save.getDamageAwbs().isEmpty()) ? save.getDamageAwbs() : "NIL");
 
           sendEmailsAsync(emails, subject, "overages-and-shortages-template.ftl", model);
+        }
+        //send email on Departed
+        if(domesticShipmentDto.getStatus().equalsIgnoreCase("Departed")){
+          this.sendEmail(save,orgLocationId,desLocationId);
         }
 
         return toDto(save);

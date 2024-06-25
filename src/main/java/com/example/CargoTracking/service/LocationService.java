@@ -1,16 +1,25 @@
 package com.example.CargoTracking.service;
 
 import com.example.CargoTracking.dto.LocationDto;
+import com.example.CargoTracking.dto.SearchCriteriaForLocation;
+import com.example.CargoTracking.dto.UserResponseDto;
 import com.example.CargoTracking.exception.RecordAlreadyExist;
 import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.model.Country;
 import com.example.CargoTracking.model.Facility;
 import com.example.CargoTracking.model.Location;
+import com.example.CargoTracking.model.User;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.repository.FacilityRepository;
 import com.example.CargoTracking.repository.LocationRepository;
+import com.example.CargoTracking.specification.LocationSpecification;
+import com.example.CargoTracking.specification.UserSpecification;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -212,4 +221,13 @@ public class LocationService {
     }
 
 
+    public Page<LocationDto> getFilterLocations(SearchCriteriaForLocation searchCriteriaForLocation, Pageable pageable) {
+        Specification<Location> locationSpecification= LocationSpecification.findLocation(searchCriteriaForLocation);
+        Page<Location> locationsPage = locationRepository.findAll(locationSpecification, pageable);
+        List<LocationDto> locationDtos= locationsPage.stream().map(this::mapToDto).collect(Collectors.toList());
+        return new PageImpl<>(locationDtos, pageable, locationsPage.getTotalElements());
+    }
+    private LocationDto mapToDto(Location location){
+      return   modelMapper.map(location,LocationDto.class);
+    }
 }

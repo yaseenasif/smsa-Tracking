@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
 import { ResetPassword } from 'src/app/model/ResetPassword';
 import { User } from 'src/app/model/User';
 import { environment } from 'src/environments/environment';
@@ -12,8 +13,12 @@ export class UserService {
   constructor(private http:HttpClient) { }
   url=environment.baseurl;
   
-  getAllUser():Observable<User[]>{
-    return this.http.get<User[]>(this.url.concat('/all-user'));
+  getAllUser(page:number,size:number,obj:any):Observable<PaginatedResponse<User>>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("value", obj ? JSON.stringify(obj) : '');
+    queryParams = queryParams.append("page", page ? page : 0);
+    queryParams = queryParams.append("size", size ? size : 10);
+    return this.http.get<PaginatedResponse<User>>(this.url.concat('/filter-user'),{params:queryParams});
   }
 
   getInActiveUser():Observable<User[]>{

@@ -50,9 +50,9 @@
             </div>
 
             <p-toolbar>
-              <form #domesticShipmentForm="ngForm" (ngSubmit)="onSubmit()">
+              <form class="w-full" #domesticShipmentForm="ngForm" (ngSubmit)="onSubmit()">
                 <div class="grid">
-                  <div class="lg:col-2 md:col-6 col-12">
+                  <div class="lg:col-4 md:col-6 col-12">
                     <div class="flex flex-column gap-2 form-hook">
                       <label htmlFor="name">From Date</label>
                       <p-calendar
@@ -62,7 +62,7 @@
                       ></p-calendar>
                     </div>
                   </div>
-                  <div class="lg:col-2 md:col-6 col-12">
+                  <div class="lg:col-4 md:col-6 col-12">
                     <div class="flex flex-column gap-2 form-hook">
                       <label htmlFor="name">To Date</label>
                       <p-calendar
@@ -73,7 +73,7 @@
                     </div>
                   </div>
 
-                  <div class="lg:col-2 md:col-6 col-12">
+                  <div class="lg:col-4 md:col-6 col-12">
                     <div class="flex flex-column gap-2 form-hook">
                       <label htmlFor="name">Status</label>
                       <p-dropdown
@@ -105,7 +105,7 @@
 
                   <div
 
-                    class="lg:col-2 md:col-6 col-12"
+                    class="lg:col-4 md:col-6 col-12"
                   >
                     <div class="flex flex-column gap-2">
                       <label htmlFor="name">Origin</label>
@@ -123,7 +123,7 @@
 
                   <div
 
-                    class="lg:col-2 md:col-6 col-12"
+                    class="lg:col-4 md:col-6 col-12"
                   >
                     <div class="flex flex-column gap-2">
                       <label htmlFor="name">Destination</label>
@@ -139,7 +139,40 @@
                   </div>
 
                   <div
-                    class="lg:col-2 md:col-6 col-12 flex justify-content-end align-items-end"
+
+                  class="lg:col-4 md:col-6 col-12"
+                >
+                  <div class="flex flex-column gap-2">
+                    <label htmlFor="name">PreAlert Number</label>
+                    <input
+                      pInputText
+                      id="name"
+                      aria-describedby="name-help"
+                      #origin="ngModel"
+                      name="origin"
+                      [(ngModel)]="search.preAlertNumber"
+                    />
+                  </div>
+                </div>
+                <div
+
+                class="lg:col-4 md:col-6 col-12"
+              >
+                <div class="flex flex-column gap-2">
+                  <label htmlFor="name">Master CONS</label>
+                  <input
+                    pInputText
+                    id="name"
+                    aria-describedby="name-help"
+                    #origin="ngModel"
+                    name="origin"
+                    [(ngModel)]="search.masterCONS"
+                  />
+                </div>
+              </div>
+
+                  <div
+                    class="lg:col-8 md:col-6 col-12 flex justify-content-end align-items-end"
                   >
                     <p-button class="bg-b-color mr"  (click)="clearSearch()"> Clear </p-button>
                     <p-button
@@ -172,7 +205,7 @@
                   <!-- <th class="text-center">Weight in kg</th> -->
                   <th class="text-center">Manifested Shipments    </th>
                   <th class="text-center">Pallets</th>
-                  <th class="text-center">Number of bags non document</th>
+                  <th class="text-center">Master CONS</th>
                   <th class="text-center">ATA</th>
                   <th class="text-center">Status</th>
 
@@ -272,7 +305,7 @@
                       getColor(domesticShipment)
                     "
                   >
-                    {{ domesticShipment.numberOfBags }}
+                    {{ domesticShipment.referenceNumber }}
                   </td>
 
                   <td

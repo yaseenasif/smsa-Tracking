@@ -17,6 +17,8 @@ public class SearchCriteriaForSummary {
     private String toDate;
     private String status;
     private String origin;
+    private String preAlertNumber;
+    private String masterCONS;
     private Set<String> destinations;
     private String routeNumber;
 }

@@ -47,13 +47,13 @@ public class DomesticShipment {
     private String referenceNumber;//Master CONS
     private String vehicleType;
     private Integer numberOfPallets;
-    private Integer numberOfBags;
+    private Integer numberOfBags;//Number of bags non document
     private Integer numberOfPalletsReceived;
     private Integer numberOfBagsReceived;
     private String vehicleNumber;
     private String tagNumber;//security tag
     private Long sealNumber;
-    private Integer numberOfBoxes;
+    private Integer numberOfBoxes;//Number of bags document
     private String status;
     private String remarks;
     private LocalDateTime ata;

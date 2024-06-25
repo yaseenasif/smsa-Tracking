@@ -2,12 +2,18 @@ package com.example.CargoTracking.controller;
 
 import com.example.CargoTracking.criteria.SearchCriteriaForSummary;
 import com.example.CargoTracking.dto.LocationDto;
+import com.example.CargoTracking.dto.SearchCriteriaForLocation;
+import com.example.CargoTracking.dto.SearchCriteriaForUser;
+import com.example.CargoTracking.dto.UserResponseDto;
 import com.example.CargoTracking.model.Facility;
 import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.service.LocationService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +39,15 @@ public class LocationController {
         return ResponseEntity.ok(locationService.getActiveLocations());
     }
 
+    @GetMapping("/filter-location")
+    public ResponseEntity<Page<LocationDto>> getFilterLocations(@RequestParam(defaultValue = "value",required = false) String value,
+                                                                     @RequestParam(defaultValue = "0") int page,
+                                                                     @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
+
+        SearchCriteriaForLocation searchCriteriaForLocation =  new ObjectMapper().readValue(value, SearchCriteriaForLocation.class);
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(locationService.getFilterLocations(searchCriteriaForLocation,pageable));
+    }
     @PreAuthorize("hasAuthority('getAll-domesticActive')")
     @GetMapping("/location-domestic")
     public ResponseEntity<List<LocationDto>> getAllForDomestic(){

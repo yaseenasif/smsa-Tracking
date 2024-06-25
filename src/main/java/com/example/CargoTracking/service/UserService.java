@@ -1,8 +1,6 @@
 package com.example.CargoTracking.service;
 
-import com.example.CargoTracking.dto.ResetPassword;
-import com.example.CargoTracking.dto.UserDto;
-import com.example.CargoTracking.dto.UserResponseDto;
+import com.example.CargoTracking.dto.*;
 import com.example.CargoTracking.exception.RecordAlreadyExist;
 import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.model.Location;
@@ -12,8 +10,13 @@ import com.example.CargoTracking.payload.ApiResponse;
 import com.example.CargoTracking.repository.LocationRepository;
 import com.example.CargoTracking.repository.RoleRepository;
 import com.example.CargoTracking.repository.UserRepository;
+import com.example.CargoTracking.specification.UserSpecification;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -36,6 +39,8 @@ public class UserService {
     LocationRepository locationRepository;
     @Autowired
     ModelMapper modelMapper;
+
+
 
     public UserResponseDto addUser(UserDto userDto){
         User userByEmail = userRepository.findByEmployeeId(userDto.getEmail());
@@ -142,6 +147,18 @@ public class UserService {
     public List<UserResponseDto> getAllUser() {
         List<User> userWithTrueStatus = userRepository.findUserWithTrueStatus();
         return toDtoListForResponse(userWithTrueStatus);
+    }
+
+    public Page<UserResponseDto> getUsersByLocations(SearchCriteriaForUser searchCriteriaForUser, Pageable pageable) {
+
+        Specification<User> userSpecification= UserSpecification.findUser(searchCriteriaForUser);
+       Page<User> usersPage = userRepository.findAll(userSpecification, pageable);
+        List<UserResponseDto> userDtos= usersPage.stream().map(this::mapToDto).collect(Collectors.toList());
+        return new PageImpl<>(userDtos, pageable, usersPage.getTotalElements());
+    }
+
+    private UserResponseDto mapToDto(User user) {
+        return modelMapper.map(user, UserResponseDto.class);
     }
 
     public List<UserResponseDto> getInActiveUser(){
