@@ -1,6 +1,7 @@
 package com.example.CargoTracking.repository;
 
 import com.example.CargoTracking.dto.LocationDto;
+import com.example.CargoTracking.model.Country;
 import com.example.CargoTracking.model.Facility;
 import com.example.CargoTracking.model.Location;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -26,8 +27,7 @@ public interface LocationRepository extends JpaRepository<Location , Long> , Jpa
     Location findByLocationNameAndType(String locationName, String type);
     @Query("SELECT l FROM Location l WHERE l.locationName = :locationName AND l.type =:type And l.status =true")
     Optional<Location> findByLocationNameAndTypeAndFacilityForUser(String locationName, String type);
+    Location findByLocationNameAndCountryAndFacility(String locationName, Country country, Facility facility);
 
-//    Location findByLocationNameAndCountryId(String upperCase, Long id);
-//    List<Location> getAllByFacilityAndType(Facility facility, String type);
 
 }

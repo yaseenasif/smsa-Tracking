@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -42,6 +43,12 @@ public class LocationService {
 
     @Transactional
     public LocationDto addLocation(LocationDto locationDto) {
+
+        Location byLocationNameAndCountryAndFacility = locationRepository
+                .findByLocationNameAndCountryAndFacility(locationDto.getLocationName(), locationDto.getCountry(), locationDto.getFacility());
+        if(byLocationNameAndCountryAndFacility!=null){
+            throw new RecordAlreadyExist( "Location is already existed.");
+        }
         String countryToInsert = locationDto.getCountry().getName();
 
         List<Location> locationsByName = locationRepository.findByLocationName(locationDto.getLocationName());
@@ -132,6 +139,13 @@ public class LocationService {
 
     public LocationDto updateById(Long id, LocationDto locationDto) {
         Optional<Location> location = locationRepository.findById(id);
+        Location byLocationNameAndCountryAndFacility = locationRepository
+                .findByLocationNameAndCountryAndFacility(locationDto.getLocationName(), locationDto.getCountry(), locationDto.getFacility());
+        if(byLocationNameAndCountryAndFacility!=null){
+            if(!Objects.equals(byLocationNameAndCountryAndFacility.getId(), id)){
+                throw new RecordAlreadyExist( "Location is already existed.");
+            }
+        }
         if (location.isPresent()) {
             String countryToInsert = locationDto.getCountry().getName();
 

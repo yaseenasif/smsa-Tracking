@@ -121,6 +121,24 @@ export class AddLocationComponent implements OnInit {
         this.router.navigate(['/location']);
       },800);
     },error=>{
+      if (typeof  this.location.originEmail === 'string' &&
+      typeof  this.location.destinationEmail === 'string' && 
+      typeof  this.location.originEscalationLevel1 === 'string' && 
+      typeof  this.location.originEscalationLevel2 === 'string' && 
+      typeof  this.location.originEscalationLevel3 === 'string' && 
+      typeof  this.location.destinationEscalationLevel1 === 'string' &&
+      typeof  this.location.destinationEscalationLevel2 === 'string' && 
+      typeof  this.location.destinationEscalationLevel3 === 'string') {
+
+     this.location.originEmail= this.location.originEmail!.split(',')
+     this.location.destinationEmail= this.location.destinationEmail!.split(',')
+     this.location.originEscalationLevel1= this.location.originEscalationLevel1!.split(',')
+     this.location.originEscalationLevel2= this.location.originEscalationLevel2!.split(',')
+     this.location.originEscalationLevel3= this.location.originEscalationLevel3!.split(',')
+     this.location.destinationEscalationLevel1= this.location.destinationEscalationLevel1!.split(',')
+     this.location.destinationEscalationLevel2= this.location.destinationEscalationLevel2!.split(',')
+     this.location.destinationEscalationLevel3= this.location.destinationEscalationLevel3!.split(',')
+  }
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
   }
