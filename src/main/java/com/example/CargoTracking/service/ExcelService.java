@@ -7,8 +7,12 @@ import com.example.CargoTracking.dto.*;
 import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.model.DomesticRoute;
 import com.example.CargoTracking.model.DomesticShipment;
+import com.example.CargoTracking.model.InternationalShipment;
+import com.example.CargoTracking.model.InternationalShipmentHistory;
 import com.example.CargoTracking.repository.DomesticRouteRepository;
 import com.example.CargoTracking.repository.DomesticShipmentRepository;
+import com.example.CargoTracking.repository.InternationalShipmentHistoryRepository;
+import com.example.CargoTracking.repository.InternationalShipmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -35,13 +39,47 @@ public class ExcelService {
     @Autowired
     VehicleTypeService vehicleTypeService;
     @Autowired
+    InternationalShipmentHistoryRepository internationalShipmentHistoryRepository;
+    @Autowired
     DomesticRouteRepository domesticRouteRepository;
+    @Autowired
+    InternationalShipmentRepository internationalShipmentRepository;
     @Value("${excel.file.location}")
     private String sampleFileLocalLocation;
     public Resource internationalAirReportPerformanceExcelDownload(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         try{
-//            SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary = new SearchCriteriaForInternationalSummary();
-            List<InternationalAirReportPerformance> intAirReportPerformance = this.reportAndStatusService.findInternationalAirReportPerformance(searchCriteriaForInternationalSummary);
+            List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Air");
+            List<InternationalAirReportPerformance> intAirReportPerformance = new ArrayList<>();
+            for (InternationalShipment internationalShipment: internationalShipmentList){
+                InternationalAirReportPerformance internationalAirReportPerformance = new InternationalAirReportPerformance();
+                internationalAirReportPerformance.setId(internationalShipment.getId());
+                internationalAirReportPerformance.setPreAlertNumber(internationalShipment.getPreAlertNumber());
+                internationalAirReportPerformance.setReferenceNumber(internationalShipment.getReferenceNumber());
+                internationalAirReportPerformance.setOrigin(internationalShipment.getOriginLocation());
+                internationalAirReportPerformance.setDestination(internationalShipment.getDestinationLocation());
+                internationalAirReportPerformance.setRoute(internationalShipment.getRouteNumber());
+                internationalAirReportPerformance.setFlight(internationalShipment.getFlightNumber());
+                internationalAirReportPerformance.setActualTimeArrival(internationalShipment.getAta());
+                internationalAirReportPerformance.setActualTimeDeparture(internationalShipment.getAtd());
+                if(internationalShipment.getAta()!=null && internationalShipment.getAtd()!=null){
+                    Duration durationForTransitTime = Duration.between(internationalShipment.getAta(), internationalShipment.getAtd());
+                    internationalAirReportPerformance.setTotalTransitTime(durationForTransitTime.toHours());
+                }
+                List<InternationalShipmentHistory> internationalShipmentHistoryList = internationalShipmentHistoryRepository.findByInternationalShipmentId(internationalShipment.getId());
+                for(InternationalShipmentHistory internationalShipmentHistory: internationalShipmentHistoryList){
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Cleared")) {
+                        internationalAirReportPerformance.setCleared(internationalShipmentHistory.getProcessTime());
+                        if(internationalShipmentHistory.getProcessTime()!=null && internationalShipment.getAtd()!=null){
+                            Duration durationForLeadTime = Duration.between(internationalShipmentHistory.getProcessTime(), internationalShipment.getAtd());
+                            internationalAirReportPerformance.setTotalLeadTime(durationForLeadTime.toHours());
+                        }
+
+                    }
+                }
+                intAirReportPerformance.add(internationalAirReportPerformance);
+            }
+
+
             FileInputStream fileInputStream = new FileInputStream(sampleFileLocalLocation + "/internationalAirPerformance.xlsx");
             Workbook  newWorkBook = WorkbookFactory.create(fileInputStream);
             Sheet summarySheet= newWorkBook.getSheetAt(0);
@@ -89,8 +127,37 @@ public class ExcelService {
 
     public Resource internationalRoadReportPerformanceExcelDownload(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         try{
-//            SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary = new SearchCriteriaForInternationalSummary();
-            List<InternationalRoadReportPerformance> intRoadReportPerformance = this.reportAndStatusService.findInternationalRoadReportPerformance(searchCriteriaForInternationalSummary);
+            List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Road");
+            List<InternationalRoadReportPerformance> intRoadReportPerformance = new ArrayList<>();
+
+            for(InternationalShipment internationalShipment: internationalShipmentList){
+                InternationalRoadReportPerformance internationalRoadReportPerformance = new InternationalRoadReportPerformance();
+                internationalRoadReportPerformance.setId(internationalShipment.getId());
+                internationalRoadReportPerformance.setPreAlertNumber(internationalShipment.getPreAlertNumber());
+                internationalRoadReportPerformance.setReferenceNumber(internationalShipment.getReferenceNumber());
+                internationalRoadReportPerformance.setOrigin(internationalShipment.getOriginLocation());
+                internationalRoadReportPerformance.setDestination(internationalShipment.getDestinationLocation());
+                internationalRoadReportPerformance.setRoute(internationalShipment.getRouteNumber());
+                internationalRoadReportPerformance.setVehicleType(internationalShipment.getVehicleType());
+                internationalRoadReportPerformance.setActualTimeArrival(internationalShipment.getAta());
+                internationalRoadReportPerformance.setActualTimeDeparture(internationalShipment.getAtd());
+                if(internationalShipment.getAta()!=null && internationalShipment.getAtd()!=null){
+                    Duration durationForTransitTime = Duration.between(internationalShipment.getAta(), internationalShipment.getAtd());
+                    internationalRoadReportPerformance.setTotalTransitTime(durationForTransitTime.toHours());
+                }
+                List<InternationalShipmentHistory> internationalShipmentHistoryList = internationalShipmentHistoryRepository.findByInternationalShipmentId(internationalShipment.getId());
+                for(InternationalShipmentHistory internationalShipmentHistory: internationalShipmentHistoryList){
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Offloaded at Destination")) {
+                        internationalRoadReportPerformance.setOffloaded(internationalShipmentHistory.getProcessTime());
+                        if(internationalShipmentHistory.getProcessTime()!=null && internationalShipment.getAtd()!=null){
+                            Duration durationForLeadTime = Duration.between(internationalShipmentHistory.getProcessTime(), internationalShipment.getAtd());
+                            internationalRoadReportPerformance.setTotalLeadTime(durationForLeadTime.toHours());
+                        }
+                    }
+                }
+                intRoadReportPerformance.add(internationalRoadReportPerformance);
+            }
+
             FileInputStream fileInputStream = new FileInputStream(sampleFileLocalLocation + "/internationalRoadPerformance.xlsx");
             Workbook  newWorkBook = WorkbookFactory.create(fileInputStream);
             Sheet summarySheet= newWorkBook.getSheetAt(0);
@@ -138,8 +205,70 @@ public class ExcelService {
 
     public Resource internationalAirReportStatusExcelDownload(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         try{
-//            SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary = new SearchCriteriaForInternationalSummary();
-            List<InternationalAirReportStatusDto> intAirReportStatus = this.reportAndStatusService.findInternationalAirReportStatus(searchCriteriaForInternationalSummary);
+            List<InternationalShipment> internationalShipmentsList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Air");
+            List<InternationalAirReportStatusDto> intAirReportStatus = new ArrayList<>();
+            for (InternationalShipment internationalShipment : internationalShipmentsList) {
+                InternationalAirReportStatusDto internationalAirReportStatusDto = new InternationalAirReportStatusDto();
+                internationalAirReportStatusDto.setId(internationalShipment.getId());
+                internationalAirReportStatusDto.setPreAlertNumber(internationalShipment.getPreAlertNumber());
+                internationalAirReportStatusDto.setReferenceNumber(internationalShipment.getReferenceNumber());
+                internationalAirReportStatusDto.setOrigin(internationalShipment.getOriginLocation());
+                internationalAirReportStatusDto.setDestination(internationalShipment.getDestinationLocation());
+                internationalAirReportStatusDto.setRoute(internationalShipment.getRouteNumber());
+                internationalAirReportStatusDto.setFlightNumber(internationalShipment.getFlightNumber());
+                internationalAirReportStatusDto.setShipments(internationalShipment.getNumberOfShipments());
+                internationalAirReportStatusDto.setBags(internationalShipment.getNumberOfBags());
+                internationalAirReportStatusDto.setEtd(internationalShipment.getEtd());
+                internationalAirReportStatusDto.setAtd(internationalShipment.getAtd());
+                internationalAirReportStatusDto.setEta(internationalShipment.getEta());
+                internationalAirReportStatusDto.setAta(internationalShipment.getAta());
+                if(internationalShipment.getEtd()!=null && internationalShipment.getEta()!=null){
+                    Duration durationForEtdVsEta = Duration.between(internationalShipment.getEtd(), internationalShipment.getEta());
+                    internationalAirReportStatusDto.setEtdVsEta(durationForEtdVsEta.toHours());
+                }
+                if(internationalShipment.getEta()!=null && internationalShipment.getAta()!=null){
+                    Duration durationForEtaVSAta = Duration.between(internationalShipment.getEta(), internationalShipment.getAta());
+                    internationalAirReportStatusDto.setEtaVSAta(durationForEtaVSAta.toHours());
+                }
+
+                internationalAirReportStatusDto.setRemarks(internationalShipment.getRemarks());
+                List<InternationalShipmentHistory> internationalShipmentHistoryList = internationalShipmentHistoryRepository.findByInternationalShipmentId(internationalShipment.getId());
+                for (InternationalShipmentHistory internationalShipmentHistory : internationalShipmentHistoryList) {
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Created")) {
+                        internationalAirReportStatusDto.setCreated(internationalShipmentHistory.getProcessTime());
+                    }
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Offloaded from Aircraft")) {
+                        internationalAirReportStatusDto.setOffLoadedFromAircraft(internationalShipmentHistory.getProcessTime());
+                    }
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Flight Delayed")) {
+                        internationalAirReportStatusDto.setFlightDelayed(internationalShipmentHistory.getProcessTime());
+                    }
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Cleared")) {
+                        internationalAirReportStatusDto.setCleared(internationalShipmentHistory.getProcessTime());
+                        if(internationalShipment.getAtd()!=null && internationalShipmentHistory.getProcessTime()!=null){
+                            Duration duration = Duration.between(internationalShipmentHistory.getProcessTime(), internationalShipment.getAtd());
+                            internationalAirReportStatusDto.setLeadTime(duration.toHours());
+                        }
+
+                    }
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Not Arrived as planned")) {
+                        internationalAirReportStatusDto.setNotArrivedAsPlanned(internationalShipmentHistory.getProcessTime());
+                    }
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("In progress")) {
+                        internationalAirReportStatusDto.setInProgress(internationalShipmentHistory.getProcessTime());
+                    }
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Held in Customs")) {
+                        internationalAirReportStatusDto.setHeldInCustoms(internationalShipmentHistory.getProcessTime());
+                    }
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Awaiting payment")) {
+                        internationalAirReportStatusDto.setAwaitingPayments(internationalShipmentHistory.getProcessTime());
+                    }
+
+                }
+                intAirReportStatus.add(internationalAirReportStatusDto);
+
+            }
+
             FileInputStream fileInputStream = new FileInputStream(sampleFileLocalLocation + "/internationalAirStatus.xlsx");
             Workbook  newWorkBook = WorkbookFactory.create(fileInputStream);
             Sheet summarySheet= newWorkBook.getSheetAt(0);
@@ -200,8 +329,61 @@ public class ExcelService {
 
     public Resource internationalRoadReportStatusExcelDownload(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         try{
-//            SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary = new SearchCriteriaForInternationalSummary();
-            List<InternationalRoadReportStatusDto> intRoadReportStatus = this.reportAndStatusService.findInternationalRoadReportStatus(searchCriteriaForInternationalSummary);
+            List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Road");
+            List<InternationalRoadReportStatusDto> intRoadReportStatus = new ArrayList<>();
+            for (InternationalShipment internationalShipment : internationalShipmentList) {
+                InternationalRoadReportStatusDto internationalRoadReportStatusDto = new InternationalRoadReportStatusDto();
+                internationalRoadReportStatusDto.setId(internationalShipment.getId());
+                internationalRoadReportStatusDto.setPreAlertNumber(internationalShipment.getPreAlertNumber());
+                internationalRoadReportStatusDto.setReferenceNumber(internationalShipment.getReferenceNumber());
+                internationalRoadReportStatusDto.setOrigin(internationalShipment.getOriginLocation());
+                internationalRoadReportStatusDto.setDestination(internationalShipment.getDestinationLocation());
+                internationalRoadReportStatusDto.setRoute(internationalShipment.getRouteNumber());
+                internationalRoadReportStatusDto.setVehicle(internationalShipment.getVehicleNumber());
+                internationalRoadReportStatusDto.setShipments(internationalShipment.getTotalShipments());
+                internationalRoadReportStatusDto.setPallets(internationalShipment.getNumberOfPallets());
+                internationalRoadReportStatusDto.setOccupancy(getOccupancyByVehicleType(internationalShipment.getVehicleType()));
+                internationalRoadReportStatusDto.setBags(internationalShipment.getNumberOfBags());
+                internationalRoadReportStatusDto.setEtd(internationalShipment.getEtd());
+                internationalRoadReportStatusDto.setAtd(internationalShipment.getAtd());
+                internationalRoadReportStatusDto.setEta(internationalShipment.getEta());
+                internationalRoadReportStatusDto.setAta(internationalShipment.getAta());
+                internationalRoadReportStatusDto.setRemarks(internationalShipment.getRemarks());
+                List<InternationalShipmentHistory> internationalShipmentHistoryList = internationalShipmentHistoryRepository.findByInternationalShipmentId(internationalShipment.getId());
+                for (InternationalShipmentHistory internationalShipmentHistory : internationalShipmentHistoryList) {
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Created")) {
+                        internationalRoadReportStatusDto.setCreated(internationalShipmentHistory.getProcessTime());
+                    }
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Departed")) {
+                        internationalRoadReportStatusDto.setDeparted(internationalShipmentHistory.getProcessTime());
+                    }
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Not Arrived")) {
+                        internationalRoadReportStatusDto.setNotArrived(internationalShipmentHistory.getProcessTime());
+                    }
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Held in Customs")) {
+                        internationalRoadReportStatusDto.setHeldInCustoms(internationalShipmentHistory.getProcessTime());
+                    }
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Awaiting payments")) {
+                        internationalRoadReportStatusDto.setAwaitingPayments(internationalShipmentHistory.getProcessTime());
+                    }
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Cleared")) {
+                        internationalRoadReportStatusDto.setCleared(internationalShipmentHistory.getProcessTime());
+                        if(internationalShipment.getAtd()!=null && internationalShipmentHistory.getProcessTime()!=null){
+                            Duration duration = Duration.between(internationalShipmentHistory.getProcessTime(), internationalShipment.getAtd());
+                            internationalRoadReportStatusDto.setLeadTime(duration.toHours());
+                        }
+                    }
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Accident")) {
+                        internationalRoadReportStatusDto.setAccident(internationalShipmentHistory.getProcessTime());
+                    }
+                    if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Border Delay")) {
+                        internationalRoadReportStatusDto.setBorderDelay(internationalShipmentHistory.getProcessTime());
+                    }
+                }
+                intRoadReportStatus.add(internationalRoadReportStatusDto);
+
+            }
+
             FileInputStream fileInputStream = new FileInputStream(sampleFileLocalLocation + "/internationalRoadStatus.xlsx");
             Workbook  newWorkBook = WorkbookFactory.create(fileInputStream);
             Sheet summarySheet= newWorkBook.getSheetAt(0);
