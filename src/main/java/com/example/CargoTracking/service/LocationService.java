@@ -14,7 +14,10 @@ import com.example.CargoTracking.repository.FacilityRepository;
 import com.example.CargoTracking.repository.LocationRepository;
 import com.example.CargoTracking.specification.LocationSpecification;
 import com.example.CargoTracking.specification.UserSpecification;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -31,6 +34,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class LocationService {
 
     @Autowired
@@ -39,6 +43,7 @@ public class LocationService {
     FacilityRepository facilityRepository;
     @Autowired
     ModelMapper modelMapper;
+    private static final Logger logger = LoggerFactory.getLogger(StorageService.class);
 
 
     @Transactional
@@ -138,20 +143,33 @@ public class LocationService {
     }
 
     public LocationDto updateById(Long id, LocationDto locationDto) {
+        logger.info("--------------------------------------------------------------------------------------------------------");
+        logger.info("in update method");
         Optional<Location> location = locationRepository.findById(id);
+        logger.info("finding location by name country and facility");
         Location byLocationNameAndCountryAndFacility = locationRepository
                 .findByLocationNameAndCountryAndFacility(locationDto.getLocationName(), locationDto.getCountry(), locationDto.getFacility());
+        logger.info("Successfully find");
         if(byLocationNameAndCountryAndFacility!=null){
+            logger.info("enter first if");
+
             if(!Objects.equals(byLocationNameAndCountryAndFacility.getId(), id)){
+                logger.info("enter first if nested if and print exception");
+
                 throw new RecordAlreadyExist( "Location is already existed.");
             }
         }
         if (location.isPresent()) {
+            logger.info("then enter second if");
+            logger.info("if location is present");
+
             String countryToInsert = locationDto.getCountry().getName();
 
             List<Location> locationsByName = locationRepository.findByLocationName(locationDto.getLocationName());
+            logger.info("find location list by location name");
 
             if (locationsByName.isEmpty()) {
+                logger.info("if locationByNames list is empty then simply add location");
 
                 location.get().setLocationName(locationDto.getLocationName());
                 location.get().setType(locationDto.getType());
@@ -169,12 +187,18 @@ public class LocationService {
                 return toDto(locationRepository.save(location.get()));
 
             } else {
+                logger.info("in else part");
+
                 boolean isCountryPresent = locationsByName
                         .stream()
                         .map(Location::getCountry)
                         .map(Country::getName)
                         .allMatch(countryToInsert::equals);
+                logger.info("checking jis country ki location hai usi me add ker rahe heen");
+
                 if (isCountryPresent) {
+                    logger.info("if country is present then add location");
+
                     location.get().setLocationName(locationDto.getLocationName());
                     location.get().setType(locationDto.getType());
                     location.get().setOriginEmail(locationDto.getOriginEmail());
@@ -190,6 +214,8 @@ public class LocationService {
                     location.get().setCountry(locationDto.getCountry());
                     return toDto(locationRepository.save(location.get()));
                 } else {
+                    logger.info("throw exception");
+
                     throw new RecordAlreadyExist("Location with the same name already exists in the specified country");
                 }
             }
