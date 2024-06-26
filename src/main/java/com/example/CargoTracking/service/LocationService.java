@@ -50,7 +50,7 @@ public class LocationService {
     public LocationDto addLocation(LocationDto locationDto) {
 
         Location byLocationNameAndCountryAndFacility = locationRepository
-                .findByLocationNameAndCountryAndFacility(locationDto.getLocationName(), locationDto.getCountry(), locationDto.getFacility());
+                .findByLocationNameAndCountryAndFacilityAndStatus(locationDto.getLocationName(), locationDto.getCountry(), locationDto.getFacility(),true);
         if(byLocationNameAndCountryAndFacility!=null){
             throw new RecordAlreadyExist( "Location is already existed.");
         }
@@ -148,7 +148,7 @@ public class LocationService {
         Optional<Location> location = locationRepository.findById(id);
         logger.info("finding location by name country and facility");
         Location byLocationNameAndCountryAndFacility = locationRepository
-                .findByLocationNameAndCountryAndFacility(locationDto.getLocationName(), locationDto.getCountry(), locationDto.getFacility());
+                .findByLocationNameAndCountryAndFacilityAndStatus(locationDto.getLocationName(), locationDto.getCountry(), locationDto.getFacility(),true);
         logger.info("Successfully find");
         if(byLocationNameAndCountryAndFacility!=null){
             logger.info("enter first if");
