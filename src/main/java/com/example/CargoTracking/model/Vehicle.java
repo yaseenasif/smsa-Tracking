@@ -22,6 +22,8 @@ public class VehicleType {
     private Long id;
     private String name;
     private String occupancy;
+
+    private String vehicalNumber;
     private boolean status;
 
 }

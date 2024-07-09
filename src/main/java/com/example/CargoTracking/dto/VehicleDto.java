@@ -18,5 +18,6 @@ public class VehicleTypeDto {
     private String name;
     @NotBlank(message = "occupancy is required")
     private String occupancy;
+    private String vehicleNumber;
 
 }
