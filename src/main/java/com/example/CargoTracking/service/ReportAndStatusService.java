@@ -10,7 +10,9 @@ import com.example.CargoTracking.model.InternationalShipmentHistory;
 import com.example.CargoTracking.repository.*;
 import com.example.CargoTracking.specification.DomesticSummarySpecification;
 import com.example.CargoTracking.specification.InternationalSummarySpecification;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,10 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ReportAndStatusService {
-
-    @Autowired
-    Logger logger;
     @Autowired
     InternationalShipmentRepository internationalShipmentRepository;
     @Autowired
@@ -39,6 +39,8 @@ public class ReportAndStatusService {
     DomesticRouteRepository domesticRouteRepository;
     @Autowired
     VehicleTypeService vehicleTypeService;
+    private static final Logger logger = LoggerFactory.getLogger(StorageService.class);
+
 
     public List<InternationalAirReportStatusDto> findInternationalAirReportStatus(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         List<InternationalAirReportStatusDto> internationalAirReportStatusDtoList = new ArrayList<>();
