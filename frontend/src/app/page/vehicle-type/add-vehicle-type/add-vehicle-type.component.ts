@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { VehicleTypeService } from '../service/vehicle-type.service';
-import { VehicleType } from 'src/app/model/VehicleType';
+import { Vehicle } from 'src/app/model/VehicleType';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,31 +13,33 @@ import { Router } from '@angular/router';
 export class AddVehicleTypeComponent implements OnInit {
 
   items: MenuItem[] | undefined;
-  vehicleType:VehicleType={
+  vehicle:Vehicle={
     id: null,
     name: null,
-    occupancy:null
+    occupancy: null,
+    vehicleNumber: null,
+    status: null
   };
 
   constructor(private vehicleTypeService:VehicleTypeService,
               private messageService: MessageService,
               private router: Router) { }
- 
-  
+
+
   ngOnInit(): void {
-    this.items = [{ label: 'Vehicle Type',routerLink:'/vehicle-type'},{ label: 'Add Vehicle Type'}];
+    this.items = [{ label: 'Vehicle',routerLink:'/vehicle-type'},{ label: 'Add Vehicle'}];
   }
 
   onSubmit() {
-    
-    this.vehicleTypeService.addVehicleType(this.vehicleType).subscribe(res=>{
+
+    this.vehicleTypeService.addVehicleType(this.vehicle).subscribe(res=>{
       this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Vehicle Type is added' });
       setTimeout(() => {
         this.router.navigate(['/vehicle-type']);
       },800);
     },error=>{
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
-    })  
+    })
   }
 
 }

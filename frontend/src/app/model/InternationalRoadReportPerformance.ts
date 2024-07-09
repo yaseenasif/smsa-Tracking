@@ -5,7 +5,7 @@ export interface InternationalRoadReportPerformance {
   origin: string | null;
   destination: string | null;
   route: string | null;
-  vehicleType: string | null;
+  vehicle: string | null;
   actualTimeDeparture: Date | string | null;
   actualTimeArrival: Date | string | null;
   offloaded: Date | string | null;

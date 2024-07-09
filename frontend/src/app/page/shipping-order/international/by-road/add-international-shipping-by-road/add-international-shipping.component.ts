@@ -13,7 +13,7 @@ import { ShipmentMode } from 'src/app/model/ShipmentMode';
 import { Driver } from 'src/app/model/Driver';
 import { DriverService } from 'src/app/page/driver/service/driver.service';
 import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
-import { VehicleType } from 'src/app/model/VehicleType';
+import { Vehicle } from 'src/app/model/VehicleType';
 import { VehicleTypeService } from 'src/app/page/vehicle-type/service/vehicle-type.service';
 import { NumberOfPallets } from 'src/app/model/NumberOfPallets';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
@@ -65,7 +65,7 @@ export class AddInternationalShippingComponent {
     totalShipments: null,
     type: 'By Road',
     vehicleNumber: null,
-    vehicleType: null,
+    vehicle: null,
     routeNumber: null,
     etd: null,
     eta: null,
@@ -90,7 +90,7 @@ export class AddInternationalShippingComponent {
   // originPorts!: LocationPort[];
   // destinationPorts!: LocationPort[];
   drivers!: Driver[]
-  vehicleTypes!: VehicleType[]
+  vehicles!: Vehicle[]
   shipmentStatus!: ProductField;
   selectedDriver: Driver | null = null;
   modeOptions: { options: string }[] = Object.values(Mode).map(el => ({ options: el }));
@@ -205,12 +205,12 @@ export class AddInternationalShippingComponent {
         if(typeof this.internationalShipment.tagNumber === 'string'){
           this.internationalShipment.tagNumber=this.internationalShipment.tagNumber!.split(",");
         }
-     
+
         this.internationalShipment.etd=this.internationalShipment.etd?new Date(this.internationalShipment.etd):null;
         this.internationalShipment.eta=this.internationalShipment.eta?new Date(this.internationalShipment.eta):null;
         this.internationalShipment.atd=this.internationalShipment.atd?new Date(this.internationalShipment.atd):null;
         this.internationalShipment.ata=this.internationalShipment.ata?new Date(this.internationalShipment.ata):null;
-  
+
         if (error.error.body) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
         } else {
@@ -227,7 +227,7 @@ export class AddInternationalShippingComponent {
       }
     }
 
- 
+
   }
 
   getInternationalRouteForRoad() {
@@ -268,8 +268,8 @@ export class AddInternationalShippingComponent {
     })
   }
   getAllVehicleType() {
-    this.vehicleTypeService.getALLVehicleType().subscribe((res: VehicleType[]) => {
-      this.vehicleTypes = res;
+    this.vehicleTypeService.getALLVehicleType().subscribe((res: Vehicle[]) => {
+      this.vehicles = res;
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
@@ -373,8 +373,8 @@ export class AddInternationalShippingComponent {
   this.originFacility=this.originFacility?.filter((obj, index, self) =>
   index === self.findIndex((o) => o!.id === obj!.id)
   );
-  this.internationalShipment.originFacility=null; 
-  this.orgLocation=[]; 
+  this.internationalShipment.originFacility=null;
+  this.orgLocation=[];
 }
 
 onDesCountryChange() {
@@ -384,9 +384,9 @@ onDesCountryChange() {
     .map(el => el.facility);
     this.destinationFacility=this.destinationFacility?.filter((obj, index, self) =>
     index === self.findIndex((o) => o!.id === obj!.id)
-    );    
-    this.internationalShipment.destinationFacility=null; 
-    this.desLocation=[]; 
+    );
+    this.internationalShipment.destinationFacility=null;
+    this.desLocation=[];
 }
 
 onOrgFacilityChange() {

@@ -39,7 +39,7 @@ public class InternationalShipmentDto {
     private String driverName;
     private String driverContact;
     private String referenceNumber;
-    private String vehicleType;
+    private String vehicle;
     private Integer numberOfPallets;
     private Integer numberOfBags;
     private Integer numberOfPalletsReceived;

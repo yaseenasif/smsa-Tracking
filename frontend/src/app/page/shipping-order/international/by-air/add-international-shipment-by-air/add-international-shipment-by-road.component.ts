@@ -10,7 +10,7 @@ import { DriverService } from 'src/app/page/driver/service/driver.service';
 // import { LocationPort } from 'src/app/model/LocationPort';
 import { Location } from 'src/app/model/Location';
 import { Driver } from 'src/app/model/Driver';
-import { VehicleType } from 'src/app/model/VehicleType';
+import { Vehicle } from 'src/app/model/VehicleType';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { Mode } from 'src/app/model/Mode';
 import { ShipmentMode } from 'src/app/model/ShipmentMode';
@@ -65,7 +65,7 @@ export class AddInternationalShipmentByRoadComponent {
     totalShipments: null,
     type: 'By Air',
     vehicleNumber: null,
-    vehicleType: null,
+    vehicle: null,
     routeNumber: null,
     etd: null,
     eta: null,
@@ -91,7 +91,7 @@ export class AddInternationalShipmentByRoadComponent {
   // originPorts!: LocationPort[];
   // destinationPorts!: LocationPort[];
   drivers!: Driver[];
-  vehicleTypes!: VehicleType[];
+  vehicles!: Vehicle[];
   shipmentStatus!: ProductField;
   selectedDriver: Driver | null = null;
   modeOptions: { options: string }[] = Object.values(Mode).map((el) => ({
@@ -243,7 +243,7 @@ export class AddInternationalShipmentByRoadComponent {
         this.internationalShipment.ata,
         'yyyy-MM-ddTHH:mm:ss'
       );
-  
+
       this.internationalShippingService
         .addInternationalShipment(this.internationalShipment,orgLocationId!,desLocationId!)
         .subscribe(
@@ -295,7 +295,7 @@ export class AddInternationalShipmentByRoadComponent {
       }
     }
 
-   
+
   }
 
   getAllLocations() {
@@ -370,8 +370,8 @@ export class AddInternationalShipmentByRoadComponent {
   }
   getAllVehicleType() {
     this.vehicleTypeService.getALLVehicleType().subscribe(
-      (res: VehicleType[]) => {
-        this.vehicleTypes = res;
+      (res: Vehicle[]) => {
+        this.vehicles = res;
       },
       (error) => {
         this.messageService.add({
@@ -436,8 +436,8 @@ export class AddInternationalShipmentByRoadComponent {
     this.originFacility=this.originFacility?.filter((obj, index, self) =>
     index === self.findIndex((o) => o!.id === obj!.id)
     );
-    this.internationalShipment.originFacility=null; 
-    this.orgLocation=[]; 
+    this.internationalShipment.originFacility=null;
+    this.orgLocation=[];
   }
 
   onDesCountryChange() {
@@ -447,9 +447,9 @@ export class AddInternationalShipmentByRoadComponent {
       .map(el => el.facility);
       this.destinationFacility=this.destinationFacility?.filter((obj, index, self) =>
       index === self.findIndex((o) => o!.id === obj!.id)
-      );    
-      this.internationalShipment.destinationFacility=null; 
-      this.desLocation=[]; 
+      );
+      this.internationalShipment.destinationFacility=null;
+      this.desLocation=[];
   }
 
   onOrgFacilityChange() {

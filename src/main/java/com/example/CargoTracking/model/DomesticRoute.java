@@ -1,12 +1,14 @@
 package com.example.CargoTracking.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalTime;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,10 +25,17 @@ public class DomesticRoute {
     private String origin;
     private String destination;
     private String route;
-    private String driver;
+//    private String driver;
     private LocalTime etd;
     private LocalTime eta;
     private Integer durationLimit;
     private String remarks;
     private Boolean activeStatus;
+
+    @ManyToOne
+    @JoinColumn(name = "driver_id")
+    private Driver driver;
+    @ManyToOne
+    @JoinColumn(name = "vehicle_id")
+    private Vehicle vehicle;
 }

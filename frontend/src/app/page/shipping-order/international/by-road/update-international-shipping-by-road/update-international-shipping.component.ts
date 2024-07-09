@@ -10,7 +10,7 @@ import { VehicleTypeService } from 'src/app/page/vehicle-type/service/vehicle-ty
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
 // import { LocationPort } from 'src/app/model/LocationPort';
 import { Driver } from 'src/app/model/Driver';
-import { VehicleType } from 'src/app/model/VehicleType';
+import { Vehicle } from 'src/app/model/VehicleType';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { Mode } from 'src/app/model/Mode';
 import { ShipmentMode } from 'src/app/model/ShipmentMode';
@@ -68,7 +68,7 @@ export class UpdateInternationalShippingComponent {
     totalShipments: null,
     type: 'By Air',
     vehicleNumber: null,
-    vehicleType: null,
+    vehicle: null,
     routeNumber: null,
     etd: null,
     eta: null,
@@ -90,7 +90,7 @@ export class UpdateInternationalShippingComponent {
   // originPorts!: LocationPort[];
   // destinationPorts!: LocationPort[];
   drivers!: Driver[]
-  vehicleTypes!: VehicleType[]
+  vehicles!: Vehicle[]
   shipmentStatus!: ProductField | null | undefined;
   selectedDriver!: Driver | null | undefined;
   modeOptions: { options: string }[] = Object.values(Mode).map(el => ({ options: el }));
@@ -134,18 +134,18 @@ export class UpdateInternationalShippingComponent {
     const locations$: Observable<Location[]> = this.locationService.getAllLocationForInternational();
     // const locationPort$: Observable<LocationPort[]> =this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
-    const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
+    const vehicle$: Observable<Vehicle[]> = this.vehicleTypeService.getALLVehicleType();
     const shipmentStatus$: Observable<ProductField> = this.getAllShipmentStatus();
     const LoggedInUser$: Observable<User> =this.userService.getLoggedInUser();
 
-    forkJoin([locations$, driver$, vehicleType$, shipmentStatus$, LoggedInUser$]).subscribe(
+    forkJoin([locations$, driver$, vehicle$, shipmentStatus$, LoggedInUser$]).subscribe(
       ([locationsResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse,userResponse]) => {
         // Access responses here
-        
+
         this.location = locationsResponse.filter(el => el.status);
         // this.locationPort=locationPortResponse.filter(el => el.status);
         this.drivers = driverResponse.content.filter((el: Driver) => el.status);
-        this.vehicleTypes = vehicleTypeResponse
+        this.vehicles = vehicleTypeResponse
         this.shipmentStatus = shipmentStatusResponse
         this.user=userResponse
         // Now that you have the responses, you can proceed with the next steps
@@ -214,7 +214,7 @@ export class UpdateInternationalShippingComponent {
       this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
       this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
       this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
-  
+
       this.internationalShippingService.updateInternationalShipmentById(this.iSID, this.internationalShipment,orgLocationId!,desLocationId!).subscribe(res => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Outbound is updated on id' + res.id });
         setTimeout(() => {
@@ -224,7 +224,7 @@ export class UpdateInternationalShippingComponent {
         if(typeof this.internationalShipment.tagNumber === 'string'){
           this.internationalShipment.tagNumber=this.internationalShipment.tagNumber!.split(",");
         }
-       
+
         this.internationalShipment.etd = this.internationalShipment.etd ? new Date(this.internationalShipment.etd) : null;
         this.internationalShipment.eta = this.internationalShipment.eta ? new Date(this.internationalShipment.eta) : null;
         this.internationalShipment.atd = this.internationalShipment.atd ? new Date(this.internationalShipment.atd) : null;
@@ -289,7 +289,7 @@ export class UpdateInternationalShippingComponent {
     .map(el => el.facility);
     this.destinationFacility=this.destinationFacility?.filter((obj, index, self) =>
     index === self.findIndex((o) => o!.id === obj!.id)
-    );  
+    );
 
 
       this.onDesFacilityChange();
@@ -344,8 +344,8 @@ export class UpdateInternationalShippingComponent {
     })
   }
   getAllVehicleType() {
-    this.vehicleTypeService.getALLVehicleType().subscribe((res: VehicleType[]) => {
-      this.vehicleTypes = res;
+    this.vehicleTypeService.getALLVehicleType().subscribe((res: Vehicle[]) => {
+      this.vehicles = res;
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
@@ -445,8 +445,8 @@ export class UpdateInternationalShippingComponent {
   this.originFacility=this.originFacility?.filter((obj, index, self) =>
   index === self.findIndex((o) => o!.id === obj!.id)
   );
-  this.internationalShipment.originFacility=null; 
-  this.orgLocation=[]; 
+  this.internationalShipment.originFacility=null;
+  this.orgLocation=[];
 }
 
 onDesCountryChange() {
@@ -456,9 +456,9 @@ onDesCountryChange() {
     .map(el => el.facility);
     this.destinationFacility=this.destinationFacility?.filter((obj, index, self) =>
     index === self.findIndex((o) => o!.id === obj!.id)
-    );    
-    this.internationalShipment.destinationFacility=null; 
-    this.desLocation=[]; 
+    );
+    this.internationalShipment.destinationFacility=null;
+    this.desLocation=[];
 }
 
 onOrgFacilityChange() {

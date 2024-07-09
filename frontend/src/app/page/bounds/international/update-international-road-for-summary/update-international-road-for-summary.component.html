@@ -179,7 +179,7 @@
                       <label for="" class="heading-lable">Vehicle Type :</label>
                       &nbsp;
                       <label for="">
-                        {{ internationalShipment.vehicleType }}</label
+                        {{ internationalShipment.vehicle }}</label
                       >
                     </div>
                   </div>
@@ -308,8 +308,8 @@
                       [defaultDate]="defaultDate"
                       [required]="required"
                       [showTime]="true"
-                      [selectOtherMonths]="true"     
-                      [minDate]="minDate!"               
+                      [selectOtherMonths]="true"
+                      [minDate]="minDate!"
                     ></p-calendar>
                     <!-- <small id="name-help"
                         >{{name}}</small
@@ -320,7 +320,7 @@
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Manifested Shipments    </label>
                     <p-inputNumber
-                    
+
                       id="name"
                       aria-describedby="name-help"
                       [readonly]="true"
@@ -348,10 +348,10 @@
                       [(ngModel)]="internationalShipment.received"
                       [required]="required"
                       #received="ngModel"
-                      (onInput)="calculateOveragesAndShortages()" 
+                      (onInput)="calculateOveragesAndShortages()"
                       [useGrouping]="false"
                       name="received"
-                      autocomplete="off" 
+                      autocomplete="off"
                     ></p-inputNumber>
                     <small
                     class="color-red error"
@@ -371,14 +371,14 @@
                     #numberOfBagsReceived="ngModel"
                     name="numberOfBagsReceived"
                     [useGrouping]="false"
-                    autocomplete="off" 
-                  ></p-inputNumber>  
+                    autocomplete="off"
+                  ></p-inputNumber>
                   <small
                   class="color-red error"
                   *ngIf="numberOfBagsReceived.invalid && (numberOfBagsReceived.dirty || numberOfBagsReceived.touched ) && numberOfBagsReceived?.errors?.['required']"
                 >
                 Number Of Bags Received is required.
-                </small>               
+                </small>
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
@@ -391,14 +391,14 @@
                     #numberOfPalletsReceived="ngModel"
                     name="numberOfPalletsReceived"
                     [useGrouping]="false"
-                    autocomplete="off" 
-                  ></p-inputNumber>     
+                    autocomplete="off"
+                  ></p-inputNumber>
                   <small
                   class="color-red error"
                   *ngIf="numberOfPalletsReceived.invalid && (numberOfPalletsReceived.dirty || numberOfPalletsReceived.touched ) && numberOfPalletsReceived?.errors?.['required']"
                 >
                 Number Of Pallets Received is required.
-                </small>         
+                </small>
                   </div>
                 </div>
 
@@ -407,7 +407,7 @@
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Overages</label>
                     <p-inputNumber
-                     
+
                       id="name"
                       aria-describedby="name-help"
                       (ngModelChange)="makePatternOfOverageAWBS(internationalShipment.overages!)"
@@ -426,7 +426,7 @@
                   >
                   overages is required.
                   </small>
-                 
+
 
                   </div>
                 </div>
@@ -467,7 +467,7 @@
                 </div>
 
 
-                
+
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
@@ -494,7 +494,7 @@
                   </div>
                 </div>
                 <!-- 11 -->
-               
+
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2">
@@ -542,14 +542,14 @@
                     #damage="ngModel"
                     name="damage"
                     [useGrouping]="false"
-                    autocomplete="off" 
-                  ></p-inputNumber>    
+                    autocomplete="off"
+                  ></p-inputNumber>
                   <small
                   class="color-red error"
                   *ngIf="damage.invalid && (damage.dirty || damage.touched )&&damage?.errors?.['required']"
                 >
                 Damage is required.
-                </small>          
+                </small>
                   </div>
                 </div>
                 <div class="col-12 md:col-6 lg:col-4">
@@ -586,8 +586,8 @@
                 </div>
 
 
-                
-             
+
+
               </div>
 
               <div class="flex align-items-center justify-content-end mt-4">

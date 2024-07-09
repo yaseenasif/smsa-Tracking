@@ -51,7 +51,7 @@ export class ViewAirShippingForSummaryComponent {
     totalShipments: null,
     type: 'By Air',
     vehicleNumber: null,
-    vehicleType: null,
+    vehicle: null,
     routeNumber: null,
     etd: null,
     eta: null,
@@ -69,7 +69,7 @@ export class ViewAirShippingForSummaryComponent {
     numberOfPalletsReceived: null,
     numberOfBagsReceived: null
   }
- 
+
   selectedLocation!: Location;
   InternationalShipmentHistory:any;
   copyOveragesAWBs!: string;
@@ -86,18 +86,18 @@ export class ViewAirShippingForSummaryComponent {
     private route: ActivatedRoute,
     private summaryService:SummaryService) { }
 
-  
+
 
 
   ngOnInit(): void {
     this.iSID = +this.route.snapshot.paramMap.get('id')!;
     this.items = [{ label: 'International Inbound By Air', routerLink: '/international-summary-by-air' }, { label: 'View International Inbound By Air' }];
-  
+
     this.getInternationalShipmentHistoryByInternationalShipmentId(this.iSID);
         // Now that you have the responses, you can proceed with the next steps
     this.getInternationalShipmentById(this.iSID);
     this.getInternationalEmail(this.iSID);
-   
+
   }
 
   getInternationalShipmentHistoryByInternationalShipmentId(id:number){
@@ -108,10 +108,10 @@ export class ViewAirShippingForSummaryComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }   
+      }
     })
   }
- 
+
 
   getInternationalShipmentById(id: number) {
 
@@ -126,11 +126,11 @@ export class ViewAirShippingForSummaryComponent {
     let overagesAWBsArray:any;
     let shortagesAWBsArray:any;
     let damageAWBsArray:any;
-   
+
     if(this.internationalShipment.overageAWBs!=null){
      overagesAWBsArray = this.internationalShipment.overageAWBs!.split(',');
      this.copyOveragesAWBs=overagesAWBsArray.join('\n');
-     
+
     }else{
        overagesAWBsArray =[]
     }
@@ -146,8 +146,8 @@ export class ViewAirShippingForSummaryComponent {
      }else{
       damageAWBsArray =[]
      }
-  
-   
+
+
 
     // Determine the maximum length among the three arrays
     const maxLength = Math.max(
@@ -157,7 +157,7 @@ export class ViewAirShippingForSummaryComponent {
     );
 
     // Create an array to store objects
-   
+
 
     // Loop through the arrays to create objects
     for (let i = 0; i < maxLength; i++) {
@@ -189,7 +189,7 @@ export class ViewAirShippingForSummaryComponent {
       this.AnimationDamageAWBs=false;
        }, 2000);
       }
-    
+
       onCopiedAnimationShortagesAWBs(){
         this.AnimationShortagesAWBs=true;
         this._clipboardService.copy(this.copyShortagesAWBs)
@@ -200,9 +200,9 @@ export class ViewAirShippingForSummaryComponent {
 
         getInternationalEmail(id:number){
           this.summaryService.getInternationalEmail(id).subscribe((res)=>{
-            
+
             this.emailAttribute='mailto:'.concat(res.to,'?cc=',res.cc,'?subject=',res.subject)
-          
+
           },(error)=>{
             console.log(error);
           })

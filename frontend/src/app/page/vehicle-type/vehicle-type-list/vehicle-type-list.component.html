@@ -13,38 +13,40 @@
             <div class="table-head">
                 <p-toolbar>
                     <div class="p-toolbar-group-start">
-                      <h2 class="h-color">Vehicle Type</h2>
+                      <h2 class="h-color">Vehicle</h2>
                     </div>
                     <div class="p-toolbar-group-end">
-                        <p-button *ngIf="hasPermission('add-vehicleType')" class="bg-b-color" routerLink="/add-vehicle-type">
-                          <i class="bi bi-plus-lg" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Add Vehicle Type
+                        <p-button *ngIf="hasPermission('add-vehicle')" class="bg-b-color" routerLink="/add-vehicle-type">
+                          <i class="bi bi-plus-lg" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Add Vehicle
                         </p-button>
                     </div>
                 </p-toolbar>
             </div>
-          
+
 
           <div class="card">
-            <p-table [value]="vehicleTypes" [tableStyle]="{ 'min-width': '50rem' }">
+            <p-table [value]="vehicles" [tableStyle]="{ 'min-width': '50rem' }">
               <ng-template pTemplate="header">
                 <tr>
-                  
-                  <th class="text-center">Vehicle Type</th>
+
+                  <th class="text-center">Vehicle</th>
                   <th class="text-center">Occupancy</th>
-                 
+                  <th class="text-center">Vehicle Number</th>
                   <th class="text-center">Actions</th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body" let-vehicleTypes>
+           
+              <ng-template pTemplate="body" let-vehicles>
                 <tr>
-                  <td class="text-center">{{ vehicleTypes!.name }}</td>
-                  <td class="text-center">{{ vehicleTypes!.occupancy }}</td>
-                  <td class="text-center"> 
-                    <p-button *ngIf="hasPermission('update-vehicleType')" [routerLink]="['/edit-vehicle-type',vehicleTypes.id]"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
-                     
+                  <td class="text-center">{{ vehicles!.name }}</td>
+                  <td class="text-center">{{ vehicles!.occupancy }}</td>
+                  <td class="text-center">{{ vehicles!.vehicleNumber }}</td>
+                  <td class="text-center">
+                    <p-button *ngIf="hasPermission('update-vehicle')" [routerLink]="['/edit-vehicle-type',vehicles.id]"  icon="bi bi-pen"  tooltipPosition="top" pTooltip="Edit"  class='mr' styleClass="p-button-rounded p-button-success p-button-text p-button-raised">
+
                     </p-button>
-                     <p-button  *ngIf="hasPermission('delete-vehicleType')" (click)="showDialog(vehicleTypes!.id)"  icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"  class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
-                    
+                     <p-button  *ngIf="hasPermission('delete-vehicle')" (click)="showDialog(vehicles!.id)"  icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete"  class='ml' styleClass="p-button-rounded p-button-danger p-button-text p-button-raised">
+
                      </p-button>
                   </td>
                 </tr>
@@ -58,7 +60,7 @@
 </div>
 <p-dialog header="Delete Permission" class="form-hook" [(visible)]="visible" [style]="{width: '50vw'}">
   <h4 class="mb-4">
-     Are sure you want to delete this vehicle type on id {{vTID}}
+     Are sure you want to delete this vehicle on id {{vTID}}
   </h4>
   <p-button (click)="deleteVehicleTypeByID(vTID)" class="bg-b-color">
     <i  class="bi bi-trash" style="font-size: 20px;font-weight: bold;"></i>&nbsp;Confirm Delete

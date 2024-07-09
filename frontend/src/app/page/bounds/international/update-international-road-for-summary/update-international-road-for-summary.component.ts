@@ -9,7 +9,7 @@ import { VehicleTypeService } from 'src/app/page/vehicle-type/service/vehicle-ty
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
 // import { LocationPort } from 'src/app/model/LocationPort';
 import { Driver } from 'src/app/model/Driver';
-import { VehicleType } from 'src/app/model/VehicleType';
+import { Vehicle } from 'src/app/model/VehicleType';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { Mode } from 'src/app/model/Mode';
 import { ShipmentMode } from 'src/app/model/ShipmentMode';
@@ -65,7 +65,7 @@ export class UpdateInternationalRoadForSummaryComponent {
     totalShipments: null,
     type: 'By Air',
     vehicleNumber: null,
-    vehicleType: null,
+    vehicle: null,
     routeNumber: null,
     etd: null,
     eta: null,
@@ -87,7 +87,7 @@ export class UpdateInternationalRoadForSummaryComponent {
   location!: Location[];
   // locationPort!: LocationPort[]
   drivers!: Driver[]
-  vehicleTypes!: VehicleType[]
+  vehicles!: Vehicle[]
   shipmentStatus!: ProductField;
   selectedDriver!: Driver | null | undefined;
   modeOptions: { options: string }[] = Object.values(Mode).map(el => ({ options: el }));
@@ -96,7 +96,7 @@ export class UpdateInternationalRoadForSummaryComponent {
 
   selectedLocation!: Location;
   user!: User;
- 
+
 
   constructor(private router: Router,
     private cdr: ChangeDetectorRef,
@@ -115,17 +115,17 @@ export class UpdateInternationalRoadForSummaryComponent {
   checked!: boolean;
   size = 100000
   uploadedFiles: any[] = [];
- 
-  onPasteOveragesAwbs() {  
+
+  onPasteOveragesAwbs() {
     this.internationalShipment.overageAWBs=this.internationalShipment.overageAWBs!.match(/[^ ,]+/g)!.join(',')
   }
-  onPasteShortagesAwbs() {  
+  onPasteShortagesAwbs() {
     this.internationalShipment.shortageAWBs=this.internationalShipment.shortageAWBs!.match(/[^ ,]+/g)!.join(',')
   }
-  onPasteDamageAwbs() {  
+  onPasteDamageAwbs() {
     this.internationalShipment.damageAwbs=this.internationalShipment.damageAwbs!.match(/[^ ,]+/g)!.join(',')
   }
-   
+
 
   onUpload1(event: any) {
     for (let file of event.files) {
@@ -142,17 +142,17 @@ export class UpdateInternationalRoadForSummaryComponent {
     const locations$: Observable<Location[]> = this.locationService.getAllLocation();
     // const locationPort$: Observable<LocationPort[]> = this.locationPortService.getAllLocationPort();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
-    const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
+    const vehicle$: Observable<Vehicle[]> = this.vehicleTypeService.getALLVehicleType();
     const shipmentStatus$: Observable<ProductField> = this.getAllShipmentStatus();
 
-    forkJoin([locations$,  driver$, vehicleType$, shipmentStatus$]).subscribe(
+    forkJoin([locations$,  driver$, vehicle$, shipmentStatus$]).subscribe(
       ([locationsResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
         // Access responses here
         this.location = locationsResponse.filter(el => el.status);
         // this.locationPort = locationPortResponse.filter(el => el.status);
         this.drivers = driverResponse.content.filter((el: Driver) => el.status);
-        this.vehicleTypes = vehicleTypeResponse
-      
+        this.vehicles = vehicleTypeResponse
+
         this.shipmentStatus = shipmentStatusResponse
         let PF=shipmentStatusResponse.productFieldValuesList
         if(this.user!.roles![0].name == "ROLE_ACCOUNTANT"){
@@ -180,7 +180,7 @@ export class UpdateInternationalRoadForSummaryComponent {
       this.internationalShipment.eta = this.datePipe.transform(this.internationalShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
       this.internationalShipment.atd = this.datePipe.transform(this.internationalShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
       this.internationalShipment.ata = this.datePipe.transform(this.internationalShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
-  
+
       this.internationalShippingService.updateInternationalShipmentById(this.iSID, this.internationalShipment,orgLocationId!,desLocationId!).subscribe(res => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'International Shipment is updated on id' + res.id });
         setTimeout(() => {
@@ -198,7 +198,7 @@ export class UpdateInternationalRoadForSummaryComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Destination location not found.' });
       }
     }
-   
+
   }
 
   getLoggedInUser() {
@@ -271,8 +271,8 @@ export class UpdateInternationalRoadForSummaryComponent {
     })
   }
   getAllVehicleType() {
-    this.vehicleTypeService.getALLVehicleType().subscribe((res: VehicleType[]) => {
-      this.vehicleTypes = res;
+    this.vehicleTypeService.getALLVehicleType().subscribe((res: Vehicle[]) => {
+      this.vehicles = res;
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
@@ -293,7 +293,7 @@ export class UpdateInternationalRoadForSummaryComponent {
     this.internationalShipment.referenceNumber = this.selectedDriver?.referenceNumber;
   }
 
-  
+
   calculateOveragesAndShortages() {
     if(this.internationalShipment.status== "Tally" || this.internationalShipment.status=="Cleared"){
     if(this.internationalShipment.received==null||this.internationalShipment.received==undefined){}
@@ -323,7 +323,7 @@ export class UpdateInternationalRoadForSummaryComponent {
     }
   }
 
-  onTallyStatus(Status:string){ 
+  onTallyStatus(Status:string){
     if(Status == "Tally"){
     this.required=true;
     }else if(Status != "Tally"){
@@ -331,7 +331,7 @@ export class UpdateInternationalRoadForSummaryComponent {
     }
     this.cdr.detectChanges();
    }
-  
+
 
    pattern1!:string;
    makePatternOfDamageAWBS(num:number|null){
@@ -343,52 +343,52 @@ export class UpdateInternationalRoadForSummaryComponent {
        this.pattern1='';
        this.cdr.detectChanges();
      }else{
- 
+
        let groupPattern='';
-       let separator = ','; 
+       let separator = ',';
        for (let index = 0; index < num; index++) {
          groupPattern += separator + '\\d{12}';
        }
        this.pattern1 = groupPattern.substring(1);
-      
+
    this.cdr.detectChanges();
      }
    }
- 
+
    pattern2!:string;
    makePatternOfOverageAWBS(num:number|null){
-     
+
      if (num === null || num < 1) {
        this.pattern2='';
        this.cdr.detectChanges();
      }else{
- 
+
        let groupPattern='';
-       let separator = ','; 
+       let separator = ',';
        for (let index = 0; index < num; index++) {
          groupPattern += separator + '\\d{12}';
        }
        this.pattern2 = groupPattern.substring(1);
-      
+
    this.cdr.detectChanges();
      }
    }
- 
+
    pattern3!:string;
    makePatternOfShortageAWBS(num:number|null){
-     
+
      if (num === null || num < 1) {
        this.pattern3='';
        this.cdr.detectChanges();
      }else{
- 
+
        let groupPattern='';
-       let separator = ','; 
+       let separator = ',';
        for (let index = 0; index < num; index++) {
          groupPattern += separator + '\\d{12}';
        }
        this.pattern3 = groupPattern.substring(1);
-      
+
    this.cdr.detectChanges();
      }
    }

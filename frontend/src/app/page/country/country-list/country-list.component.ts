@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { CountryService } from '../service/country.service';
 import { Country } from 'src/app/model/Country';
-import { VehicleType } from 'src/app/model/VehicleType';
+import { Vehicle } from 'src/app/model/VehicleType';
 import { AuthguardService } from 'src/app/auth-service/authguard/authguard.service';
 
 @Component({

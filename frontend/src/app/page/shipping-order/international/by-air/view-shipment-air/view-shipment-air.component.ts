@@ -48,7 +48,7 @@ export class ViewShipmentAirComponent {
     totalShipments: null,
     type: 'By Air',
     vehicleNumber: null,
-    vehicleType: null,
+    vehicle: null,
     routeNumber: null,
     etd: null,
     eta: null,
@@ -66,7 +66,7 @@ export class ViewShipmentAirComponent {
     numberOfPalletsReceived: null,
     numberOfBagsReceived: null
   }
- 
+
   selectedLocation!: Location;
   InternationalShipmentHistory:any;
   AnimationOveragesAWBs!: boolean;
@@ -86,18 +86,18 @@ export class ViewShipmentAirComponent {
     private summaryService:SummaryService
   ) { }
 
-  
+
 
 
   ngOnInit(): void {
     this.iSID = +this.route.snapshot.paramMap.get('id')!;
     this.getInternationalEmail(this.iSID);
     this.items = [{ label: 'International Outbound', routerLink: '/international-tile' }, { label: 'International Outbound By Air', routerLink: '/international-shipment-by-air' }, { label: 'View International Outbound By Air' }];
-  
+
     this.getInternationalShipmentHistoryByInternationalShipmentId(this.iSID);
         // Now that you have the responses, you can proceed with the next steps
     this.getInternationalShipmentById(this.iSID);
-   
+
   }
 
   getInternationalShipmentHistoryByInternationalShipmentId(id:number){
@@ -108,10 +108,10 @@ export class ViewShipmentAirComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }   
+      }
     })
   }
- 
+
 
   getInternationalShipmentById(id: number) {
 
@@ -127,7 +127,7 @@ export class ViewShipmentAirComponent {
     let overagesAWBsArray:any;
     let shortagesAWBsArray:any;
     let damageAWBsArray:any;
-   
+
     if(this.internationalShipment.overageAWBs!=null){
      overagesAWBsArray = this.internationalShipment.overageAWBs!.split(',');
      this.copyOveragesAWBs=overagesAWBsArray.join('\n')
@@ -146,8 +146,8 @@ export class ViewShipmentAirComponent {
      }else{
       damageAWBsArray =[]
      }
-  
-   
+
+
 
     // Determine the maximum length among the three arrays
     const maxLength = Math.max(
@@ -157,7 +157,7 @@ export class ViewShipmentAirComponent {
     );
 
     // Create an array to store objects
-   
+
 
     // Loop through the arrays to create objects
     for (let i = 0; i < maxLength; i++) {
@@ -188,7 +188,7 @@ export class ViewShipmentAirComponent {
       this.AnimationDamageAWBs=false;
        }, 2000);
       }
-    
+
       onCopiedAnimationShortagesAWBs(){
         this.AnimationShortagesAWBs=true;
         this._clipboardService.copy(this.copyShortagesAWBs)
@@ -207,7 +207,7 @@ export class ViewShipmentAirComponent {
         mintoHourMin(arg0: number) {
           return Math.trunc(arg0/60)+":"+ Math.trunc(arg0%60)
          }
-     
+
 }
 
 

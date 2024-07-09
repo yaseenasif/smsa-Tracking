@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 @ToString
 @Builder
-public class VehicleTypeDto {
+public class VehicleDto {
 
     private Long id;
     @NotBlank(message = "Vehicle type is required")
@@ -19,5 +19,6 @@ public class VehicleTypeDto {
     @NotBlank(message = "occupancy is required")
     private String occupancy;
     private String vehicleNumber;
+    private boolean status;
 
 }

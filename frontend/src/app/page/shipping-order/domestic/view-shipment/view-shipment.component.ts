@@ -35,7 +35,7 @@ export class ViewShipmentComponent {
     driverName: null,
     driverContact: null,
     referenceNumber: null,
-    vehicleType: null,
+    vehicle: null,
     numberOfPallets: null,
     numberOfBags: null,
     vehicleNumber: null,
@@ -93,7 +93,7 @@ export class ViewShipmentComponent {
       { label: 'Domestic Outbound', routerLink: '/domestic-shipping' },
       { label: 'View Domestic Outbound' },
     ];
-    
+
   }
 
   getDomesticShipmentHistoryByDomesticShipmentId(id: number) {
@@ -174,7 +174,7 @@ export class ViewShipmentComponent {
     }else{
        securityTagArray = []
     }
-   
+
 
     // Determine the maximum length among the three arrays
     const maxLength = Math.max(
@@ -185,7 +185,7 @@ export class ViewShipmentComponent {
     );
 
     // Create an array to store objects
-   
+
 
     // Loop through the arrays to create objects
     for (let i = 0; i < maxLength; i++) {
@@ -209,7 +209,7 @@ export class ViewShipmentComponent {
   AnimationSecurityTag:boolean=false;
   AnimationShortagesAWBs:boolean=false;
   AnimationDamageAWBs:boolean=false;
- 
+
   onCopiedAnimationOveragesAWBs(){
   this.AnimationOveragesAWBs=true;
   this._clipboardService.copy(this.copyOveragesAWBs)

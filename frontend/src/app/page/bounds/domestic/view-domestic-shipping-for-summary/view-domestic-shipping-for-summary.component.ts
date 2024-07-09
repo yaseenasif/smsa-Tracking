@@ -36,7 +36,7 @@ export class ViewDomesticShippingForSummaryComponent {
     driverName: null,
     driverContact: null,
     referenceNumber: null,
-    vehicleType: null,
+    vehicle: null,
     numberOfPallets: null,
     numberOfBags: null,
     vehicleNumber: null,
@@ -77,10 +77,10 @@ export class ViewDomesticShippingForSummaryComponent {
     private messageService: MessageService,
     private route:ActivatedRoute,
     private summaryService:SummaryService) { }
-  
 
 
-  
+
+
   ngOnInit(): void {
     this.domesticShipmentId = +this.route.snapshot.paramMap.get('id')!;
     this.domesticShipmentById(this.domesticShipmentId);
@@ -97,11 +97,11 @@ export class ViewDomesticShippingForSummaryComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }   
+      }
     })
   }
 
-  
+
 
    domesticShipmentById(id:number){
     this.domesticShipmentService.getDomesticShipmentById(id).subscribe((res:DomesticShipment)=>{
@@ -113,7 +113,7 @@ export class ViewDomesticShippingForSummaryComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       }else{
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });
-      }         
+      }
     })
    }
    makeModelForTable() {
@@ -145,7 +145,7 @@ export class ViewDomesticShippingForSummaryComponent {
      }else{
       DamageAWBsArray =[]
      }
-   
+
 
     // Determine the maximum length among the three arrays
     const maxLength = Math.max(
@@ -156,7 +156,7 @@ export class ViewDomesticShippingForSummaryComponent {
     );
 
     // Create an array to store objects
-   
+
 
     // Loop through the arrays to create objects
     for (let i = 0; i < maxLength; i++) {

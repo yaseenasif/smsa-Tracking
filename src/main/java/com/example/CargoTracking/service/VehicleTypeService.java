@@ -1,7 +1,7 @@
 package com.example.CargoTracking.service;
 
-import com.example.CargoTracking.dto.VehicleTypeDto;
-import com.example.CargoTracking.model.VehicleType;
+import com.example.CargoTracking.dto.VehicleDto;
+import com.example.CargoTracking.model.Vehicle;
 import com.example.CargoTracking.repository.VehicleTypeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,31 +19,32 @@ public class VehicleTypeService {
     @Autowired
     ModelMapper modelMapper;
 
-    public VehicleTypeDto addType(VehicleTypeDto vehicleTypeDto) {
+    public VehicleDto addType(VehicleDto vehicleTypeDto) {
 
-        VehicleType vehicleType= VehicleType.builder()
+        Vehicle vehicle = Vehicle.builder()
                 .name(vehicleTypeDto.getName())
                 .occupancy(vehicleTypeDto.getOccupancy())
+                .vehicleNumber(vehicleTypeDto.getVehicleNumber())
                 .status(Boolean.TRUE)
                 .build();
 
-        return toDto(vehicleTypeRepository.save(vehicleType));
+        return toDto(vehicleTypeRepository.save(vehicle));
     }
 
-    public List<VehicleTypeDto> getActiveVehicles() {
-        return toDtoList(vehicleTypeRepository.getActiveVehicles());
+    public List<VehicleDto> getActiveVehicles() {
+        return toDtoList(vehicleTypeRepository.findByStatusTrue());
     }
 
-    public VehicleTypeDto getById(Long id) {
-        Optional<VehicleType> vehicleType = vehicleTypeRepository.findById(id);
+    public VehicleDto getById(Long id) {
+        Optional<Vehicle> vehicleType = vehicleTypeRepository.findById(id);
         if (vehicleType.isPresent()){
             return toDto(vehicleType.get());
         }
         throw new RuntimeException(String.format("Vehicle Type Not Found On this Id => %d",id));
     }
 
-    public VehicleTypeDto deleteById(Long id){
-        Optional<VehicleType> vehicleType = vehicleTypeRepository.findById(id);
+    public VehicleDto deleteById(Long id){
+        Optional<Vehicle> vehicleType = vehicleTypeRepository.findById(id);
 
         if(vehicleType.isPresent()){
             vehicleType.get().setStatus(Boolean.FALSE);
@@ -53,24 +54,24 @@ public class VehicleTypeService {
         throw new RuntimeException("Record doesn't exist");
     }
 
-    public VehicleTypeDto getVehicleTypeByVehicleTypeName(String name){
+    public VehicleDto getVehicleTypeByVehicleTypeName(String name){
         return  toDto(vehicleTypeRepository.findByName(name));
     }
 
-    public VehicleTypeDto updateById(Long id, VehicleTypeDto vehicleTypeDto) {
-        Optional<VehicleType> vehicleType = vehicleTypeRepository.findById(id);
+    public VehicleDto updateById(Long id, VehicleDto vehicleDto) {
+        Optional<Vehicle> vehicleType = vehicleTypeRepository.findById(id);
 
         if(vehicleType.isPresent()){
-            vehicleType.get().setName(vehicleTypeDto.getName());
-            vehicleType.get().setOccupancy(vehicleTypeDto.getOccupancy());
-
+            vehicleType.get().setName(vehicleDto.getName());
+            vehicleType.get().setOccupancy(vehicleDto.getOccupancy());
+            vehicleType.get().setVehicleNumber(vehicleDto.getVehicleNumber());
             return toDto(vehicleTypeRepository.save(vehicleType.get()));
         }
         throw new RuntimeException(String.format("Vehicle Type Not Found by this Id => %d" , id));
     }
 
-    public VehicleTypeDto makeVehicleTypeActive(Long id) {
-        Optional<VehicleType> vehicleType = vehicleTypeRepository.findById(id);
+    public VehicleDto makeVehicleTypeActive(Long id) {
+        Optional<Vehicle> vehicleType = vehicleTypeRepository.findById(id);
         if(vehicleType.isPresent()){
             if(vehicleType.get().isStatus()){
                 throw new RuntimeException("Record is already Active");
@@ -81,12 +82,12 @@ public class VehicleTypeService {
         throw new RuntimeException(String.format("Vehicle Type Not Found by this Id => %d" , id));
     }
 
-    public List<VehicleTypeDto> toDtoList(List<VehicleType> vehicleTypes){
-        return vehicleTypes.stream().map(this::toDto).collect(Collectors.toList());
+    public List<VehicleDto> toDtoList(List<Vehicle> vehicles){
+        return vehicles.stream().map(this::toDto).collect(Collectors.toList());
     }
 
-    public VehicleTypeDto toDto(VehicleType vehicleType){
-        return modelMapper.map(vehicleType, VehicleTypeDto.class);
+    public VehicleDto toDto(Vehicle vehicle){
+        return modelMapper.map(vehicle, VehicleDto.class);
     }
 
 }

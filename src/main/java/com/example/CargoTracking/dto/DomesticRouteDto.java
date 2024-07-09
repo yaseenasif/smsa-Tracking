@@ -1,8 +1,12 @@
 package com.example.CargoTracking.dto;
 
+import com.example.CargoTracking.model.Driver;
+import com.example.CargoTracking.model.Vehicle;
 import lombok.*;
 
 import java.time.LocalTime;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -20,5 +24,7 @@ public class DomesticRouteDto {
     private LocalTime eta;
     private Integer durationLimit;
     private String remarks;
+    private Set<Driver> drivers;
+    private Set<Vehicle> vehicles;
 
 }

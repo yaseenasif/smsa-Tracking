@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { DomesticShipment } from 'src/app/model/DomesticShipment';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
-import { VehicleType } from 'src/app/model/VehicleType';
+import { Vehicle } from 'src/app/model/VehicleType';
 import { LocationService } from 'src/app/page/location/service/location.service';
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
 import { VehicleTypeService } from 'src/app/page/vehicle-type/service/vehicle-type.service';
@@ -43,7 +43,9 @@ export class UpdateDomesticShippingComponent {
     origin: null,
     route: null,
     durationLimit: null,
-    remarks: undefined
+    remarks: undefined,
+    drivers: [],
+    vehicles: []
   }
   domesticShipment: DomesticShipment = {
     originFacility: undefined,
@@ -60,7 +62,7 @@ export class UpdateDomesticShippingComponent {
     driverName: null,
     driverContact: null,
     referenceNumber: null,
-    vehicleType: null,
+    vehicle: null,
     numberOfPallets: null,
     numberOfBags: null,
     vehicleNumber: null,
@@ -109,8 +111,8 @@ export class UpdateDomesticShippingComponent {
   selectedDestinationLocation!: Location;
   drivers!: Driver[]
 
-  vehicleTypes!: VehicleType[];
-  selectedVehicleTypes!: VehicleType;
+  vehicles!: Vehicle[];
+  selectedVehicleTypes!: Vehicle;
   selectedDriver!: Driver | null | undefined;
 
 
@@ -181,7 +183,7 @@ export class UpdateDomesticShippingComponent {
   }
 
   ngOnInit(): void {
-    this.getLoggedInUser(); 
+    this.getLoggedInUser();
     this.getAllLocations()
     this.domesticShipmentId = +this.route.snapshot.paramMap.get('id')!;
 
@@ -193,22 +195,22 @@ export class UpdateDomesticShippingComponent {
    }
     const locations$: Observable<Location[]> = this.locationService.getAllLocationForDomestic();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
-    const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
+    const vehicle$: Observable<Vehicle[]> = this.vehicleTypeService.getALLVehicleType();
     const shipmentStatus$: Observable<ProductField> = this.getAllShipmentStatus();
     const LoggedInUser$: Observable<User> =this.userService.getLoggedInUser();
 
-    forkJoin([locations$, driver$, vehicleType$, shipmentStatus$,LoggedInUser$]).subscribe(
+    forkJoin([locations$, driver$, vehicle$, shipmentStatus$,LoggedInUser$]).subscribe(
       ([locationsResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse,loggedInUserResponse]) => {
         // Access responses here
         this.location = locationsResponse.filter(el => el.status);
         this.user=loggedInUserResponse;
         this.drivers = driverResponse.content.filter((el: Driver) => el.status);
-        this.vehicleTypes = vehicleTypeResponse
+        this.vehicles = vehicleTypeResponse
         this.shipmentStatus = shipmentStatusResponse
-     
+
         this.domesticShipmentById(this.domesticShipmentId);
-       
-        
+
+
       }
     );
 
@@ -217,7 +219,7 @@ export class UpdateDomesticShippingComponent {
 
   }
 
- 
+
   getAllDriver() {
     this.driverService.getAllDriver().subscribe((res: PaginatedResponse<Driver>) => {
 
@@ -235,7 +237,7 @@ export class UpdateDomesticShippingComponent {
     return location.country
      }).filter((obj, index, arr) =>
     index === arr.findIndex((item:Country|null|undefined) => item!.id === obj!.id));
-  
+
     }, error => {
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -248,7 +250,7 @@ export class UpdateDomesticShippingComponent {
 
   getRouteByRouteNumber(routeNumber: string) {
     this.domesticShipmentService.getRouteByRouteNumber(routeNumber).subscribe((res: any) => {
-      
+
       this.routes.push(res);
       this.getRouteLabel();
 
@@ -262,8 +264,8 @@ export class UpdateDomesticShippingComponent {
   }
 
   getAllVehicleType() {
-    this.vehicleTypeService.getALLVehicleType().subscribe((res: VehicleType[]) => {
-      this.vehicleTypes = res;
+    this.vehicleTypeService.getALLVehicleType().subscribe((res: Vehicle[]) => {
+      this.vehicles = res;
     }, error => {
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -326,7 +328,7 @@ export class UpdateDomesticShippingComponent {
       this.onDesFacilityChange()
       this.onOrgFacilityChange()
 
-   
+
       // originCountry & destinationCountry list data start
 
       // this.originCountry=[];
@@ -338,7 +340,7 @@ export class UpdateDomesticShippingComponent {
       // this.originCountry = this.originCountry.filter((obj, index, arr) =>
       // index === arr.findIndex((item:Country) => item.id === obj.id)
       // );
-      
+
 
       // this.user.domesticDestinationLocations?.forEach((el)=>{
       //   return this.destinationCountry.push(el.facility?.country!);
@@ -347,14 +349,14 @@ export class UpdateDomesticShippingComponent {
       // index === arr.findIndex((item:Country) => item.id === obj.id)
       // );
       // originCountry & destinationCountry list data end
-     
-   
+
+
 
       // originFacility & destinationFacility list data start
 
       // this.originFacility=[]
       // this.destinationFacility=[]
-  
+
       // let orgFacility=this.user.domesticOriginLocations!.filter(
       //   (location, index, self) =>
       //     location?.facility?.country?.name == res.originCountry &&
@@ -382,23 +384,23 @@ export class UpdateDomesticShippingComponent {
       //  return this.destinationFacility.push(el?.facility!);
       // })
    // originFacility & destinationFacility list data end
-  
+
   //  this.domesticShipment.originCountry=res.originCountry;
   //  this.domesticShipment.destinationCountry=res.destinationCountry;
       // debugger
       console.log(this.domesticShipment);
-      
-      
-
-  
-     
 
 
-    
+
+
+
+
+
+
       // this.onOrgFacilityChange(this.domesticShipment.originFacility!);
       // this.onDesFacilityChange(this.domesticShipment.destinationFacility!);
 
-      
+
       // this.getDomesticRoute();
 
       this.domesticShipmentService.getRouteByRouteNumber(this.domesticShipment.routeNumber!).subscribe((res: any) => {
@@ -436,7 +438,7 @@ export class UpdateDomesticShippingComponent {
     if(orgLocationId && desLocationId){
       this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId,orgLocationId!,desLocationId!, domesticShipment).subscribe((res: DomesticShipment) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Outbound Updated Successfully' });
-  
+
         setTimeout(() => {
           this.router.navigate(['/domestic-shipping']);
         }, 800);
@@ -444,7 +446,7 @@ export class UpdateDomesticShippingComponent {
         if(typeof domesticShipment.tagNumber === 'string'){
           domesticShipment.tagNumber=domesticShipment.tagNumber!.split(",");
         }
-  
+
         this.domesticShipment.atd =  this.domesticShipment.atd ? new Date( this.domesticShipment.atd) : null;
         this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
         if (error.error.body) {
@@ -454,7 +456,7 @@ export class UpdateDomesticShippingComponent {
         }
         // this.domesticShipment.etd = this.domesticShipment.etd ? new Date( this.domesticShipment.etd) : null;
         // this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
-       
+
       })
     }else{
       if(typeof domesticShipment.tagNumber === 'string'){
@@ -470,7 +472,7 @@ export class UpdateDomesticShippingComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Destination location not found.' });
       }
     }
-   
+
   }
 
   onSubmit() {
@@ -523,9 +525,9 @@ export class UpdateDomesticShippingComponent {
   //    this.domesticShipment.originCountry=this.domesticShipment.destinationCountry;
   //    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'User not have country:"'+country+'" in destination country' });
   //   }
-   
+
   //  }
- 
+
   //  onDesCountryChange(country:string){
   //  debugger
   //    let found= this.originCountry.find(obj => obj.name === country)
@@ -533,7 +535,7 @@ export class UpdateDomesticShippingComponent {
   //    this.domesticShipment.originCountry=country;
   //    this.originFacility=[]
   //    this.destinationFacility=[]
-    
+
   //    let orgFacility=this.user.domesticOriginLocations!.filter(
   //     (location, index, self) =>
   //       location?.facility?.country?.name == country &&
@@ -563,19 +565,19 @@ export class UpdateDomesticShippingComponent {
   //    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'User not have country:"'+country+'" in origen country' });
   //   }
   //  }
- 
+
   //  onOrgFacilityChange(facility:string){
   //    this.orgLocation= this.user.domesticOriginLocations?.filter((obj => obj.facility?.country?.name === this.domesticShipment.originCountry && obj.facility?.name === facility));
   //  }
   //  onDesFacilityChange(facility:string){
   //    this.desLocation= this.user.domesticOriginLocations?.filter((obj => obj.facility?.country?.name === this.domesticShipment.destinationCountry && obj.facility?.name === facility));
   //  }
-   
+
    getLoggedInUser(){
     this.userService.getLoggedInUser().subscribe((res: User) => {
       this.user=res;
-   
-      
+
+
     }, error => {
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -644,7 +646,7 @@ onRouteChange(route:Routes){
 
 
 
- 
+
 
 
 }

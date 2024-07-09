@@ -107,7 +107,7 @@
                   (selectedBound.bound == 'In bound' && role == 'USER')
                 " -->
                   <div
-                  
+
                     class="lg:col-2 md:col-6 col-12"
                   >
                     <div class="flex flex-column gap-2">
@@ -127,7 +127,7 @@
                   (selectedBound.bound == 'Out bound' && role == 'USER')
                 " -->
                   <div
-                 
+
                     class="lg:col-2 md:col-6 col-12"
                   >
                     <div class="flex flex-column gap-2">
@@ -211,7 +211,7 @@
                       getColor(internationalShipmentByRoad)
                     "
                   >
-                    {{ internationalShipmentByRoad.vehicleType }}
+                    {{ internationalShipmentByRoad.vehicle }}
                   </td>
                   <td
                     class="text-center"
@@ -296,7 +296,7 @@
                   </td>
                   <!-- *ngIf="selectedBound.bound == 'In bound'" -->
                   <td
-                
+
                  [classList]="
                  getColor(internationalShipmentByRoad)
                "

@@ -11,38 +11,53 @@
         <div class="body-card">
           <p-toast></p-toast>
           <div class="card">
-            <h1 class="mb-4 h-color">Add Vehicle Type</h1>
+            <h1 class="mb-4 h-color">Add Vehicle</h1>
             <form #vehicleTypeForm="ngForm" (ngSubmit)="onSubmit()">
             <div class="grid">
               <div class="col-12 md:col-6 lg:col-6">
                 <div class="flex flex-column gap-2">
-                  <label htmlFor="name">Vehicle Type</label>
-                  <input                     
+                  <label htmlFor="name">Vehicle</label>
+                  <input
                     pInputText
                     id="name"
-                    aria-describedby="name-help"                    
+                    aria-describedby="name-help"
                     name="name"
-                    [(ngModel)]="vehicleType.name"
+                    [(ngModel)]="vehicle.name"
                     #name="ngModel"
                     required
                   />
-                  <small id="name-help" class="color-red"  *ngIf="name.invalid && (name.dirty || name.touched)">Name is required.</small>                  
+                  <small id="name-help" class="color-red"  *ngIf="name.invalid && (name.dirty || name.touched)">Name is required.</small>
                 </div>
               </div>
 
               <div class="col-12 md:col-6 lg:col-6">
                 <div class="flex flex-column gap-2">
                   <label htmlFor="name">Occupancy</label>
-                  <input                     
+                  <input
                     pInputText
                     id="occupancy"
-                    aria-describedby="name-help"                    
+                    aria-describedby="name-help"
                     name="occupancy"
-                    [(ngModel)]="vehicleType.occupancy"
+                    [(ngModel)]="vehicle.occupancy"
                     #occupancy="ngModel"
                     required
                   />
-                  <small id="name-help" class="color-red"  *ngIf="occupancy.invalid && (occupancy.dirty || occupancy.touched)">Occupancy is required.</small>                  
+                  <small id="name-help" class="color-red"  *ngIf="occupancy.invalid && (occupancy.dirty || occupancy.touched)">Occupancy is required.</small>
+                </div>
+              </div>
+              <div class="col-12 md:col-6 lg:col-6">
+                <div class="flex flex-column gap-2">
+                  <label htmlFor="name">Vehicle Number</label>
+                  <input
+                    pInputText
+                    id="vehicleNumber"
+                    aria-describedby="name-help"
+                    name="vehicleNumber"
+                    [(ngModel)]="vehicle.vehicleNumber"
+                    #vehicleNumber="ngModel"
+                    required
+                  />
+                  <small id="name-help" class="color-red"  *ngIf="vehicleNumber.invalid && (vehicleNumber.dirty || vehicleNumber.touched)">Vehicle Number is required.</small>
                 </div>
               </div>
             </div>

@@ -141,7 +141,7 @@ public class ReportAndStatusService {
             internationalRoadReportStatusDto.setVehicle(internationalShipment.getVehicleNumber());
             internationalRoadReportStatusDto.setShipments(internationalShipment.getTotalShipments());
             internationalRoadReportStatusDto.setPallets(internationalShipment.getNumberOfPallets());
-            internationalRoadReportStatusDto.setOccupancy(getOccupancyByVehicleType(internationalShipment.getVehicleType()));
+            internationalRoadReportStatusDto.setOccupancy(getOccupancyByVehicleType(internationalShipment.getVehicle()));
             internationalRoadReportStatusDto.setBags(internationalShipment.getNumberOfBags());
             internationalRoadReportStatusDto.setEtd(internationalShipment.getEtd());
             internationalRoadReportStatusDto.setAtd(internationalShipment.getAtd());
@@ -255,7 +255,7 @@ public class ReportAndStatusService {
             internationalRoadReportPerformance.setOrigin(internationalShipment.getOriginLocation());
             internationalRoadReportPerformance.setDestination(internationalShipment.getDestinationLocation());
             internationalRoadReportPerformance.setRoute(internationalShipment.getRouteNumber());
-            internationalRoadReportPerformance.setVehicleType(internationalShipment.getVehicleType());
+            internationalRoadReportPerformance.setVehicleType(internationalShipment.getVehicle());
             internationalRoadReportPerformance.setActualTimeArrival(internationalShipment.getAta());
             internationalRoadReportPerformance.setActualTimeDeparture(internationalShipment.getAtd());
             if(internationalShipment.getAta()!=null && internationalShipment.getAtd()!=null){
@@ -289,7 +289,7 @@ public class ReportAndStatusService {
 
             domesticShipmentList = domesticShipmentRepository.findAllByActiveStatusMock(true);
 
-        }else{
+        } else {
             Specification<DomesticShipment> domesticSummarySpecification = DomesticSummarySpecification.getSearchSpecification(searchCriteriaForSummary);
             domesticShipmentList = domesticShipmentRepository.findAll(domesticSummarySpecification);
         }
@@ -304,7 +304,7 @@ public class ReportAndStatusService {
             domesticPerformance.setVehicle(domesticShipment.getVehicleNumber());
             domesticPerformance.setShipments(domesticShipment.getTotalShipments());
             domesticPerformance.setPallets(domesticShipment.getNumberOfPallets());
-            domesticPerformance.setOccupancy(getOccupancyByVehicleType(domesticShipment.getVehicleType()));
+            domesticPerformance.setOccupancy(getOccupancyByVehicleType(domesticShipment.getVehicle()));
             domesticPerformance.setBags(domesticShipment.getNumberOfShipments());
             DomesticRoute domesticRoute = domesticRouteRepository.findByRoute(domesticShipment.getRouteNumber());
             domesticPerformance.setPlanedEta(domesticRoute.getEta());

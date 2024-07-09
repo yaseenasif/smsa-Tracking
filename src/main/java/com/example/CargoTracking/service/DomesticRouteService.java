@@ -5,13 +5,12 @@ import com.example.CargoTracking.dto.DomesticShipmentDto;
 import com.example.CargoTracking.exception.RecordNotFoundException;
 import com.example.CargoTracking.model.*;
 import com.example.CargoTracking.payload.ApiResponse;
-import com.example.CargoTracking.repository.DomesticRouteRepository;
-import com.example.CargoTracking.repository.DomesticShipmentRepository;
-import com.example.CargoTracking.repository.EmailAddressForRouteRepository;
-import com.example.CargoTracking.repository.UserRepository;
+import com.example.CargoTracking.repository.*;
 import com.example.CargoTracking.specification.DomesticRouteSpecification;
 import com.example.CargoTracking.specification.DomesticShipmentSpecification;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.ListUtils;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,11 +103,33 @@ public class DomesticRouteService {
         return domesticRouteRepository.findByRoute(routeNumber);
     }
 
+
     public DomesticRouteDto saveDomesticRoute(DomesticRouteDto domesticRouteDto) {
         DomesticRoute domesticRoute = toEntity(domesticRouteDto);
+
         domesticRoute.setActiveStatus(Boolean.TRUE);
-        domesticRoute = domesticRouteRepository.save(domesticRoute);
-        return toDto(domesticRoute);
+
+        DomesticRoute seveWithVehicleAndDriver = domesticRouteRepository.save(domesticRoute);
+//
+//
+//        Set<Driver> drivers=new HashSet<>();
+//
+//        domesticRouteDto.getDrivers().stream().forEach(el->{
+//            el.setDomesticRoute(save);
+//            drivers.add(el);
+//        });
+//        domesticRoute.setDrivers(drivers);
+//
+//        Set<Vehicle> vehicles=new HashSet<>();
+//
+//        domesticRouteDto.getVehicles().stream().forEach(el->{
+//            el.setDomesticRoute(save);
+//            vehicles.add(el);
+//        });
+//        domesticRoute.setDrivers(drivers);
+//        domesticRoute.setVehicles(vehicles);
+//        DomesticRoute seveWithVehicleAndDriver = domesticRouteRepository.save(domesticRoute);
+        return toDto(seveWithVehicleAndDriver);
     }
 
     public Page<DomesticRouteDto> findAllDomesticRoutes(SearchCriteria searchCriteria, int page, int size) {
@@ -139,7 +160,17 @@ public class DomesticRouteService {
     @Transactional
     public DomesticRouteDto updateDomesticRoute(Long id, DomesticRouteDto domesticRouteDto) {
         Optional<DomesticRoute> domesticRoute = domesticRouteRepository.findById(id);
+
+        List<Long> vehiclesPresentInDto = domesticRouteDto.getVehicles().stream().map(Vehicle::getId)
+                .collect(Collectors.toList());
+
         if (domesticRoute.isPresent()) {
+//            List<Long> vehicleIds = domesticRoute.get().getVehicles()
+//                    .stream()
+//                    .map(Vehicle::getId)
+//                    .filter(vehicleId -> !vehiclesPresentInDto.contains(vehicleId))
+//                    .collect(Collectors.toList());
+//            domesticRouteRepository.
             DomesticRoute oldDomesticRoute = new DomesticRoute();
             oldDomesticRoute.setOrigin(domesticRoute.get().getOrigin());
             oldDomesticRoute.setDestination(domesticRoute.get().getDestination());
@@ -155,10 +186,27 @@ public class DomesticRouteService {
             domesticRoute.get().setRoute(domesticRouteDto.getRoute());
             domesticRoute.get().setEtd(domesticRouteDto.getEtd());
             domesticRoute.get().setEta(domesticRouteDto.getEta());
-            domesticRoute.get().setDriver(domesticRouteDto.getDriver());
+//            domesticRoute.get().setDriver(domesticRouteDto.getDriver());
             domesticRoute.get().setDurationLimit(domesticRouteDto.getDurationLimit());
             domesticRoute.get().setRemarks(domesticRouteDto.getRemarks());
-
+//            domesticRoute.get().setVehicles(domesticRouteDto.getVehicles());
+//            domesticRoute.get().setDrivers(domesticRouteDto.getDrivers());
+//            Set<Driver> drivers=new HashSet<>();
+//
+//            domesticRouteDto.getDrivers().stream().forEach(el->{
+//                el.setDomesticRoute(domesticRoute.get());
+//                drivers.add(el);
+//            });
+//            domesticRoute.get().setDrivers(drivers);
+//
+//            Set<Vehicle> vehicles=new HashSet<>();
+//
+//            domesticRouteDto.getVehicles().stream().forEach(el->{
+//                el.setDomesticRoute(domesticRoute.get());
+//                vehicles.add(el);
+//            });
+//            domesticRoute.get().setDrivers(drivers);
+//            domesticRoute.get().setVehicles(vehicles);
             DomesticRoute save = domesticRouteRepository.save(domesticRoute.get());
 
             Optional<EmailAddressForRoutes> domesticRouteEmailAddress1 = emailAddressForRouteRepository.findById(1L);

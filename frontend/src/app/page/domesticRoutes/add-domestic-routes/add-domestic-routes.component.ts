@@ -9,6 +9,11 @@ import { Router } from '@angular/router';
 import { Location } from '../../../model/Location';
 import { DomesticShipment } from '../../../model/DomesticShipment';
 import { DatePipe } from '@angular/common';
+import { Vehicle } from 'src/app/model/VehicleType';
+import { VehicleTypeService } from '../../vehicle-type/service/vehicle-type.service';
+import { DriverService } from '../../driver/driver.service';
+import { Driver } from 'src/app/model/Driver';
+import { PaginatedResponse } from 'src/app/model/PaginatedResponse';
 
 @Component({
   selector: 'app-add-domestic-routes',
@@ -28,7 +33,9 @@ export class AddDomesticRoutesComponent {
     origin: null,
     route: null,
     durationLimit: undefined,
-    remarks: undefined
+    remarks: undefined,
+    drivers: [],
+    vehicles: []
   }
 
   location!: Location[];
@@ -39,9 +46,14 @@ export class AddDomesticRoutesComponent {
 
   routeNumbers: any;
   minETDDate: Date = new Date();
+
+  vehicles!: Vehicle[];
+  drivers!:Driver[];
   // destination!: LocationPort[];
 
   constructor(
+    private driverService:DriverService,
+    private vehicleService:VehicleTypeService,
     private domesticRouteService: DomesticRoutesService,
     private domesticLocation: LocationService,
     private messageService: MessageService,
@@ -50,8 +62,26 @@ export class AddDomesticRoutesComponent {
 
 
   ngOnInit(): void {
+  
     this.items = [{ label: 'Domestic Route List', routerLink: '/domestic-routes' }, { label: 'Add Route' }];
     this.getDomesticLocations();
+    this.getDriver();
+    this.getVehicle();
+  }
+
+  getDriver(){
+    this.driverService.getDriver().subscribe((res:any)=>{
+      this.drivers=res.content.filter((el:any) => el.status); 
+   },(error)=>{
+    console.log(error);
+   })
+  }
+  getVehicle(){
+    this.vehicleService.getALLVehicleType().subscribe((res:Vehicle[])=>{
+      this.vehicles =res.filter(el => el.status);
+    },(error)=>{
+     console.log(error);
+    })
   }
 
   getDomesticLocations() {
@@ -81,6 +111,8 @@ export class AddDomesticRoutesComponent {
       }, 800);
     }, (error: any) => {
       if (error.error.body) {
+        this.domesticRoutes.etd= null;
+        this.domesticRoutes.eta= null;
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
       } else {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error });

@@ -16,7 +16,7 @@
                                 <h2 class="h-color">International Shipment By Road Report Of Performance</h2>
                             </div>
                             <p-button
-                              icon="bi bi-download"  tooltipPosition="top" pTooltip="Download" 
+                              icon="bi bi-download"  tooltipPosition="top" pTooltip="Download"
                             class="mr float-right"
                             styleClass="p-button-rounded p-button-success p-button-text p-button-raised"
                             (click)="downloadFile()"
@@ -127,7 +127,7 @@
                                     <th class="text-center">Actual Time Arrival</th>
                                     <th class="text-center">Offloaded</th>
                                     <th class="text-center">Total Transit Time (Days)</th>
-                                    <th class="text-center">Total Lead Time (Days)</th>                             
+                                    <th class="text-center">Total Lead Time (Days)</th>
                                 </tr>
                             </ng-template>
                             <ng-template pTemplate="body" let-internationalRoadReportPerformance>
@@ -137,7 +137,7 @@
                                     <td class="text-center">{{internationalRoadReportPerformance.origin}}</td>
                                     <td class="text-center">{{internationalRoadReportPerformance.destination}}</td>
                                     <td class="text-center">{{internationalRoadReportPerformance.route}}</td>
-                                    <td class="text-center">{{internationalRoadReportPerformance.vehicleType}}</td>
+                                    <td class="text-center">{{internationalRoadReportPerformance.vehicle}}</td>
                                     <td class="text-center">{{internationalRoadReportPerformance.actualTimeDeparture}}</td>
                                     <td class="text-center">{{internationalRoadReportPerformance.actualTimeArrival}}</td>
                                     <td class="text-center">{{internationalRoadReportPerformance.offloaded}}</td>

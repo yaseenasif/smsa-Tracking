@@ -7,6 +7,10 @@ import { DomesticRoutesService } from '../service/domestic-routes.service';
 import { LocationService } from '../../location/service/location.service';
 import { DatePipe } from '@angular/common';
 import { Location } from '../../../model/Location';
+import { DriverService } from '../../driver/driver.service';
+import { VehicleTypeService } from '../../vehicle-type/service/vehicle-type.service';
+import { Vehicle } from 'src/app/model/VehicleType';
+import { Driver } from 'src/app/model/Driver';
 // import { DatePipe } from '@angular/common';
 
 @Component({
@@ -28,7 +32,9 @@ export class UpdateDomesticRoutesComponent {
     origin: null,
     route: null,
     durationLimit: undefined,
-    remarks: undefined
+    remarks: undefined,
+    drivers: [],
+    vehicles: []
   }
 
   location!: Location[];
@@ -39,9 +45,13 @@ export class UpdateDomesticRoutesComponent {
 
   routeNumbers: any;
   minETDDate: Date = new Date();
+  vehicles!: Vehicle[];
+  drivers!:Driver[];
   // destination!: LocationPort[];
 
   constructor(
+    private driverService:DriverService,
+    private vehicleService:VehicleTypeService,
     private domesticRouteService: DomesticRoutesService,
     private domesticLocation: LocationService,
     private messageService: MessageService,
@@ -55,6 +65,8 @@ export class UpdateDomesticRoutesComponent {
     this.items = [{ label: 'Domestic Route List', routerLink: '/domestic-routes' }, { label: 'Edit Route' }];
     this.getDomesticLocations();
     this.getById(this.routeId);
+    this.getDriver();
+    this.getVehicle();
   }
 
   getDomesticLocations() {
@@ -69,9 +81,26 @@ export class UpdateDomesticRoutesComponent {
     })
   }
 
+  getDriver(){
+    this.driverService.getDriver().subscribe((res:any)=>{
+      this.drivers=res.content 
+   },(error)=>{
+    console.log(error);
+   })
+  }
+  getVehicle(){
+    this.vehicleService.getALLVehicleType().subscribe((res:Vehicle[])=>{
+      this.vehicles =res
+    },(error)=>{
+     console.log(error);
+    })
+  }
+
   getById(id: number) {
     this.domesticRouteService.getDomesticRouteById(id).subscribe((res: Routes) => {
       this.domesticRoutes = res;
+      console.log(res);
+      
       this.domesticRoutes.etd = this.domesticRoutes.etd ? new Date(`1970-01-01 ${this.domesticRoutes.etd}`) : null;
       this.domesticRoutes.eta = this.domesticRoutes.eta ? new Date(`1970-01-01 ${this.domesticRoutes.eta}`) : null;
     }, (error: any) => {

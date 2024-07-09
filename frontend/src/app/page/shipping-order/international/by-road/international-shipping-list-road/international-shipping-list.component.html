@@ -27,7 +27,7 @@
                   ></i
                   >&nbsp;Add Trip
                 </p-button>
-               
+
               </div>
             </p-toolbar>
           </div>
@@ -239,7 +239,7 @@
                   <td class="text-center" [classList]="
                       getColor(internationalShipmentByRoad)
                     " >
-                    {{ internationalShipmentByRoad.vehicleType }}
+                    {{ internationalShipmentByRoad.vehicle }}
                   </td>
                   <td class="text-center" [classList]="
                       getColor(internationalShipmentByRoad)
@@ -284,7 +284,7 @@
                   <td *ngIf="hasPermission('International Outbound By Road View') || hasPermission('International Outbound By Road View Attachment') || hasPermission('International Outbound By Road Add Attachment') || hasPermission('International Outbound By Road Update') || hasPermission('International Outbound By Road Delete')" [classList]="
                   getColor(internationalShipmentByRoad)
                 " >
-                <div class="flex flex-row">   
+                <div class="flex flex-row">
                    <p-button
                   *ngIf="hasPermission('International Outbound By Road View')"
                   [routerLink]="[

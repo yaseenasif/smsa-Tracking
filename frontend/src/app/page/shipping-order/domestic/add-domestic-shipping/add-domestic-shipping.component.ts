@@ -4,7 +4,7 @@ import { MenuItem, MessageService } from 'primeng/api';
 import { LocationService } from 'src/app/page/location/service/location.service';
 import { Location } from 'src/app/model/Location'
 import { VehicleTypeService } from 'src/app/page/vehicle-type/service/vehicle-type.service';
-import { VehicleType } from 'src/app/model/VehicleType';
+import { Vehicle } from 'src/app/model/VehicleType';
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
 import { DomesticShipment } from 'src/app/model/DomesticShipment';
@@ -32,7 +32,7 @@ import { Router } from '@angular/router';
 export class AddDomesticShippingComponent {
   items: MenuItem[] | undefined;
   defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
- 
+
   routes: any;
   domesticRoute:Routes={
     id: null,
@@ -43,7 +43,9 @@ export class AddDomesticShippingComponent {
     origin: null,
     route: null,
     durationLimit: null,
-    remarks: undefined
+    remarks: undefined,
+    drivers: [],
+    vehicles: []
   };
 
   domesticShipment: DomesticShipment = {
@@ -61,7 +63,7 @@ export class AddDomesticShippingComponent {
     driverName: null,
     driverContact: null,
     referenceNumber: null,
-    vehicleType: null,
+    vehicle: null,
     numberOfPallets: null,
     numberOfBags: null,
     vehicleNumber: null,
@@ -107,9 +109,9 @@ export class AddDomesticShippingComponent {
 
   originFacility: (Facility|null|undefined)[]|undefined;
   destinationFacility: (Facility|null|undefined)[]|undefined;
-  
-  vehicleTypes!: VehicleType[];
-  selectedVehicleTypes!: VehicleType;
+
+  vehicles!: Vehicle[]
+  selectedVehicleTypes!: Vehicle;
 
   numberOfPallets: { options: number }[] = Object.values(NumberOfPallets).filter(value => typeof value === 'number').map(value => ({ options: value as number }));
 
@@ -160,15 +162,15 @@ export class AddDomesticShippingComponent {
     this.getAllVehicleType();
     // this.getAllShipmentStatus();
     this.getAllDriver();
-    this.getLoggedInUser(); 
+    this.getLoggedInUser();
   }
 
-  
+
   getLoggedInUser(){
       this.userService.getLoggedInUser().subscribe((res: User) => {
         this.user=res;
-      
-        
+
+
       }, error => {
         if (error.error.body) {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -178,7 +180,7 @@ export class AddDomesticShippingComponent {
       })
   }
 
-  
+
   searchLocationByCountry(country:string){
     //  this.orgLocation=this.user.domesticOriginLocations?.filter((element)=> element.country?.name==country);
     //  this.desLocation=this.user.domesticDestinationLocations?.filter((element)=> element.country?.name==country);
@@ -238,7 +240,7 @@ export class AddDomesticShippingComponent {
     return location.country
      }).filter((obj, index, arr) =>
     index === arr.findIndex((item:Country|null|undefined) => item!.id === obj!.id));
-  
+
     }, error => {
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -249,8 +251,8 @@ export class AddDomesticShippingComponent {
   }
 
   getAllVehicleType() {
-    this.vehicleTypeService.getALLVehicleType().subscribe((res: VehicleType[]) => {
-      this.vehicleTypes = res;
+    this.vehicleTypeService.getALLVehicleType().subscribe((res: Vehicle[]) => {
+      this.vehicles = res;
     }, error => {
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -310,7 +312,7 @@ export class AddDomesticShippingComponent {
 
         // this.domesticShipment.etd = this.domesticShipment.etd ? new Date( this.domesticShipment.etd) : null;
         // this.domesticShipment.eta =  this.domesticShipment.eta ? new Date( this.domesticShipment.eta) : null;
-  
+
       })
     }else{
       if(typeof domesticShipment.tagNumber === 'string'){
@@ -325,7 +327,7 @@ export class AddDomesticShippingComponent {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Destination location not found.' });
       }
     }
-     
+
    }
 
   getAllDriver() {
@@ -367,7 +369,7 @@ export class AddDomesticShippingComponent {
 
 
   // onOrgCountryChange(country:string){
- 
+
   //  let found= this.destinationCountry.find(obj => obj.name === country)
   //  if(found){
   //  this.domesticShipment.destinationCountry=country;
@@ -402,17 +404,17 @@ export class AddDomesticShippingComponent {
   //   this.domesticShipment.originCountry=this.domesticShipment.destinationCountry;
   //   this.messageService.add({ severity: 'error', summary: 'Error', detail: 'User not have country:"'+country+'" in destination country' });
   //  }
-  
+
   // }
 
   // onDesCountryChange(country:string){
-  
+
   //   let found= this.originCountry.find(obj => obj.name === country)
   //   if(found){
   //   this.domesticShipment.originCountry=country;
   //   this.originFacility=[]
   //   this.destinationFacility=[]
-   
+
   //   let orgFacility=this.user.domesticOriginLocations!.filter(
   //     (location, index, self) =>
   //       location?.facility?.country?.name == country &&

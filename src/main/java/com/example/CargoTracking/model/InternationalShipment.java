@@ -46,7 +46,7 @@ public class InternationalShipment {
     private String driverName;
     private String driverContact;
     private String referenceNumber;//Master CONS
-    private String vehicleType;
+    private String vehicle;
     private Integer numberOfPallets;
     private Integer numberOfBags;
     private Integer numberOfPalletsReceived;

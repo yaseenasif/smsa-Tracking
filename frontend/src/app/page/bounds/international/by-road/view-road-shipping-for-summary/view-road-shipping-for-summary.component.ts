@@ -47,7 +47,7 @@ export class ViewRoadShippingForSummaryComponent {
     totalShipments: null,
     type: 'By Air',
     vehicleNumber: null,
-    vehicleType: null,
+    vehicle: null,
     routeNumber: null,
     etd: null,
     eta: null,
@@ -212,9 +212,9 @@ export class ViewRoadShippingForSummaryComponent {
 
   getInternationalEmail(id:number){
     this.summaryService.getInternationalEmail(id).subscribe((res)=>{
-      
+
       this.emailAttribute='mailto:'.concat(res.to,'?cc=',res.cc,'?subject=',res.subject)
-    
+
     },(error)=>{
       console.log(error);
     })

@@ -1,11 +1,11 @@
 package com.example.CargoTracking.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,5 +23,8 @@ public class Driver {
     private String contactNumber;
     private String referenceNumber;
     private boolean status;
+
+    @OneToMany(mappedBy = "driver")
+    private Set<DomesticRoute> domesticRoutes;
 
 }

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MenuItem, MessageService } from 'primeng/api';
 import { DomesticShipment } from 'src/app/model/DomesticShipment';
 import { ShipmentStatus } from 'src/app/model/ShipmentStatus';
-import { VehicleType } from 'src/app/model/VehicleType';
+import { Vehicle } from 'src/app/model/VehicleType';
 import { LocationService } from 'src/app/page/location/service/location.service';
 import { ShipmentStatusService } from 'src/app/page/shipment-status/service/shipment-status.service';
 import { VehicleTypeService } from 'src/app/page/vehicle-type/service/vehicle-type.service';
@@ -28,7 +28,7 @@ import { User } from 'src/app/model/User';
   providers: [MessageService, DatePipe]
 })
 export class UpdateDomesticShipmentForSummaryComponent {
-  
+
 
   defaultDate:Date=new Date(this.datePipe.transform((new Date()).setHours(0, 0, 0, 0),'EEE MMM dd yyyy HH:mm:ss \'GMT\'ZZ (z)')!)
   items: MenuItem[] | undefined;
@@ -47,7 +47,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     driverName: null,
     driverContact: null,
     referenceNumber: null,
-    vehicleType: null,
+    vehicle: null,
     numberOfPallets: null,
     numberOfBags: null,
     vehicleNumber: null,
@@ -88,8 +88,8 @@ export class UpdateDomesticShipmentForSummaryComponent {
   selectedOriginFacility!: originFacility;
   selectedDestinationFacility!: originFacility;
 
-  vehicleTypes!: VehicleType[];
-  selectedVehicleTypes!: VehicleType;
+  vehicles!: Vehicle[];
+  selectedVehicleTypes!: Vehicle;
   selectedDriver!: Driver | null | undefined;
 
 
@@ -102,7 +102,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
   user!: User;
   required!: boolean;
   minDate!: Date|null;
- 
+
 
   constructor(private locationService: LocationService,
     private cdr: ChangeDetectorRef,
@@ -121,13 +121,13 @@ export class UpdateDomesticShipmentForSummaryComponent {
   uploadedFiles: any[] = [];
 
 
-  onPasteOveragesAwbs() {  
+  onPasteOveragesAwbs() {
     this.domesticShipment.overagesAwbs=this.domesticShipment.overagesAwbs!.match(/[^ ,]+/g)!.join(',')
   }
-  onPasteShortagesAwbs() {  
+  onPasteShortagesAwbs() {
     this.domesticShipment.shortagesAwbs=this.domesticShipment.shortagesAwbs!.match(/[^ ,]+/g)!.join(',')
   }
-  onPasteDamageAwbs() {  
+  onPasteDamageAwbs() {
     this.domesticShipment.damageAwbs=this.domesticShipment.damageAwbs!.match(/[^ ,]+/g)!.join(',')
   }
 
@@ -146,18 +146,18 @@ export class UpdateDomesticShipmentForSummaryComponent {
 
     const locations$: Observable<Location[]> = this.locationService.getAllLocation();
     const driver$: Observable<PaginatedResponse<Driver>> = this.driverService.getAllDriver();
-    const vehicleType$: Observable<VehicleType[]> = this.vehicleTypeService.getALLVehicleType();
+    const vehicle$: Observable<Vehicle[]> = this.vehicleTypeService.getALLVehicleType();
     const shipmentStatus$: Observable<ProductField> = this.getAllShipmentStatus();
 
-    forkJoin([locations$, driver$, vehicleType$, shipmentStatus$]).subscribe(
+    forkJoin([locations$, driver$, vehicle$, shipmentStatus$]).subscribe(
       ([locationsResponse, driverResponse, vehicleTypeResponse, shipmentStatusResponse]) => {
         // Access responses here
         this.location = locationsResponse.filter(el => el.status);
 
         this.drivers = driverResponse.content.filter((el: Driver) => el.status);
-        this.vehicleTypes = vehicleTypeResponse
+        this.vehicles = vehicleTypeResponse
         this.shipmentStatus = shipmentStatusResponse
-  
+
 
         this.domesticShipmentById(this.domesticShipmentId);
       }
@@ -201,8 +201,8 @@ export class UpdateDomesticShipmentForSummaryComponent {
   }
 
   getAllVehicleType() {
-    this.vehicleTypeService.getALLVehicleType().subscribe((res: VehicleType[]) => {
-      this.vehicleTypes = res;
+    this.vehicleTypeService.getALLVehicleType().subscribe((res: Vehicle[]) => {
+      this.vehicles = res;
     }, error => {
       if (error.error.body) {
         this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
@@ -229,7 +229,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     this.domesticShipmentService.getDomesticShipmentById(id).subscribe((res: DomesticShipment) => {
       // res.etd = res.etd ? new Date(res.etd) : null;
       // res.eta = res.eta ? new Date(res.eta) : null;
-     
+
 
       res.atd = res.atd ? new Date(res.atd) : null;
       res.ata = res.ata ? new Date(res.ata) : null;
@@ -237,7 +237,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
       this.minDate=res.atd;
 
       this.domesticShipment = res;
-        
+
       if(this.domesticShipment.totalShipments!=this.domesticShipment.numberOfShipments){
         this.domesticShipment.totalShipments=this.domesticShipment.numberOfShipments;
       }
@@ -257,7 +257,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     if(this.domesticShipment.received==null||this.domesticShipment.received==undefined){}
     else if(this.domesticShipment.received!=null||this.domesticShipment.received!=undefined){
     if(this.domesticShipment.received!>this.domesticShipment.totalShipments!){
-      
+
       this.domesticShipment.overages=this.domesticShipment.received!-this.domesticShipment.totalShipments!
       this.domesticShipment.shortages=0
       this.domesticShipment.shortagesAwbs='';
@@ -272,7 +272,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     this.makePatternOfShortageAWBS(this.domesticShipment.shortages!);
     }
     else if(this.domesticShipment.received! === this.domesticShipment.totalShipments!){
-      
+
       this.domesticShipment.overages=0
       this.domesticShipment.shortages=0
       this.domesticShipment.overagesAwbs='';
@@ -289,7 +289,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
   }
 
   updateDomesticShipment(domesticShipment: DomesticShipment) {
-  
+
 
     let orgLocation= this.location ?.find((el)=>{return el.country?.name == this.domesticShipment.originCountry && el.facility?.name==this.domesticShipment.originFacility && el.locationName==this.domesticShipment.originLocation && el.type == "Domestic"});
     let desLocation= this.location ?.find((el)=>{return el.country?.name == this.domesticShipment.destinationCountry && el.facility?.name==this.domesticShipment.destinationFacility && el.locationName==this.domesticShipment.destinationLocation && el.type == "Domestic"});
@@ -299,7 +299,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     if(orgLocationId && desLocationId){
       this.domesticShipmentService.updateDomesticShipment(this.domesticShipmentId,orgLocationId!,desLocationId!,domesticShipment).subscribe((res: DomesticShipment) => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Domestic Outbound Updated Successfully' });
-  
+
         setTimeout(() => {
           this.router.navigate(['/domestic-summary']);
         }, 800);
@@ -325,7 +325,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
       this.domesticShipment.ata =  this.domesticShipment.ata ? new Date( this.domesticShipment.ata) : null;
     }
 
-   
+
   }
 
   getLoggedInUser() {
@@ -356,14 +356,14 @@ export class UpdateDomesticShipmentForSummaryComponent {
     // this.domesticShipment.eta = this.datePipe.transform(this.domesticShipment.eta, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.atd = this.datePipe.transform(this.domesticShipment.atd, 'yyyy-MM-ddTHH:mm:ss')
     this.domesticShipment.ata = this.datePipe.transform(this.domesticShipment.ata, 'yyyy-MM-ddTHH:mm:ss')
-    
+
     this.updateDomesticShipment(this.domesticShipment);
   }
-  
+
 
   pattern1!:string;
   makePatternOfDamageAWBS(num:number|null){
-  
+
    if(num==0 || num==null){
     this.domesticShipment.damageAwbs=''
    }
@@ -374,12 +374,12 @@ export class UpdateDomesticShipmentForSummaryComponent {
     }else{
 
       let groupPattern='';
-      let separator = ','; 
+      let separator = ',';
       for (let index = 0; index < num; index++) {
         groupPattern += separator + '\\d{12}';
       }
       this.pattern1 = groupPattern.substring(1);
-     
+
   this.cdr.detectChanges();
     }
   }
@@ -392,12 +392,12 @@ export class UpdateDomesticShipmentForSummaryComponent {
     }else{
 
       let groupPattern='';
-      let separator = ','; 
+      let separator = ',';
       for (let index = 0; index < num; index++) {
         groupPattern += separator + '\\d{12}';
       }
       this.pattern2 = groupPattern.substring(1);
-     
+
   this.cdr.detectChanges();
     }
   }
@@ -410,17 +410,17 @@ export class UpdateDomesticShipmentForSummaryComponent {
     }else{
 
       let groupPattern='';
-      let separator = ','; 
+      let separator = ',';
       for (let index = 0; index < num; index++) {
         groupPattern += separator + '\\d{12}';
       }
       this.pattern3 = groupPattern.substring(1);
-     
+
   this.cdr.detectChanges();
     }
   }
 
-  onTallyStatus(Status:string){ 
+  onTallyStatus(Status:string){
     if(Status == "Tally"){
     this.required=true;
     }else if(Status != "Tally"){
@@ -428,7 +428,7 @@ export class UpdateDomesticShipmentForSummaryComponent {
     }
     this.cdr.detectChanges();
    }
- 
+
 }
 interface originFacility {
   originFacility: string

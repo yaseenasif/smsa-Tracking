@@ -32,8 +32,8 @@ import static org.apache.poi.ss.util.CellUtil.createCell;
 @Service
 public class ExcelService {
 
-    @Autowired
-    ReportAndStatusService reportAndStatusService;
+//    @Autowired
+//    ReportAndStatusService reportAndStatusService;
     @Autowired
     DomesticShipmentRepository domesticShipmentRepository;
     @Autowired
@@ -138,7 +138,7 @@ public class ExcelService {
                 internationalRoadReportPerformance.setOrigin(internationalShipment.getOriginLocation());
                 internationalRoadReportPerformance.setDestination(internationalShipment.getDestinationLocation());
                 internationalRoadReportPerformance.setRoute(internationalShipment.getRouteNumber());
-                internationalRoadReportPerformance.setVehicleType(internationalShipment.getVehicleType());
+                internationalRoadReportPerformance.setVehicleType(internationalShipment.getVehicle());
                 internationalRoadReportPerformance.setActualTimeArrival(internationalShipment.getAta());
                 internationalRoadReportPerformance.setActualTimeDeparture(internationalShipment.getAtd());
                 if(internationalShipment.getAta()!=null && internationalShipment.getAtd()!=null){
@@ -342,7 +342,7 @@ public class ExcelService {
                 internationalRoadReportStatusDto.setVehicle(internationalShipment.getVehicleNumber());
                 internationalRoadReportStatusDto.setShipments(internationalShipment.getTotalShipments());
                 internationalRoadReportStatusDto.setPallets(internationalShipment.getNumberOfPallets());
-                internationalRoadReportStatusDto.setOccupancy(getOccupancyByVehicleType(internationalShipment.getVehicleType()));
+                internationalRoadReportStatusDto.setOccupancy(getOccupancyByVehicleType(internationalShipment.getVehicle()));
                 internationalRoadReportStatusDto.setBags(internationalShipment.getNumberOfBags());
                 internationalRoadReportStatusDto.setEtd(internationalShipment.getEtd());
                 internationalRoadReportStatusDto.setAtd(internationalShipment.getAtd());
@@ -458,7 +458,7 @@ public class ExcelService {
                 domesticPerformance.setVehicle(domesticShipment.getVehicleNumber());
                 domesticPerformance.setShipments(domesticShipment.getTotalShipments());
                 domesticPerformance.setPallets(domesticShipment.getNumberOfPallets());
-                domesticPerformance.setOccupancy(getOccupancyByVehicleType(domesticShipment.getVehicleType()));
+                domesticPerformance.setOccupancy(getOccupancyByVehicleType(domesticShipment.getVehicle()));
                 domesticPerformance.setBags(domesticShipment.getNumberOfShipments());
                 DomesticRoute domesticRoute = domesticRouteRepository.findByRoute(domesticShipment.getRouteNumber());
                 domesticPerformance.setPlanedEta(domesticRoute.getEta());

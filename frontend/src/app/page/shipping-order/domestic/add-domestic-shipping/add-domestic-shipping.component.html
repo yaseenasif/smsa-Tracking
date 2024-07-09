@@ -415,7 +415,7 @@
                   </div>
                 </div>
 
-             
+
 
                 <!-- <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
@@ -602,11 +602,11 @@
                     <label htmlFor="name">Vehicle Type</label>
                     <p-dropdown
                       class="w-full"
-                      [options]="vehicleTypes"
-                      name="vehicleType"
-                      #vehicleType="ngModel"
+                      [options]="vehicles"
+                      name="vehicle"
+                      #vehicle="ngModel"
                       [required]="true"
-                      [(ngModel)]="domesticShipment.vehicleType"
+                      [(ngModel)]="domesticShipment.vehicle"
                       optionLabel="name"
                       optionValue="name"
                       [filter]="true"
@@ -619,12 +619,12 @@
                           class="flex align-items-center gap-2"
                           *ngIf="domesticShipment"
                         >
-                          <div>{{ domesticShipment.vehicleType }}</div>
+                          <div>{{ domesticShipment.vehicle }}</div>
                         </div>
                       </ng-template>
-                      <ng-template let-vehicleTypes pTemplate="item">
+                      <ng-template let-vehicles pTemplate="item">
                         <div class="flex align-items-center gap-2">
-                          <div>{{ vehicleTypes.name }}</div>
+                          <div>{{ vehicles.name }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>

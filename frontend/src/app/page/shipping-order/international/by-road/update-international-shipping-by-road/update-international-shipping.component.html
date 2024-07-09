@@ -734,11 +734,11 @@
                     <label htmlFor="name">Vehicle Type</label>
                     <p-dropdown
                       class="w-full"
-                      #vehicleType="ngModel"
-                      name="vehicleType"
+                      #vehicle="ngModel"
+                      name="vehicle"
                       [required]="true"
-                      [options]="vehicleTypes"
-                      [(ngModel)]="internationalShipment.vehicleType"
+                      [options]="vehicles"
+                      [(ngModel)]="internationalShipment.vehicle"
                       optionValue="name"
                       optionLabel="name"
                       [filter]="true"
@@ -751,12 +751,12 @@
                           class="flex align-items-center gap-2"
                           *ngIf="internationalShipment"
                         >
-                          <div>{{ internationalShipment.vehicleType }}</div>
+                          <div>{{ internationalShipment.vehicle }}</div>
                         </div>
                       </ng-template>
-                      <ng-template let-vehicleTypes pTemplate="item">
+                      <ng-template let-vehicles pTemplate="item">
                         <div class="flex align-items-center gap-2">
-                          <div>{{ vehicleTypes.name }}</div>
+                          <div>{{ vehicles.name }}</div>
                         </div>
                       </ng-template>
                     </p-dropdown>
@@ -850,11 +850,11 @@
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
                     <label htmlFor="name">Security Tag</label>
-                   
-                 
+
+
                     <p-chips class="chipes-hook" [(ngModel)]="internationalShipment.tagNumber" [required]="true" separator=","  [allowDuplicate]="false"   #tagNumber="ngModel"  name="tagNumber" appIsNumber appSevenDigitValidator>
                     </p-chips>
-                 
+
                    <small
                     id="name-help"
                     class="color-red"

@@ -24,7 +24,7 @@ export interface InternationalShipment {
   driverName: string | null | undefined,
   driverContact: string | null | undefined,
   referenceNumber: string | null | undefined,//Master CONS
-  vehicleType: string | null | undefined,
+  vehicle: string | null | undefined,
   numberOfPallets: number | null | undefined,
   numberOfBags: number | null | undefined,
   vehicleNumber: string | null | undefined,
