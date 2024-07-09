@@ -305,16 +305,25 @@ public class ReportAndStatusService {
         for(DomesticShipment domesticShipment: domesticShipmentList){
             logger.info("enter in 2st if");
             DomesticPerformance domesticPerformance = new DomesticPerformance();
+            logger.info(String.format("check id %d",domesticShipment.getId()));
             domesticPerformance.setId(domesticShipment.getId());
+            logger.info(String.format("check PreAlertNumber %d",domesticShipment.getPreAlertNumber()));
             domesticPerformance.setPreAlertNumber(domesticShipment.getPreAlertNumber());
+            logger.info(String.format("check ReferenceNumber %d",domesticShipment.getReferenceNumber()));
             domesticPerformance.setReferenceNumber(domesticShipment.getReferenceNumber());
+            logger.info(String.format("check Origin %d",domesticShipment.getOriginLocation()));
             domesticPerformance.setOrigin(domesticShipment.getOriginLocation());
+            logger.info(String.format("check Destination %d",domesticShipment.getDestinationLocation()));
             domesticPerformance.setDestination(domesticShipment.getDestinationLocation());
+            logger.info(String.format("check Route %d",domesticShipment.getRouteNumber()));
             domesticPerformance.setRoute(domesticShipment.getRouteNumber());
+            logger.info(String.format("check vehicle %d",domesticShipment.getVehicleNumber()));
             domesticPerformance.setVehicle(domesticShipment.getVehicleNumber());
+            logger.info(String.format("check Shipments %d",domesticShipment.getTotalShipments()));
             domesticPerformance.setShipments(domesticShipment.getTotalShipments());
+            logger.info(String.format("check Pallets %d",domesticShipment.getNumberOfPallets()));
             domesticPerformance.setPallets(domesticShipment.getNumberOfPallets());
-            logger.info(String.format("check vehicle type %d",domesticShipment.getVehicleType()));
+            logger.info(String.format("check VehicleType %d",domesticShipment.getVehicleType()));
             domesticPerformance.setOccupancy(getOccupancyByVehicleType(domesticShipment.getVehicleType()));
             logger.info("success in getting occupancy");
             domesticPerformance.setBags(domesticShipment.getNumberOfShipments());
