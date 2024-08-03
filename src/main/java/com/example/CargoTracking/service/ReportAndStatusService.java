@@ -10,6 +10,9 @@ import com.example.CargoTracking.model.InternationalShipmentHistory;
 import com.example.CargoTracking.repository.*;
 import com.example.CargoTracking.specification.DomesticSummarySpecification;
 import com.example.CargoTracking.specification.InternationalSummarySpecification;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ReportAndStatusService {
     @Autowired
     InternationalShipmentRepository internationalShipmentRepository;
@@ -35,6 +39,8 @@ public class ReportAndStatusService {
     DomesticRouteRepository domesticRouteRepository;
     @Autowired
     VehicleTypeService vehicleTypeService;
+    private static final Logger logger = LoggerFactory.getLogger(ReportAndStatusService.class);
+
 
     public List<InternationalAirReportStatusDto> findInternationalAirReportStatus(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         List<InternationalAirReportStatusDto> internationalAirReportStatusDtoList = new ArrayList<>();
@@ -278,6 +284,7 @@ public class ReportAndStatusService {
     }
 
     public List<DomesticPerformance> findDomesticPerformance(SearchCriteriaForSummary searchCriteriaForSummary) {
+        logger.info("start");
         List<DomesticPerformance> domesticPerformanceList = new ArrayList<>();
         List<DomesticShipment> domesticShipmentList = new ArrayList<>();
         if ((searchCriteriaForSummary.getDestinations() == null || searchCriteriaForSummary.getDestinations().isEmpty())
@@ -286,44 +293,67 @@ public class ReportAndStatusService {
                 && (searchCriteriaForSummary.getFromDate() == null || searchCriteriaForSummary.getFromDate().isEmpty())
                 && (searchCriteriaForSummary.getStatus() == null || searchCriteriaForSummary.getStatus().isEmpty())
                 && (searchCriteriaForSummary.getRouteNumber() == null || searchCriteriaForSummary.getRouteNumber().isEmpty())) {
-
+        logger.info("enter in 1st if ");
             domesticShipmentList = domesticShipmentRepository.findAllByActiveStatusMock(true);
-
+            logger.info("end 1st if ");
         }else{
+            logger.info("enter in 1st else ");
             Specification<DomesticShipment> domesticSummarySpecification = DomesticSummarySpecification.getSearchSpecification(searchCriteriaForSummary);
             domesticShipmentList = domesticShipmentRepository.findAll(domesticSummarySpecification);
+            logger.info("end 1st else");
         }
         for(DomesticShipment domesticShipment: domesticShipmentList){
+            logger.info("enter in 2st if");
             DomesticPerformance domesticPerformance = new DomesticPerformance();
+            logger.info("check id ",domesticShipment.getId());
+            logger.info(String.valueOf(domesticShipment.getId()));
             domesticPerformance.setId(domesticShipment.getId());
+            logger.info("check PreAlertNumber",domesticShipment.getPreAlertNumber());
             domesticPerformance.setPreAlertNumber(domesticShipment.getPreAlertNumber());
+            logger.info("check ReferenceNumber",domesticShipment.getReferenceNumber());
             domesticPerformance.setReferenceNumber(domesticShipment.getReferenceNumber());
+            logger.info("check Origin ",domesticShipment.getOriginLocation());
             domesticPerformance.setOrigin(domesticShipment.getOriginLocation());
+            logger.info("check Destination ",domesticShipment.getDestinationLocation());
             domesticPerformance.setDestination(domesticShipment.getDestinationLocation());
+            logger.info("check Route ",domesticShipment.getRouteNumber());
             domesticPerformance.setRoute(domesticShipment.getRouteNumber());
+            logger.info("check vehicle ",domesticShipment.getVehicleNumber());
             domesticPerformance.setVehicle(domesticShipment.getVehicleNumber());
+            logger.info("check Shipments ",domesticShipment.getTotalShipments());
             domesticPerformance.setShipments(domesticShipment.getTotalShipments());
+            logger.info("check Pallets ",domesticShipment.getNumberOfPallets());
             domesticPerformance.setPallets(domesticShipment.getNumberOfPallets());
+            logger.info("check VehicleType ",domesticShipment.getVehicleType());
             domesticPerformance.setOccupancy(getOccupancyByVehicleType(domesticShipment.getVehicleType()));
+            logger.info("check Bags ",domesticShipment.getNumberOfShipments());
             domesticPerformance.setBags(domesticShipment.getNumberOfShipments());
             DomesticRoute domesticRoute = domesticRouteRepository.findByRoute(domesticShipment.getRouteNumber());
             domesticPerformance.setPlanedEta(domesticRoute.getEta());
             domesticPerformance.setPlanedEtd(domesticRoute.getEtd());
             domesticPerformance.setAta(domesticShipment.getAta());
             domesticPerformance.setAtd(domesticShipment.getAtd());
+            logger.info("end 2st if");
             if(domesticRoute.getEta()!=null && domesticShipment.getAta()!=null){
+                logger.info("start 2st in 1st if");
                 Duration durationForEtaAndAta = Duration.between(domesticRoute.getEta(), domesticShipment.getAta());
                 domesticPerformance.setPlanedEtaVsAta(durationForEtaAndAta.toHours());
+                logger.info("end 2st in 1st if");
             }
             if(domesticRoute.getEtd()!=null && domesticShipment.getAtd()!=null){
+                logger.info("start 2st in 2st if");
                 Duration durationForEtdAndAtd = Duration.between(domesticRoute.getEtd(), domesticShipment.getAtd());
                 domesticPerformance.setPlanedEtdVsAtd(durationForEtdAndAtd.toHours());
+                logger.info("end 2st in 2st if");
             }
             if(domesticShipment.getAtd()!=null && domesticShipment.getAta()!=null){
+                logger.info("start 2st in 3st if");
                 Duration durationForTransitTime = Duration.between(domesticShipment.getAta(), domesticShipment.getAtd());
                 domesticPerformance.setTransitTime(durationForTransitTime.toHours());
+                logger.info("end 2st in 3st if");
             }
             domesticPerformanceList.add(domesticPerformance);
+            logger.info("end 2st  if");
         }
         return domesticPerformanceList;
     }
