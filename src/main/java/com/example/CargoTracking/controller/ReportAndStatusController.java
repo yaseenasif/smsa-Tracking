@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -54,11 +55,24 @@ public class ReportAndStatusController {
         return ResponseEntity.ok(reportAndStatusService.findInternationalRoadReportPerformance(searchCriteriaForInternationalSummary));
     }
 
+//    @PreAuthorize("hasAuthority('domestic-report-performance')")
+//    @GetMapping("/domestic-performance")
+//    public ResponseEntity<List<DomesticPerformance>> findDomesticPerformance(@RequestParam(value = "value",required = false) String value
+//                                                                           ) throws JsonProcessingException {
+//        SearchCriteriaForSummary searchCriteriaForSummary = new ObjectMapper().readValue(value, SearchCriteriaForSummary.class);
+//        return ResponseEntity.ok(reportAndStatusService.
+//                findDomesticPerformance(searchCriteriaForSummary));
+//    }
+
     @PreAuthorize("hasAuthority('domestic-report-performance')")
     @GetMapping("/domestic-performance")
-    public ResponseEntity<List<DomesticPerformance>> findDomesticPerformance(@RequestParam(value = "value",required = false) String value
-                                                                           ) throws JsonProcessingException {
+    public ResponseEntity<Page<DomesticPerformance>> findDomesticPerformance(
+            @RequestParam(value = "value", required = false) String value,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size) throws JsonProcessingException {
+
         SearchCriteriaForSummary searchCriteriaForSummary = new ObjectMapper().readValue(value, SearchCriteriaForSummary.class);
-        return ResponseEntity.ok(reportAndStatusService.findDomesticPerformance(searchCriteriaForSummary));
+        Page<DomesticPerformance> domesticPerformances = reportAndStatusService.findDomesticPerformance(searchCriteriaForSummary, page, size);
+        return ResponseEntity.ok(domesticPerformances);
     }
 }
