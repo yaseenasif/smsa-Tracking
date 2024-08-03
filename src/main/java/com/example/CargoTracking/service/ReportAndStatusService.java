@@ -328,10 +328,15 @@ public class ReportAndStatusService {
             domesticPerformance.setOccupancy(getOccupancyByVehicleType(domesticShipment.getVehicleType()));
             logger.info("check Bags ",domesticShipment.getNumberOfShipments());
             domesticPerformance.setBags(domesticShipment.getNumberOfShipments());
+            logger.info("check domesticRoute");
             DomesticRoute domesticRoute = domesticRouteRepository.findByRoute(domesticShipment.getRouteNumber());
+            logger.info("check PlanedEta");
             domesticPerformance.setPlanedEta(domesticRoute.getEta());
+            logger.info("check PlanedEtd");
             domesticPerformance.setPlanedEtd(domesticRoute.getEtd());
+            logger.info("check Ata");
             domesticPerformance.setAta(domesticShipment.getAta());
+            logger.info("check Atd");
             domesticPerformance.setAtd(domesticShipment.getAtd());
             logger.info("end 2st if");
             if(domesticRoute.getEta()!=null && domesticShipment.getAta()!=null){
