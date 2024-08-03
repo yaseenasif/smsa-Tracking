@@ -39,7 +39,7 @@ public class ReportAndStatusService {
     DomesticRouteRepository domesticRouteRepository;
     @Autowired
     VehicleTypeService vehicleTypeService;
-    private static final Logger logger = LoggerFactory.getLogger(StorageService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ReportAndStatusService.class);
 
 
     public List<InternationalAirReportStatusDto> findInternationalAirReportStatus(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
@@ -306,6 +306,7 @@ public class ReportAndStatusService {
             logger.info("enter in 2st if");
             DomesticPerformance domesticPerformance = new DomesticPerformance();
             logger.info("check id ",domesticShipment.getId());
+            logger.info(String.valueOf(domesticShipment.getId()));
             domesticPerformance.setId(domesticShipment.getId());
             logger.info("check PreAlertNumber",domesticShipment.getPreAlertNumber());
             domesticPerformance.setPreAlertNumber(domesticShipment.getPreAlertNumber());
