@@ -14,6 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -283,10 +285,12 @@ public class ReportAndStatusService {
         return  internationalRoadReportPerformanceList;
     }
 
-    public List<DomesticPerformance> findDomesticPerformance(SearchCriteriaForSummary searchCriteriaForSummary) {
+    public Page<DomesticPerformance> findDomesticPerformance(SearchCriteriaForSummary searchCriteriaForSummary, int page, int size) {
         logger.info("start");
+        Pageable pageable = PageRequest.of(page, size);
         List<DomesticPerformance> domesticPerformanceList = new ArrayList<>();
-        List<DomesticShipment> domesticShipmentList = new ArrayList<>();
+//        List<DomesticShipment> domesticShipmentList = new ArrayList<>();
+        Page<DomesticShipment> domesticShipmentPage;
         if ((searchCriteriaForSummary.getDestinations() == null || searchCriteriaForSummary.getDestinations().isEmpty())
                 && (searchCriteriaForSummary.getOrigin() == null || searchCriteriaForSummary.getOrigin().isEmpty())
                 && (searchCriteriaForSummary.getToDate() == null || searchCriteriaForSummary.getToDate().isEmpty())
@@ -294,15 +298,15 @@ public class ReportAndStatusService {
                 && (searchCriteriaForSummary.getStatus() == null || searchCriteriaForSummary.getStatus().isEmpty())
                 && (searchCriteriaForSummary.getRouteNumber() == null || searchCriteriaForSummary.getRouteNumber().isEmpty())) {
         logger.info("enter in 1st if ");
-            domesticShipmentList = domesticShipmentRepository.findAllByActiveStatusMock(true);
+            domesticShipmentPage = domesticShipmentRepository.findAllByActiveStatusMockWithPagination(true,pageable);
             logger.info("end 1st if ");
         }else{
             logger.info("enter in 1st else ");
             Specification<DomesticShipment> domesticSummarySpecification = DomesticSummarySpecification.getSearchSpecification(searchCriteriaForSummary);
-            domesticShipmentList = domesticShipmentRepository.findAll(domesticSummarySpecification);
+            domesticShipmentPage = domesticShipmentRepository.findAll(domesticSummarySpecification,pageable);
             logger.info("end 1st else");
         }
-        for(DomesticShipment domesticShipment: domesticShipmentList){
+        for(DomesticShipment domesticShipment: domesticShipmentPage){
             logger.info("enter in 2st if");
             DomesticPerformance domesticPerformance = new DomesticPerformance();
             logger.info("check id ",domesticShipment.getId());
@@ -360,7 +364,7 @@ public class ReportAndStatusService {
             domesticPerformanceList.add(domesticPerformance);
             logger.info("end 2st  if");
         }
-        return domesticPerformanceList;
+        return new PageImpl<>(domesticPerformanceList, pageable, domesticShipmentPage.getTotalElements());
     }
 
 

@@ -36,4 +36,7 @@ public interface DomesticShipmentRepository extends JpaRepository<DomesticShipme
 
     @Query("SELECT d FROM DomesticShipment d WHERE d.activeStatus = :status")
     List<DomesticShipment> findAllByActiveStatusMock(boolean status);
+
+    @Query("SELECT d FROM DomesticShipment d WHERE d.activeStatus = :status")
+    Page<DomesticShipment> findAllByActiveStatusMockWithPagination(boolean status,Pageable pageable);
 }
