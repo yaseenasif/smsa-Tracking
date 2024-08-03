@@ -305,7 +305,7 @@ public class ReportAndStatusService {
         for(DomesticShipment domesticShipment: domesticShipmentList){
             logger.info("enter in 2st if");
             DomesticPerformance domesticPerformance = new DomesticPerformance();
-            logger.info(String.format("check id ",domesticShipment.getId()));
+            logger.info("check id ",domesticShipment.getId());
             domesticPerformance.setId(domesticShipment.getId());
             logger.info("check PreAlertNumber",domesticShipment.getPreAlertNumber());
             domesticPerformance.setPreAlertNumber(domesticShipment.getPreAlertNumber());
