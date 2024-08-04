@@ -46,11 +46,11 @@ ngOnInit() {
 onPageChange(event: any) {
   this.page = event.page;
   this.rows = event.rows;
-  this.getDomesticReportPerformance(this.value.trim(),this.page,this.rows)
+  this.getDomesticReportPerformance(this.searchBy,this.page,this.rows)
 }
 
 getDomesticReportPerformance(searchBy:SearchBy,page:number,size:number){
-this.reportService.getDomesticReportPerformance(searchBy).subscribe((res:any)=>{
+this.reportService.getDomesticReportPerformance(searchBy,page,size).subscribe((res:any)=>{
   this.domesticPerformance=res.content;
   this.myApiResponse = res;
   this.page=res.pageable.pageNumber;
@@ -93,6 +93,7 @@ clearFilter(){
     destination: [],
     routeNumber: ''
   }
+  this.getDomesticReportPerformance(this.searchBy,this.page,this.rows);
 }
 
 downloadFile() {
