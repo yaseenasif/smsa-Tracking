@@ -29,7 +29,7 @@ export class ReportService {
 
   getDomesticReportPerformance(searchBy:any, page?: number, size?: number):Observable<DomesticPerformance[]>{
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("value", searchBy ? JSON.stringify(searchBy) : '' );
+    queryParams = queryParams.append("value", JSON.stringify(searchBy));
     queryParams = queryParams.append("page", page ? page : 0);
     queryParams = queryParams.append("size", size ? size : 10);
     return this.http.get<any>(this.url.concat('/domestic-performance'),{ params: queryParams });
