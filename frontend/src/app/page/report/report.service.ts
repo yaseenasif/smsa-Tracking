@@ -27,10 +27,12 @@ export class ReportService {
     return this.http.get<InternationalAirReportStatus[]>(this.url.concat('/int-air-report-status'),{ params: queryParams });
   }
 
-  getDomesticReportPerformance(searchBy:any):Observable<DomesticPerformance[]>{
+  getDomesticReportPerformance(searchBy:any, page?: number, size?: number):Observable<DomesticPerformance[]>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("value", searchBy ? JSON.stringify(searchBy) : '' );
-    return this.http.get<DomesticPerformance[]>(this.url.concat('/domestic-performance'),{ params: queryParams });
+    queryParams = queryParams.append("page", page ? page : 0);
+    queryParams = queryParams.append("size", size ? size : 10);
+    return this.http.get<any>(this.url.concat('/domestic-performance'),{ params: queryParams });
   }
 
   getInternationalRoadReportPerformance(searchBy:any):Observable<InternationalRoadReportPerformance[]>{
