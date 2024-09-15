@@ -31,6 +31,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.ByteBuffer;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -97,7 +98,12 @@ public class DomesticShipmentService {
 
       DomesticShipment unSaveDomesticShipment = toEntity(domesticShipmentDto);
       unSaveDomesticShipment.setCreatedAt(LocalDate.now());
-      if (domesticShipmentDto.getTrip() != 0 && (domesticShipmentDto.getRouteNumber().contains("Adhoc") || domesticShipmentDto.getRouteNumber().contains("adhoc"))) {
+      if(domesticShipmentDto.getRouteNumber()==null && domesticShipmentDto.getRouteNumberId()==null){
+        unSaveDomesticShipment.setRouteNumberId(222L);
+        unSaveDomesticShipment.setRouteNumber("TESTING");
+        unSaveDomesticShipment.setPreAlertNumber(unSaveDomesticShipment.getRouteNumber()+generateSmallUUID()+LocalDate.now());
+      }
+      else if (domesticShipmentDto.getTrip() != 0 && (domesticShipmentDto.getRouteNumber().contains("Adhoc") || domesticShipmentDto.getRouteNumber().contains("adhoc"))) {
         unSaveDomesticShipment.setPreAlertNumber(domesticShipmentDto.getRouteNumber() + " " + domesticShipmentDto.getTrip() + " " + LocalDate.now());
       } else {
         unSaveDomesticShipment.setPreAlertNumber(domesticShipmentDto.getRouteNumber() + " " + LocalDate.now());
@@ -870,4 +876,17 @@ public class DomesticShipmentService {
 
   }
 
+  public static String generateSmallUUID() {
+    // Generate UUID
+    UUID uuid = UUID.randomUUID();
+
+    // Convert UUID to byte array
+    byte[] uuidBytes = ByteBuffer.wrap(new byte[16])
+            .putLong(uuid.getMostSignificantBits())
+            .putLong(uuid.getLeastSignificantBits())
+            .array();
+
+    // Encode the byte array into a Base64 string
+    return Base64.getUrlEncoder().withoutPadding().encodeToString(uuidBytes);
+  }
 }
