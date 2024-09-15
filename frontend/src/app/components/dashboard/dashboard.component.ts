@@ -140,7 +140,7 @@ export class DashboardComponent implements OnInit {
     }
     
     DomesticCardsDataRes(year:Date){
-        this.dashboardService.DomesticCardsData(Number(year.getFullYear)).subscribe((res)=>{
+        this.dashboardService.DomesticCardsData(year.getFullYear()).subscribe((res)=>{
             this.DomesticCardsData=res;
         },(error)=>{
             console.log(error);  
@@ -148,7 +148,7 @@ export class DashboardComponent implements OnInit {
     }
 
     InternationalAirCardsDataRes(year:Date){
-        this.dashboardService.InternationalAirCardsData(Number(year.getFullYear)).subscribe((res)=>{
+        this.dashboardService.InternationalAirCardsData(year.getFullYear()).subscribe((res)=>{
             this.IntAirCardsData=res;
         },(error)=>{
             console.log(error);  
@@ -156,7 +156,7 @@ export class DashboardComponent implements OnInit {
     }
 
     InternationalRoadCardsDataRes(year:Date){
-        this.dashboardService.InternationalRoadCardsData(Number(year.getFullYear)).subscribe((res)=>{
+        this.dashboardService.InternationalRoadCardsData(year.getFullYear()).subscribe((res)=>{
          this.IntRoadCardsData=res;
         },(error)=>{
             console.log(error);  
@@ -164,7 +164,7 @@ export class DashboardComponent implements OnInit {
     }
 
     lowToHighDomesticOutboundTestRes(year:Date){
-        this.dashboardService.lowToHighDomesticOutboundTest(Number(year.getFullYear)).subscribe((res)=>{
+        this.dashboardService.lowToHighDomesticOutboundTest(year.getFullYear()).subscribe((res)=>{
             this.DomOutLocationToLocation=Object.keys(res).map(el=>{
                 return {[el]:{
                     labels: Object.keys( res[el]) ,
@@ -188,7 +188,7 @@ export class DashboardComponent implements OnInit {
     }
 
     lowToHighInternationalAirOutboundTestRes(year:Date){
-        this.dashboardService.lowToHighInternationalAirOutboundTest(Number(year.getFullYear)).subscribe((res)=>{
+        this.dashboardService.lowToHighInternationalAirOutboundTest(year.getFullYear()).subscribe((res)=>{
             this.IntAirOutLocationToLocation=Object.keys(res).map(el=>{
                 return {[el]:{
                     labels: Object.keys( res[el]) ,
@@ -212,7 +212,7 @@ export class DashboardComponent implements OnInit {
     }
 
     lowToHighInternationalRoadOutboundTestRes(year:Date){
-        this.dashboardService.lowToHighInternationalRoadOutboundTest(Number(year.getFullYear)).subscribe((res)=>{
+        this.dashboardService.lowToHighInternationalRoadOutboundTest(year.getFullYear()).subscribe((res)=>{
             this.IntRoadOutLocationToLocation=Object.keys(res).map(el=>{
                 return {[el]:{
                     labels: Object.keys( res[el]) ,
