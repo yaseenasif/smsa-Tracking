@@ -24,6 +24,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -757,7 +758,7 @@ public class DomesticShipmentService {
     return modelMapper.map(domesticShipmentDto, DomesticShipment.class);
   }
 
-  public Map<String, Integer> getAllDashboardData(Integer year) {
+  public ResponseEntity<Map<String, Integer>> getAllDashboardData(Integer year) {
     Map<String, Integer> dashboardData = new HashMap<>();
 
     try{
@@ -822,13 +823,15 @@ public class DomesticShipmentService {
     catch (Exception ex){
       logger.info("----------------------------------------Exception----------------------------------------");
       logger.error("Exception in getAllDashboardData -> {}", ex.getMessage());
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body(new HashMap<>());
     }
 
-    return dashboardData;
+    return ResponseEntity.ok(dashboardData);
 
   }
 
-  public Map<String, Map<String, Integer>> getOutBoundForDashboard(Integer year) {
+  public ResponseEntity<Map<String, Map<String, Integer>>> getOutBoundForDashboard(Integer year) {
     Map<String, Map<String, Integer>> resultMap = new HashMap<>();
 
     try{
@@ -870,9 +873,11 @@ public class DomesticShipmentService {
     catch (Exception ex){
       logger.info("----------------------------------------Exception----------------------------------------");
       logger.error("Exception in getOutBoundForDashboard -> {}", ex.getMessage());
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .body(new HashMap<>());
     }
 
-    return resultMap;
+    return ResponseEntity.ok(resultMap);
 
   }
 

@@ -26,6 +26,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -831,7 +832,7 @@ public class InternationalShipmentService {
         throw new RecordNotFoundException(String.format("Domestic Shipment not found by this id => %d",id));
     }
 
-    public Map<String, Integer> getAllDashboardDataCountForAir(Integer year) {
+    public ResponseEntity<Map<String, Integer>> getAllDashboardDataCountForAir(Integer year) {
         Map<String, Integer> dashboardData = new HashMap<>();
 
         try {
@@ -889,13 +890,15 @@ public class InternationalShipmentService {
         } catch (Exception ex) {
             logger.info("----------------------------------------Exception----------------------------------------");
             logger.error("Exception in getAllDashboardDataCountForAir -> {}", ex.getMessage(), ex);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new HashMap<>());
         }
 
-        return dashboardData;
+        return ResponseEntity.ok(dashboardData);
     }
 
 
-    public Map<String, Integer> getAllDashboardDataCountForRoad(Integer year) {
+    public ResponseEntity<Map<String, Integer>> getAllDashboardDataCountForRoad(Integer year) {
         Map<String, Integer> dashboardData = new HashMap<>();
 
         try {
@@ -953,13 +956,15 @@ public class InternationalShipmentService {
         } catch (Exception ex) {
             logger.info("----------------------------------------Exception----------------------------------------");
             logger.error("Exception in getAllDashboardDataCountForRoad -> {}", ex.getMessage(), ex);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new HashMap<>());
         }
 
-        return dashboardData;
+        return ResponseEntity.ok(dashboardData);
     }
 
 
-    public Map<String, Map<String, Integer>> getOutBoundForInternationalAirDashboard(Integer year) {
+    public ResponseEntity<Map<String, Map<String, Integer>>> getOutBoundForInternationalAirDashboard(Integer year) {
         Map<String, Map<String, Integer>> resultMap = new HashMap<>();
 
         try {
@@ -998,14 +1003,16 @@ public class InternationalShipmentService {
         } catch (Exception ex) {
             logger.info("----------------------------------------Exception----------------------------------------");
             logger.error("Exception in getOutBoundForInternationalAirDashboardTest -> {}", ex.getMessage(), ex);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new HashMap<>());
         }
 
-        return resultMap;
+        return ResponseEntity.ok(resultMap);
     }
 
 
 
-    public Map<String, Map<String, Integer>> getOutBoundForInternationalRoadDashboard(Integer year) {
+    public ResponseEntity<Map<String, Map<String, Integer>>> getOutBoundForInternationalRoadDashboard(Integer year) {
         Map<String, Map<String, Integer>> resultMap = new HashMap<>();
 
         try {
@@ -1044,9 +1051,11 @@ public class InternationalShipmentService {
         } catch (Exception ex) {
             logger.info("----------------------------------------Exception----------------------------------------");
             logger.error("Exception in getOutBoundForInternationalRoadDashboardTest -> {}", ex.getMessage(), ex);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(new HashMap<>());
         }
 
-        return resultMap;
+        return ResponseEntity.ok(resultMap);
     }
 
 
