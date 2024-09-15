@@ -93,92 +93,237 @@ export class DashboardComponent implements OnInit {
             let types=res.locations?.map((el)=>{return el.type})
            this.typesWithOutDuplicate= types!.filter((item, index) => types!.indexOf(item) === index); 
              this.getCardsData(this.currentYear)
-              
+
+             const documentStyle = getComputedStyle(document.documentElement);
+             const textColor = documentStyle.getPropertyValue('--text-color');
+             const documentStyleBar = getComputedStyle(document.documentElement);
+             const textColorBar = documentStyleBar.getPropertyValue('--text-color');
+             const textColorSecondaryBar = documentStyle.getPropertyValue('--text-color-secondary');
+             const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+             this.basicOptions = {
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: textColorBar,
+                            usePointStyle: true,
+                           
+                        },
+                        position:'bottom'
+                    }
+                },
+                scales: {
+                
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: textColorSecondaryBar
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false
+                        }
+                    },
+                    x: {
+                      
+                        ticks: {
+                            color: textColorSecondaryBar
+                        },
+                        grid: {
+                            color: surfaceBorder,
+                            drawBorder: false
+                        }
+                    }
+                }
+            };
         },(_error)=>{})
      
     }
+    
+    DomesticCardsDataRes(year:Date){
+        this.dashboardService.DomesticCardsData(Number(year.getFullYear)).subscribe((res)=>{
+            this.DomesticCardsData=res;
+        },(error)=>{
+            console.log(error);  
+        });
+    }
+
+    InternationalAirCardsDataRes(year:Date){
+        this.dashboardService.InternationalAirCardsData(Number(year.getFullYear)).subscribe((res)=>{
+            this.IntAirCardsData=res;
+        },(error)=>{
+            console.log(error);  
+        });
+    }
+
+    InternationalRoadCardsDataRes(year:Date){
+        this.dashboardService.InternationalRoadCardsData(Number(year.getFullYear)).subscribe((res)=>{
+         this.IntRoadCardsData=res;
+        },(error)=>{
+            console.log(error);  
+        });
+    }
+
+    lowToHighDomesticOutboundTestRes(year:Date){
+        this.dashboardService.lowToHighDomesticOutboundTest(Number(year.getFullYear)).subscribe((res)=>{
+            this.DomOutLocationToLocation=Object.keys(res).map(el=>{
+                return {[el]:{
+                    labels: Object.keys( res[el]) ,
+                    datasets: [
+                        {
+                            label: 'Outbound',
+                            data: Object.values( res[el]),
+                            backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+                            borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+                            borderWidth: 1,
+                            pointStyle:'circle',
+                            barPercentage: 10,
+                            barThickness: 20,
+                        }
+                    ]
+                }  }
+            })
+        },(error)=>{
+            console.log(error);  
+        });
+    }
+
+    lowToHighInternationalAirOutboundTestRes(year:Date){
+        this.dashboardService.lowToHighInternationalAirOutboundTest(Number(year.getFullYear)).subscribe((res)=>{
+            this.IntAirOutLocationToLocation=Object.keys(res).map(el=>{
+                return {[el]:{
+                    labels: Object.keys( res[el]) ,
+                    datasets: [
+                        {
+                            label: 'Outbound',
+                            data: Object.values( res[el]),
+                            backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+                            borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+                            borderWidth: 1,
+                            pointStyle:'circle',
+                            barPercentage: 10,
+                            barThickness: 20,
+                        }
+                    ]
+                }  }
+            })
+        },(error)=>{
+            console.log(error);  
+        });
+    }
+
+    lowToHighInternationalRoadOutboundTestRes(year:Date){
+        this.dashboardService.lowToHighInternationalRoadOutboundTest(Number(year.getFullYear)).subscribe((res)=>{
+            this.IntRoadOutLocationToLocation=Object.keys(res).map(el=>{
+                return {[el]:{
+                    labels: Object.keys( res[el]) ,
+                    datasets: [
+                        {
+                            label: 'Outbound',
+                            data: Object.values( res[el]),
+                            backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+                            borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+                            borderWidth: 1,
+                            pointStyle:'circle',
+                            barPercentage: 10,
+                            barThickness: 20,
+                        }
+                    ]
+                }  }
+            })
+        },(error)=>{
+            console.log(error);  
+        });
+    }
+
 
     getCardsData(year:Date){
+
+        this.DomesticCardsDataRes(year);
+        this.InternationalAirCardsDataRes(year);
+        this.InternationalRoadCardsDataRes(year);
+        this.lowToHighDomesticOutboundTestRes(year)
+        this.lowToHighInternationalAirOutboundTestRes(year)
+        this.lowToHighInternationalRoadOutboundTestRes(year);
         // this.dashboardService.DomesticCardsData(year.getFullYear()).subscribe((res)=>{
         //    this.cardsData=res;
         // },(error)=>{})
-        forkJoin([this.dashboardService.DomesticCardsData(year.getFullYear()),
-            this.dashboardService.InternationalAirCardsData(year.getFullYear()),
-            this.dashboardService.InternationalRoadCardsData(year.getFullYear()),
+        // forkJoin([this.dashboardService.DomesticCardsData(year.getFullYear()),
+        //     this.dashboardService.InternationalAirCardsData(year.getFullYear()),
+        //     this.dashboardService.InternationalRoadCardsData(year.getFullYear()),
             // this.dashboardService.lowAndHighVolumeByLocationOutboundDomestic(year.getFullYear()),
             // this.dashboardService.lowAndHighVolumeByLocationInboundDomestic(year.getFullYear()),
             // this.dashboardService.lowAndHighVolumeByLocationOutboundInternationalAir(year.getFullYear()),
             // this.dashboardService.lowAndHighVolumeByLocationOutboundInternationalRoad(year.getFullYear()),
             // this.dashboardService.lowAndHighVolumeByLocationInboundInternationalAir(year.getFullYear()),
             // this.dashboardService.lowAndHighVolumeByLocationInboundInternationalRoad(year.getFullYear()),
-            this.dashboardService.lowToHighDomesticOutboundTest(year.getFullYear()),
-            this.dashboardService.lowToHighInternationalAirOutboundTest(year.getFullYear()),
-            this.dashboardService.lowToHighInternationalRoadOutboundTest(year.getFullYear())
-        ])
-            .subscribe({next:([DomRes,IntAirRes,IntRoadRes,DomesticOutboundLocationtoLocationData,IntAirOutboundLocationtoLocationData,IntRoadOutboundLocationtoLocationData])=>{
-        this.DomesticCardsData=DomRes;
-        this.IntAirCardsData=IntAirRes;
-        this.IntRoadCardsData=IntRoadRes;
-        this.DomOutLocationToLocation=Object.keys(DomesticOutboundLocationtoLocationData).map(el=>{
-            return {[el]:{
-                labels: Object.keys( DomesticOutboundLocationtoLocationData[el]) ,
-                datasets: [
-                    {
-                        label: 'Outbound',
-                        data: Object.values( DomesticOutboundLocationtoLocationData[el]),
-                        backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
-                        borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
-                        borderWidth: 1,
-                        pointStyle:'circle',
-                        barPercentage: 10,
-                        barThickness: 20,
-                    }
-                ]
-            }  }
-        })
-        this.IntAirOutLocationToLocation=Object.keys(IntAirOutboundLocationtoLocationData).map(el=>{
-            return {[el]:{
-                labels: Object.keys( IntAirOutboundLocationtoLocationData[el]) ,
-                datasets: [
-                    {
-                        label: 'Outbound',
-                        data: Object.values( IntAirOutboundLocationtoLocationData[el]),
-                        backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
-                        borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
-                        borderWidth: 1,
-                        pointStyle:'circle',
-                        barPercentage: 10,
-                        barThickness: 20,
-                    }
-                ]
-            }  }
-        })
-        this.IntRoadOutLocationToLocation=Object.keys(IntRoadOutboundLocationtoLocationData).map(el=>{
-            return {[el]:{
-                labels: Object.keys( IntRoadOutboundLocationtoLocationData[el]) ,
-                datasets: [
-                    {
-                        label: 'Outbound',
-                        data: Object.values( IntRoadOutboundLocationtoLocationData[el]),
-                        backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
-                        borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
-                        borderWidth: 1,
-                        pointStyle:'circle',
-                        barPercentage: 10,
-                        barThickness: 20,
-                    }
-                ]
-            }  }
-        })
-        console.log(this.DomOutLocationToLocation);
+        //     this.dashboardService.lowToHighDomesticOutboundTest(year.getFullYear()),
+        //     this.dashboardService.lowToHighInternationalAirOutboundTest(year.getFullYear()),
+        //     this.dashboardService.lowToHighInternationalRoadOutboundTest(year.getFullYear())
+        // ])
+        //     .subscribe({next:([DomRes,IntAirRes,IntRoadRes,DomesticOutboundLocationtoLocationData,IntAirOutboundLocationtoLocationData,IntRoadOutboundLocationtoLocationData])=>{
+        // this.DomesticCardsData=DomRes;
+        // this.IntAirCardsData=IntAirRes;
+        // this.IntRoadCardsData=IntRoadRes;
+        // this.DomOutLocationToLocation=Object.keys(DomesticOutboundLocationtoLocationData).map(el=>{
+        //     return {[el]:{
+        //         labels: Object.keys( DomesticOutboundLocationtoLocationData[el]) ,
+        //         datasets: [
+        //             {
+        //                 label: 'Outbound',
+        //                 data: Object.values( DomesticOutboundLocationtoLocationData[el]),
+        //                 backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+        //                 borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+        //                 borderWidth: 1,
+        //                 pointStyle:'circle',
+        //                 barPercentage: 10,
+        //                 barThickness: 20,
+        //             }
+        //         ]
+        //     }  }
+        // })
+        // this.IntAirOutLocationToLocation=Object.keys(IntAirOutboundLocationtoLocationData).map(el=>{
+        //     return {[el]:{
+        //         labels: Object.keys( IntAirOutboundLocationtoLocationData[el]) ,
+        //         datasets: [
+        //             {
+        //                 label: 'Outbound',
+        //                 data: Object.values( IntAirOutboundLocationtoLocationData[el]),
+        //                 backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+        //                 borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+        //                 borderWidth: 1,
+        //                 pointStyle:'circle',
+        //                 barPercentage: 10,
+        //                 barThickness: 20,
+        //             }
+        //         ]
+        //     }  }
+        // })
+        // this.IntRoadOutLocationToLocation=Object.keys(IntRoadOutboundLocationtoLocationData).map(el=>{
+        //     return {[el]:{
+        //         labels: Object.keys( IntRoadOutboundLocationtoLocationData[el]) ,
+        //         datasets: [
+        //             {
+        //                 label: 'Outbound',
+        //                 data: Object.values( IntRoadOutboundLocationtoLocationData[el]),
+        //                 backgroundColor: ['rgba(255, 159, 64)', 'rgba(75, 192, 192)'],
+        //                 borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)'],
+        //                 borderWidth: 1,
+        //                 pointStyle:'circle',
+        //                 barPercentage: 10,
+        //                 barThickness: 20,
+        //             }
+        //         ]
+        //     }  }
+        // })
+        // console.log(this.DomOutLocationToLocation);
         
                
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const documentStyleBar = getComputedStyle(document.documentElement);
-        const textColorBar = documentStyleBar.getPropertyValue('--text-color');
-        const textColorSecondaryBar = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+        // const documentStyle = getComputedStyle(document.documentElement);
+        // const textColor = documentStyle.getPropertyValue('--text-color');
+        // const documentStyleBar = getComputedStyle(document.documentElement);
+        // const textColorBar = documentStyleBar.getPropertyValue('--text-color');
+        // const textColorSecondaryBar = documentStyle.getPropertyValue('--text-color-secondary');
+        // const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
 
       
         // this.locationDomOutData = {
@@ -272,47 +417,47 @@ export class DashboardComponent implements OnInit {
         //     ]
         // };
 
-        this.basicOptions = {
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColorBar,
-                        usePointStyle: true,
+    //     this.basicOptions = {
+    //         plugins: {
+    //             legend: {
+    //                 labels: {
+    //                     color: textColorBar,
+    //                     usePointStyle: true,
                        
-                    },
-                    position:'bottom'
-                }
-            },
-            scales: {
+    //                 },
+    //                 position:'bottom'
+    //             }
+    //         },
+    //         scales: {
             
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        color: textColorSecondaryBar
-                    },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
-                    }
-                },
-                x: {
+    //             y: {
+    //                 beginAtZero: true,
+    //                 ticks: {
+    //                     color: textColorSecondaryBar
+    //                 },
+    //                 grid: {
+    //                     color: surfaceBorder,
+    //                     drawBorder: false
+    //                 }
+    //             },
+    //             x: {
                   
-                    ticks: {
-                        color: textColorSecondaryBar
-                    },
-                    grid: {
-                        color: surfaceBorder,
-                        drawBorder: false
-                    }
-                }
-            }
-        };
+    //                 ticks: {
+    //                     color: textColorSecondaryBar
+    //                 },
+    //                 grid: {
+    //                     color: surfaceBorder,
+    //                     drawBorder: false
+    //                 }
+    //             }
+    //         }
+    //     };
    
       
     
         
 
-        },error:(error)=>{}})
+    //     },error:(error)=>{}})
     }
 
     ifDomesticExist():boolean{
