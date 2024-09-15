@@ -146,25 +146,25 @@ public class  InternationalShipmentController {
     @PreAuthorize("hasAuthority('get-internationalDashboardCountAir')")
     @GetMapping("/dashboard-international-count-air")
     public ResponseEntity<Map<String,Integer>> getDashboardDataCountForAir(@RequestParam Integer year){
-        return ResponseEntity.ok(internationalShipmentService.getAllDashboardDataCountForAir(year));
+        return internationalShipmentService.getAllDashboardDataCountForAir(year);
     }
 
     @PreAuthorize("hasAuthority('get-internationalDashboardCountRoad')")
     @GetMapping("/dashboard-international-count-road")
     public ResponseEntity<Map<String,Integer>> getDashboardDataCountForRoad(@RequestParam Integer year){
-        return ResponseEntity.ok(internationalShipmentService.getAllDashboardDataCountForRoad(year));
+        return internationalShipmentService.getAllDashboardDataCountForRoad(year);
     }
 
     @PreAuthorize("hasAuthority('lowToHighVolumeOutbound-internationalShipmentAir')")
     @GetMapping("low-to-high-international-air-outbound-test")
     public ResponseEntity<Map<String,Map<String,Integer>>> getOutBoundForInternationalAirDashboard(@RequestParam Integer year){
-        return ResponseEntity.ok(internationalShipmentService.getOutBoundForInternationalAirDashboard(year));
+        return internationalShipmentService.getOutBoundForInternationalAirDashboard(year);
     }
 
     @PreAuthorize("hasAuthority('lowToHighVolumeOutbound-internationalShipmentRoad')")
     @GetMapping("low-to-high-international-road-outbound-test")
     public ResponseEntity<Map<String,Map<String,Integer>>> getOutBoundForInternationalRoadDashboard(@RequestParam Integer year){
-        return ResponseEntity.ok(internationalShipmentService.getOutBoundForInternationalRoadDashboard(year));
+        return internationalShipmentService.getOutBoundForInternationalRoadDashboard(year);
     }
 
 }

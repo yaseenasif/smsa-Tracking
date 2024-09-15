@@ -126,13 +126,13 @@ public class DomesticShipmentController {
     @PreAuthorize("hasAuthority('dashboardCount-domesticShipment')")
     @GetMapping("/dashboard-domestic")
     public ResponseEntity<Map<String,Integer>> getDashboardData(@RequestParam Integer year){
-        return ResponseEntity.ok(domesticShipmentService.getAllDashboardData(year));
+        return domesticShipmentService.getAllDashboardData(year);
     }
 
     @PreAuthorize("hasAuthority('lowToHighVolumeOutbound-domesticShipment')")
     @GetMapping("low-to-high-domestic-outbound-test")
     public ResponseEntity<Map<String,Map<String,Integer>>> getOutBoundForDomesticDashboard(@RequestParam Integer year){
-        return ResponseEntity.ok(domesticShipmentService.getOutBoundForDashboard(year));
+        return domesticShipmentService.getOutBoundForDashboard(year);
     }
 
 }
