@@ -129,20 +129,10 @@ public class DomesticShipmentController {
         return ResponseEntity.ok(domesticShipmentService.getAllDashboardData(year));
     }
 
-//    @GetMapping("/low-and-high-volume-by-location-inbound-domestic")
-//    public ResponseEntity<Map<String,Integer>> lowAndHighVolumeWithLocationForInboundForDomestic(@RequestParam Integer year){
-//        return ResponseEntity.ok(domesticShipmentService.lowAndHighVolumeWithLocationForInboundForDomestic(year));
-//    }
-//
-//    @GetMapping("/low-and-high-volume-by-location-outbound-domestic")
-//    public ResponseEntity<Map<String,Integer>> lowAndHighVolumeWithLocationForOutboundForDomestic(@RequestParam Integer year){
-//        return ResponseEntity.ok(domesticShipmentService.lowAndHighVolumeWithLocationForOutboundForDomestic(year));
-//    }
-
     @PreAuthorize("hasAuthority('lowToHighVolumeOutbound-domesticShipment')")
     @GetMapping("low-to-high-domestic-outbound-test")
-    public ResponseEntity<Map<String,Map<String,Integer>>> getOutBoundForDomesticDashboardTest(@RequestParam Integer year){
-        return ResponseEntity.ok(domesticShipmentService.getOutBoundForDashboardTest(year));
+    public ResponseEntity<Map<String,Map<String,Integer>>> getOutBoundForDomesticDashboard(@RequestParam Integer year){
+        return ResponseEntity.ok(domesticShipmentService.getOutBoundForDashboard(year));
     }
 
 }

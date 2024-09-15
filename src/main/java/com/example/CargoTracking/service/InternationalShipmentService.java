@@ -17,6 +17,8 @@ import com.example.CargoTracking.specification.InternationalShipmentSpecificatio
 import com.example.CargoTracking.specification.InternationalSummarySpecification;
 import com.example.CargoTracking.specification.InternationalSummarySpecificationForOutbound;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -63,6 +65,8 @@ public class InternationalShipmentService {
     RoleRepository roleRepository;
     @Autowired
     ProductFieldService productFieldService;
+
+    private static final Logger logger = LoggerFactory.getLogger(InternationalShipmentService.class);
 
 
     @Transactional
@@ -830,258 +834,220 @@ public class InternationalShipmentService {
     public Map<String, Integer> getAllDashboardDataCountForAir(Integer year) {
         Map<String, Integer> dashboardData = new HashMap<>();
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmployeeId(userDetails.getUsername());
+        try {
+            logger.info("Starting getAllDashboardDataCountForAir for year -> {}", year);
 
-        String role = user.getRoles().stream()
-                .map(Roles::getName)
-                .findFirst()
-                .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            logger.info("Fetched user details -> {}", userDetails);
+            User user = userRepository.findByEmployeeId(userDetails.getUsername());
+            logger.info("Fetched user -> {}", user);
 
-        Specification<InternationalShipment> specification;
-        if (role.equals("ROLE_ADMIN")) {
-            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, null,"By Air");
-        } else {
-            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, user,"By Air");
-        }
+            String role = user.getRoles().stream()
+                    .map(Roles::getName)
+                    .findFirst()
+                    .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+            logger.info("User role -> {}", role);
 
-        List<InternationalShipment> shipments = internationalShipmentRepository.findAll(specification);
+            Specification<InternationalShipment> specification;
+            if (role.equals("ROLE_ADMIN")) {
+                specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, null, "By Air");
+                logger.info("Specification for admin role created -> {}", specification);
+            } else {
+                specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, user, "By Air");
+                logger.info("Specification for non-admin role created -> {}", specification);
+            }
 
-        int outboundCount = shipments.size();
-        int totalShipments = shipments.stream()
-                .mapToInt(InternationalShipment::getNumberOfShipments)
-                .sum();
+            List<InternationalShipment> shipments = internationalShipmentRepository.findAll(specification);
+            logger.info("Shipments fetched successfully -> {}", shipments.size());
 
-        dashboardData.put("Outbounds", outboundCount);
-        dashboardData.put("TotalShipments", totalShipments);
+            int outboundCount = shipments.size();
+            int totalShipments = shipments.stream()
+                    .mapToInt(InternationalShipment::getNumberOfShipments)
+                    .sum();
+            logger.info("Outbound count -> {}", outboundCount);
+            logger.info("Total shipments -> {}", totalShipments);
+            dashboardData.put("Outbounds", outboundCount);
+            dashboardData.put("TotalShipments", totalShipments);
 
-        Set<String> userLocations = user.getLocations().stream()
-                .filter(location -> "International Air".equals(location.getType()))
-                .map(Location::getLocationName)
-                .collect(Collectors.toSet());
+            Set<String> userLocations = user.getLocations().stream()
+                    .filter(location -> "International Air".equals(location.getType()))
+                    .map(Location::getLocationName)
+                    .collect(Collectors.toSet());
+            logger.info("User locations for inbound -> {}", userLocations);
 
-        if (!userLocations.isEmpty()) {
-            Specification<InternationalShipment> inboundSpecification =
-                    InternationalShipmentSpecification.withDestinationLocationsAndActive(year, userLocations,"By Air");
-            int inboundCount = (int) internationalShipmentRepository.count(inboundSpecification);
-            dashboardData.put("Inbounds", inboundCount);
-        } else {
-            dashboardData.put("Inbounds", 0);
+            if (!userLocations.isEmpty()) {
+                Specification<InternationalShipment> inboundSpecification =
+                        InternationalShipmentSpecification.withDestinationLocationsAndActive(year, userLocations, "By Air");
+                int inboundCount = (int) internationalShipmentRepository.count(inboundSpecification);
+                logger.info("Inbound count -> {}", inboundCount);
+                dashboardData.put("Inbounds", inboundCount);
+            } else {
+                logger.info("No user locations found for inbound");
+                dashboardData.put("Inbounds", 0);
+            }
+
+        } catch (Exception ex) {
+            logger.info("----------------------------------------Exception----------------------------------------");
+            logger.error("Exception in getAllDashboardDataCountForAir -> {}", ex.getMessage(), ex);
         }
 
         return dashboardData;
     }
+
 
     public Map<String, Integer> getAllDashboardDataCountForRoad(Integer year) {
         Map<String, Integer> dashboardData = new HashMap<>();
 
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmployeeId(userDetails.getUsername());
+        try {
+            logger.info("Starting getAllDashboardDataCountForRoad for year -> {}", year);
 
-        String role = user.getRoles().stream()
-                .map(Roles::getName)
-                .findFirst()
-                .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            logger.info("Fetched user details -> {}", userDetails);
+            User user = userRepository.findByEmployeeId(userDetails.getUsername());
+            logger.info("Fetched user -> {}", user);
 
-        Specification<InternationalShipment> specification;
-        if (role.equals("ROLE_ADMIN")) {
-            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, null,"By Road");
-        } else {
-            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, user,"By Road");
-        }
+            String role = user.getRoles().stream()
+                    .map(Roles::getName)
+                    .findFirst()
+                    .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+            logger.info("User role -> {}", role);
 
-        List<InternationalShipment> shipments = internationalShipmentRepository.findAll(specification);
+            Specification<InternationalShipment> specification;
+            if (role.equals("ROLE_ADMIN")) {
+                specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, null, "By Road");
+                logger.info("Specification for admin role created -> {}", specification);
+            } else {
+                specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, user, "By Road");
+                logger.info("Specification for non-admin role created -> {}", specification);
+            }
 
-        int outboundCount = shipments.size();
-        int totalShipments = shipments.stream()
-                .mapToInt(InternationalShipment::getNumberOfShipments)
-                .sum();
+            List<InternationalShipment> shipments = internationalShipmentRepository.findAll(specification);
+            logger.info("Shipments fetched successfully -> {}", shipments.size());
 
-        dashboardData.put("Outbounds", outboundCount);
-        dashboardData.put("TotalShipments", totalShipments);
+            int outboundCount = shipments.size();
+            int totalShipments = shipments.stream()
+                    .mapToInt(InternationalShipment::getNumberOfShipments)
+                    .sum();
+            logger.info("Outbound count -> {}", outboundCount);
+            logger.info("Total shipments -> {}", totalShipments);
+            dashboardData.put("Outbounds", outboundCount);
+            dashboardData.put("TotalShipments", totalShipments);
 
-        Set<String> userLocations = user.getLocations().stream()
-                .filter(location -> "International Road".equals(location.getType()))
-                .map(Location::getLocationName)
-                .collect(Collectors.toSet());
+            Set<String> userLocations = user.getLocations().stream()
+                    .filter(location -> "International Road".equals(location.getType()))
+                    .map(Location::getLocationName)
+                    .collect(Collectors.toSet());
+            logger.info("User locations for inbound -> {}", userLocations);
 
-        if (!userLocations.isEmpty()) {
-            Specification<InternationalShipment> inboundSpecification =
-                    InternationalShipmentSpecification.withDestinationLocationsAndActive(year, userLocations,"By Road");
-            int inboundCount = (int) internationalShipmentRepository.count(inboundSpecification);
-            dashboardData.put("Inbounds", inboundCount);
-        } else {
-            dashboardData.put("Inbounds", 0);
+            if (!userLocations.isEmpty()) {
+                Specification<InternationalShipment> inboundSpecification =
+                        InternationalShipmentSpecification.withDestinationLocationsAndActive(year, userLocations, "By Road");
+                int inboundCount = (int) internationalShipmentRepository.count(inboundSpecification);
+                logger.info("Inbound count -> {}", inboundCount);
+                dashboardData.put("Inbounds", inboundCount);
+            } else {
+                logger.info("No user locations found for inbound");
+                dashboardData.put("Inbounds", 0);
+            }
+
+        } catch (Exception ex) {
+            logger.info("----------------------------------------Exception----------------------------------------");
+            logger.error("Exception in getAllDashboardDataCountForRoad -> {}", ex.getMessage(), ex);
         }
 
         return dashboardData;
     }
-//
-//    public Map<String, Integer> lowAndHighVolumeWithLocationForInboundForInternationalAir(Integer year) {
-//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User user = userRepository.findByEmployeeId(userDetails.getUsername());
-//        Set<String> userLocations = user.getLocations().stream()
-//                .filter(location -> "International Air".equals(location.getType()))
-//                .map(Location::getLocationName)
-//                .collect(Collectors.toSet());
-//        Map<String, Integer> inboundMap = new HashMap<>();
-//        if (!userLocations.isEmpty()) {
-//            Specification<InternationalShipment> inboundSpecification =
-//                    InternationalShipmentSpecification.withDestinationLocationsAndActive(year, userLocations,"By Air");
-//            List<InternationalShipment> all = internationalShipmentRepository.findAll(inboundSpecification);
-//            for (InternationalShipment internationalShipment : all) {
-//                String destinationLocation = internationalShipment.getDestinationLocation();
-//                if (inboundMap.containsKey(destinationLocation)) {
-//                    inboundMap.put(destinationLocation, inboundMap.get(destinationLocation) + 1);
-//                } else {
-//                    inboundMap.put(destinationLocation, 1);
-//                }
-//            }
-//        }
-//        return inboundMap;
-//    }
-//
-//    public Map<String, Integer> lowAndHighVolumeWithLocationForInboundForInternationalRoad(Integer year) {
-//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User user = userRepository.findByEmployeeId(userDetails.getUsername());
-//        Set<String> userLocations = user.getLocations().stream()
-//                .filter(location -> "International Road".equals(location.getType()))
-//                .map(Location::getLocationName)
-//                .collect(Collectors.toSet());
-//        Map<String, Integer> inboundMap = new HashMap<>();
-//        if (!userLocations.isEmpty()) {
-//            Specification<InternationalShipment> inboundSpecification =
-//                    InternationalShipmentSpecification.withDestinationLocationsAndActive(year, userLocations,"By Road");
-//            List<InternationalShipment> all = internationalShipmentRepository.findAll(inboundSpecification);
-//            for (InternationalShipment internationalShipment : all) {
-//                String destinationLocation = internationalShipment.getDestinationLocation();
-//                if (inboundMap.containsKey(destinationLocation)) {
-//                    inboundMap.put(destinationLocation, inboundMap.get(destinationLocation) + 1);
-//                } else {
-//                    inboundMap.put(destinationLocation, 1);
-//                }
-//            }
-//        }
-//        return inboundMap;
-//    }
-//
-//    public Map<String, Integer> lowAndHighVolumeWithLocationForOutboundForInternationalAir(Integer year) {
-//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User user = userRepository.findByEmployeeId(userDetails.getUsername());
-//
-//        String role = user.getRoles().stream()
-//                .map(Roles::getName)
-//                .findFirst()
-//                .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
-//
-//        Specification<InternationalShipment> specification;
-//        if (role.equals("ROLE_ADMIN")) {
-//            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, null,"By Air");
-//        } else {
-//            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, user,"By Air");
-//        }
-//
-//        List<InternationalShipment> shipments = internationalShipmentRepository.findAll(specification);
-//
-//        Map<String, Integer> outboundMap = new HashMap<>();
-//
-//        for (InternationalShipment internationalShipment : shipments) {
-//            String originLocation = internationalShipment.getOriginLocation();
-//            if (outboundMap.containsKey(originLocation)) {
-//                outboundMap.put(originLocation, outboundMap.get(originLocation) + 1);
-//            } else {
-//                outboundMap.put(originLocation, 1);
-//            }
-//        }
-//        return outboundMap;
-//    }
-//
-//    public Map<String, Integer> lowAndHighVolumeWithLocationForOutboundForInternationalRoad(Integer year) {
-//        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User user = userRepository.findByEmployeeId(userDetails.getUsername());
-//
-//        String role = user.getRoles().stream()
-//                .map(Roles::getName)
-//                .findFirst()
-//                .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
-//
-//        Specification<InternationalShipment> specification;
-//        if (role.equals("ROLE_ADMIN")) {
-//            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, null,"By Road");
-//        } else {
-//            specification = InternationalShipmentSpecification.withCreatedYearUserAndType(year, user,"By Road");
-//        }
-//
-//        List<InternationalShipment> shipments = internationalShipmentRepository.findAll(specification);
-//
-//        Map<String, Integer> outboundMap = new HashMap<>();
-//
-//        for (InternationalShipment internationalShipment : shipments) {
-//            String originLocation = internationalShipment.getOriginLocation();
-//            if (outboundMap.containsKey(originLocation)) {
-//                outboundMap.put(originLocation, outboundMap.get(originLocation) + 1);
-//            } else {
-//                outboundMap.put(originLocation, 1);
-//            }
-//        }
-//        return outboundMap;
-//    }
 
-    public Map<String, Map<String, Integer>> getOutBoundForInternationalAirDashboardTest(Integer year) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmployeeId(userDetails.getUsername());
 
-        String role = user.getRoles().stream()
-                .map(Roles::getName)
-                .findFirst()
-                .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
-
-        Specification<InternationalShipment> specification = role.equals("ROLE_ADMIN")
-                ? InternationalShipmentSpecification.withCreatedYearUserAndType(year, null, "By Air")
-                : InternationalShipmentSpecification.withCreatedYearUserAndType(year, user, "By Air");
-
-        List<InternationalShipment> shipments = internationalShipmentRepository.findAll(specification);
+    public Map<String, Map<String, Integer>> getOutBoundForInternationalAirDashboard(Integer year) {
         Map<String, Map<String, Integer>> resultMap = new HashMap<>();
 
-        for (InternationalShipment shipment : shipments) {
-            String origin = shipment.getOriginLocation();
-            String destination = shipment.getDestinationLocation();
+        try {
+            logger.info("Starting getOutBoundForInternationalAirDashboardTest for year -> {}", year);
 
-            resultMap
-                    .computeIfAbsent(origin, k -> new HashMap<>())
-                    .merge(destination, 1, Integer::sum);
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            logger.info("Fetched user details -> {}", userDetails);
+            User user = userRepository.findByEmployeeId(userDetails.getUsername());
+            logger.info("Fetched user -> {}", user);
+
+            String role = user.getRoles().stream()
+                    .map(Roles::getName)
+                    .findFirst()
+                    .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+            logger.info("User role -> {}", role);
+
+            Specification<InternationalShipment> specification = role.equals("ROLE_ADMIN")
+                    ? InternationalShipmentSpecification.withCreatedYearUserAndType(year, null, "By Air")
+                    : InternationalShipmentSpecification.withCreatedYearUserAndType(year, user, "By Air");
+            logger.info("Specification created -> {}", specification);
+
+            List<InternationalShipment> shipments = internationalShipmentRepository.findAll(specification);
+            logger.info("Shipments fetched successfully -> {}", shipments.size());
+
+            logger.info("Creating result map");
+            for (InternationalShipment shipment : shipments) {
+                String origin = shipment.getOriginLocation();
+                String destination = shipment.getDestinationLocation();
+
+                resultMap
+                        .computeIfAbsent(origin, k -> new HashMap<>())
+                        .merge(destination, 1, Integer::sum);
+            }
+            logger.info("Result map created successfully");
+
+        } catch (Exception ex) {
+            logger.info("----------------------------------------Exception----------------------------------------");
+            logger.error("Exception in getOutBoundForInternationalAirDashboardTest -> {}", ex.getMessage(), ex);
         }
 
         return resultMap;
     }
 
 
-    public Map<String, Map<String, Integer>> getOutBoundForInternationalRoadDashboardTest(Integer year) {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userRepository.findByEmployeeId(userDetails.getUsername());
 
-        String role = user.getRoles().stream()
-                .map(Roles::getName)
-                .findFirst()
-                .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
-
-        Specification<InternationalShipment> specification = role.equals("ROLE_ADMIN")
-                ? InternationalShipmentSpecification.withCreatedYearUserAndType(year, null, "By Road")
-                : InternationalShipmentSpecification.withCreatedYearUserAndType(year, user, "By Road");
-
-        List<InternationalShipment> shipments = internationalShipmentRepository.findAll(specification);
+    public Map<String, Map<String, Integer>> getOutBoundForInternationalRoadDashboard(Integer year) {
         Map<String, Map<String, Integer>> resultMap = new HashMap<>();
 
-        for (InternationalShipment shipment : shipments) {
-            String origin = shipment.getOriginLocation();
-            String destination = shipment.getDestinationLocation();
+        try {
+            logger.info("Starting getOutBoundForInternationalRoadDashboardTest for year -> {}", year);
 
-            resultMap
-                    .computeIfAbsent(origin, k -> new HashMap<>())
-                    .merge(destination, 1, Integer::sum);
+            UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            logger.info("Fetched user details -> {}", userDetails);
+            User user = userRepository.findByEmployeeId(userDetails.getUsername());
+            logger.info("Fetched user -> {}", user);
+
+            String role = user.getRoles().stream()
+                    .map(Roles::getName)
+                    .findFirst()
+                    .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+            logger.info("User role -> {}", role);
+
+            Specification<InternationalShipment> specification = role.equals("ROLE_ADMIN")
+                    ? InternationalShipmentSpecification.withCreatedYearUserAndType(year, null, "By Road")
+                    : InternationalShipmentSpecification.withCreatedYearUserAndType(year, user, "By Road");
+            logger.info("Specification created -> {}", specification);
+
+            List<InternationalShipment> shipments = internationalShipmentRepository.findAll(specification);
+            logger.info("Shipments fetched successfully -> {}", shipments.size());
+
+            logger.info("Creating result map");
+            for (InternationalShipment shipment : shipments) {
+                String origin = shipment.getOriginLocation();
+                String destination = shipment.getDestinationLocation();
+
+                resultMap
+                        .computeIfAbsent(origin, k -> new HashMap<>())
+                        .merge(destination, 1, Integer::sum);
+            }
+            logger.info("Result map created successfully");
+
+        } catch (Exception ex) {
+            logger.info("----------------------------------------Exception----------------------------------------");
+            logger.error("Exception in getOutBoundForInternationalRoadDashboardTest -> {}", ex.getMessage(), ex);
         }
 
         return resultMap;
     }
+
 
 }
