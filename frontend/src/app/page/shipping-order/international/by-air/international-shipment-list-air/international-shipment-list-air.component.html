@@ -307,6 +307,7 @@
                   *ngIf="hasPermission('International Outbound By Air Delete')"
                      icon="bi bi-trash"  tooltipPosition="top" pTooltip="Delete" 
                     class="ml"
+                    (click)="showModal(internationalShipmentByAir.id)"
                     styleClass="p-button-rounded p-button-danger p-button-text p-button-raised"
                   >
                   </p-button>

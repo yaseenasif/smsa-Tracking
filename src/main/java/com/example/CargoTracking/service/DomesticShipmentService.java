@@ -31,6 +31,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.ByteBuffer;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -69,7 +70,7 @@ public class DomesticShipmentService {
   @Autowired
   LocationRepository locationRepository;
 
-  private static final Logger logger = LoggerFactory.getLogger(StorageService.class);
+  private static final Logger logger = LoggerFactory.getLogger(DomesticShipmentService.class);
 
 
   @Transactional
@@ -97,7 +98,12 @@ public class DomesticShipmentService {
 
       DomesticShipment unSaveDomesticShipment = toEntity(domesticShipmentDto);
       unSaveDomesticShipment.setCreatedAt(LocalDate.now());
-      if (domesticShipmentDto.getTrip() != 0 && (domesticShipmentDto.getRouteNumber().contains("Adhoc") || domesticShipmentDto.getRouteNumber().contains("adhoc"))) {
+      if(domesticShipmentDto.getRouteNumber()==null && domesticShipmentDto.getRouteNumberId()==null){
+        unSaveDomesticShipment.setRouteNumberId(222L);
+        unSaveDomesticShipment.setRouteNumber("TESTING");
+        unSaveDomesticShipment.setPreAlertNumber(unSaveDomesticShipment.getRouteNumber()+generateSmallUUID()+LocalDate.now());
+      }
+      else if (domesticShipmentDto.getTrip() != 0 && (domesticShipmentDto.getRouteNumber().contains("Adhoc") || domesticShipmentDto.getRouteNumber().contains("adhoc"))) {
         unSaveDomesticShipment.setPreAlertNumber(domesticShipmentDto.getRouteNumber() + " " + domesticShipmentDto.getTrip() + " " + LocalDate.now());
       } else {
         unSaveDomesticShipment.setPreAlertNumber(domesticShipmentDto.getRouteNumber() + " " + LocalDate.now());
@@ -754,129 +760,133 @@ public class DomesticShipmentService {
   public Map<String, Integer> getAllDashboardData(Integer year) {
     Map<String, Integer> dashboardData = new HashMap<>();
 
-    UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    User user = userRepository.findByEmployeeId(userDetails.getUsername());
+    try{
+      logger.info("In getAllDashboardData -> {}",year);
+      logger.info("getting user");
+      UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      User user = userRepository.findByEmployeeId(userDetails.getUsername());
+      logger.info("user is ->{}",user);
 
-    String role = user.getRoles().stream()
-            .map(Roles::getName)
-            .findFirst()
-            .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+      logger.info("getting role");
+      String role = user.getRoles().stream()
+              .map(Roles::getName)
+              .findFirst()
+              .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+      logger.info("role is ->{}",role);
 
-    Specification<DomesticShipment> specification;
-    if (role.equals("ROLE_ADMIN")) {
-      specification = DomesticShipmentSpecification.withCreatedYearAndUser(year, null);
-    } else {
-      specification = DomesticShipmentSpecification.withCreatedYearAndUser(year, user);
+      logger.info("getting specification on behalf of year and user -> {} , {}",year,user);
+      Specification<DomesticShipment> specification;
+      if (role.equals("ROLE_ADMIN")) {
+        logger.info("user goes null if role is admin");
+        specification = DomesticShipmentSpecification.withCreatedYearAndUser(year, null);
+      } else {
+        specification = DomesticShipmentSpecification.withCreatedYearAndUser(year, user);
+      }
+
+      logger.info("getting shipment with the specification");
+      List<DomesticShipment> shipments = domesticShipmentRepository.findAll(specification);
+      logger.info("shipments fetch successfully");
+
+      int outboundCount = shipments.size();
+      logger.info("outboundCount ->{}",outboundCount);
+      int totalShipments = shipments.stream()
+              .mapToInt(DomesticShipment::getNumberOfShipments)
+              .sum();
+      logger.info("totalShipments ->{}",totalShipments);
+      dashboardData.put("Outbounds", outboundCount);
+      dashboardData.put("TotalShipments", totalShipments);
+
+      logger.info("getting users location");
+      logger.info("user location is used for getting inbound shipment");
+      Set<String> userLocations = user.getLocations().stream()
+              .filter(location -> "Domestic".equals(location.getType()))
+              .map(Location::getLocationName)
+              .collect(Collectors.toSet());
+      logger.info("user location (for inbound) ->{}",userLocations);
+
+      if (!userLocations.isEmpty()) {
+        logger.info("when userLocations is not empty");
+        logger.info("making specification using year and userLocations");
+        Specification<DomesticShipment> inboundSpecification =
+                DomesticShipmentSpecification.withDestinationLocationsAndActive(year, userLocations);
+        logger.info("getting inbound count");
+        int inboundCount = (int) domesticShipmentRepository.count(inboundSpecification);
+        logger.info("Inbounds ->{}",inboundCount);
+        dashboardData.put("Inbounds", inboundCount);
+      } else {
+        logger.info("when userLocations is empty");
+        dashboardData.put("Inbounds", 0);
+      }
+
     }
-
-    List<DomesticShipment> shipments = domesticShipmentRepository.findAll(specification);
-
-    int outboundCount = shipments.size();
-    int totalShipments = shipments.stream()
-            .mapToInt(DomesticShipment::getNumberOfShipments)
-            .sum();
-
-    dashboardData.put("Outbounds", outboundCount);
-    dashboardData.put("TotalShipments", totalShipments);
-
-    Set<String> userLocations = user.getLocations().stream()
-            .filter(location -> "Domestic".equals(location.getType()))
-            .map(Location::getLocationName)
-            .collect(Collectors.toSet());
-
-    if (!userLocations.isEmpty()) {
-      Specification<DomesticShipment> inboundSpecification =
-              DomesticShipmentSpecification.withDestinationLocationsAndActive(year, userLocations);
-      int inboundCount = (int) domesticShipmentRepository.count(inboundSpecification);
-      dashboardData.put("Inbounds", inboundCount);
-    } else {
-      dashboardData.put("Inbounds", 0);
+    catch (Exception ex){
+      logger.info("----------------------------------------Exception----------------------------------------");
+      logger.error("Exception in getAllDashboardData -> {}", ex.getMessage());
     }
 
     return dashboardData;
+
   }
 
-  //inbound
-//  public Map<String, Integer> lowAndHighVolumeWithLocationForInboundForDomestic(Integer year) {
-//    UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//    User user = userRepository.findByEmployeeId(userDetails.getUsername());
-//    Set<String> userLocations = user.getLocations().stream()
-//            .filter(location -> "Domestic".equals(location.getType()))
-//            .map(Location::getLocationName)
-//            .collect(Collectors.toSet());
-//    Map<String, Integer> inboundMap = new HashMap<>();
-//    if (!userLocations.isEmpty()) {
-//      Specification<DomesticShipment> inboundSpecification =
-//              DomesticShipmentSpecification.withDestinationLocationsAndActive(year, userLocations);
-//      List<DomesticShipment> all = domesticShipmentRepository.findAll(inboundSpecification);
-//      for (DomesticShipment domesticShipment : all) {
-//        String destinationLocation = domesticShipment.getDestinationLocation();
-//        if (inboundMap.containsKey(destinationLocation)) {
-//          inboundMap.put(destinationLocation, inboundMap.get(destinationLocation) + 1);
-//        } else {
-//          inboundMap.put(destinationLocation, 1);
-//        }
-//      }
-//    }
-//    return inboundMap;
-//  }
-//
-//  public Map<String, Integer> lowAndHighVolumeWithLocationForOutboundForDomestic(Integer year) {
-//    UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//    User user = userRepository.findByEmployeeId(userDetails.getUsername());
-//
-//    String role = user.getRoles().stream()
-//            .map(Roles::getName)
-//            .findFirst()
-//            .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
-//
-//    Specification<DomesticShipment> specification;
-//    if (role.equals("ROLE_ADMIN")) {
-//      specification = DomesticShipmentSpecification.withCreatedYearAndUser(year, null);
-//    } else {
-//      specification = DomesticShipmentSpecification.withCreatedYearAndUser(year, user);
-//    }
-//
-//    List<DomesticShipment> shipments = domesticShipmentRepository.findAll(specification);
-//
-//    Map<String, Integer> outboundMap = new HashMap<>();
-//
-//    for (DomesticShipment domesticShipment : shipments) {
-//      String originLocation = domesticShipment.getOriginLocation();
-//      if (outboundMap.containsKey(originLocation)) {
-//        outboundMap.put(originLocation, outboundMap.get(originLocation) + 1);
-//      } else {
-//        outboundMap.put(originLocation, 1);
-//      }
-//    }
-//    return outboundMap;
-//  }
-
-  public Map<String, Map<String, Integer>> getOutBoundForDashboardTest(Integer year) {
-    UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    User user = userRepository.findByEmployeeId(userDetails.getUsername());
-
-    String role = user.getRoles().stream()
-            .map(Roles::getName)
-            .findFirst()
-            .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
-
-    Specification<DomesticShipment> specification = role.equals("ROLE_ADMIN")
-            ? DomesticShipmentSpecification.withCreatedYearAndUser(year, null)
-            : DomesticShipmentSpecification.withCreatedYearAndUser(year, user);
-
-    List<DomesticShipment> shipments = domesticShipmentRepository.findAll(specification);
+  public Map<String, Map<String, Integer>> getOutBoundForDashboard(Integer year) {
     Map<String, Map<String, Integer>> resultMap = new HashMap<>();
 
-    for (DomesticShipment shipment : shipments) {
-      String origin = shipment.getOriginLocation();
-      String destination = shipment.getDestinationLocation();
+    try{
+      logger.info("In getOutBoundForDashboard -> {}",year);
+      logger.info("getting user");
+      UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+      User user = userRepository.findByEmployeeId(userDetails.getUsername());
+      logger.info("user is ->{}",user);
 
-      resultMap
-              .computeIfAbsent(origin, k -> new HashMap<>())
-              .merge(destination, 1, Integer::sum);
+      logger.info("getting role");
+      String role = user.getRoles().stream()
+              .map(Roles::getName)
+              .findFirst()
+              .orElseThrow(() -> new RecordNotFoundException("Role is incorrect"));
+      logger.info("role is ->{}",role);
+
+      logger.info("making specification using year and user -> {} , {} ",year,user);
+      logger.info("user goes null in specification is role is admin");
+      Specification<DomesticShipment> specification = role.equals("ROLE_ADMIN")
+              ? DomesticShipmentSpecification.withCreatedYearAndUser(year, null)
+              : DomesticShipmentSpecification.withCreatedYearAndUser(year, user);
+
+      logger.info("getting shipment with the specification");
+      List<DomesticShipment> shipments = domesticShipmentRepository.findAll(specification);
+      logger.info("shipments fetch successfully");
+
+      logger.info("making result map");
+      for (DomesticShipment shipment : shipments) {
+        String origin = shipment.getOriginLocation();
+        String destination = shipment.getDestinationLocation();
+
+        resultMap
+                .computeIfAbsent(origin, k -> new HashMap<>())
+                .merge(destination, 1, Integer::sum);
+      }
+      logger.info("result map created successfully");
+
+    }
+    catch (Exception ex){
+      logger.info("----------------------------------------Exception----------------------------------------");
+      logger.error("Exception in getOutBoundForDashboard -> {}", ex.getMessage());
     }
 
     return resultMap;
+
+  }
+
+  public static String generateSmallUUID() {
+    // Generate UUID
+    UUID uuid = UUID.randomUUID();
+
+    // Convert UUID to byte array
+    byte[] uuidBytes = ByteBuffer.wrap(new byte[16])
+            .putLong(uuid.getMostSignificantBits())
+            .putLong(uuid.getLeastSignificantBits())
+            .array();
+
+    // Encode the byte array into a Base64 string
+    return Base64.getUrlEncoder().withoutPadding().encodeToString(uuidBytes);
   }
 }

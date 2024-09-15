@@ -33,11 +33,14 @@ searchBy: any = {
   status: "",
   origin: "",
   destinations: [],
-  routeNumber:""
+  routeNumber:"",
+  preAlertNumber:"",
+  masterCONS:""
 }
 shipmentStatus!:ProductField|null;
 
 ngOnInit() {
+  
     this.items = [{ label: 'Reports',routerLink:'/report-tiles'},{ label: 'Domestic Shipment Of Performance'}];
     this.getAllShipmentStatus();
     this.getDomesticReportPerformance(this.searchBy,this.page,this.rows);
@@ -50,6 +53,7 @@ onPageChange(event: any) {
 }
 
 getDomesticReportPerformance(searchBy:SearchBy,page:number,size:number){
+  debugger
 this.reportService.getDomesticReportPerformance(searchBy,page,size).subscribe((res:any)=>{
   this.domesticPerformance=res.content;
   this.myApiResponse = res;
@@ -62,17 +66,20 @@ this.reportService.getDomesticReportPerformance(searchBy,page,size).subscribe((r
 }
 
 searchByFilter(){
+  debugger
+ 
   this.searchBy.fromDate=this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd'))!:"";
   this.searchBy.toDate=this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd'))!:"";
   this.domesticPerformance=[]
-  this.reportService.getDomesticReportPerformance(this.searchBy).subscribe((res:DomesticPerformance[])=>{
-    this.domesticPerformance=res;
+  this.reportService.getDomesticReportPerformance(this.searchBy).subscribe((res:any)=>{
+    this.domesticPerformance=res.content;
     this.searchBy.fromDate= this.searchBy.fromDate ? new Date( this.searchBy.fromDate) : "";
     this.searchBy.toDate= this.searchBy.toDate ? new Date( this.searchBy.toDate) : "";
   },(error)=>{
     this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     this.searchBy.fromDate= this.searchBy.fromDate ? new Date( this.searchBy.fromDate) : "";
     this.searchBy.toDate= this.searchBy.toDate ? new Date( this.searchBy.toDate) : "";
+    this.domesticPerformance=[];
   })
 }
 
@@ -91,7 +98,9 @@ clearFilter(){
     status: '',
     origin: '',
     destination: [],
-    routeNumber: ''
+    routeNumber: '',
+    preAlertNumber:"",
+    masterCONS:""
   }
   this.getDomesticReportPerformance(this.searchBy,this.page,this.rows);
 }
@@ -111,5 +120,7 @@ interface SearchBy{
   origin:string,
   destination:string,
   routeNumber:string
+  preAlertNumber:"",
+  masterCONS:""
 }
 
