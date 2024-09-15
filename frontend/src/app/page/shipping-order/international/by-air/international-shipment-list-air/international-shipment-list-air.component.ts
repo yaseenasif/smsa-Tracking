@@ -49,7 +49,7 @@ export class InternationalShipmentListAirComponent {
 
   ngOnInit() {
     this.items = [{ label: 'International Outbound', routerLink: '/international-tile' }, { label: 'International Outbound By Air' }];
-    this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
+    this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, 0, 10);
     this.getAllShipmentStatus();
   }
 
@@ -83,7 +83,7 @@ export class InternationalShipmentListAirComponent {
   }
 
   searchByFilter(){
-    this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
+    this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, 0, 10);
   }
 
   clearFilter(){
@@ -93,7 +93,7 @@ export class InternationalShipmentListAirComponent {
     this.origin = [];
     this.destination = '';
     this.routeNumber = '';
-    this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
+    this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, 0, 10);
     }
 
 
