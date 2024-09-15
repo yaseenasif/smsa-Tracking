@@ -53,7 +53,7 @@ onPageChange(event: any) {
 }
 
 getDomesticReportPerformance(searchBy:SearchBy,page:number,size:number){
-  debugger
+
 this.reportService.getDomesticReportPerformance(searchBy,page,size).subscribe((res:any)=>{
   this.domesticPerformance=res.content;
   this.myApiResponse = res;
@@ -66,7 +66,7 @@ this.reportService.getDomesticReportPerformance(searchBy,page,size).subscribe((r
 }
 
 searchByFilter(){
-  debugger
+
  
   this.searchBy.fromDate=this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd'))!:"";
   this.searchBy.toDate=this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd'))!:"";

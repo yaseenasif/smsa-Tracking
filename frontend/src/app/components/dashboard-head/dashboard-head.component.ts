@@ -47,7 +47,6 @@ export class DashboardHeadComponent implements OnInit {
   }
   
   ngOnInit() {
-    debugger
   const token=this.authguardService.getDecodedAccessToken(localStorage.getItem('accessToken')!);
     this.user.employeeId=token["sub"]
     this.user.roles=token["ROLES"];
