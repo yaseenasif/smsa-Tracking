@@ -359,7 +359,7 @@
             </p-table>
             <div class="card flex justify-content-center">
               <p-paginator
-                *ngIf="internationalShipmentByRoad[0]?.originCountry"
+               
                 [rows]="paginatedRes?.size"
                 [first]="paginatedRes?.pageable.pageNumber * paginatedRes?.size"
                 [totalRecords]="paginatedRes?.totalElements"
