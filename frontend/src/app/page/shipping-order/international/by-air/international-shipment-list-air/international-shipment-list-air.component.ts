@@ -34,6 +34,7 @@ export class InternationalShipmentListAirComponent {
   origin: string[] = [];
   destination: string = '';
   routeNumber: string = '';
+totalElementsP: any;
 
   constructor(
     private internationalShippingService: InternationalShippingService,
@@ -49,7 +50,7 @@ export class InternationalShipmentListAirComponent {
 
   ngOnInit() {
     this.items = [{ label: 'International Outbound', routerLink: '/international-tile' }, { label: 'International Outbound By Air' }];
-    this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, 0, 10);
+    this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
     this.getAllShipmentStatus();
   }
 
@@ -62,6 +63,7 @@ export class InternationalShipmentListAirComponent {
     this.internationalShippingService.getAllInternationalShipmentByAirForOutBound({ fromDate:this.fromDate?this.datePipe.transform(new Date(this.fromDate),'yyyy-MM-dd'):'',toDate:this.toDate?this.datePipe.transform(new Date(this.toDate),'yyyy-MM-dd'):'',status: status,origin: origin,destinations: destination,routeNumber: routeNumber}, this.page , this.size).subscribe((res: any) => {
       this.internationalShipmentByAir = res.content;
       this.paginationRes = res;
+      this.totalElementsP=this.paginationRes.totalElements;
     }, error => {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: error.error.body });
     })
@@ -83,7 +85,7 @@ export class InternationalShipmentListAirComponent {
   }
 
   searchByFilter(){
-    this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, 0, 10);
+    this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
   }
 
   clearFilter(){
@@ -93,7 +95,7 @@ export class InternationalShipmentListAirComponent {
     this.origin = [];
     this.destination = '';
     this.routeNumber = '';
-    this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, 0, 10);
+    this.getAllInternationalShipmentByAir(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
     }
 
 

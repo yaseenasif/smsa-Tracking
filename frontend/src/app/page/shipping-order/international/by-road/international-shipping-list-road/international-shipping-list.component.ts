@@ -48,7 +48,7 @@ export class InternationalShippingListComponent {
 
   ngOnInit() {
     this.items = [{ label: 'International Outbound', routerLink: '/international-tile' }, { label: 'International Outbound By Road' }];
-    this.getAllInternationalShipmentByRoad(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, 0, 10);
+    this.getAllInternationalShipmentByRoad(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
     this.getAllShipmentStatus();
   }
 
@@ -81,7 +81,7 @@ export class InternationalShippingListComponent {
   }
 
   searchByFilter(){
-    this.getAllInternationalShipmentByRoad(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, 0, 10);
+    this.getAllInternationalShipmentByRoad(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
   }
   clearFilter(){
     this.fromDate = '';
@@ -90,7 +90,7 @@ export class InternationalShippingListComponent {
     this.origin = [];
     this.destination = '';
     this.routeNumber = '';
-    this.getAllInternationalShipmentByRoad(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, 0, 10);
+    this.getAllInternationalShipmentByRoad(this.fromDate,this.toDate,this.status,this.origin,this.destination,this.routeNumber, undefined, undefined);
     }
 
 

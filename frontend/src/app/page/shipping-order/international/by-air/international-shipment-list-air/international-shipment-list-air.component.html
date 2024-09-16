@@ -319,18 +319,18 @@
             </p-table>
             <div class="card flex justify-content-center">
               <p-paginator
-                *ngIf="internationalShipmentByAir[0]?.type"
+                
                 [rows]="paginationRes?.size"
                 [first]="
                   paginationRes?.pageable.pageNumber * paginationRes?.size
                 "
-                [totalRecords]="paginationRes?.totalElements"
+                [totalRecords]="totalElementsP"
                 (onPageChange)="onPageChange($event)"
                 currentPageReportTemplate="Showing {{
                   paginationRes?.number * paginationRes?.size + 1
                 }} to {{
                   (paginationRes?.number + 1) * paginationRes?.size
-                }} of {{ paginationRes.totalRecords }} entries"
+                }} of {{ totalElementsP}} entries"
                 [showCurrentPageReport]="true"
               ></p-paginator>
             </div>
