@@ -92,7 +92,7 @@ export class DashboardComponent implements OnInit {
         this.userService.getLoggedInUser().subscribe((res:User)=>{        
             let types=res.locations?.map((el)=>{return el.type})
            this.typesWithOutDuplicate= types!.filter((item, index) => types!.indexOf(item) === index); 
-             this.getCardsData(this.currentYear)
+            //  this.getCardsData(this.currentYear)
 
              const documentStyle = getComputedStyle(document.documentElement);
              const textColor = documentStyle.getPropertyValue('--text-color');
