@@ -52,7 +52,7 @@ export class ReportService {
     let queryParams = new HttpParams();
 
     // queryParams = queryParams.append("value", searchBy ? JSON.stringify(searchBy) : '' );
-    debugger
+    // debugger
     this.http
       .get(`${this.url}${address}`,{
         responseType: 'blob',

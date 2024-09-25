@@ -26,10 +26,10 @@ public class ExcelController {
 
     @PreAuthorize("hasAuthority('international-air-report-performance')")
     @GetMapping("/int-air-rep-per")
-    public ResponseEntity<Resource> internationalAirReportPerformanceExcelDownload(@RequestParam(value = "value",required = false) String value) throws IOException {
-        SearchCriteriaForInternationalSummary
-                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
-        Resource file = excelService.internationalAirReportPerformanceExcelDownload(searchCriteriaForInternationalSummary);
+    public ResponseEntity<Resource> internationalAirReportPerformanceExcelDownload() throws IOException {
+//        SearchCriteriaForInternationalSummary
+//                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
+        Resource file = excelService.internationalAirReportPerformanceExcelDownload();
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, "application/octet-stream")
@@ -39,10 +39,10 @@ public class ExcelController {
 
     @PreAuthorize("hasAuthority('international-road-report-performance')")
     @GetMapping("/int-road-rep-per")
-    public ResponseEntity<Resource> internationalRoadReportPerformanceExcelDownload(@RequestParam(value = "value",required = false) String value) throws IOException {
-        SearchCriteriaForInternationalSummary
-                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
-        Resource file = excelService.internationalRoadReportPerformanceExcelDownload(searchCriteriaForInternationalSummary);
+    public ResponseEntity<Resource> internationalRoadReportPerformanceExcelDownload() throws IOException {
+//        SearchCriteriaForInternationalSummary
+//                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
+        Resource file = excelService.internationalRoadReportPerformanceExcelDownload();
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, "application/octet-stream")
@@ -52,10 +52,10 @@ public class ExcelController {
 
     @PreAuthorize("hasAuthority('international-air-report-status')")
     @GetMapping("/int-air-rep-status")
-    public ResponseEntity<Resource> internationalAirReportStatusExcelDownload(@RequestParam(value = "value",required = false) String value) throws IOException {
-        SearchCriteriaForInternationalSummary
-                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
-        Resource file = excelService.internationalAirReportStatusExcelDownload(searchCriteriaForInternationalSummary);
+    public ResponseEntity<Resource> internationalAirReportStatusExcelDownload() throws IOException {
+//        SearchCriteriaForInternationalSummary
+//                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
+        Resource file = excelService.internationalAirReportStatusExcelDownload();
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, "application/octet-stream")
@@ -65,10 +65,10 @@ public class ExcelController {
 
     @PreAuthorize("hasAuthority('international-road-report-status')")
     @GetMapping("/int-road-rep-status")
-    public ResponseEntity<Resource> internationalRoadReportStatusExcelDownload(@RequestParam(value = "value",required = false) String value) throws IOException {
-        SearchCriteriaForInternationalSummary
-                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
-        Resource file = excelService.internationalRoadReportStatusExcelDownload(searchCriteriaForInternationalSummary);
+    public ResponseEntity<Resource> internationalRoadReportStatusExcelDownload() throws IOException {
+//        SearchCriteriaForInternationalSummary
+//                searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
+        Resource file = excelService.internationalRoadReportStatusExcelDownload();
 
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_TYPE, "application/octet-stream")

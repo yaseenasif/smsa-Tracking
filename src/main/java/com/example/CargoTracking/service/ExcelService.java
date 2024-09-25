@@ -46,7 +46,7 @@ public class ExcelService {
     InternationalShipmentRepository internationalShipmentRepository;
     @Value("${excel.file.location}")
     private String sampleFileLocalLocation;
-    public Resource internationalAirReportPerformanceExcelDownload(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
+    public Resource internationalAirReportPerformanceExcelDownload() {
         try{
             List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Air");
             List<InternationalAirReportPerformance> intAirReportPerformance = new ArrayList<>();
@@ -125,7 +125,7 @@ public class ExcelService {
         }
     }
 
-    public Resource internationalRoadReportPerformanceExcelDownload(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
+    public Resource internationalRoadReportPerformanceExcelDownload() {
         try{
             List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Road");
             List<InternationalRoadReportPerformance> intRoadReportPerformance = new ArrayList<>();
@@ -203,7 +203,7 @@ public class ExcelService {
         }
     }
 
-    public Resource internationalAirReportStatusExcelDownload(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
+    public Resource internationalAirReportStatusExcelDownload() {
         try{
             List<InternationalShipment> internationalShipmentsList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Air");
             List<InternationalAirReportStatusDto> intAirReportStatus = new ArrayList<>();
@@ -327,7 +327,7 @@ public class ExcelService {
         }
     }
 
-    public Resource internationalRoadReportStatusExcelDownload(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
+    public Resource internationalRoadReportStatusExcelDownload() {
         try{
             List<InternationalShipment> internationalShipmentList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Road");
             List<InternationalRoadReportStatusDto> intRoadReportStatus = new ArrayList<>();
@@ -504,8 +504,8 @@ public class ExcelService {
                 createCell(row, columnCount++, domesticPerformance.getOccupancy() != null ? domesticPerformance.getOccupancy(): " ", style);
                 createCell(row, columnCount++, domesticPerformance.getBags() != null ? domesticPerformance.getBags().toString(): " ", style);
                 createCell(row, columnCount++, domesticPerformance.getPlanedEtd() != null ? domesticPerformance.getPlanedEtd().toString(): " ", style);
-                createCell(row, columnCount++, domesticPerformance.getPlanedEta() != null ? domesticPerformance.getPlanedEta().toString(): " ", style);
                 createCell(row, columnCount++, domesticPerformance.getAtd() != null ? domesticPerformance.getAtd().toString(): " ", style);
+                createCell(row, columnCount++, domesticPerformance.getPlanedEta() != null ? domesticPerformance.getPlanedEta().toString(): " ", style);
                 createCell(row, columnCount++, domesticPerformance.getAta() != null ? domesticPerformance.getAta().toString(): " ", style);
                 createCell(row, columnCount++, domesticPerformance.getPlanedEtdVsAtd() != null ? domesticPerformance.getPlanedEtdVsAtd().toString(): " ", style);
                 createCell(row, columnCount++, domesticPerformance.getPlanedEtaVsAta() != null ? domesticPerformance.getPlanedEtaVsAta().toString(): " ", style);
