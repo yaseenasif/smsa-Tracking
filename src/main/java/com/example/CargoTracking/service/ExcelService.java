@@ -13,6 +13,9 @@ import com.example.CargoTracking.repository.DomesticRouteRepository;
 import com.example.CargoTracking.repository.DomesticShipmentRepository;
 import com.example.CargoTracking.repository.InternationalShipmentHistoryRepository;
 import com.example.CargoTracking.repository.InternationalShipmentRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -30,6 +33,7 @@ import java.util.List;
 import static org.apache.poi.ss.util.CellUtil.createCell;
 
 @Service
+@Slf4j
 public class ExcelService {
 
     @Autowired
@@ -44,6 +48,9 @@ public class ExcelService {
     DomesticRouteRepository domesticRouteRepository;
     @Autowired
     InternationalShipmentRepository internationalShipmentRepository;
+
+    private static final Logger logger = LoggerFactory.getLogger(StorageService.class);
+
     @Value("${excel.file.location}")
     private String sampleFileLocalLocation;
     public Resource internationalAirReportPerformanceExcelDownload() {
@@ -79,7 +86,7 @@ public class ExcelService {
                 intAirReportPerformance.add(internationalAirReportPerformance);
             }
 
-
+            logger.info(sampleFileLocalLocation+"/internationalAirPerformance.xlsx");
             FileInputStream fileInputStream = new FileInputStream(sampleFileLocalLocation + "/internationalAirPerformance.xlsx");
             Workbook  newWorkBook = WorkbookFactory.create(fileInputStream);
             Sheet summarySheet= newWorkBook.getSheetAt(0);
@@ -479,6 +486,8 @@ public class ExcelService {
                 }
                 domesticPerformanceList.add(domesticPerformance);
             }
+
+            logger.info(sampleFileLocalLocation + "/domesticPerformance.xlsx");
             FileInputStream fileInputStream = new FileInputStream(sampleFileLocalLocation + "/domesticPerformance.xlsx");
             Workbook  newWorkBook = WorkbookFactory.create(fileInputStream);
             Sheet summarySheet= newWorkBook.getSheetAt(0);
