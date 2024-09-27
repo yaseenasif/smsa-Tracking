@@ -469,27 +469,39 @@ public class ExcelService {
                 domesticPerformance.setPallets(domesticShipment.getNumberOfPallets());
                 domesticPerformance.setOccupancy(getOccupancyByVehicleType(domesticShipment.getVehicleType()));
                 domesticPerformance.setBags(domesticShipment.getNumberOfShipments());
-                logger.info("Before findByRoute");
+                logger.info(domesticShipment.getId()+ " Before findByRoute "+domesticShipment.getRouteNumber());
                 DomesticRoute domesticRoute = domesticRouteRepository.findByRoute(domesticShipment.getRouteNumber());
-                logger.info("After findByRoute");
+                logger.info(domesticShipment.getId()+ " After findByRoute "+domesticShipment.getRouteNumber());
                 domesticPerformance.setPlanedEta(domesticRoute.getEta());
+                logger.info("After Eta");
                 domesticPerformance.setPlanedEtd(domesticRoute.getEtd());
+                logger.info("After Etd");
                 domesticPerformance.setAta(domesticShipment.getAta());
+                logger.info("After Ata");
                 domesticPerformance.setAtd(domesticShipment.getAtd());
+                logger.info("After Atd");
 
                 if(domesticRoute.getEta()!=null && domesticShipment.getAta()!=null){
+                    logger.info("Before eta vs ata");
                     Duration durationForEtaAndAta = Duration.between(domesticRoute.getEta(), domesticShipment.getAta());
                     domesticPerformance.setPlanedEtaVsAta(durationForEtaAndAta.toHours());
+                    logger.info("After eta vs ata");
                 }
                 if(domesticRoute.getEtd()!=null && domesticShipment.getAtd()!=null){
+                    logger.info("Before etd vs atd");
                     Duration durationForEtdAndAtd = Duration.between(domesticRoute.getEtd(), domesticShipment.getAtd());
                     domesticPerformance.setPlanedEtdVsAtd(durationForEtdAndAtd.toHours());
+                    logger.info("After etd vs atd");
                 }
                 if(domesticShipment.getAtd()!=null && domesticShipment.getAta()!=null){
+                    logger.info("Before transit time");
                     Duration durationForTransitTime = Duration.between(domesticShipment.getAta(), domesticShipment.getAtd());
                     domesticPerformance.setTransitTime(durationForTransitTime.toHours());
+                    logger.info("After transit time");
                 }
+                logger.info("Before add");
                 domesticPerformanceList.add(domesticPerformance);
+                logger.info("After add");
             }
 
             logger.info("before file extract"+sampleFileLocalLocation + "/domesticPerformance.xlsx");
