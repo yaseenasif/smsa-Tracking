@@ -23,8 +23,8 @@ public class DomesticPerformance {
     private Integer pallets; // no of pallets
     private String occupancy;
     private Integer bags;
-    private LocalTime planedEtd;
-    private LocalTime planedEta;
+    private LocalDateTime planedEtd;
+    private LocalDateTime planedEta;
     private LocalDateTime atd;
     private LocalDateTime ata;
     private Long planedEtdVsAtd;

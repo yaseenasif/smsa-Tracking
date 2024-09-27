@@ -19,6 +19,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -330,8 +331,9 @@ public class ReportAndStatusService {
             logger.info("check Bags ",domesticShipment.getNumberOfShipments());
             domesticPerformance.setBags(domesticShipment.getNumberOfShipments());
             DomesticRoute domesticRoute = domesticRouteRepository.findByRoute(domesticShipment.getRouteNumber());
-            domesticPerformance.setPlanedEta(domesticRoute.getEta());
-            domesticPerformance.setPlanedEtd(domesticRoute.getEtd());
+            LocalDate date = domesticShipment.getCreatedTime().toLocalDate();
+            domesticPerformance.setPlanedEtd(LocalDateTime.of(date,domesticRoute.getEtd()));
+            domesticPerformance.setPlanedEta(LocalDateTime.of(date,domesticRoute.getEtd()).plusHours(domesticRoute.getDurationLimit()));
             domesticPerformance.setAta(domesticShipment.getAta());
             domesticPerformance.setAtd(domesticShipment.getAtd());
             logger.info("end 2st if");

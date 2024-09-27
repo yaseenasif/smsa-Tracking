@@ -27,6 +27,8 @@ import org.apache.poi.ss.usermodel.*;
 
 
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -472,14 +474,11 @@ public class ExcelService {
                 logger.info(domesticShipment.getId()+ " Before findByRoute "+domesticShipment.getRouteNumber());
                 DomesticRoute domesticRoute = domesticRouteRepository.findByRoute(domesticShipment.getRouteNumber());
                 logger.info(domesticShipment.getId()+ " After findByRoute "+domesticShipment.getRouteNumber());
-                domesticPerformance.setPlanedEta(domesticRoute.getEta());
-                logger.info("After Eta");
-                domesticPerformance.setPlanedEtd(domesticRoute.getEtd());
-                logger.info("After Etd");
+                LocalDate date = domesticShipment.getCreatedTime().toLocalDate();
+                domesticPerformance.setPlanedEtd(LocalDateTime.of(date,domesticRoute.getEtd()));
+                domesticPerformance.setPlanedEta(LocalDateTime.of(date,domesticRoute.getEtd()).plusHours(domesticRoute.getDurationLimit()));
                 domesticPerformance.setAta(domesticShipment.getAta());
-                logger.info("After Ata");
                 domesticPerformance.setAtd(domesticShipment.getAtd());
-                logger.info("After Atd");
 
                 if(domesticRoute.getEta()!=null && domesticShipment.getAta()!=null){
                     logger.info("Before eta vs ata");
