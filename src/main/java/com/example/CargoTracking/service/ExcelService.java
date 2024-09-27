@@ -452,7 +452,9 @@ public class ExcelService {
 
     public Resource domesticPerformanceExcelDownload() {
         try{
+            logger.info("Before findAllByActiveStatusMock");
             List<DomesticShipment> domesticShipmentList = domesticShipmentRepository.findAllByActiveStatusMock(true);
+            logger.info("After findAllByActiveStatusMock");
             List<DomesticPerformance> domesticPerformanceList = new ArrayList<>();
             for(DomesticShipment domesticShipment: domesticShipmentList){
                 DomesticPerformance domesticPerformance = new DomesticPerformance();
@@ -467,11 +469,14 @@ public class ExcelService {
                 domesticPerformance.setPallets(domesticShipment.getNumberOfPallets());
                 domesticPerformance.setOccupancy(getOccupancyByVehicleType(domesticShipment.getVehicleType()));
                 domesticPerformance.setBags(domesticShipment.getNumberOfShipments());
+                logger.info("Before findByRoute");
                 DomesticRoute domesticRoute = domesticRouteRepository.findByRoute(domesticShipment.getRouteNumber());
+                logger.info("After findByRoute");
                 domesticPerformance.setPlanedEta(domesticRoute.getEta());
                 domesticPerformance.setPlanedEtd(domesticRoute.getEtd());
                 domesticPerformance.setAta(domesticShipment.getAta());
                 domesticPerformance.setAtd(domesticShipment.getAtd());
+
                 if(domesticRoute.getEta()!=null && domesticShipment.getAta()!=null){
                     Duration durationForEtaAndAta = Duration.between(domesticRoute.getEta(), domesticShipment.getAta());
                     domesticPerformance.setPlanedEtaVsAta(durationForEtaAndAta.toHours());
@@ -487,8 +492,9 @@ public class ExcelService {
                 domesticPerformanceList.add(domesticPerformance);
             }
 
-            logger.info(sampleFileLocalLocation + "/domesticPerformance.xlsx");
+            logger.info("before file extract"+sampleFileLocalLocation + "/domesticPerformance.xlsx");
             FileInputStream fileInputStream = new FileInputStream(sampleFileLocalLocation + "/domesticPerformance.xlsx");
+            logger.info("After file extract"+sampleFileLocalLocation + "/domesticPerformance.xlsx");
             Workbook  newWorkBook = WorkbookFactory.create(fileInputStream);
             Sheet summarySheet= newWorkBook.getSheetAt(0);
             int rowCount = 1;
