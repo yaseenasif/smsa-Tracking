@@ -57,6 +57,7 @@ public class  InternationalShipmentController {
     @PreAuthorize("hasAuthority('getAll-internationalShipment')")
     @GetMapping("/all-international-shipments")
     public ResponseEntity<List<InternationalShipmentDto>> getAll(){
+        System.gc();
         return ResponseEntity.ok(internationalShipmentService.getAll());
     }
 
@@ -67,6 +68,7 @@ public class  InternationalShipmentController {
                                                                                                   @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
         SearchCriteriaForInternationalShipment
                 searchCriteriaForInternationalShipment = new ObjectMapper().readValue(value, SearchCriteriaForInternationalShipment.class);
+        System.gc();
         return ResponseEntity.ok(internationalShipmentService.getAllByUserAndForAir(searchCriteriaForInternationalShipment,page,size));
     }
 
@@ -77,6 +79,7 @@ public class  InternationalShipmentController {
                                                                                                    @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
         SearchCriteriaForInternationalShipment
                 searchCriteriaForInternationalShipment = new ObjectMapper().readValue(value, SearchCriteriaForInternationalShipment.class);
+        System.gc();
         return ResponseEntity.ok(internationalShipmentService.getAllByUserAndForRoad(searchCriteriaForInternationalShipment,page,size));
     }
 
@@ -98,6 +101,7 @@ public class  InternationalShipmentController {
                                                                                                @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
         SearchCriteriaForInternationalSummary
                 searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
+        System.gc();
         return ResponseEntity.ok(internationalShipmentService.getInternationalInBoundSummeryForAir(searchCriteriaForInternationalSummary,page,size));
     }
 
@@ -108,6 +112,7 @@ public class  InternationalShipmentController {
                                                                                                 @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
         SearchCriteriaForInternationalSummary
                 searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummary.class);
+        System.gc();
         return ResponseEntity.ok(internationalShipmentService.getInternationalInBoundSummeryForRoad(searchCriteriaForInternationalSummary,page,size));
     }
 
@@ -118,6 +123,7 @@ public class  InternationalShipmentController {
                                                                                                @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
         SearchCriteriaForInternationalSummaryOutbound
                 searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummaryOutbound.class);
+        System.gc();
         return ResponseEntity.ok(internationalShipmentService.getInternationalOutBoundSummeryForAir(searchCriteriaForInternationalSummary,page,size));
     }
 
@@ -128,6 +134,7 @@ public class  InternationalShipmentController {
                                                                                                 @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
         SearchCriteriaForInternationalSummaryOutbound
                 searchCriteriaForInternationalSummary = new ObjectMapper().readValue(value, SearchCriteriaForInternationalSummaryOutbound.class);
+        System.gc();
         return ResponseEntity.ok(internationalShipmentService.getInternationalOutBoundSummeryForRoad(searchCriteriaForInternationalSummary,page,size));
     }
 
