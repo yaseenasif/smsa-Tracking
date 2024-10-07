@@ -557,14 +557,13 @@
                     <input
                     pInputText
                     id="name"
-                    pattern="\d{3}-\d{8}"
+                    pattern="\d{12}"
                     minlength="12"
                     maxlength="12"
                     aria-describedby="name-help"
                     name="preAlertNumber"
                     [(ngModel)]="internationalShipment.preAlertNumber"
                     #preAlertNumber="ngModel"
-                    (input)="dashAfterThree()"
                     required
                     [ngClass]="{
                       error:
@@ -788,7 +787,7 @@
                       pInputText
                       id="name"
                       aria-describedby="name-help"
-                      pattern="\d{4}[A-Z]{3}"
+                      pattern="(\d{4}[A-Z]{3}|\d{6})"
                       #vehicleNumber="ngModel"
                       name="vehicleNumber"
                       [required]="true"
@@ -807,7 +806,7 @@
                     class="color-red error"
                     *ngIf="vehicleNumber.invalid && (vehicleNumber.dirty || vehicleNumber.touched )&&vehicleNumber?.errors?.['pattern']"
                   >
-                   Invalid pattern ex. 0000ABC
+                   Invalid pattern ex. 0000ABC Or 123456
                   </small>
                   </div>
                 </div>

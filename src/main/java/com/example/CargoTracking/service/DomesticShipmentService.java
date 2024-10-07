@@ -142,37 +142,37 @@ public class DomesticShipmentService {
 
       domesticShipmentHistoryRepository.save(domesticShipmentHistory);
 
-//      String originEmails = locationRepository.findById(orgLocationId).get()
-//              .getOriginEmail();
-//      String[] resultListOrigin = originEmails.split(",");
-//      List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOrigin));
-//
-//      String destinationEmails = locationRepository.findById(desLocationId).get()
-//              .getDestinationEmail();
-//      String[] resultListDestination = destinationEmails.split(",");
-//      List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestination));
-//
-//
-//      List<String> emails = new ArrayList<>();
-//      emails.addAll(originEmailAddresses);
-//      emails.addAll(destinationEmailAddresses);
-//
-//      String subject = "TSM Pre-Alert(D): " + domesticShipment.getPreAlertNumber() + "/" + domesticShipment.getVehicleType() + "/" + domesticShipment.getReferenceNumber();
-//
-//      Map<String, Object> model = new HashMap<>();
-//      model.put("field1", domesticShipment.getCreatedAt().toString());
-//      model.put("field2", domesticShipment.getReferenceNumber());
-//      model.put("field3", domesticShipment.getOriginLocation());
-//      model.put("field4", domesticShipment.getDestinationLocation());
-//      model.put("field5", domesticShipment.getNumberOfShipments() != null ? domesticShipment.getNumberOfShipments().toString() : "0");
-//      model.put("field6", domesticShipment.getVehicleType());
-//      model.put("field7", domesticShipment.getNumberOfBags().toString());
-//      model.put("field8", domesticShipment.getNumberOfPallets().toString());
-////      model.put("field9", domesticShipment.getWeight().toString());
-//      model.put("field10", "Road");
-//      model.put("field11", domesticShipment.getRouteNumber().toString());
-//      model.put("field15", domesticShipment.getRemarks());
-//      emailService.sendHtmlEmail( resultListDestination, resultListOrigin, subject, "domestic-email-template.ftl", model);
+      String originEmails = locationRepository.findById(orgLocationId).get()
+              .getOriginEmail();
+      String[] resultListOrigin = originEmails.split(",");
+      List<String> originEmailAddresses = new ArrayList<>(Arrays.asList(resultListOrigin));
+
+      String destinationEmails = locationRepository.findById(desLocationId).get()
+              .getDestinationEmail();
+      String[] resultListDestination = destinationEmails.split(",");
+      List<String> destinationEmailAddresses = new ArrayList<>(Arrays.asList(resultListDestination));
+
+
+      List<String> emails = new ArrayList<>();
+      emails.addAll(originEmailAddresses);
+      emails.addAll(destinationEmailAddresses);
+
+      String subject = "TSM Pre-Alert(D): " + domesticShipment.getPreAlertNumber() + "/" + domesticShipment.getVehicleType() + "/" + domesticShipment.getReferenceNumber();
+
+      Map<String, Object> model = new HashMap<>();
+      model.put("field1", domesticShipment.getCreatedAt().toString());
+      model.put("field2", domesticShipment.getReferenceNumber());
+      model.put("field3", domesticShipment.getOriginLocation());
+      model.put("field4", domesticShipment.getDestinationLocation());
+      model.put("field5", domesticShipment.getNumberOfShipments() != null ? domesticShipment.getNumberOfShipments().toString() : "0");
+      model.put("field6", domesticShipment.getVehicleType());
+      model.put("field7", domesticShipment.getNumberOfBags().toString());
+      model.put("field8", domesticShipment.getNumberOfPallets().toString());
+//      model.put("field9", domesticShipment.getWeight().toString());
+      model.put("field10", "Road");
+      model.put("field11", domesticShipment.getRouteNumber().toString());
+      model.put("field15", domesticShipment.getRemarks());
+      emailService.sendHtmlEmail( resultListDestination, resultListOrigin, subject, "domestic-email-template.ftl", model);
       return toDto(domesticShipment);
     }
 

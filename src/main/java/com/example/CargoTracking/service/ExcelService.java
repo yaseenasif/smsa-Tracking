@@ -494,7 +494,7 @@ public class ExcelService {
                 }
                 if(domesticShipment.getAtd()!=null && domesticShipment.getAta()!=null){
                     logger.info("Before transit time");
-                    Duration durationForTransitTime = Duration.between(domesticShipment.getAta(), domesticShipment.getAtd());
+                    Duration durationForTransitTime = Duration.between(domesticShipment.getAtd(), domesticShipment.getAta());
                     domesticPerformance.setTransitTime(durationForTransitTime.toHours());
                     logger.info("After transit time");
                 }
