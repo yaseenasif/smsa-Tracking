@@ -72,6 +72,7 @@ public class DomesticShipmentController {
                                                             @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
         SearchCriteriaForDomesticShipment
                 searchCriteriaForDomesticShipment = new ObjectMapper().readValue(value, SearchCriteriaForDomesticShipment.class);
+        System.gc();
         return ResponseEntity.ok(domesticShipmentService.getAll(searchCriteriaForDomesticShipment,page,size));
     }
 
@@ -99,6 +100,7 @@ public class DomesticShipmentController {
                                                                         @RequestParam(defaultValue = "0") int page,
                                                                         @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
         SearchCriteriaForSummary searchCriteriaForSummary = new ObjectMapper().readValue(value, SearchCriteriaForSummary.class);
+        System.gc();
         return ResponseEntity.ok(domesticShipmentService.getInboundShipment(searchCriteriaForSummary,page,size));
     }
 
@@ -108,6 +110,7 @@ public class DomesticShipmentController {
                                                                         @RequestParam(defaultValue = "0") int page,
                                                                         @RequestParam(defaultValue = "10") int size) throws JsonProcessingException {
         SearchCriteriaForSummaryForOutbound searchCriteriaForSummary = new ObjectMapper().readValue(value, SearchCriteriaForSummaryForOutbound.class);
+        System.gc();
         return ResponseEntity.ok(domesticShipmentService.getOutboundShipment(searchCriteriaForSummary,page,size));
     }
 
