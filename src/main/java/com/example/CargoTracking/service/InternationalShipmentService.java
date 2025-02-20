@@ -592,7 +592,7 @@ public class InternationalShipmentService {
                 List<InternationalShipment> all = internationalShipmentRepository.findAll();
                 for (InternationalShipment internationalShipmentForPreAlertNumber: all) {
                     if(internationalShipmentForPreAlertNumber.getPreAlertNumber().equals(internationalShipmentDto.getPreAlertNumber())){
-                        if(internationalShipment.get().getId() != internationalShipmentDto.getId()){
+                        if(!Objects.equals(internationalShipmentForPreAlertNumber.getId(), internationalShipment.get().getId())){
                             throw new RecordNotFoundException(String.format("Shipment with the given pre alert number is already exist"));
                         }
                     }
