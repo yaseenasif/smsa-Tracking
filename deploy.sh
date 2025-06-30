@@ -2,7 +2,7 @@
 
 set -e  # Exit immediately on any error
 
-SERVICE_NAME="springboot_fms.smsaexpress.com.service"
+SERVICE_NAME="springboot_tms.smsaexpress.com.service"
 JAR_PATH="../public_html/tms.jar"
 LOG_PATH=~/logs/tms.smsaexpress.com_spring.log
 TARGET_JAR="./target/Cargo-Tracking-0.0.1-SNAPSHOT.jar"
