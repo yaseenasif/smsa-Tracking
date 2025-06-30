@@ -118,15 +118,19 @@ public class DomesticShipmentService {
       unSaveDomesticShipment.setUpdatedTime(currentLocalDateTime);
       unSaveDomesticShipment.setOriginLocationId(orgLocationId);
       unSaveDomesticShipment.setDestinationLocationId(desLocationId);
-      List<DomesticShipment> all = domesticShipmentRepository.findAll();
-      for (DomesticShipment domesticShipment : all) {
-        logger.info("domestic shipment "+domesticShipment.getPreAlertNumber());
-        logger.info("domestic shipment New"+unSaveDomesticShipment.getPreAlertNumber());
-        if (domesticShipment.getPreAlertNumber().equals(unSaveDomesticShipment.getPreAlertNumber())) {
-          logger.info("find same pre alert");
-          throw new RecordNotFoundException(String.format("Shipment with the given pre alert number is already exist"));
-        }
+      if (domesticShipmentRepository.existsByPreAlertNumber(unSaveDomesticShipment.getPreAlertNumber())) {
+        logger.info("Found same pre alert: {}", unSaveDomesticShipment.getPreAlertNumber());
+        throw new RecordNotFoundException(String.format("Shipment with the given pre alert number already exists"));
       }
+//      List<DomesticShipment> all = domesticShipmentRepository.findAll();
+//      for (DomesticShipment domesticShipment : all) {
+//        logger.info("domestic shipment "+domesticShipment.getPreAlertNumber());
+//        logger.info("domestic shipment New"+unSaveDomesticShipment.getPreAlertNumber());
+//        if (domesticShipment.getPreAlertNumber().equals(unSaveDomesticShipment.getPreAlertNumber())) {
+//          logger.info("find same pre alert");
+//          throw new RecordNotFoundException(String.format("Shipment with the given pre alert number is already exist"));
+//        }
+//      }
       DomesticShipment domesticShipment = domesticShipmentRepository.save(unSaveDomesticShipment);
       List<String> locationNameArray = user.getLocations().stream().map(Location::getLocationName).collect(Collectors.toList());
       String locationNamesString = String.join(",", locationNameArray);
@@ -139,9 +143,11 @@ public class DomesticShipmentService {
               .domesticShipment(domesticShipment)
               .remarks(domesticShipment.getRemarks())
               .build();
-
-      domesticShipmentHistoryRepository.save(domesticShipmentHistory);
-
+try {
+  domesticShipmentHistoryRepository.save(domesticShipmentHistory);
+}catch (Exception e){
+  e.printStackTrace();
+}
       String originEmails = locationRepository.findById(orgLocationId).get()
               .getOriginEmail();
       String[] resultListOrigin = originEmails.split(",");
