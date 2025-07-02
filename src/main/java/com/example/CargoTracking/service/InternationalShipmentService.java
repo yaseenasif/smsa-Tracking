@@ -589,13 +589,12 @@ public class InternationalShipmentService {
             if(principal instanceof UserDetails){
                 String username = ((UserDetails) principal).getUsername();
                 User user = userRepository.findByEmployeeId(username);
-                List<InternationalShipment> all = internationalShipmentRepository.findAll();
-                for (InternationalShipment internationalShipmentForPreAlertNumber: all) {
-                    if(internationalShipmentForPreAlertNumber.getPreAlertNumber().equals(internationalShipmentDto.getPreAlertNumber())){
-                        if(internationalShipment.get().getId() != internationalShipmentDto.getId()){
-                            throw new RecordNotFoundException(String.format("Shipment with the given pre alert number is already exist"));
-                        }
-                    }
+
+                List<InternationalShipment> duplicates = internationalShipmentRepository
+                        .findByPreAlertNumberAndIdNot(internationalShipmentDto.getPreAlertNumber(), internationalShipmentDto.getId());
+
+                if (!duplicates.isEmpty()) {
+                    throw new RecordNotFoundException("Shipment with the given pre alert number already exists");
                 }
 
                 internationalShipment.get().setUpdatedAt(LocalDate.now());

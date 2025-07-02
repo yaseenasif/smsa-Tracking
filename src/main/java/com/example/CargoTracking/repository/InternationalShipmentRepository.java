@@ -51,4 +51,7 @@ public interface InternationalShipmentRepository extends JpaRepository<Internati
     InternationalShipment findByPreAlertNumber(String preAlertNumber);
 
     List<InternationalShipment> findByActiveStatusAndType(boolean activeStatus, String type);
+
+    @Query("SELECT s FROM InternationalShipment s WHERE s.preAlertNumber = :preAlertNumber AND s.id <> :id")
+    List<InternationalShipment> findByPreAlertNumberAndIdNot(@Param("preAlertNumber") String preAlertNumber, @Param("id") Long id);
 }
