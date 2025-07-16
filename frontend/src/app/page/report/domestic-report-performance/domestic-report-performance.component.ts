@@ -118,7 +118,7 @@ interface SearchBy{
   toDate:string|Date,
   status:string,
   origin:string,
-  destination:string,
+  destination:string[],
   routeNumber:string
   preAlertNumber:"",
   masterCONS:""

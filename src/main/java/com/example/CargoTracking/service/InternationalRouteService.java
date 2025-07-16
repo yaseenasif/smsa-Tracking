@@ -22,6 +22,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -78,8 +79,10 @@ public class InternationalRouteService {
     }
 
     public List<InternationalRouteDto> findInternationalRouteForRoad(String origin, String destination, int trip) {
+
         List<InternationalRoute> byOriginAndDestination =
-                internationalRouteRepository.findByOriginAndDestinationAndTypeAndStatus(origin, destination,"Road",true);
+                internationalRouteRepository.findByOriginAndDestinationAndTypeAndStatus(StringUtils.trimAllWhitespace(origin),
+                        StringUtils.trimAllWhitespace(destination),"Road",true);
         if(byOriginAndDestination.isEmpty()){
             throw  new RecordNotFoundException(String.format("No routes available against given origin and destination"));
         }
