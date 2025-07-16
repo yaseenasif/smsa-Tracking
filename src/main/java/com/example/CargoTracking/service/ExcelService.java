@@ -31,6 +31,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.apache.poi.ss.util.CellUtil.createCell;
 
@@ -457,6 +460,15 @@ public class ExcelService {
             logger.info("Before findAllByActiveStatusMock");
             List<DomesticShipment> domesticShipmentList = domesticShipmentRepository.findAllByActiveStatusMock(true);
             logger.info("After findAllByActiveStatusMock");
+            Set<String> routeNumbers = domesticShipmentList.stream()
+                    .map(DomesticShipment::getRouteNumber)
+                    .collect(Collectors.toSet());
+
+            Map<String, DomesticRoute> routeMap = domesticRouteRepository
+                    .findByRouteIn(routeNumbers)
+                    .stream()
+                    .collect(Collectors.toMap(DomesticRoute::getRoute, r -> r));
+
             List<DomesticPerformance> domesticPerformanceList = new ArrayList<>();
             for(DomesticShipment domesticShipment: domesticShipmentList){
                 DomesticPerformance domesticPerformance = new DomesticPerformance();
@@ -471,9 +483,9 @@ public class ExcelService {
                 domesticPerformance.setPallets(domesticShipment.getNumberOfPallets());
                 domesticPerformance.setOccupancy(getOccupancyByVehicleType(domesticShipment.getVehicleType()));
                 domesticPerformance.setBags(domesticShipment.getNumberOfShipments());
-                logger.info(domesticShipment.getId()+ " Before findByRoute "+domesticShipment.getRouteNumber());
-                DomesticRoute domesticRoute = domesticRouteRepository.findByRoute(domesticShipment.getRouteNumber());
-                logger.info(domesticShipment.getId()+ " After findByRoute "+domesticShipment.getRouteNumber());
+               // logger.info(domesticShipment.getId()+ " Before findByRoute "+domesticShipment.getRouteNumber());
+                DomesticRoute domesticRoute = routeMap.get(domesticShipment.getRouteNumber());
+               // logger.info(domesticShipment.getId()+ " After findByRoute "+domesticShipment.getRouteNumber());
                 LocalDate date = domesticShipment.getCreatedTime().toLocalDate();
                 domesticPerformance.setPlanedEtd(LocalDateTime.of(date,domesticRoute.getEtd()));
                 domesticPerformance.setPlanedEta(LocalDateTime.of(date,domesticRoute.getEtd()).plusHours(domesticRoute.getDurationLimit()));
@@ -481,26 +493,26 @@ public class ExcelService {
                 domesticPerformance.setAtd(domesticShipment.getAtd());
 
                 if(domesticRoute.getEta()!=null && domesticShipment.getAta()!=null){
-                    logger.info("Before eta vs ata");
+                    //logger.info("Before eta vs ata");
                     Duration durationForEtaAndAta = Duration.between(domesticRoute.getEta(), domesticShipment.getAta());
                     domesticPerformance.setPlanedEtaVsAta(durationForEtaAndAta.toHours());
-                    logger.info("After eta vs ata");
+                   // logger.info("After eta vs ata");
                 }
                 if(domesticRoute.getEtd()!=null && domesticShipment.getAtd()!=null){
-                    logger.info("Before etd vs atd");
+                  //  logger.info("Before etd vs atd");
                     Duration durationForEtdAndAtd = Duration.between(domesticRoute.getEtd(), domesticShipment.getAtd());
                     domesticPerformance.setPlanedEtdVsAtd(durationForEtdAndAtd.toHours());
-                    logger.info("After etd vs atd");
+                   // logger.info("After etd vs atd");
                 }
                 if(domesticShipment.getAtd()!=null && domesticShipment.getAta()!=null){
-                    logger.info("Before transit time");
+                   // logger.info("Before transit time");
                     Duration durationForTransitTime = Duration.between(domesticShipment.getAtd(), domesticShipment.getAta());
                     domesticPerformance.setTransitTime(durationForTransitTime.toHours());
-                    logger.info("After transit time");
+                   // logger.info("After transit time");
                 }
-                logger.info("Before add");
+               // logger.info("Before add");
                 domesticPerformanceList.add(domesticPerformance);
-                logger.info("After add");
+               // logger.info("After add");
             }
 
             logger.info("before file extract"+sampleFileLocalLocation + "/domesticPerformance.xlsx");
