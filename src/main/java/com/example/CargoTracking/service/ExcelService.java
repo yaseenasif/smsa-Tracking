@@ -470,51 +470,55 @@ public class ExcelService {
                     .collect(Collectors.toMap(DomesticRoute::getRoute, r -> r));
 
             List<DomesticPerformance> domesticPerformanceList = new ArrayList<>();
-            for(DomesticShipment domesticShipment: domesticShipmentList){
-                DomesticPerformance domesticPerformance = new DomesticPerformance();
-                domesticPerformance.setId(domesticShipment.getId());
-                domesticPerformance.setPreAlertNumber(domesticShipment.getPreAlertNumber());
-                domesticPerformance.setReferenceNumber(domesticShipment.getReferenceNumber());
-                domesticPerformance.setOrigin(domesticShipment.getOriginLocation());
-                domesticPerformance.setDestination(domesticShipment.getDestinationLocation());
-                domesticPerformance.setRoute(domesticShipment.getRouteNumber());
-                domesticPerformance.setVehicle(domesticShipment.getVehicleNumber());
-                domesticPerformance.setShipments(domesticShipment.getTotalShipments());
-                domesticPerformance.setPallets(domesticShipment.getNumberOfPallets());
-                domesticPerformance.setOccupancy(getOccupancyByVehicleType(domesticShipment.getVehicleType()));
-                domesticPerformance.setBags(domesticShipment.getNumberOfShipments());
-               // logger.info(domesticShipment.getId()+ " Before findByRoute "+domesticShipment.getRouteNumber());
-                DomesticRoute domesticRoute = routeMap.get(domesticShipment.getRouteNumber());
-               // logger.info(domesticShipment.getId()+ " After findByRoute "+domesticShipment.getRouteNumber());
-                LocalDate date = domesticShipment.getCreatedTime().toLocalDate();
-                domesticPerformance.setPlanedEtd(LocalDateTime.of(date,domesticRoute.getEtd()));
-                domesticPerformance.setPlanedEta(LocalDateTime.of(date,domesticRoute.getEtd()).plusHours(domesticRoute.getDurationLimit()));
-                domesticPerformance.setAta(domesticShipment.getAta());
-                domesticPerformance.setAtd(domesticShipment.getAtd());
+            try {
+                for (DomesticShipment domesticShipment : domesticShipmentList) {
+                    DomesticPerformance domesticPerformance = new DomesticPerformance();
+                    domesticPerformance.setId(domesticShipment.getId());
+                    domesticPerformance.setPreAlertNumber(domesticShipment.getPreAlertNumber());
+                    domesticPerformance.setReferenceNumber(domesticShipment.getReferenceNumber());
+                    domesticPerformance.setOrigin(domesticShipment.getOriginLocation());
+                    domesticPerformance.setDestination(domesticShipment.getDestinationLocation());
+                    domesticPerformance.setRoute(domesticShipment.getRouteNumber());
+                    domesticPerformance.setVehicle(domesticShipment.getVehicleNumber());
+                    domesticPerformance.setShipments(domesticShipment.getTotalShipments());
+                    domesticPerformance.setPallets(domesticShipment.getNumberOfPallets());
+                    domesticPerformance.setOccupancy(getOccupancyByVehicleType(domesticShipment.getVehicleType()));
+                    domesticPerformance.setBags(domesticShipment.getNumberOfShipments());
+                    // logger.info(domesticShipment.getId()+ " Before findByRoute "+domesticShipment.getRouteNumber());
+                    DomesticRoute domesticRoute = routeMap.get(domesticShipment.getRouteNumber());
+                    // logger.info(domesticShipment.getId()+ " After findByRoute "+domesticShipment.getRouteNumber());
+                    LocalDate date = domesticShipment.getCreatedTime().toLocalDate();
+                    domesticPerformance.setPlanedEtd(LocalDateTime.of(date, domesticRoute.getEtd()));
+                    domesticPerformance.setPlanedEta(LocalDateTime.of(date, domesticRoute.getEtd()).plusHours(domesticRoute.getDurationLimit()));
+                    domesticPerformance.setAta(domesticShipment.getAta());
+                    domesticPerformance.setAtd(domesticShipment.getAtd());
 
-                if(domesticRoute.getEta()!=null && domesticShipment.getAta()!=null){
-                    //logger.info("Before eta vs ata");
-                    Duration durationForEtaAndAta = Duration.between(domesticRoute.getEta(), domesticShipment.getAta());
-                    domesticPerformance.setPlanedEtaVsAta(durationForEtaAndAta.toHours());
-                   // logger.info("After eta vs ata");
+                    if (domesticRoute.getEta() != null && domesticShipment.getAta() != null) {
+                        //logger.info("Before eta vs ata");
+                        Duration durationForEtaAndAta = Duration.between(domesticRoute.getEta(), domesticShipment.getAta());
+                        domesticPerformance.setPlanedEtaVsAta(durationForEtaAndAta.toHours());
+                        // logger.info("After eta vs ata");
+                    }
+                    if (domesticRoute.getEtd() != null && domesticShipment.getAtd() != null) {
+                        //  logger.info("Before etd vs atd");
+                        Duration durationForEtdAndAtd = Duration.between(domesticRoute.getEtd(), domesticShipment.getAtd());
+                        domesticPerformance.setPlanedEtdVsAtd(durationForEtdAndAtd.toHours());
+                        // logger.info("After etd vs atd");
+                    }
+                    if (domesticShipment.getAtd() != null && domesticShipment.getAta() != null) {
+                        // logger.info("Before transit time");
+                        Duration durationForTransitTime = Duration.between(domesticShipment.getAtd(), domesticShipment.getAta());
+                        domesticPerformance.setTransitTime(durationForTransitTime.toHours());
+                        // logger.info("After transit time");
+                    }
+                    // logger.info("Before add");
+                    domesticPerformanceList.add(domesticPerformance);
+                    // logger.info("After add");
                 }
-                if(domesticRoute.getEtd()!=null && domesticShipment.getAtd()!=null){
-                  //  logger.info("Before etd vs atd");
-                    Duration durationForEtdAndAtd = Duration.between(domesticRoute.getEtd(), domesticShipment.getAtd());
-                    domesticPerformance.setPlanedEtdVsAtd(durationForEtdAndAtd.toHours());
-                   // logger.info("After etd vs atd");
-                }
-                if(domesticShipment.getAtd()!=null && domesticShipment.getAta()!=null){
-                   // logger.info("Before transit time");
-                    Duration durationForTransitTime = Duration.between(domesticShipment.getAtd(), domesticShipment.getAta());
-                    domesticPerformance.setTransitTime(durationForTransitTime.toHours());
-                   // logger.info("After transit time");
-                }
-               // logger.info("Before add");
-                domesticPerformanceList.add(domesticPerformance);
-               // logger.info("After add");
+            }catch (Exception e){
+                e.printStackTrace();
             }
-
+            logger.info("loop  completed ");
             logger.info("before file extract"+sampleFileLocalLocation + "/domesticPerformance.xlsx");
             FileInputStream fileInputStream = new FileInputStream(sampleFileLocalLocation + "/domesticPerformance.xlsx");
             logger.info("After file extract"+sampleFileLocalLocation + "/domesticPerformance.xlsx");
