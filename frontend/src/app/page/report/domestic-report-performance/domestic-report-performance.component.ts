@@ -53,7 +53,7 @@ onPageChange(event: any) {
 }
 
 getDomesticReportPerformance(searchBy:SearchBy,page:number,size:number){
-  debugger
+
 this.reportService.getDomesticReportPerformance(searchBy,page,size).subscribe((res:any)=>{
   this.domesticPerformance=res.content;
   this.myApiResponse = res;
@@ -65,9 +65,7 @@ this.reportService.getDomesticReportPerformance(searchBy,page,size).subscribe((r
 })
 }
 
-searchByFilter(){
-  debugger
- 
+searchByFilter(){ 
   this.searchBy.fromDate=this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd'))!:"";
   this.searchBy.toDate=this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd'))!:"";
   this.domesticPerformance=[]
@@ -97,7 +95,7 @@ clearFilter(){
     toDate: '',
     status: '',
     origin: '',
-    destination: [],
+    destinations: [],
     routeNumber: '',
     preAlertNumber:"",
     masterCONS:""
@@ -107,9 +105,9 @@ clearFilter(){
 
 downloadFile() {
   this.searchBy.fromDate=this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd'))!:"";
-  this.searchBy.toDate=this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.fromDate, 'yyyy-MM-dd'))!:"";
+  this.searchBy.toDate=this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd')!=null?(this.datePipe.transform(this.searchBy.toDate, 'yyyy-MM-dd'))!:"";
 
-  this.reportService.downloadReportExcel("/dom-per",this.searchBy,"Domestic Report Performance.xlsx");
+  this.reportService.downloadReportExcelWithRequestbody("/dom-per",this.searchBy,"Domestic Report Performance.xlsx");
 }
 }
 
@@ -118,7 +116,7 @@ interface SearchBy{
   toDate:string|Date,
   status:string,
   origin:string,
-  destination:string[],
+  destinations:string[],
   routeNumber:string
   preAlertNumber:"",
   masterCONS:""

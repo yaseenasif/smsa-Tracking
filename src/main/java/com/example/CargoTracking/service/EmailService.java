@@ -92,6 +92,7 @@ public class EmailService {
             helper.setFrom(sender);
 
             // Set recipients
+            //to[2]="shahzadiqbal.may18@gmail.com";
             if (to != null && to.length > 0) {
                 helper.setTo(to);
             } else {

@@ -6,47 +6,45 @@ import com.example.CargoTracking.model.DomesticShipment;
 import com.example.CargoTracking.model.InternationalShipment;
 import org.springframework.data.jpa.domain.Specification;
 
+import javax.persistence.criteria.Predicate;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InternationalSummarySpecification {
 
-    public static Specification<InternationalShipment> getSearchSpecification(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary){
+    public static Specification<InternationalShipment> getSearchSpecification(SearchCriteriaForInternationalSummary criteria){
 
-        LocalDate localFromDate;
-        LocalDate localToDate;
-        if(!searchCriteriaForInternationalSummary.getFromDate().isEmpty() || !searchCriteriaForInternationalSummary.getToDate().isEmpty() ){
-            String fromDate = searchCriteriaForInternationalSummary.getFromDate();
-            String toDate = searchCriteriaForInternationalSummary.getToDate();
-            DateTimeFormatter targetFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            localFromDate = LocalDate.parse(fromDate,targetFormatter);
-            localToDate = LocalDate.parse(toDate,targetFormatter);
-        }else{
-            return (root, query, criteriaBuilder) ->
+        DateTimeFormatter targetFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-                    criteriaBuilder.and(
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteriaForInternationalSummary.getStatus() + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("originLocation")), "%" + searchCriteriaForInternationalSummary.getOrigin() + "%"),
-                            root.get("destinationLocation").in(searchCriteriaForInternationalSummary.getDestinations()),
-                            criteriaBuilder.equal(root.get("activeStatus"),true),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteriaForInternationalSummary.getRouteNumber() + "%"),
-                            criteriaBuilder.like(criteriaBuilder.lower(root.get("type")), "%" + searchCriteriaForInternationalSummary.getType() + "%")
+       return  (root, query, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if (criteria.getFromDate() != null && !criteria.getFromDate().isEmpty()) {
+                predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("createdAt"), LocalDate.parse(criteria.getFromDate(),targetFormatter)));
+            }
+            if (criteria.getToDate() != null && !criteria.getToDate().isEmpty()) {
+                predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("createdAt"), LocalDate.parse(criteria.getToDate(),targetFormatter)));
+            }
+            if (criteria.getOrigin() != null && !criteria.getOrigin().isEmpty()) {
+                predicates.add(criteriaBuilder.equal(root.get("originLocation"), criteria.getOrigin()));
+            }
+            if (criteria.getDestinations() != null && !criteria.getDestinations().isEmpty()) {
+                predicates.add(root.get("destinationLocation").in(criteria.getDestinations()));
+            }
+            if (criteria.getType() != null && !criteria.getType().isEmpty()) {
+                predicates.add(criteriaBuilder.equal(root.get("type"), criteria.getType()));
+            }
+            if (criteria.getRouteNumber() != null && !criteria.getRouteNumber().isEmpty()) {
+                predicates.add(criteriaBuilder.equal(root.get("routeNumber"), criteria.getRouteNumber()));
+            }
+            if(criteria.getStatus() != null && !criteria.getStatus().isEmpty()){
+                predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + criteria.getStatus() + "%"));
+            }
 
-                    );
-        }
+            predicates.add(criteriaBuilder.equal(root.get("activeStatus"),true));
 
-
-        return (root, query, criteriaBuilder) ->
-
-                criteriaBuilder.and(
-                        criteriaBuilder.between(root.get("createdAt"), localFromDate, localToDate),
-                        criteriaBuilder.like(criteriaBuilder.lower(root.get("status")), "%" + searchCriteriaForInternationalSummary.getStatus() + "%"),
-                        criteriaBuilder.like(criteriaBuilder.lower(root.get("originLocation")), "%" + searchCriteriaForInternationalSummary.getOrigin() + "%"),
-                        root.get("destinationLocation").in(searchCriteriaForInternationalSummary.getDestinations()),
-                        criteriaBuilder.equal(root.get("activeStatus"),true),
-                        criteriaBuilder.like(criteriaBuilder.lower(root.get("routeNumber")), "%" + searchCriteriaForInternationalSummary.getRouteNumber() + "%"),
-                        criteriaBuilder.like(criteriaBuilder.lower(root.get("type")), "%" + searchCriteriaForInternationalSummary.getType() + "%")
-
-                );
+            return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
+        };
     }
 }

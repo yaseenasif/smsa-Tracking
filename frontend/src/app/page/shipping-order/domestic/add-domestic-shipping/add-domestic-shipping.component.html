@@ -723,7 +723,7 @@
 
                 <div class="col-12 md:col-6 lg:col-4">
                   <div class="flex flex-column gap-2 form-hook">
-                    <label htmlFor="name">Security Tag</label>
+                    <label htmlFor="name">Security Tag <small>(press enter to validate)</small></label>
 
 
                     <p-chips class="chipes-hook" [(ngModel)]="domesticShipment.tagNumber" [required]="true" separator=","  [allowDuplicate]="false"   #tagNumber="ngModel"  name="tagNumber" appIsNumber appSevenDigitValidator>

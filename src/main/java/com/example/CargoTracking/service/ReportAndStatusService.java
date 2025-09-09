@@ -23,6 +23,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -44,19 +45,15 @@ public class ReportAndStatusService {
 
     public List<InternationalAirReportStatusDto> findInternationalAirReportStatus(SearchCriteriaForInternationalSummary searchCriteriaForInternationalSummary) {
         List<InternationalAirReportStatusDto> internationalAirReportStatusDtoList = new ArrayList<>();
-        List<InternationalShipment> internationalShipmentsList = new ArrayList<>();
-        if ((searchCriteriaForInternationalSummary.getDestinations() == null || searchCriteriaForInternationalSummary.getDestinations().isEmpty())
-                && (searchCriteriaForInternationalSummary.getOrigin() == null || searchCriteriaForInternationalSummary.getOrigin().isEmpty())
-                && (searchCriteriaForInternationalSummary.getToDate() == null || searchCriteriaForInternationalSummary.getToDate().isEmpty())
-                && (searchCriteriaForInternationalSummary.getFromDate() == null || searchCriteriaForInternationalSummary.getFromDate().isEmpty())
-                && (searchCriteriaForInternationalSummary.getStatus() == null || searchCriteriaForInternationalSummary.getStatus().isEmpty())
-                && (searchCriteriaForInternationalSummary.getRouteNumber() == null || searchCriteriaForInternationalSummary.getRouteNumber().isEmpty())) {
-             internationalShipmentsList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Air");
-        }else{
-            searchCriteriaForInternationalSummary.setType("By Air");
-            Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
-            internationalShipmentsList = internationalShipmentRepository.findAll(internationalShipmentSpecification);
-        }
+
+        searchCriteriaForInternationalSummary.setType(ShipmentType.BY_AIR.getType());
+        Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
+        List<InternationalShipment> internationalShipmentsList  = internationalShipmentRepository.findAll(internationalShipmentSpecification);
+
+
+        List<InternationalShipmentHistory> shipmentHistories = internationalShipmentHistoryRepository.findByInternationalShipmentIdIn(
+                internationalShipmentsList.stream().map(InternationalShipment::getId).collect(Collectors.toList()));
+
         for (InternationalShipment internationalShipment : internationalShipmentsList) {
             InternationalAirReportStatusDto internationalAirReportStatusDto = new InternationalAirReportStatusDto();
             internationalAirReportStatusDto.setId(internationalShipment.getId());
@@ -82,7 +79,11 @@ public class ReportAndStatusService {
             }
 
             internationalAirReportStatusDto.setRemarks(internationalShipment.getRemarks());
-            List<InternationalShipmentHistory> internationalShipmentHistoryList = internationalShipmentHistoryRepository.findByInternationalShipmentId(internationalShipment.getId());
+
+            List<InternationalShipmentHistory> internationalShipmentHistoryList = shipmentHistories.stream()
+                    .filter(history -> history.getInternationalShipment().getId().equals(internationalShipment.getId()))
+                    .collect(Collectors.toList());
+
             for (InternationalShipmentHistory internationalShipmentHistory : internationalShipmentHistoryList) {
                 if (internationalShipmentHistory.getStatus().equalsIgnoreCase("Created")) {
                     internationalAirReportStatusDto.setCreated(internationalShipmentHistory.getProcessTime());
@@ -202,7 +203,7 @@ public class ReportAndStatusService {
                 && (searchCriteriaForInternationalSummary.getRouteNumber() == null || searchCriteriaForInternationalSummary.getRouteNumber().isEmpty())) {
             internationalShipmentList = internationalShipmentRepository.findByActiveStatusAndType(true, "By Air");
         }else{
-            searchCriteriaForInternationalSummary.setType("By Air");
+            searchCriteriaForInternationalSummary.setType(ShipmentType.BY_AIR.getType());
             Specification<InternationalShipment> internationalShipmentSpecification = InternationalSummarySpecification.getSearchSpecification(searchCriteriaForInternationalSummary);
             internationalShipmentList = internationalShipmentRepository.findAll(internationalShipmentSpecification);
         }
@@ -287,48 +288,35 @@ public class ReportAndStatusService {
         logger.info("start");
         Pageable pageable = PageRequest.of(page, size, Sort.by("updatedTime").descending());
         List<DomesticPerformance> domesticPerformanceList = new ArrayList<>();
-//        List<DomesticShipment> domesticShipmentList = new ArrayList<>();
         Page<DomesticShipment> domesticShipmentPage;
-        if ((searchCriteriaForSummary.getDestinations() == null || searchCriteriaForSummary.getDestinations().isEmpty())
-                && (searchCriteriaForSummary.getOrigin() == null || searchCriteriaForSummary.getOrigin().isEmpty())
-                && (searchCriteriaForSummary.getToDate() == null || searchCriteriaForSummary.getToDate().isEmpty())
-                && (searchCriteriaForSummary.getFromDate() == null || searchCriteriaForSummary.getFromDate().isEmpty())
-                && (searchCriteriaForSummary.getStatus() == null || searchCriteriaForSummary.getStatus().isEmpty())
-                && (searchCriteriaForSummary.getRouteNumber() == null || searchCriteriaForSummary.getRouteNumber().isEmpty())) {
-        logger.info("enter in 1st if ");
-            domesticShipmentPage = domesticShipmentRepository.findAllByActiveStatusMockWithPagination(true,pageable);
-            logger.info("end 1st if ");
-        }else{
-            logger.info("enter in 1st else ");
-            Specification<DomesticShipment> domesticSummarySpecification = DomesticSummarySpecification.getSearchSpecification(searchCriteriaForSummary);
-            domesticShipmentPage = domesticShipmentRepository.findAll(domesticSummarySpecification,pageable);
-            logger.info("end 1st else");
-        }
+
+        Specification<DomesticShipment> domesticSummarySpecification = DomesticSummarySpecification.getSearchSpecification(searchCriteriaForSummary);
+        domesticShipmentPage = domesticShipmentRepository.findAll(domesticSummarySpecification,pageable);
+
         for(DomesticShipment domesticShipment: domesticShipmentPage){
-            logger.info("enter in 2st if");
+
             DomesticPerformance domesticPerformance = new DomesticPerformance();
-            logger.info("check id ",domesticShipment.getId());
-            logger.info(String.valueOf(domesticShipment.getId()));
+
             domesticPerformance.setId(domesticShipment.getId());
-            logger.info("check PreAlertNumber",domesticShipment.getPreAlertNumber());
+
             domesticPerformance.setPreAlertNumber(domesticShipment.getPreAlertNumber());
-            logger.info("check ReferenceNumber",domesticShipment.getReferenceNumber());
+
             domesticPerformance.setReferenceNumber(domesticShipment.getReferenceNumber());
-            logger.info("check Origin ",domesticShipment.getOriginLocation());
+
             domesticPerformance.setOrigin(domesticShipment.getOriginLocation());
-            logger.info("check Destination ",domesticShipment.getDestinationLocation());
+
             domesticPerformance.setDestination(domesticShipment.getDestinationLocation());
-            logger.info("check Route ",domesticShipment.getRouteNumber());
+
             domesticPerformance.setRoute(domesticShipment.getRouteNumber());
-            logger.info("check vehicle ",domesticShipment.getVehicleNumber());
+
             domesticPerformance.setVehicle(domesticShipment.getVehicleNumber());
-            logger.info("check Shipments ",domesticShipment.getTotalShipments());
+
             domesticPerformance.setShipments(domesticShipment.getTotalShipments());
-            logger.info("check Pallets ",domesticShipment.getNumberOfPallets());
+
             domesticPerformance.setPallets(domesticShipment.getNumberOfPallets());
-            logger.info("check VehicleType ",domesticShipment.getVehicleType());
+
             domesticPerformance.setOccupancy(getOccupancyByVehicleType(domesticShipment.getVehicleType()));
-            logger.info("check Bags ",domesticShipment.getNumberOfShipments());
+
             domesticPerformance.setBags(domesticShipment.getNumberOfShipments());
             DomesticRoute domesticRoute = domesticRouteRepository.findByRoute(domesticShipment.getRouteNumber());
             LocalDate date = domesticShipment.getCreatedTime().toLocalDate();
@@ -336,7 +324,7 @@ public class ReportAndStatusService {
             domesticPerformance.setPlanedEta(LocalDateTime.of(date,domesticRoute.getEtd()).plusHours(domesticRoute.getDurationLimit()));
             domesticPerformance.setAta(domesticShipment.getAta());
             domesticPerformance.setAtd(domesticShipment.getAtd());
-            logger.info("end 2st if");
+
             if(domesticRoute.getEta()!=null && domesticShipment.getAta()!=null){
                 logger.info("start 2st in 1st if");
                 Duration durationForEtaAndAta = Duration.between(domesticRoute.getEta(), domesticShipment.getAta());

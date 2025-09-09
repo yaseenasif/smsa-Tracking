@@ -118,6 +118,7 @@ public class DomesticShipmentService {
       unSaveDomesticShipment.setUpdatedTime(currentLocalDateTime);
       unSaveDomesticShipment.setOriginLocationId(orgLocationId);
       unSaveDomesticShipment.setDestinationLocationId(desLocationId);
+      unSaveDomesticShipment.setTagNumber(domesticShipmentDto.getTagNumber());
       if (domesticShipmentRepository.existsByPreAlertNumber(unSaveDomesticShipment.getPreAlertNumber())) {
         logger.info("Found same pre alert: {}", unSaveDomesticShipment.getPreAlertNumber());
         throw new RecordNotFoundException(String.format("Shipment with the given pre alert number already exists"));
@@ -164,25 +165,39 @@ try {
       emails.addAll(destinationEmailAddresses);
 
       String subject = "TSM Pre-Alert(D): " + domesticShipment.getPreAlertNumber() + "/" + domesticShipment.getVehicleType() + "/" + domesticShipment.getReferenceNumber();
-
-      Map<String, Object> model = new HashMap<>();
-      model.put("field1", domesticShipment.getCreatedAt().toString());
-      model.put("field2", domesticShipment.getReferenceNumber());
-      model.put("field3", domesticShipment.getOriginLocation());
-      model.put("field4", domesticShipment.getDestinationLocation());
-      model.put("field5", domesticShipment.getNumberOfShipments() != null ? domesticShipment.getNumberOfShipments().toString() : "0");
-      model.put("field6", domesticShipment.getVehicleType());
-      model.put("field7", domesticShipment.getNumberOfBags().toString());
-      model.put("field8", domesticShipment.getNumberOfPallets().toString());
-//      model.put("field9", domesticShipment.getWeight().toString());
-      model.put("field10", "Road");
-      model.put("field11", domesticShipment.getRouteNumber().toString());
-      model.put("field15", domesticShipment.getRemarks());
-      emailService.sendHtmlEmail( resultListDestination, resultListOrigin, subject, "domestic-email-template.ftl", model);
+      emailService.sendHtmlEmail( resultListDestination, resultListOrigin, subject, "domestic-email-template.ftl", buildShipmentEmailModel(domesticShipment));
       return toDto(domesticShipment);
     }
 
     throw new UserNotFoundException(String.format("User not found while creating domestic shipment"));
+  }
+
+  private Map<String, Object> buildShipmentEmailModel(DomesticShipment domesticShipment) {
+    Map<String, Object> model = new HashMap<>();
+
+    model.put("createdAt", safeToString(domesticShipment.getCreatedAt()));
+    model.put("referenceNumber", safeToString(domesticShipment.getReferenceNumber()));
+    model.put("originLocation", safeToString(domesticShipment.getOriginLocation()));
+    model.put("destinationLocation", safeToString(domesticShipment.getDestinationLocation()));
+    model.put("numberOfShipments", domesticShipment.getNumberOfShipments() != null
+            ? domesticShipment.getNumberOfShipments().toString()
+            : "0");
+    model.put("vehicleType", safeToString(domesticShipment.getVehicleType()));
+    model.put("numberOfBags", safeToString(domesticShipment.getNumberOfBags()));
+    model.put("numberOfPallets", safeToString(domesticShipment.getNumberOfPallets()));
+    // model.put("weight", safeToString(domesticShipment.getWeight()));
+    model.put("transportMode", "Road");
+    model.put("routeNumber", safeToString(domesticShipment.getRouteNumber()));
+    model.put("securityTag",safeToString(domesticShipment.getTagNumber()));
+    model.put("vehicleNumber",domesticShipment.getVehicleNumber());
+    model.put("remarks", safeToString(domesticShipment.getRemarks()));
+
+    return model;
+  }
+
+  // Utility method to safely convert nullable objects to string
+  private String safeToString(Object value) {
+    return value != null ? value.toString() : "";
   }
 
   private void sendEmail(DomesticShipment domesticShipment, Long orgLocationId, Long desLocationId){
@@ -203,20 +218,8 @@ try {
 
       String subject = "TSM Pre-Alert(D): " + domesticShipment.getPreAlertNumber() + "/" + domesticShipment.getVehicleType() + "/" + domesticShipment.getReferenceNumber();
 
-      Map<String, Object> model = new HashMap<>();
-      model.put("field1", domesticShipment.getCreatedAt().toString());
-      model.put("field2", domesticShipment.getReferenceNumber());
-      model.put("field3", domesticShipment.getOriginLocation());
-      model.put("field4", domesticShipment.getDestinationLocation());
-      model.put("field5", domesticShipment.getNumberOfShipments() != null ? domesticShipment.getNumberOfShipments().toString() : "0");
-      model.put("field6", domesticShipment.getVehicleType());
-      model.put("field7", domesticShipment.getNumberOfBags().toString());
-      model.put("field8", domesticShipment.getNumberOfPallets().toString());
-//      model.put("field9", domesticShipment.getWeight().toString());
-      model.put("field10", "Road");
-      model.put("field11", domesticShipment.getRouteNumber().toString());
-      model.put("field15", domesticShipment.getRemarks());
-      emailService.sendHtmlEmail( resultListDestination, resultListOrigin, subject, "domestic-email-template.ftl", model);
+
+      emailService.sendHtmlEmail( resultListDestination, resultListOrigin, subject, "domestic-email-template.ftl", buildShipmentEmailModel(domesticShipment));
   }
 
   @Async

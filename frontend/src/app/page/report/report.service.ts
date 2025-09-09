@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, timeout } from 'rxjs';
 import { DomesticPerformance } from 'src/app/model/DomesticPerformance';
 import { InternationalAirReportPerformance } from 'src/app/model/InternationalAirReportPerformance';
 import { InternationalAirReportStatus } from 'src/app/model/InternationalAirReportStatus';
@@ -59,6 +59,28 @@ export class ReportService {
         headers,
         params:queryParams
       })
+      .pipe(timeout(300000))
+      .subscribe((response: any) => {
+        const blob = new Blob([response], { type: 'application/octet-stream' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+      });
+  }
+
+  downloadReportExcelWithRequestbody(address: string, body: any, name: string) {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    this.http
+      .post(`${this.url}${address}`, body, {
+        responseType: 'blob',
+        headers
+      })
+      .pipe(timeout(300000))
       .subscribe((response: any) => {
         const blob = new Blob([response], { type: 'application/octet-stream' });
         const url = window.URL.createObjectURL(blob);

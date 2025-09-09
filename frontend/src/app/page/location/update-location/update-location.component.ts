@@ -55,7 +55,7 @@ export class UpdateLocationComponent implements OnInit {
     this.items = [{ label: 'Location List',routerLink:'/location'},{ label: 'Edit Location'}];
     this.getAllCountry();
     this.getAllFacility();
-    debugger
+ 
 
     this.locationService.getLocationByID(this.lID).subscribe((res:Location)=>{
       if (typeof res.originEmail === 'string' && typeof res.destinationEmail === 'string' && typeof res.originEscalationLevel1 === 'string' && typeof res.originEscalationLevel2 === 'string' && typeof res.originEscalationLevel3 === 'string' && typeof res.destinationEscalationLevel1 === 'string' && typeof res.destinationEscalationLevel2 === 'string' && typeof res.destinationEscalationLevel3 === 'string') {

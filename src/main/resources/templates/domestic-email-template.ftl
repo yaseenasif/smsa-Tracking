@@ -34,7 +34,7 @@
                     Processed Date
                 </td>
                 <td style="text-align: center;" colspan="3">
-                    ${field1}
+                    ${createdAt}
                 </td>
             </tr>
             <tr>
@@ -42,7 +42,7 @@
                     Reference Number
                 </td>
                 <td  style="text-align: center;" colspan="3">
-                    ${field2}
+                    ${referenceNumber}
                 </td>
             </tr>
             <tr>
@@ -50,13 +50,13 @@
                     Origin HUB/Station
                 </td>
                 <td style="text-align: center;" >
-                    ${field3}
+                    ${originLocation}
                 </td>
                 <td style="background-color:#420097;color:white;font-weight: bolder;">
                     Destination HUB/Station
                 </td>
                 <td style="text-align: center;" >
-                    ${field4}
+                    ${destinationLocation}
                 </td>
             </tr>
             <tr>
@@ -64,13 +64,13 @@
                     Total No of Shipments
                 </td>
                 <td style="text-align: center;" >
-                    ${field5}
+                    ${numberOfShipments}
                 </td>
                 <td style="background-color:#420097;color:white;font-weight: bolder;">
                     Carrier
                 </td>
                 <td style="text-align: center;" >
-                    ${field6}
+                    ${vehicleType}
                 </td>
             </tr>
             <tr>
@@ -78,13 +78,13 @@
                     No of bags
                 </td>
                 <td style="text-align: center;" >
-                    ${field7}
+                    ${numberOfBags}
                 </td>
                 <td style="background-color:#420097;color:white;font-weight: bolder;">
                     Pallets
                 </td>
                 <td style="text-align: center;" >
-                    ${field8}
+                    ${numberOfPallets}
                 </td>
             </tr>
             <tr>
@@ -92,7 +92,7 @@
                     Mode
                 </td>
                 <td style="text-align: center;" >
-                    ${field10}
+                    ${transportMode}
                 </td>
             </tr>
             <tr>
@@ -100,15 +100,31 @@
                     Route Number
                 </td>
                 <td style="text-align: center;" colspan="3">
-                    ${field11}
+                    ${routeNumber}
                 </td>
             </tr>
+             <tr>
+                            <td style="background-color:#420097;color:white;font-weight: bolder;">
+                                Security Tag
+                            </td>
+                            <td style="text-align: center;" colspan="3">
+                                ${securityTag}
+                            </td>
+                        </tr>
+              <tr>
+                             <td style="background-color:#420097;color:white;font-weight: bolder;">
+                                 Vehicle Number
+                             </td>
+                             <td style="text-align: center;" colspan="3">
+                                 ${vehicleNumber}
+                             </td>
+                         </tr>
             <tr>
                 <td style="background-color:#420097;color:white;font-weight: bolder;">
                     Remarks
                 </td>
                 <td style="text-align: center;" colspan="3">
-                    ${field15}
+                    ${remarks}
                 </td>
             </tr>
         </tbody>
